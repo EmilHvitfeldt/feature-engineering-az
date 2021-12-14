@@ -1,0 +1,42 @@
+project:
+  type: book
+
+book:
+  title: "Feature Engineering A-Z"
+  author: "Emil Hvitfeldt"
+  date: "9/14/2021"
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - motivation.qmd
+    - modeling.qmd
+    - numeric.qmd
+    - categorical.qmd
+    - imbalanced.qmd
+    - missing.qmd
+    - too-many.qmd
+    - datetime.qmd
+    - text.qmd
+    - image.qmd
+    - circular.qmd
+    - time-series.qmd
+    - video.qmd
+    - sound.qmd
+    - correlated.qmd
+    - miscellaneous.qmd
+    - order.qmd
+    - sparse.qmd
+    - models.qmd
+    - summary.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreport
+  epub:
+    cover-image: cover.png
+
