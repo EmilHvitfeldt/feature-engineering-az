@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="quarto-0.2.44">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>feature-engineering-az – 5&nbsp; How to deal with categorical variables</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <script src="site_libs/quarto-nav/quarto-nav.js"></script>
+  <script src="site_libs/quarto-nav/headroom.min.js"></script>
+  <meta name="quarto:offset" content="./">
+  <script src="site_libs/quarto-search/autocomplete.min.js"></script>
+  <script src="site_libs/quarto-search/fuse.min.js"></script>
+  <script src="site_libs/quarto-search/quarto-search.js"></script>
+  <link href="./missing.html" rel="next">
+  <link href="./numeric.html" rel="prev">
+  <script src="site_libs/quarto-html/quarto.js"></script>
+  <script src="site_libs/quarto-html/popper.min.js"></script>
+  <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+  <script src="site_libs/quarto-html/clipboard.min.js"></script>
+  <script src="site_libs/quarto-html/anchor.min.js"></script>
+  <script src="site_libs/quarto-html/quarto-html.js"></script>
+  <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+  <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+  <script src="site_libs/bootstrap/bootstrap.min.js"></script>
+  <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+  <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div id="quarto-search-results"></div>
+<header id="quarto-header" class="headroom fixed-top">
+<nav class="quarto-secondary-nav py-2 d-lg-none d-md-block " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <div class="container-fluid d-flex justify-content-between">
+    <h1 class="quarto-secondary-nav-title mb-0 fs-3 d-inline">5&nbsp; How to deal with categorical variables</h1>
+    <button type="button" class="quarto-btn-toggle btn d-lg-none py-0 px-1 d-inline-block border-0 ">
+      <i class="bi bi-chevron-right"></i>
+    </button>
+  </div>
+</nav>
+</header>
+ <!-- /navbar/sidebar -->
+<div class="container-fluid quarto-container d-flex flex-column page-layout-article" id="quarto-content">
+<div class="row flex-fill">
+  <div id="quarto-sidebar" class="col col-12 col-lg-3 d-lg-flex px-0 pt-0 sidebar collapse sidebar-navigation">
+    <nav class="ms-lg-auto py-2 floating  overflow-scroll">
+  <div class="px-3 pt-lg-2 mt-1 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">
+      feature-engineering-az
+      </a> 
+        <div class="sidebar-tools-main">
+</div>
+    </div>
+  </div>
+    <div class="d-flex px-3 mt-2 flex-shrink-0 align-items-center">
+      <div class="sidebar-search">
+      <form class="d-flex mb-0">
+  <input id="quarto-search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+      </div>
+        <div class="sidebar-tools-collapse">
+</div>
+    </div>
+  <div class="sidebar-menu-container"> 
+  <ul class="list-unstyled mt-3 px-3">
+      <li class="sidebar-item">
+  <a href="./index.html" class="">Preface</a>
+</li>
+      <li class="sidebar-item">
+  <a href="./intro.html" class=""><span class="chapter-number">1</span>&nbsp; Introduction</a>
+</li>
+      <li class="sidebar-item">
+  <a href="./motivation.html" class=""><span class="chapter-number">2</span>&nbsp; Motivation</a>
+</li>
+      <li class="sidebar-item">
+  <a href="./modeling.html" class=""><span class="chapter-number">3</span>&nbsp; Where does feature engineering fit into the modeling workflow?</a>
+</li>
+      <li class="sidebar-item">
+  <a href="./numeric.html" class=""><span class="chapter-number">4</span>&nbsp; How to deal with numeric features</a>
+</li>
+      <li class="sidebar-item">
+  <a href="./categorical.html" class="active"><span class="chapter-number">5</span>&nbsp; How to deal with categorical variables</a>
+</li>
+      <li class="sidebar-item">
+  <a href="./missing.html" class=""><span class="chapter-number">6</span>&nbsp; How to deal with missing data</a>
+</li>
+      <li class="sidebar-item">
+  <a href="./too-many.html" class=""><span class="chapter-number">7</span>&nbsp; How to deal with too many variables</a>
+</li>
+      <li class="sidebar-item">
+  <a href="./datetime.html" class=""><span class="chapter-number">8</span>&nbsp; How to deal with datetime variables</a>
+</li>
+      <li class="sidebar-item">
+  <a href="./text.html" class=""><span class="chapter-number">9</span>&nbsp; How to deal with text variables</a>
+</li>
+      <li class="sidebar-item">
+  <a href="./image.html" class=""><span class="chapter-number">10</span>&nbsp; How to deal with image data</a>
+</li>
+      <li class="sidebar-item">
+  <a href="./circular.html" class=""><span class="chapter-number">11</span>&nbsp; How to deal with circular data</a>
+</li>
+      <li class="sidebar-item">
+  <a href="./time-series.html" class=""><span class="chapter-number">12</span>&nbsp; How to deal with time-series data</a>
+</li>
+      <li class="sidebar-item">
+  <a href="./video.html" class=""><span class="chapter-number">13</span>&nbsp; How to deal with video data</a>
+</li>
+      <li class="sidebar-item">
+  <a href="./sound.html" class=""><span class="chapter-number">14</span>&nbsp; How to deal with sound data</a>
+</li>
+      <li class="sidebar-item">
+  <a href="./correlated.html" class=""><span class="chapter-number">15</span>&nbsp; How to deal with correlated data</a>
+</li>
+      <li class="sidebar-item">
+  <a href="./miscellaneous.html" class=""><span class="chapter-number">16</span>&nbsp; Miscellaneous tricks</a>
+</li>
+      <li class="sidebar-item">
+  <a href="./order.html" class=""><span class="chapter-number">17</span>&nbsp; Order of transformations</a>
+</li>
+      <li class="sidebar-item">
+  <a href="./sparse.html" class=""><span class="chapter-number">18</span>&nbsp; What should you do if you have sparse data?</a>
+</li>
+      <li class="sidebar-item">
+  <a href="./models.html" class=""><span class="chapter-number">19</span>&nbsp; How different models deal with input</a>
+</li>
+      <li class="sidebar-item">
+  <a href="./summary.html" class=""><span class="chapter-number">20</span>&nbsp; Summary</a>
+</li>
+      <li class="sidebar-item">
+  <a href="./references.html" class="">References</a>
+</li>
+  </ul>
+  </div>
+</nav>
+  </div>
+  <div id="quarto-toc-sidebar" class="col col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-toc order-last"></div>
+  <div class="col mx-auto col-sm-12 col-md-9 col-lg-7 px-lg-4 pe-xxl-4 ps-xxl-0">
+<main>
+<header id="title-block-header">
+<h1 class="title d-none d-lg-block display-7">5&nbsp; How to deal with categorical variables</h1>
+</header>
+<p>WIP</p>
+<!-- -->
+</main>
+<div class="page-navigation ">
+  <div class="nav-page nav-page-previous">
+      <a href="./numeric.html">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; How to deal with numeric features</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./missing.html">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; How to deal with missing data</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</div>
+</div> <!-- /main column -->
+</div> <!-- /row -->
+</div> <!-- /container fluid -->
+
+
+</body></html>
