@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>
   <meta charset="utf-8">
-  <meta name="generator" content="quarto-0.2.44">
+  <meta name="generator" content="quarto-0.2.378">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>feature-engineering-az – 16&nbsp; Miscellaneous tricks</title>
+  <title>Feature Engineering A-Z - 16&nbsp; Miscellaneous tricks</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -18,8 +18,9 @@
   <![endif]-->
   <script src="site_libs/quarto-nav/quarto-nav.js"></script>
   <script src="site_libs/quarto-nav/headroom.min.js"></script>
+  <script src="site_libs/clipboard/clipboard.min.js"></script>
   <meta name="quarto:offset" content="./">
-  <script src="site_libs/quarto-search/autocomplete.min.js"></script>
+  <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
   <script src="site_libs/quarto-search/fuse.min.js"></script>
   <script src="site_libs/quarto-search/quarto-search.js"></script>
   <link href="./order.html" rel="next">
@@ -27,114 +28,124 @@
   <script src="site_libs/quarto-html/quarto.js"></script>
   <script src="site_libs/quarto-html/popper.min.js"></script>
   <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-  <script src="site_libs/quarto-html/clipboard.min.js"></script>
   <script src="site_libs/quarto-html/anchor.min.js"></script>
-  <script src="site_libs/quarto-html/quarto-html.js"></script>
   <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
   <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
   <script src="site_libs/bootstrap/bootstrap.min.js"></script>
   <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
   <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <script id="quarto-search-options" type="application/json">{
+    "location": "sidebar",
+    "copy-button": false,
+    "collapse-after": 2,
+    "panel-placement": "start",
+    "type": "textbox",
+    "limit": 20,
+    "language": {
+      "search-no-results-text": "No results",
+      "search-matching-documents-text": "matching documents",
+      "search-copy-link-title": "Copy link to search",
+      "search-hide-matches-text": "Hide additional matches",
+      "search-more-match-text": "more match in this document",
+      "search-more-matches-text": "more matches in this document",
+      "search-clear-button-title": "Clear",
+      "search-detached-cancel-button-title": "Cancel",
+      "search-submit-button-title": "Submit"
+    }
+  }</script>
 </head>
-<body>
+<body class="floating">
 <div id="quarto-search-results"></div>
-<header id="quarto-header" class="headroom fixed-top">
-<nav class="quarto-secondary-nav py-2 d-lg-none d-md-block " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <div class="container-fluid d-flex justify-content-between">
-    <h1 class="quarto-secondary-nav-title mb-0 fs-3 d-inline">16&nbsp; Miscellaneous tricks</h1>
-    <button type="button" class="quarto-btn-toggle btn d-lg-none py-0 px-1 d-inline-block border-0 ">
-      <i class="bi bi-chevron-right"></i>
-    </button>
-  </div>
-</nav>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Miscellaneous tricks</span></h1>
+      <button type="button" class="quarto-btn-toggle btn">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
 </header>
- <!-- /navbar/sidebar -->
-<div class="container-fluid quarto-container d-flex flex-column page-layout-article" id="quarto-content">
-<div class="row flex-fill">
-  <div id="quarto-sidebar" class="col col-12 col-lg-3 d-lg-flex px-0 pt-0 sidebar collapse sidebar-navigation">
-    <nav class="ms-lg-auto py-2 floating  overflow-scroll">
-  <div class="px-3 pt-lg-2 mt-1 text-left sidebar-header">
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+  <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">
-      feature-engineering-az
-      </a> 
+      <a href="./">Feature Engineering A-Z</a> 
         <div class="sidebar-tools-main">
 </div>
     </div>
   </div>
-    <div class="d-flex px-3 mt-2 flex-shrink-0 align-items-center">
+    <div class="mt-2 flex-shrink-0 align-items-center">
       <div class="sidebar-search">
-      <form class="d-flex mb-0">
-  <input id="quarto-search" class="form-control" type="search" placeholder="Search" aria-label="Search">
-</form>
+      <div id="quarto-search" class="" title="Search"></div>
       </div>
-        <div class="sidebar-tools-collapse">
-</div>
     </div>
   <div class="sidebar-menu-container"> 
-  <ul class="list-unstyled mt-3 px-3">
+  <ul class="list-unstyled mt-1">
       <li class="sidebar-item">
   <a href="./index.html" class="">Preface</a>
 </li>
       <li class="sidebar-item">
-  <a href="./intro.html" class=""><span class="chapter-number">1</span>&nbsp; Introduction</a>
+  <a href="./intro.html" class=""><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
 </li>
       <li class="sidebar-item">
-  <a href="./motivation.html" class=""><span class="chapter-number">2</span>&nbsp; Motivation</a>
+  <a href="./motivation.html" class=""><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Motivation</span></a>
 </li>
       <li class="sidebar-item">
-  <a href="./modeling.html" class=""><span class="chapter-number">3</span>&nbsp; Where does feature engineering fit into the modeling workflow?</a>
+  <a href="./modeling.html" class=""><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Where does feature engineering fit into the modeling workflow?</span></a>
 </li>
       <li class="sidebar-item">
-  <a href="./numeric.html" class=""><span class="chapter-number">4</span>&nbsp; How to deal with numeric features</a>
+  <a href="./numeric.html" class=""><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">How to deal with numeric features</span></a>
 </li>
       <li class="sidebar-item">
-  <a href="./categorical.html" class=""><span class="chapter-number">5</span>&nbsp; How to deal with categorical variables</a>
+  <a href="./categorical.html" class=""><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">How to deal with categorical variables</span></a>
 </li>
       <li class="sidebar-item">
-  <a href="./missing.html" class=""><span class="chapter-number">6</span>&nbsp; How to deal with missing data</a>
+  <a href="./missing.html" class=""><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">How to deal with missing data</span></a>
 </li>
       <li class="sidebar-item">
-  <a href="./too-many.html" class=""><span class="chapter-number">7</span>&nbsp; How to deal with too many variables</a>
+  <a href="./too-many.html" class=""><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">How to deal with too many variables</span></a>
 </li>
       <li class="sidebar-item">
-  <a href="./datetime.html" class=""><span class="chapter-number">8</span>&nbsp; How to deal with datetime variables</a>
+  <a href="./datetime.html" class=""><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">How to deal with datetime variables</span></a>
 </li>
       <li class="sidebar-item">
-  <a href="./text.html" class=""><span class="chapter-number">9</span>&nbsp; How to deal with text variables</a>
+  <a href="./text.html" class=""><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">How to deal with text variables</span></a>
 </li>
       <li class="sidebar-item">
-  <a href="./image.html" class=""><span class="chapter-number">10</span>&nbsp; How to deal with image data</a>
+  <a href="./image.html" class=""><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">How to deal with image data</span></a>
 </li>
       <li class="sidebar-item">
-  <a href="./circular.html" class=""><span class="chapter-number">11</span>&nbsp; How to deal with circular data</a>
+  <a href="./circular.html" class=""><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">How to deal with circular data</span></a>
 </li>
       <li class="sidebar-item">
-  <a href="./time-series.html" class=""><span class="chapter-number">12</span>&nbsp; How to deal with time-series data</a>
+  <a href="./time-series.html" class=""><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">How to deal with time-series data</span></a>
 </li>
       <li class="sidebar-item">
-  <a href="./video.html" class=""><span class="chapter-number">13</span>&nbsp; How to deal with video data</a>
+  <a href="./video.html" class=""><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">How to deal with video data</span></a>
 </li>
       <li class="sidebar-item">
-  <a href="./sound.html" class=""><span class="chapter-number">14</span>&nbsp; How to deal with sound data</a>
+  <a href="./sound.html" class=""><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">How to deal with sound data</span></a>
 </li>
       <li class="sidebar-item">
-  <a href="./correlated.html" class=""><span class="chapter-number">15</span>&nbsp; How to deal with correlated data</a>
+  <a href="./correlated.html" class=""><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">How to deal with correlated data</span></a>
 </li>
       <li class="sidebar-item">
-  <a href="./miscellaneous.html" class="active"><span class="chapter-number">16</span>&nbsp; Miscellaneous tricks</a>
+  <a href="./miscellaneous.html" class="active"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Miscellaneous tricks</span></a>
 </li>
       <li class="sidebar-item">
-  <a href="./order.html" class=""><span class="chapter-number">17</span>&nbsp; Order of transformations</a>
+  <a href="./order.html" class=""><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Order of transformations</span></a>
 </li>
       <li class="sidebar-item">
-  <a href="./sparse.html" class=""><span class="chapter-number">18</span>&nbsp; What should you do if you have sparse data?</a>
+  <a href="./sparse.html" class=""><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">What should you do if you have sparse data?</span></a>
 </li>
       <li class="sidebar-item">
-  <a href="./models.html" class=""><span class="chapter-number">19</span>&nbsp; How different models deal with input</a>
+  <a href="./models.html" class=""><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">How different models deal with input</span></a>
 </li>
       <li class="sidebar-item">
-  <a href="./summary.html" class=""><span class="chapter-number">20</span>&nbsp; Summary</a>
+  <a href="./summary.html" class=""><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Summary</span></a>
 </li>
       <li class="sidebar-item">
   <a href="./references.html" class="">References</a>
@@ -142,31 +153,108 @@
   </ul>
   </div>
 </nav>
-  </div>
-  <div id="quarto-toc-sidebar" class="col col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-toc order-last"></div>
-  <div class="col mx-auto col-sm-12 col-md-9 col-lg-7 px-lg-4 pe-xxl-4 ps-xxl-0">
-<main>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+      <div id="quarto-toc-target"></div>
+    </div>
+<!-- main -->
+<main class="content">
 <header id="title-block-header">
-<h1 class="title d-none d-lg-block display-7">16&nbsp; Miscellaneous tricks</h1>
+<h1 class="title d-none d-lg-block display-7"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Miscellaneous tricks</span></h1>
 </header>
 <p>WIP</p>
-<!-- -->
-</main>
-<div class="page-navigation ">
+
+
+</main> <!-- /main -->
+<script type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    setTimeout(function() {
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./correlated.html">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; How to deal with correlated data</span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">How to deal with correlated data</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./order.html">
-        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; Order of transformations</span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Order of transformations</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</div>
-</div> <!-- /main column -->
-</div> <!-- /row -->
-</div> <!-- /container fluid -->
+</nav>
+</div> <!-- /content -->
 
 
 </body></html>
