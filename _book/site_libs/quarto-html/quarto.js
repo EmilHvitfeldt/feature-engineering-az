@@ -150,7 +150,9 @@ window.document.addEventListener("DOMContentLoaded", function (_event) {
           const titleEl = window.document.body.querySelector(
             placeholderDescriptor.titleSelector
           );
-          toggleTitle.append(titleEl.innerText, toggleIcon);
+          if (titleEl) {
+            toggleTitle.append(titleEl.innerText, toggleIcon);
+          }
           toggleTitle.classList.add("zindex-over-content");
           toggleTitle.classList.add("quarto-sidebar-toggle-title");
           toggleContainer.append(toggleTitle);
@@ -342,10 +344,38 @@ window.document.addEventListener("DOMContentLoaded", function (_event) {
   };
 
   window.quartoToggleReader = () => {
+    // Applies a slow class (or removes it)
+    // to update the transition speed
+    const slowTransition = (slow) => {
+      const manageTransition = (id, slow) => {
+        const el = document.getElementById(id);
+        if (el) {
+          if (slow) {
+            el.classList.add("slow");
+          } else {
+            el.classList.remove("slow");
+          }
+        }
+      };
+
+      manageTransition("TOC", slow);
+      manageTransition("quarto-sidebar", slow);
+    };
+
     const readerMode = !isReaderMode();
     setReaderModeValue(readerMode);
+
+    // If we're entering reader mode, slow the transition
+    if (readerMode) {
+      slowTransition(readerMode);
+    }
     highlightReaderToggle(readerMode);
     hideOverlappedSidebars();
+
+    // If we're exiting reader mode, restore the non-slow transition
+    if (!readerMode) {
+      slowTransition(!readerMode);
+    }
   };
 
   const highlightReaderToggle = (readerMode) => {
