@@ -7,23 +7,53 @@ book:
   date: "9/14/2021"
   chapters:
     - index.qmd
-    - intro.qmd
+    - introduction.qmd
     - motivation.qmd
     - modeling.qmd
-    - numeric.qmd
-    - categorical.qmd
-    - imbalanced.qmd
-    - missing.qmd
-    - too-many.qmd
-    - datetime.qmd
-    - text.qmd
-    - image.qmd
-    - circular.qmd
-    - time-series.qmd
-    - video.qmd
-    - sound.qmd
-    - correlated.qmd
-    - miscellaneous.qmd
+    - how-to-deal-with.qmd
+    - part: numeric.qmd
+      chapters:
+        - numeric-logarithms.qmd
+        - numeric-range.qmd
+    - part: categorical.qmd
+      chapters:
+        - categorical-dummy.qmd
+    - part: imbalenced.qmd
+      chapters:
+        - imbalenced-smote.qmd
+    - part: missing.qmd
+      chapters:
+        - missing-imputation.qmd
+    - part: too-many.qmd
+      chapters:
+        - too-many-pca.qmd
+    - part: datetime.qmd
+      chapters:
+        - datetime-holiday.qmd
+    - part: text.qmd
+      chapters:
+        - text-tfidf.qmd
+    - part: image.qmd
+      chapters:
+        - image-stats.qmd
+    - part: circular.qmd
+      chapters:
+        - circular-trig.qmd
+    - part: time-series.qmd
+      chapters:
+        - time-series-fourier.qmd
+    - part: correlated.qmd
+      chapters:
+        - correlated-filter.qmd
+    - part: miscellaneous.qmd
+      chapters:
+        - miscellaneous-zipcodes.qmd
+    - part: video.qmd
+      chapters:
+        - video-tmp.qmd
+    - part: sound.qmd
+      chapters:
+        - sound-tmp.qmd
     - order.qmd
     - sparse.qmd
     - models.qmd

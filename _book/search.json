@@ -7,8 +7,36 @@
     "text": "Preface\nWelcome to “Feature Engineering A-Z”! This book is written to be used as a reference guide to the different techniques. This is reflected in the chapter structure. Any question a practitioner is having should be answered by looking at the index and finding the right chapter.\nEach section tries to be as comprehensive as possible with the number of different methods/solutions that are presented. A section on dimensionality reduction should list all the practical methods that could be used, as well as a comparison between the methods to help the reader decide what would be most appropriate.\nWhenever possible each method will be accompanied by simple mathematical formulas and visualizations to illustrate the mechanics of the method.\nLastly, each section will include code snippets in showcasing how to implement the methods. Preferable in R and Python, Keras/PyTorch. This book is a methods book first, a coding book second."
   },
   {
-    "objectID": "intro.html",
-    "href": "intro.html",
+    "objectID": "quarto-cli/tests/docs/project/book/index.html#preface",
+    "href": "quarto-cli/tests/docs/project/book/index.html#preface",
+    "title": "—",
+    "section": "Preface",
+    "text": "Preface"
+  },
+  {
+    "objectID": "quarto-cli/tests/docs/project/site/index.html",
+    "href": "quarto-cli/tests/docs/project/site/index.html",
+    "title": "—",
+    "section": "",
+    "text": "Home page"
+  },
+  {
+    "objectID": "quarto-cli/tests/docs/site-navigation/index.html",
+    "href": "quarto-cli/tests/docs/site-navigation/index.html",
+    "title": "site-navigation",
+    "section": "",
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+  },
+  {
+    "objectID": "quarto-cli/tests/docs/site-themes/index.html",
+    "href": "quarto-cli/tests/docs/site-themes/index.html",
+    "title": "site-themes",
+    "section": "",
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "introduction.html",
+    "href": "introduction.html",
     "title": "1  Introduction",
     "section": "",
     "text": "WIP"
@@ -28,115 +56,255 @@
     "text": "WIP"
   },
   {
+    "objectID": "how-to-deal-with.html",
+    "href": "how-to-deal-with.html",
+    "title": "How to Deal With …",
+    "section": "",
+    "text": "WIP"
+  },
+  {
     "objectID": "numeric.html",
     "href": "numeric.html",
-    "title": "4  How to deal with numeric features",
+    "title": "Numeric Features",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "numeric-logarithms.html",
+    "href": "numeric-logarithms.html",
+    "title": "4  Logarithms",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "numeric-range.html",
+    "href": "numeric-range.html",
+    "title": "5  Range",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical.html",
     "href": "categorical.html",
-    "title": "5  How to deal with categorical variables",
+    "title": "Categorical Features",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical-dummy.html",
+    "href": "categorical-dummy.html",
+    "title": "6  Dummy Variables",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "imbalenced.html",
+    "href": "imbalenced.html",
+    "title": "Imbalanced Data",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "imbalenced-smote.html",
+    "href": "imbalenced-smote.html",
+    "title": "7  SMOTE",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "missing.html",
     "href": "missing.html",
-    "title": "6  How to deal with missing data",
+    "title": "Missing Data",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "missing-imputation.html",
+    "href": "missing-imputation.html",
+    "title": "8  Imputation",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "too-many.html",
     "href": "too-many.html",
-    "title": "7  How to deal with too many variables",
+    "title": "Too Many Variables",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "too-many-pca.html",
+    "href": "too-many-pca.html",
+    "title": "9  Principal Component Analysis",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "datetime.html",
     "href": "datetime.html",
-    "title": "8  How to deal with datetime variables",
+    "title": "Datetime Variables",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "datetime-holiday.html",
+    "href": "datetime-holiday.html",
+    "title": "10  Holidays",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "text.html",
     "href": "text.html",
-    "title": "9  How to deal with text variables",
+    "title": "Text Variables",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "text-tfidf.html",
+    "href": "text-tfidf.html",
+    "title": "11  TF-IDF",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "image.html",
     "href": "image.html",
-    "title": "10  How to deal with image data",
+    "title": "Image Data",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "image-stats.html",
+    "href": "image-stats.html",
+    "title": "12  Visual Features",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "circular.html",
     "href": "circular.html",
-    "title": "11  How to deal with circular data",
+    "title": "Circular Data",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "circular-trig.html",
+    "href": "circular-trig.html",
+    "title": "13  Trigonometric",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "time-series.html",
     "href": "time-series.html",
-    "title": "12  How to deal with time-series data",
+    "title": "Time-Series Data",
     "section": "",
     "text": "WIP"
   },
   {
-    "objectID": "sound.html",
-    "href": "sound.html",
-    "title": "14  How to deal with sound data",
+    "objectID": "time-series-fourier.html",
+    "href": "time-series-fourier.html",
+    "title": "14  Fourier Features",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "correlated.html",
     "href": "correlated.html",
-    "title": "15  How to deal with correlated data",
+    "title": "Correlated Data",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "correlated-filter.html",
+    "href": "correlated-filter.html",
+    "title": "15  High Correlation Filter",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "miscellaneous.html",
     "href": "miscellaneous.html",
-    "title": "16  Miscellaneous tricks",
+    "title": "Miscellaneous tricks",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "miscellaneous-zipcodes.html",
+    "href": "miscellaneous-zipcodes.html",
+    "title": "16  Zip Codes",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "video.html",
+    "href": "video.html",
+    "title": "Video Data",
+    "section": "",
+    "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
+  },
+  {
+    "objectID": "video-tmp.html",
+    "href": "video-tmp.html",
+    "title": "17  Temporary",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "sound.html",
+    "href": "sound.html",
+    "title": "Sound Data",
+    "section": "",
+    "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
+  },
+  {
+    "objectID": "sound-tmp.html",
+    "href": "sound-tmp.html",
+    "title": "18  Temporary",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "order.html",
     "href": "order.html",
-    "title": "17  Order of transformations",
+    "title": "19  Order of transformations",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "sparse.html",
     "href": "sparse.html",
-    "title": "18  What should you do if you have sparse data?",
+    "title": "20  What should you do if you have sparse data?",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "models.html",
     "href": "models.html",
-    "title": "19  How different models deal with input",
+    "title": "21  How Different Models Deal With Input",
     "section": "",
     "text": "WIP"
   },
   {
+    "objectID": "quarto-cli/tests/docs/project/book/summary.html",
+    "href": "quarto-cli/tests/docs/project/book/summary.html",
+    "title": "—",
+    "section": "",
+    "text": "Summary"
+  },
+  {
     "objectID": "summary.html",
     "href": "summary.html",
-    "title": "20  Summary",
+    "title": "22  Summary",
     "section": "",
-    "text": "In summary, this book has no content whatsoever.\n\n1 + 1\n\n[1] 2"
+    "text": "WIP"
+  },
+  {
+    "objectID": "quarto-cli/tests/docs/project/book/references.html",
+    "href": "quarto-cli/tests/docs/project/book/references.html",
+    "title": "—",
+    "section": "",
+    "text": "References"
   }
 ]
