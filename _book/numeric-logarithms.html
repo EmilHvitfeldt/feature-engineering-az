@@ -372,7 +372,32 @@
 <header id="title-block-header">
 <h1 class="title d-none d-lg-block display-7"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Logarithms</span></h1>
 </header>
-<p>WIP</p>
+<p>Logarithms come as a tool to deal with highly skewed data. Consider the histogram below, it depicts the lot area for all the houses in the <code>ames</code> data set. It is highly skewed with the majority of areas being less than 10,000 with a handful greater than 50,000 with one over 200,000.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="numeric-logarithms_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" alt="Highly right skewed histogram of lot areas" width="672"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Histogram of lot areas</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This data could cause some problems if we tried to use this variable in its unfinished state. We need to think about how numeric variables are being used in these models. Take a linear regression as an example. It fits under the assumption that there is a linear relationship between the response and the predictors. In other words, the model assumes that a 1000 increase in lot area is going to increase the sale price of the house by the same amount if it occurred to a 5000 lot area house or a 50000 lot area house. This might be a valid scenario for this housing market. Another possibility is that we are seeing diminishing returns, and each increase in lot area is going to cause a smaller increase in predicted sale price. The logarithmic transformation is perfect for such a scenario. If we take a <code>log2()</code> transformation on our data, then we get a new interpretation of our model. Now each doubling (because we used log<strong>2</strong>) of the lot area is going to result in the same predicted increase in sale price. We have essentially turned out predictors to work on doublings rather than additions. Below is the same chart as before, but on a logarithmic scale using base 2.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="numeric-logarithms_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" alt="histogram of logarithmic lot areas. This time not skewed" width="672"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Histogram of logarithmic lot areas</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>TODO: Pros and ons</p>
+<p>TODO: Add more math</p>
+<p>TODO: Add R examples</p>
+<p>TODO: Add Python examples</p>
 
 
 </main> <!-- /main -->
