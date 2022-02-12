@@ -12,3 +12,37 @@ The 4 main types of problems we deal with when working with individual numeric v
 - Scaling issues
 - Non-linear effect
 - Outliers
+
+## Distributional problems
+
+- logarithm
+- sqrt
+- BoxCox
+- Yeo-Johnson
+
+## Scaling issues
+
+- Normalization (centering + scaling)
+- range
+- minabs
+- robust scaling [scikit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.RobustScaler.html#sklearn.preprocessing.RobustScaler)
+
+TODO: Add a table here describing the differences, pros and cons of each method
+
+## Non-linear effect
+
+- Splines
+- polynomial
+
+## Outliers
+
+
+## Other
+
+There are any number of transformations we can apply to numeric data, other functions include:
+
+- hyperbolic
+- Relu
+- inverse
+- inverse logit
+- logit
