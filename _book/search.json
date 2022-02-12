@@ -63,11 +63,39 @@
     "text": "WIP"
   },
   {
-    "objectID": "numeric.html",
-    "href": "numeric.html",
+    "objectID": "numeric.html#distributional-problems",
+    "href": "numeric.html#distributional-problems",
     "title": "Numeric Features",
-    "section": "",
-    "text": "Data can come in all shapes and sizes, but the most common one is the numeric variable. These are values such as age, height, deficit, price, and quantity. We call these quantitative variables and they are plentiful in most data sets and immediately usable in all statistical and machine learning models. That being said, it doesn’t mean that there are things that wouldn’t help to be done.\nThe following chapters will focus on different methods that follow 1-to-1 or 1-to-more transformations. These methods will mostly be applied one at a time to each variable. Methods that take many variables and return fewer variables such as dimensionality reduction methods will be covered in ?sec-toomanyvariables.\nWhen we are working with a single variable at a time, there is a handful of problems we can run into. Identifying the problem and how each of the following methods tries to remedy the said problem is key to getting the most out of numeric variables.\nThe 4 main types of problems we deal with when working with individual numeric variables are:\n\nDistributional problems\nScaling issues\nNon-linear effect\nOutliers"
+    "section": "Distributional problems",
+    "text": "Distributional problems\n\nlogarithm\nsqrt\nBoxCox\nYeo-Johnson"
+  },
+  {
+    "objectID": "numeric.html#scaling-issues",
+    "href": "numeric.html#scaling-issues",
+    "title": "Numeric Features",
+    "section": "Scaling issues",
+    "text": "Scaling issues\n\nNormalization (centering + scaling)\nrange\nminabs\nrobust scaling scikit-learn\n\nTODO: Add a table here describing the differences, pros and cons of each method"
+  },
+  {
+    "objectID": "numeric.html#non-linear-effect",
+    "href": "numeric.html#non-linear-effect",
+    "title": "Numeric Features",
+    "section": "Non-linear effect",
+    "text": "Non-linear effect\n\nSplines\npolynomial"
+  },
+  {
+    "objectID": "numeric.html#outliers",
+    "href": "numeric.html#outliers",
+    "title": "Numeric Features",
+    "section": "Outliers",
+    "text": "Outliers"
+  },
+  {
+    "objectID": "numeric.html#other",
+    "href": "numeric.html#other",
+    "title": "Numeric Features",
+    "section": "Other",
+    "text": "Other\nThere are any number of transformations we can apply to numeric data, other functions include:\n\nhyperbolic\nRelu\ninverse\ninverse logit\nlogit"
   },
   {
     "objectID": "numeric-logarithms.html",
@@ -77,9 +105,65 @@
     "text": "Logarithms come as a tool to deal with highly skewed data. Consider the histogram below, it depicts the lot area for all the houses in the ames data set. It is highly skewed with the majority of areas being less than 10,000 with a handful greater than 50,000 with one over 200,000.\n\n\n\n\n\nHistogram of lot areas\n\n\n\n\nThis data could cause some problems if we tried to use this variable in its unfinished state. We need to think about how numeric variables are being used in these models. Take a linear regression as an example. It fits under the assumption that there is a linear relationship between the response and the predictors. In other words, the model assumes that a 1000 increase in lot area is going to increase the sale price of the house by the same amount if it occurred to a 5000 lot area house or a 50000 lot area house. This might be a valid scenario for this housing market. Another possibility is that we are seeing diminishing returns, and each increase in lot area is going to cause a smaller increase in predicted sale price. The logarithmic transformation is perfect for such a scenario. If we take a log2() transformation on our data, then we get a new interpretation of our model. Now each doubling (because we used log2) of the lot area is going to result in the same predicted increase in sale price. We have essentially turned out predictors to work on doublings rather than additions. Below is the same chart as before, but on a logarithmic scale using base 2.\n\n\n\n\n\nHistogram of logarithmic lot areas\n\n\n\n\nTODO: Pros and ons\nTODO: Add more math\nTODO: Add R examples\nTODO: Add Python examples"
   },
   {
+    "objectID": "numeric-sqrt.html",
+    "href": "numeric-sqrt.html",
+    "title": "5  Square Root",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "numeric-boxcox.html",
+    "href": "numeric-boxcox.html",
+    "title": "6  Box-Cox",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "numeric-yeojohnson.html",
+    "href": "numeric-yeojohnson.html",
+    "title": "7  Yeo-Johnson",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "numeric-normalization.html",
+    "href": "numeric-normalization.html",
+    "title": "8  Normalization",
+    "section": "",
+    "text": "WIP"
+  },
+  {
     "objectID": "numeric-range.html",
     "href": "numeric-range.html",
-    "title": "5  Range",
+    "title": "9  Range",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "numeric-minabs.html",
+    "href": "numeric-minabs.html",
+    "title": "10  MinAbs",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "numeric-robust.html",
+    "href": "numeric-robust.html",
+    "title": "11  Robust Scaling",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "numeric-splines.html",
+    "href": "numeric-splines.html",
+    "title": "12  Splines",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "numeric-polynomial.html",
+    "href": "numeric-polynomial.html",
+    "title": "13  Polynomial",
     "section": "",
     "text": "WIP"
   },
@@ -93,7 +177,7 @@
   {
     "objectID": "categorical-dummy.html",
     "href": "categorical-dummy.html",
-    "title": "6  Dummy Variables",
+    "title": "14  Dummy Variables",
     "section": "",
     "text": "WIP"
   },
@@ -107,7 +191,7 @@
   {
     "objectID": "imbalenced-smote.html",
     "href": "imbalenced-smote.html",
-    "title": "7  SMOTE",
+    "title": "15  SMOTE",
     "section": "",
     "text": "WIP"
   },
@@ -121,7 +205,7 @@
   {
     "objectID": "missing-imputation.html",
     "href": "missing-imputation.html",
-    "title": "8  Imputation",
+    "title": "16  Imputation",
     "section": "",
     "text": "WIP"
   },
@@ -135,7 +219,7 @@
   {
     "objectID": "too-many-pca.html",
     "href": "too-many-pca.html",
-    "title": "9  Principal Component Analysis",
+    "title": "17  Principal Component Analysis",
     "section": "",
     "text": "WIP"
   },
@@ -149,7 +233,7 @@
   {
     "objectID": "outliers-remove.html",
     "href": "outliers-remove.html",
-    "title": "10  Removal",
+    "title": "18  Removal",
     "section": "",
     "text": "WIP"
   },
@@ -163,7 +247,7 @@
   {
     "objectID": "datetime-holiday.html",
     "href": "datetime-holiday.html",
-    "title": "11  Holidays",
+    "title": "19  Holidays",
     "section": "",
     "text": "WIP"
   },
@@ -177,7 +261,7 @@
   {
     "objectID": "text-tfidf.html",
     "href": "text-tfidf.html",
-    "title": "12  TF-IDF",
+    "title": "20  TF-IDF",
     "section": "",
     "text": "WIP"
   },
@@ -191,7 +275,7 @@
   {
     "objectID": "image-stats.html",
     "href": "image-stats.html",
-    "title": "13  Visual Features",
+    "title": "21  Visual Features",
     "section": "",
     "text": "WIP"
   },
@@ -205,7 +289,7 @@
   {
     "objectID": "circular-trig.html",
     "href": "circular-trig.html",
-    "title": "14  Trigonometric",
+    "title": "22  Trigonometric",
     "section": "",
     "text": "WIP"
   },
@@ -219,7 +303,7 @@
   {
     "objectID": "time-series-fourier.html",
     "href": "time-series-fourier.html",
-    "title": "15  Fourier Features",
+    "title": "23  Fourier Features",
     "section": "",
     "text": "WIP"
   },
@@ -233,7 +317,7 @@
   {
     "objectID": "correlated-filter.html",
     "href": "correlated-filter.html",
-    "title": "16  High Correlation Filter",
+    "title": "24  High Correlation Filter",
     "section": "",
     "text": "WIP"
   },
@@ -247,7 +331,7 @@
   {
     "objectID": "miscellaneous-zipcodes.html",
     "href": "miscellaneous-zipcodes.html",
-    "title": "17  Zip Codes",
+    "title": "25  Zip Codes",
     "section": "",
     "text": "WIP"
   },
@@ -261,7 +345,7 @@
   {
     "objectID": "video-tmp.html",
     "href": "video-tmp.html",
-    "title": "18  Temporary",
+    "title": "26  Temporary",
     "section": "",
     "text": "WIP"
   },
@@ -275,28 +359,28 @@
   {
     "objectID": "sound-tmp.html",
     "href": "sound-tmp.html",
-    "title": "19  Temporary",
+    "title": "27  Temporary",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "order.html",
     "href": "order.html",
-    "title": "20  Order of transformations",
+    "title": "28  Order of transformations",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "sparse.html",
     "href": "sparse.html",
-    "title": "21  What should you do if you have sparse data?",
+    "title": "29  What should you do if you have sparse data?",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "models.html",
     "href": "models.html",
-    "title": "22  How Different Models Deal With Input",
+    "title": "30  How Different Models Deal With Input",
     "section": "",
     "text": "WIP"
   },
@@ -310,7 +394,7 @@
   {
     "objectID": "summary.html",
     "href": "summary.html",
-    "title": "23  Summary",
+    "title": "31  Summary",
     "section": "",
     "text": "WIP"
   },

@@ -14,7 +14,15 @@ book:
     - part: numeric.qmd
       chapters:
         - numeric-logarithms.qmd
+        - numeric-sqrt.qmd
+        - numeric-boxcox.qmd
+        - numeric-yeojohnson.qmd
+        - numeric-normalization.qmd
         - numeric-range.qmd
+        - numeric-minabs.qmd
+        - numeric-robust.qmd
+        - numeric-splines.qmd
+        - numeric-polynomial.qmd
     - part: categorical.qmd
       chapters:
         - categorical-dummy.qmd
