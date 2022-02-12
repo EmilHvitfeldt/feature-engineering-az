@@ -1,3 +1,45 @@
 # Logarithms
 
-WIP
+Logarithms come as a tool to deal with highly skewed data. Consider the histogram below, it depicts the lot area for all the houses in the `ames` data set. It is highly skewed with the majority of areas being less than 10,000 with a handful greater than 50,000 with one over 200,000.
+
+```{r}
+#| echo: false
+#| message: false
+#| fig-cap: "Histogram of lot areas"
+#| fig-alt: "Highly right skewed histogram of lot areas"
+
+library(tidymodels)
+data("ames")
+
+# TODO find better data set for this example
+ggplot(ames, aes(Lot_Area)) +
+  geom_histogram(bins = 100) +
+  theme_minimal()
+```
+
+This data could cause some problems if we tried to use this variable in its unfinished state. We need to think about how numeric variables are being used in these models. Take a linear regression as an example. It fits under the assumption that there is a linear relationship between the response and the predictors. In other words, the model assumes that a 1000 increase in lot area is going to increase the sale price of the house by the same amount if it occurred to a 5000 lot area house or a 50000 lot area house.
+This might be a valid scenario for this housing market. Another possibility is that we are seeing diminishing returns, and each increase in lot area is going to cause a smaller increase in predicted sale price. The logarithmic transformation is perfect for such a scenario. If we take a `log2()` transformation on our data, then we get a new interpretation of our model. Now each doubling (because we used log**2**) of the lot area is going to result in the same predicted increase in sale price. We have essentially turned out predictors to work on doublings rather than additions. Below is the same chart as before, but on a logarithmic scale using base 2.
+
+```{r}
+#| echo: false
+#| message: false
+#| fig-cap: "Histogram of logarithmic lot areas"
+#| fig-alt: "histogram of logarithmic lot areas. This time not skewed"
+
+library(tidymodels)
+data("ames")
+
+ggplot(ames, aes(log2(Lot_Area))) +
+  geom_histogram(bins = 100) +
+  theme_minimal()
+```
+
+TODO: Pros and ons
+
+TODO: Add more math
+
+TODO: Add R examples
+
+TODO: Add Python examples
+
+
