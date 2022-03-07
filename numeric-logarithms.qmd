@@ -17,8 +17,9 @@ ggplot(ames, aes(Lot_Area)) +
   theme_minimal()
 ```
 
-This data could cause some problems if we tried to use this variable in its unfinished state. We need to think about how numeric variables are being used in these models. Take a linear regression as an example. It fits under the assumption that there is a linear relationship between the response and the predictors. In other words, the model assumes that a 1000 increase in lot area is going to increase the sale price of the house by the same amount if it occurred to a 5000 lot area house or a 50000 lot area house.
-This might be a valid scenario for this housing market. Another possibility is that we are seeing diminishing returns, and each increase in lot area is going to cause a smaller increase in predicted sale price. The logarithmic transformation is perfect for such a scenario. If we take a `log2()` transformation on our data, then we get a new interpretation of our model. Now each doubling (because we used log**2**) of the lot area is going to result in the same predicted increase in sale price. We have essentially turned out predictors to work on doublings rather than additions. Below is the same chart as before, but on a logarithmic scale using base 2.
+This data could cause some problems if we tried to use this variable in its unfinished state. We need to think about how numeric variables are being used in these models. Take a linear regression as an example. It fits under the assumption that there is a linear relationship between the response and the predictors. In other words, the model assumes that a 1000 increase in lot area is going to increase the sale price of the house by the same amount if it occurred to a 5000 lot area house or a 50000 lot area house. This might be a valid scenario for this housing market.Another possibility is that we are seeing diminishing returns, and each increase in lot area is going to cause a smaller increase in predicted sale price. 
+
+The logarithmic transformation is perfect for such a scenario. If we take a `log2()` transformation on our data, then we get a new interpretation of our model. Now each doubling (because we used log**2**) of the lot area is going to result in the same predicted increase in sale price. We have essentially turned out predictors to work on doublings rather than additions. Below is the same chart as before, but on a logarithmic scale using base 2.
 
 ```{r}
 #| echo: false
@@ -34,12 +35,93 @@ ggplot(ames, aes(log2(Lot_Area))) +
   theme_minimal()
 ```
 
-TODO: Pros and ons
+it is important to note that we are not trying to make the variable normally distributed. What we are trying to accomplish is to remove the skewed nature of the variable.
 
-TODO: Add more math
+The full equation we use is
 
-TODO: Add R examples
+$$
+y = log_{base}(x + offset)
+$$
 
-TODO: Add Python examples
+Where $x$ is the input, $y$ is the result. The base in and of itself makes a difference, as the choice of base only matters in a multiplicative way. Common choices for bases are $e$, 2, and 10. I find that using a base of 2 yields nice interpretive properties as an increase of 1 in $x$ results in a doubling of $y$.
 
+One thing we haven't touched on yet is that logarithms are only defined for positive input. The offset is introduced to deal with this problem. The offset will default to 0 in most software you will encounter. If you know that your variables contain values from -100 to 10000, you can set `offset = 101` to make sure we never take the logarithm of a negative number. A common scenario is non-negative, which contains 0, setting `offset = 0.5` helps in that case. The choice of offset you choose does matter a little bit. The offset should generally be smaller than the smallest non-negative value you have, otherwise, you will influence the proportions too much. Below we use an offset of 0.1, and the relationship we get out of this is that distance from 0 to 1, is roughly the same as multiplying by 10.
 
+```{r}
+offset <- 0.1
+log(c(0, 1, 10, 100, 1000) + offset, base = 2) |> round(3)
+```
+
+On the other hand, if we set the offset to 0.001, we get that the difference from 0 to 1 is the same as the distance from 1 to 1000, or as the same as multiplying by 1000.
+
+```{r}
+offset <- 0.001
+log(c(0, 1, 10, 100, 1000) + offset, base = 2) |> round(3)
+```
+
+## Pros and Cons
+
+### Pros
+
+A non-trained operation, can easily be applied to training and testing data set alike
+
+### Cons
+
+Needs offset to deal with negative data
+
+## R Examples
+
+We will be using the `ames` data set for these examples.
+
+```{r}
+ames %>%
+  select(Lot_Area, Wood_Deck_SF, Sale_Price)
+```
+
+{recipes} provides a step to perform logarithms, which out of the box uses $e$ as the base with an offset of 0.
+
+```{r}
+log_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) %>%
+  step_log(Lot_Area)
+
+log_rec %>%
+  prep() %>%
+  bake(new_data = NULL)
+```
+
+The base can be changed by setting the `base` argument.
+
+```{r}
+log_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) %>%
+  step_log(Lot_Area, base = 2)
+
+log_rec %>%
+  prep() %>%
+  bake(new_data = NULL)
+```
+
+If we have non-positive values, which we do in the `Wood_Deck_SF` variable because it has quite a lot of zeroes, we get `-Inf` which isn't going to work.
+
+```{r}
+log_rec <- recipe(Sale_Price ~ Wood_Deck_SF, data = ames) %>%
+  step_log(Wood_Deck_SF)
+
+log_rec %>%
+  prep() %>%
+  bake(new_data = NULL)
+```
+
+Setting the `offset` argument helps us to deal with that problem.
+
+```{r}
+log_rec <- recipe(Sale_Price ~ Wood_Deck_SF, data = ames) %>%
+  step_log(Wood_Deck_SF, offset = 0.5)
+
+log_rec %>%
+  prep() %>%
+  bake(new_data = NULL)
+```
+
+# Python Examples
+
+TODO
