@@ -17,7 +17,27 @@ ggplot(ames, aes(Lot_Area)) +
   theme_minimal()
 ```
 
-This data could cause some problems if we tried to use this variable in its unfinished state. We need to think about how numeric variables are being used in these models. Take a linear regression as an example. It fits under the assumption that there is a linear relationship between the response and the predictors. In other words, the model assumes that a 1000 increase in lot area is going to increase the sale price of the house by the same amount if it occurred to a 5000 lot area house or a 50000 lot area house. This might be a valid scenario for this housing market.Another possibility is that we are seeing diminishing returns, and each increase in lot area is going to cause a smaller increase in predicted sale price. 
+This data could cause some problems if we tried to use this variable in its unfinished state. We need to think about how numeric variables are being used in these models. Take a linear regression as an example. It fits under the assumption that there is a linear relationship between the response and the predictors. In other words, the model assumes that a 1000 increase in lot area is going to increase the sale price of the house by the same amount if it occurred to a 5000 lot area house or a 50000 lot area house. This might be a valid scenario for this housing market.Another possibility is that we are seeing diminishing returns, and each increase in lot area is going to cause a smaller increase in predicted sale price.
+
+The main identity that is interesting when using logarithms for preprocessing is the multiplicative identity
+
+$$
+\log_{base}(xy) = \log_{base}(x) + \log_{base}(y)
+$$
+
+This identity allows us to consider the distances in a specific non-linear way. On the linear scale, we have that the distance between 1 and 2 is the same as 20 to 21 and 10,000 to 10,001. Such a relation is not always what we observe. Consider the relationship between excitement (response) and the number of audience members (predictor) at a concert. Adding a singular audience member is not going to have the same effect for all audience sizes. If we consider $y = 1.5$ then we can look at what happens each time the audience size is increased by 50%. For an initial audience size of 100, the following happens
+
+$$
+\log_{10}(150) = \log_{10}(100 \cdot 1.5) = \log_{10}(100) + \log_{10}(1.5) \approx 2 + 0.176
+$$
+
+and for an initial audience size of 10,000, we get
+
+$$
+\log_{10}(15,000) = \log_{10}(10,000 \cdot 1.5) = \log_{10}(10,000) + \log_{10}(1.5) \approx 4 + 0.176
+$$
+
+And we see that by using a logarithmic transformation we can translate a multiplicative increase into an additive increase.
 
 The logarithmic transformation is perfect for such a scenario. If we take a `log2()` transformation on our data, then we get a new interpretation of our model. Now each doubling (because we used log**2**) of the lot area is going to result in the same predicted increase in sale price. We have essentially turned out predictors to work on doublings rather than additions. Below is the same chart as before, but on a logarithmic scale using base 2.
 
