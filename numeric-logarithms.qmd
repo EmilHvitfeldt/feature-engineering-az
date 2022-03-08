@@ -59,6 +59,8 @@ offset <- 0.001
 log(c(0, 1, 10, 100, 1000) + offset, base = 2) |> round(3)
 ```
 
+The use of logarithms will have different effects on different types of models. Linear models will see a change in transformed variables since we can better model relationships between the response and dependent variable if the transformation leads to a more linear relationship. Tree-based models should in theory not be affected by the use of logarithms, however, some implementations use binning to reduce the number of splitting points for considerations. You will see a change if these bins are based on fixed-width intervals. This is expected to have minimal effect on the final model.
+
 ## Pros and Cons
 
 ### Pros
