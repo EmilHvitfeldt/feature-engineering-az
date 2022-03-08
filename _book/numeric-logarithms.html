@@ -553,11 +553,26 @@ y = log_{base}(x + offset)
 <h2 data-number="4.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">4.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="4.1.1">
 <h3 data-number="4.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">4.1.1</span> Pros</h3>
-<p>A non-trained operation, can easily be applied to training and testing data set alike</p>
+<ul>
+<li>A non-trained operation, can easily be applied to training and testing data set alike</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="4.1.2">
 <h3 data-number="4.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">4.1.2</span> Cons</h3>
-<p>Needs offset to deal with negative data</p>
+<ul>
+<li>Needs offset to deal with negative data</li>
+<li>Is not a universal fix. While it can make skewed distributions less skewed. It has the opposite effect on a distribution that isn’t skewed. See the effect below on 10,000 uniformly distributed values</li>
+</ul>
+<div class="cell quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="numeric-logarithms_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="numeric-logarithms_files/figure-html/unnamed-chunk-10-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="4.2">
