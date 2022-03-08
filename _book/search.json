@@ -102,7 +102,7 @@
     "href": "numeric-logarithms.html#pros-and-cons",
     "title": "4  Logarithms",
     "section": "4.1 Pros and Cons",
-    "text": "4.1 Pros and Cons\n\n4.1.1 Pros\nA non-trained operation, can easily be applied to training and testing data set alike\n\n\n4.1.2 Cons\nNeeds offset to deal with negative data"
+    "text": "4.1 Pros and Cons\n\n4.1.1 Pros\n\nA non-trained operation, can easily be applied to training and testing data set alike\n\n\n\n4.1.2 Cons\n\nNeeds offset to deal with negative data\nIs not a universal fix. While it can make skewed distributions less skewed. It has the opposite effect on a distribution that isn’t skewed. See the effect below on 10,000 uniformly distributed values"
   },
   {
     "objectID": "numeric-logarithms.html#r-examples",
