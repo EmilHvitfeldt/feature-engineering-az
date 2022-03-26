@@ -112,11 +112,25 @@
     "text": "4.2 R Examples\nWe will be using the ames data set for these examples.\n\names %>%\n  select(Lot_Area, Wood_Deck_SF, Sale_Price)\n\n# A tibble: 2,930 × 3\n   Lot_Area Wood_Deck_SF Sale_Price\n      <int>        <int>      <int>\n 1    31770          210     215000\n 2    11622          140     105000\n 3    14267          393     172000\n 4    11160            0     244000\n 5    13830          212     189900\n 6     9978          360     195500\n 7     4920            0     213500\n 8     5005            0     191500\n 9     5389          237     236500\n10     7500          140     189000\n# … with 2,920 more rows\n\n\n{recipes} provides a step to perform logarithms, which out of the box uses \\(e\\) as the base with an offset of 0.\n\nlog_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) %>%\n  step_log(Lot_Area)\n\nlog_rec %>%\n  prep() %>%\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Lot_Area Sale_Price\n      <dbl>      <int>\n 1    10.4      215000\n 2     9.36     105000\n 3     9.57     172000\n 4     9.32     244000\n 5     9.53     189900\n 6     9.21     195500\n 7     8.50     213500\n 8     8.52     191500\n 9     8.59     236500\n10     8.92     189000\n# … with 2,920 more rows\n\n\nThe base can be changed by setting the base argument.\n\nlog_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) %>%\n  step_log(Lot_Area, base = 2)\n\nlog_rec %>%\n  prep() %>%\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Lot_Area Sale_Price\n      <dbl>      <int>\n 1     15.0     215000\n 2     13.5     105000\n 3     13.8     172000\n 4     13.4     244000\n 5     13.8     189900\n 6     13.3     195500\n 7     12.3     213500\n 8     12.3     191500\n 9     12.4     236500\n10     12.9     189000\n# … with 2,920 more rows\n\n\nIf we have non-positive values, which we do in the Wood_Deck_SF variable because it has quite a lot of zeroes, we get -Inf which isn’t going to work.\n\nlog_rec <- recipe(Sale_Price ~ Wood_Deck_SF, data = ames) %>%\n  step_log(Wood_Deck_SF)\n\nlog_rec %>%\n  prep() %>%\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Wood_Deck_SF Sale_Price\n          <dbl>      <int>\n 1         5.35     215000\n 2         4.94     105000\n 3         5.97     172000\n 4      -Inf        244000\n 5         5.36     189900\n 6         5.89     195500\n 7      -Inf        213500\n 8      -Inf        191500\n 9         5.47     236500\n10         4.94     189000\n# … with 2,920 more rows\n\n\nSetting the offset argument helps us to deal with that problem.\n\nlog_rec <- recipe(Sale_Price ~ Wood_Deck_SF, data = ames) %>%\n  step_log(Wood_Deck_SF, offset = 0.5)\n\nlog_rec %>%\n  prep() %>%\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Wood_Deck_SF Sale_Price\n          <dbl>      <int>\n 1        5.35      215000\n 2        4.95      105000\n 3        5.98      172000\n 4       -0.693     244000\n 5        5.36      189900\n 6        5.89      195500\n 7       -0.693     213500\n 8       -0.693     191500\n 9        5.47      236500\n10        4.95      189000\n# … with 2,920 more rows"
   },
   {
-    "objectID": "numeric-sqrt.html",
-    "href": "numeric-sqrt.html",
+    "objectID": "numeric-sqrt.html#pros-and-cons",
+    "href": "numeric-sqrt.html#pros-and-cons",
     "title": "5  Square Root",
-    "section": "",
-    "text": "WIP"
+    "section": "5.1 Pros and Cons",
+    "text": "5.1 Pros and Cons\n\n5.1.1 Pros\n\nA non-trained operation, can easily be applied to training and testing data set alike\nCan be applied to all numbers, not just non-negative values ### Cons\nIt will leave regression coefficients virtually uninterpretable\nIs not a universal fix. While it can make skewed distributions less skewed. It has the opposite effect on a distribution that isn’t skewed"
+  },
+  {
+    "objectID": "numeric-sqrt.html#r-examples",
+    "href": "numeric-sqrt.html#r-examples",
+    "title": "5  Square Root",
+    "section": "5.2 R Examples",
+    "text": "5.2 R Examples\nWe will be using the hotel_bookings data set for these examples.\n\nhotel_bookings %>%\n  select(lead_time, adr)\n\n# A tibble: 119,390 × 2\n   lead_time   adr\n       <dbl> <dbl>\n 1       342    0 \n 2       737    0 \n 3         7   75 \n 4        13   75 \n 5        14   98 \n 6        14   98 \n 7         0  107 \n 8         9  103 \n 9        85   82 \n10        75  106.\n# … with 119,380 more rows\n\n\n{recipes} provides a step to perform logarithms, which out of the box uses \\(e\\) as the base with an offset of 0.\n\n# TODO use signed sqrt\nsqrt_rec <- recipe(lead_time ~ adr, data = hotel_bookings) %>%\n  step_sqrt(adr)\n\nsqrt_rec %>%\n  prep() %>%\n  bake(new_data = NULL)\n\nWarning in sqrt(getElement(new_data, col_names[i])): NaNs produced\n\n\n# A tibble: 119,390 × 2\n     adr lead_time\n   <dbl>     <dbl>\n 1  0          342\n 2  0          737\n 3  8.66         7\n 4  8.66        13\n 5  9.90        14\n 6  9.90        14\n 7 10.3          0\n 8 10.1          9\n 9  9.06        85\n10 10.3         75\n# … with 119,380 more rows"
+  },
+  {
+    "objectID": "numeric-sqrt.html#python-examples",
+    "href": "numeric-sqrt.html#python-examples",
+    "title": "5  Square Root",
+    "section": "5.3 Python Examples",
+    "text": "5.3 Python Examples"
   },
   {
     "objectID": "numeric-boxcox.html",
