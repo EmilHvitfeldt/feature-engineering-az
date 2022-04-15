@@ -32,10 +32,10 @@
     },
     "MASS": {
       "Package": "MASS",
-      "Version": "7.3-55",
+      "Version": "7.3-56",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "c5232ffb549f6d7a04a152c34ca1353d"
+      "Hash": "af0e1955cb80bb36b7988cc657db261e"
     },
     "Matrix": {
       "Package": "Matrix",
@@ -92,6 +92,20 @@
       "Repository": "CRAN",
       "Hash": "543776ae6848fde2f48ff3816d0628bc"
     },
+    "bit": {
+      "Package": "bit",
+      "Version": "4.0.4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "f36715f14d94678eea9933af927bc15d"
+    },
+    "bit64": {
+      "Package": "bit64",
+      "Version": "4.0.5",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "9fe98599ca456d6552421db0d6772d8f"
+    },
     "broom": {
       "Package": "broom",
       "Version": "0.7.12",
@@ -125,6 +139,19 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "da5160e769a652e3ec7111d63883f9bc"
+    },
+    "clipr": {
+      "Package": "clipr",
+      "Version": "0.7.1",
+      "Source": "CRAN",
+      "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "clipr",
+      "RemoteRef": "clipr",
+      "RemoteRepos": "https://cran.rstudio.com/",
+      "RemotePkgPlatform": "aarch64-apple-darwin20",
+      "RemoteSha": "0.7.1",
+      "Hash": "ebaa97ac99cc2daf04e77eecc7b781d7"
     },
     "codetools": {
       "Package": "codetools",
@@ -336,6 +363,13 @@
       "RemotePkgPlatform": "aarch64-apple-darwin20",
       "RemoteSha": "0.9",
       "Hash": "8eb36c8125038e648e5d111c0d7b2ed4"
+    },
+    "hms": {
+      "Package": "hms",
+      "Version": "1.1.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "5b8a2dd0fdbe2ab4f6081e6c7be6dfca"
     },
     "htmltools": {
       "Package": "htmltools",
@@ -597,6 +631,13 @@
       "Repository": "CRAN",
       "Hash": "c243bf70db3a6631a0c8783152fb7db9"
     },
+    "progress": {
+      "Package": "progress",
+      "Version": "1.2.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "14dc9f7a3c91ebb14ec5bb9208a07061"
+    },
     "progressr": {
       "Package": "progressr",
       "Version": "0.10.0",
@@ -616,6 +657,13 @@
       "RemotePkgPlatform": "aarch64-apple-darwin20",
       "RemoteSha": "0.3.4",
       "Hash": "97def703420c8ab10d8f0e6c72101e02"
+    },
+    "readr": {
+      "Package": "readr",
+      "Version": "2.1.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "9c59de1357dc209868b5feb5c9f0fe2f"
     },
     "recipes": {
       "Package": "recipes",
@@ -774,6 +822,13 @@
       "Repository": "CRAN",
       "Hash": "3cabba58cec834867411b81e03acfa7b"
     },
+    "tzdb": {
+      "Package": "tzdb",
+      "Version": "0.2.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "5e069fb033daf2317bd628d3100b75c5"
+    },
     "utf8": {
       "Package": "utf8",
       "Version": "1.2.2",
@@ -806,6 +861,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "55e157e2aa88161bdb0754218470d204"
+    },
+    "vroom": {
+      "Package": "vroom",
+      "Version": "1.5.7",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "976507b5a105bc3bdf6a5a5f29e0684f"
     },
     "warp": {
       "Package": "warp",
