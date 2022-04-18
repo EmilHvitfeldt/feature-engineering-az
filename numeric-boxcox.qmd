@@ -1,4 +1,4 @@
-# Box-Cox
+# Box-Cox  {#sec-boxcox}
 
 You have likely heard a lot of talk about having normally distributed predictors. This isn't that common of an assumption, and having a fairly non-skewed symmetric predictor is often enough. Linear Discriminant Analysis assumes Gaussian data, and that is about it (TODO add a reference here). Still, it is worthwhile to have more symmetric predictors, and this is where the Box-Cox transformation comes into play.
 
@@ -47,7 +47,7 @@ visualize_boxcox <- function(x) {
 #| echo: false
 #| message: false
 #| fig-cap: "Before and After Box-Cox"
-#| fig-alt: "6 histograms of distribution, in 2 columns. Left column shows unaltered distributions. Right column shows distribution of the Box-Cox transoformation of the left column. Right column are mostly normally distributed."
+#| fig-alt: "6 histograms of distribution, in 2 columns. Left column shows unaltered distributions. Right column shows distribution of the Box-Cox transformation of the left column. Right column are mostly normally distributed."
 set.seed(1234)
 visualize_boxcox(rchisq(10000, 1)) /
 visualize_boxcox(abs(rnorm(10000))) /
@@ -62,7 +62,7 @@ The Box-Cox method isn't magic and will only give you something more normally di
 #| echo: false
 #| message: false
 #| fig-cap: "Before and After Box-Cox"
-#| fig-alt: "6 histograms of distribution, in 2 columns. Left column shows unaltered distributions. Right column shows distribution of the Box-Cox transoformation of the left column. Right column have not benefitted from the Box-Cox transformation"
+#| fig-alt: "6 histograms of distribution, in 2 columns. Left column shows unaltered distributions. Right column shows distribution of the Box-Cox transformation of the left column. Right column have not benefitted from the Box-Cox transformation"
 set.seed(1234)
 visualize_boxcox(runif(10000)) /
 visualize_boxcox(c(rnorm(7000, 10), rnorm(13000, 14))) /
@@ -75,7 +75,7 @@ The first distribution here is uniformly random. The resulting transformation en
 
 ### Pros
 
-- More flexible than individually chosen power transformations such as logarithms and square roots.
+- More flexible than individually chosen power transformations such as logarithms and square roots
 
 ### Cons
 
@@ -95,7 +95,7 @@ ames %>%
   select(Lot_Area, Wood_Deck_SF, Sale_Price)
 ```
 
-{recipes} provides a step to perform Box-Cox transformations., which out of the box uses $e$ as the base with an offset of 0.
+{recipes} provides a step to perform Box-Cox transformations, which out of the box uses $e$ as the base with an offset of 0.
 
 ```{r}
 boxcox_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) %>%

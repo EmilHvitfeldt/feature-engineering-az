@@ -607,7 +607,7 @@
 <!-- main -->
 <main class="content">
 <header id="title-block-header">
-<h1 class="title d-none d-lg-block display-7"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Box-Cox</span></h1>
+<h1 class="title display-7"><span id="sec-boxcox" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Box-Cox</span></span></h1>
 </header>
 
 <p>You have likely heard a lot of talk about having normally distributed predictors. This isn’t that common of an assumption, and having a fairly non-skewed symmetric predictor is often enough. Linear Discriminant Analysis assumes Gaussian data, and that is about it (TODO add a reference here). Still, it is worthwhile to have more symmetric predictors, and this is where the Box-Cox transformation comes into play.</p>
@@ -630,7 +630,7 @@ x^* = \left\{
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="numeric-boxcox_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" alt="6 histograms of distribution, in 2 columns. Left column shows unaltered distributions. Right column shows distribution of the Box-Cox transoformation of the left column. Right column are mostly normally distributed." width="672"></p>
+<p><img src="numeric-boxcox_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" alt="6 histograms of distribution, in 2 columns. Left column shows unaltered distributions. Right column shows distribution of the Box-Cox transformation of the left column. Right column are mostly normally distributed." width="672"></p>
 <p></p><figcaption aria-hidden="true" class="figure-caption">Before and After Box-Cox</figcaption><p></p>
 </figure>
 </div>
@@ -642,7 +642,7 @@ x^* = \left\{
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="numeric-boxcox_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" alt="6 histograms of distribution, in 2 columns. Left column shows unaltered distributions. Right column shows distribution of the Box-Cox transoformation of the left column. Right column have not benefitted from the Box-Cox transformation" width="672"></p>
+<p><img src="numeric-boxcox_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" alt="6 histograms of distribution, in 2 columns. Left column shows unaltered distributions. Right column shows distribution of the Box-Cox transformation of the left column. Right column have not benefitted from the Box-Cox transformation" width="672"></p>
 <p></p><figcaption aria-hidden="true" class="figure-caption">Before and After Box-Cox</figcaption><p></p>
 </figure>
 </div>
@@ -654,7 +654,7 @@ x^* = \left\{
 <section id="pros" class="level3" data-number="6.1.1">
 <h3 data-number="6.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">6.1.1</span> Pros</h3>
 <ul>
-<li>More flexible than individually chosen power transformations such as logarithms and square roots.</li>
+<li>More flexible than individually chosen power transformations such as logarithms and square roots</li>
 </ul>
 </section>
 <section id="cons" class="level3" data-number="6.1.2">
@@ -692,7 +692,7 @@ x^* = \left\{
 # … with 2,920 more rows</code></pre>
 </div>
 </div>
-<p>{recipes} provides a step to perform Box-Cox transformations., which out of the box uses <span class="math inline">\(e\)</span> as the base with an offset of 0.</p>
+<p>{recipes} provides a step to perform Box-Cox transformations, which out of the box uses <span class="math inline">\(e\)</span> as the base with an offset of 0.</p>
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>boxcox_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> Lot_Area, <span class="at">data =</span> ames) <span class="sc">%&gt;%</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_BoxCox</span>(Lot_Area) <span class="sc">%&gt;%</span></span>
