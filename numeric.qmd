@@ -1,8 +1,8 @@
-# Numeric Features
+# Overview
 
 Data can come in all shapes and sizes, but the most common one is the numeric variable. These are values such as `age`, `height`, `deficit`, `price`, and `quantity`. We call these *quantitative* variables and they are plentiful in most data sets and immediately usable in all statistical and machine learning models. That being said, it doesn't mean that there are things that wouldn't help to be done.
 
-The following chapters will focus on different methods that follow 1-to-1 or 1-to-more transformations. These methods will mostly be applied one at a time to each variable. Methods that take many variables and return fewer variables such as dimensionality reduction methods will be covered in @sec-toomanyvariables.
+The following chapters will focus on different methods that follow 1-to-1 or 1-to-more transformations. These methods will mostly be applied one at a time to each variable. Methods that take many variables and return fewer variables such as dimensionality reduction methods which will be covered in @sec-toomanyvariables.
 
 When we are working with a single variable at a time, there is a handful of problems we can run into. Identifying the problem and how each of the following methods tries to remedy the said problem is key to getting the most out of numeric variables.
 

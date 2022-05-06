@@ -65,539 +65,539 @@
   {
     "objectID": "numeric.html#distributional-problems",
     "href": "numeric.html#distributional-problems",
-    "title": "Numeric Features",
-    "section": "Distributional problems",
-    "text": "Distributional problems\n\nlogarithm\nsqrt\nBoxCox\nYeo-Johnson"
+    "title": "4  Overview",
+    "section": "4.1 Distributional problems",
+    "text": "4.1 Distributional problems\n\nlogarithm\nsqrt\nBoxCox\nYeo-Johnson"
   },
   {
     "objectID": "numeric.html#scaling-issues",
     "href": "numeric.html#scaling-issues",
-    "title": "Numeric Features",
-    "section": "Scaling issues",
-    "text": "Scaling issues\n\nNormalization (centering + scaling)\nrange\nminabs\nrobust scaling scikit-learn\n\nTODO: Add a table here describing the differences, pros and cons of each method"
+    "title": "4  Overview",
+    "section": "4.2 Scaling issues",
+    "text": "4.2 Scaling issues\n\nNormalization (centering + scaling)\nrange\nminabs\nrobust scaling scikit-learn\n\nTODO: Add a table here describing the differences, pros and cons of each method"
   },
   {
     "objectID": "numeric.html#non-linear-effect",
     "href": "numeric.html#non-linear-effect",
-    "title": "Numeric Features",
-    "section": "Non-linear effect",
-    "text": "Non-linear effect\n\nSplines\npolynomial"
+    "title": "4  Overview",
+    "section": "4.3 Non-linear effect",
+    "text": "4.3 Non-linear effect\n\nSplines\npolynomial"
   },
   {
     "objectID": "numeric.html#outliers",
     "href": "numeric.html#outliers",
-    "title": "Numeric Features",
-    "section": "Outliers",
-    "text": "Outliers"
+    "title": "4  Overview",
+    "section": "4.4 Outliers",
+    "text": "4.4 Outliers"
   },
   {
     "objectID": "numeric.html#other",
     "href": "numeric.html#other",
-    "title": "Numeric Features",
-    "section": "Other",
-    "text": "Other\nThere are any number of transformations we can apply to numeric data, other functions include:\n\nhyperbolic\nRelu\ninverse\ninverse logit\nlogit"
+    "title": "4  Overview",
+    "section": "4.5 Other",
+    "text": "4.5 Other\nThere are any number of transformations we can apply to numeric data, other functions include:\n\nhyperbolic\nRelu\ninverse\ninverse logit\nlogit"
   },
   {
     "objectID": "numeric-logarithms.html#pros-and-cons",
     "href": "numeric-logarithms.html#pros-and-cons",
-    "title": "4  Logarithms",
-    "section": "4.1 Pros and Cons",
-    "text": "4.1 Pros and Cons\n\n4.1.1 Pros\n\nA non-trained operation, can easily be applied to training and testing data set alike\n\n\n\n4.1.2 Cons\n\nNeeds offset to deal with negative data\nIs not a universal fix. While it can make skewed distributions less skewed. It has the opposite effect on a distribution that isn’t skewed. See the effect below on 10,000 uniformly distributed values"
+    "title": "5  Logarithms",
+    "section": "5.1 Pros and Cons",
+    "text": "5.1 Pros and Cons\n\n5.1.1 Pros\n\nA non-trained operation, can easily be applied to training and testing data set alike\n\n\n\n5.1.2 Cons\n\nNeeds offset to deal with negative data\nIs not a universal fix. While it can make skewed distributions less skewed. It has the opposite effect on a distribution that isn’t skewed. See the effect below on 10,000 uniformly distributed values"
   },
   {
     "objectID": "numeric-logarithms.html#r-examples",
     "href": "numeric-logarithms.html#r-examples",
-    "title": "4  Logarithms",
-    "section": "4.2 R Examples",
-    "text": "4.2 R Examples\nWe will be using the ames data set for these examples.\n\names %>%\n  select(Lot_Area, Wood_Deck_SF, Sale_Price)\n\n# A tibble: 2,930 × 3\n   Lot_Area Wood_Deck_SF Sale_Price\n      <int>        <int>      <int>\n 1    31770          210     215000\n 2    11622          140     105000\n 3    14267          393     172000\n 4    11160            0     244000\n 5    13830          212     189900\n 6     9978          360     195500\n 7     4920            0     213500\n 8     5005            0     191500\n 9     5389          237     236500\n10     7500          140     189000\n# … with 2,920 more rows\n\n\n{recipes} provides a step to perform logarithms, which out of the box uses \\(e\\) as the base with an offset of 0.\n\nlog_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) %>%\n  step_log(Lot_Area)\n\nlog_rec %>%\n  prep() %>%\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Lot_Area Sale_Price\n      <dbl>      <int>\n 1    10.4      215000\n 2     9.36     105000\n 3     9.57     172000\n 4     9.32     244000\n 5     9.53     189900\n 6     9.21     195500\n 7     8.50     213500\n 8     8.52     191500\n 9     8.59     236500\n10     8.92     189000\n# … with 2,920 more rows\n\n\nThe base can be changed by setting the base argument.\n\nlog_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) %>%\n  step_log(Lot_Area, base = 2)\n\nlog_rec %>%\n  prep() %>%\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Lot_Area Sale_Price\n      <dbl>      <int>\n 1     15.0     215000\n 2     13.5     105000\n 3     13.8     172000\n 4     13.4     244000\n 5     13.8     189900\n 6     13.3     195500\n 7     12.3     213500\n 8     12.3     191500\n 9     12.4     236500\n10     12.9     189000\n# … with 2,920 more rows\n\n\nIf we have non-positive values, which we do in the Wood_Deck_SF variable because it has quite a lot of zeroes, we get -Inf which isn’t going to work.\n\nlog_rec <- recipe(Sale_Price ~ Wood_Deck_SF, data = ames) %>%\n  step_log(Wood_Deck_SF)\n\nlog_rec %>%\n  prep() %>%\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Wood_Deck_SF Sale_Price\n          <dbl>      <int>\n 1         5.35     215000\n 2         4.94     105000\n 3         5.97     172000\n 4      -Inf        244000\n 5         5.36     189900\n 6         5.89     195500\n 7      -Inf        213500\n 8      -Inf        191500\n 9         5.47     236500\n10         4.94     189000\n# … with 2,920 more rows\n\n\nSetting the offset argument helps us to deal with that problem.\n\nlog_rec <- recipe(Sale_Price ~ Wood_Deck_SF, data = ames) %>%\n  step_log(Wood_Deck_SF, offset = 0.5)\n\nlog_rec %>%\n  prep() %>%\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Wood_Deck_SF Sale_Price\n          <dbl>      <int>\n 1        5.35      215000\n 2        4.95      105000\n 3        5.98      172000\n 4       -0.693     244000\n 5        5.36      189900\n 6        5.89      195500\n 7       -0.693     213500\n 8       -0.693     191500\n 9        5.47      236500\n10        4.95      189000\n# … with 2,920 more rows"
+    "title": "5  Logarithms",
+    "section": "5.2 R Examples",
+    "text": "5.2 R Examples\nWe will be using the ames data set for these examples.\n\names %>%\n  select(Lot_Area, Wood_Deck_SF, Sale_Price)\n\n# A tibble: 2,930 × 3\n   Lot_Area Wood_Deck_SF Sale_Price\n      <int>        <int>      <int>\n 1    31770          210     215000\n 2    11622          140     105000\n 3    14267          393     172000\n 4    11160            0     244000\n 5    13830          212     189900\n 6     9978          360     195500\n 7     4920            0     213500\n 8     5005            0     191500\n 9     5389          237     236500\n10     7500          140     189000\n# … with 2,920 more rows\n\n\n{recipes} provides a step to perform logarithms, which out of the box uses \\(e\\) as the base with an offset of 0.\n\nlog_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) %>%\n  step_log(Lot_Area)\n\nlog_rec %>%\n  prep() %>%\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Lot_Area Sale_Price\n      <dbl>      <int>\n 1    10.4      215000\n 2     9.36     105000\n 3     9.57     172000\n 4     9.32     244000\n 5     9.53     189900\n 6     9.21     195500\n 7     8.50     213500\n 8     8.52     191500\n 9     8.59     236500\n10     8.92     189000\n# … with 2,920 more rows\n\n\nThe base can be changed by setting the base argument.\n\nlog_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) %>%\n  step_log(Lot_Area, base = 2)\n\nlog_rec %>%\n  prep() %>%\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Lot_Area Sale_Price\n      <dbl>      <int>\n 1     15.0     215000\n 2     13.5     105000\n 3     13.8     172000\n 4     13.4     244000\n 5     13.8     189900\n 6     13.3     195500\n 7     12.3     213500\n 8     12.3     191500\n 9     12.4     236500\n10     12.9     189000\n# … with 2,920 more rows\n\n\nIf we have non-positive values, which we do in the Wood_Deck_SF variable because it has quite a lot of zeroes, we get -Inf which isn’t going to work.\n\nlog_rec <- recipe(Sale_Price ~ Wood_Deck_SF, data = ames) %>%\n  step_log(Wood_Deck_SF)\n\nlog_rec %>%\n  prep() %>%\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Wood_Deck_SF Sale_Price\n          <dbl>      <int>\n 1         5.35     215000\n 2         4.94     105000\n 3         5.97     172000\n 4      -Inf        244000\n 5         5.36     189900\n 6         5.89     195500\n 7      -Inf        213500\n 8      -Inf        191500\n 9         5.47     236500\n10         4.94     189000\n# … with 2,920 more rows\n\n\nSetting the offset argument helps us to deal with that problem.\n\nlog_rec <- recipe(Sale_Price ~ Wood_Deck_SF, data = ames) %>%\n  step_log(Wood_Deck_SF, offset = 0.5)\n\nlog_rec %>%\n  prep() %>%\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Wood_Deck_SF Sale_Price\n          <dbl>      <int>\n 1        5.35      215000\n 2        4.95      105000\n 3        5.98      172000\n 4       -0.693     244000\n 5        5.36      189900\n 6        5.89      195500\n 7       -0.693     213500\n 8       -0.693     191500\n 9        5.47      236500\n10        4.95      189000\n# … with 2,920 more rows"
   },
   {
     "objectID": "numeric-sqrt.html#pros-and-cons",
     "href": "numeric-sqrt.html#pros-and-cons",
-    "title": "5  Square Root",
-    "section": "5.1 Pros and Cons",
-    "text": "5.1 Pros and Cons\n\n5.1.1 Pros\n\nA non-trained operation, can easily be applied to training and testing data set alike\nCan be applied to all numbers, not just non-negative values\n\n\n\n5.1.2 Cons\n\nIt will leave regression coefficients virtually uninterpretable\nIs not a universal fix. While it can make skewed distributions less skewed. It has the opposite effect on a distribution that isn’t skewed"
+    "title": "6  Square Root",
+    "section": "6.1 Pros and Cons",
+    "text": "6.1 Pros and Cons\n\n6.1.1 Pros\n\nA non-trained operation, can easily be applied to training and testing data set alike\nCan be applied to all numbers, not just non-negative values\n\n\n\n6.1.2 Cons\n\nIt will leave regression coefficients virtually uninterpretable\nIs not a universal fix. While it can make skewed distributions less skewed. It has the opposite effect on a distribution that isn’t skewed"
   },
   {
     "objectID": "numeric-sqrt.html#r-examples",
     "href": "numeric-sqrt.html#r-examples",
-    "title": "5  Square Root",
-    "section": "5.2 R Examples",
-    "text": "5.2 R Examples\nWe will be using the hotel_bookings data set for these examples.\n\nhotel_bookings %>%\n  select(lead_time, adr)\n\n# A tibble: 119,390 × 2\n   lead_time   adr\n       <dbl> <dbl>\n 1       342    0 \n 2       737    0 \n 3         7   75 \n 4        13   75 \n 5        14   98 \n 6        14   98 \n 7         0  107 \n 8         9  103 \n 9        85   82 \n10        75  106.\n# … with 119,380 more rows\n\n\n{recipes} provides a step to perform logarithms, which out of the box uses \\(e\\) as the base with an offset of 0.\n\n# TODO use signed sqrt\nsqrt_rec <- recipe(lead_time ~ adr, data = hotel_bookings) %>%\n  step_sqrt(adr)\n\nsqrt_rec %>%\n  prep() %>%\n  bake(new_data = NULL)\n\nWarning in sqrt(getElement(new_data, col_names[i])): NaNs produced\n\n\n# A tibble: 119,390 × 2\n     adr lead_time\n   <dbl>     <dbl>\n 1  0          342\n 2  0          737\n 3  8.66         7\n 4  8.66        13\n 5  9.90        14\n 6  9.90        14\n 7 10.3          0\n 8 10.1          9\n 9  9.06        85\n10 10.3         75\n# … with 119,380 more rows"
+    "title": "6  Square Root",
+    "section": "6.2 R Examples",
+    "text": "6.2 R Examples\nWe will be using the hotel_bookings data set for these examples.\n\nhotel_bookings %>%\n  select(lead_time, adr)\n\n# A tibble: 119,390 × 2\n   lead_time   adr\n       <dbl> <dbl>\n 1       342    0 \n 2       737    0 \n 3         7   75 \n 4        13   75 \n 5        14   98 \n 6        14   98 \n 7         0  107 \n 8         9  103 \n 9        85   82 \n10        75  106.\n# … with 119,380 more rows\n\n\n{recipes} provides a step to perform logarithms, which out of the box uses \\(e\\) as the base with an offset of 0.\n\n# TODO use signed sqrt\nsqrt_rec <- recipe(lead_time ~ adr, data = hotel_bookings) %>%\n  step_sqrt(adr)\n\nsqrt_rec %>%\n  prep() %>%\n  bake(new_data = NULL)\n\nWarning in sqrt(getElement(new_data, col_names[i])): NaNs produced\n\n\n# A tibble: 119,390 × 2\n     adr lead_time\n   <dbl>     <dbl>\n 1  0          342\n 2  0          737\n 3  8.66         7\n 4  8.66        13\n 5  9.90        14\n 6  9.90        14\n 7 10.3          0\n 8 10.1          9\n 9  9.06        85\n10 10.3         75\n# … with 119,380 more rows"
   },
   {
     "objectID": "numeric-sqrt.html#python-examples",
     "href": "numeric-sqrt.html#python-examples",
-    "title": "5  Square Root",
-    "section": "5.3 Python Examples",
-    "text": "5.3 Python Examples"
-  },
-  {
-    "objectID": "numeric-boxcox.html#pros-and-cons",
-    "href": "numeric-boxcox.html#pros-and-cons",
-    "title": "6  Box-Cox",
-    "section": "6.1 Pros and Cons",
-    "text": "6.1 Pros and Cons\n\n6.1.1 Pros\n\nMore flexible than individually chosen power transformations such as logarithms and square roots\n\n\n\n6.1.2 Cons\n\nDoesn’t work with negative values\nIsn’t a universal fix"
-  },
-  {
-    "objectID": "numeric-boxcox.html#r-examples",
-    "href": "numeric-boxcox.html#r-examples",
-    "title": "6  Box-Cox",
-    "section": "6.2 R Examples",
-    "text": "6.2 R Examples\nWe will be using the ames data set for these examples.\n\nlibrary(recipes)\nlibrary(modeldata)\ndata(\"ames\")\n\names %>%\n  select(Lot_Area, Wood_Deck_SF, Sale_Price)\n\n# A tibble: 2,930 × 3\n   Lot_Area Wood_Deck_SF Sale_Price\n      <int>        <int>      <int>\n 1    31770          210     215000\n 2    11622          140     105000\n 3    14267          393     172000\n 4    11160            0     244000\n 5    13830          212     189900\n 6     9978          360     195500\n 7     4920            0     213500\n 8     5005            0     191500\n 9     5389          237     236500\n10     7500          140     189000\n# … with 2,920 more rows\n\n\n{recipes} provides a step to perform Box-Cox transformations, which out of the box uses \\(e\\) as the base with an offset of 0.\n\nboxcox_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) %>%\n  step_BoxCox(Lot_Area) %>%\n  prep()\n\nboxcox_rec %>%\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Lot_Area Sale_Price\n      <dbl>      <int>\n 1     21.8     215000\n 2     18.2     105000\n 3     18.9     172000\n 4     18.1     244000\n 5     18.8     189900\n 6     17.7     195500\n 7     15.5     213500\n 8     15.5     191500\n 9     15.8     236500\n10     16.8     189000\n# … with 2,920 more rows\n\n\nWe can also pull out the value of the estimated \\(\\lambda\\) by using the tidy() method on the recipe step.\n\nboxcox_rec %>%\n  tidy(1)\n\n# A tibble: 1 × 3\n  terms    value id          \n  <chr>    <dbl> <chr>       \n1 Lot_Area 0.129 BoxCox_3gJXR"
-  },
-  {
-    "objectID": "numeric-boxcox.html#python-examples",
-    "href": "numeric-boxcox.html#python-examples",
-    "title": "6  Box-Cox",
+    "title": "6  Square Root",
     "section": "6.3 Python Examples",
     "text": "6.3 Python Examples"
   },
   {
-    "objectID": "numeric-yeojohnson.html#pros-and-cons",
-    "href": "numeric-yeojohnson.html#pros-and-cons",
-    "title": "7  Yeo-Johnson",
+    "objectID": "numeric-boxcox.html#pros-and-cons",
+    "href": "numeric-boxcox.html#pros-and-cons",
+    "title": "7  Box-Cox",
     "section": "7.1 Pros and Cons",
-    "text": "7.1 Pros and Cons\n\n7.1.1 Pros\n\nMore flexible than individually chosen power transformations such as logarithms and square roots\nCan handle negative values\n\n\n\n7.1.2 Cons\n\nIsn’t a universal fix"
+    "text": "7.1 Pros and Cons\n\n7.1.1 Pros\n\nMore flexible than individually chosen power transformations such as logarithms and square roots\n\n\n\n7.1.2 Cons\n\nDoesn’t work with negative values\nIsn’t a universal fix"
   },
   {
-    "objectID": "numeric-yeojohnson.html#r-examples",
-    "href": "numeric-yeojohnson.html#r-examples",
-    "title": "7  Yeo-Johnson",
+    "objectID": "numeric-boxcox.html#r-examples",
+    "href": "numeric-boxcox.html#r-examples",
+    "title": "7  Box-Cox",
     "section": "7.2 R Examples",
-    "text": "7.2 R Examples\nWe will be using the ames data set for these examples.\n\nlibrary(recipes)\nlibrary(modeldata)\ndata(\"ames\")\n\names %>%\n  select(Lot_Area, Wood_Deck_SF, Sale_Price)\n\n# A tibble: 2,930 × 3\n   Lot_Area Wood_Deck_SF Sale_Price\n      <int>        <int>      <int>\n 1    31770          210     215000\n 2    11622          140     105000\n 3    14267          393     172000\n 4    11160            0     244000\n 5    13830          212     189900\n 6     9978          360     195500\n 7     4920            0     213500\n 8     5005            0     191500\n 9     5389          237     236500\n10     7500          140     189000\n# … with 2,920 more rows\n\n\n{recipes} provides a step to perform Yeo-Johnson transformations, which out of the box uses \\(e\\) as the base with an offset of 0.\n\nyeojohnson_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) %>%\n  step_YeoJohnson(Lot_Area) %>%\n  prep()\n\nyeojohnson_rec %>%\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Lot_Area Sale_Price\n      <dbl>      <int>\n 1     21.8     215000\n 2     18.2     105000\n 3     18.9     172000\n 4     18.1     244000\n 5     18.8     189900\n 6     17.7     195500\n 7     15.5     213500\n 8     15.5     191500\n 9     15.8     236500\n10     16.8     189000\n# … with 2,920 more rows\n\n\nWe can also pull out the value of the estimated \\(\\lambda\\) by using the tidy() method on the recipe step.\n\nyeojohnson_rec %>%\n  tidy(1)\n\n# A tibble: 1 × 3\n  terms    value id              \n  <chr>    <dbl> <chr>           \n1 Lot_Area 0.129 YeoJohnson_3gJXR"
+    "text": "7.2 R Examples\nWe will be using the ames data set for these examples.\n\nlibrary(recipes)\nlibrary(modeldata)\ndata(\"ames\")\n\names %>%\n  select(Lot_Area, Wood_Deck_SF, Sale_Price)\n\n# A tibble: 2,930 × 3\n   Lot_Area Wood_Deck_SF Sale_Price\n      <int>        <int>      <int>\n 1    31770          210     215000\n 2    11622          140     105000\n 3    14267          393     172000\n 4    11160            0     244000\n 5    13830          212     189900\n 6     9978          360     195500\n 7     4920            0     213500\n 8     5005            0     191500\n 9     5389          237     236500\n10     7500          140     189000\n# … with 2,920 more rows\n\n\n{recipes} provides a step to perform Box-Cox transformations, which out of the box uses \\(e\\) as the base with an offset of 0.\n\nboxcox_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) %>%\n  step_BoxCox(Lot_Area) %>%\n  prep()\n\nboxcox_rec %>%\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Lot_Area Sale_Price\n      <dbl>      <int>\n 1     21.8     215000\n 2     18.2     105000\n 3     18.9     172000\n 4     18.1     244000\n 5     18.8     189900\n 6     17.7     195500\n 7     15.5     213500\n 8     15.5     191500\n 9     15.8     236500\n10     16.8     189000\n# … with 2,920 more rows\n\n\nWe can also pull out the value of the estimated \\(\\lambda\\) by using the tidy() method on the recipe step.\n\nboxcox_rec %>%\n  tidy(1)\n\n# A tibble: 1 × 3\n  terms    value id          \n  <chr>    <dbl> <chr>       \n1 Lot_Area 0.129 BoxCox_3gJXR"
   },
   {
-    "objectID": "numeric-yeojohnson.html#python-examples",
-    "href": "numeric-yeojohnson.html#python-examples",
-    "title": "7  Yeo-Johnson",
+    "objectID": "numeric-boxcox.html#python-examples",
+    "href": "numeric-boxcox.html#python-examples",
+    "title": "7  Box-Cox",
     "section": "7.3 Python Examples",
     "text": "7.3 Python Examples"
   },
   {
+    "objectID": "numeric-yeojohnson.html#pros-and-cons",
+    "href": "numeric-yeojohnson.html#pros-and-cons",
+    "title": "8  Yeo-Johnson",
+    "section": "8.1 Pros and Cons",
+    "text": "8.1 Pros and Cons\n\n8.1.1 Pros\n\nMore flexible than individually chosen power transformations such as logarithms and square roots\nCan handle negative values\n\n\n\n8.1.2 Cons\n\nIsn’t a universal fix"
+  },
+  {
+    "objectID": "numeric-yeojohnson.html#r-examples",
+    "href": "numeric-yeojohnson.html#r-examples",
+    "title": "8  Yeo-Johnson",
+    "section": "8.2 R Examples",
+    "text": "8.2 R Examples\nWe will be using the ames data set for these examples.\n\nlibrary(recipes)\nlibrary(modeldata)\ndata(\"ames\")\n\names %>%\n  select(Lot_Area, Wood_Deck_SF, Sale_Price)\n\n# A tibble: 2,930 × 3\n   Lot_Area Wood_Deck_SF Sale_Price\n      <int>        <int>      <int>\n 1    31770          210     215000\n 2    11622          140     105000\n 3    14267          393     172000\n 4    11160            0     244000\n 5    13830          212     189900\n 6     9978          360     195500\n 7     4920            0     213500\n 8     5005            0     191500\n 9     5389          237     236500\n10     7500          140     189000\n# … with 2,920 more rows\n\n\n{recipes} provides a step to perform Yeo-Johnson transformations, which out of the box uses \\(e\\) as the base with an offset of 0.\n\nyeojohnson_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) %>%\n  step_YeoJohnson(Lot_Area) %>%\n  prep()\n\nyeojohnson_rec %>%\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Lot_Area Sale_Price\n      <dbl>      <int>\n 1     21.8     215000\n 2     18.2     105000\n 3     18.9     172000\n 4     18.1     244000\n 5     18.8     189900\n 6     17.7     195500\n 7     15.5     213500\n 8     15.5     191500\n 9     15.8     236500\n10     16.8     189000\n# … with 2,920 more rows\n\n\nWe can also pull out the value of the estimated \\(\\lambda\\) by using the tidy() method on the recipe step.\n\nyeojohnson_rec %>%\n  tidy(1)\n\n# A tibble: 1 × 3\n  terms    value id              \n  <chr>    <dbl> <chr>           \n1 Lot_Area 0.129 YeoJohnson_3gJXR"
+  },
+  {
+    "objectID": "numeric-yeojohnson.html#python-examples",
+    "href": "numeric-yeojohnson.html#python-examples",
+    "title": "8  Yeo-Johnson",
+    "section": "8.3 Python Examples",
+    "text": "8.3 Python Examples"
+  },
+  {
     "objectID": "numeric-normalization.html",
     "href": "numeric-normalization.html",
-    "title": "8  Normalization",
+    "title": "9  Normalization",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "numeric-range.html",
     "href": "numeric-range.html",
-    "title": "9  Range",
+    "title": "10  Range",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "numeric-minabs.html",
     "href": "numeric-minabs.html",
-    "title": "10  MinAbs",
+    "title": "11  MinAbs",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "numeric-robust.html",
     "href": "numeric-robust.html",
-    "title": "11  Robust Scaling",
+    "title": "12  Robust Scaling",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "numeric-splines.html",
     "href": "numeric-splines.html",
-    "title": "12  Splines",
+    "title": "13  Splines",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "numeric-polynomial.html",
     "href": "numeric-polynomial.html",
-    "title": "13  Polynomial",
+    "title": "14  Polynomial",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical.html",
     "href": "categorical.html",
-    "title": "Categorical Features",
+    "title": "15  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-dummy.html",
     "href": "categorical-dummy.html",
-    "title": "14  Dummy Encoding",
+    "title": "16  Dummy Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-label.html",
     "href": "categorical-label.html",
-    "title": "15  Label Encoding",
+    "title": "17  Label Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-binary.html",
     "href": "categorical-binary.html",
-    "title": "16  Binary Encoding",
+    "title": "18  Binary Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-ordinal.html",
     "href": "categorical-ordinal.html",
-    "title": "17  Ordinal Encoding",
+    "title": "19  Ordinal Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-frequency.html",
     "href": "categorical-frequency.html",
-    "title": "18  Frequency Encoding",
+    "title": "20  Frequency Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-helmert.html",
     "href": "categorical-helmert.html",
-    "title": "19  Helmert Encoding",
+    "title": "21  Helmert Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-difference.html",
     "href": "categorical-difference.html",
-    "title": "20  Difference Encoding",
+    "title": "22  Difference Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-target.html",
     "href": "categorical-target.html",
-    "title": "21  Target Encoding",
+    "title": "23  Target Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-impact.html",
     "href": "categorical-impact.html",
-    "title": "22  Impact Encoding",
+    "title": "24  Impact Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-polynomial.html",
     "href": "categorical-polynomial.html",
-    "title": "23  Polynomial Encoding",
+    "title": "25  Polynomial Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-sum.html",
     "href": "categorical-sum.html",
-    "title": "24  Sum Encoding",
+    "title": "26  Sum Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-hashing.html",
     "href": "categorical-hashing.html",
-    "title": "25  Hashing Encoding",
+    "title": "27  Hashing Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-leaveoneout.html",
     "href": "categorical-leaveoneout.html",
-    "title": "26  Leave One Out Encoding",
+    "title": "28  Leave One Out Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-leaf.html",
     "href": "categorical-leaf.html",
-    "title": "27  Leaf Encoding",
+    "title": "29  Leaf Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-glmm.html",
     "href": "categorical-glmm.html",
-    "title": "28  GLMM Encoding",
+    "title": "30  GLMM Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-randomforest.html",
     "href": "categorical-randomforest.html",
-    "title": "29  Random Forest Encoding",
+    "title": "31  Random Forest Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-catboost.html",
     "href": "categorical-catboost.html",
-    "title": "30  Catboost Encoding",
+    "title": "32  Catboost Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-woe.html",
     "href": "categorical-woe.html",
-    "title": "31  Weight of Evidence Encoding",
+    "title": "33  Weight of Evidence Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-jamesstein.html",
     "href": "categorical-jamesstein.html",
-    "title": "32  James-Stein Encoding",
+    "title": "34  James-Stein Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-mestimator.html",
     "href": "categorical-mestimator.html",
-    "title": "33  M-Estimator Encoding",
+    "title": "35  M-Estimator Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-thermometer.html",
     "href": "categorical-thermometer.html",
-    "title": "34  Thermometer Encoding",
+    "title": "36  Thermometer Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-quantile.html",
     "href": "categorical-quantile.html",
-    "title": "35  Quantile Encoding",
+    "title": "37  Quantile Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-summary.html",
     "href": "categorical-summary.html",
-    "title": "36  Summary Encoding",
+    "title": "38  Summary Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-collapse.html",
     "href": "categorical-collapse.html",
-    "title": "37  Collapsing Categories",
+    "title": "39  Collapsing Categories",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-multi-dummy.html",
     "href": "categorical-multi-dummy.html",
-    "title": "38  Multi-Dummy encoding",
+    "title": "40  Multi-Dummy encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "imbalenced.html",
     "href": "imbalenced.html",
-    "title": "Imbalanced Data",
+    "title": "41  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "imbalenced-smote.html",
     "href": "imbalenced-smote.html",
-    "title": "39  SMOTE",
+    "title": "42  SMOTE",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "missing.html",
     "href": "missing.html",
-    "title": "Missing Data",
+    "title": "43  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "missing-imputation.html",
     "href": "missing-imputation.html",
-    "title": "40  Imputation",
+    "title": "44  Imputation",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "too-many.html",
     "href": "too-many.html",
-    "title": "Too Many Variables",
+    "title": "45  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "too-many-pca.html",
     "href": "too-many-pca.html",
-    "title": "41  Principal Component Analysis",
+    "title": "46  Principal Component Analysis",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "outliers.html",
     "href": "outliers.html",
-    "title": "Outliers",
+    "title": "47  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "outliers-remove.html",
     "href": "outliers-remove.html",
-    "title": "42  Removal",
+    "title": "48  Removal",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "datetime.html",
     "href": "datetime.html",
-    "title": "Datetime Variables",
+    "title": "49  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "datetime-holiday.html",
     "href": "datetime-holiday.html",
-    "title": "43  Holidays",
+    "title": "50  Holidays",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "text.html",
     "href": "text.html",
-    "title": "Text Variables",
+    "title": "51  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "text-tfidf.html",
     "href": "text-tfidf.html",
-    "title": "44  TF-IDF",
+    "title": "52  TF-IDF",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "image.html",
     "href": "image.html",
-    "title": "Image Data",
+    "title": "53  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "image-stats.html",
     "href": "image-stats.html",
-    "title": "45  Visual Features",
+    "title": "54  Visual Features",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "circular.html",
     "href": "circular.html",
-    "title": "Circular Data",
+    "title": "55  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "circular-trig.html",
     "href": "circular-trig.html",
-    "title": "46  Trigonometric",
+    "title": "56  Trigonometric",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "time-series.html",
     "href": "time-series.html",
-    "title": "Time-Series Data",
+    "title": "57  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "time-series-fourier.html",
     "href": "time-series-fourier.html",
-    "title": "47  Fourier Features",
+    "title": "58  Fourier Features",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "correlated.html",
     "href": "correlated.html",
-    "title": "Correlated Data",
+    "title": "59  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "correlated-filter.html",
     "href": "correlated-filter.html",
-    "title": "48  High Correlation Filter",
+    "title": "60  High Correlation Filter",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "miscellaneous.html",
     "href": "miscellaneous.html",
-    "title": "Miscellaneous tricks",
+    "title": "61  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "miscellaneous-zipcodes.html",
     "href": "miscellaneous-zipcodes.html",
-    "title": "49  Zip Codes",
+    "title": "62  Zip Codes",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "video.html",
     "href": "video.html",
-    "title": "Video Data",
+    "title": "63  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "video-tmp.html",
     "href": "video-tmp.html",
-    "title": "50  Temporary",
+    "title": "64  Temporary",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "sound.html",
     "href": "sound.html",
-    "title": "Sound Data",
+    "title": "65  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "sound-tmp.html",
     "href": "sound-tmp.html",
-    "title": "51  Temporary",
+    "title": "66  Temporary",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "order.html",
     "href": "order.html",
-    "title": "52  Order of transformations",
+    "title": "67  Order of transformations",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "sparse.html",
     "href": "sparse.html",
-    "title": "53  What should you do if you have sparse data?",
+    "title": "68  What should you do if you have sparse data?",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "models.html",
     "href": "models.html",
-    "title": "54  How Different Models Deal With Input",
+    "title": "69  How Different Models Deal With Input",
     "section": "",
     "text": "WIP"
   },
@@ -611,7 +611,7 @@
   {
     "objectID": "summary.html",
     "href": "summary.html",
-    "title": "55  Summary",
+    "title": "70  Summary",
     "section": "",
     "text": "WIP"
   },
