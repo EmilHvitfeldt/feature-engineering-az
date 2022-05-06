@@ -11,8 +11,9 @@ book:
     - motivation.qmd
     - modeling.qmd
     - how-to-deal-with.qmd
-    - part: numeric.qmd
+    - part: "Numeric Features"
       chapters:
+        - numeric.qmd
         - numeric-logarithms.qmd
         - numeric-sqrt.qmd
         - numeric-boxcox.qmd
@@ -23,8 +24,9 @@ book:
         - numeric-robust.qmd
         - numeric-splines.qmd
         - numeric-polynomial.qmd
-    - part: categorical.qmd
+    - part: "Categorical Features"
       chapters:
+        - categorical.qmd
         - categorical-dummy.qmd
         - categorical-label.qmd
         - categorical-binary.qmd
@@ -50,44 +52,57 @@ book:
         - categorical-summary.qmd
         - categorical-collapse.qmd
         - categorical-multi-dummy.qmd
-    - part: imbalenced.qmd
+    - part: "Imbalanced Data"
       chapters:
+        - imbalenced.qmd
         - imbalenced-smote.qmd
-    - part: missing.qmd
+    - part: "Missing Data"
       chapters:
+        - missing.qmd
         - missing-imputation.qmd
-    - part: too-many.qmd
+    - part: "Too Many Variables"
       chapters:
+        - too-many.qmd
         - too-many-pca.qmd
-    - part: outliers.qmd
+    - part: "Outliers"
       chapters:
+        - outliers.qmd
         - outliers-remove.qmd
-    - part: datetime.qmd
+    - part: "Datetime Features"
       chapters:
+        - datetime.qmd
         - datetime-holiday.qmd
-    - part: text.qmd
+    - part: "Text Features"
       chapters:
+        - text.qmd
         - text-tfidf.qmd
-    - part: image.qmd
+    - part: "Image Features"
       chapters:
+        - image.qmd
         - image-stats.qmd
-    - part: circular.qmd
+    - part: "Circular Features"
       chapters:
+        - circular.qmd
         - circular-trig.qmd
-    - part: time-series.qmd
+    - part: "Time-Series Data"
       chapters:
+        - time-series.qmd
         - time-series-fourier.qmd
-    - part: correlated.qmd
+    - part: "Correlated Data"
       chapters:
+        - correlated.qmd
         - correlated-filter.qmd
-    - part: miscellaneous.qmd
+    - part: "Miscellaneous"
       chapters:
+        - miscellaneous.qmd
         - miscellaneous-zipcodes.qmd
-    - part: video.qmd
+    - part: "Video Data"
       chapters:
+        - video.qmd
         - video-tmp.qmd
-    - part: sound.qmd
+    - part: "Sound Data"
       chapters:
+        - sound.qmd
         - sound-tmp.qmd
     - order.qmd
     - sparse.qmd
