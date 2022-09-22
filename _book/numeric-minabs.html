@@ -1,66 +1,77 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-  <meta charset="utf-8">
-  <meta name="generator" content="quarto-99.9.9">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Feature Engineering A-Z - 11&nbsp; MinAbs</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-  </style>
 
-  <script src="site_libs/quarto-nav/quarto-nav.js"></script>
-  <script src="site_libs/quarto-nav/headroom.min.js"></script>
-  <script src="site_libs/clipboard/clipboard.min.js"></script>
-  <meta name="quarto:offset" content="./">
-  <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-  <script src="site_libs/quarto-search/fuse.min.js"></script>
-  <script src="site_libs/quarto-search/quarto-search.js"></script>
-  <link href="./numeric-robust.html" rel="next">
-  <link href="./numeric-range.html" rel="prev">
-  <script src="site_libs/quarto-html/quarto.js"></script>
-  <script src="site_libs/quarto-html/popper.min.js"></script>
-  <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-  <script src="site_libs/quarto-html/anchor.min.js"></script>
-  <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-  <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
-  <script src="site_libs/bootstrap/bootstrap.min.js"></script>
-  <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-  <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
-  <script id="quarto-search-options" type="application/json">{
-    "location": "sidebar",
-    "copy-button": false,
-    "collapse-after": 2,
-    "panel-placement": "start",
-    "type": "textbox",
-    "limit": 20,
-    "language": {
-      "search-no-results-text": "No results",
-      "search-matching-documents-text": "matching documents",
-      "search-copy-link-title": "Copy link to search",
-      "search-hide-matches-text": "Hide additional matches",
-      "search-more-match-text": "more match in this document",
-      "search-more-matches-text": "more matches in this document",
-      "search-clear-button-title": "Clear",
-      "search-detached-cancel-button-title": "Cancel",
-      "search-submit-button-title": "Submit"
-    }
-  }</script>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Feature Engineering A-Z - 11&nbsp; MinAbs</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./numeric-robust.html" rel="next">
+<link href="./numeric-range.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
 </head>
-<body class="floating fullcontent">
+
+<body class="nav-sidebar floating">
+
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
       <h1 class="quarto-secondary-nav-title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">MinAbs</span></h1>
-      <button type="button" class="quarto-btn-toggle btn">
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
     </div>
@@ -84,535 +95,570 @@
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text ">Preface</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./introduction.html" class="sidebar-item-text "><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  <a href="./introduction.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./motivation.html" class="sidebar-item-text "><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Motivation</span></a>
+  <a href="./motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Motivation</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./modeling.html" class="sidebar-item-text "><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Where does feature engineering fit into the modeling workflow?</span></a>
+  <a href="./modeling.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Where does feature engineering fit into the modeling workflow?</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./how-to-deal-with.html" class="sidebar-item-text ">How to Deal With …</a>
+  <a href="./how-to-deal-with.html" class="sidebar-item-text sidebar-link">How to Deal With …</a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-numeric-features" aria-expanded="true">Numeric Features</a>
-      <a class="sidebar-item-toggle text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-numeric-features" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-numeric-features" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Numeric Features</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./numeric.html" class="sidebar-item-text "><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Overview</span></a>
+  <a href="./numeric.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Overview</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./numeric-logarithms.html" class="sidebar-item-text "><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Logarithms</span></a>
+  <a href="./numeric-logarithms.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Logarithms</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./numeric-sqrt.html" class="sidebar-item-text "><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Square Root</span></a>
+  <a href="./numeric-sqrt.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Square Root</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./numeric-boxcox.html" class="sidebar-item-text "><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Box-Cox</span></a>
+  <a href="./numeric-boxcox.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Box-Cox</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./numeric-yeojohnson.html" class="sidebar-item-text "><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Yeo-Johnson</span></a>
+  <a href="./numeric-yeojohnson.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Yeo-Johnson</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./numeric-normalization.html" class="sidebar-item-text "><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Normalization</span></a>
+  <a href="./numeric-normalization.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Normalization</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./numeric-range.html" class="sidebar-item-text "><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Range</span></a>
+  <a href="./numeric-range.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Range</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./numeric-minabs.html" class="sidebar-item-text active"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">MinAbs</span></a>
+  <a href="./numeric-minabs.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">MinAbs</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./numeric-robust.html" class="sidebar-item-text "><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Robust Scaling</span></a>
+  <a href="./numeric-robust.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Robust Scaling</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./numeric-splines.html" class="sidebar-item-text "><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Splines</span></a>
+  <a href="./numeric-splines.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Splines</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./numeric-polynomial.html" class="sidebar-item-text "><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Polynomial</span></a>
+  <a href="./numeric-polynomial.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Polynomial</span></a>
   </div>
 </li>
-    </ul>
+      </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-categorical-features" aria-expanded="true">Categorical Features</a>
-      <a class="sidebar-item-toggle text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-categorical-features" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-categorical-features" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Categorical Features</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical.html" class="sidebar-item-text "><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Overview</span></a>
+  <a href="./categorical.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Overview</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-dummy.html" class="sidebar-item-text "><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Dummy Encoding</span></a>
+  <a href="./categorical-dummy.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Dummy Encoding</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-label.html" class="sidebar-item-text "><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Label Encoding</span></a>
+  <a href="./categorical-label.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Label Encoding</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-binary.html" class="sidebar-item-text "><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Binary Encoding</span></a>
+  <a href="./categorical-binary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Binary Encoding</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-ordinal.html" class="sidebar-item-text "><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Ordinal Encoding</span></a>
+  <a href="./categorical-ordinal.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Ordinal Encoding</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-frequency.html" class="sidebar-item-text "><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Frequency Encoding</span></a>
+  <a href="./categorical-frequency.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Frequency Encoding</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-helmert.html" class="sidebar-item-text "><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Helmert Encoding</span></a>
+  <a href="./categorical-helmert.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Helmert Encoding</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-difference.html" class="sidebar-item-text "><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Difference Encoding</span></a>
+  <a href="./categorical-difference.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Difference Encoding</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-target.html" class="sidebar-item-text "><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Target Encoding</span></a>
+  <a href="./categorical-target.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Target Encoding</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-impact.html" class="sidebar-item-text "><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Impact Encoding</span></a>
+  <a href="./categorical-impact.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Impact Encoding</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-polynomial.html" class="sidebar-item-text "><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Polynomial Encoding</span></a>
+  <a href="./categorical-polynomial.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Polynomial Encoding</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-sum.html" class="sidebar-item-text "><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Sum Encoding</span></a>
+  <a href="./categorical-sum.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Sum Encoding</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-hashing.html" class="sidebar-item-text "><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Hashing Encoding</span></a>
+  <a href="./categorical-hashing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Hashing Encoding</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-leaveoneout.html" class="sidebar-item-text "><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Leave One Out Encoding</span></a>
+  <a href="./categorical-leaveoneout.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Leave One Out Encoding</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-leaf.html" class="sidebar-item-text "><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Leaf Encoding</span></a>
+  <a href="./categorical-leaf.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Leaf Encoding</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-glmm.html" class="sidebar-item-text "><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">GLMM Encoding</span></a>
+  <a href="./categorical-glmm.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">GLMM Encoding</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-randomforest.html" class="sidebar-item-text "><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Random Forest Encoding</span></a>
+  <a href="./categorical-randomforest.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Random Forest Encoding</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-catboost.html" class="sidebar-item-text "><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Catboost Encoding</span></a>
+  <a href="./categorical-catboost.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Catboost Encoding</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-woe.html" class="sidebar-item-text "><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Weight of Evidence Encoding</span></a>
+  <a href="./categorical-woe.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Weight of Evidence Encoding</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-jamesstein.html" class="sidebar-item-text "><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">James-Stein Encoding</span></a>
+  <a href="./categorical-jamesstein.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">James-Stein Encoding</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-mestimator.html" class="sidebar-item-text "><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">M-Estimator Encoding</span></a>
+  <a href="./categorical-mestimator.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">M-Estimator Encoding</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-thermometer.html" class="sidebar-item-text "><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Thermometer Encoding</span></a>
+  <a href="./categorical-thermometer.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Thermometer Encoding</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-quantile.html" class="sidebar-item-text "><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Quantile Encoding</span></a>
+  <a href="./categorical-quantile.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Quantile Encoding</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-summary.html" class="sidebar-item-text "><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Summary Encoding</span></a>
+  <a href="./categorical-summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Summary Encoding</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-collapse.html" class="sidebar-item-text "><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Collapsing Categories</span></a>
+  <a href="./categorical-collapse.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Collapsing Categories</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-multi-dummy.html" class="sidebar-item-text "><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Multi-Dummy encoding</span></a>
+  <a href="./categorical-multi-dummy.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Multi-Dummy encoding</span></a>
   </div>
 </li>
-    </ul>
+      </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-imbalanced-data" aria-expanded="true">Imbalanced Data</a>
-      <a class="sidebar-item-toggle text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-imbalanced-data" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-imbalanced-data" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Imbalanced Data</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./imbalenced.html" class="sidebar-item-text "><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Overview</span></a>
+  <a href="./imbalenced.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Overview</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./imbalenced-smote.html" class="sidebar-item-text "><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">SMOTE</span></a>
+  <a href="./imbalenced-smote.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">SMOTE</span></a>
   </div>
 </li>
-    </ul>
+      </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-missing-data" aria-expanded="true">Missing Data</a>
-      <a class="sidebar-item-toggle text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-missing-data" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-missing-data" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Missing Data</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./missing.html" class="sidebar-item-text "><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Overview</span></a>
+  <a href="./missing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Overview</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./missing-imputation.html" class="sidebar-item-text "><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Imputation</span></a>
+  <a href="./missing-imputation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Imputation</span></a>
   </div>
 </li>
-    </ul>
+      </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-too-many-variables" aria-expanded="true">Too Many Variables</a>
-      <a class="sidebar-item-toggle text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-too-many-variables" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-too-many-variables" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">Too Many Variables</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./too-many.html" class="sidebar-item-text "><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Overview</span></a>
+  <a href="./too-many.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Overview</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./too-many-pca.html" class="sidebar-item-text "><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Principal Component Analysis</span></a>
+  <a href="./too-many-pca.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Principal Component Analysis</span></a>
   </div>
 </li>
-    </ul>
+      </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-outliers" aria-expanded="true">Outliers</a>
-      <a class="sidebar-item-toggle text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-outliers" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-outliers" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">Outliers</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./outliers.html" class="sidebar-item-text "><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Overview</span></a>
+  <a href="./outliers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Overview</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./outliers-remove.html" class="sidebar-item-text "><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Removal</span></a>
+  <a href="./outliers-remove.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Removal</span></a>
   </div>
 </li>
-    </ul>
+      </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-datetime-features" aria-expanded="true">Datetime Features</a>
-      <a class="sidebar-item-toggle text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-datetime-features" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-datetime-features" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">Datetime Features</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./datetime.html" class="sidebar-item-text "><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">Overview</span></a>
+  <a href="./datetime.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">Overview</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./datetime-holiday.html" class="sidebar-item-text "><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Holidays</span></a>
+  <a href="./datetime-holiday.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Holidays</span></a>
   </div>
 </li>
-    </ul>
+      </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-text-features" aria-expanded="true">Text Features</a>
-      <a class="sidebar-item-toggle text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-text-features" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-text-features" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">Text Features</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./text.html" class="sidebar-item-text "><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">Overview</span></a>
+  <a href="./text.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">Overview</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./text-tfidf.html" class="sidebar-item-text "><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">TF-IDF</span></a>
+  <a href="./text-tfidf.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">TF-IDF</span></a>
   </div>
 </li>
-    </ul>
+      </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-image-features" aria-expanded="true">Image Features</a>
-      <a class="sidebar-item-toggle text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-image-features" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-image-features" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">Image Features</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./image.html" class="sidebar-item-text "><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Overview</span></a>
+  <a href="./image.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Overview</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./image-stats.html" class="sidebar-item-text "><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">Visual Features</span></a>
+  <a href="./image-stats.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">Visual Features</span></a>
   </div>
 </li>
-    </ul>
+      </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-circular-features" aria-expanded="true">Circular Features</a>
-      <a class="sidebar-item-toggle text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-circular-features" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-circular-features" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true">Circular Features</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./circular.html" class="sidebar-item-text "><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Overview</span></a>
+  <a href="./circular.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Overview</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./circular-trig.html" class="sidebar-item-text "><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">Trigonometric</span></a>
+  <a href="./circular-trig.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">Trigonometric</span></a>
   </div>
 </li>
-    </ul>
+      </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-time-series-data" aria-expanded="true">Time-Series Data</a>
-      <a class="sidebar-item-toggle text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-time-series-data" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-time-series-data" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true">Time-Series Data</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./time-series.html" class="sidebar-item-text "><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Overview</span></a>
+  <a href="./time-series.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Overview</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./time-series-fourier.html" class="sidebar-item-text "><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Fourier Features</span></a>
+  <a href="./time-series-fourier.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Fourier Features</span></a>
   </div>
 </li>
-    </ul>
+      </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-correlated-data" aria-expanded="true">Correlated Data</a>
-      <a class="sidebar-item-toggle text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-correlated-data" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-correlated-data" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true">Correlated Data</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./correlated.html" class="sidebar-item-text "><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">Overview</span></a>
+  <a href="./correlated.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">Overview</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./correlated-filter.html" class="sidebar-item-text "><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">High Correlation Filter</span></a>
+  <a href="./correlated-filter.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">High Correlation Filter</span></a>
   </div>
 </li>
-    </ul>
+      </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-miscellaneous" aria-expanded="true">Miscellaneous</a>
-      <a class="sidebar-item-toggle text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-miscellaneous" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-miscellaneous" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true">Miscellaneous</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./miscellaneous.html" class="sidebar-item-text "><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">Overview</span></a>
+  <a href="./miscellaneous.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">Overview</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./miscellaneous-zipcodes.html" class="sidebar-item-text "><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">Zip Codes</span></a>
+  <a href="./miscellaneous-zipcodes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">Zip Codes</span></a>
   </div>
 </li>
-    </ul>
+      </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-video-data" aria-expanded="true">Video Data</a>
-      <a class="sidebar-item-toggle text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-video-data" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-video-data" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="true">Video Data</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./video.html" class="sidebar-item-text "><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">Overview</span></a>
+  <a href="./video.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">Overview</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./video-tmp.html" class="sidebar-item-text "><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">Temporary</span></a>
+  <a href="./video-tmp.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">Temporary</span></a>
   </div>
 </li>
-    </ul>
+      </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-sound-data" aria-expanded="true">Sound Data</a>
-      <a class="sidebar-item-toggle text-start  " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-sound-data" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-sound-data" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="true">Sound Data</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sound.html" class="sidebar-item-text "><span class="chapter-number">65</span>&nbsp; <span class="chapter-title">Overview</span></a>
+  <a href="./sound.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">65</span>&nbsp; <span class="chapter-title">Overview</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sound-tmp.html" class="sidebar-item-text "><span class="chapter-number">66</span>&nbsp; <span class="chapter-title">Temporary</span></a>
+  <a href="./sound-tmp.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">66</span>&nbsp; <span class="chapter-title">Temporary</span></a>
   </div>
 </li>
-    </ul>
+      </ul>
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./order.html" class="sidebar-item-text "><span class="chapter-number">67</span>&nbsp; <span class="chapter-title">Order of transformations</span></a>
+  <a href="./order.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">67</span>&nbsp; <span class="chapter-title">Order of transformations</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sparse.html" class="sidebar-item-text "><span class="chapter-number">68</span>&nbsp; <span class="chapter-title">What should you do if you have sparse data?</span></a>
+  <a href="./sparse.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title">What should you do if you have sparse data?</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./models.html" class="sidebar-item-text "><span class="chapter-number">69</span>&nbsp; <span class="chapter-title">How Different Models Deal With Input</span></a>
+  <a href="./models.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">69</span>&nbsp; <span class="chapter-title">How Different Models Deal With Input</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./summary.html" class="sidebar-item-text "><span class="chapter-number">70</span>&nbsp; <span class="chapter-title">Summary</span></a>
+  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">70</span>&nbsp; <span class="chapter-title">Summary</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text ">References</a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
   </div>
 </li>
     </ul>
     </div>
 </nav>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
 <!-- main -->
-<main class="content">
-<header id="title-block-header">
-<h1 class="title d-none d-lg-block display-7"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">MinAbs</span></h1>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">MinAbs</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
 </header>
+
 <p>WIP</p>
 
 
+
 </main> <!-- /main -->
-<script type="application/javascript">
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -632,7 +678,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.blur();
     // flash "checked"
     button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
     setTimeout(function() {
+      button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
     // clear code selection
@@ -659,7 +708,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
@@ -689,17 +739,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./numeric-range.html">
+      <a href="./numeric-range.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Range</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./numeric-robust.html">
+      <a href="./numeric-robust.html" class="pagination-link">
         <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Robust Scaling</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
+
 
 
 </body></html>

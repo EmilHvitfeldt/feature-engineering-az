@@ -4,35 +4,7 @@
     "href": "index.html",
     "title": "Feature Engineering A-Z",
     "section": "",
-    "text": "Preface\nWelcome to “Feature Engineering A-Z”! This book is written to be used as a reference guide to the different techniques. This is reflected in the chapter structure. Any question a practitioner is having should be answered by looking at the index and finding the right chapter.\nEach section tries to be as comprehensive as possible with the number of different methods/solutions that are presented. A section on dimensionality reduction should list all the practical methods that could be used, as well as a comparison between the methods to help the reader decide what would be most appropriate.\nWhenever possible each method will be accompanied by simple mathematical formulas and visualizations to illustrate the mechanics of the method.\nLastly, each section will include code snippets in showcasing how to implement the methods. Preferable in R and Python, Keras/PyTorch. This book is a methods book first, a coding book second."
-  },
-  {
-    "objectID": "quarto-cli/tests/docs/project/book/index.html#preface",
-    "href": "quarto-cli/tests/docs/project/book/index.html#preface",
-    "title": "—",
-    "section": "Preface",
-    "text": "Preface"
-  },
-  {
-    "objectID": "quarto-cli/tests/docs/project/site/index.html",
-    "href": "quarto-cli/tests/docs/project/site/index.html",
-    "title": "—",
-    "section": "",
-    "text": "Home page"
-  },
-  {
-    "objectID": "quarto-cli/tests/docs/site-navigation/index.html",
-    "href": "quarto-cli/tests/docs/site-navigation/index.html",
-    "title": "site-navigation",
-    "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
-  },
-  {
-    "objectID": "quarto-cli/tests/docs/site-themes/index.html",
-    "href": "quarto-cli/tests/docs/site-themes/index.html",
-    "title": "site-themes",
-    "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+    "text": "Welcome to “Feature Engineering A-Z”! This book is written to be used as a reference guide to the different techniques. This is reflected in the chapter structure. Any question a practitioner is having should be answered by looking at the index and finding the right chapter.\nEach section tries to be as comprehensive as possible with the number of different methods/solutions that are presented. A section on dimensionality reduction should list all the practical methods that could be used, as well as a comparison between the methods to help the reader decide what would be most appropriate.\nWhenever possible each method will be accompanied by simple mathematical formulas and visualizations to illustrate the mechanics of the method.\nLastly, each section will include code snippets in showcasing how to implement the methods. Preferable in R and Python, Keras/PyTorch. This book is a methods book first, a coding book second."
   },
   {
     "objectID": "introduction.html",
@@ -61,6 +33,13 @@
     "title": "How to Deal With …",
     "section": "",
     "text": "WIP"
+  },
+  {
+    "objectID": "numeric.html",
+    "href": "numeric.html",
+    "title": "4  Overview",
+    "section": "",
+    "text": "Data can come in all shapes and sizes, but the most common one is the numeric variable. These are values such as age, height, deficit, price, and quantity. We call these quantitative variables and they are plentiful in most data sets and immediately usable in all statistical and machine learning models. That being said, it doesn’t mean that there are things that wouldn’t help to be done.\nThe following chapters will focus on different methods that follow 1-to-1 or 1-to-more transformations. These methods will mostly be applied one at a time to each variable. Methods that take many variables and return fewer variables such as dimensionality reduction methods which will be covered in Chapter 45.\nWhen we are working with a single variable at a time, there is a handful of problems we can run into. Identifying the problem and how each of the following methods tries to remedy the said problem is key to getting the most out of numeric variables.\nThe 4 main types of problems we deal with when working with individual numeric variables are:"
   },
   {
     "objectID": "numeric.html#distributional-problems",
@@ -98,6 +77,13 @@
     "text": "4.5 Other\nThere are any number of transformations we can apply to numeric data, other functions include:\n\nhyperbolic\nRelu\ninverse\ninverse logit\nlogit"
   },
   {
+    "objectID": "numeric-logarithms.html",
+    "href": "numeric-logarithms.html",
+    "title": "5  Logarithms",
+    "section": "",
+    "text": "Logarithms come as a tool to deal with highly skewed data. Consider the histogram below, it depicts the lot area for all the houses in the ames data set. It is highly skewed with the majority of areas being less than 10,000 with a handful greater than 50,000 with one over 200,000.\nThis data could cause some problems if we tried to use this variable in its unfinished state. We need to think about how numeric variables are being used in these models. Take a linear regression as an example. It fits under the assumption that there is a linear relationship between the response and the predictors. In other words, the model assumes that a 1000 increase in lot area is going to increase the sale price of the house by the same amount if it occurred to a 5000 lot area house or a 50000 lot area house. This might be a valid scenario for this housing market.Another possibility is that we are seeing diminishing returns, and each increase in lot area is going to cause a smaller increase in predicted sale price.\nThe main identity that is interesting when using logarithms for preprocessing is the multiplicative identity\n\\[\n\\log_{base}(xy) = \\log_{base}(x) + \\log_{base}(y)\n\\]\nThis identity allows us to consider the distances in a specific non-linear way. On the linear scale, we have that the distance between 1 and 2 is the same as 20 to 21 and 10,000 to 10,001. Such a relation is not always what we observe. Consider the relationship between excitement (response) and the number of audience members (predictor) at a concert. Adding a singular audience member is not going to have the same effect for all audience sizes. If we consider \\(y = 1.5\\) then we can look at what happens each time the audience size is increased by 50%. For an initial audience size of 100, the following happens\n\\[\n\\log_{10}(150) = \\log_{10}(100 \\cdot 1.5) = \\log_{10}(100) + \\log_{10}(1.5) \\approx 2 + 0.176\n\\]\nand for an initial audience size of 10,000, we get\n\\[\n\\log_{10}(15,000) = \\log_{10}(10,000 \\cdot 1.5) = \\log_{10}(10,000) + \\log_{10}(1.5) \\approx 4 + 0.176\n\\]\nAnd we see that by using a logarithmic transformation we can translate a multiplicative increase into an additive increase.\nThe logarithmic transformation is perfect for such a scenario. If we take a log2() transformation on our data, then we get a new interpretation of our model. Now each doubling (because we used log2) of the lot area is going to result in the same predicted increase in sale price. We have essentially turned out predictors to work on doublings rather than additions. Below is the same chart as before, but on a logarithmic scale using base 2.\nit is important to note that we are not trying to make the variable normally distributed. What we are trying to accomplish is to remove the skewed nature of the variable.\nThe full equation we use is\n\\[\ny = log_{base}(x + offset)\n\\]\nWhere \\(x\\) is the input, \\(y\\) is the result. The base in and of itself makes a difference, as the choice of base only matters in a multiplicative way. Common choices for bases are \\(e\\), 2, and 10. I find that using a base of 2 yields nice interpretive properties as an increase of 1 in \\(x\\) results in a doubling of \\(y\\).\nOne thing we haven’t touched on yet is that logarithms are only defined for positive input. The offset is introduced to deal with this problem. The offset will default to 0 in most software you will encounter. If you know that your variables contain values from -100 to 10000, you can set offset = 101 to make sure we never take the logarithm of a negative number. A common scenario is non-negative, which contains 0, setting offset = 0.5 helps in that case. The choice of offset you choose does matter a little bit. The offset should generally be smaller than the smallest non-negative value you have, otherwise, you will influence the proportions too much. Below we use an offset of 0.1, and the relationship we get out of this is that distance from 0 to 1, is roughly the same as multiplying by 10.\nOn the other hand, if we set the offset to 0.001, we get that the difference from 0 to 1 is the same as the distance from 1 to 1000, or as the same as multiplying by 1000.\nThe use of logarithms will have different effects on different types of models. Linear models will see a change in transformed variables since we can better model relationships between the response and dependent variable if the transformation leads to a more linear relationship. Tree-based models should in theory not be affected by the use of logarithms, however, some implementations use binning to reduce the number of splitting points for considerations. You will see a change if these bins are based on fixed-width intervals. This is expected to have minimal effect on the final model."
+  },
+  {
     "objectID": "numeric-logarithms.html#pros-and-cons",
     "href": "numeric-logarithms.html#pros-and-cons",
     "title": "5  Logarithms",
@@ -110,6 +96,13 @@
     "title": "5  Logarithms",
     "section": "5.2 R Examples",
     "text": "5.2 R Examples\nWe will be using the ames data set for these examples.\n\names %>%\n  select(Lot_Area, Wood_Deck_SF, Sale_Price)\n\n# A tibble: 2,930 × 3\n   Lot_Area Wood_Deck_SF Sale_Price\n      <int>        <int>      <int>\n 1    31770          210     215000\n 2    11622          140     105000\n 3    14267          393     172000\n 4    11160            0     244000\n 5    13830          212     189900\n 6     9978          360     195500\n 7     4920            0     213500\n 8     5005            0     191500\n 9     5389          237     236500\n10     7500          140     189000\n# … with 2,920 more rows\n\n\n{recipes} provides a step to perform logarithms, which out of the box uses \\(e\\) as the base with an offset of 0.\n\nlog_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) %>%\n  step_log(Lot_Area)\n\nlog_rec %>%\n  prep() %>%\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Lot_Area Sale_Price\n      <dbl>      <int>\n 1    10.4      215000\n 2     9.36     105000\n 3     9.57     172000\n 4     9.32     244000\n 5     9.53     189900\n 6     9.21     195500\n 7     8.50     213500\n 8     8.52     191500\n 9     8.59     236500\n10     8.92     189000\n# … with 2,920 more rows\n\n\nThe base can be changed by setting the base argument.\n\nlog_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) %>%\n  step_log(Lot_Area, base = 2)\n\nlog_rec %>%\n  prep() %>%\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Lot_Area Sale_Price\n      <dbl>      <int>\n 1     15.0     215000\n 2     13.5     105000\n 3     13.8     172000\n 4     13.4     244000\n 5     13.8     189900\n 6     13.3     195500\n 7     12.3     213500\n 8     12.3     191500\n 9     12.4     236500\n10     12.9     189000\n# … with 2,920 more rows\n\n\nIf we have non-positive values, which we do in the Wood_Deck_SF variable because it has quite a lot of zeroes, we get -Inf which isn’t going to work.\n\nlog_rec <- recipe(Sale_Price ~ Wood_Deck_SF, data = ames) %>%\n  step_log(Wood_Deck_SF)\n\nlog_rec %>%\n  prep() %>%\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Wood_Deck_SF Sale_Price\n          <dbl>      <int>\n 1         5.35     215000\n 2         4.94     105000\n 3         5.97     172000\n 4      -Inf        244000\n 5         5.36     189900\n 6         5.89     195500\n 7      -Inf        213500\n 8      -Inf        191500\n 9         5.47     236500\n10         4.94     189000\n# … with 2,920 more rows\n\n\nSetting the offset argument helps us to deal with that problem.\n\nlog_rec <- recipe(Sale_Price ~ Wood_Deck_SF, data = ames) %>%\n  step_log(Wood_Deck_SF, offset = 0.5)\n\nlog_rec %>%\n  prep() %>%\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Wood_Deck_SF Sale_Price\n          <dbl>      <int>\n 1        5.35      215000\n 2        4.95      105000\n 3        5.98      172000\n 4       -0.693     244000\n 5        5.36      189900\n 6        5.89      195500\n 7       -0.693     213500\n 8       -0.693     191500\n 9        5.47      236500\n10        4.95      189000\n# … with 2,920 more rows"
+  },
+  {
+    "objectID": "numeric-sqrt.html",
+    "href": "numeric-sqrt.html",
+    "title": "6  Square Root",
+    "section": "",
+    "text": "As we saw in Chapter 5 about logarithms, we sometimes have to deal with highly skewed data. Square roots are another way to deal with this issue, with some different pros and cons that make it better to use us in some situations. We will spend our time in this section to talk about what those are.\nBelow is a histogram of the average daily rate of a number of hotel stays. It is clear to see that this is another case where the data is highly skewed, with many values close to zero, but a few in the thousands.\nThis variable contains some negative values with the smallest being -6.38. We wouldn’t want to throw out the negative values. And we could think of many situations where both negative and positive values are part of a skewed distribution, especially financial. Bank account balances, delivery times, etc etc.\nWe need a method that transforms the scale to un-skew that also works with negative data. The square root could be what we are looking for. By itself, it takes as its input a positive number and returns the number that when multiplied with itself equals the input. This has the desired shrinking effect, where larger values are shrunk more than smaller values. Additionally, since its domain is the positive numbers (0 is a special case since it maps to itself) we can mirror it to work on negative numbers in the same way it worked on positive numbers. This gives us the signed square root\n\\[\ny = \\text{sign}(x)\\sqrt{\\left| x \\right|}\n\\]\nBelow we see the results of applying the signed square root.\nit is important to note that we are not trying to make the variable normally distributed. What we are trying to accomplish is to remove the skewed nature of the variable.\nIt doesn’t have the same power to shrink large values as logarithms do, but it will seamlessly work with negative values and it would allow you to pick up on quadratic effects that you wouldn’t otherwise be able to pick up if you hadn’t applied the transformation. It also doesn’t have good inferential properties. It preserves the order of the numeric values, but it doesn’t give us a good way to interpret changes."
   },
   {
     "objectID": "numeric-sqrt.html#pros-and-cons",
@@ -133,6 +126,13 @@
     "text": "6.3 Python Examples"
   },
   {
+    "objectID": "numeric-boxcox.html",
+    "href": "numeric-boxcox.html",
+    "title": "7  Box-Cox",
+    "section": "",
+    "text": "You have likely heard a lot of talk about having normally distributed predictors. This isn’t that common of an assumption, and having a fairly non-skewed symmetric predictor is often enough. Linear Discriminant Analysis assumes Gaussian data, and that is about it (TODO add a reference here). Still, it is worthwhile to have more symmetric predictors, and this is where the Box-Cox transformation comes into play.\nIn Chapter 5 on logarithms, we saw how they could be used to change the distribution of a variable. One of the downsides is that if we want to get closer to normality, it doesn’t do well unless applied to a log-normally distributed variable. The Box-Cox transformation tries to find an optimal power transformation. This method was originally intended to be used on the outcome of a model.\nIt works by using maximum likelihood estimation to estimate a transformation parameter \\(\\lambda\\) in the following equation that would optimize the normality of \\(x^*\\)\n\\[\nx^* = \\left\\{\n    \\begin{array}{ll}\n      \\dfrac{x^\\lambda - 1}{\\lambda \\tilde{x}^{\\lambda - 1}}, & \\lambda \\neq 0 \\\\\n      \\tilde{x} \\log x & \\lambda = 0\n    \\end{array}\n  \\right.\n\\]\nwhere \\(\\tilde{x}\\) is the geometric mean of \\(x\\). It is worth noting again, that what we are optimizing over is the value of \\(\\lambda\\). This is also a case of a trained preprocessing method when used on the predictors. We need to estimate the parameter \\(\\lambda\\) on the training data set, then use the estimated value to apply the transformation to the training and test data set to avoid data leakage. Lastly, Box-Cox only works with positive numbers. Take a look at Chapter 8 about the Yeo-Johnson method that tries to accomplish the same thing, and it works on positive as well as negative numbers.\nLet us see some examples of Box-Cox at work. Below is three different simulated distribution, before and after they have been transformed by Box-Cox.\nWe have the original distributions have some left or right skewed-ness. And the transformed columns look better, in the sense that they are less skewed and they are fairly symmetric around the center. Are they perfectly normal? No! but these transformations might be beneficial. The next set of distributions wasn’t so lucky.\nThe Box-Cox method isn’t magic and will only give you something more normally distributed if the distribution can be made more normally distributed by applying a power transformation.\nThe first distribution here is uniformly random. The resulting transformation ends up more skewed, even if only a little bit, than the original distribution because this method is not intended for this type of data. We are seeing similar results with the bi-modal distributions."
+  },
+  {
     "objectID": "numeric-boxcox.html#pros-and-cons",
     "href": "numeric-boxcox.html#pros-and-cons",
     "title": "7  Box-Cox",
@@ -152,6 +152,13 @@
     "title": "7  Box-Cox",
     "section": "7.3 Python Examples",
     "text": "7.3 Python Examples"
+  },
+  {
+    "objectID": "numeric-yeojohnson.html",
+    "href": "numeric-yeojohnson.html",
+    "title": "8  Yeo-Johnson",
+    "section": "",
+    "text": "You have likely heard a lot of talk about having normally distributed predictors. This isn’t that common of an assumption, and having a fairly non-skewed symmetric predictor is often enough. Linear Discriminant Analysis assumes Gaussian data, and that is about it (TODO add a reference here). Still, it is worthwhile to have more symmetric predictors, and this is where the Yeo-Johnson transformation comes into play.\nThis method is very similar to the Box-Cox method in Chapter 7, except it doesn’t have the restriction that the variable \\(x\\) needs to be positive.\nIt works by using maximum likelihood estimation to estimate a transformation parameter \\(\\lambda\\) in the following equation that would optimize the normality of \\(x^*\\)\n\\[\nx^* = \\left\\{\n    \\begin{array}{ll}\n      \\dfrac{(x + 1) ^ \\lambda - 1}{\\lambda}              & \\lambda \\neq 0, x \\geq 0 \\\\\n      \\log(x + 1)                                         & \\lambda =    0, x \\geq 0 \\\\\n      - \\dfrac{(-x + 1) ^ {2 - \\lambda} - 1}{2 - \\lambda} & \\lambda \\neq 2, x <    0 \\\\\n      - \\log(-x + 1)                                      & \\lambda =    2, x <    0\n    \\end{array}\n  \\right.\n\\] It is worth noting again, that what we are optimizing over is the value of \\(\\lambda\\). This is also a case of a trained preprocessing method when used on the predictors. We need to estimate the parameter \\(\\lambda\\) on the training data set, then use the estimated value to apply the transformation to the training and test data set to avoid data leakage.\nIf the values of \\(x\\) are strictly positive, then the Yeo-Johnson transformation is the same as the Box-Cox transformation of \\(x + 1\\), if the values of \\(x\\) are strictly negative then the transformation is the Box-Cox transformation of \\(-x + 1\\) with the power \\(2 - \\lambda\\). The interpretation of \\(\\lambda\\) isn’t as easy as for the Box-Cox method.\nLet us see some examples of Yeo-Johnson at work. Below is three different simulated distribution, before and after they have been transformed by Yeo-Johnson.\nWe have the original distributions have some left or right skewed-ness. And the transformed columns look better, in the sense that they are less skewed and they are fairly symmetric around the center. Are they perfectly normal? No! but these transformations might be beneficial. We also notice how these methods work, even when there are negative values.\nThe Yeo-Johnson method isn’t magic and will only give you something more normally distributed if the distribution can be made more normally distributed by applying the above formula would give you some more normally distributed values.\nThe first distribution here is uniformly random. The resulting transformation ends up more skewed, even if only a little bit, than the original distribution because this method is not intended for this type of data. We are seeing similar results with the bi-modal distributions."
   },
   {
     "objectID": "numeric-yeojohnson.html#pros-and-cons",
@@ -557,7 +564,7 @@
     "href": "video.html",
     "title": "63  Overview",
     "section": "",
-    "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
+    "text": "WIP"
   },
   {
     "objectID": "video-tmp.html",
@@ -571,7 +578,7 @@
     "href": "sound.html",
     "title": "65  Overview",
     "section": "",
-    "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
+    "text": "WIP"
   },
   {
     "objectID": "sound-tmp.html",
@@ -602,24 +609,10 @@
     "text": "WIP"
   },
   {
-    "objectID": "quarto-cli/tests/docs/project/book/summary.html",
-    "href": "quarto-cli/tests/docs/project/book/summary.html",
-    "title": "—",
-    "section": "",
-    "text": "Summary"
-  },
-  {
     "objectID": "summary.html",
     "href": "summary.html",
     "title": "70  Summary",
     "section": "",
     "text": "WIP"
-  },
-  {
-    "objectID": "quarto-cli/tests/docs/project/book/references.html",
-    "href": "quarto-cli/tests/docs/project/book/references.html",
-    "title": "—",
-    "section": "",
-    "text": "References"
   }
 ]
