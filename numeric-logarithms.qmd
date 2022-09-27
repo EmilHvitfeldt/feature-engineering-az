@@ -55,7 +55,7 @@ ggplot(ames, aes(log2(Lot_Area))) +
   theme_minimal()
 ```
 
-it is important to note that we are not trying to make the variable normally distributed. What we are trying to accomplish is to remove the skewed nature of the variable. Likewise, this method should not be used a variance reduction tool as that task is handled by doing normalization which we start exploring more in @sec-normalization.
+it is important to note that we are not trying to make the variable normally distributed. What we are trying to accomplish is to remove the skewed nature of the variable. Likewise, this method should not be used a variance reduction tool as that task is handled by doing normalization which we start exploring more in @sec-normalization. 
 
 The full equation we use is
 
