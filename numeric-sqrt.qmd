@@ -46,7 +46,7 @@ hotel_bookings %>%
   labs(x = "Squared Average Daily Rate")
 ```
 
-it is important to note that we are not trying to make the variable normally distributed. What we are trying to accomplish is to remove the skewed nature of the variable.
+it is important to note that we are not trying to make the variable normally distributed. What we are trying to accomplish is to remove the skewed nature of the variable. Likewise, this method should not be used a variance reduction tool as that task is handled by doing normalization which we start exploring more in @sec-normalization.
 
 It doesn't have the same power to shrink large values as logarithms do, but it will seamlessly work with negative values and it would allow you to pick up on quadratic effects that you wouldn't otherwise be able to pick up if you hadn't applied the transformation. It also doesn't have good inferential properties. It preserves the order of the numeric values, but it doesn't give us a good way to interpret changes.
 
