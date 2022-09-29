@@ -1,3 +1,53 @@
-# Normalization
+# Normalization {#sec-normalization}
 
-WIP
+Normalization is a method where we modify a variable by subtracting the mean and dividing by the standard deviation
+
+$$X_{scaled} = \dfrac{X - \text{mean}(X)}{\text{sd}(X)}$$
+
+Performing this transformation means that the resulting variable will have a mean of 0 and a standard deviation and variance of 1. It is a common misconception that this transformation is done to make the data normally distributed.
+
+```{r}
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Normalization doesn't make data more normal. Green curve indicates density of unit normal
+#|   distribution. 
+#| fig-alt: |
+#|   2 histograms of distribution one above the other. The top distribution shows a bimodal
+#|   distribution. Below is the same distribution after being normalized. Both appear clearly
+#|   non-normally distributed. Green curve is overlaid lower histogram. It doesn't follow.
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+set.seed(1234)
+
+plotting_data <- tibble(Original = (rbeta(1000, 0.3, 0.5) + rnorm(1000, sd = 0.05)) * 10) %>%
+  mutate(Transformed = (Original - mean(Original)) / sd(Original)) %>%
+  pivot_longer(everything())
+
+norm_curve <- tibble(
+  x = seq(min(plotting_data$value) - 1, max(plotting_data$value), by = 0.2),
+  y = dnorm(seq(min(plotting_data$value) - 1, max(plotting_data$value), by = 0.2)),
+  name = "Transformed"
+) %>%
+  mutate(y = 1000 / sum(y) * y)
+
+plotting_data %>%
+  ggplot(aes(value)) +
+  geom_histogram(binwidth = 0.2) +
+  facet_grid(name~., scales = "free_y") +
+  theme_minimal() +
+  labs(x = NULL, y = NULL) +
+  geom_line(aes(x, y), data = norm_curve, color = "green4")
+```
+
+## Pros and Cons
+
+### Pros
+
+### Cons
+
+## R Examples
+
+## Python Examples
+
