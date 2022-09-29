@@ -10,23 +10,25 @@ In this book, we will define normalization as an operation that modified variabl
 
 $$
 X_{scaled} = \dfrac{X - a}{b}
-$$
+$$ {#eq-normalization}
 
 The main difference between the methods is how $a$ and $b$ are calculated. These methods are learned transformation. So we use the training data to derive the right values of $a$ and $b$, and then these values are used to perform the transformations when applied to new data. The different methods might differ on what property is desired for the transformed variables, same range or same spread, but they never change the distribution itself. The power transformations we saw in @sec-boxcox and @sec-yeojohnson, distort the transformations, where these normalizations essentially perform a "zooming" effect.
+
+| Method          | Definition                                                               |
+|--------------------------------|----------------------------------------|
+| Centering       | $X_{scaled} = X - \text{mean}(X)$                                        |
+| Scaling         | $X_{scaled} = \dfrac{X}{\text{sd}(X)}$                                   |
+| Max-Abs         | $X_{scaled} = \dfrac{X}{\text{max}(\text{abs}(X))}$                      |
+| Standardization | $X_{scaled} = \dfrac{X - \text{mean}(X)}{\text{sd}(X)}$                  |
+| Min-Max         | $X_{scaled} = \dfrac{X - \text{min}(X)}{\text{max}(X) - \text{min}(X)}$  |
+| Robust          | $X_{scaled} = \dfrac{X - \text{median}(X)}{\text{Q3}(X) - \text{Q1}(X)}$ |
+
+: All normalization methods {#tbl-normalization}
+
+We see here that all the methods in @tbl-normalization follows the equation @eq-normalization. Sometimes $a$ and $b$ takes a value of 0, which is perfectly fine.
 
 There are 2 main reasons why we want to perform normalization. Firstly, many different types of models take the magnitude of the variables into account when fitting the models, so having variables on different scales can be disadvantageous because some variables have high priorities. In turn, we get that the other variables have low priority. Models that work using Euclidean distances like KNN models are affected by this change. Regularized models such as lasso and ridge regression also need to be scaled since the regularization depends on the magnitude of the estimates. Secondly, some algorithms simply converge much faster when all the variables are on the same scale. These types of models produce the same fit, just at a slower pace than if you don't scale the variables. Any algorithms using Gradient Descent fits into this category.
 
 TODO: Have KNN diagram show why this is important
-
-| Method          | Definition                                                               | Pro | Con |
-|----------------|---------------------|-------------------|----------------|
-| Centering       | $X_{scaled} = X - \text{mean}(X)$                                        |     |     |
-| Scaling         | $X_{scaled} = \dfrac{X}{\text{sd}(X)}$                                   |     |     |
-| Max-Abs         | $X_{scaled} = \dfrac{X}{\text{max}(\text{abs}(X))}$                      |     |     |
-| Standardization | $X_{scaled} = \dfrac{X - \text{mean}(X)}{\text{sd}(X)}$                  |     |     |
-| Min-Max         | $X_{scaled} = \dfrac{X - \text{min}(X)}{\text{max}(X) - \text{min}(X)}$  |     |     |
-| Robust          | $X_{scaled} = \dfrac{X - \text{median}(X)}{\text{Q3}(X) - \text{Q1}(X)}$ |     |     |
-
-list all the methods with pros, cons, domains etc etc.
 
 List which types of models need normalization. Should be a 2 column list. Left=name, right=comment %in% c(no effect, different fit, slow down)
