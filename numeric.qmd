@@ -20,14 +20,40 @@ The 4 main types of problems we deal with when working with individual numeric v
 - BoxCox
 - Yeo-Johnson
 
-## Scaling issues
+## Scaling issues {#sec-numeric-scaling-issues}
 
-- Normalization (centering + scaling)
-- range
-- minabs
-- robust scaling [scikit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.RobustScaler.html#sklearn.preprocessing.RobustScaler)
+The topic of feature scaling is used important and used widely in all of machine learning. This chapter will go over what feature scaling is and why we want to use it. The following chapters will each go over a different method of feature scaling.
 
-TODO: Add a table here describing the differences, pros and cons of each method
+::: callout-note
+There is some disagreement about the naming of these topics. These types of methods are called feature scaling and scaling in different fields. This book will call this general class of methods **feature scaling** and will make notes for each specific method and what other names they go by.
+:::
+
+In this book, we will define feature scaling as an operation that modified variables using multiplication and addition. While broadly defined, the methods typically reduce to the following form:
+
+$$
+X_{scaled} = \dfrac{X - a}{b}
+$$ {#eq-feature-scaling}
+
+The main difference between the methods is how $a$ and $b$ are calculated. These methods are learned transformation. So we use the training data to derive the right values of $a$ and $b$, and then these values are used to perform the transformations when applied to new data. The different methods might differ on what property is desired for the transformed variables, same range or same spread, but they never change the distribution itself. The power transformations we saw in @sec-boxcox and @sec-yeojohnson, distort the transformations, where these feature scalings essentially perform a "zooming" effect.
+
+| Method          | Definition                                                               |
+|--------------------------------|----------------------------------------|
+| Centering       | $X_{scaled} = X - \text{mean}(X)$                                        |
+| Scaling         | $X_{scaled} = \dfrac{X}{\text{sd}(X)}$                                   |
+| Max-Abs         | $X_{scaled} = \dfrac{X}{\text{max}(\text{abs}(X))}$                      |
+| Standardization | $X_{scaled} = \dfrac{X - \text{mean}(X)}{\text{sd}(X)}$                  |
+| Min-Max         | $X_{scaled} = \dfrac{X - \text{min}(X)}{\text{max}(X) - \text{min}(X)}$  |
+| Robust          | $X_{scaled} = \dfrac{X - \text{median}(X)}{\text{Q3}(X) - \text{Q1}(X)}$ |
+
+: All feature scaling methods {#tbl-feature-scaling}
+
+We see here that all the methods in @tbl-feature-scaling follows the equation @eq-feature-scaling. Sometimes $a$ and $b$ takes a value of 0, which is perfectly fine.
+
+There are 2 main reasons why we want to perform feature scaling. Firstly, many different types of models take the magnitude of the variables into account when fitting the models, so having variables on different scales can be disadvantageous because some variables have high priorities. In turn, we get that the other variables have low priority. Models that work using Euclidean distances like KNN models are affected by this change. Regularized models such as lasso and ridge regression also need to be scaled since the regularization depends on the magnitude of the estimates. Secondly, some algorithms simply converge much faster when all the variables are on the same scale. These types of models produce the same fit, just at a slower pace than if you don't scale the variables. Any algorithms using Gradient Descent fits into this category.
+
+TODO: Have KNN diagram show why this is important
+
+List which types of models need feature scaling. Should be a 2 column list. Left=name, right=comment %in% c(no effect, different fit, slow down)
 
 ## Non-linear effect
 
