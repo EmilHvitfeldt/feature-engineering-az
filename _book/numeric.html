@@ -61,6 +61,7 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -678,7 +679,7 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#distributional-problems" id="toc-distributional-problems" class="nav-link active" data-scroll-target="#distributional-problems"><span class="toc-section-number">4.1</span>  Distributional problems</a></li>
-  <li><a href="#scaling-issues" id="toc-scaling-issues" class="nav-link" data-scroll-target="#scaling-issues"><span class="toc-section-number">4.2</span>  Scaling issues</a></li>
+  <li><a href="#sec-numeric-scaling-issues" id="toc-sec-numeric-scaling-issues" class="nav-link" data-scroll-target="#sec-numeric-scaling-issues"><span class="toc-section-number">4.2</span>  Scaling issues</a></li>
   <li><a href="#non-linear-effect" id="toc-non-linear-effect" class="nav-link" data-scroll-target="#non-linear-effect"><span class="toc-section-number">4.3</span>  Non-linear effect</a></li>
   <li><a href="#outliers" id="toc-outliers" class="nav-link" data-scroll-target="#outliers"><span class="toc-section-number">4.4</span>  Outliers</a></li>
   <li><a href="#other" id="toc-other" class="nav-link" data-scroll-target="#other"><span class="toc-section-number">4.5</span>  Other</a></li>
@@ -723,15 +724,72 @@ ul.task-list li input[type="checkbox"] {
 <li>Yeo-Johnson</li>
 </ul>
 </section>
-<section id="scaling-issues" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="scaling-issues"><span class="header-section-number">4.2</span> Scaling issues</h2>
-<ul>
-<li>Normalization (centering + scaling)</li>
-<li>range</li>
-<li>minabs</li>
-<li>robust scaling <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.RobustScaler.html#sklearn.preprocessing.RobustScaler">scikit-learn</a></li>
-</ul>
-<p>TODO: Add a table here describing the differences, pros and cons of each method</p>
+<section id="sec-numeric-scaling-issues" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="sec-numeric-scaling-issues"><span class="header-section-number">4.2</span> Scaling issues</h2>
+<p>The topic of feature scaling is used important and used widely in all of machine learning. This chapter will go over what feature scaling is and why we want to use it. The following chapters will each go over a different method of feature scaling.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There is some disagreement about the naming of these topics. These types of methods are called feature scaling and scaling in different fields. This book will call this general class of methods <strong>feature scaling</strong> and will make notes for each specific method and what other names they go by.</p>
+</div>
+</div>
+<p>In this book, we will define feature scaling as an operation that modified variables using multiplication and addition. While broadly defined, the methods typically reduce to the following form:</p>
+<p><span id="eq-feature-scaling"><span class="math display">\[
+X_{scaled} = \dfrac{X - a}{b}
+\tag{4.1}\]</span></span></p>
+<p>The main difference between the methods is how <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are calculated. These methods are learned transformation. So we use the training data to derive the right values of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, and then these values are used to perform the transformations when applied to new data. The different methods might differ on what property is desired for the transformed variables, same range or same spread, but they never change the distribution itself. The power transformations we saw in <a href="numeric-boxcox.html"><span>Chapter&nbsp;7</span></a> and <a href="numeric-yeojohnson.html"><span>Chapter&nbsp;8</span></a>, distort the transformations, where these feature scalings essentially perform a “zooming” effect.</p>
+<div id="tbl-feature-scaling" class="anchored">
+<table class="table">
+<caption>Table&nbsp;4.1: All feature scaling methods</caption>
+<colgroup>
+<col style="width: 44%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Centering</td>
+<td><span class="math inline">\(X_{scaled} = X - \text{mean}(X)\)</span></td>
+</tr>
+<tr class="even">
+<td>Scaling</td>
+<td><span class="math inline">\(X_{scaled} = \dfrac{X}{\text{sd}(X)}\)</span></td>
+</tr>
+<tr class="odd">
+<td>Max-Abs</td>
+<td><span class="math inline">\(X_{scaled} = \dfrac{X}{\text{max}(\text{abs}(X))}\)</span></td>
+</tr>
+<tr class="even">
+<td>Standardization</td>
+<td><span class="math inline">\(X_{scaled} = \dfrac{X - \text{mean}(X)}{\text{sd}(X)}\)</span></td>
+</tr>
+<tr class="odd">
+<td>Min-Max</td>
+<td><span class="math inline">\(X_{scaled} = \dfrac{X - \text{min}(X)}{\text{max}(X) - \text{min}(X)}\)</span></td>
+</tr>
+<tr class="even">
+<td>Robust</td>
+<td><span class="math inline">\(X_{scaled} = \dfrac{X - \text{median}(X)}{\text{Q3}(X) - \text{Q1}(X)}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>We see here that all the methods in <a href="#tbl-feature-scaling">Table&nbsp;<span>4.1</span></a> follows the equation <a href="#eq-feature-scaling">Equation&nbsp;<span>4.1</span></a>. Sometimes <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> takes a value of 0, which is perfectly fine.</p>
+<p>There are 2 main reasons why we want to perform feature scaling. Firstly, many different types of models take the magnitude of the variables into account when fitting the models, so having variables on different scales can be disadvantageous because some variables have high priorities. In turn, we get that the other variables have low priority. Models that work using Euclidean distances like KNN models are affected by this change. Regularized models such as lasso and ridge regression also need to be scaled since the regularization depends on the magnitude of the estimates. Secondly, some algorithms simply converge much faster when all the variables are on the same scale. These types of models produce the same fit, just at a slower pace than if you don’t scale the variables. Any algorithms using Gradient Descent fits into this category.</p>
+<p>TODO: Have KNN diagram show why this is important</p>
+<p>List which types of models need feature scaling. Should be a 2 column list. Left=name, right=comment %in% c(no effect, different fit, slow down)</p>
 </section>
 <section id="non-linear-effect" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="non-linear-effect"><span class="header-section-number">4.3</span> Non-linear effect</h2>
