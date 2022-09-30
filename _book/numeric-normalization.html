@@ -709,24 +709,45 @@ ul.task-list li input[type="checkbox"] {
 
 <p>Normalization is a method where we modify a variable by subtracting the mean and dividing by the standard deviation</p>
 <p><span class="math display">\[X_{scaled} = \dfrac{X - \text{mean}(X)}{\text{sd}(X)}\]</span></p>
-<p>Performing this transformation means that the resulting variable will have a mean of 0 and a standard deviation and variance of 1. It is a common misconception that this transformation is done to make the data normally distributed.</p>
+<p>Performing this transformation means that the resulting variable will have a mean of 0 and a standard deviation and variance of 1. It is a common misconception that this transformation is done to make the data normally distributed. This transformation doesn’t change the distribution, it scales the values. Below is a figure <a href="#fig-normalization-not-normal">Figure&nbsp;<span>9.1</span></a> that illustrate that point</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div id="fig-normalization-not-normal" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="numeric-normalization_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" alt="2 histograms of distribution one above the other. The top distribution shows a bimodal distribution. Below is the same distribution after being normalized. Both appear clearly non-normally distributed. Green curve is overlaid lower histogram. It doesn't follow." width="672"></p>
-<p></p><figcaption class="figure-caption">Normalization doesn’t make data more normal. Green curve indicates density of unit normal distribution.</figcaption><p></p>
+<p><img src="numeric-normalization_files/figure-html/fig-normalization-not-normal-1.png" class="img-fluid figure-img" alt="2 histograms of distribution one above the other. The top distribution shows a bimodal distribution. Below is the same distribution after being normalized. Both appear clearly non-normally distributed. Green curve is overlaid lower histogram. It doesn't follow." width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;9.1: Normalization doesn’t make data more normal. Green curve indicates density of unit normal distribution.</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
+<p>In <a href="#fig-normalization-not-normal">Figure&nbsp;<span>9.1</span></a> we see some distribution, before and after applying normalization to it. Both the original and transformed distribution are clearly bimodal, and the transformed distribution is no more normal than the original. And that is fine, because the transformation did its job by moving the values close to 0 and and a specific spread, which in this case is a variance of 1.</p>
 <section id="pros-and-cons" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">9.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="9.1.1">
 <h3 data-number="9.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">9.1.1</span> Pros</h3>
+<ul>
+<li><p>If you don’t have any severe outliers then you will rarely see any downsides to applying normalization</p></li>
+<li><p>Fast calculations</p></li>
+<li><p>Transformation can easily be reversed, making it interpretations easier on the original scale</p></li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="9.1.2">
 <h3 data-number="9.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">9.1.2</span> Cons</h3>
+<ul>
+<li>Not all software solutions will not be helpful when applying this transformation to a constant variable. A division by 0 error is likely what you will see</li>
+<li>This transformation is highly affected by outliers, as they affect the mean and standard deviation quite a lot.</li>
+</ul>
+<p>Below in the figure <a href="#fig-normalization-outlier">Figure&nbsp;<span>9.2</span></a> Is an illustration of the effect by having a single high values. In this case a single observation with the value <code>10000</code> moved the transformed distribution much more tight around zero. And all but removed the variance of the non-outliers.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-normalization-outlier" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="numeric-normalization_files/figure-html/fig-normalization-outlier-1.png" class="img-fluid figure-img" alt="4 histograms of distribution in 2 columns. The top distribution shows the same bimodal distribution. Below are the same distributions after being normalized. The right column shows the effect of having one outlier at 10000, which in this case made the transformed distribution about a fifth of the width." width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;9.2: Outliers can have a big effect of the resulting distribution when applying normalization.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="9.2">
