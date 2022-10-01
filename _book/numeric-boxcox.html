@@ -852,7 +852,7 @@ x^* = \left\{
 # … with 2,920 more rows</code></pre>
 </div>
 </div>
-<p>{recipes} provides a step to perform Box-Cox transformations, which out of the box uses <span class="math inline">\(e\)</span> as the base with an offset of 0.</p>
+<p>{recipes} provides a step to perform Box-Cox transformations.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>boxcox_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> Lot_Area, <span class="at">data =</span> ames) <span class="sc">%&gt;%</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_BoxCox</span>(Lot_Area) <span class="sc">%&gt;%</span></span>

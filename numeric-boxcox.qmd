@@ -1,4 +1,4 @@
-# Box-Cox  {#sec-boxcox}
+# Box-Cox {#sec-boxcox}
 
 You have likely heard a lot of talk about having normally distributed predictors. This isn't that common of an assumption, and having a fairly non-skewed symmetric predictor is often enough. Linear Discriminant Analysis assumes Gaussian data, and that is about it (TODO add a reference here). Still, it is worthwhile to have more symmetric predictors, and this is where the Box-Cox transformation comes into play.
 
@@ -54,7 +54,7 @@ visualize_boxcox(abs(rnorm(10000))) /
 visualize_boxcox(5 - abs(rt(10000, 205)) + rnorm(10000, sd = 0.1))
 ```
 
-We have the original distributions have some left or right skewed-ness. And the transformed columns look better, in the sense that they are less skewed and they are fairly symmetric around the center. Are they perfectly normal? No! but these transformations might be beneficial. The next set of distributions wasn't so lucky. 
+We have the original distributions have some left or right skewed-ness. And the transformed columns look better, in the sense that they are less skewed and they are fairly symmetric around the center. Are they perfectly normal? No! but these transformations might be beneficial. The next set of distributions wasn't so lucky.
 
 The Box-Cox method isn't magic and will only give you something more normally distributed if the distribution can be made more normally distributed by applying a power transformation.
 
@@ -75,12 +75,12 @@ The first distribution here is uniformly random. The resulting transformation en
 
 ### Pros
 
-- More flexible than individually chosen power transformations such as logarithms and square roots
+-   More flexible than individually chosen power transformations such as logarithms and square roots
 
 ### Cons
 
-- Doesn't work with negative values
-- Isn't a universal fix
+-   Doesn't work with negative values
+-   Isn't a universal fix
 
 ## R Examples
 
@@ -95,7 +95,7 @@ ames %>%
   select(Lot_Area, Wood_Deck_SF, Sale_Price)
 ```
 
-{recipes} provides a step to perform Box-Cox transformations, which out of the box uses $e$ as the base with an offset of 0.
+{recipes} provides a step to perform Box-Cox transformations.
 
 ```{r}
 boxcox_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) %>%
