@@ -4,19 +4,19 @@ Normalization is a method where we modify a variable by subtracting the mean and
 
 $$X_{scaled} = \dfrac{X - \text{mean}(X)}{\text{sd}(X)}$$
 
-Performing this transformation means that the resulting variable will have a mean of 0 and a standard deviation and variance of 1. It is a common misconception that this transformation is done to make the data normally distributed. This transformation doesn't change the distribution, it scales the values. Below is a figure @fig-normalization-not-normal that illustrate that point
+Performing this transformation means that the resulting variable will have a mean of 0 and a standard deviation and variance of 1. It is a common misconception that this transformation is done to make the data normally distributed. This transformation doesn't change the distribution, it scales the values. Below is a figure @fig-normalization-not-normal that illustrates that point
 
 ```{r}
 #| label: fig-normalization-not-normal
 #| echo: false
 #| message: false
 #| fig-cap: |
-#|   Normalization doesn't make data more normal. Green curve indicates density of unit normal
+#|   Normalization doesn't make data more normal. The green curve indicates the density of unit normal
 #|   distribution. 
 #| fig-alt: |
 #|   2 histograms of distribution one above the other. The top distribution shows a bimodal
 #|   distribution. Below is the same distribution after being normalized. Both appear clearly
-#|   non-normally distributed. Green curve is overlaid lower histogram. It doesn't follow.
+#|   non-normally distributed. The green curve is overlaid lower histogram. It doesn't follow.
 library(ggplot2)
 library(dplyr)
 library(tidyr)
@@ -42,7 +42,7 @@ plotting_data %>%
   geom_line(aes(x, y), data = norm_curve, color = "green4")
 ```
 
-In @fig-normalization-not-normal we see some distribution, before and after applying normalization to it. Both the original and transformed distribution are clearly bimodal, and the transformed distribution is no more normal than the original. And that is fine, because the transformation did its job by moving the values close to 0 and and a specific spread, which in this case is a variance of 1.
+In @fig-normalization-not-normal we see some distribution, before and after applying normalization to it. Both the original and transformed distribution are bimodal, and the transformed distribution is no more normal than the original. And that is fine because the transformation did its job by moving the values close to 0 and a specific spread, which in this case is a variance of 1.
 
 ## Pros and Cons
 
@@ -52,21 +52,21 @@ In @fig-normalization-not-normal we see some distribution, before and after appl
 
 -   Fast calculations
 
--   Transformation can easily be reversed, making it interpretations easier on the original scale
+-   Transformation can easily be reversed, making its interpretations easier on the original scale
 
 ### Cons
 
 -   Not all software solutions will not be helpful when applying this transformation to a constant variable. A division by 0 error is likely what you will see
 -   This transformation is highly affected by outliers, as they affect the mean and standard deviation quite a lot.
 
-Below in the figure @fig-normalization-outlier Is an illustration of the effect by having a single high values. In this case a single observation with the value `10000` moved the transformed distribution much more tight around zero. And all but removed the variance of the non-outliers.
+Below is the figure @fig-normalization-outlier is an illustration of the effect by having a single high value. In this case, a single observation with the value `10000` moved the transformed distribution much tighter around zero. And all but removed the variance of the non-outliers.
 
 ```{r}
 #| label: fig-normalization-outlier
 #| echo: false
 #| message: false
 #| fig-cap: |
-#|   Outliers can have a big effect of the resulting distribution when applying normalization.
+#|   Outliers can have a big effect on the resulting distribution when applying normalization.
 #| fig-alt: |
 #|   4 histograms of distribution in 2 columns. The top distribution shows the same bimodal
 #|   distribution. Below are the same distributions after being normalized. The right column
@@ -101,5 +101,88 @@ plotting_data %>%
 ```
 
 ## R Examples
+
+We will be using the `ames` data set for these examples.
+
+```{r}
+library(recipes)
+library(modeldata)
+data("ames")
+
+ames %>%
+  select(Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)
+```
+
+{recipes} provides a step to perform scaling, centering, and normalization. They are called `step_scale()`, `step_center()` and `step_normalize()` respectively.
+
+Below is an example using `step_scale()`
+
+```{r}
+scale_rec <- recipe(Sale_Price ~ ., data = ames) %>%
+  step_scale(all_numeric_predictors()) %>%
+  prep()
+
+scale_rec %>%
+  bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)
+```
+
+We can also pull out the value of the standard deviation for each variable that was affected using `tidy()`
+
+```{r}
+scale_rec %>%
+  tidy(1)
+```
+
+We could also have used `step_center()` and `step_scale()` together in one recipe
+
+```{r}
+center_scale_rec <- recipe(Sale_Price ~ ., data = ames) %>%
+  step_center(all_numeric_predictors()) %>%
+  step_scale(all_numeric_predictors()) %>%
+  prep()
+
+center_scale_rec %>%
+  bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)
+```
+
+Using `tidy()` we can see information about each step
+
+```{r}
+center_scale_rec %>%
+  tidy()
+```
+
+And we can pull out the means using `tidy(1)`
+
+```{r}
+center_scale_rec %>%
+  tidy(1)
+```
+
+and the standard deviation using `tidy(2)`
+
+```{r}
+center_scale_rec %>%
+  tidy(2)
+```
+
+Since these steps often follow each other, we often use the `step_normalize()` as a shortcut to do both operations in one step
+
+```{r}
+scale_rec <- recipe(Sale_Price ~ ., data = ames) %>%
+  step_normalize(all_numeric_predictors()) %>%
+  prep()
+
+scale_rec %>%
+  bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)
+```
+
+And we can still pull out the means and standard deviations using `tidy()`
+
+```{r}
+scale_rec %>%
+  tidy(1) %>%
+  filter(terms %in% c("Lot_Area", "Wood_Deck_SF", "Mas_Vnr_Area"))
+```
 
 ## Python Examples
