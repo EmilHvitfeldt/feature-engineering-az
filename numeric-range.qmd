@@ -1,3 +1,27 @@
-# Range
+# Range {#sec-normalization}
 
-WIP
+**Range scaling** is a method where to make the data fit into a pre-defined interval. Also called **Min-Max scaling**. Typically the equation used to illustrate this method is show like so
+
+$$
+X_{scaled} = \dfrac{X - \text{min}(X)}{\text{max}(X) - \text{min}(X)}
+$$
+
+However, this equations only shows what happens if you use the software with defaults.
+
+(show equation with custom ranges)
+
+(show equation with clipping)
+
+## Pros and Cons
+
+### Pros
+
+### Cons
+
+## R Examples
+
+`step_range()` clips. Does allow user to specify range `step_minmax()` doesn't clip. doens't allow user to specify range
+
+## Python Examples
+
+`MinMaxScaler()` doesn't clip by default. Allows user to specify range.
