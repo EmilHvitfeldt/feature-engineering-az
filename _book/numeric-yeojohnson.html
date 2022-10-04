@@ -771,7 +771,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <p>You have likely heard a lot of talk about having normally distributed predictors. This isn’t that common of an assumption, and having a fairly non-skewed symmetric predictor is often enough. Linear Discriminant Analysis assumes Gaussian data, and that is about it (TODO add a reference here). Still, it is worthwhile to have more symmetric predictors, and this is where the Yeo-Johnson transformation comes into play.</p>
-<p>This method is very similar to the Box-Cox method in <a href="numeric-boxcox.html"><span>Chapter&nbsp;7</span></a>, except it doesn’t have the restriction that the variable <span class="math inline">\(x\)</span> needs to be positive.</p>
+<p>This method is very similar to the Box-Cox method in <a href="#sec-boxcox"><span class="quarto-unresolved-ref">sec-boxcox</span></a>, except it doesn’t have the restriction that the variable <span class="math inline">\(x\)</span> needs to be positive.</p>
 <p>It works by using maximum likelihood estimation to estimate a transformation parameter <span class="math inline">\(\lambda\)</span> in the following equation that would optimize the normality of <span class="math inline">\(x^*\)</span></p>
 <p><span class="math display">\[
 x^* = \left\{

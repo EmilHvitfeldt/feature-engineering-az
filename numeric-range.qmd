@@ -1,22 +1,74 @@
 # Range {#sec-normalization}
 
-**Range scaling** is a method where to make the data fit into a pre-defined interval. Also called **Min-Max scaling**. Typically the equation used to illustrate this method is show like so
+**Range scaling,** also known as **Min-Max scaling,** is a method where to make the data fit into a pre-defined interval. Typically the equation used to illustrate this method is show like so
 
 $$
 X_{scaled} = \dfrac{X - \text{min}(X)}{\text{max}(X) - \text{min}(X)}
+$$ {#eq-range-minimal}
+
+This equations only shows what happens if you use the software with defaults. This will scale your variable to be in the range $[0, 1]$. It is important to treat this as a learned method, and we will thus calculate $\text{min}(X)$ and $\text{max}(X)$ on the training data set, and use those to apply the transformation on new data. One of the benefits of this method is that it transforms any variable into a predefined range of 0 and 1. Unless of cause a new data point is outside the range. Suppose that the original data was on the range $\text{min}(X) = 5$ and $\text{max}(X) = 100$, and we encounter a new data point with the value 200. Then according to @eq-range-clip we would get a transformed value of (200-5)/(100-5) = 2.0526 which is very much not between 0 and 1. We thus have a violation of our original goal. One way to get around this is to use clipping. Clipping is a technique when using this method where any values less then $\text{min}(X)$ will be noted as 0 and any values larger than $\text{max}(X)$ will be noted as 1. This little tick ensures that any new data points stays within the range. Expending our equation to the following
+
 $$
+\begin{equation}
+X_{scaled}=    
+\begin{cases}        
+0, & X_{new} < \text{min}(X_{train})\\        
+1 & X_{new} > \text{max}(X_{train})\\
+\dfrac{X_{new} - \text{min}(X_{train})}{\text{max}(X_{train}) - \text{min}(X_{train})}, & \text{otherwise}
+\end{cases}
+\end{equation}
+$$ {#eq-range-clip}
 
-However, this equations only shows what happens if you use the software with defaults.
+The equation is a lot bigger, but was it different is that we are specify that the transformation should be done using training data, and by adding a couple of branches to reflect the clipping. In practice it will look something like @fig-range-clipping where the original data had a range of $[10, 32]$.
 
-(show equation with custom ranges)
+```{r}
+#| label: fig-range-clipping
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Using clipping in range scaling results in a peice-wise linear transformation of our original data.
+#| fig-alt: |
+#|   Scatter chart with "original" on the x-axis and "transformed" on the y-axis. The Scale of the 
+#|   x-axis is 0 to 50, and the scale of the y-axis is 0 to 1. A series of points are plotting along a
+#|   line, starting at the value 0 for values x values less than 10, between 10 and 32 there is a linear
+#|   line of point resulting in the point at (x = 32, y = 1), all remaining larger values of x has a y
+#|   value of 1.
+library(recipes)
+library(ggplot2)
 
-(show equation with clipping)
+recipe(~mpg, data = mtcars) %>%
+  step_range(mpg) %>%
+  prep() %>% 
+  bake(new_data = tibble(mpg = seq(1, 50))) %>%
+  mutate(Original = seq(1, 50)) %>%
+  ggplot(aes(Original, mpg)) +
+  geom_point() +
+  labs(y = "Transformed") +
+  theme_minimal()
+```
+
+Sadly we are not done quite yet. One last thing that @eq-range-clip doesn't take into account is that sometimes people don't want to transformation to be into any range, not just $[0, 1]$ . This gives us the final equation
+
+$$
+\begin{equation}
+X_{scaled}=    
+\begin{cases}        
+R_{lower}, & X_{new} < \text{min}(X_{train})\\        
+R_{upper} & X_{new} > \text{max}(X_{train})\\
+\dfrac{X_{new} - \text{min}(X_{train})}{\text{max}(X_{train}) - \text{min}(X_{train})} \cdot R_{upper} + R_{lower}, & \text{otherwise}
+\end{cases}
+\end{equation}
+$$ {#eq-range-custom}
+
+Where @eq-range-custom now have $R_{lower}$ to represent a user defined lower bound, and $R_{upper}$ representing the corresponding user defined upper bound. I would recommend that you keep @eq-range-minimal in your mind when thinking about this method, but also include a little footnote that it doesn't include all the little options.
 
 ## Pros and Cons
 
 ### Pros
 
 ### Cons
+
+-   Doesn't work with zero variance data as `max(x) - min(x) = 0`, yielding a division by zero.
 
 ## R Examples
 

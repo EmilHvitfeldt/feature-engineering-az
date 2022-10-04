@@ -37,7 +37,7 @@ $$ {#eq-feature-scaling}
 The main difference between the methods is how $a$ and $b$ are calculated. These methods are learned transformation. So we use the training data to derive the right values of $a$ and $b$, and then these values are used to perform the transformations when applied to new data. The different methods might differ on what property is desired for the transformed variables, same range or same spread, but they never change the distribution itself. The power transformations we saw in @sec-boxcox and @sec-yeojohnson, distort the transformations, where these feature scalings essentially perform a "zooming" effect.
 
 | Method        | Definition                                                               |
-|--------------------------------|----------------------------------------|
+|---------------|--------------------------------------------------------------------------|
 | Centering     | $X_{scaled} = X - \text{mean}(X)$                                        |
 | Scaling       | $X_{scaled} = \dfrac{X}{\text{sd}(X)}$                                   |
 | Max-Abs       | $X_{scaled} = \dfrac{X}{\text{max}(\text{abs}(X))}$                      |

@@ -61,6 +61,7 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -673,14 +674,26 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link active" data-scroll-target="#pros-and-cons"><span class="toc-section-number">10.1</span>  Pros and Cons</a>
+  <ul class="collapse">
+  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="toc-section-number">10.1.1</span>  Pros</a></li>
+  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="toc-section-number">10.1.2</span>  Cons</a></li>
+  </ul></li>
+  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="toc-section-number">10.2</span>  R Examples</a></li>
+  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="toc-section-number">10.3</span>  Python Examples</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Range</span></h1>
+<h1 class="title"><span id="sec-normalization" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Range</span></span></h1>
 </div>
 
 
@@ -694,9 +707,66 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>WIP</p>
+<p><strong>Range scaling,</strong> also known as <strong>Min-Max scaling,</strong> is a method where to make the data fit into a pre-defined interval. Typically the equation used to illustrate this method is show like so</p>
+<p><span id="eq-range-minimal"><span class="math display">\[
+X_{scaled} = \dfrac{X - \text{min}(X)}{\text{max}(X) - \text{min}(X)}
+\tag{10.1}\]</span></span></p>
+<p>This equations only shows what happens if you use the software with defaults. This will scale your variable to be in the range <span class="math inline">\([0, 1]\)</span>. It is important to treat this as a learned method, and we will thus calculate <span class="math inline">\(\text{min}(X)\)</span> and <span class="math inline">\(\text{max}(X)\)</span> on the training data set, and use those to apply the transformation on new data. One of the benefits of this method is that it transforms any variable into a predefined range of 0 and 1. Unless of cause a new data point is outside the range. Suppose that the original data was on the range <span class="math inline">\(\text{min}(X) = 5\)</span> and <span class="math inline">\(\text{max}(X) = 100\)</span>, and we encounter a new data point with the value 200. Then according to <a href="#eq-range-clip">Equation&nbsp;<span class="quarto-unresolved-ref">eq-range-clip</span></a> we would get a transformed value of (200-5)/(100-5) = 2.0526 which is very much not between 0 and 1. We thus have a violation of our original goal. One way to get around this is to use clipping. Clipping is a technique when using this method where any values less then <span class="math inline">\(\text{min}(X)\)</span> will be noted as 0 and any values larger than <span class="math inline">\(\text{max}(X)\)</span> will be noted as 1. This little tick ensures that any new data points stays within the range. Expending our equation to the following</p>
+<p><span id="eq-range-clip"><span class="math display">\[
+\begin{equation}
+X_{scaled}=    
+\begin{cases}        
+0, &amp; X_{new} &lt; \text{min}(X_{train})\\        
+1 &amp; X_{new} &gt; \text{max}(X_{train})\\
+\dfrac{X_{new} - \text{min}(X_{train})}{\text{max}(X_{train}) - \text{min}(X_{train})}, &amp; \text{otherwise}
+\end{cases}
+\end{equation}
+\tag{10.2}\]</span></span></p>
+<p>The equation is a lot bigger, but was it different is that we are specify that the transformation should be done using training data, and by adding a couple of branches to reflect the clipping. In practice it will look something like <a href="#fig-range-clipping">Figure&nbsp;<span class="quarto-unresolved-ref">fig-range-clipping</span></a> where the original data had a range of <span class="math inline">\([10, 32]\)</span>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-range-clipping" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="numeric-range_files/figure-html/fig-range-clipping-1.png" class="img-fluid figure-img" alt="Scatter chart with &quot;original&quot; on the x-axis and &quot;transformed&quot; on the y-axis. The Scale of the x-axis is 0 to 50, and the scale of the y-axis is 0 to 1. A series of points are plotting along a line, starting at the value 0 for values x values less than 10, between 10 and 32 there is a linear line of point resulting in the point at (x = 32, y = 1), all remaining larger values of x has a y value of 1." width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;10.1: Using clipping in range scaling results in a peice-wise linear transformation of our original data.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Sadly we are not done quite yet. One last thing that <a href="#eq-range-clip">Equation&nbsp;<span class="quarto-unresolved-ref">eq-range-clip</span></a> doesn’t take into account is that sometimes people don’t want to transformation to be into any range, not just <span class="math inline">\([0, 1]\)</span> . This gives us the final equation</p>
+<p><span id="eq-range-custom"><span class="math display">\[
+\begin{equation}
+X_{scaled}=    
+\begin{cases}        
+R_{lower}, &amp; X_{new} &lt; \text{min}(X_{train})\\        
+R_{upper} &amp; X_{new} &gt; \text{max}(X_{train})\\
+\dfrac{X_{new} - \text{min}(X_{train})}{\text{max}(X_{train}) - \text{min}(X_{train})} \cdot R_{upper} + R_{lower}, &amp; \text{otherwise}
+\end{cases}
+\end{equation}
+\tag{10.3}\]</span></span></p>
+<p>Where <a href="#eq-range-custom">Equation&nbsp;<span class="quarto-unresolved-ref">eq-range-custom</span></a> now have <span class="math inline">\(R_{lower}\)</span> to represent a user defined lower bound, and <span class="math inline">\(R_{upper}\)</span> representing the corresponding user defined upper bound. I would recommend that you keep <a href="#eq-range-minimal">Equation&nbsp;<span class="quarto-unresolved-ref">eq-range-minimal</span></a> in your mind when thinking about this method, but also include a little footnote that it doesn’t include all the little options.</p>
+<section id="pros-and-cons" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">10.1</span> Pros and Cons</h2>
+<section id="pros" class="level3" data-number="10.1.1">
+<h3 data-number="10.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">10.1.1</span> Pros</h3>
+</section>
+<section id="cons" class="level3" data-number="10.1.2">
+<h3 data-number="10.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">10.1.2</span> Cons</h3>
+<ul>
+<li>Doesn’t work with zero variance data as <code>max(x) - min(x) = 0</code>, yielding a division by zero.</li>
+</ul>
+</section>
+</section>
+<section id="r-examples" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">10.2</span> R Examples</h2>
+<p><code>step_range()</code> clips. Does allow user to specify range <code>step_minmax()</code> doesn’t clip. doens’t allow user to specify range</p>
+</section>
+<section id="python-examples" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">10.3</span> Python Examples</h2>
+<p><code>MinMaxScaler()</code> doesn’t clip by default. Allows user to specify range.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
