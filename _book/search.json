@@ -1,0 +1,702 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Feature Engineering A-Z",
+    "section": "",
+    "text": "Welcome to “Feature Engineering A-Z”! This book is written to be used as a reference guide to the different techniques. This is reflected in the chapter structure. Any question a practitioner is having should be answered by looking at the index and finding the right chapter.\nEach section tries to be as comprehensive as possible with the number of different methods/solutions that are presented. A section on dimensionality reduction should list all the practical methods that could be used, as well as a comparison between the methods to help the reader decide what would be most appropriate.\nWhenever possible each method will be accompanied by simple mathematical formulas and visualizations to illustrate the mechanics of the method.\nLastly, each section will include code snippets in showcasing how to implement the methods. Preferable in R and Python, Keras/PyTorch. This book is a methods book first, a coding book second."
+  },
+  {
+    "objectID": "introduction.html",
+    "href": "introduction.html",
+    "title": "1  Introduction",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "motivation.html",
+    "href": "motivation.html",
+    "title": "2  Motivation",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "modeling.html",
+    "href": "modeling.html",
+    "title": "3  Where does feature engineering fit into the modeling workflow?",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "how-to-deal-with.html",
+    "href": "how-to-deal-with.html",
+    "title": "How to Deal With …",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "numeric.html",
+    "href": "numeric.html",
+    "title": "4  Overview",
+    "section": "",
+    "text": "Data can come in all shapes and sizes, but the most common one is the numeric variable. These are values such as age, height, deficit, price, and quantity. We call these quantitative variables and they are plentiful in most data sets and immediately usable in all statistical and machine learning models. That being said, it doesn’t mean that there are things that wouldn’t help to be done.\nThe following chapters will focus on different methods that follow 1-to-1 or 1-to-more transformations. These methods will mostly be applied one at a time to each variable. Methods that take many variables and return fewer variables such as dimensionality reduction methods which will be covered in Chapter 45.\nWhen we are working with a single variable at a time, there is a handful of problems we can run into. Identifying the problem and how each of the following methods tries to remedy the said problem is key to getting the most out of numeric variables.\nThe 4 main types of problems we deal with when working with individual numeric variables are:"
+  },
+  {
+    "objectID": "numeric.html#distributional-problems",
+    "href": "numeric.html#distributional-problems",
+    "title": "4  Overview",
+    "section": "4.1 Distributional problems",
+    "text": "4.1 Distributional problems\n\nlogarithm\nsqrt\nBoxCox\nYeo-Johnson"
+  },
+  {
+    "objectID": "numeric.html#sec-numeric-scaling-issues",
+    "href": "numeric.html#sec-numeric-scaling-issues",
+    "title": "4  Overview",
+    "section": "4.2 Scaling issues",
+    "text": "4.2 Scaling issues\nThe topic of feature scaling is used important and used widely in all of machine learning. This chapter will go over what feature scaling is and why we want to use it. The following chapters will each go over a different method of feature scaling.\n\n\n\n\n\n\nNote\n\n\n\nThere is some disagreement about the naming of these topics. These types of methods are called feature scaling and scaling in different fields. This book will call this general class of methods feature scaling and will make notes for each specific method and what other names they go by.\n\n\nIn this book, we will define feature scaling as an operation that modified variables using multiplication and addition. While broadly defined, the methods typically reduce to the following form:\n\\[\nX_{scaled} = \\dfrac{X - a}{b}\n\\tag{4.1}\\]\nThe main difference between the methods is how \\(a\\) and \\(b\\) are calculated. These methods are learned transformation. So we use the training data to derive the right values of \\(a\\) and \\(b\\), and then these values are used to perform the transformations when applied to new data. The different methods might differ on what property is desired for the transformed variables, same range or same spread, but they never change the distribution itself. The power transformations we saw in Chapter 7 and Chapter 8, distort the transformations, where these feature scalings essentially perform a “zooming” effect.\n\n\nTable 4.1: All feature scaling methods\n\n\n\n\n\n\nMethod\nDefinition\n\n\n\n\nCentering\n\\(X_{scaled} = X - \\text{mean}(X)\\)\n\n\nScaling\n\\(X_{scaled} = \\dfrac{X}{\\text{sd}(X)}\\)\n\n\nMax-Abs\n\\(X_{scaled} = \\dfrac{X}{\\text{max}(\\text{abs}(X))}\\)\n\n\nNormalization\n\\(X_{scaled} = \\dfrac{X - \\text{mean}(X)}{\\text{sd}(X)}\\)\n\n\nMin-Max\n\\(X_{scaled} = \\dfrac{X - \\text{min}(X)}{\\text{max}(X) - \\text{min}(X)}\\)\n\n\nRobust\n\\(X_{scaled} = \\dfrac{X - \\text{median}(X)}{\\text{Q3}(X) - \\text{Q1}(X)}\\)\n\n\n\n\nWe see here that all the methods in Table 4.1 follows the equation Equation 4.1. Sometimes \\(a\\) and \\(b\\) takes a value of 0, which is perfectly fine. Centering and scaling when used together is equal to normalization. They are kept separate in the table since they are sometimes used independently. Centering, scaling, and normalization will all be discussed in Chapter 10.\nThere are 2 main reasons why we want to perform feature scaling. Firstly, many different types of models take the magnitude of the variables into account when fitting the models, so having variables on different scales can be disadvantageous because some variables have high priorities. In turn, we get that the other variables have low priority. Models that work using Euclidean distances like KNN models are affected by this change. Regularized models such as lasso and ridge regression also need to be scaled since the regularization depends on the magnitude of the estimates. Secondly, some algorithms simply converge much faster when all the variables are on the same scale. These types of models produce the same fit, just at a slower pace than if you don’t scale the variables. Any algorithms using Gradient Descent fits into this category.\nTODO: Have KNN diagram show why this is important\nList which types of models need feature scaling. Should be a 2 column list. Left=name, right=comment %in% c(no effect, different fit, slow down)"
+  },
+  {
+    "objectID": "numeric.html#non-linear-effect",
+    "href": "numeric.html#non-linear-effect",
+    "title": "4  Overview",
+    "section": "4.3 Non-linear effect",
+    "text": "4.3 Non-linear effect\n\nSplines\npolynomial"
+  },
+  {
+    "objectID": "numeric.html#outliers",
+    "href": "numeric.html#outliers",
+    "title": "4  Overview",
+    "section": "4.4 Outliers",
+    "text": "4.4 Outliers"
+  },
+  {
+    "objectID": "numeric.html#other",
+    "href": "numeric.html#other",
+    "title": "4  Overview",
+    "section": "4.5 Other",
+    "text": "4.5 Other\nThere are any number of transformations we can apply to numeric data, other functions include:\n\nhyperbolic\nRelu\ninverse\ninverse logit\nlogit"
+  },
+  {
+    "objectID": "numeric-logarithms.html",
+    "href": "numeric-logarithms.html",
+    "title": "5  Logarithms",
+    "section": "",
+    "text": "Logarithms come as a tool to deal with highly skewed data. Consider the histogram below, it depicts the lot area for all the houses in the ames data set. It is highly skewed with the majority of areas being less than 10,000 with a handful greater than 50,000 with one over 200,000.\nThis data could cause some problems if we tried to use this variable in its unfinished state. We need to think about how numeric variables are being used in these models. Take a linear regression as an example. It fits under the assumption that there is a linear relationship between the response and the predictors. In other words, the model assumes that a 1000 increase in lot area is going to increase the sale price of the house by the same amount if it occurred to a 5000 lot area house or a 50000 lot area house. This might be a valid scenario for this housing market.Another possibility is that we are seeing diminishing returns, and each increase in lot area is going to cause a smaller increase in predicted sale price.\nThe main identity that is interesting when using logarithms for preprocessing is the multiplicative identity\n\\[\n\\log_{base}(xy) = \\log_{base}(x) + \\log_{base}(y)\n\\]\nThis identity allows us to consider the distances in a specific non-linear way. On the linear scale, we have that the distance between 1 and 2 is the same as 20 to 21 and 10,000 to 10,001. Such a relation is not always what we observe. Consider the relationship between excitement (response) and the number of audience members (predictor) at a concert. Adding a singular audience member is not going to have the same effect for all audience sizes. If we consider \\(y = 1.5\\) then we can look at what happens each time the audience size is increased by 50%. For an initial audience size of 100, the following happens\n\\[\n\\log_{10}(150) = \\log_{10}(100 \\cdot 1.5) = \\log_{10}(100) + \\log_{10}(1.5) \\approx 2 + 0.176\n\\]\nand for an initial audience size of 10,000, we get\n\\[\n\\log_{10}(15,000) = \\log_{10}(10,000 \\cdot 1.5) = \\log_{10}(10,000) + \\log_{10}(1.5) \\approx 4 + 0.176\n\\]\nAnd we see that by using a logarithmic transformation we can translate a multiplicative increase into an additive increase.\nThe logarithmic transformation is perfect for such a scenario. If we take a log2() transformation on our data, then we get a new interpretation of our model. Now each doubling (because we used log2) of the lot area is going to result in the same predicted increase in sale price. We have essentially turned out predictors to work on doublings rather than additions. Below is the same chart as before, but on a logarithmic scale using base 2.\nit is important to note that we are not trying to make the variable normally distributed. What we are trying to accomplish is to remove the skewed nature of the variable. Likewise, this method should not be used a variance reduction tool as that task is handled by doing normalization which we start exploring more in Section 4.2.\nThe full equation we use is\n\\[\ny = log_{base}(x + offset)\n\\]\nWhere \\(x\\) is the input, \\(y\\) is the result. The base in and of itself makes a difference, as the choice of base only matters in a multiplicative way. Common choices for bases are \\(e\\), 2, and 10. I find that using a base of 2 yields nice interpretive properties as an increase of 1 in \\(x\\) results in a doubling of \\(y\\).\nOne thing we haven’t touched on yet is that logarithms are only defined for positive input. The offset is introduced to deal with this problem. The offset will default to 0 in most software you will encounter. If you know that your variables contain values from -100 to 10000, you can set offset = 101 to make sure we never take the logarithm of a negative number. A common scenario is non-negative, which contains 0, setting offset = 0.5 helps in that case. The choice of offset you choose does matter a little bit. The offset should generally be smaller than the smallest non-negative value you have, otherwise, you will influence the proportions too much. Below we use an offset of 0.1, and the relationship we get out of this is that distance from 0 to 1, is roughly the same as multiplying by 10.\nOn the other hand, if we set the offset to 0.001, we get that the difference from 0 to 1 is the same as the distance from 1 to 1000, or as the same as multiplying by 1000.\nThe use of logarithms will have different effects on different types of models. Linear models will see a change in transformed variables since we can better model relationships between the response and dependent variable if the transformation leads to a more linear relationship. Tree-based models should in theory not be affected by the use of logarithms, however, some implementations use binning to reduce the number of splitting points for considerations. You will see a change if these bins are based on fixed-width intervals. This is expected to have minimal effect on the final model."
+  },
+  {
+    "objectID": "numeric-logarithms.html#pros-and-cons",
+    "href": "numeric-logarithms.html#pros-and-cons",
+    "title": "5  Logarithms",
+    "section": "5.1 Pros and Cons",
+    "text": "5.1 Pros and Cons\n\n5.1.1 Pros\n\nA non-trained operation, can easily be applied to training and testing data set alike\n\n\n\n5.1.2 Cons\n\nNeeds offset to deal with negative data\nIs not a universal fix. While it can make skewed distributions less skewed. It has the opposite effect on a distribution that isn’t skewed. See the effect below on 10,000 uniformly distributed values"
+  },
+  {
+    "objectID": "numeric-logarithms.html#r-examples",
+    "href": "numeric-logarithms.html#r-examples",
+    "title": "5  Logarithms",
+    "section": "5.2 R Examples",
+    "text": "5.2 R Examples\nWe will be using the ames data set for these examples.\n\names %>%\n  select(Lot_Area, Wood_Deck_SF, Sale_Price)\n\n# A tibble: 2,930 × 3\n   Lot_Area Wood_Deck_SF Sale_Price\n      <int>        <int>      <int>\n 1    31770          210     215000\n 2    11622          140     105000\n 3    14267          393     172000\n 4    11160            0     244000\n 5    13830          212     189900\n 6     9978          360     195500\n 7     4920            0     213500\n 8     5005            0     191500\n 9     5389          237     236500\n10     7500          140     189000\n# … with 2,920 more rows\n\n\n{recipes} provides a step to perform logarithms, which out of the box uses \\(e\\) as the base with an offset of 0.\n\nlog_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) %>%\n  step_log(Lot_Area)\n\nlog_rec %>%\n  prep() %>%\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Lot_Area Sale_Price\n      <dbl>      <int>\n 1    10.4      215000\n 2     9.36     105000\n 3     9.57     172000\n 4     9.32     244000\n 5     9.53     189900\n 6     9.21     195500\n 7     8.50     213500\n 8     8.52     191500\n 9     8.59     236500\n10     8.92     189000\n# … with 2,920 more rows\n\n\nThe base can be changed by setting the base argument.\n\nlog_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) %>%\n  step_log(Lot_Area, base = 2)\n\nlog_rec %>%\n  prep() %>%\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Lot_Area Sale_Price\n      <dbl>      <int>\n 1     15.0     215000\n 2     13.5     105000\n 3     13.8     172000\n 4     13.4     244000\n 5     13.8     189900\n 6     13.3     195500\n 7     12.3     213500\n 8     12.3     191500\n 9     12.4     236500\n10     12.9     189000\n# … with 2,920 more rows\n\n\nIf we have non-positive values, which we do in the Wood_Deck_SF variable because it has quite a lot of zeroes, we get -Inf which isn’t going to work.\n\nlog_rec <- recipe(Sale_Price ~ Wood_Deck_SF, data = ames) %>%\n  step_log(Wood_Deck_SF)\n\nlog_rec %>%\n  prep() %>%\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Wood_Deck_SF Sale_Price\n          <dbl>      <int>\n 1         5.35     215000\n 2         4.94     105000\n 3         5.97     172000\n 4      -Inf        244000\n 5         5.36     189900\n 6         5.89     195500\n 7      -Inf        213500\n 8      -Inf        191500\n 9         5.47     236500\n10         4.94     189000\n# … with 2,920 more rows\n\n\nSetting the offset argument helps us to deal with that problem.\n\nlog_rec <- recipe(Sale_Price ~ Wood_Deck_SF, data = ames) %>%\n  step_log(Wood_Deck_SF, offset = 0.5)\n\nlog_rec %>%\n  prep() %>%\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Wood_Deck_SF Sale_Price\n          <dbl>      <int>\n 1        5.35      215000\n 2        4.95      105000\n 3        5.98      172000\n 4       -0.693     244000\n 5        5.36      189900\n 6        5.89      195500\n 7       -0.693     213500\n 8       -0.693     191500\n 9        5.47      236500\n10        4.95      189000\n# … with 2,920 more rows"
+  },
+  {
+    "objectID": "numeric-sqrt.html",
+    "href": "numeric-sqrt.html",
+    "title": "6  Square Root",
+    "section": "",
+    "text": "As we saw in Chapter 5 about logarithms, we sometimes have to deal with highly skewed data. Square roots are another way to deal with this issue, with some different pros and cons that make it better to use us in some situations. We will spend our time in this section to talk about what those are.\nBelow is a histogram of the average daily rate of a number of hotel stays. It is clear to see that this is another case where the data is highly skewed, with many values close to zero, but a few in the thousands.\nThis variable contains some negative values with the smallest being -6.38. We wouldn’t want to throw out the negative values. And we could think of many situations where both negative and positive values are part of a skewed distribution, especially financial. Bank account balances, delivery times, etc etc.\nWe need a method that transforms the scale to un-skew that also works with negative data. The square root could be what we are looking for. By itself, it takes as its input a positive number and returns the number that when multiplied with itself equals the input. This has the desired shrinking effect, where larger values are shrunk more than smaller values. Additionally, since its domain is the positive numbers (0 is a special case since it maps to itself) we can mirror it to work on negative numbers in the same way it worked on positive numbers. This gives us the signed square root\n\\[\ny = \\text{sign}(x)\\sqrt{\\left| x \\right|}\n\\]\nBelow we see the results of applying the signed square root.\nit is important to note that we are not trying to make the variable normally distributed. What we are trying to accomplish is to remove the skewed nature of the variable. Likewise, this method should not be used a variance reduction tool as that task is handled by doing normalization which we start exploring more in Section 4.2.\nIt doesn’t have the same power to shrink large values as logarithms do, but it will seamlessly work with negative values and it would allow you to pick up on quadratic effects that you wouldn’t otherwise be able to pick up if you hadn’t applied the transformation. It also doesn’t have good inferential properties. It preserves the order of the numeric values, but it doesn’t give us a good way to interpret changes."
+  },
+  {
+    "objectID": "numeric-sqrt.html#pros-and-cons",
+    "href": "numeric-sqrt.html#pros-and-cons",
+    "title": "6  Square Root",
+    "section": "6.1 Pros and Cons",
+    "text": "6.1 Pros and Cons\n\n6.1.1 Pros\n\nA non-trained operation, can easily be applied to training and testing data set alike\nCan be applied to all numbers, not just non-negative values\n\n\n\n6.1.2 Cons\n\nIt will leave regression coefficients virtually uninterpretable\nIs not a universal fix. While it can make skewed distributions less skewed. It has the opposite effect on a distribution that isn’t skewed"
+  },
+  {
+    "objectID": "numeric-sqrt.html#r-examples",
+    "href": "numeric-sqrt.html#r-examples",
+    "title": "6  Square Root",
+    "section": "6.2 R Examples",
+    "text": "6.2 R Examples\nWe will be using the hotel_bookings data set for these examples.\n\nhotel_bookings %>%\n  select(lead_time, adr)\n\n# A tibble: 119,390 × 2\n   lead_time   adr\n       <dbl> <dbl>\n 1       342    0 \n 2       737    0 \n 3         7   75 \n 4        13   75 \n 5        14   98 \n 6        14   98 \n 7         0  107 \n 8         9  103 \n 9        85   82 \n10        75  106.\n# … with 119,380 more rows\n\n\n{recipes} provides a step to perform logarithms, which out of the box uses \\(e\\) as the base with an offset of 0.\n\n# TODO use signed sqrt\nsqrt_rec <- recipe(lead_time ~ adr, data = hotel_bookings) %>%\n  step_sqrt(adr)\n\nsqrt_rec %>%\n  prep() %>%\n  bake(new_data = NULL)\n\nWarning in sqrt(getElement(new_data, col_names[i])): NaNs produced\n\n\n# A tibble: 119,390 × 2\n     adr lead_time\n   <dbl>     <dbl>\n 1  0          342\n 2  0          737\n 3  8.66         7\n 4  8.66        13\n 5  9.90        14\n 6  9.90        14\n 7 10.3          0\n 8 10.1          9\n 9  9.06        85\n10 10.3         75\n# … with 119,380 more rows"
+  },
+  {
+    "objectID": "numeric-sqrt.html#python-examples",
+    "href": "numeric-sqrt.html#python-examples",
+    "title": "6  Square Root",
+    "section": "6.3 Python Examples",
+    "text": "6.3 Python Examples"
+  },
+  {
+    "objectID": "numeric-boxcox.html",
+    "href": "numeric-boxcox.html",
+    "title": "7  Box-Cox",
+    "section": "",
+    "text": "You have likely heard a lot of talk about having normally distributed predictors. This isn’t that common of an assumption, and having a fairly non-skewed symmetric predictor is often enough. Linear Discriminant Analysis assumes Gaussian data, and that is about it (TODO add a reference here). Still, it is worthwhile to have more symmetric predictors, and this is where the Box-Cox transformation comes into play.\nIn Chapter 5 on logarithms, we saw how they could be used to change the distribution of a variable. One of the downsides is that if we want to get closer to normality, it doesn’t do well unless applied to a log-normally distributed variable. The Box-Cox transformation tries to find an optimal power transformation. This method was originally intended to be used on the outcome of a model.\nIt works by using maximum likelihood estimation to estimate a transformation parameter \\(\\lambda\\) in the following equation that would optimize the normality of \\(x^*\\)\n\\[\nx^* = \\left\\{\n    \\begin{array}{ll}\n      \\dfrac{x^\\lambda - 1}{\\lambda \\tilde{x}^{\\lambda - 1}}, & \\lambda \\neq 0 \\\\\n      \\tilde{x} \\log x & \\lambda = 0\n    \\end{array}\n  \\right.\n\\]\nwhere \\(\\tilde{x}\\) is the geometric mean of \\(x\\). It is worth noting again, that what we are optimizing over is the value of \\(\\lambda\\). This is also a case of a trained preprocessing method when used on the predictors. We need to estimate the parameter \\(\\lambda\\) on the training data set, then use the estimated value to apply the transformation to the training and test data set to avoid data leakage. Lastly, Box-Cox only works with positive numbers. Take a look at Chapter 8 about the Yeo-Johnson method that tries to accomplish the same thing, and it works on positive as well as negative numbers.\nLet us see some examples of Box-Cox at work. Below is three different simulated distribution, before and after they have been transformed by Box-Cox.\nWe have the original distributions have some left or right skewed-ness. And the transformed columns look better, in the sense that they are less skewed and they are fairly symmetric around the center. Are they perfectly normal? No! but these transformations might be beneficial. The next set of distributions wasn’t so lucky.\nThe Box-Cox method isn’t magic and will only give you something more normally distributed if the distribution can be made more normally distributed by applying a power transformation.\nThe first distribution here is uniformly random. The resulting transformation ends up more skewed, even if only a little bit, than the original distribution because this method is not intended for this type of data. We are seeing similar results with the bi-modal distributions."
+  },
+  {
+    "objectID": "numeric-boxcox.html#pros-and-cons",
+    "href": "numeric-boxcox.html#pros-and-cons",
+    "title": "7  Box-Cox",
+    "section": "7.1 Pros and Cons",
+    "text": "7.1 Pros and Cons\n\n7.1.1 Pros\n\nMore flexible than individually chosen power transformations such as logarithms and square roots\n\n\n\n7.1.2 Cons\n\nDoesn’t work with negative values\nIsn’t a universal fix"
+  },
+  {
+    "objectID": "numeric-boxcox.html#r-examples",
+    "href": "numeric-boxcox.html#r-examples",
+    "title": "7  Box-Cox",
+    "section": "7.2 R Examples",
+    "text": "7.2 R Examples\nWe will be using the ames data set for these examples.\n\nlibrary(recipes)\nlibrary(modeldata)\ndata(\"ames\")\n\names %>%\n  select(Lot_Area, Wood_Deck_SF, Sale_Price)\n\n# A tibble: 2,930 × 3\n   Lot_Area Wood_Deck_SF Sale_Price\n      <int>        <int>      <int>\n 1    31770          210     215000\n 2    11622          140     105000\n 3    14267          393     172000\n 4    11160            0     244000\n 5    13830          212     189900\n 6     9978          360     195500\n 7     4920            0     213500\n 8     5005            0     191500\n 9     5389          237     236500\n10     7500          140     189000\n# … with 2,920 more rows\n\n\n{recipes} provides a step to perform Box-Cox transformations.\n\nboxcox_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) %>%\n  step_BoxCox(Lot_Area) %>%\n  prep()\n\nboxcox_rec %>%\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Lot_Area Sale_Price\n      <dbl>      <int>\n 1     21.8     215000\n 2     18.2     105000\n 3     18.9     172000\n 4     18.1     244000\n 5     18.8     189900\n 6     17.7     195500\n 7     15.5     213500\n 8     15.5     191500\n 9     15.8     236500\n10     16.8     189000\n# … with 2,920 more rows\n\n\nWe can also pull out the value of the estimated \\(\\lambda\\) by using the tidy() method on the recipe step.\n\nboxcox_rec %>%\n  tidy(1)\n\n# A tibble: 1 × 3\n  terms    value id          \n  <chr>    <dbl> <chr>       \n1 Lot_Area 0.129 BoxCox_3gJXR"
+  },
+  {
+    "objectID": "numeric-boxcox.html#python-examples",
+    "href": "numeric-boxcox.html#python-examples",
+    "title": "7  Box-Cox",
+    "section": "7.3 Python Examples",
+    "text": "7.3 Python Examples"
+  },
+  {
+    "objectID": "numeric-yeojohnson.html",
+    "href": "numeric-yeojohnson.html",
+    "title": "8  Yeo-Johnson",
+    "section": "",
+    "text": "You have likely heard a lot of talk about having normally distributed predictors. This isn’t that common of an assumption, and having a fairly non-skewed symmetric predictor is often enough. Linear Discriminant Analysis assumes Gaussian data, and that is about it (TODO add a reference here). Still, it is worthwhile to have more symmetric predictors, and this is where the Yeo-Johnson transformation comes into play.\nThis method is very similar to the Box-Cox method in Chapter 7, except it doesn’t have the restriction that the variable \\(x\\) needs to be positive.\nIt works by using maximum likelihood estimation to estimate a transformation parameter \\(\\lambda\\) in the following equation that would optimize the normality of \\(x^*\\)\n\\[\nx^* = \\left\\{\n    \\begin{array}{ll}\n      \\dfrac{(x + 1) ^ \\lambda - 1}{\\lambda}              & \\lambda \\neq 0, x \\geq 0 \\\\\n      \\log(x + 1)                                         & \\lambda =    0, x \\geq 0 \\\\\n      - \\dfrac{(-x + 1) ^ {2 - \\lambda} - 1}{2 - \\lambda} & \\lambda \\neq 2, x <    0 \\\\\n      - \\log(-x + 1)                                      & \\lambda =    2, x <    0\n    \\end{array}\n  \\right.\n\\] It is worth noting again, that what we are optimizing over is the value of \\(\\lambda\\). This is also a case of a trained preprocessing method when used on the predictors. We need to estimate the parameter \\(\\lambda\\) on the training data set, then use the estimated value to apply the transformation to the training and test data set to avoid data leakage.\nIf the values of \\(x\\) are strictly positive, then the Yeo-Johnson transformation is the same as the Box-Cox transformation of \\(x + 1\\), if the values of \\(x\\) are strictly negative then the transformation is the Box-Cox transformation of \\(-x + 1\\) with the power \\(2 - \\lambda\\). The interpretation of \\(\\lambda\\) isn’t as easy as for the Box-Cox method.\nLet us see some examples of Yeo-Johnson at work. Below is three different simulated distribution, before and after they have been transformed by Yeo-Johnson.\nWe have the original distributions have some left or right skewed-ness. And the transformed columns look better, in the sense that they are less skewed and they are fairly symmetric around the center. Are they perfectly normal? No! but these transformations might be beneficial. We also notice how these methods work, even when there are negative values.\nThe Yeo-Johnson method isn’t magic and will only give you something more normally distributed if the distribution can be made more normally distributed by applying the above formula would give you some more normally distributed values.\nThe first distribution here is uniformly random. The resulting transformation ends up more skewed, even if only a little bit, than the original distribution because this method is not intended for this type of data. We are seeing similar results with the bi-modal distributions."
+  },
+  {
+    "objectID": "numeric-yeojohnson.html#pros-and-cons",
+    "href": "numeric-yeojohnson.html#pros-and-cons",
+    "title": "8  Yeo-Johnson",
+    "section": "8.1 Pros and Cons",
+    "text": "8.1 Pros and Cons\n\n8.1.1 Pros\n\nMore flexible than individually chosen power transformations such as logarithms and square roots\nCan handle negative values\n\n\n\n8.1.2 Cons\n\nIsn’t a universal fix"
+  },
+  {
+    "objectID": "numeric-yeojohnson.html#r-examples",
+    "href": "numeric-yeojohnson.html#r-examples",
+    "title": "8  Yeo-Johnson",
+    "section": "8.2 R Examples",
+    "text": "8.2 R Examples\nWe will be using the ames data set for these examples.\n\nlibrary(recipes)\nlibrary(modeldata)\ndata(\"ames\")\n\names %>%\n  select(Lot_Area, Wood_Deck_SF, Sale_Price)\n\n# A tibble: 2,930 × 3\n   Lot_Area Wood_Deck_SF Sale_Price\n      <int>        <int>      <int>\n 1    31770          210     215000\n 2    11622          140     105000\n 3    14267          393     172000\n 4    11160            0     244000\n 5    13830          212     189900\n 6     9978          360     195500\n 7     4920            0     213500\n 8     5005            0     191500\n 9     5389          237     236500\n10     7500          140     189000\n# … with 2,920 more rows\n\n\n{recipes} provides a step to perform Yeo-Johnson transformations, which out of the box uses \\(e\\) as the base with an offset of 0.\n\nyeojohnson_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) %>%\n  step_YeoJohnson(Lot_Area) %>%\n  prep()\n\nyeojohnson_rec %>%\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Lot_Area Sale_Price\n      <dbl>      <int>\n 1     21.8     215000\n 2     18.2     105000\n 3     18.9     172000\n 4     18.1     244000\n 5     18.8     189900\n 6     17.7     195500\n 7     15.5     213500\n 8     15.5     191500\n 9     15.8     236500\n10     16.8     189000\n# … with 2,920 more rows\n\n\nWe can also pull out the value of the estimated \\(\\lambda\\) by using the tidy() method on the recipe step.\n\nyeojohnson_rec %>%\n  tidy(1)\n\n# A tibble: 1 × 3\n  terms    value id              \n  <chr>    <dbl> <chr>           \n1 Lot_Area 0.129 YeoJohnson_3gJXR"
+  },
+  {
+    "objectID": "numeric-yeojohnson.html#python-examples",
+    "href": "numeric-yeojohnson.html#python-examples",
+    "title": "8  Yeo-Johnson",
+    "section": "8.3 Python Examples",
+    "text": "8.3 Python Examples"
+  },
+  {
+    "objectID": "numeric-normalization.html",
+    "href": "numeric-normalization.html",
+    "title": "9  Normalization",
+    "section": "",
+    "text": "Normalization is a method where we modify a variable by subtracting the mean and dividing by the standard deviation\n\\[X_{scaled} = \\dfrac{X - \\text{mean}(X)}{\\text{sd}(X)}\\]\nPerforming this transformation means that the resulting variable will have a mean of 0 and a standard deviation and variance of 1. It is a common misconception that this transformation is done to make the data normally distributed. This transformation doesn’t change the distribution, it scales the values. Below is a figure Figure 9.1 that illustrates that point\nIn Figure 9.1 we see some distribution, before and after applying normalization to it. Both the original and transformed distribution are bimodal, and the transformed distribution is no more normal than the original. And that is fine because the transformation did its job by moving the values close to 0 and a specific spread, which in this case is a variance of 1."
+  },
+  {
+    "objectID": "numeric-normalization.html#pros-and-cons",
+    "href": "numeric-normalization.html#pros-and-cons",
+    "title": "9  Normalization",
+    "section": "9.1 Pros and Cons",
+    "text": "9.1 Pros and Cons\n\n9.1.1 Pros\n\nIf you don’t have any severe outliers then you will rarely see any downsides to applying normalization\nFast calculations\nTransformation can easily be reversed, making its interpretations easier on the original scale\n\n\n\n9.1.2 Cons\n\nNot all software solutions will not be helpful when applying this transformation to a constant variable. A division by 0 error is likely what you will see\nThis transformation is highly affected by outliers, as they affect the mean and standard deviation quite a lot.\n\nBelow is the figure Figure 9.2 is an illustration of the effect by having a single high value. In this case, a single observation with the value 10000 moved the transformed distribution much tighter around zero. And all but removed the variance of the non-outliers.\n\n\n\n\n\nFigure 9.2: Outliers can have a big effect on the resulting distribution when applying normalization."
+  },
+  {
+    "objectID": "numeric-normalization.html#r-examples",
+    "href": "numeric-normalization.html#r-examples",
+    "title": "9  Normalization",
+    "section": "9.2 R Examples",
+    "text": "9.2 R Examples\nWe will be using the ames data set for these examples.\n\nlibrary(recipes)\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nlibrary(modeldata)\ndata(\"ames\")\n\names %>%\n  select(Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)\n\n# A tibble: 2,930 × 4\n   Sale_Price Lot_Area Wood_Deck_SF Mas_Vnr_Area\n        <int>    <int>        <int>        <dbl>\n 1     215000    31770          210          112\n 2     105000    11622          140            0\n 3     172000    14267          393          108\n 4     244000    11160            0            0\n 5     189900    13830          212            0\n 6     195500     9978          360           20\n 7     213500     4920            0            0\n 8     191500     5005            0            0\n 9     236500     5389          237            0\n10     189000     7500          140            0\n# … with 2,920 more rows\n\n\n{recipes} provides a step to perform scaling, centering, and normalization. They are called step_scale(), step_center() and step_normalize() respectively.\nBelow is an example using step_scale()\n\nscale_rec <- recipe(Sale_Price ~ ., data = ames) %>%\n  step_scale(all_numeric_predictors()) %>%\n  prep()\n\nscale_rec %>%\n  bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)\n\n# A tibble: 2,930 × 4\n   Sale_Price Lot_Area Wood_Deck_SF Mas_Vnr_Area\n        <int>    <dbl>        <dbl>        <dbl>\n 1     215000    4.03          1.66        0.627\n 2     105000    1.47          1.11        0    \n 3     172000    1.81          3.11        0.605\n 4     244000    1.42          0           0    \n 5     189900    1.76          1.68        0    \n 6     195500    1.27          2.85        0.112\n 7     213500    0.624         0           0    \n 8     191500    0.635         0           0    \n 9     236500    0.684         1.88        0    \n10     189000    0.952         1.11        0    \n# … with 2,920 more rows\n\n\nWe can also pull out the value of the standard deviation for each variable that was affected using tidy()\n\nscale_rec %>%\n  tidy(1)\n\n# A tibble: 33 × 3\n   terms            value id         \n   <chr>            <dbl> <chr>      \n 1 Lot_Frontage     33.5  scale_FGmgk\n 2 Lot_Area       7880.   scale_FGmgk\n 3 Year_Built       30.2  scale_FGmgk\n 4 Year_Remod_Add   20.9  scale_FGmgk\n 5 Mas_Vnr_Area    179.   scale_FGmgk\n 6 BsmtFin_SF_1      2.23 scale_FGmgk\n 7 BsmtFin_SF_2    169.   scale_FGmgk\n 8 Bsmt_Unf_SF     440.   scale_FGmgk\n 9 Total_Bsmt_SF   441.   scale_FGmgk\n10 First_Flr_SF    392.   scale_FGmgk\n# … with 23 more rows\n\n\nWe could also have used step_center() and step_scale() together in one recipe\n\ncenter_scale_rec <- recipe(Sale_Price ~ ., data = ames) %>%\n  step_center(all_numeric_predictors()) %>%\n  step_scale(all_numeric_predictors()) %>%\n  prep()\n\ncenter_scale_rec %>%\n  bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)\n\n# A tibble: 2,930 × 4\n   Sale_Price Lot_Area Wood_Deck_SF Mas_Vnr_Area\n        <int>    <dbl>        <dbl>        <dbl>\n 1     215000   2.74          0.920       0.0610\n 2     105000   0.187         0.366      -0.566 \n 3     172000   0.523         2.37        0.0386\n 4     244000   0.128        -0.742      -0.566 \n 5     189900   0.467         0.936      -0.566 \n 6     195500  -0.0216        2.11       -0.454 \n 7     213500  -0.663        -0.742      -0.566 \n 8     191500  -0.653        -0.742      -0.566 \n 9     236500  -0.604         1.13       -0.566 \n10     189000  -0.336         0.366      -0.566 \n# … with 2,920 more rows\n\n\nUsing tidy() we can see information about each step\n\ncenter_scale_rec %>%\n  tidy()\n\n# A tibble: 2 × 6\n  number operation type   trained skip  id          \n   <int> <chr>     <chr>  <lgl>   <lgl> <chr>       \n1      1 step      center TRUE    FALSE center_tSRk5\n2      2 step      scale  TRUE    FALSE scale_kjP2v \n\n\nAnd we can pull out the means using tidy(1)\n\ncenter_scale_rec %>%\n  tidy(1)\n\n# A tibble: 33 × 3\n   terms             value id          \n   <chr>             <dbl> <chr>       \n 1 Lot_Frontage      57.6  center_tSRk5\n 2 Lot_Area       10148.   center_tSRk5\n 3 Year_Built      1971.   center_tSRk5\n 4 Year_Remod_Add  1984.   center_tSRk5\n 5 Mas_Vnr_Area     101.   center_tSRk5\n 6 BsmtFin_SF_1       4.18 center_tSRk5\n 7 BsmtFin_SF_2      49.7  center_tSRk5\n 8 Bsmt_Unf_SF      559.   center_tSRk5\n 9 Total_Bsmt_SF   1051.   center_tSRk5\n10 First_Flr_SF    1160.   center_tSRk5\n# … with 23 more rows\n\n\nand the standard deviation using tidy(2)\n\ncenter_scale_rec %>%\n  tidy(2)\n\n# A tibble: 33 × 3\n   terms            value id         \n   <chr>            <dbl> <chr>      \n 1 Lot_Frontage     33.5  scale_kjP2v\n 2 Lot_Area       7880.   scale_kjP2v\n 3 Year_Built       30.2  scale_kjP2v\n 4 Year_Remod_Add   20.9  scale_kjP2v\n 5 Mas_Vnr_Area    179.   scale_kjP2v\n 6 BsmtFin_SF_1      2.23 scale_kjP2v\n 7 BsmtFin_SF_2    169.   scale_kjP2v\n 8 Bsmt_Unf_SF     440.   scale_kjP2v\n 9 Total_Bsmt_SF   441.   scale_kjP2v\n10 First_Flr_SF    392.   scale_kjP2v\n# … with 23 more rows\n\n\nSince these steps often follow each other, we often use the step_normalize() as a shortcut to do both operations in one step\n\nscale_rec <- recipe(Sale_Price ~ ., data = ames) %>%\n  step_normalize(all_numeric_predictors()) %>%\n  prep()\n\nscale_rec %>%\n  bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)\n\n# A tibble: 2,930 × 4\n   Sale_Price Lot_Area Wood_Deck_SF Mas_Vnr_Area\n        <int>    <dbl>        <dbl>        <dbl>\n 1     215000   2.74          0.920       0.0610\n 2     105000   0.187         0.366      -0.566 \n 3     172000   0.523         2.37        0.0386\n 4     244000   0.128        -0.742      -0.566 \n 5     189900   0.467         0.936      -0.566 \n 6     195500  -0.0216        2.11       -0.454 \n 7     213500  -0.663        -0.742      -0.566 \n 8     191500  -0.653        -0.742      -0.566 \n 9     236500  -0.604         1.13       -0.566 \n10     189000  -0.336         0.366      -0.566 \n# … with 2,920 more rows\n\n\nAnd we can still pull out the means and standard deviations using tidy()\n\nscale_rec %>%\n  tidy(1) %>%\n  filter(terms %in% c(\"Lot_Area\", \"Wood_Deck_SF\", \"Mas_Vnr_Area\"))\n\n# A tibble: 6 × 4\n  terms        statistic   value id             \n  <chr>        <chr>       <dbl> <chr>          \n1 Lot_Area     mean      10148.  normalize_ucdPw\n2 Mas_Vnr_Area mean        101.  normalize_ucdPw\n3 Wood_Deck_SF mean         93.8 normalize_ucdPw\n4 Lot_Area     sd         7880.  normalize_ucdPw\n5 Mas_Vnr_Area sd          179.  normalize_ucdPw\n6 Wood_Deck_SF sd          126.  normalize_ucdPw"
+  },
+  {
+    "objectID": "numeric-normalization.html#python-examples",
+    "href": "numeric-normalization.html#python-examples",
+    "title": "9  Normalization",
+    "section": "9.3 Python Examples",
+    "text": "9.3 Python Examples"
+  },
+  {
+    "objectID": "numeric-range.html",
+    "href": "numeric-range.html",
+    "title": "10  Range",
+    "section": "",
+    "text": "Range scaling, also known as Min-Max scaling, is a method where to make the data fit into a pre-defined interval. Typically the equation used to illustrate this method is show like so\n\\[\nX_{scaled} = \\dfrac{X - \\text{min}(X)}{\\text{max}(X) - \\text{min}(X)}\n\\tag{10.1}\\]\nThis equations only shows what happens if you use the software with defaults. This will scale your variable to be in the range \\([0, 1]\\). It is important to treat this as a learned method, and we will thus calculate \\(\\text{min}(X)\\) and \\(\\text{max}(X)\\) on the training data set, and use those to apply the transformation on new data. One of the benefits of this method is that it transforms any variable into a predefined range of 0 and 1. Unless of cause a new data point is outside the range. Suppose that the original data was on the range \\(\\text{min}(X) = 5\\) and \\(\\text{max}(X) = 100\\), and we encounter a new data point with the value 200. Then according to Equation 10.2 we would get a transformed value of (200-5)/(100-5) = 2.0526 which is very much not between 0 and 1. We thus have a violation of our original goal. One way to get around this is to use clipping. Clipping is a technique when using this method where any values less then \\(\\text{min}(X)\\) will be noted as 0 and any values larger than \\(\\text{max}(X)\\) will be noted as 1. This little tick ensures that any new data points stays within the range. Expending our equation to the following\n\\[\nX_{scaled}=    \n\\begin{cases}        \n0, & X_{new} < \\text{min}(X_{train})\\\\        \n1 & X_{new} > \\text{max}(X_{train})\\\\\n\\dfrac{X_{new} - \\text{min}(X_{train})}{\\text{max}(X_{train}) - \\text{min}(X_{train})}, & \\text{otherwise}\n\\end{cases}\n\\tag{10.2}\\]\nThe equation is a lot bigger, but was it different is that we are specify that the transformation should be done using training data, and by adding a couple of branches to reflect the clipping. In practice it will look something like Figure 10.1 where the original data had a range of \\([10, 32]\\).\nSadly we are not done quite yet. One last thing that Equation 10.2 doesn’t take into account is that sometimes people don’t want to transformation to be into any range, not just \\([0, 1]\\) . This gives us the final equation\n\\[\nX_{scaled}=    \n\\begin{cases}        \nR_{lower}, & X_{new} < \\text{min}(X_{train})\\\\        \nR_{upper} & X_{new} > \\text{max}(X_{train})\\\\\n\\dfrac{X_{new} - \\text{min}(X_{train})}{\\text{max}(X_{train}) - \\text{min}(X_{train})} \\cdot R_{upper} + R_{lower}, & \\text{otherwise}\n\\end{cases}\n\\tag{10.3}\\]\nWhere Equation 10.3 now have \\(R_{lower}\\) to represent a user defined lower bound, and \\(R_{upper}\\) representing the corresponding user defined upper bound. I would recommend that you keep Equation 10.1 in your mind when thinking about this method, but also include a little footnote that it doesn’t include all the little options.\nOne thing you should know is how this transformation is affected by outliers. Clipping essentially ignores the magnitude of how much an outlier is. There is no difference between a new value of 100 and 100000 to a variable that had a range of \\([0, 90]\\) on the training data set. This might be a problem, and it is up to you as the practitioner to decide. One option would be to turn off clipping, but it would violate the assumption that all future transformed observations will be within a specific range.\nBelow is the figure Figure 10.2 is an illustration of the effect by having a single high value. In this case, a single observation with the value `10000` moved the transformed distribution much tighter around zero. And all but removed the variance of the non-outliers."
+  },
+  {
+    "objectID": "numeric-range.html#pros-and-cons",
+    "href": "numeric-range.html#pros-and-cons",
+    "title": "10  Range",
+    "section": "10.1 Pros and Cons",
+    "text": "10.1 Pros and Cons\n\n10.1.1 Pros\n\nFast calculations\nTransformation can easily be reversed, making its interpretations easier on the original scale, provided that clipping wasn’t turned on\n\n\n\n10.1.2 Cons\n\nTurning on clipping diminishes the effect of outliers by rounding them up/down\n\n\n\nDoesn’t work with zero variance data as max(x) - min(x) = 0, yielding a division by zero"
+  },
+  {
+    "objectID": "numeric-range.html#r-examples",
+    "href": "numeric-range.html#r-examples",
+    "title": "10  Range",
+    "section": "10.2 R Examples",
+    "text": "10.2 R Examples\nstep_range() clips. Does allow user to specify range step_minmax() doesn’t clip. doens’t allow user to specify range"
+  },
+  {
+    "objectID": "numeric-range.html#python-examples",
+    "href": "numeric-range.html#python-examples",
+    "title": "10  Range",
+    "section": "10.3 Python Examples",
+    "text": "10.3 Python Examples\nMinMaxScaler() doesn’t clip by default. Allows user to specify range."
+  },
+  {
+    "objectID": "numeric-minabs.html",
+    "href": "numeric-minabs.html",
+    "title": "11  MinAbs",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "numeric-robust.html",
+    "href": "numeric-robust.html",
+    "title": "12  Robust Scaling",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "numeric-splines.html",
+    "href": "numeric-splines.html",
+    "title": "13  Splines",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "numeric-polynomial.html",
+    "href": "numeric-polynomial.html",
+    "title": "14  Polynomial",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical.html",
+    "href": "categorical.html",
+    "title": "15  Overview",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical-dummy.html",
+    "href": "categorical-dummy.html",
+    "title": "16  Dummy Encoding",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical-label.html",
+    "href": "categorical-label.html",
+    "title": "17  Label Encoding",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical-binary.html",
+    "href": "categorical-binary.html",
+    "title": "18  Binary Encoding",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical-ordinal.html",
+    "href": "categorical-ordinal.html",
+    "title": "19  Ordinal Encoding",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical-frequency.html",
+    "href": "categorical-frequency.html",
+    "title": "20  Frequency Encoding",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical-helmert.html",
+    "href": "categorical-helmert.html",
+    "title": "21  Helmert Encoding",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical-difference.html",
+    "href": "categorical-difference.html",
+    "title": "22  Difference Encoding",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical-target.html",
+    "href": "categorical-target.html",
+    "title": "23  Target Encoding",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical-impact.html",
+    "href": "categorical-impact.html",
+    "title": "24  Impact Encoding",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical-polynomial.html",
+    "href": "categorical-polynomial.html",
+    "title": "25  Polynomial Encoding",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical-sum.html",
+    "href": "categorical-sum.html",
+    "title": "26  Sum Encoding",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical-hashing.html",
+    "href": "categorical-hashing.html",
+    "title": "27  Hashing Encoding",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical-leaveoneout.html",
+    "href": "categorical-leaveoneout.html",
+    "title": "28  Leave One Out Encoding",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical-leaf.html",
+    "href": "categorical-leaf.html",
+    "title": "29  Leaf Encoding",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical-glmm.html",
+    "href": "categorical-glmm.html",
+    "title": "30  GLMM Encoding",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical-randomforest.html",
+    "href": "categorical-randomforest.html",
+    "title": "31  Random Forest Encoding",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical-catboost.html",
+    "href": "categorical-catboost.html",
+    "title": "32  Catboost Encoding",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical-woe.html",
+    "href": "categorical-woe.html",
+    "title": "33  Weight of Evidence Encoding",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical-jamesstein.html",
+    "href": "categorical-jamesstein.html",
+    "title": "34  James-Stein Encoding",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical-mestimator.html",
+    "href": "categorical-mestimator.html",
+    "title": "35  M-Estimator Encoding",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical-thermometer.html",
+    "href": "categorical-thermometer.html",
+    "title": "36  Thermometer Encoding",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical-quantile.html",
+    "href": "categorical-quantile.html",
+    "title": "37  Quantile Encoding",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical-summary.html",
+    "href": "categorical-summary.html",
+    "title": "38  Summary Encoding",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical-collapse.html",
+    "href": "categorical-collapse.html",
+    "title": "39  Collapsing Categories",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical-multi-dummy.html",
+    "href": "categorical-multi-dummy.html",
+    "title": "40  Multi-Dummy encoding",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "imbalenced.html",
+    "href": "imbalenced.html",
+    "title": "41  Overview",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "imbalenced-smote.html",
+    "href": "imbalenced-smote.html",
+    "title": "42  SMOTE",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "missing.html",
+    "href": "missing.html",
+    "title": "43  Overview",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "missing-imputation.html",
+    "href": "missing-imputation.html",
+    "title": "44  Imputation",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "too-many.html",
+    "href": "too-many.html",
+    "title": "45  Overview",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "too-many-pca.html",
+    "href": "too-many-pca.html",
+    "title": "46  Principal Component Analysis",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "outliers.html",
+    "href": "outliers.html",
+    "title": "47  Overview",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "outliers-remove.html",
+    "href": "outliers-remove.html",
+    "title": "48  Removal",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "datetime.html",
+    "href": "datetime.html",
+    "title": "49  Overview",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "datetime-holiday.html",
+    "href": "datetime-holiday.html",
+    "title": "50  Holidays",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "text.html",
+    "href": "text.html",
+    "title": "51  Overview",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "text-tfidf.html",
+    "href": "text-tfidf.html",
+    "title": "52  TF-IDF",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "image.html",
+    "href": "image.html",
+    "title": "53  Overview",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "image-stats.html",
+    "href": "image-stats.html",
+    "title": "54  Visual Features",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "circular.html",
+    "href": "circular.html",
+    "title": "55  Overview",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "circular-trig.html",
+    "href": "circular-trig.html",
+    "title": "56  Trigonometric",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "time-series.html",
+    "href": "time-series.html",
+    "title": "57  Overview",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "time-series-fourier.html",
+    "href": "time-series-fourier.html",
+    "title": "58  Fourier Features",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "correlated.html",
+    "href": "correlated.html",
+    "title": "59  Overview",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "correlated-filter.html",
+    "href": "correlated-filter.html",
+    "title": "60  High Correlation Filter",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "miscellaneous.html",
+    "href": "miscellaneous.html",
+    "title": "61  Overview",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "miscellaneous-zipcodes.html",
+    "href": "miscellaneous-zipcodes.html",
+    "title": "62  Zip Codes",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "video.html",
+    "href": "video.html",
+    "title": "63  Overview",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "video-tmp.html",
+    "href": "video-tmp.html",
+    "title": "64  Temporary",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "sound.html",
+    "href": "sound.html",
+    "title": "65  Overview",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "sound-tmp.html",
+    "href": "sound-tmp.html",
+    "title": "66  Temporary",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "spatial.html",
+    "href": "spatial.html",
+    "title": "67  Overview",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "spatial-gps.html",
+    "href": "spatial-gps.html",
+    "title": "68  GPS",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "geospatial.html",
+    "href": "geospatial.html",
+    "title": "69  Overview",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "geospatial-shapefiles.html",
+    "href": "geospatial-shapefiles.html",
+    "title": "70  Shapefiles",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "relational.html",
+    "href": "relational.html",
+    "title": "71  Overview",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "relational-tmp.html",
+    "href": "relational-tmp.html",
+    "title": "72  Temporary",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "order.html",
+    "href": "order.html",
+    "title": "73  Order of transformations",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "sparse.html",
+    "href": "sparse.html",
+    "title": "74  What should you do if you have sparse data?",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "models.html",
+    "href": "models.html",
+    "title": "75  How Different Models Deal With Input",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "summary.html",
+    "href": "summary.html",
+    "title": "76  Summary",
+    "section": "",
+    "text": "WIP"
+  }
+]
