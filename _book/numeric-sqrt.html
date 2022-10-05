@@ -770,7 +770,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>As we saw in <a href="#sec-logarithms"><span class="quarto-unresolved-ref">sec-logarithms</span></a> about logarithms, we sometimes have to deal with highly skewed data. Square roots are another way to deal with this issue, with some different pros and cons that make it better to use us in some situations. We will spend our time in this section to talk about what those are.</p>
+<p>As we saw in <a href="numeric-logarithms.html"><span>Chapter&nbsp;5</span></a> about logarithms, we sometimes have to deal with highly skewed data. Square roots are another way to deal with this issue, with some different pros and cons that make it better to use us in some situations. We will spend our time in this section to talk about what those are.</p>
 <p>Below is a histogram of the average daily rate of a number of hotel stays. It is clear to see that this is another case where the data is highly skewed, with many values close to zero, but a few in the thousands.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -798,7 +798,7 @@ y = \text{sign}(x)\sqrt{\left| x \right|}
 </div>
 </div>
 </div>
-<p>it is important to note that we are not trying to make the variable normally distributed. What we are trying to accomplish is to remove the skewed nature of the variable. Likewise, this method should not be used a variance reduction tool as that task is handled by doing normalization which we start exploring more in <a href="#sec-numeric-scaling-issues"><span class="quarto-unresolved-ref">sec-numeric-scaling-issues</span></a>.</p>
+<p>it is important to note that we are not trying to make the variable normally distributed. What we are trying to accomplish is to remove the skewed nature of the variable. Likewise, this method should not be used a variance reduction tool as that task is handled by doing normalization which we start exploring more in <a href="numeric.html#sec-numeric-scaling-issues"><span>Section&nbsp;4.2</span></a>.</p>
 <p>It doesn’t have the same power to shrink large values as logarithms do, but it will seamlessly work with negative values and it would allow you to pick up on quadratic effects that you wouldn’t otherwise be able to pick up if you hadn’t applied the transformation. It also doesn’t have good inferential properties. It preserves the order of the numeric values, but it doesn’t give us a good way to interpret changes.</p>
 <section id="pros-and-cons" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">6.1</span> Pros and Cons</h2>

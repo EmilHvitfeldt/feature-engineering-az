@@ -711,18 +711,16 @@ ul.task-list li input[type="checkbox"] {
 <p><span id="eq-range-minimal"><span class="math display">\[
 X_{scaled} = \dfrac{X - \text{min}(X)}{\text{max}(X) - \text{min}(X)}
 \tag{10.1}\]</span></span></p>
-<p>This equations only shows what happens if you use the software with defaults. This will scale your variable to be in the range <span class="math inline">\([0, 1]\)</span>. It is important to treat this as a learned method, and we will thus calculate <span class="math inline">\(\text{min}(X)\)</span> and <span class="math inline">\(\text{max}(X)\)</span> on the training data set, and use those to apply the transformation on new data. One of the benefits of this method is that it transforms any variable into a predefined range of 0 and 1. Unless of cause a new data point is outside the range. Suppose that the original data was on the range <span class="math inline">\(\text{min}(X) = 5\)</span> and <span class="math inline">\(\text{max}(X) = 100\)</span>, and we encounter a new data point with the value 200. Then according to <a href="#eq-range-clip">Equation&nbsp;<span class="quarto-unresolved-ref">eq-range-clip</span></a> we would get a transformed value of (200-5)/(100-5) = 2.0526 which is very much not between 0 and 1. We thus have a violation of our original goal. One way to get around this is to use clipping. Clipping is a technique when using this method where any values less then <span class="math inline">\(\text{min}(X)\)</span> will be noted as 0 and any values larger than <span class="math inline">\(\text{max}(X)\)</span> will be noted as 1. This little tick ensures that any new data points stays within the range. Expending our equation to the following</p>
+<p>This equations only shows what happens if you use the software with defaults. This will scale your variable to be in the range <span class="math inline">\([0, 1]\)</span>. It is important to treat this as a learned method, and we will thus calculate <span class="math inline">\(\text{min}(X)\)</span> and <span class="math inline">\(\text{max}(X)\)</span> on the training data set, and use those to apply the transformation on new data. One of the benefits of this method is that it transforms any variable into a predefined range of 0 and 1. Unless of cause a new data point is outside the range. Suppose that the original data was on the range <span class="math inline">\(\text{min}(X) = 5\)</span> and <span class="math inline">\(\text{max}(X) = 100\)</span>, and we encounter a new data point with the value 200. Then according to <a href="#eq-range-clip">Equation&nbsp;<span>10.2</span></a> we would get a transformed value of (200-5)/(100-5) = 2.0526 which is very much not between 0 and 1. We thus have a violation of our original goal. One way to get around this is to use clipping. Clipping is a technique when using this method where any values less then <span class="math inline">\(\text{min}(X)\)</span> will be noted as 0 and any values larger than <span class="math inline">\(\text{max}(X)\)</span> will be noted as 1. This little tick ensures that any new data points stays within the range. Expending our equation to the following</p>
 <p><span id="eq-range-clip"><span class="math display">\[
-\begin{equation}
 X_{scaled}=    
 \begin{cases}        
 0, &amp; X_{new} &lt; \text{min}(X_{train})\\        
 1 &amp; X_{new} &gt; \text{max}(X_{train})\\
 \dfrac{X_{new} - \text{min}(X_{train})}{\text{max}(X_{train}) - \text{min}(X_{train})}, &amp; \text{otherwise}
 \end{cases}
-\end{equation}
 \tag{10.2}\]</span></span></p>
-<p>The equation is a lot bigger, but was it different is that we are specify that the transformation should be done using training data, and by adding a couple of branches to reflect the clipping. In practice it will look something like <a href="#fig-range-clipping">Figure&nbsp;<span class="quarto-unresolved-ref">fig-range-clipping</span></a> where the original data had a range of <span class="math inline">\([10, 32]\)</span>.</p>
+<p>The equation is a lot bigger, but was it different is that we are specify that the transformation should be done using training data, and by adding a couple of branches to reflect the clipping. In practice it will look something like <a href="#fig-range-clipping">Figure&nbsp;<span>10.1</span></a> where the original data had a range of <span class="math inline">\([10, 32]\)</span>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-range-clipping" class="quarto-figure quarto-figure-center anchored">
@@ -733,27 +731,61 @@ X_{scaled}=
 </div>
 </div>
 </div>
-<p>Sadly we are not done quite yet. One last thing that <a href="#eq-range-clip">Equation&nbsp;<span class="quarto-unresolved-ref">eq-range-clip</span></a> doesn’t take into account is that sometimes people don’t want to transformation to be into any range, not just <span class="math inline">\([0, 1]\)</span> . This gives us the final equation</p>
+<p>Sadly we are not done quite yet. One last thing that <a href="#eq-range-clip">Equation&nbsp;<span>10.2</span></a> doesn’t take into account is that sometimes people don’t want to transformation to be into any range, not just <span class="math inline">\([0, 1]\)</span> . This gives us the final equation</p>
 <p><span id="eq-range-custom"><span class="math display">\[
-\begin{equation}
 X_{scaled}=    
 \begin{cases}        
 R_{lower}, &amp; X_{new} &lt; \text{min}(X_{train})\\        
 R_{upper} &amp; X_{new} &gt; \text{max}(X_{train})\\
 \dfrac{X_{new} - \text{min}(X_{train})}{\text{max}(X_{train}) - \text{min}(X_{train})} \cdot R_{upper} + R_{lower}, &amp; \text{otherwise}
 \end{cases}
-\end{equation}
 \tag{10.3}\]</span></span></p>
-<p>Where <a href="#eq-range-custom">Equation&nbsp;<span class="quarto-unresolved-ref">eq-range-custom</span></a> now have <span class="math inline">\(R_{lower}\)</span> to represent a user defined lower bound, and <span class="math inline">\(R_{upper}\)</span> representing the corresponding user defined upper bound. I would recommend that you keep <a href="#eq-range-minimal">Equation&nbsp;<span class="quarto-unresolved-ref">eq-range-minimal</span></a> in your mind when thinking about this method, but also include a little footnote that it doesn’t include all the little options.</p>
+<p>Where <a href="#eq-range-custom">Equation&nbsp;<span>10.3</span></a> now have <span class="math inline">\(R_{lower}\)</span> to represent a user defined lower bound, and <span class="math inline">\(R_{upper}\)</span> representing the corresponding user defined upper bound. I would recommend that you keep <a href="#eq-range-minimal">Equation&nbsp;<span>10.1</span></a> in your mind when thinking about this method, but also include a little footnote that it doesn’t include all the little options.</p>
+<p>One thing you should know is how this transformation is affected by outliers. Clipping essentially ignores the magnitude of how much an outlier is. There is no difference between a new value of 100 and 100000 to a variable that had a range of <span class="math inline">\([0, 90]\)</span> on the training data set. This might be a problem, and it is up to you as the practitioner to decide. One option would be to turn off clipping, but it would violate the assumption that all future transformed observations will be within a specific range.</p>
+<p>Below is the figure <a href="#fig-range-outlier">Figure&nbsp;<span>10.2</span></a> is an illustration of the effect by having a single high value. In this case, a single observation with the value `10000` moved the transformed distribution much tighter around zero. And all but removed the variance of the non-outliers.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4,000 × 3
+   name        value outlier   
+   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;     
+ 1 Original    1.54  No outlier
+ 2 Transformed 0.249 No outlier
+ 3 Original    0.235 No outlier
+ 4 Transformed 0.144 No outlier
+ 5 Original    0.370 No outlier
+ 6 Transformed 0.155 No outlier
+ 7 Original    9.51  No outlier
+ 8 Transformed 0.894 No outlier
+ 9 Original    9.68  No outlier
+10 Transformed 0.907 No outlier
+# … with 3,990 more rows</code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-range-outlier" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="numeric-range_files/figure-html/fig-range-outlier-1.png" class="img-fluid figure-img" alt="4 histograms of distribution in 2 columns. The left distribution shows the same bimodal distribution. To the left are the same distributions after being normalized. The buttom row shows the effect of having one outlier at 10000, which in this case made the transformed distribution have almost no width." width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;10.2: Outliers can have a big effect on the resulting distribution when applying range scaling</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
 <section id="pros-and-cons" class="level2" data-number="10.1">
 <h2 data-number="10.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">10.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="10.1.1">
 <h3 data-number="10.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">10.1.1</span> Pros</h3>
+<ul>
+<li><p>Fast calculations</p></li>
+<li><p>Transformation can easily be reversed, making its interpretations easier on the original scale, provided that clipping wasn’t turned on</p></li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="10.1.2">
 <h3 data-number="10.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">10.1.2</span> Cons</h3>
 <ul>
-<li>Doesn’t work with zero variance data as <code>max(x) - min(x) = 0</code>, yielding a division by zero.</li>
+<li>Turning on clipping diminishes the effect of outliers by rounding them up/down</li>
+</ul>
+<!-- -->
+<ul>
+<li>Doesn’t work with zero variance data as <code>max(x) - min(x) = 0</code>, yielding a division by zero</li>
 </ul>
 </section>
 </section>

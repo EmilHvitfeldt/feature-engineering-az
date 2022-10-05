@@ -9,14 +9,12 @@ $$ {#eq-range-minimal}
 This equations only shows what happens if you use the software with defaults. This will scale your variable to be in the range $[0, 1]$. It is important to treat this as a learned method, and we will thus calculate $\text{min}(X)$ and $\text{max}(X)$ on the training data set, and use those to apply the transformation on new data. One of the benefits of this method is that it transforms any variable into a predefined range of 0 and 1. Unless of cause a new data point is outside the range. Suppose that the original data was on the range $\text{min}(X) = 5$ and $\text{max}(X) = 100$, and we encounter a new data point with the value 200. Then according to @eq-range-clip we would get a transformed value of (200-5)/(100-5) = 2.0526 which is very much not between 0 and 1. We thus have a violation of our original goal. One way to get around this is to use clipping. Clipping is a technique when using this method where any values less then $\text{min}(X)$ will be noted as 0 and any values larger than $\text{max}(X)$ will be noted as 1. This little tick ensures that any new data points stays within the range. Expending our equation to the following
 
 $$
-\begin{equation}
 X_{scaled}=    
 \begin{cases}        
 0, & X_{new} < \text{min}(X_{train})\\        
 1 & X_{new} > \text{max}(X_{train})\\
 \dfrac{X_{new} - \text{min}(X_{train})}{\text{max}(X_{train}) - \text{min}(X_{train})}, & \text{otherwise}
 \end{cases}
-\end{equation}
 $$ {#eq-range-clip}
 
 The equation is a lot bigger, but was it different is that we are specify that the transformation should be done using training data, and by adding a couple of branches to reflect the clipping. In practice it will look something like @fig-range-clipping where the original data had a range of $[10, 32]$.
@@ -50,25 +48,78 @@ recipe(~mpg, data = mtcars) %>%
 Sadly we are not done quite yet. One last thing that @eq-range-clip doesn't take into account is that sometimes people don't want to transformation to be into any range, not just $[0, 1]$ . This gives us the final equation
 
 $$
-\begin{equation}
 X_{scaled}=    
 \begin{cases}        
 R_{lower}, & X_{new} < \text{min}(X_{train})\\        
 R_{upper} & X_{new} > \text{max}(X_{train})\\
 \dfrac{X_{new} - \text{min}(X_{train})}{\text{max}(X_{train}) - \text{min}(X_{train})} \cdot R_{upper} + R_{lower}, & \text{otherwise}
 \end{cases}
-\end{equation}
 $$ {#eq-range-custom}
 
 Where @eq-range-custom now have $R_{lower}$ to represent a user defined lower bound, and $R_{upper}$ representing the corresponding user defined upper bound. I would recommend that you keep @eq-range-minimal in your mind when thinking about this method, but also include a little footnote that it doesn't include all the little options.
+
+One thing you should know is how this transformation is affected by outliers. Clipping essentially ignores the magnitude of how much an outlier is. There is no difference between a new value of 100 and 100000 to a variable that had a range of $[0, 90]$ on the training data set. This might be a problem, and it is up to you as the practitioner to decide. One option would be to turn off clipping, but it would violate the assumption that all future transformed observations will be within a specific range.
+
+Below is the figure @fig-range-outlier is an illustration of the effect by having a single high value. In this case, a single observation with the value \`10000\` moved the transformed distribution much tighter around zero. And all but removed the variance of the non-outliers.
+
+```{r}
+#| label: fig-range-outlier
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Outliers can have a big effect on the resulting distribution when applying range scaling
+#| fig-alt: |
+#|   4 histograms of distribution in 2 columns. The left distribution shows the same bimodal
+#|   distribution. To the left are the same distributions after being normalized. The buttom row
+#|   shows the effect of having one outlier at 10000, which in this case made the transformed
+#|   distribution have almost no width.
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+set.seed(1234)
+
+rand_val <- (rbeta(1000, 0.3, 0.5) + rnorm(1000, sd = 0.05)) * 10
+
+plotting_data <- 
+  bind_rows(
+    tibble(Original = rand_val) %>%
+      mutate(Transformed = (Original - min(Original)) / (max(Original) - min(Original))) %>%
+      pivot_longer(everything()) %>%
+      mutate(outlier = "No outlier"),
+    tibble(Original = c(rand_val, 500)) %>%
+      mutate(Transformed = (Original - min(Original)) / (max(Original) - min(Original))) %>%
+      pivot_longer(everything()) %>%
+      mutate(outlier = "One outlier at 10000")
+  ) %>%
+  filter(value < 15) %>%
+  filter(!(outlier == "One outlier at 10000" & value == 1 & name == "Transformed"))
+
+plotting_data %>%
+  filter(!(outlier == "One outlier at 10000" & value == 1 & name == "Transformed"))
+  
+plotting_data %>%
+  ggplot(aes(value)) +
+  geom_histogram(bins = 50) +
+  facet_grid(outlier ~ name, scales = "free") +
+  theme_minimal() +
+  labs(x = NULL, y = NULL)
+```
 
 ## Pros and Cons
 
 ### Pros
 
+-   Fast calculations
+
+-   Transformation can easily be reversed, making its interpretations easier on the original scale, provided that clipping wasn't turned on
+
 ### Cons
 
--   Doesn't work with zero variance data as `max(x) - min(x) = 0`, yielding a division by zero.
+-   Turning on clipping diminishes the effect of outliers by rounding them up/down
+
+<!-- -->
+
+-   Doesn't work with zero variance data as `max(x) - min(x) = 0`, yielding a division by zero
 
 ## R Examples
 
