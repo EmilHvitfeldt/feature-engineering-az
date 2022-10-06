@@ -1,0 +1,60 @@
+# Max Abs {#sec-maxabs}
+
+The **Max-Abs** scaling method works by making sure that the training data lies with the range $[-1, 1]$ by applying the following formula
+
+$$
+X_{scaled} = \dfrac{X}{\text{max}(\text{abs}(X))}
+$$ {#eq-maxabs-minimal}
+
+This is similar to the scaling we saw in @sec-normalization. And we see that the only difference is whether we are aiming for the statistical properly (standard deviation of 1) or a specific decision (dividing by largest quantity seen). For this there is no specific guidance as to which method you want to use and you need to look at your data and see what works best.
+
+## Pros and Cons
+
+### Pros
+
+-   Fast calculations
+
+-   Transformation can easily be reversed, making its interpretations easier on the original scale
+
+-   Doesn't affect sparsity
+
+-   Can be used on a zero variance variable. Doesn't matter such since you likely should get rid of it
+
+### Cons
+
+-   Is highly affected by outliers
+
+## R Examples
+
+We will be using the `ames` data set for these examples.
+
+```{r}
+# remotes::install_github("emilhvitfeldt/extrasteps")
+library(recipes)
+library(extrasteps)
+library(modeldata)
+data("ames")
+
+ames %>%
+  select(Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)
+```
+
+We will be using the `step_maxabs()` step for this, and it can be found in the [extrasteps extension package](https://github.com/EmilHvitfeldt/extrasteps/).
+
+```{r}
+range_rec <- recipe(Sale_Price ~ ., data = ames) %>%
+  step_maxabs(all_numeric_predictors()) %>%
+  prep()
+
+range_rec %>%
+  bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)
+```
+
+We can also pull out what the max values were for each variable using `tidy()`
+
+```{r}
+range_rec %>%
+  tidy(1)
+```
+
+## Python Examples

@@ -93,7 +93,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./numeric-minabs.html" rel="next">
+<link href="./numeric-maxabs.html" rel="next">
 <link href="./numeric-normalization.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -227,7 +227,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./numeric-minabs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">MinAbs</span></a>
+  <a href="./numeric-maxabs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Max Abs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -846,6 +846,7 @@ R_{upper} &amp; X_{new} &gt; \text{max}(X_{train})\\
 <ul>
 <li>Turning on clipping diminishes the effect of outliers by rounding them up/down</li>
 <li>Doesn’t work with zero variance data as <code>max(x) - min(x) = 0</code>, yielding a division by zero</li>
+<li>Cannot be used with sparse data as it isn’t preserved</li>
 </ul>
 </section>
 </section>
@@ -902,7 +903,7 @@ R_{upper} &amp; X_{new} &gt; \text{max}(X_{train})\\
 # … with 2,920 more rows</code></pre>
 </div>
 </div>
-<p>We can also pull out what the mean and max value were for each variable using <code>tidy()</code></p>
+<p>We can also pull out what the min and max value were for each variable using <code>tidy()</code></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>range_rec <span class="sc">%&gt;%</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1062,8 +1063,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./numeric-minabs.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">MinAbs</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./numeric-maxabs.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Max Abs</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

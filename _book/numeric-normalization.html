@@ -227,7 +227,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./numeric-minabs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">MinAbs</span></a>
+  <a href="./numeric-maxabs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Max Abs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -798,7 +798,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 data-number="9.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">9.1.2</span> Cons</h3>
 <ul>
 <li>Not all software solutions will not be helpful when applying this transformation to a constant variable. A division by 0 error is likely what you will see</li>
-<li>This transformation is highly affected by outliers, as they affect the mean and standard deviation quite a lot.</li>
+<li>Cannot be used with sparse data as it isn’t preserved because of the centering that is happening. If you only scale the data you don’t have a problem</li>
+<li>This transformation is highly affected by outliers, as they affect the mean and standard deviation quite a lot</li>
 </ul>
 <p>Below is the figure <a href="#fig-normalization-outlier">Figure&nbsp;<span>9.2</span></a> is an illustration of the effect by having a single high value. In this case, a single observation with the value <code>10000</code> moved the transformed distribution much tighter around zero. And all but removed the variance of the non-outliers.</p>
 <div class="cell">
