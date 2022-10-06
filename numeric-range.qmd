@@ -110,20 +110,56 @@ plotting_data %>%
 ### Pros
 
 -   Fast calculations
-
 -   Transformation can easily be reversed, making its interpretations easier on the original scale, provided that clipping wasn't turned on
 
 ### Cons
 
 -   Turning on clipping diminishes the effect of outliers by rounding them up/down
-
-<!-- -->
-
 -   Doesn't work with zero variance data as `max(x) - min(x) = 0`, yielding a division by zero
 
 ## R Examples
 
-`step_range()` clips. Does allow user to specify range `step_minmax()` doesn't clip. doens't allow user to specify range
+`step_range()` clips. Does allow user to specify range `step_minmax()` doesn't clip. doens't allow user to specify range. A PR is planned to allow users to turn off clipping in `step_range()`
+
+We will be using the `ames` data set for these examples.
+
+```{r}
+library(recipes)
+library(modeldata)
+data("ames")
+
+ames %>%
+  select(Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)
+```
+
+We will be using the `step_range()` step for this
+
+```{r}
+range_rec <- recipe(Sale_Price ~ ., data = ames) %>%
+  step_range(all_numeric_predictors()) %>%
+  prep()
+
+range_rec %>%
+  bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)
+```
+
+We can also pull out what the mean and max value were for each variable using `tidy()`
+
+```{r}
+range_rec %>%
+  tidy(1)
+```
+
+using the `min` and `max` argument we can set different ranges
+
+```{r}
+range_rec <- recipe(Sale_Price ~ ., data = ames) %>%
+  step_range(all_numeric_predictors(), min = -2, max = 2) %>%
+  prep()
+
+range_rec %>%
+  bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)
+```
 
 ## Python Examples
 
