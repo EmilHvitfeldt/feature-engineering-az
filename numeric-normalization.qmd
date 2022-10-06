@@ -57,7 +57,8 @@ In @fig-normalization-not-normal we see some distribution, before and after appl
 ### Cons
 
 -   Not all software solutions will not be helpful when applying this transformation to a constant variable. A division by 0 error is likely what you will see
--   This transformation is highly affected by outliers, as they affect the mean and standard deviation quite a lot.
+-   Cannot be used with sparse data as it isn't preserved because of the centering that is happening. If you only scale the data you don't have a problem
+-   This transformation is highly affected by outliers, as they affect the mean and standard deviation quite a lot
 
 Below is the figure @fig-normalization-outlier is an illustration of the effect by having a single high value. In this case, a single observation with the value `10000` moved the transformed distribution much tighter around zero. And all but removed the variance of the non-outliers.
 

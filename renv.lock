@@ -78,6 +78,20 @@
       "Repository": "CRAN",
       "Hash": "0cf10dab0d023d5b46a5a14387556891"
     },
+    "V8": {
+      "Package": "V8",
+      "Version": "4.2.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "2f56b7e2f0d534f3c4022e48c33835ce"
+    },
+    "almanac": {
+      "Package": "almanac",
+      "Version": "0.1.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "8741e3a34477438ee303492c3d3fb451"
+    },
     "backports": {
       "Package": "backports",
       "Version": "1.4.1",
@@ -207,6 +221,19 @@
       "RemoteSha": "1.5.1",
       "Hash": "8dc45fd8a1ee067a92b85ef274e66d6a"
     },
+    "curl": {
+      "Package": "curl",
+      "Version": "4.3.2",
+      "Source": "CRAN",
+      "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "curl",
+      "RemoteRef": "curl",
+      "RemoteRepos": "https://cran.rstudio.com/",
+      "RemotePkgPlatform": "aarch64-apple-darwin20",
+      "RemoteSha": "4.3.2",
+      "Hash": "022c42d49c28e95d69ca60446dbabf88"
+    },
     "dials": {
       "Package": "dials",
       "Version": "1.0.0",
@@ -247,6 +274,19 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "9a3d3c345f8a5648abe61608aaa29518"
+    },
+    "extrasteps": {
+      "Package": "extrasteps",
+      "Version": "0.0.0.9000",
+      "Source": "GitHub",
+      "Remotes": "tidymodels/recipes",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "extrasteps",
+      "RemoteUsername": "emilhvitfeldt",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "95b329c007b4df8a7faeabe9f7967e963f258fee",
+      "Hash": "b3cc76e2f7585754aeb31b1a6d902b90"
     },
     "fansi": {
       "Package": "fansi",
@@ -747,6 +787,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "5237bd176dc0c4dd7eb8dcdafe514de3"
+    },
+    "stringdist": {
+      "Package": "stringdist",
+      "Version": "0.9.8",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "c8b6c79c3b2d7d8475f3ab35cd99737b"
     },
     "stringi": {
       "Package": "stringi",
