@@ -1,3 +1,75 @@
-# Robust Scaling
+# Robust Scaling {#sec-robust}
 
-WIP
+**Range scaling**, is a scaling method that is typically done be removing the median and dividing by the interquartile range. As illustrated by @eq-robust-minimal
+
+$$X_{scaled} = \dfrac{X - \text{median}(X)}{\text{Q3}(X) - \text{Q1}(X)}$$ {#eq-robust-minimal}
+
+This is the most common formulation of this method. You are not bound to use `Q1` and `Q3`, any quantiles can be used. Most software implementations allow you to modify the ranges. It is typically recommended that you pick a symmetric range like $[0.1, 0.9]$ or $[0.3, 0.7]$ unless you have a good reason why observations high or low should be excluded.
+
+This method is normally showcased as a way to scale variables with outliers in them. That is true, in so far that you don't take the outer quantiles into considerations. The default range means that only 50% of the observations are used to calculate the scaling statistics. This is fine if you want to ignore the outliers, however it is conventionally not a good idea to outright ignore outliers, so you might want to take a look at @sec-numeric-outliers-issues before you throw away the information that is present in the outliers.
+
+## Pros and Cons
+
+### Pros
+
+-   Isn't affected by outliers
+-   Transformation can easily be reversed, making its interpretations easier on the original scale
+
+### Cons
+
+-   Completely ignores part of the data outside the quantile ranges
+-   Doesn't work with near zero variance data as `Q1(x) - Q3(x) = 0`, yielding a division by zero
+-   Cannot be used with sparse data as it isn't preserved
+
+## R Examples
+
+We will be using the `ames` data set for these examples.
+
+```{r}
+# remotes::install_github("emilhvitfeldt/extrasteps")
+library(recipes)
+library(extrasteps)
+library(modeldata)
+data("ames")
+
+ames %>%
+  select(Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)
+```
+
+We will be using the `step_robust()` step for this, and it can be found in the [extrasteps extension package](https://github.com/EmilHvitfeldt/extrasteps/).
+
+```{r}
+maxabs_rec <- recipe(Sale_Price ~ ., data = ames) %>%
+  step_robust(all_numeric_predictors()) %>%
+  prep()
+
+maxabs_rec %>%
+  bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)
+```
+
+We can also pull out what the max values were for each variable using `tidy()`
+
+```{r}
+maxabs_rec %>%
+  tidy(1)
+```
+
+We can also chn
+
+```{r}
+maxabs_rec <- recipe(Sale_Price ~ ., data = ames) %>%
+  step_robust(all_numeric_predictors(), range = c(0.1, 0.9)) %>%
+  prep()
+
+maxabs_rec %>%
+  bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)
+```
+
+when we pull out the ranges, we see that they are wider
+
+```{r}
+maxabs_rec %>%
+  tidy(1)
+```
+
+## Python Examples
