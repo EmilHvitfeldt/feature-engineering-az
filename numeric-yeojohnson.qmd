@@ -1,4 +1,4 @@
-# Yeo-Johnson  {#sec-yeojohnson}
+# Yeo-Johnson {#sec-yeojohnson}
 
 You have likely heard a lot of talk about having normally distributed predictors. This isn't that common of an assumption, and having a fairly non-skewed symmetric predictor is often enough. Linear Discriminant Analysis assumes Gaussian data, and that is about it (TODO add a reference here). Still, it is worthwhile to have more symmetric predictors, and this is where the Yeo-Johnson transformation comes into play.
 

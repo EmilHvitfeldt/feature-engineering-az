@@ -696,7 +696,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Overview</span></h1>
+<h1 class="title"><span id="sec-numeric" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Overview</span></span></h1>
 </div>
 
 
@@ -792,7 +792,7 @@ X_{scaled} = \dfrac{X - a}{b}
 </tbody>
 </table>
 </div>
-<p>We see here that all the methods in <a href="#tbl-feature-scaling">Table&nbsp;<span>4.1</span></a> follows the equation <a href="#eq-feature-scaling">Equation&nbsp;<span>4.1</span></a>. Sometimes <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> takes a value of 0, which is perfectly fine. Centering and scaling when used together is equal to normalization. They are kept separate in the table since they are sometimes used independently. Centering, scaling, and normalization will all be discussed in <a href="numeric-range.html"><span>Chapter&nbsp;11</span></a>.</p>
+<p>We see here that all the methods in <a href="#tbl-feature-scaling">Table&nbsp;<span>4.1</span></a> follows the equation <a href="#eq-feature-scaling">Equation&nbsp;<span>4.1</span></a>. Sometimes <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> takes a value of 0, which is perfectly fine. Centering and scaling when used together is equal to normalization. They are kept separate in the table since they are sometimes used independently. Centering, scaling, and normalization will all be discussed in <a href="numeric-normalization.html"><span>Chapter&nbsp;10</span></a>.</p>
 <p>There are 2 main reasons why we want to perform feature scaling. Firstly, many different types of models take the magnitude of the variables into account when fitting the models, so having variables on different scales can be disadvantageous because some variables have high priorities. In turn, we get that the other variables have low priority. Models that work using Euclidean distances like KNN models are affected by this change. Regularized models such as lasso and ridge regression also need to be scaled since the regularization depends on the magnitude of the estimates. Secondly, some algorithms simply converge much faster when all the variables are on the same scale. These types of models produce the same fit, just at a slower pace than if you don’t scale the variables. Any algorithms using Gradient Descent fits into this category.</p>
 <p>TODO: Have KNN diagram show why this is important</p>
 <p>List which types of models need feature scaling. Should be a 2 column list. Left=name, right=comment %in% c(no effect, different fit, slow down)</p>
