@@ -779,7 +779,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span id="eq-maxabs-minimal"><span class="math display">\[
 X_{scaled} = \dfrac{X}{\text{max}(\text{abs}(X))}
 \tag{12.1}\]</span></span></p>
-<p>This is similar to the scaling we saw in <a href="numeric-range.html"><span>Chapter&nbsp;11</span></a>. And we see that the only difference is whether we are aiming for the statistical properly (standard deviation of 1) or a specific decision (dividing by largest quantity seen). This method is a learned transformation. So we use the training data to derive the right value of <span class="math inline">\(\text{max}(\text{abs}(X))\)</span> and then this value is used to perform the transformations when applied to new data. For this there is no specific guidance as to which method you want to use and you need to look at your data and see what works best.</p>
+<p>This is similar to the scaling we saw in <a href="numeric-normalization.html"><span>Chapter&nbsp;10</span></a>. And we see that the only difference is whether we are aiming for the statistical properly (standard deviation of 1) or a specific decision (dividing by largest quantity seen). This method is a learned transformation. So we use the training data to derive the right value of <span class="math inline">\(\text{max}(\text{abs}(X))\)</span> and then this value is used to perform the transformations when applied to new data. For this there is no specific guidance as to which method you want to use and you need to look at your data and see what works best.</p>
 <section id="pros-and-cons" class="level2" data-number="12.1">
 <h2 data-number="12.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">12.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="12.1.1">
@@ -886,16 +886,16 @@ Attaching package: 'recipes'</code></pre>
 <pre><code># A tibble: 33 × 4
    terms          statistic  value id          
    &lt;chr&gt;          &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;       
- 1 Lot_Frontage   max          313 maxabs_9PovN
- 2 Lot_Area       max       215245 maxabs_9PovN
- 3 Year_Built     max         2010 maxabs_9PovN
- 4 Year_Remod_Add max         2010 maxabs_9PovN
- 5 Mas_Vnr_Area   max         1600 maxabs_9PovN
- 6 BsmtFin_SF_1   max            7 maxabs_9PovN
- 7 BsmtFin_SF_2   max         1526 maxabs_9PovN
- 8 Bsmt_Unf_SF    max         2336 maxabs_9PovN
- 9 Total_Bsmt_SF  max         6110 maxabs_9PovN
-10 First_Flr_SF   max         5095 maxabs_9PovN
+ 1 Lot_Frontage   max          313 maxabs_mZisF
+ 2 Lot_Area       max       215245 maxabs_mZisF
+ 3 Year_Built     max         2010 maxabs_mZisF
+ 4 Year_Remod_Add max         2010 maxabs_mZisF
+ 5 Mas_Vnr_Area   max         1600 maxabs_mZisF
+ 6 BsmtFin_SF_1   max            7 maxabs_mZisF
+ 7 BsmtFin_SF_2   max         1526 maxabs_mZisF
+ 8 Bsmt_Unf_SF    max         2336 maxabs_mZisF
+ 9 Total_Bsmt_SF  max         6110 maxabs_mZisF
+10 First_Flr_SF   max         5095 maxabs_mZisF
 # … with 23 more rows</code></pre>
 </div>
 </div>
