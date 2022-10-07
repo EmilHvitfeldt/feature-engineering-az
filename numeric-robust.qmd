@@ -4,7 +4,7 @@
 
 $$X_{scaled} = \dfrac{X - \text{median}(X)}{\text{Q3}(X) - \text{Q1}(X)}$$ {#eq-robust-minimal}
 
-This is the most common formulation of this method. You are not bound to use `Q1` and `Q3`, any quantiles can be used. Most software implementations allow you to modify the ranges. It is typically recommended that you pick a symmetric range like $[0.1, 0.9]$ or $[0.3, 0.7]$ unless you have a good reason why observations high or low should be excluded.
+This is the most common formulation of this method. This method is a learned transformation. So we use the training data to derive the right values of $\text{Q3}(X)$, $\text{Q1}(X)$, and $\text{median}(X)$ and then these values are used to perform the transformations when applied to new data. You are not bound to use `Q1` and `Q3`, any quantiles can be used. Most software implementations allow you to modify the ranges. It is typically recommended that you pick a symmetric range like $[0.1, 0.9]$ or $[0.3, 0.7]$ unless you have a good reason why observations high or low should be excluded.
 
 This method is normally showcased as a way to scale variables with outliers in them. That is true, in so far that you don't take the outer quantiles into considerations. The default range means that only 50% of the observations are used to calculate the scaling statistics. This is fine if you want to ignore the outliers, however it is conventionally not a good idea to outright ignore outliers, so you might want to take a look at @sec-numeric-outliers-issues before you throw away the information that is present in the outliers.
 

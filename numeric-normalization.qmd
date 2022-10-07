@@ -4,7 +4,7 @@ Normalization is a method where we modify a variable by subtracting the mean and
 
 $$X_{scaled} = \dfrac{X - \text{mean}(X)}{\text{sd}(X)}$$
 
-Performing this transformation means that the resulting variable will have a mean of 0 and a standard deviation and variance of 1. It is a common misconception that this transformation is done to make the data normally distributed. This transformation doesn't change the distribution, it scales the values. Below is a figure @fig-normalization-not-normal that illustrates that point
+Performing this transformation means that the resulting variable will have a mean of 0 and a standard deviation and variance of 1. This method is a learned transformation. So we use the training data to derive the right values of $\text{sd}(X)$ and $\text{mean}(X)$ and then these values are used to perform the transformations when applied to new data. It is a common misconception that this transformation is done to make the data normally distributed. This transformation doesn't change the distribution, it scales the values. Below is a figure @fig-normalization-not-normal that illustrates that point
 
 ```{r}
 #| label: fig-normalization-not-normal

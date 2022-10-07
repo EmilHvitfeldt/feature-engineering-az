@@ -772,7 +772,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <p><strong>Range scaling</strong>, is a scaling method that is typically done be removing the median and dividing by the interquartile range. As illustrated by <a href="#eq-robust-minimal">Equation&nbsp;<span>12.1</span></a></p>
 <p><span id="eq-robust-minimal"><span class="math display">\[X_{scaled} = \dfrac{X - \text{median}(X)}{\text{Q3}(X) - \text{Q1}(X)} \tag{12.1}\]</span></span></p>
-<p>This is the most common formulation of this method. You are not bound to use <code>Q1</code> and <code>Q3</code>, any quantiles can be used. Most software implementations allow you to modify the ranges. It is typically recommended that you pick a symmetric range like <span class="math inline">\([0.1, 0.9]\)</span> or <span class="math inline">\([0.3, 0.7]\)</span> unless you have a good reason why observations high or low should be excluded.</p>
+<p>This is the most common formulation of this method. This method is a learned transformation. So we use the training data to derive the right values of <span class="math inline">\(\text{Q3}(X)\)</span>, <span class="math inline">\(\text{Q1}(X)\)</span>, and <span class="math inline">\(\text{median}(X)\)</span> and then these values are used to perform the transformations when applied to new data. You are not bound to use <code>Q1</code> and <code>Q3</code>, any quantiles can be used. Most software implementations allow you to modify the ranges. It is typically recommended that you pick a symmetric range like <span class="math inline">\([0.1, 0.9]\)</span> or <span class="math inline">\([0.3, 0.7]\)</span> unless you have a good reason why observations high or low should be excluded.</p>
 <p>This method is normally showcased as a way to scale variables with outliers in them. That is true, in so far that you don’t take the outer quantiles into considerations. The default range means that only 50% of the observations are used to calculate the scaling statistics. This is fine if you want to ignore the outliers, however it is conventionally not a good idea to outright ignore outliers, so you might want to take a look at <a href="numeric.html#sec-numeric-outliers-issues"><span>Section&nbsp;4.4</span></a> before you throw away the information that is present in the outliers.</p>
 <section id="pros-and-cons" class="level2" data-number="12.1">
 <h2 data-number="12.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">12.1</span> Pros and Cons</h2>
@@ -880,16 +880,16 @@ Attaching package: 'recipes'</code></pre>
 <pre><code># A tibble: 99 × 4
    terms          statistic  value id          
    &lt;chr&gt;          &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;       
- 1 Lot_Frontage   lower        43  robust_tFycf
- 2 Lot_Frontage   median       63  robust_tFycf
- 3 Lot_Frontage   higher       78  robust_tFycf
- 4 Lot_Area       lower      7440. robust_tFycf
- 5 Lot_Area       median     9436. robust_tFycf
- 6 Lot_Area       higher    11555. robust_tFycf
- 7 Year_Built     lower      1954  robust_tFycf
- 8 Year_Built     median     1973  robust_tFycf
- 9 Year_Built     higher     2001  robust_tFycf
-10 Year_Remod_Add lower      1965  robust_tFycf
+ 1 Lot_Frontage   lower        43  robust_3NePl
+ 2 Lot_Frontage   median       63  robust_3NePl
+ 3 Lot_Frontage   higher       78  robust_3NePl
+ 4 Lot_Area       lower      7440. robust_3NePl
+ 5 Lot_Area       median     9436. robust_3NePl
+ 6 Lot_Area       higher    11555. robust_3NePl
+ 7 Year_Built     lower      1954  robust_3NePl
+ 8 Year_Built     median     1973  robust_3NePl
+ 9 Year_Built     higher     2001  robust_3NePl
+10 Year_Remod_Add lower      1965  robust_3NePl
 # … with 89 more rows</code></pre>
 </div>
 </div>
@@ -926,16 +926,16 @@ Attaching package: 'recipes'</code></pre>
 <pre><code># A tibble: 99 × 4
    terms          statistic  value id          
    &lt;chr&gt;          &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;       
- 1 Lot_Frontage   lower         0  robust_FjOJ7
- 2 Lot_Frontage   median       63  robust_FjOJ7
- 3 Lot_Frontage   higher       91  robust_FjOJ7
- 4 Lot_Area       lower      4800  robust_FjOJ7
- 5 Lot_Area       median     9436. robust_FjOJ7
- 6 Lot_Area       higher    14299. robust_FjOJ7
- 7 Year_Built     lower      1925. robust_FjOJ7
- 8 Year_Built     median     1973  robust_FjOJ7
- 9 Year_Built     higher     2006  robust_FjOJ7
-10 Year_Remod_Add lower      1950  robust_FjOJ7
+ 1 Lot_Frontage   lower         0  robust_nZA6p
+ 2 Lot_Frontage   median       63  robust_nZA6p
+ 3 Lot_Frontage   higher       91  robust_nZA6p
+ 4 Lot_Area       lower      4800  robust_nZA6p
+ 5 Lot_Area       median     9436. robust_nZA6p
+ 6 Lot_Area       higher    14299. robust_nZA6p
+ 7 Year_Built     lower      1925. robust_nZA6p
+ 8 Year_Built     median     1973  robust_nZA6p
+ 9 Year_Built     higher     2006  robust_nZA6p
+10 Year_Remod_Add lower      1950  robust_nZA6p
 # … with 89 more rows</code></pre>
 </div>
 </div>
