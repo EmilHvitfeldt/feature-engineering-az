@@ -801,6 +801,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 data-number="13.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">13.2</span> R Examples</h2>
 <p>We will be using the <code>ames</code> data set for these examples.</p>
 <div class="cell">
+
+</div>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remotes::install_github("emilhvitfeldt/extrasteps")</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -885,20 +888,20 @@ Attaching package: 'recipes'</code></pre>
 <pre><code># A tibble: 99 × 4
    terms          statistic  value id          
    &lt;chr&gt;          &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;       
- 1 Lot_Frontage   lower        43  robust_imlMT
- 2 Lot_Frontage   median       63  robust_imlMT
- 3 Lot_Frontage   higher       78  robust_imlMT
- 4 Lot_Area       lower      7440. robust_imlMT
- 5 Lot_Area       median     9436. robust_imlMT
- 6 Lot_Area       higher    11555. robust_imlMT
- 7 Year_Built     lower      1954  robust_imlMT
- 8 Year_Built     median     1973  robust_imlMT
- 9 Year_Built     higher     2001  robust_imlMT
-10 Year_Remod_Add lower      1965  robust_imlMT
+ 1 Lot_Frontage   lower        43  robust_Bp5vK
+ 2 Lot_Frontage   median       63  robust_Bp5vK
+ 3 Lot_Frontage   higher       78  robust_Bp5vK
+ 4 Lot_Area       lower      7440. robust_Bp5vK
+ 5 Lot_Area       median     9436. robust_Bp5vK
+ 6 Lot_Area       higher    11555. robust_Bp5vK
+ 7 Year_Built     lower      1954  robust_Bp5vK
+ 8 Year_Built     median     1973  robust_Bp5vK
+ 9 Year_Built     higher     2001  robust_Bp5vK
+10 Year_Remod_Add lower      1965  robust_Bp5vK
 # … with 89 more rows</code></pre>
 </div>
 </div>
-<p>We can also chn</p>
+<p>We can also can</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>maxabs_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> ., <span class="at">data =</span> ames) <span class="sc">%&gt;%</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_robust</span>(<span class="fu">all_numeric_predictors</span>(), <span class="at">range =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>)) <span class="sc">%&gt;%</span></span>
@@ -931,16 +934,16 @@ Attaching package: 'recipes'</code></pre>
 <pre><code># A tibble: 99 × 4
    terms          statistic  value id          
    &lt;chr&gt;          &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;       
- 1 Lot_Frontage   lower         0  robust_WjXmJ
- 2 Lot_Frontage   median       63  robust_WjXmJ
- 3 Lot_Frontage   higher       91  robust_WjXmJ
- 4 Lot_Area       lower      4800  robust_WjXmJ
- 5 Lot_Area       median     9436. robust_WjXmJ
- 6 Lot_Area       higher    14299. robust_WjXmJ
- 7 Year_Built     lower      1925. robust_WjXmJ
- 8 Year_Built     median     1973  robust_WjXmJ
- 9 Year_Built     higher     2006  robust_WjXmJ
-10 Year_Remod_Add lower      1950  robust_WjXmJ
+ 1 Lot_Frontage   lower         0  robust_RUieL
+ 2 Lot_Frontage   median       63  robust_RUieL
+ 3 Lot_Frontage   higher       91  robust_RUieL
+ 4 Lot_Area       lower      4800  robust_RUieL
+ 5 Lot_Area       median     9436. robust_RUieL
+ 6 Lot_Area       higher    14299. robust_RUieL
+ 7 Year_Built     lower      1925. robust_RUieL
+ 8 Year_Built     median     1973  robust_RUieL
+ 9 Year_Built     higher     2006  robust_RUieL
+10 Year_Remod_Add lower      1950  robust_RUieL
 # … with 89 more rows</code></pre>
 </div>
 </div>
