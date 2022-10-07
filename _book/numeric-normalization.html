@@ -772,7 +772,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <p>Normalization is a method where we modify a variable by subtracting the mean and dividing by the standard deviation</p>
 <p><span class="math display">\[X_{scaled} = \dfrac{X - \text{mean}(X)}{\text{sd}(X)}\]</span></p>
-<p>Performing this transformation means that the resulting variable will have a mean of 0 and a standard deviation and variance of 1. It is a common misconception that this transformation is done to make the data normally distributed. This transformation doesn’t change the distribution, it scales the values. Below is a figure <a href="#fig-normalization-not-normal">Figure&nbsp;<span>9.1</span></a> that illustrates that point</p>
+<p>Performing this transformation means that the resulting variable will have a mean of 0 and a standard deviation and variance of 1. This method is a learned transformation. So we use the training data to derive the right values of <span class="math inline">\(\text{sd}(X)\)</span> and <span class="math inline">\(\text{mean}(X)\)</span> and then these values are used to perform the transformations when applied to new data. It is a common misconception that this transformation is done to make the data normally distributed. This transformation doesn’t change the distribution, it scales the values. Below is a figure <a href="#fig-normalization-not-normal">Figure&nbsp;<span>9.1</span></a> that illustrates that point</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-normalization-not-normal" class="quarto-figure quarto-figure-center anchored">

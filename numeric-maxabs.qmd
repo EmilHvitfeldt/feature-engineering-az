@@ -6,7 +6,7 @@ $$
 X_{scaled} = \dfrac{X}{\text{max}(\text{abs}(X))}
 $$ {#eq-maxabs-minimal}
 
-This is similar to the scaling we saw in @sec-normalization. And we see that the only difference is whether we are aiming for the statistical properly (standard deviation of 1) or a specific decision (dividing by largest quantity seen). For this there is no specific guidance as to which method you want to use and you need to look at your data and see what works best.
+This is similar to the scaling we saw in @sec-normalization. And we see that the only difference is whether we are aiming for the statistical properly (standard deviation of 1) or a specific decision (dividing by largest quantity seen). This method is a learned transformation. So we use the training data to derive the right value of $\text{max}(\text{abs}(X))$ and then this value is used to perform the transformations when applied to new data. For this there is no specific guidance as to which method you want to use and you need to look at your data and see what works best.
 
 ## Pros and Cons
 
