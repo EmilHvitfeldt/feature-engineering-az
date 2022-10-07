@@ -26,6 +26,12 @@ This method is normally showcased as a way to scale variables with outliers in t
 We will be using the `ames` data set for these examples.
 
 ```{r}
+#| echo: false
+set.seed(1234)
+# To avoid changing recipe ID columns
+```
+
+```{r}
 # remotes::install_github("emilhvitfeldt/extrasteps")
 library(recipes)
 library(extrasteps)
@@ -54,7 +60,7 @@ maxabs_rec %>%
   tidy(1)
 ```
 
-We can also chn
+We can also can
 
 ```{r}
 maxabs_rec <- recipe(Sale_Price ~ ., data = ames) %>%
