@@ -850,11 +850,11 @@ Attaching package: 'recipes'</code></pre>
 </div>
 <p>We will be using the <code>step_maxabs()</code> step for this, and it can be found in the <a href="https://github.com/EmilHvitfeldt/extrasteps/">extrasteps extension package</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>range_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> ., <span class="at">data =</span> ames) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>maxabs_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> ., <span class="at">data =</span> ames) <span class="sc">%&gt;%</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_maxabs</span>(<span class="fu">all_numeric_predictors</span>()) <span class="sc">%&gt;%</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>range_rec <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>maxabs_rec <span class="sc">%&gt;%</span></span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2,930 × 4
@@ -875,22 +875,22 @@ Attaching package: 'recipes'</code></pre>
 </div>
 <p>We can also pull out what the max values were for each variable using <code>tidy()</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>range_rec <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>maxabs_rec <span class="sc">%&gt;%</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 33 × 4
    terms          statistic  value id          
    &lt;chr&gt;          &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;       
- 1 Lot_Frontage   max          313 maxabs_hgdYL
- 2 Lot_Area       max       215245 maxabs_hgdYL
- 3 Year_Built     max         2010 maxabs_hgdYL
- 4 Year_Remod_Add max         2010 maxabs_hgdYL
- 5 Mas_Vnr_Area   max         1600 maxabs_hgdYL
- 6 BsmtFin_SF_1   max            7 maxabs_hgdYL
- 7 BsmtFin_SF_2   max         1526 maxabs_hgdYL
- 8 Bsmt_Unf_SF    max         2336 maxabs_hgdYL
- 9 Total_Bsmt_SF  max         6110 maxabs_hgdYL
-10 First_Flr_SF   max         5095 maxabs_hgdYL
+ 1 Lot_Frontage   max          313 maxabs_HcTdk
+ 2 Lot_Area       max       215245 maxabs_HcTdk
+ 3 Year_Built     max         2010 maxabs_HcTdk
+ 4 Year_Remod_Add max         2010 maxabs_HcTdk
+ 5 Mas_Vnr_Area   max         1600 maxabs_HcTdk
+ 6 BsmtFin_SF_1   max            7 maxabs_HcTdk
+ 7 BsmtFin_SF_2   max         1526 maxabs_HcTdk
+ 8 Bsmt_Unf_SF    max         2336 maxabs_HcTdk
+ 9 Total_Bsmt_SF  max         6110 maxabs_HcTdk
+10 First_Flr_SF   max         5095 maxabs_HcTdk
 # … with 23 more rows</code></pre>
 </div>
 </div>
