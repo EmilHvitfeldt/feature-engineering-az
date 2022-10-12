@@ -1,13 +1,72 @@
 # Percentile {#sec-percentile}
 
-**Percentile scaling** (also sometimes called **Rank Scaling**) 
+**Percentile scaling** (also sometimes called **Rank Scaling**) is a method where we apply a non-linear transformation to to our data where each value is the percentile of the training data.
+
+TODO: Add equation
+
+This does a couple of things for us. It naturally constraints the transformed data into the range $[0, 1]$, and it deals with outlier values nicely in the sense that they don't change the transformation that much. Moreover if the testing distribution is close to the training distribution then the transformed distribution would be approximately uniformly distributed between 0 and 1.
 
 ## Pros and Cons
 
 ### Pros
 
+-   Transformation isn't affected much by outliers
+
 ### Cons
 
+-   Doesn't allow to exact reverse transformation
+
+-   Isn't ideal if training data doesn't have that many unique values
+
 ## R Examples
+
+We will be using the `ames` data set for these examples.
+
+```{r}
+library(recipes)
+library(modeldata)
+data("ames")
+
+ames %>%
+  select(Lot_Area, Wood_Deck_SF, Sale_Price)
+```
+
+The {recipes} step to do this transformation is `step_percentile()`. It defaults to calculation 100 percentiles and using those to transform the data
+
+```{r}
+percentile_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) %>%
+  step_percentile(Lot_Area) %>%
+  prep()
+
+percentile_rec %>%
+  bake(new_data = NULL)
+```
+
+We cna use the `tidy()` method to pull out what the specific values are for each percentile
+
+```{r}
+percentile_rec %>%
+  tidy(1)
+```
+
+You are able to change the granularity by using the `options` argument. In this example we are calculation 500 points evenly spaced between 0 and 1, both inclusive.
+
+```{r}
+percentile500_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) %>%
+  step_percentile(Lot_Area, options = list(probs = (0:500)/500)) %>%
+  prep()
+
+percentile500_rec %>%
+  bake(new_data = NULL)
+```
+
+And we can see the more precise numbers.
+
+```{r}
+percentile500_rec %>%
+  tidy(1)
+```
+
+Notice how there are only `r nrow(tidy(percentile500_rec, 1))` values in this output. This is happening because some percentile have been collapsed to save space since if the value for the 10.4 and 10.6 percentile is the same, we just store the 10.6 value.
 
 ## Python Examples
