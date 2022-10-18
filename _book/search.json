@@ -340,7 +340,7 @@
     "href": "categorical.html",
     "title": "16  Overview",
     "section": "",
-    "text": "WIP"
+    "text": "The above description is a small but useful simplification. A categorical variable can take a known or an unknown number of unique values. day_of_the_week and zipcode are examples of variables with a fixed known number of values. Even if our data only contains Sundays, Mondays, and Thursdays we know that there are 7 different possible options. On the other hand, there are plenty of categorical variables where the levels are realistically unknown, such as company_name, street_name, and food_item. This distinction matters as it can be used to inform the pre-processing that will be done.\nOrdered or not\nThe encoding, string vs integer"
   },
   {
     "objectID": "categorical-dummy.html",
