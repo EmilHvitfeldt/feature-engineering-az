@@ -699,7 +699,10 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>WIP</p>
+<p>One of the most common types of data you can encounter is categorical variables. These variables take non-numeric values and are things like <code>names</code>, <code>animal</code>, <code>housetype</code> <code>zipcode</code>, <code>mood</code>, and so on. We call these <em>qualitative</em> variables and you will have to find a way to deal with them as they are plentiful in most data sets you will encounter. You will, however, unlike numerical variables in <a href="numeric.html"><span>Chapter&nbsp;4</span></a>, have to transform these variables into numeric variables as most models only work with numeric variables. The main exception to this is tree-based models such as decision trees, random forests, and boosted trees. This is of cause a theoretical fact, as some implementations of tree-based models don’t support categorical variables.</p>
+<p>The above description is a small but useful simplification. A categorical variable can take a known or an unknown number of unique values. <code>day_of_the_week</code> and <code>zipcode</code> are examples of variables with a fixed known number of values. Even if our data only contains Sundays, Mondays, and Thursdays we know that there are 7 different possible options. On the other hand, there are plenty of categorical variables where the levels are realistically unknown, such as <code>company_name</code>, <code>street_name</code>, and <code>food_item</code>. This distinction matters as it can be used to inform the pre-processing that will be done.</p>
+<p>Ordered or not</p>
+<p>The encoding, string vs integer</p>
 
 
 
