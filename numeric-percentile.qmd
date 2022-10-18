@@ -23,6 +23,12 @@ This does a couple of things for us. It naturally constraints the transformed da
 We will be using the `ames` data set for these examples.
 
 ```{r}
+#| echo: false
+set.seed(1234)
+# To avoid changing recipe ID columns
+```
+
+```{r}
 library(recipes)
 library(modeldata)
 data("ames")
