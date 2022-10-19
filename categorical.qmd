@@ -4,6 +4,20 @@ One of the most common types of data you can encounter is categorical variables.
 
 The above description is a small but useful simplification. A categorical variable can take a known or an unknown number of unique values. `day_of_the_week` and `zipcode` are examples of variables with a fixed known number of values. Even if our data only contains Sundays, Mondays, and Thursdays we know that there are 7 different possible options. On the other hand, there are plenty of categorical variables where the levels are realistically unknown, such as `company_name`, `street_name`, and `food_item`. This distinction matters as it can be used to inform the pre-processing that will be done.
 
-Ordered or not
+Another nuance is some categorical variables have an inherent order to them. So the variables `size` with the values `"small"`, `"medium"`, and `"large"`, they clearly have a ordering to then `"small" < "medium" < "large"`. This is unlike the theoretical `car_color` with the values "blue"`, `"red"`, and `"black"`, which doesn't have a natural ordering. Depending on whether a variable has an ordering, we can use that information. This is something that doesn't have to be dealt with, but the added information can be useful.
 
-The encoding, string vs integer
+Lastly, we have the encoding these categorical variables have. The same variable `household_pet` can be encoded as `["cat", "cat", "dog", "cat", "hamster"]` or as `[1, 1, 2, 1, 3]`. The latter (hopefully) accompanied with a data dictionary saying `[1 = "cat", 2 = "dog", 3 = "hamster"]`. These variables contain the exact same information, but the encoding is vastly different, and if you are not careful to treat `household_pet` as a categorical variable the model with believing that `"hamster" - "cat" = "dog"`.
+
+TODO find an example of the above data encoding in the wild
+
+TODO add a section about data formats that preserve levels
+
+The chapters in this section can be put into 2 categories:
+
+## Categorical to Categorical
+
+These methods take a categorical variable and *improve* them. Whether it means cleaning levels, collapsing levels, or making sure it handles new levels correctly. These Tasks as not always needed depending on the method you are using but they are generally helpful to apply. One method that would have been located here if it wasn't for the fact that it has a whole section by itself is dealing with missing values as seen in @sec-missing.
+
+## Categorical to Numerical
+
+The vast majority of the chapters in this section concern methods that take a categorical variable and produce one or more numerical variables suitable for modeling. There are quite a lot of different methods, all have upsides and downsides and they will all be explored in the remaining chapters.
