@@ -28,6 +28,10 @@ book:
     - part: "Categorical Features"
       chapters:
         - categorical.qmd
+        - categorical-cleaning.qmd
+        - categorical-unseen.qmd
+        - categorical-collapse.qmd
+        - categorical-combination.qmd
         - categorical-dummy.qmd
         - categorical-label.qmd
         - categorical-binary.qmd
@@ -51,7 +55,6 @@ book:
         - categorical-thermometer.qmd
         - categorical-quantile.qmd
         - categorical-summary.qmd
-        - categorical-collapse.qmd
         - categorical-multi-dummy.qmd
     - part: "Imbalanced Data"
       chapters:
