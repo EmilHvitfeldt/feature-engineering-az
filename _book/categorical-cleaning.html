@@ -20,6 +20,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -714,7 +777,56 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>WIP</p>
+<p>For cleaning categorical data, there is a whole host of problems you can have in your data. We won’t be able to describe how to deal with every single type of problem. Instead we will go over a class of common problems. In an ideal world, you wouldn’t have these problems, but that isn’t one we are living in right now. Mistakes are happening for a multitude of reasons and it is your job to deal with it.</p>
+<p>TODO: Figure out how to properly reference https://twitter.com/camfassett/status/1575578362927452160</p>
+<p>Look at the following vector of spellings of St Albans, the city in England.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "St Albans"  "St. Albans" "St  Alban"  "st albans"  "St. Alban" 
+[6] "St Albans " "st Albans" </code></pre>
+</div>
+</div>
+<p>They all refer to the same city name, they don’t just agree on the spelling. If we didn’t perform any cleaning, most of the following methods would assume that these spellings are completely different works and should be treated as such. Depending on the method this would vastly change the output and dilute any information you may have in your data.</p>
+<p>This will of course depend on whether these spelling differences are of importance in your model. Only you, the practitioner, will know the answer to that question. This is where it is important for you to be in touch with the people generating your data. In the above situation, one could imagine that the data comes from 2 sources; one using a drop-down menu selecting the city, and one where the city is being typed in manually on a tablet. There will be big differences. In a case such as that, we would want all these spellings to be fixed up.</p>
+<p>Domain knowledge is important. In the case of spell-checking, we need to be careful not to over-correct the data by collapsing two different items together by accident.</p>
+<p>Back to the example at hand. The first thing we notice is that there is a difference in <strong>capitalization</strong>. In this case since we persumably are working with a variable of city names, capitalization shouldn’t matter. A common trick is to either turn everything upper-case or lower-case. I prefer to lower-casing as I find the results easier to read.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>st_albans <span class="ot">&lt;-</span> st_albans <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tolower</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>()</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>st_albans</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "st albans"  "st. albans" "st  alban"  "st. alban"  "st albans "</code></pre>
+</div>
+</div>
+<p>By turning everything into lower-case, we were able to remove 2 of the errors. Next we see that some of these spellings include periods. For this example I’m going to make the decision that they are safe to remove as well.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>st_albans <span class="ot">&lt;-</span> st_albans <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  stringr<span class="sc">::</span><span class="fu">str_remove</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">."</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>()</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>st_albans </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "st albans"  "st  alban"  "st alban"   "st albans "</code></pre>
+</div>
+</div>
+<p>This remove yet another of our problems. This next problem is absolutely horrible and is so easy to overlook. Notice how the second spelling has a double space between <code>st</code> and <code>alban</code>? At a glance that can be really hard to see. Likewise the last spelling has a trailing space. Let us fix this as well.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>st_albans <span class="ot">&lt;-</span> st_albans <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  stringr<span class="sc">::</span><span class="fu">str_squish</span>() <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  stringr<span class="sc">::</span><span class="fu">str_trim</span>() <span class="sc">|&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>()</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>st_albans </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "st albans" "st alban" </code></pre>
+</div>
+</div>
+<p>Now we are left with two values, which we manually would have to deal with. But even if we had to manually write out the mapping, it is a lot easier to write it for 2 different spellings then 7.</p>
+<p>Another problem that you may or may not run into, depends of the resilience of your modeling package. Some implementations are rather fragile when it comes to the column names of your data, Non-ascii characters, punctuation and even spaces can cause errors. At this point in our journey we are almost there, and we can replace the spaces with underscores to be left with <code>st_albans</code>.</p>
+<p>Talk about how there are whole package solutions to this problem, and link to collapse chapter</p>
+<p>spaces -&gt; underscores</p>
+<p>weird characters (janitor)</p>
+<p>unicode collapsing</p>
+<p><code>step_clean_names()</code></p>
 
 
 
