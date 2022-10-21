@@ -756,7 +756,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#r-examples" id="toc-r-examples" class="nav-link active" data-scroll-target="#r-examples"><span class="toc-section-number">18</span>  R examples</a></li>
+  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="toc-section-number">19</span>  Python Examples</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -821,14 +828,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>Now we are left with two values, which we manually would have to deal with. But even if we had to manually write out the mapping, it is a lot easier to write it for 2 different spellings then 7.</p>
-<p>Another problem that you may or may not run into, depends of the resilience of your modeling package. Some implementations are rather fragile when it comes to the column names of your data, Non-ascii characters, punctuation and even spaces can cause errors. At this point in our journey we are almost there, and we can replace the spaces with underscores to be left with <code>st_albans</code>.</p>
-<p>Talk about how there are whole package solutions to this problem, and link to collapse chapter</p>
-<p>spaces -&gt; underscores</p>
+<p>Another problem that you may or may not run into, depends of the resilience of your modeling package. Some implementations are rather fragile when it comes to the column names of your data, Non-ASCII characters, punctuation and even spaces can cause errors. At this point in our journey we are almost there, and we can replace the spaces with underscores to be left with <code>st_albans</code>.</p>
+<p>One problem we didn’t see in the above example is</p>
 <p>weird characters (janitor)</p>
 <p>unicode collapsing</p>
-<p><code>step_clean_names()</code></p>
+<p>These are just a subset of problems you will run into when working with messy real world data.</p>
+<p>Talk about how there are whole package solutions to this problem, and link to collapse chapter</p>
+<section id="r-examples" class="level1" data-number="18">
+<h1 data-number="18"><span class="header-section-number">18</span> R examples</h1>
+<p>TODO find good data set for these examples</p>
+<p><code>textrecipes::step_clean_levels()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>self_stringdist <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">unique</span>(x)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> stringdist<span class="sc">::</span><span class="fu">stringdistmatrix</span>(x, x) <span class="sc">|&gt;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    reshape2<span class="sc">::</span><span class="fu">melt</span>()</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  out<span class="sc">$</span>Var1 <span class="ot">&lt;-</span> x[out<span class="sc">$</span>Var1]</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  out<span class="sc">$</span>Var2 <span class="ot">&lt;-</span> x[out<span class="sc">$</span>Var2]</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  out[out<span class="sc">$</span>value <span class="sc">!=</span> <span class="dv">0</span>, ]</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>elevators<span class="sc">::</span>elevators_raw <span class="sc">|&gt;</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(DV_MANUFACTURER)) <span class="sc">|&gt;</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(DV_MANUFACTURER) <span class="sc">|&gt;</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(DV_MANUFACTURER) <span class="sc">|&gt;</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">self_stringdist</span>() <span class="sc">|&gt;</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="python-examples" class="level1" data-number="19">
+<h1 data-number="19"><span class="header-section-number">19</span> Python Examples</h1>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
