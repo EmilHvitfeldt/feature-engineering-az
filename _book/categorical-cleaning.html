@@ -770,7 +770,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Cleaning</span></h1>
+<h1 class="title"><span id="sec-categorical-cleaning" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Cleaning</span></span></h1>
 </div>
 
 
@@ -784,7 +784,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>For cleaning categorical data, there is a whole host of problems you can have in your data. We won’t be able to describe how to deal with every single type of problem. Instead we will go over a class of common problems. In an ideal world, you wouldn’t have these problems, but that isn’t one we are living in right now. Mistakes are happening for a multitude of reasons and it is your job to deal with it.</p>
+<p>For cleaning categorical data, there is a whole host of problems you can have in your data. We won’t be able to describe how to deal with every single type of problem. Instead, we will go over a class of common problems. In an ideal world, you wouldn’t have these problems, but that isn’t one we are living in right now. Mistakes are happening for a multitude of reasons and it is your job to deal with it.</p>
 <p>TODO: Figure out how to properly reference https://twitter.com/camfassett/status/1575578362927452160</p>
 <p>Look at the following vector of spellings of St Albans, the city in England.</p>
 <div class="cell">
@@ -794,9 +794,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>They all refer to the same city name, they don’t just agree on the spelling. If we didn’t perform any cleaning, most of the following methods would assume that these spellings are completely different works and should be treated as such. Depending on the method this would vastly change the output and dilute any information you may have in your data.</p>
-<p>This will of course depend on whether these spelling differences are of importance in your model. Only you, the practitioner, will know the answer to that question. This is where it is important for you to be in touch with the people generating your data. In the above situation, one could imagine that the data comes from 2 sources; one using a drop-down menu selecting the city, and one where the city is being typed in manually on a tablet. There will be big differences. In a case such as that, we would want all these spellings to be fixed up.</p>
+<p>This will of course depend on whether these spelling differences are of importance in your model. Only you, the practitioner, will know the answer to that question. This is where you need to be in touch with the people generating your data. In the above situation, one could imagine that the data comes from 2 sources; one using a drop-down menu to select the city, and one where the city is being typed in manually on a tablet. There will be big differences. In a case such as that, we would want all these spellings to be fixed up.</p>
 <p>Domain knowledge is important. In the case of spell-checking, we need to be careful not to over-correct the data by collapsing two different items together by accident.</p>
-<p>Back to the example at hand. The first thing we notice is that there is a difference in <strong>capitalization</strong>. In this case since we persumably are working with a variable of city names, capitalization shouldn’t matter. A common trick is to either turn everything upper-case or lower-case. I prefer to lower-casing as I find the results easier to read.</p>
+<p>Back to the example at hand. The first thing we notice is that there is a difference in <strong>capitalization</strong>. In this case, since we presumably are working with a variable of city names, capitalization shouldn’t matter. A common trick is to either turn everything upper-case or lower-case. I prefer to lower-casing as I find the results easier to read.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>st_albans <span class="ot">&lt;-</span> st_albans <span class="sc">|&gt;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tolower</span>() <span class="sc">|&gt;</span></span>
@@ -806,7 +806,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>[1] "st albans"  "st. albans" "st  alban"  "st. alban"  "st albans "</code></pre>
 </div>
 </div>
-<p>By turning everything into lower-case, we were able to remove 2 of the errors. Next we see that some of these spellings include periods. For this example I’m going to make the decision that they are safe to remove as well.</p>
+<p>By turning everything into lower-case, we were able to remove 2 of the errors. Next, we see that some of these spellings include periods. For this example, I’m going to make the decision that they are safe to remove as well.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>st_albans <span class="ot">&lt;-</span> st_albans <span class="sc">|&gt;</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  stringr<span class="sc">::</span><span class="fu">str_remove</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">."</span>) <span class="sc">|&gt;</span></span>
@@ -816,7 +816,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>[1] "st albans"  "st  alban"  "st alban"   "st albans "</code></pre>
 </div>
 </div>
-<p>This remove yet another of our problems. This next problem is absolutely horrible and is so easy to overlook. Notice how the second spelling has a double space between <code>st</code> and <code>alban</code>? At a glance that can be really hard to see. Likewise the last spelling has a trailing space. Let us fix this as well.</p>
+<p>This removes yet another of our problems. This next problem is absolutely horrible and is so easy to overlook. Notice how the second spelling has a double space between <code>st</code> and <code>alban</code>? At a glance that can be hard to see. Likewise, the last spelling has a trailing space. Let us fix this as well.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>st_albans <span class="ot">&lt;-</span> st_albans <span class="sc">|&gt;</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  stringr<span class="sc">::</span><span class="fu">str_squish</span>() <span class="sc">|&gt;</span></span>
@@ -827,35 +827,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>[1] "st albans" "st alban" </code></pre>
 </div>
 </div>
-<p>Now we are left with two values, which we manually would have to deal with. But even if we had to manually write out the mapping, it is a lot easier to write it for 2 different spellings then 7.</p>
-<p>Another problem that you may or may not run into, depends of the resilience of your modeling package. Some implementations are rather fragile when it comes to the column names of your data, Non-ASCII characters, punctuation and even spaces can cause errors. At this point in our journey we are almost there, and we can replace the spaces with underscores to be left with <code>st_albans</code>.</p>
-<p>One problem we didn’t see in the above example is</p>
-<p>weird characters (janitor)</p>
-<p>unicode collapsing</p>
-<p>These are just a subset of problems you will run into when working with messy real world data.</p>
-<p>Talk about how there are whole package solutions to this problem, and link to collapse chapter</p>
+<p>Now we are left with two values, which we manually would have to deal with. But even if we had to manually write out the mapping, it is a lot easier to write it for 2 different spellings than 7.</p>
+<p>Another problem that you may or may not run into, depends on the resilience of your modeling package. Some implementations are rather fragile when it comes to the column names of your data, Non-ASCII characters, punctuation and even spaces can cause errors. At this point in our journey, we are almost there, and we can replace the spaces with underscores to be left with <code>st_albans</code>.</p>
+<p>One problem we didn’t see in the above example is what happens you are working with accented characters. Consider the German word “schön.” The o with an umlaut (two dots over it) is a fairly simple character, but it can be represented in a couple of different ways. We can either use a single character <a href="https://www.fileformat.info/info/unicode/char/00f6/index.htm">\U00f6</a> to represent the letter with an umlaut. Alternatively, we can use two characters, one for the o and one character to denote the presence of two dots over the previous character <a href="https://www.fileformat.info/info/unicode/char/0308/index.htm">\U0308</a>. As you can imagine this can happen with many words if you have free-form data from a wide array of backgrounds. The method needed to fix this problem is called <a href="https://unicode.org/reports/tr15/">Unicode Normalization</a>.</p>
+<p>TODO Pull nuggets from https://twitter.com/Emil_Hvitfeldt/status/1583466133977382912</p>
+<p>This chapter was not meant to scare you, what I hope you get away from this chapter is that it is very important that you look at your data carefully, especially categorical variables that can be varied in so many unexpected ways. Nevertheless, using the above-described techniques, combined with some subject matter expertise should get you quite a long way.</p>
 <section id="r-examples" class="level1" data-number="18">
 <h1 data-number="18"><span class="header-section-number">18</span> R examples</h1>
 <p>TODO find good data set for these examples</p>
+<p>Use janitor</p>
 <p><code>textrecipes::step_clean_levels()</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>self_stringdist <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">unique</span>(x)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> stringdist<span class="sc">::</span><span class="fu">stringdistmatrix</span>(x, x) <span class="sc">|&gt;</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    reshape2<span class="sc">::</span><span class="fu">melt</span>()</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  out<span class="sc">$</span>Var1 <span class="ot">&lt;-</span> x[out<span class="sc">$</span>Var1]</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  out<span class="sc">$</span>Var2 <span class="ot">&lt;-</span> x[out<span class="sc">$</span>Var2]</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  out[out<span class="sc">$</span>value <span class="sc">!=</span> <span class="dv">0</span>, ]</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>elevators<span class="sc">::</span>elevators_raw <span class="sc">|&gt;</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(DV_MANUFACTURER)) <span class="sc">|&gt;</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(DV_MANUFACTURER) <span class="sc">|&gt;</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(DV_MANUFACTURER) <span class="sc">|&gt;</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">self_stringdist</span>() <span class="sc">|&gt;</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
 </div>
 </section>
 <section id="python-examples" class="level1" data-number="19">
