@@ -30,8 +30,6 @@ book:
         - categorical.qmd
         - categorical-cleaning.qmd
         - categorical-unseen.qmd
-        - categorical-collapse.qmd
-        - categorical-combination.qmd
         - categorical-dummy.qmd
         - categorical-label.qmd
         - categorical-binary.qmd
@@ -56,6 +54,8 @@ book:
         - categorical-quantile.qmd
         - categorical-summary.qmd
         - categorical-multi-dummy.qmd
+        - categorical-collapse.qmd
+        - categorical-combination.qmd
     - part: "Imbalanced Data"
       chapters:
         - imbalenced.qmd
