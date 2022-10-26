@@ -368,7 +368,7 @@
     "href": "categorical-unseen.html",
     "title": "18  Unseen Levels",
     "section": "",
-    "text": "When you are dealing with categorical variables, it is understood that they can take many values. And we have various methods about how to deal with these categorical values, regardless of what values they take. One problem that eventually will happen for you is that you try to apply a trained preprocessor on data that has levels in your categorical variable that you haven’t seen before. This can happen when you are fitting your model using resampled data, when you are applying your model on the testing data set or, if you are unlucky, at some future time in production.\nTODO add diagram here\nThe reason why you need to think about this problem is that some methods and/or models will complain and even error if you are providing unseen levels. Some implementation will allow you deal with this at the method level. Other methods such as Chapter 32 doesn’t care at all that you have unseen levels in your data.\nOne surefire way to deal with this issue is to add a step in your data preprocessing pipeline that will turn any unseen levels into \"unseen\". What this method does in practice, is that it looks at your categorical variables during training, taking note of all the levels it sees and saves them. Then any time the preprocessing is applied to new data it will look at the levels again, and if it sees a level it haven’t seen, label it \"unseen\" (or any other meaningful label that doesn’t conflict with the data). This way, you have that any future levels.\nTODO add diagram here"
+    "text": "When you are dealing with categorical variables, it is understood that they can take many values. And we have various methods about how to deal with these categorical values, regardless of what values they take. One problem that eventually will happen for you is that you try to apply a trained preprocessor on data that has levels in your categorical variable that you haven’t seen before. This can happen when you are fitting your model using resampled data, when you are applying your model on the testing data set or, if you are unlucky, at some future time in production.\nTODO add diagram here\nThe reason why you need to think about this problem is that some methods and/or models will complain and even error if you are providing unseen levels. Some implementation will allow you deal with this at the method level. Other methods such as Chapter 30 doesn’t care at all that you have unseen levels in your data.\nOne surefire way to deal with this issue is to add a step in your data preprocessing pipeline that will turn any unseen levels into \"unseen\". What this method does in practice, is that it looks at your categorical variables during training, taking note of all the levels it sees and saves them. Then any time the preprocessing is applied to new data it will look at the levels again, and if it sees a level it haven’t seen, label it \"unseen\" (or any other meaningful label that doesn’t conflict with the data). This way, you have that any future levels.\nTODO add diagram here"
   },
   {
     "objectID": "categorical-unseen.html#r-examples",
@@ -378,184 +378,184 @@
     "text": "18.1 R Examples\nWe will be using the nycflights13 data set. We are downsampling just a bit to only work on the first day and doing a test-train split.\n\nlibrary(recipes)\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nlibrary(rsample)\nlibrary(nycflights13)\n\nflights <- flights |>\n  filter(year == 2013, month == 1, day == 1)\n\nset.seed(13630)\nflights_split <- initial_split(flights)\nflights_train <- training(flights_split)\nflights_test <- testing(flights_split)\n\nNow we are doing the cardinal sin by looking at the testing data. But in this case it is okay because we are doing it for educational purposed.\n\nflights_train |> pull(carrier) |> unique() |> sort()\n\n [1] \"9E\" \"AA\" \"B6\" \"DL\" \"EV\" \"F9\" \"FL\" \"MQ\" \"UA\" \"US\" \"VX\" \"WN\"\n\nflights_test |> pull(carrier) |> unique() |> sort()\n\n [1] \"9E\" \"AA\" \"AS\" \"B6\" \"DL\" \"EV\" \"FL\" \"HA\" \"MQ\" \"UA\" \"US\" \"VX\" \"WN\"\n\n\nNotice that the testing data includes the carrier \"AS\" and \"HA\" but the training data doesn’t know that. Let us see what would happen if we were to calculate dummy variables without doing any adjusting.\n\ndummy_spec <- recipe(arr_delay ~ carrier, data = flights_train) |>\n  step_dummy(carrier)\n\ndummy_spec_prepped <- prep(dummy_spec)\n\nbake(dummy_spec_prepped, new_data = flights_test)\n\nWarning: There are new levels in a factor: AS, HA\n\n\n# A tibble: 211 × 12\n   arr_delay carrier_AA carrie…¹ carri…² carri…³ carri…⁴ carri…⁵ carri…⁶ carri…⁷\n       <dbl>      <int>    <int>   <int>   <int>   <int>   <int>   <int>   <int>\n 1        12          0        0       0       0       0       0       0       1\n 2         8          1        0       0       0       0       0       0       0\n 3       -14          0        0       0       0       0       0       0       1\n 4        -6          0        1       0       0       0       0       0       0\n 5        -3          1        0       0       0       0       0       0       0\n 6       -33          0        0       1       0       0       0       0       0\n 7        -7          1        0       0       0       0       0       0       0\n 8         5          0        1       0       0       0       0       0       0\n 9        31          1        0       0       0       0       0       0       0\n10       -10         NA       NA      NA      NA      NA      NA      NA      NA\n# … with 201 more rows, 3 more variables: carrier_US <int>, carrier_VX <int>,\n#   carrier_WN <int>, and abbreviated variable names ¹​carrier_B6, ²​carrier_DL,\n#   ³​carrier_EV, ⁴​carrier_F9, ⁵​carrier_FL, ⁶​carrier_MQ, ⁷​carrier_UA\n\n\nWe get a warning, and if you look at the rows that were affected we see that it produces NAs. Let us now use the function step_novel() that implements the above described method.\n\nnovel_spec <- recipe(arr_delay ~ carrier, data = flights_train) |>\n  step_novel(carrier) |>\n  step_dummy(carrier) \n\nnovel_spec_prepped <- prep(novel_spec)\n\nbake(novel_spec_prepped, new_data = flights_test)\n\n# A tibble: 211 × 13\n   arr_delay carrier_AA carrie…¹ carri…² carri…³ carri…⁴ carri…⁵ carri…⁶ carri…⁷\n       <dbl>      <int>    <int>   <int>   <int>   <int>   <int>   <int>   <int>\n 1        12          0        0       0       0       0       0       0       1\n 2         8          1        0       0       0       0       0       0       0\n 3       -14          0        0       0       0       0       0       0       1\n 4        -6          0        1       0       0       0       0       0       0\n 5        -3          1        0       0       0       0       0       0       0\n 6       -33          0        0       1       0       0       0       0       0\n 7        -7          1        0       0       0       0       0       0       0\n 8         5          0        1       0       0       0       0       0       0\n 9        31          1        0       0       0       0       0       0       0\n10       -10          0        0       0       0       0       0       0       0\n# … with 201 more rows, 4 more variables: carrier_US <int>, carrier_VX <int>,\n#   carrier_WN <int>, carrier_new <int>, and abbreviated variable names\n#   ¹​carrier_B6, ²​carrier_DL, ³​carrier_EV, ⁴​carrier_F9, ⁵​carrier_FL,\n#   ⁶​carrier_MQ, ⁷​carrier_UA\n\n\nAnd we see that we get no error or anything."
   },
   {
-    "objectID": "categorical-collapse.html",
-    "href": "categorical-collapse.html",
-    "title": "19  Collapsing Categories",
-    "section": "",
-    "text": "WIP"
-  },
-  {
-    "objectID": "categorical-combination.html",
-    "href": "categorical-combination.html",
-    "title": "20  Combination",
-    "section": "",
-    "text": "WIP"
-  },
-  {
     "objectID": "categorical-dummy.html",
     "href": "categorical-dummy.html",
-    "title": "21  Dummy Encoding",
+    "title": "19  Dummy Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-label.html",
     "href": "categorical-label.html",
-    "title": "22  Label Encoding",
+    "title": "20  Label Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-binary.html",
     "href": "categorical-binary.html",
-    "title": "23  Binary Encoding",
+    "title": "21  Binary Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-ordinal.html",
     "href": "categorical-ordinal.html",
-    "title": "24  Ordinal Encoding",
+    "title": "22  Ordinal Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-frequency.html",
     "href": "categorical-frequency.html",
-    "title": "25  Frequency Encoding",
+    "title": "23  Frequency Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-helmert.html",
     "href": "categorical-helmert.html",
-    "title": "26  Helmert Encoding",
+    "title": "24  Helmert Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-difference.html",
     "href": "categorical-difference.html",
-    "title": "27  Difference Encoding",
+    "title": "25  Difference Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-target.html",
     "href": "categorical-target.html",
-    "title": "28  Target Encoding",
+    "title": "26  Target Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-impact.html",
     "href": "categorical-impact.html",
-    "title": "29  Impact Encoding",
+    "title": "27  Impact Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-polynomial.html",
     "href": "categorical-polynomial.html",
-    "title": "30  Polynomial Encoding",
+    "title": "28  Polynomial Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-sum.html",
     "href": "categorical-sum.html",
-    "title": "31  Sum Encoding",
+    "title": "29  Sum Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-hashing.html",
     "href": "categorical-hashing.html",
-    "title": "32  Hashing Encoding",
+    "title": "30  Hashing Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-leaveoneout.html",
     "href": "categorical-leaveoneout.html",
-    "title": "33  Leave One Out Encoding",
+    "title": "31  Leave One Out Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-leaf.html",
     "href": "categorical-leaf.html",
-    "title": "34  Leaf Encoding",
+    "title": "32  Leaf Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-glmm.html",
     "href": "categorical-glmm.html",
-    "title": "35  GLMM Encoding",
+    "title": "33  GLMM Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-randomforest.html",
     "href": "categorical-randomforest.html",
-    "title": "36  Random Forest Encoding",
+    "title": "34  Random Forest Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-catboost.html",
     "href": "categorical-catboost.html",
-    "title": "37  Catboost Encoding",
+    "title": "35  Catboost Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-woe.html",
     "href": "categorical-woe.html",
-    "title": "38  Weight of Evidence Encoding",
+    "title": "36  Weight of Evidence Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-jamesstein.html",
     "href": "categorical-jamesstein.html",
-    "title": "39  James-Stein Encoding",
+    "title": "37  James-Stein Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-mestimator.html",
     "href": "categorical-mestimator.html",
-    "title": "40  M-Estimator Encoding",
+    "title": "38  M-Estimator Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-thermometer.html",
     "href": "categorical-thermometer.html",
-    "title": "41  Thermometer Encoding",
+    "title": "39  Thermometer Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-quantile.html",
     "href": "categorical-quantile.html",
-    "title": "42  Quantile Encoding",
+    "title": "40  Quantile Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-summary.html",
     "href": "categorical-summary.html",
-    "title": "43  Summary Encoding",
+    "title": "41  Summary Encoding",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical-multi-dummy.html",
     "href": "categorical-multi-dummy.html",
-    "title": "44  Multi-Dummy encoding",
+    "title": "42  Multi-Dummy encoding",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical-collapse.html",
+    "href": "categorical-collapse.html",
+    "title": "43  Collapsing Categories",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "categorical-combination.html",
+    "href": "categorical-combination.html",
+    "title": "44  Combination",
     "section": "",
     "text": "WIP"
   },
