@@ -382,7 +382,21 @@
     "href": "categorical-dummy.html",
     "title": "19  Dummy Encoding",
     "section": "",
-    "text": "We have some categorical variable and we want to turn it into numerical values, one of the most common ways of going about it it so create dummy variables. Dummy variables are variables that only takes the values 0 and 1 to indicate the absence or presence of the levels in a categorical variable. This is nicely shown with an example.\nConsider this short categorical variable of animals\nExplain one hot vs dummy\nTODO add Diagram"
+    "text": "We have some categorical variable and we want to turn it into numerical values, one of the most common ways of going about it it so create dummy variables. Dummy variables are variables that only takes the values 0 and 1 to indicate the absence or presence of the levels in a categorical variable. This is nicely shown with an example.\nConsider this short categorical variable of animals, we observe there are 3 unique values “cat”, “dog”, and “horse”.\nWhich just this knowledge we can create the corresponding dummy variables. There should be 3 columns one for each of the levels\nFrom this we have a couple of observations. Firstly the length of each of these variables are equal to the length of the original categorical variable. The number of columns corresponds to the number of levels. And lastly the sum of all the values on each row equals 1 since all the rows contains one 1 and the remaining 0s. This means that for even small number of levels, you get sparse data. Sparse data is data where there is a lot of zeroes, meaning that it it would take less space to store where the non-zero values are instead of all the values. You can read more about how and when to care about sparse data in Chapter 78. What this means for dummy variable creating, that depending on whether your software can handle sparse data, you might need to limit the number of levels in your categorical variables. One way to do this would be to collapse levels together, which you can read about in Chapter 43.\nDummy variable creation is a trained method. This means that doing the training step, the levels of each categorical variables are saved, and then these and only these values are used for dummy variable creation. If we assumed that the above example data were used to train the preprocessor, and we passed in the values [\"dog\", \"cat\", \"cat\", \"dog\"] during future applications, we would expect the following dummy variables\nit is important that the horse variable is here too, even if it is empty as the subsequent preprocessing steps and model expects the horse variable to be present. Likewise you can run into problems if the value \"duck\" was used as the preprosessor wouldn’t know what to do. These cases are talked about in Chapter 18.\nExplain one hot vs dummy\nTODO add Diagram"
+  },
+  {
+    "objectID": "categorical-dummy.html#pros-and-cons",
+    "href": "categorical-dummy.html#pros-and-cons",
+    "title": "19  Dummy Encoding",
+    "section": "19.1 Pros and Cons",
+    "text": "19.1 Pros and Cons\n\n19.1.1 Pros\n\n\n19.1.2 Cons"
+  },
+  {
+    "objectID": "categorical-dummy.html#r-examples",
+    "href": "categorical-dummy.html#r-examples",
+    "title": "19  Dummy Encoding",
+    "section": "19.2 R Examples",
+    "text": "19.2 R Examples"
   },
   {
     "objectID": "categorical-label.html",
@@ -810,19 +824,5 @@
     "title": "80  Summary",
     "section": "",
     "text": "WIP"
-  },
-  {
-    "objectID": "categorical-dummy.html#pros-and-cons",
-    "href": "categorical-dummy.html#pros-and-cons",
-    "title": "19  Dummy Encoding",
-    "section": "19.1 Pros and Cons",
-    "text": "19.1 Pros and Cons\n\n19.1.1 Pros\n\n\n19.1.2 Cons"
-  },
-  {
-    "objectID": "categorical-dummy.html#r-examples",
-    "href": "categorical-dummy.html#r-examples",
-    "title": "19  Dummy Encoding",
-    "section": "19.2 R Examples",
-    "text": "19.2 R Examples"
   }
 ]
