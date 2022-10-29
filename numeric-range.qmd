@@ -34,11 +34,11 @@ The equation is a lot bigger, but was it different is that we are specify that t
 library(recipes)
 library(ggplot2)
 
-recipe(~mpg, data = mtcars) %>%
-  step_range(mpg) %>%
-  prep() %>% 
-  bake(new_data = tibble(mpg = seq(1, 50))) %>%
-  mutate(Original = seq(1, 50)) %>%
+recipe(~mpg, data = mtcars) |>
+  step_range(mpg) |>
+  prep() |> 
+  bake(new_data = tibble(mpg = seq(1, 50))) |>
+  mutate(Original = seq(1, 50)) |>
   ggplot(aes(Original, mpg)) +
   geom_point() +
   labs(y = "Transformed") +
@@ -82,22 +82,22 @@ rand_val <- (rbeta(1000, 0.3, 0.5) + rnorm(1000, sd = 0.05)) * 10
 
 plotting_data <- 
   bind_rows(
-    tibble(Original = rand_val) %>%
-      mutate(Transformed = (Original - min(Original)) / (max(Original) - min(Original))) %>%
-      pivot_longer(everything()) %>%
+    tibble(Original = rand_val) |>
+      mutate(Transformed = (Original - min(Original)) / (max(Original) - min(Original))) |>
+      pivot_longer(everything()) |>
       mutate(outlier = "No outlier"),
-    tibble(Original = c(rand_val, 500)) %>%
-      mutate(Transformed = (Original - min(Original)) / (max(Original) - min(Original))) %>%
-      pivot_longer(everything()) %>%
+    tibble(Original = c(rand_val, 500)) |>
+      mutate(Transformed = (Original - min(Original)) / (max(Original) - min(Original))) |>
+      pivot_longer(everything()) |>
       mutate(outlier = "One outlier at 10000")
-  ) %>%
-  filter(value < 15) %>%
+  ) |>
+  filter(value < 15) |>
   filter(!(outlier == "One outlier at 10000" & value == 1 & name == "Transformed"))
 
-plotting_data %>%
+plotting_data |>
   filter(!(outlier == "One outlier at 10000" & value == 1 & name == "Transformed"))
   
-plotting_data %>%
+plotting_data |>
   ggplot(aes(value)) +
   geom_histogram(bins = 50) +
   facet_grid(outlier ~ name, scales = "free") +
@@ -129,36 +129,36 @@ library(recipes)
 library(modeldata)
 data("ames")
 
-ames %>%
+ames |>
   select(Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)
 ```
 
 We will be using the `step_range()` step for this
 
 ```{r}
-range_rec <- recipe(Sale_Price ~ ., data = ames) %>%
-  step_range(all_numeric_predictors()) %>%
+range_rec <- recipe(Sale_Price ~ ., data = ames) |>
+  step_range(all_numeric_predictors()) |>
   prep()
 
-range_rec %>%
+range_rec |>
   bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)
 ```
 
 We can also pull out what the min and max value were for each variable using `tidy()`
 
 ```{r}
-range_rec %>%
+range_rec |>
   tidy(1)
 ```
 
 using the `min` and `max` argument we can set different ranges
 
 ```{r}
-range_rec <- recipe(Sale_Price ~ ., data = ames) %>%
-  step_range(all_numeric_predictors(), min = -2, max = 2) %>%
+range_rec <- recipe(Sale_Price ~ ., data = ames) |>
+  step_range(all_numeric_predictors(), min = -2, max = 2) |>
   prep()
 
-range_rec %>%
+range_rec |>
   bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)
 ```
 

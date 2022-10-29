@@ -28,13 +28,12 @@ library(tidyr)
 library(patchwork)
 
 visualize_boxcox <- function(x) {
-  tibble(Original = x) %>%
-    recipe(~Original, data = .) %>%
-    step_mutate(Transformed = Original) %>%
-    step_BoxCox(Transformed) %>%
-    prep() %>%
-    bake(new_data = NULL) %>%
-    pivot_longer(everything()) %>%
+  recipe(~Original, data = tibble(Original = x)) |>
+    step_mutate(Transformed = Original) |>
+    step_BoxCox(Transformed) |>
+    prep() |>
+    bake(new_data = NULL) |>
+    pivot_longer(everything()) |>
     ggplot(aes(value)) +
     geom_histogram(bins = 50) +
     facet_wrap(~name, scales = "free") +
@@ -91,25 +90,25 @@ library(recipes)
 library(modeldata)
 data("ames")
 
-ames %>%
+ames |>
   select(Lot_Area, Wood_Deck_SF, Sale_Price)
 ```
 
 {recipes} provides a step to perform Box-Cox transformations.
 
 ```{r}
-boxcox_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) %>%
-  step_BoxCox(Lot_Area) %>%
+boxcox_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) |>
+  step_BoxCox(Lot_Area) |>
   prep()
 
-boxcox_rec %>%
+boxcox_rec |>
   bake(new_data = NULL)
 ```
 
 We can also pull out the value of the estimated $\lambda$ by using the `tidy()` method on the recipe step.
 
 ```{r}
-boxcox_rec %>%
+boxcox_rec |>
   tidy(1)
 ```
 

@@ -91,11 +91,11 @@ elevators::elevators_raw |>
 #| echo: false
 library(tidyverse)
 
-elevators::elevators_raw %>%
-  select(DV_MANUFACTURER) %>%
-  drop_na() %>%
-  filter(str_detect(DV_MANUFACTURER, "^O")) %>%
-  filter(str_detect(DV_MANUFACTURER, "OLD", negate = TRUE)) %>%
+elevators::elevators_raw |>
+  select(DV_MANUFACTURER) |>
+  drop_na() |>
+  filter(str_detect(DV_MANUFACTURER, "^O")) |>
+  filter(str_detect(DV_MANUFACTURER, "OLD", negate = TRUE)) |>
   pull(DV_MANUFACTURER) |>
   table()
 

@@ -107,51 +107,51 @@ runif(10000) |> log10() |> hist(breaks = 20)
 We will be using the `ames` data set for these examples.
 
 ```{r}
-ames %>%
+ames |>
   select(Lot_Area, Wood_Deck_SF, Sale_Price)
 ```
 
 {recipes} provides a step to perform logarithms, which out of the box uses $e$ as the base with an offset of 0.
 
 ```{r}
-log_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) %>%
+log_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) |>
   step_log(Lot_Area)
 
-log_rec %>%
-  prep() %>%
+log_rec |>
+  prep() |>
   bake(new_data = NULL)
 ```
 
 The base can be changed by setting the `base` argument.
 
 ```{r}
-log_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) %>%
+log_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) |>
   step_log(Lot_Area, base = 2)
 
-log_rec %>%
-  prep() %>%
+log_rec |>
+  prep() |>
   bake(new_data = NULL)
 ```
 
 If we have non-positive values, which we do in the `Wood_Deck_SF` variable because it has quite a lot of zeroes, we get `-Inf` which isn't going to work.
 
 ```{r}
-log_rec <- recipe(Sale_Price ~ Wood_Deck_SF, data = ames) %>%
+log_rec <- recipe(Sale_Price ~ Wood_Deck_SF, data = ames) |>
   step_log(Wood_Deck_SF)
 
-log_rec %>%
-  prep() %>%
+log_rec |>
+  prep() |>
   bake(new_data = NULL)
 ```
 
 Setting the `offset` argument helps us to deal with that problem.
 
 ```{r}
-log_rec <- recipe(Sale_Price ~ Wood_Deck_SF, data = ames) %>%
+log_rec <- recipe(Sale_Price ~ Wood_Deck_SF, data = ames) |>
   step_log(Wood_Deck_SF, offset = 0.5)
 
-log_rec %>%
-  prep() %>%
+log_rec |>
+  prep() |>
   bake(new_data = NULL)
 ```
 
