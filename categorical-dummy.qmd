@@ -40,17 +40,145 @@ dummy
 
 it is important that the `horse` variable is here too, even if it is empty as the subsequent preprocessing steps and model expects the horse variable to be present. Likewise you can run into problems if the value `"duck"` was used as the preprosessor wouldn't know what to do. These cases are talked about in @sec-unseen.
 
-Explain one hot vs dummy
+## Dummy or one-hot encoding
 
-TODO add Diagram
+TODO add diagram
+
+The terms **dummy encoding** and **one-hot encoding** gets thrown around interchangeably, but they do have different and distinct meanings. One-hot encoding is when you return `k` variables when you have `k` different levels. Like we have shown above
+
+```{r}
+#| echo: false
+dummy <- matrix(0L, nrow = 5, ncol = 3)
+colnames(dummy) <- c("cat", "dog", "horse")
+dummy[1, 2] <- 1L
+dummy[2, 1] <- 1L
+dummy[3, 3] <- 1L
+dummy[4, 2] <- 1L
+dummy[5, 1] <- 1L
+dummy
+```
+
+Dummy encoding on the other hand returns `k-1` variables, where the excluded one typically is the first one.
+
+```{r}
+#| echo: false
+dummy <- matrix(0L, nrow = 5, ncol = 2)
+colnames(dummy) <- c("dog", "horse")
+dummy[1, 1] <- 1L
+dummy[3, 2] <- 1L
+dummy[4, 1] <- 1L
+dummy
+```
+
+These two encodings store the exact same information, even though the dummy encoding has 1 less column. Because we are able to deduce which observations are `cat` by find the rows with all zeros. The main reason why one would use dummy variables is because of what some people call [the dummy variable trap](https://www.algosome.com/articles/dummy-variable-trap-regression.html). When you use one-hot encoding, you are increasing the likely that you run into collinearity problem. With the above example, if you included an intercept in your model you have that `intercept = cat + dog + horse` which gives perfect collinearity and would cause some models to error as they aren't able to handle that.
+
+::: callout-note
+An **intercept** is a variable that takes the value 1 for all entries.
+:::
+
+Even if you don't include an intercept you could still run into collinearity. Imagine that in addition to the `animal` variable also creates a one-hot encoding of the `home` variable taking the two values `"house"` and `"apartment"`, you would get the following indicator variables
+
+```{r}
+#| echo: false
+animal <- matrix(0L, nrow = 5, ncol = 3)
+colnames(animal) <- c("cat", "dog", "horse")
+animal[1, 2] <- 1L
+animal[2, 1] <- 1L
+animal[3, 3] <- 1L
+animal[4, 2] <- 1L
+animal[5, 1] <- 1L
+
+home <- matrix(0L, nrow = 5, ncol = 2)
+colnames(home) <- c("house", "apartment")
+home[1, 2] <- 1L
+home[2, 1] <- 1L
+home[3, 2] <- 1L
+home[4, 2] <- 1L
+home[5, 1] <- 1L
+
+cbind(animal, home)
+```
+
+And in this case we have that `house = cat + dog + horse - apartment` which again is an example of perfect collinearity. Unless you have a reason to otherwise I would suggest that you use dummy encoding in your models. Additionally this leads to slightly smaller models as they each categorical variable produces 1 less variable. It is worth noting that the choice between dummy encoding and one-hot encoding does matter for some models such as decision trees. Depending on what types of rules they are able to use. Being able to write `animal == "cat"` is easier then saying `animal != "dog" & animal != "horse"`. This is unlikely to be an issue as many tree based models can work with categorical variables directly without the need for encoding.
+
+## Ordered factors
+
+TODO
+
+## Contrasts
+
+TODO
 
 ## Pros and Cons
 
 ### Pros
 
+- Versatile and commonly used
+- Easy interpretation
+- Will rarely leads to a decrease in performance
+
 ### Cons
 
+- Does require fairly clean categorical levels
+- Can be quite memory intensive if you have many levels in your categorical variables and you are unable to use sparse representation
+- Provides a complete, but not neasesarily compact set of variables
+
 ## R Examples
+
+We will be using the `ames` data set for these examples. The `step_dummy()` function allow us to perform dummy encoding and one-hot encoding.
+
+```{r}
+library(recipes)
+library(modeldata)
+data("ames")
+
+ames |>
+  select(Sale_Price, MS_SubClass, MS_Zoning)
+```
+
+We can take a quick look at the the possible values `MS_SubClass` takes
+
+```{r}
+ames |>
+  count(MS_SubClass, sort = TRUE)
+```
+
+And since `MS_SubClass` is a factor, we can verity that they match and that all the levels are observed
+
+```{r}
+ames |> pull(MS_SubClass) |> levels()
+```
+
+We will be using the `step_dummy()` step for this, which defaults to creating dummy variables
+
+```{r}
+dummy_rec <- recipe(Sale_Price ~ ., data = ames) %>%
+  step_dummy(all_nominal_predictors()) %>%
+  prep()
+
+dummy_rec %>%
+  bake(new_data = NULL, starts_with("MS_SubClass"), starts_with("MS_Zoning")) |>
+  glimpse()
+```
+
+We can pull the factor levels for each variable by using `tidy()`. If a character vector was present in the data set, it would reord the observed variables.
+
+```{r}
+dummy_rec %>%
+  tidy(1)
+```
+
+setting `one_hot = TRUE` gives us the complete one-hot encoding results.
+
+```{r}
+onehot_rec <- recipe(Sale_Price ~ ., data = ames) %>%
+  step_dummy(all_nominal_predictors(), one_hot = TRUE) %>%
+  prep()
+
+onehot_rec %>%
+  bake(new_data = NULL, starts_with("MS_SubClass"), starts_with("MS_Zoning")) |>
+  glimpse()
+```
 
 # Python Examples
 
