@@ -20,6 +20,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -697,12 +760,15 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link active" data-scroll-target="#pros-and-cons"><span class="toc-section-number">19.1</span>  Pros and Cons</a>
+  <li><a href="#dummy-or-one-hot-encoding" id="toc-dummy-or-one-hot-encoding" class="nav-link active" data-scroll-target="#dummy-or-one-hot-encoding"><span class="toc-section-number">19.1</span>  Dummy or one-hot encoding</a></li>
+  <li><a href="#ordered-factors" id="toc-ordered-factors" class="nav-link" data-scroll-target="#ordered-factors"><span class="toc-section-number">19.2</span>  Ordered factors</a></li>
+  <li><a href="#contrasts" id="toc-contrasts" class="nav-link" data-scroll-target="#contrasts"><span class="toc-section-number">19.3</span>  Contrasts</a></li>
+  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link" data-scroll-target="#pros-and-cons"><span class="toc-section-number">19.4</span>  Pros and Cons</a>
   <ul class="collapse">
-  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="toc-section-number">19.1.1</span>  Pros</a></li>
-  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="toc-section-number">19.1.2</span>  Cons</a></li>
+  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="toc-section-number">19.4.1</span>  Pros</a></li>
+  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="toc-section-number">19.4.2</span>  Cons</a></li>
   </ul></li>
-  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="toc-section-number">19.2</span>  R Examples</a></li>
+  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="toc-section-number">19.5</span>  R Examples</a></li>
   <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="toc-section-number">20</span>  Python Examples</a></li>
   </ul>
 </nav>
@@ -756,19 +822,279 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <p>it is important that the <code>horse</code> variable is here too, even if it is empty as the subsequent preprocessing steps and model expects the horse variable to be present. Likewise you can run into problems if the value <code>"duck"</code> was used as the preprosessor wouldn’t know what to do. These cases are talked about in <a href="categorical-unseen.html"><span>Chapter&nbsp;18</span></a>.</p>
-<p>Explain one hot vs dummy</p>
-<p>TODO add Diagram</p>
-<section id="pros-and-cons" class="level2" data-number="19.1">
-<h2 data-number="19.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">19.1</span> Pros and Cons</h2>
-<section id="pros" class="level3" data-number="19.1.1">
-<h3 data-number="19.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">19.1.1</span> Pros</h3>
+<section id="dummy-or-one-hot-encoding" class="level2" data-number="19.1">
+<h2 data-number="19.1" class="anchored" data-anchor-id="dummy-or-one-hot-encoding"><span class="header-section-number">19.1</span> Dummy or one-hot encoding</h2>
+<p>TODO add diagram</p>
+<p>The terms <strong>dummy encoding</strong> and <strong>one-hot encoding</strong> gets thrown around interchangeably, but they do have different and distinct meanings. One-hot encoding is when you return <code>k</code> variables when you have <code>k</code> different levels. Like we have shown above</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>     cat dog horse
+[1,]   0   1     0
+[2,]   1   0     0
+[3,]   0   0     1
+[4,]   0   1     0
+[5,]   1   0     0</code></pre>
+</div>
+</div>
+<p>Dummy encoding on the other hand returns <code>k-1</code> variables, where the excluded one typically is the first one.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>     dog horse
+[1,]   1     0
+[2,]   0     0
+[3,]   0     1
+[4,]   1     0
+[5,]   0     0</code></pre>
+</div>
+</div>
+<p>These two encodings store the exact same information, even though the dummy encoding has 1 less column. Because we are able to deduce which observations are <code>cat</code> by find the rows with all zeros. The main reason why one would use dummy variables is because of what some people call <a href="https://www.algosome.com/articles/dummy-variable-trap-regression.html">the dummy variable trap</a>. When you use one-hot encoding, you are increasing the likely that you run into collinearity problem. With the above example, if you included an intercept in your model you have that <code>intercept = cat + dog + horse</code> which gives perfect collinearity and would cause some models to error as they aren’t able to handle that.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>An <strong>intercept</strong> is a variable that takes the value 1 for all entries.</p>
+</div>
+</div>
+<p>Even if you don’t include an intercept you could still run into collinearity. Imagine that in addition to the <code>animal</code> variable also creates a one-hot encoding of the <code>home</code> variable taking the two values <code>"house"</code> and <code>"apartment"</code>, you would get the following indicator variables</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>     cat dog horse house apartment
+[1,]   0   1     0     0         1
+[2,]   1   0     0     1         0
+[3,]   0   0     1     0         1
+[4,]   0   1     0     0         1
+[5,]   1   0     0     1         0</code></pre>
+</div>
+</div>
+<p>And in this case we have that <code>house = cat + dog + horse - apartment</code> which again is an example of perfect collinearity. Unless you have a reason to otherwise I would suggest that you use dummy encoding in your models. Additionally this leads to slightly smaller models as they each categorical variable produces 1 less variable. It is worth noting that the choice between dummy encoding and one-hot encoding does matter for some models such as decision trees. Depending on what types of rules they are able to use. Being able to write <code>animal == "cat"</code> is easier then saying <code>animal != "dog" &amp; animal != "horse"</code>. This is unlikely to be an issue as many tree based models can work with categorical variables directly without the need for encoding.</p>
 </section>
-<section id="cons" class="level3" data-number="19.1.2">
-<h3 data-number="19.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">19.1.2</span> Cons</h3>
+<section id="ordered-factors" class="level2" data-number="19.2">
+<h2 data-number="19.2" class="anchored" data-anchor-id="ordered-factors"><span class="header-section-number">19.2</span> Ordered factors</h2>
+<p>TODO</p>
+</section>
+<section id="contrasts" class="level2" data-number="19.3">
+<h2 data-number="19.3" class="anchored" data-anchor-id="contrasts"><span class="header-section-number">19.3</span> Contrasts</h2>
+<p>TODO</p>
+</section>
+<section id="pros-and-cons" class="level2" data-number="19.4">
+<h2 data-number="19.4" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">19.4</span> Pros and Cons</h2>
+<section id="pros" class="level3" data-number="19.4.1">
+<h3 data-number="19.4.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">19.4.1</span> Pros</h3>
+<ul>
+<li>Versatile and commonly used</li>
+<li>Easy interpretation</li>
+<li>Will rarely leads to a decrease in performance</li>
+</ul>
+</section>
+<section id="cons" class="level3" data-number="19.4.2">
+<h3 data-number="19.4.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">19.4.2</span> Cons</h3>
+<ul>
+<li>Does require fairly clean categorical levels</li>
+<li>Can be quite memory intensive if you have many levels in your categorical variables and you are unable to use sparse representation</li>
+<li>Provides a complete, but not neasesarily compact set of variables</li>
+</ul>
 </section>
 </section>
-<section id="r-examples" class="level2" data-number="19.2">
-<h2 data-number="19.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">19.2</span> R Examples</h2>
+<section id="r-examples" class="level2" data-number="19.5">
+<h2 data-number="19.5" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">19.5</span> R Examples</h2>
+<p>We will be using the <code>ames</code> data set for these examples. The <code>step_dummy()</code> function allow us to perform dummy encoding and one-hot encoding.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: dplyr</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'recipes'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:stats':
+
+    step</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modeldata)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"ames"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>ames <span class="sc">|&gt;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Sale_Price, MS_SubClass, MS_Zoning)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,930 × 3
+   Sale_Price MS_SubClass                         MS_Zoning               
+        &lt;int&gt; &lt;fct&gt;                               &lt;fct&gt;                   
+ 1     215000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density 
+ 2     105000 One_Story_1946_and_Newer_All_Styles Residential_High_Density
+ 3     172000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density 
+ 4     244000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density 
+ 5     189900 Two_Story_1946_and_Newer            Residential_Low_Density 
+ 6     195500 Two_Story_1946_and_Newer            Residential_Low_Density 
+ 7     213500 One_Story_PUD_1946_and_Newer        Residential_Low_Density 
+ 8     191500 One_Story_PUD_1946_and_Newer        Residential_Low_Density 
+ 9     236500 One_Story_PUD_1946_and_Newer        Residential_Low_Density 
+10     189000 Two_Story_1946_and_Newer            Residential_Low_Density 
+# … with 2,920 more rows</code></pre>
+</div>
+</div>
+<p>We can take a quick look at the the possible values <code>MS_SubClass</code> takes</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>ames <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(MS_SubClass, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 16 × 2
+   MS_SubClass                                   n
+   &lt;fct&gt;                                     &lt;int&gt;
+ 1 One_Story_1946_and_Newer_All_Styles        1079
+ 2 Two_Story_1946_and_Newer                    575
+ 3 One_and_Half_Story_Finished_All_Ages        287
+ 4 One_Story_PUD_1946_and_Newer                192
+ 5 One_Story_1945_and_Older                    139
+ 6 Two_Story_PUD_1946_and_Newer                129
+ 7 Two_Story_1945_and_Older                    128
+ 8 Split_or_Multilevel                         118
+ 9 Duplex_All_Styles_and_Ages                  109
+10 Two_Family_conversion_All_Styles_and_Ages    61
+11 Split_Foyer                                  48
+12 Two_and_Half_Story_All_Ages                  23
+13 One_and_Half_Story_Unfinished_All_Ages       18
+14 PUD_Multilevel_Split_Level_Foyer             17
+15 One_Story_with_Finished_Attic_All_Ages        6
+16 One_and_Half_Story_PUD_All_Ages               1</code></pre>
+</div>
+</div>
+<p>And since <code>MS_SubClass</code> is a factor, we can verity that they match and that all the levels are observed</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>ames <span class="sc">|&gt;</span> <span class="fu">pull</span>(MS_SubClass) <span class="sc">|&gt;</span> <span class="fu">levels</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "One_Story_1946_and_Newer_All_Styles"      
+ [2] "One_Story_1945_and_Older"                 
+ [3] "One_Story_with_Finished_Attic_All_Ages"   
+ [4] "One_and_Half_Story_Unfinished_All_Ages"   
+ [5] "One_and_Half_Story_Finished_All_Ages"     
+ [6] "Two_Story_1946_and_Newer"                 
+ [7] "Two_Story_1945_and_Older"                 
+ [8] "Two_and_Half_Story_All_Ages"              
+ [9] "Split_or_Multilevel"                      
+[10] "Split_Foyer"                              
+[11] "Duplex_All_Styles_and_Ages"               
+[12] "One_Story_PUD_1946_and_Newer"             
+[13] "One_and_Half_Story_PUD_All_Ages"          
+[14] "Two_Story_PUD_1946_and_Newer"             
+[15] "PUD_Multilevel_Split_Level_Foyer"         
+[16] "Two_Family_conversion_All_Styles_and_Ages"</code></pre>
+</div>
+</div>
+<p>We will be using the <code>step_dummy()</code> step for this, which defaults to creating dummy variables</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>dummy_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> ., <span class="at">data =</span> ames) <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_dummy</span>(<span class="fu">all_nominal_predictors</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>dummy_rec <span class="sc">%&gt;%</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>, <span class="fu">starts_with</span>(<span class="st">"MS_SubClass"</span>), <span class="fu">starts_with</span>(<span class="st">"MS_Zoning"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,930
+Columns: 21
+$ MS_SubClass_One_Story_1945_and_Older                  &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_SubClass_One_Story_with_Finished_Attic_All_Ages    &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_SubClass_One_and_Half_Story_Unfinished_All_Ages    &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_SubClass_One_and_Half_Story_Finished_All_Ages      &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_SubClass_Two_Story_1946_and_Newer                  &lt;int&gt; 0, 0, 0, 0, 1, 1…
+$ MS_SubClass_Two_Story_1945_and_Older                  &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_SubClass_Two_and_Half_Story_All_Ages               &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_SubClass_Split_or_Multilevel                       &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_SubClass_Split_Foyer                               &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_SubClass_Duplex_All_Styles_and_Ages                &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_SubClass_One_Story_PUD_1946_and_Newer              &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_SubClass_One_and_Half_Story_PUD_All_Ages           &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_SubClass_Two_Story_PUD_1946_and_Newer              &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_SubClass_PUD_Multilevel_Split_Level_Foyer          &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_SubClass_Two_Family_conversion_All_Styles_and_Ages &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_Zoning_Residential_High_Density                    &lt;int&gt; 0, 1, 0, 0, 0, 0…
+$ MS_Zoning_Residential_Low_Density                     &lt;int&gt; 1, 0, 1, 1, 1, 1…
+$ MS_Zoning_Residential_Medium_Density                  &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_Zoning_A_agr                                       &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_Zoning_C_all                                       &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_Zoning_I_all                                       &lt;int&gt; 0, 0, 0, 0, 0, 0…</code></pre>
+</div>
+</div>
+<p>We can pull the factor levels for each variable by using <code>tidy()</code>. If a character vector was present in the data set, it would reord the observed variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>dummy_rec <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 243 × 3
+   terms       columns                                id         
+   &lt;chr&gt;       &lt;chr&gt;                                  &lt;chr&gt;      
+ 1 MS_SubClass One_Story_1945_and_Older               dummy_flzm3
+ 2 MS_SubClass One_Story_with_Finished_Attic_All_Ages dummy_flzm3
+ 3 MS_SubClass One_and_Half_Story_Unfinished_All_Ages dummy_flzm3
+ 4 MS_SubClass One_and_Half_Story_Finished_All_Ages   dummy_flzm3
+ 5 MS_SubClass Two_Story_1946_and_Newer               dummy_flzm3
+ 6 MS_SubClass Two_Story_1945_and_Older               dummy_flzm3
+ 7 MS_SubClass Two_and_Half_Story_All_Ages            dummy_flzm3
+ 8 MS_SubClass Split_or_Multilevel                    dummy_flzm3
+ 9 MS_SubClass Split_Foyer                            dummy_flzm3
+10 MS_SubClass Duplex_All_Styles_and_Ages             dummy_flzm3
+# … with 233 more rows</code></pre>
+</div>
+</div>
+<p>setting <code>one_hot = TRUE</code> gives us the complete one-hot encoding results.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>onehot_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> ., <span class="at">data =</span> ames) <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_dummy</span>(<span class="fu">all_nominal_predictors</span>(), <span class="at">one_hot =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>onehot_rec <span class="sc">%&gt;%</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>, <span class="fu">starts_with</span>(<span class="st">"MS_SubClass"</span>), <span class="fu">starts_with</span>(<span class="st">"MS_Zoning"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,930
+Columns: 23
+$ MS_SubClass_One_Story_1946_and_Newer_All_Styles       &lt;int&gt; 1, 1, 1, 1, 0, 0…
+$ MS_SubClass_One_Story_1945_and_Older                  &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_SubClass_One_Story_with_Finished_Attic_All_Ages    &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_SubClass_One_and_Half_Story_Unfinished_All_Ages    &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_SubClass_One_and_Half_Story_Finished_All_Ages      &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_SubClass_Two_Story_1946_and_Newer                  &lt;int&gt; 0, 0, 0, 0, 1, 1…
+$ MS_SubClass_Two_Story_1945_and_Older                  &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_SubClass_Two_and_Half_Story_All_Ages               &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_SubClass_Split_or_Multilevel                       &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_SubClass_Split_Foyer                               &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_SubClass_Duplex_All_Styles_and_Ages                &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_SubClass_One_Story_PUD_1946_and_Newer              &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_SubClass_One_and_Half_Story_PUD_All_Ages           &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_SubClass_Two_Story_PUD_1946_and_Newer              &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_SubClass_PUD_Multilevel_Split_Level_Foyer          &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_SubClass_Two_Family_conversion_All_Styles_and_Ages &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_Zoning_Floating_Village_Residential                &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_Zoning_Residential_High_Density                    &lt;int&gt; 0, 1, 0, 0, 0, 0…
+$ MS_Zoning_Residential_Low_Density                     &lt;int&gt; 1, 0, 1, 1, 1, 1…
+$ MS_Zoning_Residential_Medium_Density                  &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_Zoning_A_agr                                       &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_Zoning_C_all                                       &lt;int&gt; 0, 0, 0, 0, 0, 0…
+$ MS_Zoning_I_all                                       &lt;int&gt; 0, 0, 0, 0, 0, 0…</code></pre>
+</div>
+</div>
 </section>
 <section id="python-examples" class="level1" data-number="20">
 <h1 data-number="20"><span class="header-section-number">20</span> Python Examples</h1>
