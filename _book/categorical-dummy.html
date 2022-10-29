@@ -1004,11 +1004,11 @@ Attaching package: 'recipes'</code></pre>
 </div>
 <p>We will be using the <code>step_dummy()</code> step for this, which defaults to creating dummy variables</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>dummy_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> ., <span class="at">data =</span> ames) <span class="sc">%&gt;%</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_dummy</span>(<span class="fu">all_nominal_predictors</span>()) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>dummy_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> ., <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_dummy</span>(<span class="fu">all_nominal_predictors</span>()) <span class="sc">|&gt;</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>dummy_rec <span class="sc">%&gt;%</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>dummy_rec <span class="sc">|&gt;</span></span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>, <span class="fu">starts_with</span>(<span class="st">"MS_SubClass"</span>), <span class="fu">starts_with</span>(<span class="st">"MS_Zoning"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1039,32 +1039,32 @@ $ MS_Zoning_I_all                                       &lt;int&gt; 0, 0, 0, 0, 
 </div>
 <p>We can pull the factor levels for each variable by using <code>tidy()</code>. If a character vector was present in the data set, it would reord the observed variables.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>dummy_rec <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>dummy_rec <span class="sc">|&gt;</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 243 × 3
    terms       columns                                id         
    &lt;chr&gt;       &lt;chr&gt;                                  &lt;chr&gt;      
- 1 MS_SubClass One_Story_1945_and_Older               dummy_flzm3
- 2 MS_SubClass One_Story_with_Finished_Attic_All_Ages dummy_flzm3
- 3 MS_SubClass One_and_Half_Story_Unfinished_All_Ages dummy_flzm3
- 4 MS_SubClass One_and_Half_Story_Finished_All_Ages   dummy_flzm3
- 5 MS_SubClass Two_Story_1946_and_Newer               dummy_flzm3
- 6 MS_SubClass Two_Story_1945_and_Older               dummy_flzm3
- 7 MS_SubClass Two_and_Half_Story_All_Ages            dummy_flzm3
- 8 MS_SubClass Split_or_Multilevel                    dummy_flzm3
- 9 MS_SubClass Split_Foyer                            dummy_flzm3
-10 MS_SubClass Duplex_All_Styles_and_Ages             dummy_flzm3
+ 1 MS_SubClass One_Story_1945_and_Older               dummy_jxXQ9
+ 2 MS_SubClass One_Story_with_Finished_Attic_All_Ages dummy_jxXQ9
+ 3 MS_SubClass One_and_Half_Story_Unfinished_All_Ages dummy_jxXQ9
+ 4 MS_SubClass One_and_Half_Story_Finished_All_Ages   dummy_jxXQ9
+ 5 MS_SubClass Two_Story_1946_and_Newer               dummy_jxXQ9
+ 6 MS_SubClass Two_Story_1945_and_Older               dummy_jxXQ9
+ 7 MS_SubClass Two_and_Half_Story_All_Ages            dummy_jxXQ9
+ 8 MS_SubClass Split_or_Multilevel                    dummy_jxXQ9
+ 9 MS_SubClass Split_Foyer                            dummy_jxXQ9
+10 MS_SubClass Duplex_All_Styles_and_Ages             dummy_jxXQ9
 # … with 233 more rows</code></pre>
 </div>
 </div>
 <p>setting <code>one_hot = TRUE</code> gives us the complete one-hot encoding results.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>onehot_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> ., <span class="at">data =</span> ames) <span class="sc">%&gt;%</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_dummy</span>(<span class="fu">all_nominal_predictors</span>(), <span class="at">one_hot =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>onehot_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> ., <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_dummy</span>(<span class="fu">all_nominal_predictors</span>(), <span class="at">one_hot =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>onehot_rec <span class="sc">%&gt;%</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>onehot_rec <span class="sc">|&gt;</span></span>
 <span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>, <span class="fu">starts_with</span>(<span class="st">"MS_SubClass"</span>), <span class="fu">starts_with</span>(<span class="st">"MS_Zoning"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">

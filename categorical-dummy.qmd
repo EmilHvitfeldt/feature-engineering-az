@@ -152,11 +152,11 @@ ames |> pull(MS_SubClass) |> levels()
 We will be using the `step_dummy()` step for this, which defaults to creating dummy variables
 
 ```{r}
-dummy_rec <- recipe(Sale_Price ~ ., data = ames) %>%
-  step_dummy(all_nominal_predictors()) %>%
+dummy_rec <- recipe(Sale_Price ~ ., data = ames) |>
+  step_dummy(all_nominal_predictors()) |>
   prep()
 
-dummy_rec %>%
+dummy_rec |>
   bake(new_data = NULL, starts_with("MS_SubClass"), starts_with("MS_Zoning")) |>
   glimpse()
 ```
@@ -164,18 +164,18 @@ dummy_rec %>%
 We can pull the factor levels for each variable by using `tidy()`. If a character vector was present in the data set, it would reord the observed variables.
 
 ```{r}
-dummy_rec %>%
+dummy_rec |>
   tidy(1)
 ```
 
 setting `one_hot = TRUE` gives us the complete one-hot encoding results.
 
 ```{r}
-onehot_rec <- recipe(Sale_Price ~ ., data = ames) %>%
-  step_dummy(all_nominal_predictors(), one_hot = TRUE) %>%
+onehot_rec <- recipe(Sale_Price ~ ., data = ames) |>
+  step_dummy(all_nominal_predictors(), one_hot = TRUE) |>
   prep()
 
-onehot_rec %>%
+onehot_rec |>
   bake(new_data = NULL, starts_with("MS_SubClass"), starts_with("MS_Zoning")) |>
   glimpse()
 ```
@@ -183,3 +183,4 @@ onehot_rec %>%
 # Python Examples
 
 TODO
+

@@ -22,18 +22,18 @@ library(dplyr)
 library(tidyr)
 set.seed(1234)
 
-plotting_data <- tibble(Original = (rbeta(1000, 0.3, 0.5) + rnorm(1000, sd = 0.05)) * 10) %>%
-  mutate(Transformed = (Original - mean(Original)) / sd(Original)) %>%
+plotting_data <- tibble(Original = (rbeta(1000, 0.3, 0.5) + rnorm(1000, sd = 0.05)) * 10) |>
+  mutate(Transformed = (Original - mean(Original)) / sd(Original)) |>
   pivot_longer(everything())
 
 norm_curve <- tibble(
   x = seq(min(plotting_data$value) - 1, max(plotting_data$value), by = 0.2),
   y = dnorm(seq(min(plotting_data$value) - 1, max(plotting_data$value), by = 0.2)),
   name = "Transformed"
-) %>%
+) |>
   mutate(y = 1000 / sum(y) * y)
 
-plotting_data %>%
+plotting_data |>
   ggplot(aes(value)) +
   geom_histogram(binwidth = 0.2) +
   facet_grid(name~., scales = "free_y") +
@@ -82,18 +82,18 @@ rand_val <- (rbeta(1000, 0.3, 0.5) + rnorm(1000, sd = 0.05)) * 10
 
 plotting_data <- 
   bind_rows(
-    tibble(Original = rand_val) %>%
-      mutate(Transformed = (Original - mean(Original)) / sd(Original)) %>%
-      pivot_longer(everything()) %>%
+    tibble(Original = rand_val) |>
+      mutate(Transformed = (Original - mean(Original)) / sd(Original)) |>
+      pivot_longer(everything()) |>
       mutate(outlier = "No outlier"),
-    tibble(Original = c(rand_val, 500)) %>%
-      mutate(Transformed = (Original - mean(Original)) / sd(Original)) %>%
-      pivot_longer(everything()) %>%
+    tibble(Original = c(rand_val, 500)) |>
+      mutate(Transformed = (Original - mean(Original)) / sd(Original)) |>
+      pivot_longer(everything()) |>
       mutate(outlier = "One outlier at 10000")
-  ) %>%
+  ) |>
   filter(value < 15)
   
-plotting_data %>%
+plotting_data |>
   ggplot(aes(value)) +
   geom_histogram(binwidth = 0.2) +
   facet_grid(name ~ outlier, scales = "free") +
@@ -110,7 +110,7 @@ library(recipes)
 library(modeldata)
 data("ames")
 
-ames %>%
+ames |>
   select(Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)
 ```
 
@@ -119,70 +119,70 @@ ames %>%
 Below is an example using `step_scale()`
 
 ```{r}
-scale_rec <- recipe(Sale_Price ~ ., data = ames) %>%
-  step_scale(all_numeric_predictors()) %>%
+scale_rec <- recipe(Sale_Price ~ ., data = ames) |>
+  step_scale(all_numeric_predictors()) |>
   prep()
 
-scale_rec %>%
+scale_rec |>
   bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)
 ```
 
 We can also pull out the value of the standard deviation for each variable that was affected using `tidy()`
 
 ```{r}
-scale_rec %>%
+scale_rec |>
   tidy(1)
 ```
 
 We could also have used `step_center()` and `step_scale()` together in one recipe
 
 ```{r}
-center_scale_rec <- recipe(Sale_Price ~ ., data = ames) %>%
-  step_center(all_numeric_predictors()) %>%
-  step_scale(all_numeric_predictors()) %>%
+center_scale_rec <- recipe(Sale_Price ~ ., data = ames) |>
+  step_center(all_numeric_predictors()) |>
+  step_scale(all_numeric_predictors()) |>
   prep()
 
-center_scale_rec %>%
+center_scale_rec |>
   bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)
 ```
 
 Using `tidy()` we can see information about each step
 
 ```{r}
-center_scale_rec %>%
+center_scale_rec |>
   tidy()
 ```
 
 And we can pull out the means using `tidy(1)`
 
 ```{r}
-center_scale_rec %>%
+center_scale_rec |>
   tidy(1)
 ```
 
 and the standard deviation using `tidy(2)`
 
 ```{r}
-center_scale_rec %>%
+center_scale_rec |>
   tidy(2)
 ```
 
 Since these steps often follow each other, we often use the `step_normalize()` as a shortcut to do both operations in one step
 
 ```{r}
-scale_rec <- recipe(Sale_Price ~ ., data = ames) %>%
-  step_normalize(all_numeric_predictors()) %>%
+scale_rec <- recipe(Sale_Price ~ ., data = ames) |>
+  step_normalize(all_numeric_predictors()) |>
   prep()
 
-scale_rec %>%
+scale_rec |>
   bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)
 ```
 
 And we can still pull out the means and standard deviations using `tidy()`
 
 ```{r}
-scale_rec %>%
-  tidy(1) %>%
+scale_rec |>
+  tidy(1) |>
   filter(terms %in% c("Lot_Area", "Wood_Deck_SF", "Mas_Vnr_Area"))
 ```
 

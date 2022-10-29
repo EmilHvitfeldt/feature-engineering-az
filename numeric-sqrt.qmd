@@ -15,7 +15,7 @@ library(tidymodels)
 # TODO find data set with more negative values
 hotel_bookings <- readr::read_csv("data/hotel_bookings.csv")
 
-hotel_bookings %>%
+hotel_bookings |>
   ggplot(aes(adr)) +
   geom_histogram(bins = 100) +
   theme_minimal() +
@@ -38,8 +38,8 @@ Below we see the results of applying the signed square root.
 #| fig-cap: "Histogram of squared Average Daily Rate"
 #| fig-alt: "Histogram of squared Average Daily Rate, less skewed"
 
-hotel_bookings %>%
-  mutate(adr = sign(adr) * sqrt(abs(adr))) %>%
+hotel_bookings |>
+  mutate(adr = sign(adr) * sqrt(abs(adr))) |>
   ggplot(aes(adr)) +
   geom_histogram(bins = 100) +
   theme_minimal() +
@@ -67,7 +67,7 @@ It doesn't have the same power to shrink large values as logarithms do, but it w
 We will be using the `hotel_bookings` data set for these examples.
 
 ```{r}
-hotel_bookings %>%
+hotel_bookings |>
   select(lead_time, adr)
 ```
 
@@ -75,11 +75,11 @@ hotel_bookings %>%
 
 ```{r}
 # TODO use signed sqrt
-sqrt_rec <- recipe(lead_time ~ adr, data = hotel_bookings) %>%
+sqrt_rec <- recipe(lead_time ~ adr, data = hotel_bookings) |>
   step_sqrt(adr)
 
-sqrt_rec %>%
-  prep() %>%
+sqrt_rec |>
+  prep() |>
   bake(new_data = NULL)
 ```
 

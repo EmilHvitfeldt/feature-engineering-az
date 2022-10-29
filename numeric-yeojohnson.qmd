@@ -31,13 +31,12 @@ library(tidyr)
 library(patchwork)
 
 visualize_yeojohnson <- function(x) {
-  tibble(Original = x) %>%
-    recipe(~Original, data = .) %>%
-    step_mutate(Transformed = Original) %>%
-    step_YeoJohnson(Transformed) %>%
-    prep() %>%
-    bake(new_data = NULL) %>%
-    pivot_longer(everything()) %>%
+  recipe(~Original, data = tibble(Original = x)) |>
+    step_mutate(Transformed = Original) |>
+    step_YeoJohnson(Transformed) |>
+    prep() |>
+    bake(new_data = NULL) |>
+    pivot_longer(everything()) |>
     ggplot(aes(value)) +
     geom_histogram(bins = 50) +
     facet_wrap(~name, scales = "free") +
@@ -94,25 +93,25 @@ library(recipes)
 library(modeldata)
 data("ames")
 
-ames %>%
+ames |>
   select(Lot_Area, Wood_Deck_SF, Sale_Price)
 ```
 
 {recipes} provides a step to perform Yeo-Johnson transformations, which out of the box uses $e$ as the base with an offset of 0.
 
 ```{r}
-yeojohnson_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) %>%
-  step_YeoJohnson(Lot_Area) %>%
+yeojohnson_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) |>
+  step_YeoJohnson(Lot_Area) |>
   prep()
 
-yeojohnson_rec %>%
+yeojohnson_rec |>
   bake(new_data = NULL)
 ```
 
 We can also pull out the value of the estimated $\lambda$ by using the `tidy()` method on the recipe step.
 
 ```{r}
-yeojohnson_rec %>%
+yeojohnson_rec |>
   tidy(1)
 ```
 

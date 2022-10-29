@@ -38,43 +38,43 @@ library(extrasteps)
 library(modeldata)
 data("ames")
 
-ames %>%
+ames |>
   select(Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)
 ```
 
 We will be using the `step_robust()` step for this, and it can be found in the [extrasteps extension package](https://github.com/EmilHvitfeldt/extrasteps/).
 
 ```{r}
-maxabs_rec <- recipe(Sale_Price ~ ., data = ames) %>%
-  step_robust(all_numeric_predictors()) %>%
+maxabs_rec <- recipe(Sale_Price ~ ., data = ames) |>
+  step_robust(all_numeric_predictors()) |>
   prep()
 
-maxabs_rec %>%
+maxabs_rec |>
   bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)
 ```
 
 We can also pull out what the max values were for each variable using `tidy()`
 
 ```{r}
-maxabs_rec %>%
+maxabs_rec |>
   tidy(1)
 ```
 
 We can also can
 
 ```{r}
-maxabs_rec <- recipe(Sale_Price ~ ., data = ames) %>%
-  step_robust(all_numeric_predictors(), range = c(0.1, 0.9)) %>%
+maxabs_rec <- recipe(Sale_Price ~ ., data = ames) |>
+  step_robust(all_numeric_predictors(), range = c(0.1, 0.9)) |>
   prep()
 
-maxabs_rec %>%
+maxabs_rec |>
   bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)
 ```
 
 when we pull out the ranges, we see that they are wider
 
 ```{r}
-maxabs_rec %>%
+maxabs_rec |>
   tidy(1)
 ```
 
