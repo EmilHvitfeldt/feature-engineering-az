@@ -820,7 +820,7 @@ X_{scaled}=
 \begin{cases}        
 R_{lower}, &amp; X_{new} &lt; \text{min}(X_{train})\\        
 R_{upper} &amp; X_{new} &gt; \text{max}(X_{train})\\
-\dfrac{X_{new} - \text{min}(X_{train})}{\text{max}(X_{train}) - \text{min}(X_{train})} \cdot R_{upper} + R_{lower}, &amp; \text{otherwise}
+\dfrac{X_{new} - \text{min}(X_{train})}{\text{max}(X_{train}) - \text{min}(X_{train})} \cdot (R_{upper}-R_{lower}) + R_{lower}, &amp; \text{otherwise}
 \end{cases}
 \tag{11.3}\]</span></span></p>
 <p>Where <a href="#eq-range-custom">Equation&nbsp;<span>11.3</span></a> now have <span class="math inline">\(R_{lower}\)</span> to represent a user defined lower bound, and <span class="math inline">\(R_{upper}\)</span> representing the corresponding user defined upper bound. I would recommend that you keep <a href="#eq-range-minimal">Equation&nbsp;<span>11.1</span></a> in your mind when thinking about this method, but also include a little footnote that it doesn’t include all the little options.</p>
