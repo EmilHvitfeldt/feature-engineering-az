@@ -52,7 +52,7 @@ X_{scaled}=
 \begin{cases}        
 R_{lower}, & X_{new} < \text{min}(X_{train})\\        
 R_{upper} & X_{new} > \text{max}(X_{train})\\
-\dfrac{X_{new} - \text{min}(X_{train})}{\text{max}(X_{train}) - \text{min}(X_{train})} \cdot R_{upper} + R_{lower}, & \text{otherwise}
+\dfrac{X_{new} - \text{min}(X_{train})}{\text{max}(X_{train}) - \text{min}(X_{train})} \cdot (R_{upper}-R_{lower}) + R_{lower}, & \text{otherwise}
 \end{cases}
 $$ {#eq-range-custom}
 
