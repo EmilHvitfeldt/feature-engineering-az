@@ -128,6 +128,12 @@ TODO
 We will be using the `ames` data set for these examples. The `step_dummy()` function allow us to perform dummy encoding and one-hot encoding.
 
 ```{r}
+#| echo: false
+set.seed(1234)
+# To avoid changing recipe ID columns
+```
+
+```{r}
 library(recipes)
 library(modeldata)
 data("ames")
