@@ -1,10 +1,32 @@
 # Label Encoding {#sec-label-encoding}
 
+**Label encoding** (also called **integer encoding**) is a method that map the categorical levels into the integers `1` through `n` where `n` is the number of levels. 
+
+::: callout-note
+Some implementations maps to the values `0` through `n - 1`. This chapter will talk about this method as if it mapped to `1` through `n`.
+:::
+
+This method is a *trained* method since the preprocessor need to keep a record of the possible values and their corresponding integer value. Unseen levels can be encoding to outside the range to be either `0` or `n + 1`, allowing unseen levels to be handled with minimal extra work.
+
+TODO add diagram
+
+This method is often not ideal as the ordering of the levels will matter a lot. How are they chosen? alphabetical?
+
+this method will depend a lot on the model
+
+- linear models will cry
+- tree based models might be happy
+
 ## Pros and Cons
 
 ### Pros
 
+- Only produces a single numeric variable for each categorical variables
+- Has a way to handle unseen levels, although poorly
+
 ### Cons
+
+- Ordering of labels matter a lot!
 
 ## R Examples
 
