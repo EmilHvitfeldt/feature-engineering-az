@@ -32,7 +32,14 @@
     "href": "how-to-deal-with.html",
     "title": "How to Deal With …",
     "section": "",
-    "text": "It is because of this structure that this book is most suited as reference material, each time you encounter some data you are unsure how to deal with, you find the corresponding section and study the methods listed to see which would be best for your use case. This isn’t to say that you can’t read this book from end to end. In fact, the sections have been ordered roughly such that earlier chapters are broadly useful and later chapters touch on less used data types and problems."
+    "text": "This book is structured according to the types of data and problems you will encounter. Each section specifies a type of data or problem, and each chapter details a method that can be useful in dealing with that type. So for example Chapter 4 contains methods that deal with numeric variables such as Chapter 5 and Chapter 12, and Chapter 16 contains methods that deal with categorical variables such as Chapter 19 and Chapter 30. There should be sections and chapters for most methods you will find in practice that isn’t too domain-specific.\nIt is because of this structure that this book is most suited as reference material, each time you encounter some data you are unsure how to deal with, you find the corresponding section and study the methods listed to see which would be best for your use case. This isn’t to say that you can’t read this book from end to end. In fact, the sections have been ordered roughly such that earlier chapters are broadly useful and later chapters touch on less used data types and problems."
+  },
+  {
+    "objectID": "how-to-deal-with.html#terminology",
+    "href": "how-to-deal-with.html#terminology",
+    "title": "How to Deal With …",
+    "section": "Terminology",
+    "text": "Terminology\n\nObservations\n\n\nLearned\n\n\nSupervised / Unsupervised\n\n\nLevels"
   },
   {
     "objectID": "numeric.html",
@@ -392,6 +399,20 @@
     "text": "19.6 Python Examples\nTODO"
   },
   {
+    "objectID": "categorical-label.html",
+    "href": "categorical-label.html",
+    "title": "20  Label Encoding",
+    "section": "",
+    "text": "Label encoding (also called integer encoding) is a method that map the categorical levels into the integers 1 through n where n is the number of levels.\nThis method is a trained method since the preprocessor need to keep a record of the possible values and their corresponding integer value. Unseen levels can be encoding to outside the range to be either 0 or n + 1, allowing unseen levels to be handled with minimal extra work.\nTODO add diagram\nThis method is often not ideal as the ordering of the levels will matter a lot. How are they chosen? alphabetical?\nthis method will depend a lot on the model"
+  },
+  {
+    "objectID": "categorical-label.html#pros-and-cons",
+    "href": "categorical-label.html#pros-and-cons",
+    "title": "20  Label Encoding",
+    "section": "20.1 Pros and Cons",
+    "text": "20.1 Pros and Cons\n\n20.1.1 Pros\n\nOnly produces a single numeric variable for each categorical variables\nHas a way to handle unseen levels, although poorly\n\n\n\n20.1.2 Cons\n\nOrdering of labels matter a lot!"
+  },
+  {
     "objectID": "categorical-label.html#r-examples",
     "href": "categorical-label.html#r-examples",
     "title": "20  Label Encoding",
@@ -418,6 +439,20 @@
     "title": "21  Binary Encoding",
     "section": "21.3 Python Examples",
     "text": "21.3 Python Examples"
+  },
+  {
+    "objectID": "categorical-ordinal.html",
+    "href": "categorical-ordinal.html",
+    "title": "22  Ordinal Encoding",
+    "section": "",
+    "text": "This method is similar to Chapter 20, expect that we manually specify the mapping. Thus we can have (cold = 1, warm = 5, hot = 20)."
+  },
+  {
+    "objectID": "categorical-ordinal.html#pros-and-cons",
+    "href": "categorical-ordinal.html#pros-and-cons",
+    "title": "22  Ordinal Encoding",
+    "section": "22.1 Pros and Cons",
+    "text": "22.1 Pros and Cons\n\n22.1.1 Pros\n\n\n22.1.2 Cons"
   },
   {
     "objectID": "categorical-ordinal.html#r-examples",

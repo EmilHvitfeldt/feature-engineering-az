@@ -726,13 +726,42 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<p><strong>Label encoding</strong> (also called <strong>integer encoding</strong>) is a method that map the categorical levels into the integers <code>1</code> through <code>n</code> where <code>n</code> is the number of levels.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Some implementations maps to the values <code>0</code> through <code>n - 1</code>. This chapter will talk about this method as if it mapped to <code>1</code> through <code>n</code>.</p>
+</div>
+</div>
+<p>This method is a <em>trained</em> method since the preprocessor need to keep a record of the possible values and their corresponding integer value. Unseen levels can be encoding to outside the range to be either <code>0</code> or <code>n + 1</code>, allowing unseen levels to be handled with minimal extra work.</p>
+<p>TODO add diagram</p>
+<p>This method is often not ideal as the ordering of the levels will matter a lot. How are they chosen? alphabetical?</p>
+<p>this method will depend a lot on the model</p>
+<ul>
+<li>linear models will cry</li>
+<li>tree based models might be happy</li>
+</ul>
 <section id="pros-and-cons" class="level2" data-number="20.1">
 <h2 data-number="20.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">20.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="20.1.1">
 <h3 data-number="20.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">20.1.1</span> Pros</h3>
+<ul>
+<li>Only produces a single numeric variable for each categorical variables</li>
+<li>Has a way to handle unseen levels, although poorly</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="20.1.2">
 <h3 data-number="20.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">20.1.2</span> Cons</h3>
+<ul>
+<li>Ordering of labels matter a lot!</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="20.2">
