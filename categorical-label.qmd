@@ -1,6 +1,6 @@
 # Label Encoding {#sec-label-encoding}
 
-**Label encoding** (also called **integer encoding**) is a method that map the categorical levels into the integers `1` through `n` where `n` is the number of levels. 
+**Label encoding** (also called **integer encoding**) is a method that map the categorical levels into the integers `1` through `n` where `n` is the number of levels.
 
 ::: callout-note
 Some implementations maps to the values `0` through `n - 1`. This chapter will talk about this method as if it mapped to `1` through `n`.
@@ -10,24 +10,59 @@ This method is a *trained* method since the preprocessor need to keep a record o
 
 TODO add diagram
 
-This method is often not ideal as the ordering of the levels will matter a lot. How are they chosen? alphabetical?
+This method is often not ideal as the ordering of the levels will matter a lot for the performance of the model that needs to make sense of the generated numeric variables. For a variable with the levels "Studio", "Apartment", "Loft", "Duplex". This variable contains `4! = 4 * 3 * 2 * 1 = 24` different orderings. And since the number of permutations are calculated calculated with factorials, this number goes up fast. With just 10 levels we are looking at 3,628,800 different orderings. Even if some orders are better than others, It would be a very slow task to iterate through to find which ones are good. If you have prior information about the levels, then you should use @sec-ordinal-encoding.
 
-this method will depend a lot on the model
+If you are working an implementation that works with factors, then they will be used. Otherwise the ordering most likely will be alphabetical or in order of occurrence. You should check the documentation of your implementation to figure out which.
 
-- linear models will cry
-- tree based models might be happy
+The performance of this method will depend a lot on the model. If you are working with a linear model, then you most likely are out of luck as it wouldn't be able to use a variable where the value 2, 6, and 10 are provide evidence one way, and the rest are provide evidence the other way. Three-based models will be able to do better, but would do even better if label encoding was applied to begin with.
 
 ## Pros and Cons
 
 ### Pros
 
-- Only produces a single numeric variable for each categorical variables
-- Has a way to handle unseen levels, although poorly
+-   Only produces a single numeric variable for each categorical variables
+-   Has a way to handle unseen levels, although poorly
 
 ### Cons
 
-- Ordering of labels matter a lot!
+-   Ordering of labels matter a lot!
+-   Will very often give inferior performance compared to other methods.
 
 ## R Examples
+
+
+We will be using the `ames` data set for these examples. The `step_dummy()` function allow us to perform dummy encoding and one-hot encoding.
+
+```{r}
+#| echo: false
+set.seed(1234)
+# To avoid changing recipe ID columns
+```
+
+```{r}
+library(recipes)
+library(modeldata)
+data("ames")
+
+ames |>
+  select(Sale_Price, MS_SubClass, MS_Zoning)
+```
+
+Looking at the levels of `MS_SubClass` we see that levels are set in a specific way. It isn't alphabetical, but there isn't one clear ordering. No clarification of the ordering can be doing in the data documentation <http://jse.amstat.org/v19n3/decock/DataDocumentation.txt>.
+
+```{r}
+ames |> pull(MS_SubClass) |> levels()
+```
+
+We will be using the `step_integer()` step for this, which defaults to 1-based indexing
+
+```{r}
+dummy_rec <- recipe(Sale_Price ~ ., data = ames) |>
+  step_integer(all_nominal_predictors()) |>
+  prep()
+
+dummy_rec |>
+  bake(new_data = NULL, starts_with("MS_SubClass"), starts_with("MS_Zoning"))
+```
 
 ## Python Examples
