@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Feature Engineering A-Z - 21&nbsp; Binary Encoding</title>
+<title>Feature Engineering A-Z - 22&nbsp; Binary Encoding</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./categorical-ordinal.html" rel="next">
-<link href="./categorical-label.html" rel="prev">
+<link href="./categorical-frequency.html" rel="next">
+<link href="./categorical-ordinal.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -70,7 +70,7 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Binary Encoding</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Binary Encoding</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -223,12 +223,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-binary.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Binary Encoding</span></a>
+  <a href="./categorical-ordinal.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Ordinal Encoding</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-ordinal.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Ordinal Encoding</span></a>
+  <a href="./categorical-binary.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Binary Encoding</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -697,13 +697,13 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link active" data-scroll-target="#pros-and-cons"><span class="toc-section-number">21.1</span>  Pros and Cons</a>
+  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link active" data-scroll-target="#pros-and-cons"><span class="toc-section-number">22.1</span>  Pros and Cons</a>
   <ul class="collapse">
-  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="toc-section-number">21.1.1</span>  Pros</a></li>
-  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="toc-section-number">21.1.2</span>  Cons</a></li>
+  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="toc-section-number">22.1.1</span>  Pros</a></li>
+  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="toc-section-number">22.1.2</span>  Cons</a></li>
   </ul></li>
-  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="toc-section-number">21.2</span>  R Examples</a></li>
-  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="toc-section-number">21.3</span>  Python Examples</a></li>
+  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="toc-section-number">22.2</span>  R Examples</a></li>
+  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="toc-section-number">22.3</span>  Python Examples</a></li>
   </ul>
 </nav>
     </div>
@@ -712,7 +712,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-binary-encoding" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Binary Encoding</span></span></h1>
+<h1 class="title"><span id="sec-binary-encoding" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Binary Encoding</span></span></h1>
 </div>
 
 
@@ -726,20 +726,20 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="pros-and-cons" class="level2" data-number="21.1">
-<h2 data-number="21.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">21.1</span> Pros and Cons</h2>
-<section id="pros" class="level3" data-number="21.1.1">
-<h3 data-number="21.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">21.1.1</span> Pros</h3>
+<section id="pros-and-cons" class="level2" data-number="22.1">
+<h2 data-number="22.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">22.1</span> Pros and Cons</h2>
+<section id="pros" class="level3" data-number="22.1.1">
+<h3 data-number="22.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">22.1.1</span> Pros</h3>
 </section>
-<section id="cons" class="level3" data-number="21.1.2">
-<h3 data-number="21.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">21.1.2</span> Cons</h3>
+<section id="cons" class="level3" data-number="22.1.2">
+<h3 data-number="22.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">22.1.2</span> Cons</h3>
 </section>
 </section>
-<section id="r-examples" class="level2" data-number="21.2">
-<h2 data-number="21.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">21.2</span> R Examples</h2>
+<section id="r-examples" class="level2" data-number="22.2">
+<h2 data-number="22.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">22.2</span> R Examples</h2>
 </section>
-<section id="python-examples" class="level2" data-number="21.3">
-<h2 data-number="21.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">21.3</span> Python Examples</h2>
+<section id="python-examples" class="level2" data-number="22.3">
+<h2 data-number="22.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">22.3</span> Python Examples</h2>
 
 
 </section>
@@ -845,13 +845,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./categorical-label.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Label Encoding</span></span>
+      <a href="./categorical-ordinal.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Ordinal Encoding</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./categorical-ordinal.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Ordinal Encoding</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./categorical-frequency.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Frequency Encoding</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

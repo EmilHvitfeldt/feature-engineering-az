@@ -93,7 +93,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./categorical-binary.html" rel="next">
+<link href="./categorical-ordinal.html" rel="next">
 <link href="./categorical-dummy.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -286,12 +286,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-binary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Binary Encoding</span></a>
+  <a href="./categorical-ordinal.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Ordinal Encoding</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-ordinal.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Ordinal Encoding</span></a>
+  <a href="./categorical-binary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Binary Encoding</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -805,7 +805,7 @@ Note
 </div>
 <p>This method is a <em>trained</em> method since the preprocessor need to keep a record of the possible values and their corresponding integer value. Unseen levels can be encoding to outside the range to be either <code>0</code> or <code>n + 1</code>, allowing unseen levels to be handled with minimal extra work.</p>
 <p>TODO add diagram</p>
-<p>This method is often not ideal as the ordering of the levels will matter a lot for the performance of the model that needs to make sense of the generated numeric variables. For a variable with the levels “Studio”, “Apartment”, “Loft”, “Duplex”. This variable contains <code>4! = 4 * 3 * 2 * 1 = 24</code> different orderings. And since the number of permutations are calculated calculated with factorials, this number goes up fast. With just 10 levels we are looking at 3,628,800 different orderings. Even if some orders are better than others, It would be a very slow task to iterate through to find which ones are good. If you have prior information about the levels, then you should use <a href="categorical-ordinal.html"><span>Chapter&nbsp;22</span></a>.</p>
+<p>This method is often not ideal as the ordering of the levels will matter a lot for the performance of the model that needs to make sense of the generated numeric variables. For a variable with the levels “Studio”, “Apartment”, “Loft”, “Duplex”. This variable contains <code>4! = 4 * 3 * 2 * 1 = 24</code> different orderings. And since the number of permutations are calculated calculated with factorials, this number goes up fast. With just 10 levels we are looking at 3,628,800 different orderings. Even if some orders are better than others, It would be a very slow task to iterate through to find which ones are good. If you have prior information about the levels, then you should use <a href="categorical-ordinal.html"><span>Chapter&nbsp;21</span></a>.</p>
 <p>If you are working an implementation that works with factors, then they will be used. Otherwise the ordering most likely will be alphabetical or in order of occurrence. You should check the documentation of your implementation to figure out which.</p>
 <p>The performance of this method will depend a lot on the model. If you are working with a linear model, then you most likely are out of luck as it wouldn’t be able to use a variable where the value 2, 6, and 10 are provide evidence one way, and the rest are provide evidence the other way. Three-based models will be able to do better, but would do even better if label encoding was applied to begin with.</p>
 <section id="pros-and-cons" class="level2" data-number="20.1">
@@ -1041,8 +1041,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./categorical-binary.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Binary Encoding</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./categorical-ordinal.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Ordinal Encoding</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
