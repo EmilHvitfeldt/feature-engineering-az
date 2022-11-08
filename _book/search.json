@@ -438,14 +438,14 @@
     "href": "categorical-ordinal.html",
     "title": "21  Ordinal Encoding",
     "section": "",
-    "text": "This method is similar to Chapter 20, expect that we manually specify the mapping. Thus we can have (cold = 1, warm = 5, hot = 20)."
+    "text": "This method is similar to Chapter 20, expect that we manually specify the mapping. This method is generally used for ordinal variables as they are encoded with a natural ordering. Where this method shines compared to integer encoding is that we allow arbitrary values for encoding, thus we can have (cold = 1, warm = 5, hot = 20). But we might as well use (cold = -1, warm = 0, hot = 1) or (cold = 1.618, warm = 2.718, hot = 3.141). Although you would have a hard time justifying the latter. Nothing is stopping you from using this method with an unordered categorical variable, you just need to spend some time justifying your levels.\nThis method feels like it, but isn’t a trained method. This is because we are providing the the record of the possible values and their corresponding integer value. Unseen levels can be manually specified, but it isn’t entirely obvious what their value should be.\nTODO add diagram\nManually setting values for your levels comes with some upsides and downsides. Assuming that you have the domain expertise to apply numeric values for the levels, removes a lot of the guesswork. This can be very effective if the numeric values selected for the levels have some intrinsic meaning. It can remove a lot of the guess work and trial and error that we see in integer encoding. The downside is the other side of the coin. We need to have the domain expertise to be able to give the levels meaningful values, otherwise we are doing no better than integer encoding."
   },
   {
     "objectID": "categorical-ordinal.html#pros-and-cons",
     "href": "categorical-ordinal.html#pros-and-cons",
     "title": "21  Ordinal Encoding",
     "section": "21.1 Pros and Cons",
-    "text": "21.1 Pros and Cons\n\n21.1.1 Pros\n\n\n21.1.2 Cons"
+    "text": "21.1 Pros and Cons\n\n21.1.1 Pros\n\nOnly produces a single numeric variable for each categorical variables\nPreserves the natural ordering of ordered values\n\n\n\n21.1.2 Cons\n\nWill very often give inferior performance compared to other methods\nUnseen levels needs to be manually specified"
   },
   {
     "objectID": "categorical-ordinal.html#r-examples",

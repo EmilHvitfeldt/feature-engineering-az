@@ -726,14 +726,38 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>This method is similar to <a href="categorical-label.html"><span>Chapter&nbsp;20</span></a>, expect that we manually specify the mapping. Thus we can have (cold = 1, warm = 5, hot = 20).</p>
+<p>This method is similar to <a href="categorical-label.html"><span>Chapter&nbsp;20</span></a>, expect that we manually specify the mapping. This method is generally used for <em>ordinal</em> variables as they are encoded with a natural ordering. Where this method shines compared to integer encoding is that we allow arbitrary values for encoding, thus we can have (cold = 1, warm = 5, hot = 20). But we might as well use (cold = -1, warm = 0, hot = 1) or (cold = 1.618, warm = 2.718, hot = 3.141). Although you would have a hard time justifying the latter. Nothing is stopping you from using this method with an unordered categorical variable, you just need to spend some time justifying your levels.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This books framing of ordinal encoding is more general that other sources, in so far as it is described as manually giving values to levels of a categorical, whether it is ordered or not.</p>
+</div>
+</div>
+<p>This method feels like it, but isn’t a trained method. This is because we are providing the the record of the possible values and their corresponding integer value. Unseen levels can be manually specified, but it isn’t entirely obvious what their value should be.</p>
+<p>TODO add diagram</p>
+<p>Manually setting values for your levels comes with some upsides and downsides. Assuming that you have the domain expertise to apply numeric values for the levels, removes a lot of the guesswork. This can be very effective if the numeric values selected for the levels have some intrinsic meaning. It can remove a lot of the guess work and trial and error that we see in integer encoding. The downside is the other side of the coin. We need to have the domain expertise to be able to give the levels meaningful values, otherwise we are doing no better than integer encoding.</p>
 <section id="pros-and-cons" class="level2" data-number="21.1">
 <h2 data-number="21.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">21.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="21.1.1">
 <h3 data-number="21.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">21.1.1</span> Pros</h3>
+<ul>
+<li>Only produces a single numeric variable for each categorical variables</li>
+<li>Preserves the natural ordering of ordered values</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="21.1.2">
 <h3 data-number="21.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">21.1.2</span> Cons</h3>
+<ul>
+<li>Will very often give inferior performance compared to other methods</li>
+<li>Unseen levels needs to be manually specified</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="21.2">
