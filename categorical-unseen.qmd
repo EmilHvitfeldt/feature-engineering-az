@@ -1,12 +1,12 @@
 # Unseen Levels {#sec-unseen}
 
-When you are dealing with categorical variables, it is understood that they can take many values. And we have various methods about how to deal with these categorical values, regardless of what values they take. One problem that eventually will happen for you is that you try to apply a trained preprocessor on data that has levels in your categorical variable that you haven't seen before. This can happen when you are fitting your model using resampled data, when you are applying your model on the testing data set or, if you are unlucky, at some future time in production. 
+When you are dealing with categorical variables, it is understood that they can take many values. And we have various methods about how to deal with these categorical values, regardless of what values they take. One problem that eventually will happen for you is that you try to apply a trained preprocessor on data that has levels in your categorical variable that you haven't seen before. This can happen when you are fitting your model using resampled data, when you are applying your model on the testing data set, or, if you are unlucky, at some future time in production. 
 
 TODO add diagram here
 
-The reason why you need to think about this problem is that some methods and/or models will complain and even error if you are providing unseen levels. Some implementation will allow you deal with this at the method level. Other methods such as @sec-hashing-encoding doesn't care at all that you have unseen levels in your data.
+The reason why you need to think about this problem is that some methods and/or models will complain and even error if you are providing unseen levels. Some implementations will allow you to deal with this at the method level. Other methods such as @sec-hashing-encoding don't care at all that you have unseen levels in your data.
 
-One surefire way to deal with this issue is to add a step in your data preprocessing pipeline that will turn any unseen levels into `"unseen"`. What this method does in practice, is that it looks at your categorical variables during training, taking note of all the levels it sees and saves them. Then any time the preprocessing is applied to new data it will look at the levels again, and if it sees a level it haven't seen, label it `"unseen"` (or any other meaningful label that doesn't conflict with the data). This way, you have that any future levels. 
+One surefire way to deal with this issue is to add a step in your data preprocessing pipeline that will turn any unseen levels into `"unseen"`. What this method does in practice, is that it looks at your categorical variables during training, taking note of all the levels it sees and saving them. Then any time the preprocessing is applied to new data it will look at the levels again, and if it sees a level it hasn't seen, label it `"unseen"` (or any other meaningful label that doesn't conflict with the data). This way, you have any future levels. 
 
 ::: callout-note
 The above method will only work if the programming language you are modeling with has a factor like data class.
@@ -32,7 +32,7 @@ flights_train <- training(flights_split)
 flights_test <- testing(flights_split)
 ```
 
-Now we are doing the cardinal sin by looking at the testing data. But in this case it is okay because we are doing it for educational purposed.
+Now we are doing the cardinal sin by looking at the testing data. But in this case, it is okay because we are doing it for educational purposes.
 
 ```{r}
 flights_train |> pull(carrier) |> unique() |> sort()
@@ -50,7 +50,7 @@ dummy_spec_prepped <- prep(dummy_spec)
 bake(dummy_spec_prepped, new_data = flights_test)
 ```
 
-We get a warning, and if you look at the rows that were affected we see that it produces NAs. Let us now use the function `step_novel()` that implements the above described method.
+We get a warning, and if you look at the rows that were affected we see that it produces NAs. Let us now use the function `step_novel()` that implements the above-described method.
 
 ```{r}
 novel_spec <- recipe(arr_delay ~ carrier, data = flights_train) |>
