@@ -26,4 +26,83 @@ Manually setting values for your levels comes with some upsides and downsides. A
 
 ## R Examples
 
+We will be using the `ames` data set for these examples. The `step_dummy()` function allow us to perform dummy encoding and one-hot encoding.
+
+```{r}
+#| echo: false
+set.seed(1234)
+# To avoid changing recipe ID columns
+```
+
+```{r}
+library(recipes)
+library(modeldata)
+data("ames")
+
+ames |>
+  select(Lot_Shape, Land_Slope)
+```
+
+Looking at the levels of `Lot_Shape` and `Land_Slope` we see that they match the levels in the documentation <http://jse.amstat.org/v19n3/decock/DataDocumentation.txt>. Furthermore these variables are listed as ordinal, they just aren't denoted like this in this data set.
+
+```{r}
+ames |> pull(Lot_Shape) |> levels()
+ames |> pull(Land_Slope) |> levels()
+```
+
+We will fix that by turning them into ordered factors.
+
+```{r}
+ames <- ames |>
+  mutate(across(.cols = c(Lot_Shape, Land_Slope), .fns = as.ordered))
+```
+
+
+to perform ordinal encoding we will use the `step_ordinalscore()` step. This defaults to giving each level values between `1` and `n`, much like `step_integer()`.
+
+```{r}
+ordinal_rec <- recipe(Sale_Price ~ ., data = ames) |>
+  step_ordinalscore(Lot_Shape, Land_Slope) |>
+  prep()
+
+ordinal_rec |>
+  bake(new_data = NULL, starts_with("Lot_Shape"), starts_with("Land_Slope"))
+```
+
+What we can do is define a special transformation function for each of the steps. One way is to use the `case_when()` function
+
+```{r}
+Lot_Shape_transformer <- function(x) {
+  case_when(
+    x == "Regular" ~ 0, 
+    x == "Slightly_Irregular" ~ -1,
+    x == "Moderately_Irregular" ~ -5,
+    x == "Irregular" ~ -10
+  )
+}
+```
+
+If you have the values for each of the levels as a vector or data, you can write the function to use that information as well.
+
+```{r}
+Land_Slope_values <- c(Gtl = 0, Mod = 1, Sev = 5)
+
+Land_Slope_transformer <- function(x) {
+  Land_Slope_values[x]
+}
+```
+
+With these functions we can now apply them to the respective columns by using the `convert` argument.
+
+```{r}
+ordinal_rec <- recipe(Sale_Price ~ ., data = ames) |>
+  step_ordinalscore(Lot_Shape, convert = Lot_Shape_transformer) |>
+  step_ordinalscore(Land_Slope, convert = Land_Slope_transformer) |>
+  prep()
+
+ordinal_rec |>
+  bake(new_data = NULL, starts_with("Lot_Shape"), starts_with("Land_Slope")) |>
+  distinct()
+```
+
 ## Python Examples
