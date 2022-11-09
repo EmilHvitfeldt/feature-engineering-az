@@ -800,34 +800,34 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Some implementations maps to the values <code>0</code> through <code>n - 1</code>. This chapter will talk about this method as if it mapped to <code>1</code> through <code>n</code>.</p>
+<p>Some implementations map to the values <code>0</code> through <code>n - 1</code>. This chapter will talk about this method as if it were mapped to <code>1</code> through <code>n</code>.</p>
 </div>
 </div>
-<p>This method is a <em>trained</em> method since the preprocessor need to keep a record of the possible values and their corresponding integer value. Unseen levels can be encoding to outside the range to be either <code>0</code> or <code>n + 1</code>, allowing unseen levels to be handled with minimal extra work.</p>
+<p>This method is a <em>trained</em> method since the preprocessor needs to keep a record of the possible values and their corresponding integer value. Unseen levels can be encoded outside the range to be either <code>0</code> or <code>n + 1</code>, allowing unseen levels to be handled with minimal extra work.</p>
 <p>TODO add diagram</p>
-<p>This method is often not ideal as the ordering of the levels will matter a lot for the performance of the model that needs to make sense of the generated numeric variables. For a variable with the levels “Studio”, “Apartment”, “Loft”, “Duplex”. This variable contains <code>4! = 4 * 3 * 2 * 1 = 24</code> different orderings. And since the number of permutations are calculated calculated with factorials, this number goes up fast. With just 10 levels we are looking at 3,628,800 different orderings. Even if some orders are better than others, It would be a very slow task to iterate through to find which ones are good. If you have prior information about the levels, then you should use <a href="categorical-ordinal.html"><span>Chapter&nbsp;21</span></a>.</p>
-<p>If you are working an implementation that works with factors, then they will be used. Otherwise the ordering most likely will be alphabetical or in order of occurrence. You should check the documentation of your implementation to figure out which.</p>
-<p>The performance of this method will depend a lot on the model. If you are working with a linear model, then you most likely are out of luck as it wouldn’t be able to use a variable where the value 2, 6, and 10 are provide evidence one way, and the rest are provide evidence the other way. Three-based models will be able to do better, but would do even better if label encoding was applied to begin with.</p>
+<p>This method is often not ideal as the ordering of the levels will matter a lot for the performance of the model that needs to make sense of the generated numeric variables. For a variable with the levels “Studio”, “Apartment”, “Loft”, “Duplex”. This variable contains <code>4! = 4 * 3 * 2 * 1 = 24</code> different orderings. And since the number of permutations is calculated with factorials, this number goes up fast. With just 10 levels we are looking at 3,628,800 different orderings. Even if some orders are better than others, It would be a very slow task to iterate through to find which ones are good. If you have prior information about the levels, then you should use <a href="categorical-ordinal.html"><span>Chapter&nbsp;21</span></a>.</p>
+<p>If you are working on an implementation that works with factors, then they will be used. Otherwise, the ordering most likely will be alphabetical or in order of occurrence. You should check the documentation of your implementation to figure out which.</p>
+<p>The performance of this method will depend a lot on the model. If you are working with a linear model, then you most likely are out of luck as it wouldn’t be able to use a variable where the values 2, 6, and 10 provide evidence one way, and the rest provide evidence the other way. Three-based models will be able to do better but would do even better if label encoding was applied to begin with.</p>
 <section id="pros-and-cons" class="level2" data-number="20.1">
 <h2 data-number="20.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">20.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="20.1.1">
 <h3 data-number="20.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">20.1.1</span> Pros</h3>
 <ul>
-<li>Only produces a single numeric variable for each categorical variables</li>
+<li>Only produces a single numeric variable for each categorical variable</li>
 <li>Has a way to handle unseen levels, although poorly</li>
 </ul>
 </section>
 <section id="cons" class="level3" data-number="20.1.2">
 <h3 data-number="20.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">20.1.2</span> Cons</h3>
 <ul>
-<li>Ordering of labels matter a lot!</li>
+<li>Ordering of the levels matters a lot!</li>
 <li>Will very often give inferior performance compared to other methods.</li>
 </ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="20.2">
 <h2 data-number="20.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">20.2</span> R Examples</h2>
-<p>We will be using the <code>ames</code> data set for these examples. The <code>step_dummy()</code> function allow us to perform dummy encoding and one-hot encoding.</p>
+<p>We will be using the <code>ames</code> data set for these examples. The <code>step_dummy()</code> function allows us to perform dummy encoding and one-hot encoding.</p>
 <div class="cell">
 
 </div>
@@ -881,7 +881,7 @@ Attaching package: 'recipes'</code></pre>
 # … with 2,920 more rows</code></pre>
 </div>
 </div>
-<p>Looking at the levels of <code>MS_SubClass</code> we see that levels are set in a specific way. It isn’t alphabetical, but there isn’t one clear ordering. No clarification of the ordering can be doing in the data documentation <a href="http://jse.amstat.org/v19n3/decock/DataDocumentation.txt" class="uri">http://jse.amstat.org/v19n3/decock/DataDocumentation.txt</a>.</p>
+<p>Looking at the levels of <code>MS_SubClass</code> we see that levels are set in a specific way. It isn’t alphabetical, but there isn’t one clear order. No clarification of the ordering can be done in the data documentation <a href="http://jse.amstat.org/v19n3/decock/DataDocumentation.txt" class="uri">http://jse.amstat.org/v19n3/decock/DataDocumentation.txt</a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ames <span class="sc">|&gt;</span> <span class="fu">pull</span>(MS_SubClass) <span class="sc">|&gt;</span> <span class="fu">levels</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
