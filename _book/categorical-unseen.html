@@ -784,10 +784,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>When you are dealing with categorical variables, it is understood that they can take many values. And we have various methods about how to deal with these categorical values, regardless of what values they take. One problem that eventually will happen for you is that you try to apply a trained preprocessor on data that has levels in your categorical variable that you haven’t seen before. This can happen when you are fitting your model using resampled data, when you are applying your model on the testing data set or, if you are unlucky, at some future time in production.</p>
+<p>When you are dealing with categorical variables, it is understood that they can take many values. And we have various methods about how to deal with these categorical values, regardless of what values they take. One problem that eventually will happen for you is that you try to apply a trained preprocessor on data that has levels in your categorical variable that you haven’t seen before. This can happen when you are fitting your model using resampled data, when you are applying your model on the testing data set, or, if you are unlucky, at some future time in production.</p>
 <p>TODO add diagram here</p>
-<p>The reason why you need to think about this problem is that some methods and/or models will complain and even error if you are providing unseen levels. Some implementation will allow you deal with this at the method level. Other methods such as <a href="categorical-hashing.html"><span>Chapter&nbsp;30</span></a> doesn’t care at all that you have unseen levels in your data.</p>
-<p>One surefire way to deal with this issue is to add a step in your data preprocessing pipeline that will turn any unseen levels into <code>"unseen"</code>. What this method does in practice, is that it looks at your categorical variables during training, taking note of all the levels it sees and saves them. Then any time the preprocessing is applied to new data it will look at the levels again, and if it sees a level it haven’t seen, label it <code>"unseen"</code> (or any other meaningful label that doesn’t conflict with the data). This way, you have that any future levels.</p>
+<p>The reason why you need to think about this problem is that some methods and/or models will complain and even error if you are providing unseen levels. Some implementations will allow you to deal with this at the method level. Other methods such as <a href="categorical-hashing.html"><span>Chapter&nbsp;30</span></a> don’t care at all that you have unseen levels in your data.</p>
+<p>One surefire way to deal with this issue is to add a step in your data preprocessing pipeline that will turn any unseen levels into <code>"unseen"</code>. What this method does in practice, is that it looks at your categorical variables during training, taking note of all the levels it sees and saving them. Then any time the preprocessing is applied to new data it will look at the levels again, and if it sees a level it hasn’t seen, label it <code>"unseen"</code> (or any other meaningful label that doesn’t conflict with the data). This way, you have any future levels.</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -844,7 +844,7 @@ Attaching package: 'recipes'</code></pre>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>flights_train <span class="ot">&lt;-</span> <span class="fu">training</span>(flights_split)</span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>flights_test <span class="ot">&lt;-</span> <span class="fu">testing</span>(flights_split)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now we are doing the cardinal sin by looking at the testing data. But in this case it is okay because we are doing it for educational purposed.</p>
+<p>Now we are doing the cardinal sin by looking at the testing data. But in this case, it is okay because we are doing it for educational purposes.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>flights_train <span class="sc">|&gt;</span> <span class="fu">pull</span>(carrier) <span class="sc">|&gt;</span> <span class="fu">unique</span>() <span class="sc">|&gt;</span> <span class="fu">sort</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -885,7 +885,7 @@ Attaching package: 'recipes'</code></pre>
 #   ³​carrier_EV, ⁴​carrier_F9, ⁵​carrier_FL, ⁶​carrier_MQ, ⁷​carrier_UA</code></pre>
 </div>
 </div>
-<p>We get a warning, and if you look at the rows that were affected we see that it produces NAs. Let us now use the function <code>step_novel()</code> that implements the above described method.</p>
+<p>We get a warning, and if you look at the rows that were affected we see that it produces NAs. Let us now use the function <code>step_novel()</code> that implements the above-described method.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>novel_spec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(arr_delay <span class="sc">~</span> carrier, <span class="at">data =</span> flights_train) <span class="sc">|&gt;</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_novel</span>(carrier) <span class="sc">|&gt;</span></span>
