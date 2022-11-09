@@ -56,11 +56,11 @@ ames |> pull(MS_SubClass) |> levels()
 We will be using the `step_integer()` step for this, which defaults to 1-based indexing
 
 ```{r}
-dummy_rec <- recipe(Sale_Price ~ ., data = ames) |>
+label_rec <- recipe(Sale_Price ~ ., data = ames) |>
   step_integer(all_nominal_predictors()) |>
   prep()
 
-dummy_rec |>
+label_rec |>
   bake(new_data = NULL, starts_with("MS_SubClass"), starts_with("MS_Zoning"))
 ```
 
