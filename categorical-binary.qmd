@@ -1,11 +1,57 @@
 # Binary Encoding {#sec-binary-encoding}
 
+Binary encoding encodes each category by encoding it as its binary representation. From the categorical variables, you assign an integer value to each level, in the same way as in @sec-label-encoding. That value will then be converted to its binary representation, and that value will be returned.
+
+Suppose we have the following variable, and the value they take are (cat = 11, dog = 3, horse = 20). We are using a subset to gain a better understanding of what is happening.
+
+```{r}
+#| echo: false
+c("dog", "cat", "horse", "dog", "cat")
+```
+
+The first thing we need to do is to calculate the binary representation of these numbers. And we should do it to 5 digits since it is the highest we need in this hypothetical example. 11 = 01011, 3 = 00011, 20 = 10100. We can then encode this in the following matrix
+
+```{r}
+#| echo: false
+dummy <- matrix(0L, nrow = 5, ncol = 5)
+colnames(dummy) <- c(16, 8, 4, 2, 1)
+dummy[1, 5] <- 1L
+dummy[1, 4] <- 1L
+dummy[2, 5] <- 1L
+dummy[2, 4] <- 1L
+dummy[2, 2] <- 1L
+dummy[3, 1] <- 1L
+dummy[3, 3] <- 1L
+dummy[4, 5] <- 1L
+dummy[4, 4] <- 1L
+dummy[5, 5] <- 1L
+dummy[5, 4] <- 1L
+dummy[5, 2] <- 1L
+dummy
+```
+
+Each we would be able to uniquely encode `2^5=32` different value with just 5 columns compared to the 32 it would take if you used dummy encoding from @sec-dummy-encoding. In general, you will be able to encode `n` variables in `ceiling(log2(n))` columns.
+
+::: callout-note
+This style of encoding is generalized to other bases. Binary encoding is a base-2 encoder. You could just as well have a base-3, or base-10 encoding. We will not cover these methods further than this mentioned as they are similar in function to binary encoding.
+:::
+
+This method isn't widely used. It does a good job of showing the midpoint between dummy encoding and label encoding in terms of how sparse we want to store our data. Its limitations come in terms of how interpretable the final model ends up being. Further, if you want to encode your data more compactly than dummy encoding, you will find better luck using some of the later described methods.
+
+TODO link to actual methods
+
 ## Pros and Cons
 
 ### Pros
 
+-   uses fewer variables to store the same information as dummy encoding
+
 ### Cons
+
+-   Less interpretability compared to dummy variables
 
 ## R Examples
 
 ## Python Examples
+
+http://contrib.scikit-learn.org/category_encoders/binary.html
