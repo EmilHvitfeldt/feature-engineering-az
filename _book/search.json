@@ -462,6 +462,20 @@
     "text": "21.3 Python Examples"
   },
   {
+    "objectID": "categorical-binary.html",
+    "href": "categorical-binary.html",
+    "title": "22  Binary Encoding",
+    "section": "",
+    "text": "Binary encoding encodes each category by encoding it as its binary representation. From the categorical variables, you assign an integer value to each level, in the same way as in Chapter 20. That value will then be converted to its binary representation, and that value will be returned.\nSuppose we have the following variable, and the value they take are (cat = 11, dog = 3, horse = 20). We are using a subset to gain a better understanding of what is happening.\nThe first thing we need to do is to calculate the binary representation of these numbers. And we should do it to 5 digits since it is the highest we need in this hypothetical example. 11 = 01011, 3 = 00011, 20 = 10100. We can then encode this in the following matrix\nEach we would be able to uniquely encode 2^5=32 different value with just 5 columns compared to the 32 it would take if you used dummy encoding from Chapter 19. In general, you will be able to encode n variables in ceiling(log2(n)) columns.\nThis method isn’t widely used. It does a good job of showing the midpoint between dummy encoding and label encoding in terms of how sparse we want to store our data. Its limitations come in terms of how interpretable the final model ends up being. Further, if you want to encode your data more compactly than dummy encoding, you will find better luck using some of the later described methods.\nTODO link to actual methods"
+  },
+  {
+    "objectID": "categorical-binary.html#pros-and-cons",
+    "href": "categorical-binary.html#pros-and-cons",
+    "title": "22  Binary Encoding",
+    "section": "22.1 Pros and Cons",
+    "text": "22.1 Pros and Cons\n\n22.1.1 Pros\n\nuses fewer variables to store the same information as dummy encoding\n\n\n\n22.1.2 Cons\n\nLess interpretability compared to dummy variables"
+  },
+  {
     "objectID": "categorical-binary.html#r-examples",
     "href": "categorical-binary.html#r-examples",
     "title": "22  Binary Encoding",
@@ -473,7 +487,7 @@
     "href": "categorical-binary.html#python-examples",
     "title": "22  Binary Encoding",
     "section": "22.3 Python Examples",
-    "text": "22.3 Python Examples"
+    "text": "22.3 Python Examples\nhttp://contrib.scikit-learn.org/category_encoders/binary.html"
   },
   {
     "objectID": "categorical-frequency.html#r-examples",
