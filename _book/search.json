@@ -490,6 +490,20 @@
     "text": "22.3 Python Examples\nhttp://contrib.scikit-learn.org/category_encoders/binary.html"
   },
   {
+    "objectID": "categorical-frequency.html",
+    "href": "categorical-frequency.html",
+    "title": "23  Frequency Encoding",
+    "section": "",
+    "text": "Frequency encoding takes a categorical variables and replaces each level with their frequency in the training data set. This results in a single numeric variable, with values between 0 and 1. This is a trained method since we need to keep a record of the frequencies from the training data set.\nThis method isn’t a silver bullet, as it will only sometimes be useful. It is useful when the frequency/rarity of a category level is related to our outcome. Imagine we have the data about wines and their producers, there are big producers that produces many wines and small producers that only produce a couple. This information could potentially be useful, and would be easily captured in a frequency encoding. This method is not able to distinguish between two levels that have the same frequency.\nUnseen levels can be automatically handled by giving them a value of 0 as they are unseen in the training data set. Thus no extra treatment neasesary. Sometimes taking the logarithm can be useful if you are having a big difference between the number of occurances in your levels."
+  },
+  {
+    "objectID": "categorical-frequency.html#pros-and-cons",
+    "href": "categorical-frequency.html#pros-and-cons",
+    "title": "23  Frequency Encoding",
+    "section": "23.1 Pros and Cons",
+    "text": "23.1 Pros and Cons\n\n23.1.1 Pros\n\nPowerful and simple when used correctly\nHigh interpretability\n\n\n\n23.1.2 Cons\n\nIs not able to distinguish between two levels that have the same frequency\nMay not add predictive power"
+  },
+  {
     "objectID": "categorical-frequency.html#r-examples",
     "href": "categorical-frequency.html#r-examples",
     "title": "23  Frequency Encoding",
