@@ -32,7 +32,7 @@
     "href": "how-to-deal-with.html",
     "title": "How to Deal With …",
     "section": "",
-    "text": "This book is structured according to the types of data and problems you will encounter. Each section specifies a type of data or problem, and each chapter details a method that can be useful in dealing with that type. So for example Chapter 4 contains methods that deal with numeric variables such as Chapter 5 and Chapter 12, and Chapter 16 contains methods that deal with categorical variables such as Chapter 19 and Chapter 30. There should be sections and chapters for most methods you will find in practice that isn’t too domain-specific.\nIt is because of this structure that this book is most suited as reference material, each time you encounter some data you are unsure how to deal with, you find the corresponding section and study the methods listed to see which would be best for your use case. This isn’t to say that you can’t read this book from end to end. In fact, the sections have been ordered roughly such that earlier chapters are broadly useful and later chapters touch on less used data types and problems."
+    "text": "This book is structured according to the types of data and problems you will encounter. Each section specifies a type of data or problem, and each chapter details a method that can be useful in dealing with that type. So for example Chapter 4 contains methods that deal with numeric variables such as Chapter 5 and Chapter 12, and Chapter 16 contains methods that deal with categorical variables such as Chapter 19 and Chapter 29. There should be sections and chapters for most methods you will find in practice that isn’t too domain-specific.\nIt is because of this structure that this book is most suited as reference material, each time you encounter some data you are unsure how to deal with, you find the corresponding section and study the methods listed to see which would be best for your use case. This isn’t to say that you can’t read this book from end to end. In fact, the sections have been ordered roughly such that earlier chapters are broadly useful and later chapters touch on less used data types and problems."
   },
   {
     "objectID": "how-to-deal-with.html#sec-terminology",
@@ -46,7 +46,7 @@
     "href": "numeric.html",
     "title": "4  Overview",
     "section": "",
-    "text": "Data can come in all shapes and sizes, but the most common one is the numeric variable. These are values such as age, height, deficit, price, and quantity. We call these quantitative variables and they are plentiful in most data sets and immediately usable in all statistical and machine learning models. That being said, it doesn’t mean that there are things that wouldn’t help to be done.\nThe following chapters will focus on different methods that follow 1-to-1 or 1-to-more transformations. These methods will mostly be applied one at a time to each variable. Methods that take many variables and return fewer variables such as dimensionality reduction methods which will be covered in Chapter 49.\nWhen we are working with a single variable at a time, there is a handful of problems we can run into. Identifying the problem and how each of the following methods tries to remedy the said problem is key to getting the most out of numeric variables.\nThe 4 main types of problems we deal with when working with individual numeric variables are:"
+    "text": "Data can come in all shapes and sizes, but the most common one is the numeric variable. These are values such as age, height, deficit, price, and quantity. We call these quantitative variables and they are plentiful in most data sets and immediately usable in all statistical and machine learning models. That being said, it doesn’t mean that there are things that wouldn’t help to be done.\nThe following chapters will focus on different methods that follow 1-to-1 or 1-to-more transformations. These methods will mostly be applied one at a time to each variable. Methods that take many variables and return fewer variables such as dimensionality reduction methods which will be covered in Chapter 48.\nWhen we are working with a single variable at a time, there is a handful of problems we can run into. Identifying the problem and how each of the following methods tries to remedy the said problem is key to getting the most out of numeric variables.\nThe 4 main types of problems we deal with when working with individual numeric variables are:"
   },
   {
     "objectID": "numeric.html#distributional-problems",
@@ -305,7 +305,7 @@
     "href": "categorical.html#categorical-to-categorical",
     "title": "16  Overview",
     "section": "16.1 Categorical to Categorical",
-    "text": "16.1 Categorical to Categorical\nThese methods take a categorical variable and improve them. Whether it means cleaning levels, collapsing levels, or making sure it handles new levels correctly. These Tasks as not always needed depending on the method you are using but they are generally helpful to apply. One method that would have been located here if it wasn’t for the fact that it has a whole section by itself is dealing with missing values as seen in Chapter 47."
+    "text": "16.1 Categorical to Categorical\nThese methods take a categorical variable and improve them. Whether it means cleaning levels, collapsing levels, or making sure it handles new levels correctly. These Tasks as not always needed depending on the method you are using but they are generally helpful to apply. One method that would have been located here if it wasn’t for the fact that it has a whole section by itself is dealing with missing values as seen in Chapter 46."
   },
   {
     "objectID": "categorical.html#categorical-to-numerical",
@@ -340,7 +340,7 @@
     "href": "categorical-unseen.html",
     "title": "18  Unseen Levels",
     "section": "",
-    "text": "When you are dealing with categorical variables, it is understood that they can take many values. And we have various methods about how to deal with these categorical values, regardless of what values they take. One problem that eventually will happen for you is that you try to apply a trained preprocessor on data that has levels in your categorical variable that you haven’t seen before. This can happen when you are fitting your model using resampled data, when you are applying your model on the testing data set, or, if you are unlucky, at some future time in production.\nTODO add diagram here\nThe reason why you need to think about this problem is that some methods and/or models will complain and even error if you are providing unseen levels. Some implementations will allow you to deal with this at the method level. Other methods such as Chapter 30 don’t care at all that you have unseen levels in your data.\nOne surefire way to deal with this issue is to add a step in your data preprocessing pipeline that will turn any unseen levels into \"unseen\". What this method does in practice, is that it looks at your categorical variables during training, taking note of all the levels it sees and saving them. Then any time the preprocessing is applied to new data it will look at the levels again, and if it sees a level it hasn’t seen, label it \"unseen\" (or any other meaningful label that doesn’t conflict with the data). This way, you have any future levels.\nTODO add diagram here"
+    "text": "When you are dealing with categorical variables, it is understood that they can take many values. And we have various methods about how to deal with these categorical values, regardless of what values they take. One problem that eventually will happen for you is that you try to apply a trained preprocessor on data that has levels in your categorical variable that you haven’t seen before. This can happen when you are fitting your model using resampled data, when you are applying your model on the testing data set, or, if you are unlucky, at some future time in production.\nTODO add diagram here\nThe reason why you need to think about this problem is that some methods and/or models will complain and even error if you are providing unseen levels. Some implementations will allow you to deal with this at the method level. Other methods such as Chapter 29 don’t care at all that you have unseen levels in your data.\nOne surefire way to deal with this issue is to add a step in your data preprocessing pipeline that will turn any unseen levels into \"unseen\". What this method does in practice, is that it looks at your categorical variables during training, taking note of all the levels it sees and saving them. Then any time the preprocessing is applied to new data it will look at the levels again, and if it sees a level it hasn’t seen, label it \"unseen\" (or any other meaningful label that doesn’t conflict with the data). This way, you have any future levels.\nTODO add diagram here"
   },
   {
     "objectID": "categorical-unseen.html#r-examples",
@@ -361,7 +361,7 @@
     "href": "categorical-dummy.html",
     "title": "19  Dummy Encoding",
     "section": "",
-    "text": "We have some categorical variables and we want to turn them into numerical values, one of the most common ways of going about it it so create dummy variables. Dummy variables are variables that only take the values 0 and 1 to indicate the absence or presence of the levels in a categorical variable. This is nicely shown with an example.\nConsidering this short categorical variable of animals, we observe there are 3 unique values “cat”, “dog”, and “horse”.\nWhich just this knowledge we can create the corresponding dummy variables. There should be 3 columns one for each of the levels\nFrom this, we have a couple of observations. Firstly the length of each of these variables is equal to the length of the original categorical variable. The number of columns corresponds to the number of levels. And lastly, the sum of all the values on each row equals 1 since all the rows contain one 1 and the remaining 0s. This means that for even a small number of levels, you get sparse data. Sparse data is data where there are a lot of zeroes, meaning that it would take less space to store where the non-zero values are instead of all the values. You can read more about how and when to care about sparse data in Chapter 78. What this means for dummy variable creation, is that depending on whether your software can handle sparse data, you might need to limit the number of levels in your categorical variables. One way to do this would be to collapse levels together, which you can read about in Chapter 43.\nDummy variable creation is a trained method. This means that doing the training step, the levels of each categorical variable are saved, and then these and only these values are used for dummy variable creation. If we assumed that the above example data were used to train the preprocessor, and we passed in the values [\"dog\", \"cat\", \"cat\", \"dog\"] during future applications, we would expect the following dummy variables\nit is important that the horse variable is here too, even if it is empty as the subsequent preprocessing steps and model expect the horse variable to be present. Likewise, you can run into problems if the value \"duck\" was used as the preprocessor wouldn’t know what to do. These cases are talked about in Chapter 18."
+    "text": "We have some categorical variables and we want to turn them into numerical values, one of the most common ways of going about it it so create dummy variables. Dummy variables are variables that only take the values 0 and 1 to indicate the absence or presence of the levels in a categorical variable. This is nicely shown with an example.\nConsidering this short categorical variable of animals, we observe there are 3 unique values “cat”, “dog”, and “horse”.\nWhich just this knowledge we can create the corresponding dummy variables. There should be 3 columns one for each of the levels\nFrom this, we have a couple of observations. Firstly the length of each of these variables is equal to the length of the original categorical variable. The number of columns corresponds to the number of levels. And lastly, the sum of all the values on each row equals 1 since all the rows contain one 1 and the remaining 0s. This means that for even a small number of levels, you get sparse data. Sparse data is data where there are a lot of zeroes, meaning that it would take less space to store where the non-zero values are instead of all the values. You can read more about how and when to care about sparse data in Chapter 77. What this means for dummy variable creation, is that depending on whether your software can handle sparse data, you might need to limit the number of levels in your categorical variables. One way to do this would be to collapse levels together, which you can read about in Chapter 42.\nDummy variable creation is a trained method. This means that doing the training step, the levels of each categorical variable are saved, and then these and only these values are used for dummy variable creation. If we assumed that the above example data were used to train the preprocessor, and we passed in the values [\"dog\", \"cat\", \"cat\", \"dog\"] during future applications, we would expect the following dummy variables\nit is important that the horse variable is here too, even if it is empty as the subsequent preprocessing steps and model expect the horse variable to be present. Likewise, you can run into problems if the value \"duck\" was used as the preprocessor wouldn’t know what to do. These cases are talked about in Chapter 18."
   },
   {
     "objectID": "categorical-dummy.html#dummy-or-one-hot-encoding",
@@ -518,548 +518,534 @@
     "text": "23.3 Python Examples"
   },
   {
-    "objectID": "categorical-helmert.html#r-examples",
-    "href": "categorical-helmert.html#r-examples",
-    "title": "24  Helmert Encoding",
+    "objectID": "categorical-difference.html#r-examples",
+    "href": "categorical-difference.html#r-examples",
+    "title": "24  Difference Encoding",
     "section": "24.2 R Examples",
     "text": "24.2 R Examples"
   },
   {
-    "objectID": "categorical-helmert.html#python-examples",
-    "href": "categorical-helmert.html#python-examples",
-    "title": "24  Helmert Encoding",
+    "objectID": "categorical-difference.html#python-examples",
+    "href": "categorical-difference.html#python-examples",
+    "title": "24  Difference Encoding",
     "section": "24.3 Python Examples",
     "text": "24.3 Python Examples"
   },
   {
-    "objectID": "categorical-difference.html#r-examples",
-    "href": "categorical-difference.html#r-examples",
-    "title": "25  Difference Encoding",
+    "objectID": "categorical-target.html#r-examples",
+    "href": "categorical-target.html#r-examples",
+    "title": "25  Target Encoding",
     "section": "25.2 R Examples",
     "text": "25.2 R Examples"
   },
   {
-    "objectID": "categorical-difference.html#python-examples",
-    "href": "categorical-difference.html#python-examples",
-    "title": "25  Difference Encoding",
+    "objectID": "categorical-target.html#python-examples",
+    "href": "categorical-target.html#python-examples",
+    "title": "25  Target Encoding",
     "section": "25.3 Python Examples",
     "text": "25.3 Python Examples"
   },
   {
-    "objectID": "categorical-target.html#r-examples",
-    "href": "categorical-target.html#r-examples",
-    "title": "26  Target Encoding",
+    "objectID": "categorical-impact.html#r-examples",
+    "href": "categorical-impact.html#r-examples",
+    "title": "26  Impact Encoding",
     "section": "26.2 R Examples",
     "text": "26.2 R Examples"
   },
   {
-    "objectID": "categorical-target.html#python-examples",
-    "href": "categorical-target.html#python-examples",
-    "title": "26  Target Encoding",
+    "objectID": "categorical-impact.html#python-examples",
+    "href": "categorical-impact.html#python-examples",
+    "title": "26  Impact Encoding",
     "section": "26.3 Python Examples",
     "text": "26.3 Python Examples"
   },
   {
-    "objectID": "categorical-impact.html#r-examples",
-    "href": "categorical-impact.html#r-examples",
-    "title": "27  Impact Encoding",
+    "objectID": "categorical-polynomial.html#r-examples",
+    "href": "categorical-polynomial.html#r-examples",
+    "title": "27  Polynomial Encoding",
     "section": "27.2 R Examples",
     "text": "27.2 R Examples"
   },
   {
-    "objectID": "categorical-impact.html#python-examples",
-    "href": "categorical-impact.html#python-examples",
-    "title": "27  Impact Encoding",
+    "objectID": "categorical-polynomial.html#python-examples",
+    "href": "categorical-polynomial.html#python-examples",
+    "title": "27  Polynomial Encoding",
     "section": "27.3 Python Examples",
     "text": "27.3 Python Examples"
   },
   {
-    "objectID": "categorical-polynomial.html#r-examples",
-    "href": "categorical-polynomial.html#r-examples",
-    "title": "28  Polynomial Encoding",
+    "objectID": "categorical-sum.html#r-examples",
+    "href": "categorical-sum.html#r-examples",
+    "title": "28  Sum Encoding",
     "section": "28.2 R Examples",
     "text": "28.2 R Examples"
   },
   {
-    "objectID": "categorical-polynomial.html#python-examples",
-    "href": "categorical-polynomial.html#python-examples",
-    "title": "28  Polynomial Encoding",
+    "objectID": "categorical-sum.html#python-examples",
+    "href": "categorical-sum.html#python-examples",
+    "title": "28  Sum Encoding",
     "section": "28.3 Python Examples",
     "text": "28.3 Python Examples"
   },
   {
-    "objectID": "categorical-sum.html#r-examples",
-    "href": "categorical-sum.html#r-examples",
-    "title": "29  Sum Encoding",
+    "objectID": "categorical-hashing.html#r-examples",
+    "href": "categorical-hashing.html#r-examples",
+    "title": "29  Hashing Encoding",
     "section": "29.2 R Examples",
     "text": "29.2 R Examples"
   },
   {
-    "objectID": "categorical-sum.html#python-examples",
-    "href": "categorical-sum.html#python-examples",
-    "title": "29  Sum Encoding",
+    "objectID": "categorical-hashing.html#python-examples",
+    "href": "categorical-hashing.html#python-examples",
+    "title": "29  Hashing Encoding",
     "section": "29.3 Python Examples",
     "text": "29.3 Python Examples"
   },
   {
-    "objectID": "categorical-hashing.html#r-examples",
-    "href": "categorical-hashing.html#r-examples",
-    "title": "30  Hashing Encoding",
+    "objectID": "categorical-leaveoneout.html#r-examples",
+    "href": "categorical-leaveoneout.html#r-examples",
+    "title": "30  Leave One Out Encoding",
     "section": "30.2 R Examples",
     "text": "30.2 R Examples"
   },
   {
-    "objectID": "categorical-hashing.html#python-examples",
-    "href": "categorical-hashing.html#python-examples",
-    "title": "30  Hashing Encoding",
+    "objectID": "categorical-leaveoneout.html#python-examples",
+    "href": "categorical-leaveoneout.html#python-examples",
+    "title": "30  Leave One Out Encoding",
     "section": "30.3 Python Examples",
     "text": "30.3 Python Examples"
   },
   {
-    "objectID": "categorical-leaveoneout.html#r-examples",
-    "href": "categorical-leaveoneout.html#r-examples",
-    "title": "31  Leave One Out Encoding",
+    "objectID": "categorical-leaf.html#r-examples",
+    "href": "categorical-leaf.html#r-examples",
+    "title": "31  Leaf Encoding",
     "section": "31.2 R Examples",
     "text": "31.2 R Examples"
   },
   {
-    "objectID": "categorical-leaveoneout.html#python-examples",
-    "href": "categorical-leaveoneout.html#python-examples",
-    "title": "31  Leave One Out Encoding",
+    "objectID": "categorical-leaf.html#python-examples",
+    "href": "categorical-leaf.html#python-examples",
+    "title": "31  Leaf Encoding",
     "section": "31.3 Python Examples",
     "text": "31.3 Python Examples"
   },
   {
-    "objectID": "categorical-leaf.html#r-examples",
-    "href": "categorical-leaf.html#r-examples",
-    "title": "32  Leaf Encoding",
+    "objectID": "categorical-glmm.html#r-examples",
+    "href": "categorical-glmm.html#r-examples",
+    "title": "32  GLMM Encoding",
     "section": "32.2 R Examples",
     "text": "32.2 R Examples"
   },
   {
-    "objectID": "categorical-leaf.html#python-examples",
-    "href": "categorical-leaf.html#python-examples",
-    "title": "32  Leaf Encoding",
+    "objectID": "categorical-glmm.html#python-examples",
+    "href": "categorical-glmm.html#python-examples",
+    "title": "32  GLMM Encoding",
     "section": "32.3 Python Examples",
     "text": "32.3 Python Examples"
   },
   {
-    "objectID": "categorical-glmm.html#r-examples",
-    "href": "categorical-glmm.html#r-examples",
-    "title": "33  GLMM Encoding",
+    "objectID": "categorical-randomforest.html#r-examples",
+    "href": "categorical-randomforest.html#r-examples",
+    "title": "33  Random Forest Encoding",
     "section": "33.2 R Examples",
     "text": "33.2 R Examples"
   },
   {
-    "objectID": "categorical-glmm.html#python-examples",
-    "href": "categorical-glmm.html#python-examples",
-    "title": "33  GLMM Encoding",
+    "objectID": "categorical-randomforest.html#python-examples",
+    "href": "categorical-randomforest.html#python-examples",
+    "title": "33  Random Forest Encoding",
     "section": "33.3 Python Examples",
     "text": "33.3 Python Examples"
   },
   {
-    "objectID": "categorical-randomforest.html#r-examples",
-    "href": "categorical-randomforest.html#r-examples",
-    "title": "34  Random Forest Encoding",
+    "objectID": "categorical-catboost.html#r-examples",
+    "href": "categorical-catboost.html#r-examples",
+    "title": "34  Catboost Encoding",
     "section": "34.2 R Examples",
     "text": "34.2 R Examples"
   },
   {
-    "objectID": "categorical-randomforest.html#python-examples",
-    "href": "categorical-randomforest.html#python-examples",
-    "title": "34  Random Forest Encoding",
+    "objectID": "categorical-catboost.html#python-examples",
+    "href": "categorical-catboost.html#python-examples",
+    "title": "34  Catboost Encoding",
     "section": "34.3 Python Examples",
     "text": "34.3 Python Examples"
   },
   {
-    "objectID": "categorical-catboost.html#r-examples",
-    "href": "categorical-catboost.html#r-examples",
-    "title": "35  Catboost Encoding",
+    "objectID": "categorical-woe.html#r-examples",
+    "href": "categorical-woe.html#r-examples",
+    "title": "35  Weight of Evidence Encoding",
     "section": "35.2 R Examples",
     "text": "35.2 R Examples"
   },
   {
-    "objectID": "categorical-catboost.html#python-examples",
-    "href": "categorical-catboost.html#python-examples",
-    "title": "35  Catboost Encoding",
+    "objectID": "categorical-woe.html#python-examples",
+    "href": "categorical-woe.html#python-examples",
+    "title": "35  Weight of Evidence Encoding",
     "section": "35.3 Python Examples",
     "text": "35.3 Python Examples"
   },
   {
-    "objectID": "categorical-woe.html#r-examples",
-    "href": "categorical-woe.html#r-examples",
-    "title": "36  Weight of Evidence Encoding",
+    "objectID": "categorical-jamesstein.html#r-examples",
+    "href": "categorical-jamesstein.html#r-examples",
+    "title": "36  James-Stein Encoding",
     "section": "36.2 R Examples",
     "text": "36.2 R Examples"
   },
   {
-    "objectID": "categorical-woe.html#python-examples",
-    "href": "categorical-woe.html#python-examples",
-    "title": "36  Weight of Evidence Encoding",
+    "objectID": "categorical-jamesstein.html#python-examples",
+    "href": "categorical-jamesstein.html#python-examples",
+    "title": "36  James-Stein Encoding",
     "section": "36.3 Python Examples",
     "text": "36.3 Python Examples"
   },
   {
-    "objectID": "categorical-jamesstein.html#r-examples",
-    "href": "categorical-jamesstein.html#r-examples",
-    "title": "37  James-Stein Encoding",
+    "objectID": "categorical-mestimator.html#r-examples",
+    "href": "categorical-mestimator.html#r-examples",
+    "title": "37  M-Estimator Encoding",
     "section": "37.2 R Examples",
     "text": "37.2 R Examples"
   },
   {
-    "objectID": "categorical-jamesstein.html#python-examples",
-    "href": "categorical-jamesstein.html#python-examples",
-    "title": "37  James-Stein Encoding",
+    "objectID": "categorical-mestimator.html#python-examples",
+    "href": "categorical-mestimator.html#python-examples",
+    "title": "37  M-Estimator Encoding",
     "section": "37.3 Python Examples",
     "text": "37.3 Python Examples"
   },
   {
-    "objectID": "categorical-mestimator.html#r-examples",
-    "href": "categorical-mestimator.html#r-examples",
-    "title": "38  M-Estimator Encoding",
+    "objectID": "categorical-thermometer.html#r-examples",
+    "href": "categorical-thermometer.html#r-examples",
+    "title": "38  Thermometer Encoding",
     "section": "38.2 R Examples",
     "text": "38.2 R Examples"
   },
   {
-    "objectID": "categorical-mestimator.html#python-examples",
-    "href": "categorical-mestimator.html#python-examples",
-    "title": "38  M-Estimator Encoding",
+    "objectID": "categorical-thermometer.html#python-examples",
+    "href": "categorical-thermometer.html#python-examples",
+    "title": "38  Thermometer Encoding",
     "section": "38.3 Python Examples",
     "text": "38.3 Python Examples"
   },
   {
-    "objectID": "categorical-thermometer.html#r-examples",
-    "href": "categorical-thermometer.html#r-examples",
-    "title": "39  Thermometer Encoding",
+    "objectID": "categorical-quantile.html#r-examples",
+    "href": "categorical-quantile.html#r-examples",
+    "title": "39  Quantile Encoding",
     "section": "39.2 R Examples",
     "text": "39.2 R Examples"
   },
   {
-    "objectID": "categorical-thermometer.html#python-examples",
-    "href": "categorical-thermometer.html#python-examples",
-    "title": "39  Thermometer Encoding",
+    "objectID": "categorical-quantile.html#python-examples",
+    "href": "categorical-quantile.html#python-examples",
+    "title": "39  Quantile Encoding",
     "section": "39.3 Python Examples",
     "text": "39.3 Python Examples"
   },
   {
-    "objectID": "categorical-quantile.html#r-examples",
-    "href": "categorical-quantile.html#r-examples",
-    "title": "40  Quantile Encoding",
+    "objectID": "categorical-summary.html#r-examples",
+    "href": "categorical-summary.html#r-examples",
+    "title": "40  Summary Encoding",
     "section": "40.2 R Examples",
     "text": "40.2 R Examples"
   },
   {
-    "objectID": "categorical-quantile.html#python-examples",
-    "href": "categorical-quantile.html#python-examples",
-    "title": "40  Quantile Encoding",
+    "objectID": "categorical-summary.html#python-examples",
+    "href": "categorical-summary.html#python-examples",
+    "title": "40  Summary Encoding",
     "section": "40.3 Python Examples",
     "text": "40.3 Python Examples"
   },
   {
-    "objectID": "categorical-summary.html#r-examples",
-    "href": "categorical-summary.html#r-examples",
-    "title": "41  Summary Encoding",
+    "objectID": "categorical-multi-dummy.html#r-examples",
+    "href": "categorical-multi-dummy.html#r-examples",
+    "title": "41  Multi-Dummy encoding",
     "section": "41.2 R Examples",
     "text": "41.2 R Examples"
   },
   {
-    "objectID": "categorical-summary.html#python-examples",
-    "href": "categorical-summary.html#python-examples",
-    "title": "41  Summary Encoding",
+    "objectID": "categorical-multi-dummy.html#python-examples",
+    "href": "categorical-multi-dummy.html#python-examples",
+    "title": "41  Multi-Dummy encoding",
     "section": "41.3 Python Examples",
     "text": "41.3 Python Examples"
   },
   {
-    "objectID": "categorical-multi-dummy.html#r-examples",
-    "href": "categorical-multi-dummy.html#r-examples",
-    "title": "42  Multi-Dummy encoding",
+    "objectID": "categorical-collapse.html#r-examples",
+    "href": "categorical-collapse.html#r-examples",
+    "title": "42  Collapsing Categories",
     "section": "42.2 R Examples",
     "text": "42.2 R Examples"
   },
   {
-    "objectID": "categorical-multi-dummy.html#python-examples",
-    "href": "categorical-multi-dummy.html#python-examples",
-    "title": "42  Multi-Dummy encoding",
+    "objectID": "categorical-collapse.html#python-examples",
+    "href": "categorical-collapse.html#python-examples",
+    "title": "42  Collapsing Categories",
     "section": "42.3 Python Examples",
     "text": "42.3 Python Examples"
   },
   {
-    "objectID": "categorical-collapse.html#r-examples",
-    "href": "categorical-collapse.html#r-examples",
-    "title": "43  Collapsing Categories",
+    "objectID": "categorical-combination.html#r-examples",
+    "href": "categorical-combination.html#r-examples",
+    "title": "43  Combination",
     "section": "43.2 R Examples",
     "text": "43.2 R Examples"
   },
   {
-    "objectID": "categorical-collapse.html#python-examples",
-    "href": "categorical-collapse.html#python-examples",
-    "title": "43  Collapsing Categories",
+    "objectID": "categorical-combination.html#python-examples",
+    "href": "categorical-combination.html#python-examples",
+    "title": "43  Combination",
     "section": "43.3 Python Examples",
     "text": "43.3 Python Examples"
   },
   {
-    "objectID": "categorical-combination.html#r-examples",
-    "href": "categorical-combination.html#r-examples",
-    "title": "44  Combination",
-    "section": "44.2 R Examples",
-    "text": "44.2 R Examples"
-  },
-  {
-    "objectID": "categorical-combination.html#python-examples",
-    "href": "categorical-combination.html#python-examples",
-    "title": "44  Combination",
-    "section": "44.3 Python Examples",
-    "text": "44.3 Python Examples"
-  },
-  {
     "objectID": "imbalenced.html",
     "href": "imbalenced.html",
-    "title": "45  Overview",
+    "title": "44  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "imbalenced-smote.html",
     "href": "imbalenced-smote.html",
-    "title": "46  SMOTE",
+    "title": "45  SMOTE",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "missing.html",
     "href": "missing.html",
-    "title": "47  Overview",
+    "title": "46  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "missing-imputation.html",
     "href": "missing-imputation.html",
-    "title": "48  Imputation",
+    "title": "47  Imputation",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "too-many.html",
     "href": "too-many.html",
-    "title": "49  Overview",
+    "title": "48  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "too-many-pca.html",
     "href": "too-many-pca.html",
-    "title": "50  Principal Component Analysis",
+    "title": "49  Principal Component Analysis",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "outliers.html",
     "href": "outliers.html",
-    "title": "51  Overview",
+    "title": "50  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "outliers-remove.html",
     "href": "outliers-remove.html",
-    "title": "52  Removal",
+    "title": "51  Removal",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "datetime.html",
     "href": "datetime.html",
-    "title": "53  Overview",
+    "title": "52  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "datetime-holiday.html",
     "href": "datetime-holiday.html",
-    "title": "54  Holidays",
+    "title": "53  Holidays",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "text.html",
     "href": "text.html",
-    "title": "55  Overview",
+    "title": "54  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "text-tfidf.html",
     "href": "text-tfidf.html",
-    "title": "56  TF-IDF",
+    "title": "55  TF-IDF",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "image.html",
     "href": "image.html",
-    "title": "57  Overview",
+    "title": "56  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "image-stats.html",
     "href": "image-stats.html",
-    "title": "58  Visual Features",
+    "title": "57  Visual Features",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "circular.html",
     "href": "circular.html",
-    "title": "59  Overview",
+    "title": "58  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "circular-trig.html",
     "href": "circular-trig.html",
-    "title": "60  Trigonometric",
+    "title": "59  Trigonometric",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "time-series.html",
     "href": "time-series.html",
-    "title": "61  Overview",
+    "title": "60  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "time-series-fourier.html",
     "href": "time-series-fourier.html",
-    "title": "62  Fourier Features",
+    "title": "61  Fourier Features",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "correlated.html",
     "href": "correlated.html",
-    "title": "63  Overview",
+    "title": "62  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "correlated-filter.html",
     "href": "correlated-filter.html",
-    "title": "64  High Correlation Filter",
+    "title": "63  High Correlation Filter",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "miscellaneous.html",
     "href": "miscellaneous.html",
-    "title": "65  Overview",
+    "title": "64  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "miscellaneous-zipcodes.html",
     "href": "miscellaneous-zipcodes.html",
-    "title": "66  Zip Codes",
+    "title": "65  Zip Codes",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "video.html",
     "href": "video.html",
-    "title": "67  Overview",
+    "title": "66  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "video-tmp.html",
     "href": "video-tmp.html",
-    "title": "68  Temporary",
+    "title": "67  Temporary",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "sound.html",
     "href": "sound.html",
-    "title": "69  Overview",
+    "title": "68  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "sound-tmp.html",
     "href": "sound-tmp.html",
-    "title": "70  Temporary",
+    "title": "69  Temporary",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "spatial.html",
     "href": "spatial.html",
-    "title": "71  Overview",
+    "title": "70  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "spatial-gps.html",
     "href": "spatial-gps.html",
-    "title": "72  GPS",
+    "title": "71  GPS",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "geospatial.html",
     "href": "geospatial.html",
-    "title": "73  Overview",
+    "title": "72  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "geospatial-shapefiles.html",
     "href": "geospatial-shapefiles.html",
-    "title": "74  Shapefiles",
+    "title": "73  Shapefiles",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "relational.html",
     "href": "relational.html",
-    "title": "75  Overview",
+    "title": "74  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "relational-tmp.html",
     "href": "relational-tmp.html",
-    "title": "76  Temporary",
+    "title": "75  Temporary",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "order.html",
     "href": "order.html",
-    "title": "77  Order of transformations",
+    "title": "76  Order of transformations",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "sparse.html",
     "href": "sparse.html",
-    "title": "78  What should you do if you have sparse data?",
+    "title": "77  What should you do if you have sparse data?",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "models.html",
     "href": "models.html",
-    "title": "79  How Different Models Deal With Input",
+    "title": "78  How Different Models Deal With Input",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "summary.html",
     "href": "summary.html",
-    "title": "80  Summary",
+    "title": "79  Summary",
     "section": "",
     "text": "WIP"
   }
