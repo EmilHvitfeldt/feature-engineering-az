@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Feature Engineering A-Z",
     "section": "",
-    "text": "Welcome to “Feature Engineering A-Z”! This book is written to be used as a reference guide to the different techniques. This is reflected in the chapter structure. Any question a practitioner is having should be answered by looking at the index and finding the right chapter.\nEach section tries to be as comprehensive as possible with the number of different methods/solutions that are presented. A section on dimensionality reduction should list all the practical methods that could be used, as well as a comparison between the methods to help the reader decide what would be most appropriate. This does not mean that all methods are recommended to use. A number of these methods have little and narrow use cases.\nWhenever possible each method will be accompanied by simple mathematical formulas and visualizations to illustrate the mechanics of the method.\nLastly, each section will include code snippets in showcasing how to implement the methods. Preferable in R and Python, Keras/PyTorch. This book is a methods book first, a coding book second."
+    "text": "Preface\nWelcome to “Feature Engineering A-Z”! This book is written to be used as a reference guide to the different techniques. This is reflected in the chapter structure. Any question a practitioner is having should be answered by looking at the index and finding the right chapter.\nEach section tries to be as comprehensive as possible with the number of different methods/solutions that are presented. A section on dimensionality reduction should list all the practical methods that could be used, as well as a comparison between the methods to help the reader decide what would be most appropriate. This does not mean that all methods are recommended to use. A number of these methods have little and narrow use cases.\nWhenever possible each method will be accompanied by simple mathematical formulas and visualizations to illustrate the mechanics of the method.\nLastly, each section will include code snippets in showcasing how to implement the methods. Preferable in R and Python, Keras/PyTorch. This book is a methods book first, a coding book second."
   },
   {
     "objectID": "introduction.html",
@@ -28,25 +28,11 @@
     "text": "WIP"
   },
   {
-    "objectID": "how-to-deal-with.html",
-    "href": "how-to-deal-with.html",
-    "title": "How to Deal With …",
-    "section": "",
-    "text": "This book is structured according to the types of data and problems you will encounter. Each section specifies a type of data or problem, and each chapter details a method that can be useful in dealing with that type. So for example Chapter 4 contains methods that deal with numeric variables such as Chapter 5 and Chapter 12, and Chapter 16 contains methods that deal with categorical variables such as Chapter 19 and Chapter 28. There should be sections and chapters for most methods you will find in practice that isn’t too domain-specific.\nIt is because of this structure that this book is most suited as reference material, each time you encounter some data you are unsure how to deal with, you find the corresponding section and study the methods listed to see which would be best for your use case. This isn’t to say that you can’t read this book from end to end. In fact, the sections have been ordered roughly such that earlier chapters are broadly useful and later chapters touch on less used data types and problems."
-  },
-  {
     "objectID": "how-to-deal-with.html#sec-terminology",
     "href": "how-to-deal-with.html#sec-terminology",
     "title": "How to Deal With …",
     "section": "Terminology",
     "text": "Terminology\n\nObservations\n\n\nLearned\n\n\nSupervised / Unsupervised\n\n\nLevels\n\n\nLinear models"
-  },
-  {
-    "objectID": "numeric.html",
-    "href": "numeric.html",
-    "title": "4  Overview",
-    "section": "",
-    "text": "Data can come in all shapes and sizes, but the most common one is the numeric variable. These are values such as age, height, deficit, price, and quantity. We call these quantitative variables and they are plentiful in most data sets and immediately usable in all statistical and machine learning models. That being said, it doesn’t mean that there are things that wouldn’t help to be done.\nThe following chapters will focus on different methods that follow 1-to-1 or 1-to-more transformations. These methods will mostly be applied one at a time to each variable. Methods that take many variables and return fewer variables such as dimensionality reduction methods which will be covered in Chapter 47.\nWhen we are working with a single variable at a time, there is a handful of problems we can run into. Identifying the problem and how each of the following methods tries to remedy the said problem is key to getting the most out of numeric variables.\nThe 4 main types of problems we deal with when working with individual numeric variables are:"
   },
   {
     "objectID": "numeric.html#distributional-problems",
@@ -84,13 +70,6 @@
     "text": "4.5 Other\nThere are any number of transformations we can apply to numeric data, other functions include:\n\nhyperbolic\nRelu\ninverse\ninverse logit\nlogit"
   },
   {
-    "objectID": "numeric-logarithms.html",
-    "href": "numeric-logarithms.html",
-    "title": "5  Logarithms",
-    "section": "",
-    "text": "Logarithms come as a tool to deal with highly skewed data. Consider the histogram below, it depicts the lot area for all the houses in the ames data set. It is highly skewed with the majority of areas being less than 10,000 with a handful greater than 50,000 with one over 200,000.\nThis data could cause some problems if we tried to use this variable in its unfinished state. We need to think about how numeric variables are being used in these models. Take a linear regression as an example. It fits under the assumption that there is a linear relationship between the response and the predictors. In other words, the model assumes that a 1000 increase in lot area is going to increase the sale price of the house by the same amount if it occurred to a 5000 lot area house or a 50000 lot area house. This might be a valid scenario for this housing market.Another possibility is that we are seeing diminishing returns, and each increase in lot area is going to cause a smaller increase in predicted sale price.\nThe main identity that is interesting when using logarithms for preprocessing is the multiplicative identity\n\\[\n\\log_{base}(xy) = \\log_{base}(x) + \\log_{base}(y)\n\\]\nThis identity allows us to consider the distances in a specific non-linear way. On the linear scale, we have that the distance between 1 and 2 is the same as 20 to 21 and 10,000 to 10,001. Such a relation is not always what we observe. Consider the relationship between excitement (response) and the number of audience members (predictor) at a concert. Adding a singular audience member is not going to have the same effect for all audience sizes. If we consider \\(y = 1.5\\) then we can look at what happens each time the audience size is increased by 50%. For an initial audience size of 100, the following happens\n\\[\n\\log_{10}(150) = \\log_{10}(100 \\cdot 1.5) = \\log_{10}(100) + \\log_{10}(1.5) \\approx 2 + 0.176\n\\]\nand for an initial audience size of 10,000, we get\n\\[\n\\log_{10}(15,000) = \\log_{10}(10,000 \\cdot 1.5) = \\log_{10}(10,000) + \\log_{10}(1.5) \\approx 4 + 0.176\n\\]\nAnd we see that by using a logarithmic transformation we can translate a multiplicative increase into an additive increase.\nThe logarithmic transformation is perfect for such a scenario. If we take a log2() transformation on our data, then we get a new interpretation of our model. Now each doubling (because we used log2) of the lot area is going to result in the same predicted increase in sale price. We have essentially turned out predictors to work on doublings rather than additions. Below is the same chart as before, but on a logarithmic scale using base 2.\nit is important to note that we are not trying to make the variable normally distributed. What we are trying to accomplish is to remove the skewed nature of the variable. Likewise, this method should not be used a variance reduction tool as that task is handled by doing normalization which we start exploring more in Section 4.2.\nThe full equation we use is\n\\[\ny = log_{base}(x + offset)\n\\]\nWhere \\(x\\) is the input, \\(y\\) is the result. The base in and of itself makes a difference, as the choice of base only matters in a multiplicative way. Common choices for bases are \\(e\\), 2, and 10. I find that using a base of 2 yields nice interpretive properties as an increase of 1 in \\(x\\) results in a doubling of \\(y\\).\nOne thing we haven’t touched on yet is that logarithms are only defined for positive input. The offset is introduced to deal with this problem. The offset will default to 0 in most software you will encounter. If you know that your variables contain values from -100 to 10000, you can set offset = 101 to make sure we never take the logarithm of a negative number. A common scenario is non-negative, which contains 0, setting offset = 0.5 helps in that case. The choice of offset you choose does matter a little bit. The offset should generally be smaller than the smallest non-negative value you have, otherwise, you will influence the proportions too much. Below we use an offset of 0.1, and the relationship we get out of this is that distance from 0 to 1, is roughly the same as multiplying by 10.\nOn the other hand, if we set the offset to 0.001, we get that the difference from 0 to 1 is the same as the distance from 1 to 1000, or as the same as multiplying by 1000.\nThe use of logarithms will have different effects on different types of models. Linear models will see a change in transformed variables since we can better model relationships between the response and dependent variable if the transformation leads to a more linear relationship. Tree-based models should in theory not be affected by the use of logarithms, however, some implementations use binning to reduce the number of splitting points for considerations. You will see a change if these bins are based on fixed-width intervals. This is expected to have minimal effect on the final model."
-  },
-  {
     "objectID": "numeric-logarithms.html#pros-and-cons",
     "href": "numeric-logarithms.html#pros-and-cons",
     "title": "5  Logarithms",
@@ -112,13 +91,6 @@
     "text": "5.3 Python Examples\nTODO"
   },
   {
-    "objectID": "numeric-sqrt.html",
-    "href": "numeric-sqrt.html",
-    "title": "6  Square Root",
-    "section": "",
-    "text": "As we saw in Chapter 5 about logarithms, we sometimes have to deal with highly skewed data. Square roots are another way to deal with this issue, with some different pros and cons that make it better to use us in some situations. We will spend our time in this section to talk about what those are.\nBelow is a histogram of the average daily rate of a number of hotel stays. It is clear to see that this is another case where the data is highly skewed, with many values close to zero, but a few in the thousands.\nThis variable contains some negative values with the smallest being -6.38. We wouldn’t want to throw out the negative values. And we could think of many situations where both negative and positive values are part of a skewed distribution, especially financial. Bank account balances, delivery times, etc etc.\nWe need a method that transforms the scale to un-skew that also works with negative data. The square root could be what we are looking for. By itself, it takes as its input a positive number and returns the number that when multiplied with itself equals the input. This has the desired shrinking effect, where larger values are shrunk more than smaller values. Additionally, since its domain is the positive numbers (0 is a special case since it maps to itself) we can mirror it to work on negative numbers in the same way it worked on positive numbers. This gives us the signed square root\n\\[\ny = \\text{sign}(x)\\sqrt{\\left| x \\right|}\n\\]\nBelow we see the results of applying the signed square root.\nit is important to note that we are not trying to make the variable normally distributed. What we are trying to accomplish is to remove the skewed nature of the variable. Likewise, this method should not be used a variance reduction tool as that task is handled by doing normalization which we start exploring more in Section 4.2.\nIt doesn’t have the same power to shrink large values as logarithms do, but it will seamlessly work with negative values and it would allow you to pick up on quadratic effects that you wouldn’t otherwise be able to pick up if you hadn’t applied the transformation. It also doesn’t have good inferential properties. It preserves the order of the numeric values, but it doesn’t give us a good way to interpret changes."
-  },
-  {
     "objectID": "numeric-sqrt.html#pros-and-cons",
     "href": "numeric-sqrt.html#pros-and-cons",
     "title": "6  Square Root",
@@ -131,13 +103,6 @@
     "title": "6  Square Root",
     "section": "6.2 R Examples",
     "text": "6.2 R Examples\nWe will be using the hotel_bookings data set for these examples.\n\nhotel_bookings |>\n  select(lead_time, adr)\n\n# A tibble: 119,390 × 2\n   lead_time   adr\n       <dbl> <dbl>\n 1       342    0 \n 2       737    0 \n 3         7   75 \n 4        13   75 \n 5        14   98 \n 6        14   98 \n 7         0  107 \n 8         9  103 \n 9        85   82 \n10        75  106.\n# … with 119,380 more rows\n\n\n{recipes} provides a step to perform logarithms, which out of the box uses \\(e\\) as the base with an offset of 0.\n\n# TODO use signed sqrt\nsqrt_rec <- recipe(lead_time ~ adr, data = hotel_bookings) |>\n  step_sqrt(adr)\n\nsqrt_rec |>\n  prep() |>\n  bake(new_data = NULL)\n\nWarning in sqrt(getElement(new_data, col_names[i])): NaNs produced\n\n\n# A tibble: 119,390 × 2\n     adr lead_time\n   <dbl>     <dbl>\n 1  0          342\n 2  0          737\n 3  8.66         7\n 4  8.66        13\n 5  9.90        14\n 6  9.90        14\n 7 10.3          0\n 8 10.1          9\n 9  9.06        85\n10 10.3         75\n# … with 119,380 more rows\n\n\n\n6.2.1 Python Examples"
-  },
-  {
-    "objectID": "numeric-boxcox.html",
-    "href": "numeric-boxcox.html",
-    "title": "7  Box-Cox",
-    "section": "",
-    "text": "You have likely heard a lot of talk about having normally distributed predictors. This isn’t that common of an assumption, and having a fairly non-skewed symmetric predictor is often enough. Linear Discriminant Analysis assumes Gaussian data, and that is about it (TODO add a reference here). Still, it is worthwhile to have more symmetric predictors, and this is where the Box-Cox transformation comes into play.\nIn Chapter 5 on logarithms, we saw how they could be used to change the distribution of a variable. One of the downsides is that if we want to get closer to normality, it doesn’t do well unless applied to a log-normally distributed variable. The Box-Cox transformation tries to find an optimal power transformation. This method was originally intended to be used on the outcome of a model.\nIt works by using maximum likelihood estimation to estimate a transformation parameter \\(\\lambda\\) in the following equation that would optimize the normality of \\(x^*\\)\n\\[\nx^* = \\left\\{\n    \\begin{array}{ll}\n      \\dfrac{x^\\lambda - 1}{\\lambda \\tilde{x}^{\\lambda - 1}}, & \\lambda \\neq 0 \\\\\n      \\tilde{x} \\log x & \\lambda = 0\n    \\end{array}\n  \\right.\n\\]\nwhere \\(\\tilde{x}\\) is the geometric mean of \\(x\\). It is worth noting again, that what we are optimizing over is the value of \\(\\lambda\\). This is also a case of a trained preprocessing method when used on the predictors. We need to estimate the parameter \\(\\lambda\\) on the training data set, then use the estimated value to apply the transformation to the training and test data set to avoid data leakage. Lastly, Box-Cox only works with positive numbers. Take a look at Chapter 8 about the Yeo-Johnson method that tries to accomplish the same thing, and it works on positive as well as negative numbers.\nLet us see some examples of Box-Cox at work. Below is three different simulated distribution, before and after they have been transformed by Box-Cox.\nWe have the original distributions have some left or right skewed-ness. And the transformed columns look better, in the sense that they are less skewed and they are fairly symmetric around the center. Are they perfectly normal? No! but these transformations might be beneficial. The next set of distributions wasn’t so lucky.\nThe Box-Cox method isn’t magic and will only give you something more normally distributed if the distribution can be made more normally distributed by applying a power transformation.\nThe first distribution here is uniformly random. The resulting transformation ends up more skewed, even if only a little bit, than the original distribution because this method is not intended for this type of data. We are seeing similar results with the bi-modal distributions."
   },
   {
     "objectID": "numeric-boxcox.html#pros-and-cons",
@@ -154,13 +119,6 @@
     "text": "7.2 R Examples\nWe will be using the ames data set for these examples.\n\nlibrary(recipes)\nlibrary(modeldata)\ndata(\"ames\")\n\names |>\n  select(Lot_Area, Wood_Deck_SF, Sale_Price)\n\n# A tibble: 2,930 × 3\n   Lot_Area Wood_Deck_SF Sale_Price\n      <int>        <int>      <int>\n 1    31770          210     215000\n 2    11622          140     105000\n 3    14267          393     172000\n 4    11160            0     244000\n 5    13830          212     189900\n 6     9978          360     195500\n 7     4920            0     213500\n 8     5005            0     191500\n 9     5389          237     236500\n10     7500          140     189000\n# … with 2,920 more rows\n\n\n{recipes} provides a step to perform Box-Cox transformations.\n\nboxcox_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) |>\n  step_BoxCox(Lot_Area) |>\n  prep()\n\nboxcox_rec |>\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Lot_Area Sale_Price\n      <dbl>      <int>\n 1     21.8     215000\n 2     18.2     105000\n 3     18.9     172000\n 4     18.1     244000\n 5     18.8     189900\n 6     17.7     195500\n 7     15.5     213500\n 8     15.5     191500\n 9     15.8     236500\n10     16.8     189000\n# … with 2,920 more rows\n\n\nWe can also pull out the value of the estimated \\(\\lambda\\) by using the tidy() method on the recipe step.\n\nboxcox_rec |>\n  tidy(1)\n\n# A tibble: 1 × 3\n  terms    value id          \n  <chr>    <dbl> <chr>       \n1 Lot_Area 0.129 BoxCox_3gJXR\n\n\n\n7.2.1 Python Examples"
   },
   {
-    "objectID": "numeric-yeojohnson.html",
-    "href": "numeric-yeojohnson.html",
-    "title": "8  Yeo-Johnson",
-    "section": "",
-    "text": "You have likely heard a lot of talk about having normally distributed predictors. This isn’t that common of an assumption, and having a fairly non-skewed symmetric predictor is often enough. Linear Discriminant Analysis assumes Gaussian data, and that is about it (TODO add a reference here). Still, it is worthwhile to have more symmetric predictors, and this is where the Yeo-Johnson transformation comes into play.\nThis method is very similar to the Box-Cox method in Chapter 7, except it doesn’t have the restriction that the variable \\(x\\) needs to be positive.\nIt works by using maximum likelihood estimation to estimate a transformation parameter \\(\\lambda\\) in the following equation that would optimize the normality of \\(x^*\\)\n\\[\nx^* = \\left\\{\n    \\begin{array}{ll}\n      \\dfrac{(x + 1) ^ \\lambda - 1}{\\lambda}              & \\lambda \\neq 0, x \\geq 0 \\\\\n      \\log(x + 1)                                         & \\lambda =    0, x \\geq 0 \\\\\n      - \\dfrac{(-x + 1) ^ {2 - \\lambda} - 1}{2 - \\lambda} & \\lambda \\neq 2, x <    0 \\\\\n      - \\log(-x + 1)                                      & \\lambda =    2, x <    0\n    \\end{array}\n  \\right.\n\\] It is worth noting again, that what we are optimizing over is the value of \\(\\lambda\\). This is also a case of a trained preprocessing method when used on the predictors. We need to estimate the parameter \\(\\lambda\\) on the training data set, then use the estimated value to apply the transformation to the training and test data set to avoid data leakage.\nIf the values of \\(x\\) are strictly positive, then the Yeo-Johnson transformation is the same as the Box-Cox transformation of \\(x + 1\\), if the values of \\(x\\) are strictly negative then the transformation is the Box-Cox transformation of \\(-x + 1\\) with the power \\(2 - \\lambda\\). The interpretation of \\(\\lambda\\) isn’t as easy as for the Box-Cox method.\nLet us see some examples of Yeo-Johnson at work. Below is three different simulated distribution, before and after they have been transformed by Yeo-Johnson.\nWe have the original distributions have some left or right skewed-ness. And the transformed columns look better, in the sense that they are less skewed and they are fairly symmetric around the center. Are they perfectly normal? No! but these transformations might be beneficial. We also notice how these methods work, even when there are negative values.\nThe Yeo-Johnson method isn’t magic and will only give you something more normally distributed if the distribution can be made more normally distributed by applying the above formula would give you some more normally distributed values.\nThe first distribution here is uniformly random. The resulting transformation ends up more skewed, even if only a little bit, than the original distribution because this method is not intended for this type of data. We are seeing similar results with the bi-modal distributions."
-  },
-  {
     "objectID": "numeric-yeojohnson.html#pros-and-cons",
     "href": "numeric-yeojohnson.html#pros-and-cons",
     "title": "8  Yeo-Johnson",
@@ -173,13 +131,6 @@
     "title": "8  Yeo-Johnson",
     "section": "8.2 R Examples",
     "text": "8.2 R Examples\nWe will be using the ames data set for these examples.\n\nlibrary(recipes)\nlibrary(modeldata)\ndata(\"ames\")\n\names |>\n  select(Lot_Area, Wood_Deck_SF, Sale_Price)\n\n# A tibble: 2,930 × 3\n   Lot_Area Wood_Deck_SF Sale_Price\n      <int>        <int>      <int>\n 1    31770          210     215000\n 2    11622          140     105000\n 3    14267          393     172000\n 4    11160            0     244000\n 5    13830          212     189900\n 6     9978          360     195500\n 7     4920            0     213500\n 8     5005            0     191500\n 9     5389          237     236500\n10     7500          140     189000\n# … with 2,920 more rows\n\n\n{recipes} provides a step to perform Yeo-Johnson transformations, which out of the box uses \\(e\\) as the base with an offset of 0.\n\nyeojohnson_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) |>\n  step_YeoJohnson(Lot_Area) |>\n  prep()\n\nyeojohnson_rec |>\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Lot_Area Sale_Price\n      <dbl>      <int>\n 1     21.8     215000\n 2     18.2     105000\n 3     18.9     172000\n 4     18.1     244000\n 5     18.8     189900\n 6     17.7     195500\n 7     15.5     213500\n 8     15.5     191500\n 9     15.8     236500\n10     16.8     189000\n# … with 2,920 more rows\n\n\nWe can also pull out the value of the estimated \\(\\lambda\\) by using the tidy() method on the recipe step.\n\nyeojohnson_rec |>\n  tidy(1)\n\n# A tibble: 1 × 3\n  terms    value id              \n  <chr>    <dbl> <chr>           \n1 Lot_Area 0.129 YeoJohnson_3gJXR\n\n\n\n8.2.1 Python Examples"
-  },
-  {
-    "objectID": "numeric-percentile.html",
-    "href": "numeric-percentile.html",
-    "title": "9  Percentile",
-    "section": "",
-    "text": "Percentile scaling (also sometimes called Rank Scaling) is a method where we apply a non-linear transformation to to our data where each value is the percentile of the training data.\nTODO: Add equation\nThis does a couple of things for us. It naturally constraints the transformed data into the range \\([0, 1]\\), and it deals with outlier values nicely in the sense that they don’t change the transformation that much. Moreover if the testing distribution is close to the training distribution then the transformed distribution would be approximately uniformly distributed between 0 and 1."
   },
   {
     "objectID": "numeric-percentile.html#pros-and-cons",
@@ -196,13 +147,6 @@
     "text": "9.2 R Examples\nWe will be using the ames data set for these examples.\n\n\n\n\nlibrary(recipes)\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nlibrary(modeldata)\ndata(\"ames\")\n\names |>\n  select(Lot_Area, Wood_Deck_SF, Sale_Price)\n\n# A tibble: 2,930 × 3\n   Lot_Area Wood_Deck_SF Sale_Price\n      <int>        <int>      <int>\n 1    31770          210     215000\n 2    11622          140     105000\n 3    14267          393     172000\n 4    11160            0     244000\n 5    13830          212     189900\n 6     9978          360     195500\n 7     4920            0     213500\n 8     5005            0     191500\n 9     5389          237     236500\n10     7500          140     189000\n# … with 2,920 more rows\n\n\nThe {recipes} step to do this transformation is step_percentile(). It defaults to calculation 100 percentiles and using those to transform the data\n\npercentile_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) |>\n  step_percentile(Lot_Area) |>\n  prep()\n\npercentile_rec |>\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Lot_Area Sale_Price\n      <dbl>      <int>\n 1    0.989     215000\n 2    0.756     105000\n 3    0.898     172000\n 4    0.717     244000\n 5    0.883     189900\n 6    0.580     195500\n 7    0.104     213500\n 8    0.106     191500\n 9    0.120     236500\n10    0.259     189000\n# … with 2,920 more rows\n\n\nWe cna use the tidy() method to pull out what the specific values are for each percentile\n\npercentile_rec |>\n  tidy(1)\n\n# A tibble: 99 × 4\n   term     value percentile id              \n   <chr>    <dbl>      <dbl> <chr>           \n 1 Lot_Area 1300           0 percentile_Bp5vK\n 2 Lot_Area 1680           1 percentile_Bp5vK\n 3 Lot_Area 2040.          2 percentile_Bp5vK\n 4 Lot_Area 2362.          3 percentile_Bp5vK\n 5 Lot_Area 2779.          4 percentile_Bp5vK\n 6 Lot_Area 3188.          5 percentile_Bp5vK\n 7 Lot_Area 3674.          6 percentile_Bp5vK\n 8 Lot_Area 3901.          7 percentile_Bp5vK\n 9 Lot_Area 4122.          8 percentile_Bp5vK\n10 Lot_Area 4435           9 percentile_Bp5vK\n# … with 89 more rows\n\n\nYou are able to change the granularity by using the options argument. In this example we are calculation 500 points evenly spaced between 0 and 1, both inclusive.\n\npercentile500_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) |>\n  step_percentile(Lot_Area, options = list(probs = (0:500)/500)) |>\n  prep()\n\npercentile500_rec |>\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Lot_Area Sale_Price\n      <dbl>      <int>\n 1    0.989     215000\n 2    0.755     105000\n 3    0.899     172000\n 4    0.717     244000\n 5    0.884     189900\n 6    0.580     195500\n 7    0.103     213500\n 8    0.106     191500\n 9    0.118     236500\n10    0.254     189000\n# … with 2,920 more rows\n\n\nAnd we can see the more precise numbers.\n\npercentile500_rec |>\n  tidy(1)\n\n# A tibble: 457 × 4\n   term     value percentile id              \n   <chr>    <dbl>      <dbl> <chr>           \n 1 Lot_Area 1300         0   percentile_RUieL\n 2 Lot_Area 1487.        0.2 percentile_RUieL\n 3 Lot_Area 1531.        0.4 percentile_RUieL\n 4 Lot_Area 1605.        0.6 percentile_RUieL\n 5 Lot_Area 1680         0.8 percentile_RUieL\n 6 Lot_Area 1879.        1.4 percentile_RUieL\n 7 Lot_Area 1890         1.6 percentile_RUieL\n 8 Lot_Area 1946.        1.8 percentile_RUieL\n 9 Lot_Area 2040.        2   percentile_RUieL\n10 Lot_Area 2136.        2.2 percentile_RUieL\n# … with 447 more rows\n\n\nNotice how there are only 457 values in this output. This is happening because some percentile have been collapsed to save space since if the value for the 10.4 and 10.6 percentile is the same, we just store the 10.6 value.\n\n9.2.1 Python Examples"
   },
   {
-    "objectID": "numeric-normalization.html",
-    "href": "numeric-normalization.html",
-    "title": "10  Normalization",
-    "section": "",
-    "text": "Normalization is a method where we modify a variable by subtracting the mean and dividing by the standard deviation\n\\[X_{scaled} = \\dfrac{X - \\text{mean}(X)}{\\text{sd}(X)}\\]\nPerforming this transformation means that the resulting variable will have a mean of 0 and a standard deviation and variance of 1. This method is a learned transformation. So we use the training data to derive the right values of \\(\\text{sd}(X)\\) and \\(\\text{mean}(X)\\) and then these values are used to perform the transformations when applied to new data. It is a common misconception that this transformation is done to make the data normally distributed. This transformation doesn’t change the distribution, it scales the values. Below is a figure Figure 10.1 that illustrates that point\nIn Figure 10.1 we see some distribution, before and after applying normalization to it. Both the original and transformed distribution are bimodal, and the transformed distribution is no more normal than the original. And that is fine because the transformation did its job by moving the values close to 0 and a specific spread, which in this case is a variance of 1."
-  },
-  {
     "objectID": "numeric-normalization.html#pros-and-cons",
     "href": "numeric-normalization.html#pros-and-cons",
     "title": "10  Normalization",
@@ -215,13 +159,6 @@
     "title": "10  Normalization",
     "section": "10.2 R Examples",
     "text": "10.2 R Examples\nWe will be using the ames data set for these examples.\n\nlibrary(recipes)\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nlibrary(modeldata)\ndata(\"ames\")\n\names |>\n  select(Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)\n\n# A tibble: 2,930 × 4\n   Sale_Price Lot_Area Wood_Deck_SF Mas_Vnr_Area\n        <int>    <int>        <int>        <dbl>\n 1     215000    31770          210          112\n 2     105000    11622          140            0\n 3     172000    14267          393          108\n 4     244000    11160            0            0\n 5     189900    13830          212            0\n 6     195500     9978          360           20\n 7     213500     4920            0            0\n 8     191500     5005            0            0\n 9     236500     5389          237            0\n10     189000     7500          140            0\n# … with 2,920 more rows\n\n\n{recipes} provides a step to perform scaling, centering, and normalization. They are called step_scale(), step_center() and step_normalize() respectively.\nBelow is an example using step_scale()\n\nscale_rec <- recipe(Sale_Price ~ ., data = ames) |>\n  step_scale(all_numeric_predictors()) |>\n  prep()\n\nscale_rec |>\n  bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)\n\n# A tibble: 2,930 × 4\n   Sale_Price Lot_Area Wood_Deck_SF Mas_Vnr_Area\n        <int>    <dbl>        <dbl>        <dbl>\n 1     215000    4.03          1.66        0.627\n 2     105000    1.47          1.11        0    \n 3     172000    1.81          3.11        0.605\n 4     244000    1.42          0           0    \n 5     189900    1.76          1.68        0    \n 6     195500    1.27          2.85        0.112\n 7     213500    0.624         0           0    \n 8     191500    0.635         0           0    \n 9     236500    0.684         1.88        0    \n10     189000    0.952         1.11        0    \n# … with 2,920 more rows\n\n\nWe can also pull out the value of the standard deviation for each variable that was affected using tidy()\n\nscale_rec |>\n  tidy(1)\n\n# A tibble: 33 × 3\n   terms            value id         \n   <chr>            <dbl> <chr>      \n 1 Lot_Frontage     33.5  scale_FGmgk\n 2 Lot_Area       7880.   scale_FGmgk\n 3 Year_Built       30.2  scale_FGmgk\n 4 Year_Remod_Add   20.9  scale_FGmgk\n 5 Mas_Vnr_Area    179.   scale_FGmgk\n 6 BsmtFin_SF_1      2.23 scale_FGmgk\n 7 BsmtFin_SF_2    169.   scale_FGmgk\n 8 Bsmt_Unf_SF     440.   scale_FGmgk\n 9 Total_Bsmt_SF   441.   scale_FGmgk\n10 First_Flr_SF    392.   scale_FGmgk\n# … with 23 more rows\n\n\nWe could also have used step_center() and step_scale() together in one recipe\n\ncenter_scale_rec <- recipe(Sale_Price ~ ., data = ames) |>\n  step_center(all_numeric_predictors()) |>\n  step_scale(all_numeric_predictors()) |>\n  prep()\n\ncenter_scale_rec |>\n  bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)\n\n# A tibble: 2,930 × 4\n   Sale_Price Lot_Area Wood_Deck_SF Mas_Vnr_Area\n        <int>    <dbl>        <dbl>        <dbl>\n 1     215000   2.74          0.920       0.0610\n 2     105000   0.187         0.366      -0.566 \n 3     172000   0.523         2.37        0.0386\n 4     244000   0.128        -0.742      -0.566 \n 5     189900   0.467         0.936      -0.566 \n 6     195500  -0.0216        2.11       -0.454 \n 7     213500  -0.663        -0.742      -0.566 \n 8     191500  -0.653        -0.742      -0.566 \n 9     236500  -0.604         1.13       -0.566 \n10     189000  -0.336         0.366      -0.566 \n# … with 2,920 more rows\n\n\nUsing tidy() we can see information about each step\n\ncenter_scale_rec |>\n  tidy()\n\n# A tibble: 2 × 6\n  number operation type   trained skip  id          \n   <int> <chr>     <chr>  <lgl>   <lgl> <chr>       \n1      1 step      center TRUE    FALSE center_tSRk5\n2      2 step      scale  TRUE    FALSE scale_kjP2v \n\n\nAnd we can pull out the means using tidy(1)\n\ncenter_scale_rec |>\n  tidy(1)\n\n# A tibble: 33 × 3\n   terms             value id          \n   <chr>             <dbl> <chr>       \n 1 Lot_Frontage      57.6  center_tSRk5\n 2 Lot_Area       10148.   center_tSRk5\n 3 Year_Built      1971.   center_tSRk5\n 4 Year_Remod_Add  1984.   center_tSRk5\n 5 Mas_Vnr_Area     101.   center_tSRk5\n 6 BsmtFin_SF_1       4.18 center_tSRk5\n 7 BsmtFin_SF_2      49.7  center_tSRk5\n 8 Bsmt_Unf_SF      559.   center_tSRk5\n 9 Total_Bsmt_SF   1051.   center_tSRk5\n10 First_Flr_SF    1160.   center_tSRk5\n# … with 23 more rows\n\n\nand the standard deviation using tidy(2)\n\ncenter_scale_rec |>\n  tidy(2)\n\n# A tibble: 33 × 3\n   terms            value id         \n   <chr>            <dbl> <chr>      \n 1 Lot_Frontage     33.5  scale_kjP2v\n 2 Lot_Area       7880.   scale_kjP2v\n 3 Year_Built       30.2  scale_kjP2v\n 4 Year_Remod_Add   20.9  scale_kjP2v\n 5 Mas_Vnr_Area    179.   scale_kjP2v\n 6 BsmtFin_SF_1      2.23 scale_kjP2v\n 7 BsmtFin_SF_2    169.   scale_kjP2v\n 8 Bsmt_Unf_SF     440.   scale_kjP2v\n 9 Total_Bsmt_SF   441.   scale_kjP2v\n10 First_Flr_SF    392.   scale_kjP2v\n# … with 23 more rows\n\n\nSince these steps often follow each other, we often use the step_normalize() as a shortcut to do both operations in one step\n\nscale_rec <- recipe(Sale_Price ~ ., data = ames) |>\n  step_normalize(all_numeric_predictors()) |>\n  prep()\n\nscale_rec |>\n  bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)\n\n# A tibble: 2,930 × 4\n   Sale_Price Lot_Area Wood_Deck_SF Mas_Vnr_Area\n        <int>    <dbl>        <dbl>        <dbl>\n 1     215000   2.74          0.920       0.0610\n 2     105000   0.187         0.366      -0.566 \n 3     172000   0.523         2.37        0.0386\n 4     244000   0.128        -0.742      -0.566 \n 5     189900   0.467         0.936      -0.566 \n 6     195500  -0.0216        2.11       -0.454 \n 7     213500  -0.663        -0.742      -0.566 \n 8     191500  -0.653        -0.742      -0.566 \n 9     236500  -0.604         1.13       -0.566 \n10     189000  -0.336         0.366      -0.566 \n# … with 2,920 more rows\n\n\nAnd we can still pull out the means and standard deviations using tidy()\n\nscale_rec |>\n  tidy(1) |>\n  filter(terms %in% c(\"Lot_Area\", \"Wood_Deck_SF\", \"Mas_Vnr_Area\"))\n\n# A tibble: 6 × 4\n  terms        statistic   value id             \n  <chr>        <chr>       <dbl> <chr>          \n1 Lot_Area     mean      10148.  normalize_ucdPw\n2 Mas_Vnr_Area mean        101.  normalize_ucdPw\n3 Wood_Deck_SF mean         93.8 normalize_ucdPw\n4 Lot_Area     sd         7880.  normalize_ucdPw\n5 Mas_Vnr_Area sd          179.  normalize_ucdPw\n6 Wood_Deck_SF sd          126.  normalize_ucdPw\n\n\n\n10.2.1 Python Examples"
-  },
-  {
-    "objectID": "numeric-range.html",
-    "href": "numeric-range.html",
-    "title": "11  Range",
-    "section": "",
-    "text": "Range scaling, also known as Min-Max scaling, is a method where to make the data fit into a pre-defined interval. Typically the equation used to illustrate this method is show like so\n\\[\nX_{scaled} = \\dfrac{X - \\text{min}(X)}{\\text{max}(X) - \\text{min}(X)}\n\\tag{11.1}\\]\nThis equations only shows what happens if you use the software with defaults. This will scale your variable to be in the range \\([0, 1]\\). It is important to treat this as a learned method, and we will thus calculate \\(\\text{min}(X)\\) and \\(\\text{max}(X)\\) on the training data set, and use those to apply the transformation on new data. One of the benefits of this method is that it transforms any variable into a predefined range of 0 and 1. Unless of cause a new data point is outside the range. Suppose that the original data was on the range \\(\\text{min}(X) = 5\\) and \\(\\text{max}(X) = 100\\), and we encounter a new data point with the value 200. Then according to Equation 11.2 we would get a transformed value of (200-5)/(100-5) = 2.0526 which is very much not between 0 and 1. We thus have a violation of our original goal. One way to get around this is to use clipping. Clipping is a technique when using this method where any values less then \\(\\text{min}(X)\\) will be noted as 0 and any values larger than \\(\\text{max}(X)\\) will be noted as 1. This little tick ensures that any new data points stays within the range. Expending our equation to the following\n\\[\nX_{scaled}=    \n\\begin{cases}        \n0, & X_{new} < \\text{min}(X_{train})\\\\        \n1 & X_{new} > \\text{max}(X_{train})\\\\\n\\dfrac{X_{new} - \\text{min}(X_{train})}{\\text{max}(X_{train}) - \\text{min}(X_{train})}, & \\text{otherwise}\n\\end{cases}\n\\tag{11.2}\\]\nThe equation is a lot bigger, but was it different is that we are specify that the transformation should be done using training data, and by adding a couple of branches to reflect the clipping. In practice it will look something like Figure 11.1 where the original data had a range of \\([10, 32]\\).\nSadly we are not done quite yet. One last thing that Equation 11.2 doesn’t take into account is that sometimes people don’t want to transformation to be into any range, not just \\([0, 1]\\) . This gives us the final equation\n\\[\nX_{scaled}=    \n\\begin{cases}        \nR_{lower}, & X_{new} < \\text{min}(X_{train})\\\\        \nR_{upper} & X_{new} > \\text{max}(X_{train})\\\\\n\\dfrac{X_{new} - \\text{min}(X_{train})}{\\text{max}(X_{train}) - \\text{min}(X_{train})} \\cdot (R_{upper}-R_{lower}) + R_{lower}, & \\text{otherwise}\n\\end{cases}\n\\tag{11.3}\\]\nWhere Equation 11.3 now have \\(R_{lower}\\) to represent a user defined lower bound, and \\(R_{upper}\\) representing the corresponding user defined upper bound. I would recommend that you keep Equation 11.1 in your mind when thinking about this method, but also include a little footnote that it doesn’t include all the little options.\nOne thing you should know is how this transformation is affected by outliers. Clipping essentially ignores the magnitude of how much an outlier is. There is no difference between a new value of 100 and 100000 to a variable that had a range of \\([0, 90]\\) on the training data set. This might be a problem, and it is up to you as the practitioner to decide. One option would be to turn off clipping, but it would violate the assumption that all future transformed observations will be within a specific range.\nBelow is the figure Figure 11.2 is an illustration of the effect by having a single high value. In this case, a single observation with the value `10000` moved the transformed distribution much tighter around zero. And all but removed the variance of the non-outliers."
   },
   {
     "objectID": "numeric-range.html#pros-and-cons",
@@ -238,13 +175,6 @@
     "text": "11.2 R Examples\nstep_range() clips. Does allow user to specify range step_minmax() doesn’t clip. doens’t allow user to specify range. A PR is planned to allow users to turn off clipping in step_range()\nWe will be using the ames data set for these examples.\n\nlibrary(recipes)\nlibrary(modeldata)\ndata(\"ames\")\n\names |>\n  select(Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)\n\n# A tibble: 2,930 × 4\n   Sale_Price Lot_Area Wood_Deck_SF Mas_Vnr_Area\n        <int>    <int>        <int>        <dbl>\n 1     215000    31770          210          112\n 2     105000    11622          140            0\n 3     172000    14267          393          108\n 4     244000    11160            0            0\n 5     189900    13830          212            0\n 6     195500     9978          360           20\n 7     213500     4920            0            0\n 8     191500     5005            0            0\n 9     236500     5389          237            0\n10     189000     7500          140            0\n# … with 2,920 more rows\n\n\nWe will be using the step_range() step for this\n\nrange_rec <- recipe(Sale_Price ~ ., data = ames) |>\n  step_range(all_numeric_predictors()) |>\n  prep()\n\nrange_rec |>\n  bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)\n\n# A tibble: 2,930 × 4\n   Sale_Price Lot_Area Wood_Deck_SF Mas_Vnr_Area\n        <int>    <dbl>        <dbl>        <dbl>\n 1     215000   0.142        0.147        0.07  \n 2     105000   0.0482       0.0983       0     \n 3     172000   0.0606       0.276        0.0675\n 4     244000   0.0461       0            0     \n 5     189900   0.0586       0.149        0     \n 6     195500   0.0406       0.253        0.0125\n 7     213500   0.0169       0            0     \n 8     191500   0.0173       0            0     \n 9     236500   0.0191       0.166        0     \n10     189000   0.0290       0.0983       0     \n# … with 2,920 more rows\n\n\nWe can also pull out what the min and max value were for each variable using tidy()\n\nrange_rec |>\n  tidy(1)\n\n# A tibble: 33 × 4\n   terms            min    max id         \n   <chr>          <dbl>  <dbl> <chr>      \n 1 Lot_Frontage       0    313 range_FGmgk\n 2 Lot_Area        1300 215245 range_FGmgk\n 3 Year_Built      1872   2010 range_FGmgk\n 4 Year_Remod_Add  1950   2010 range_FGmgk\n 5 Mas_Vnr_Area       0   1600 range_FGmgk\n 6 BsmtFin_SF_1       0      7 range_FGmgk\n 7 BsmtFin_SF_2       0   1526 range_FGmgk\n 8 Bsmt_Unf_SF        0   2336 range_FGmgk\n 9 Total_Bsmt_SF      0   6110 range_FGmgk\n10 First_Flr_SF     334   5095 range_FGmgk\n# … with 23 more rows\n\n\nusing the min and max argument we can set different ranges\n\nrange_rec <- recipe(Sale_Price ~ ., data = ames) |>\n  step_range(all_numeric_predictors(), min = -2, max = 2) |>\n  prep()\n\nrange_rec |>\n  bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)\n\n# A tibble: 2,930 × 4\n   Sale_Price Lot_Area Wood_Deck_SF Mas_Vnr_Area\n        <int>    <dbl>        <dbl>        <dbl>\n 1     215000    -1.43       -1.41         -1.72\n 2     105000    -1.81       -1.61         -2   \n 3     172000    -1.76       -0.896        -1.73\n 4     244000    -1.82       -2            -2   \n 5     189900    -1.77       -1.40         -2   \n 6     195500    -1.84       -0.989        -1.95\n 7     213500    -1.93       -2            -2   \n 8     191500    -1.93       -2            -2   \n 9     236500    -1.92       -1.33         -2   \n10     189000    -1.88       -1.61         -2   \n# … with 2,920 more rows\n\n\n\n11.2.1 Python Examples\nMinMaxScaler() doesn’t clip by default. Allows user to specify range."
   },
   {
-    "objectID": "numeric-maxabs.html",
-    "href": "numeric-maxabs.html",
-    "title": "12  Max Abs",
-    "section": "",
-    "text": "The Max-Abs scaling method works by making sure that the training data lies with the range \\([-1, 1]\\) by applying the following formula\n\\[\nX_{scaled} = \\dfrac{X}{\\text{max}(\\text{abs}(X))}\n\\tag{12.1}\\]\nThis is similar to the scaling we saw in Chapter 10. And we see that the only difference is whether we are aiming for the statistical properly (standard deviation of 1) or a specific decision (dividing by largest quantity seen). This method is a learned transformation. So we use the training data to derive the right value of \\(\\text{max}(\\text{abs}(X))\\) and then this value is used to perform the transformations when applied to new data. For this there is no specific guidance as to which method you want to use and you need to look at your data and see what works best."
-  },
-  {
     "objectID": "numeric-maxabs.html#pros-and-cons",
     "href": "numeric-maxabs.html#pros-and-cons",
     "title": "12  Max Abs",
@@ -257,13 +187,6 @@
     "title": "12  Max Abs",
     "section": "12.2 R Examples",
     "text": "12.2 R Examples\nWe will be using the ames data set for these examples.\n\n\n\n\n# remotes::install_github(\"emilhvitfeldt/extrasteps\")\nlibrary(recipes)\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nlibrary(extrasteps)\nlibrary(modeldata)\ndata(\"ames\")\n\names |>\n  select(Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)\n\n# A tibble: 2,930 × 4\n   Sale_Price Lot_Area Wood_Deck_SF Mas_Vnr_Area\n        <int>    <int>        <int>        <dbl>\n 1     215000    31770          210          112\n 2     105000    11622          140            0\n 3     172000    14267          393          108\n 4     244000    11160            0            0\n 5     189900    13830          212            0\n 6     195500     9978          360           20\n 7     213500     4920            0            0\n 8     191500     5005            0            0\n 9     236500     5389          237            0\n10     189000     7500          140            0\n# … with 2,920 more rows\n\n\nWe will be using the step_maxabs() step for this, and it can be found in the extrasteps extension package.\n\nmaxabs_rec <- recipe(Sale_Price ~ ., data = ames) |>\n  step_maxabs(all_numeric_predictors()) |>\n  prep()\n\nmaxabs_rec |>\n  bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)\n\n# A tibble: 2,930 × 4\n   Sale_Price Lot_Area Wood_Deck_SF Mas_Vnr_Area\n        <int>    <dbl>        <dbl>        <dbl>\n 1     215000   0.148        0.147        0.07  \n 2     105000   0.0540       0.0983       0     \n 3     172000   0.0663       0.276        0.0675\n 4     244000   0.0518       0            0     \n 5     189900   0.0643       0.149        0     \n 6     195500   0.0464       0.253        0.0125\n 7     213500   0.0229       0            0     \n 8     191500   0.0233       0            0     \n 9     236500   0.0250       0.166        0     \n10     189000   0.0348       0.0983       0     \n# … with 2,920 more rows\n\n\nWe can also pull out what the max values were for each variable using tidy()\n\nmaxabs_rec |>\n  tidy(1)\n\n# A tibble: 33 × 4\n   terms          statistic  value id          \n   <chr>          <chr>      <dbl> <chr>       \n 1 Lot_Frontage   max          313 maxabs_Bp5vK\n 2 Lot_Area       max       215245 maxabs_Bp5vK\n 3 Year_Built     max         2010 maxabs_Bp5vK\n 4 Year_Remod_Add max         2010 maxabs_Bp5vK\n 5 Mas_Vnr_Area   max         1600 maxabs_Bp5vK\n 6 BsmtFin_SF_1   max            7 maxabs_Bp5vK\n 7 BsmtFin_SF_2   max         1526 maxabs_Bp5vK\n 8 Bsmt_Unf_SF    max         2336 maxabs_Bp5vK\n 9 Total_Bsmt_SF  max         6110 maxabs_Bp5vK\n10 First_Flr_SF   max         5095 maxabs_Bp5vK\n# … with 23 more rows\n\n\n\n12.2.1 Python Examples"
-  },
-  {
-    "objectID": "numeric-robust.html",
-    "href": "numeric-robust.html",
-    "title": "13  Robust Scaling",
-    "section": "",
-    "text": "Range scaling, is a scaling method that is typically done be removing the median and dividing by the interquartile range. As illustrated by Equation 13.1\n\\[X_{scaled} = \\dfrac{X - \\text{median}(X)}{\\text{Q3}(X) - \\text{Q1}(X)} \\tag{13.1}\\]\nThis is the most common formulation of this method. This method is a learned transformation. So we use the training data to derive the right values of \\(\\text{Q3}(X)\\), \\(\\text{Q1}(X)\\), and \\(\\text{median}(X)\\) and then these values are used to perform the transformations when applied to new data. You are not bound to use Q1 and Q3, any quantiles can be used. Most software implementations allow you to modify the ranges. It is typically recommended that you pick a symmetric range like \\([0.1, 0.9]\\) or \\([0.3, 0.7]\\) unless you have a good reason why observations high or low should be excluded.\nThis method is normally showcased as a way to scale variables with outliers in them. That is true, in so far that you don’t take the outer quantiles into considerations. The default range means that only 50% of the observations are used to calculate the scaling statistics. This is fine if you want to ignore the outliers, however it is conventionally not a good idea to outright ignore outliers, so you might want to take a look at Section 4.4 before you throw away the information that is present in the outliers."
   },
   {
     "objectID": "numeric-robust.html#pros-and-cons",
@@ -294,13 +217,6 @@
     "text": "WIP"
   },
   {
-    "objectID": "categorical.html",
-    "href": "categorical.html",
-    "title": "16  Overview",
-    "section": "",
-    "text": "One of the most common types of data you can encounter is categorical variables. These variables take non-numeric values and are things like; names, animal, housetype zipcode, mood, and so on. We call these qualitative variables and you will have to find a way to deal with them as they are plentiful in most data sets you will encounter. You will, however, unlike numerical variables in Chapter 4, have to transform these variables into numeric variables as most models only work with numeric variables. The main exception to this is tree-based models such as decision trees, random forests, and boosted trees. This is of cause a theoretical fact, as some implementations of tree-based models don’t support categorical variables.\nThe above description is a small but useful simplification. A categorical variable can take a known or an unknown number of unique values. day_of_the_week and zipcode are examples of variables with a fixed known number of values. Even if our data only contains Sundays, Mondays, and Thursdays we know that there are 7 different possible options. On the other hand, there are plenty of categorical variables where the levels are realistically unknown, such as company_name, street_name, and food_item. This distinction matters as it can be used to inform the pre-processing that will be done.\nAnother nuance is some categorical variables have an inherent order to them. So the variables size with the values \"small\", \"medium\", and \"large\", clearly have an ordering to then \"small\" < \"medium\" < \"large\". This is unlike the theoretical car_color with the values “blue”,“red”, and“black”`, which doesn’t have a natural ordering. Depending on whether a variable has an ordering, we can use that information. This is something that doesn’t have to be dealt with, but the added information can be useful.\nLastly, we have the encoding these categorical variables have. The same variable household_pet can be encoded as [\"cat\", \"cat\", \"dog\", \"cat\", \"hamster\"] or as [1, 1, 2, 1, 3]. The latter (hopefully) is accompanied by a data dictionary saying [1 = \"cat\", 2 = \"dog\", 3 = \"hamster\"]. These variables contain the exact same information, but the encoding is vastly different, and if you are not careful to treat household_pet as a categorical variable the model with believing that \"hamster\" - \"cat\" = \"dog\".\nTODO find an example of the above data encoding in the wild\nTODO add a section about data formats that preserve levels\nThe chapters in this section can be put into 2 categories:"
-  },
-  {
     "objectID": "categorical.html#categorical-to-categorical",
     "href": "categorical.html#categorical-to-categorical",
     "title": "16  Overview",
@@ -313,13 +229,6 @@
     "title": "16  Overview",
     "section": "16.2 Categorical to Numerical",
     "text": "16.2 Categorical to Numerical\nThe vast majority of the chapters in these chapters concern methods that take a categorical variable and produce one or more numerical variables suitable for modeling. There are quite a lot of different methods, all have upsides and downsides and they will all be explored in the remaining chapters."
-  },
-  {
-    "objectID": "categorical-cleaning.html",
-    "href": "categorical-cleaning.html",
-    "title": "17  Cleaning",
-    "section": "",
-    "text": "For cleaning categorical data, there is a whole host of problems you can have in your data. We won’t be able to describe how to deal with every single type of problem. Instead, we will go over a class of common problems. In an ideal world, you wouldn’t have these problems, but that isn’t one we are living in right now. Mistakes are happening for a multitude of reasons and it is your job to deal with them.\nTODO: Figure out how to properly reference https://twitter.com/camfassett/status/1575578362927452160\nLook at the following vector of spellings of St Albans, the city in England.\nThey all refer to the same city name, they don’t just agree on the spelling. If we didn’t perform any cleaning, most of the following methods would assume that these spellings are completely different works and should be treated as such. Depending on the method this would vastly change the output and dilute any information you may have in your data.\nThis will of course depend on whether these spelling differences are of importance in your model. Only you, the practitioner, will know the answer to that question. This is where you need to be in touch with the people generating your data. In the above situation, one could imagine that the data comes from 2 sources; one using a drop-down menu to select the city, and one where the city is being typed in manually on a tablet. There will be big differences. In a case such as that, we would want all these spellings to be fixed up.\nDomain knowledge is important. In the case of spell-checking, we need to be careful not to over-correct the data by collapsing two different items together by accident.\nBack to the example at hand. The first thing we notice is that there is a difference in capitalization. In this case, since we presumably are working with a variable of city names, capitalization shouldn’t matter. A common trick is to either turn everything upper-case or lower-case. I prefer to lower-casing as I find the results easier to read.\nBy turning everything into lower-case, we were able to remove 2 of the errors. Next, we see that some of these spellings include periods. For this example, I’m going to make the decision that they are safe to remove as well.\nThis removes yet another of our problems. This next problem is absolutely horrible and is so easy to overlook. Notice how the second spelling has a double space between st and alban? At a glance that can be hard to see. Likewise, the last spelling has a trailing space. Let us fix this as well.\nNow we are left with two values, which we manually would have to deal with. But even if we had to manually write out the mapping, it is a lot easier to write it for 2 different spellings than 7.\nAnother problem that you may or may not run into, depends on the resilience of your modeling package. Some implementations are rather fragile when it comes to the column names of your data, Non-ASCII characters, punctuation and even spaces can cause errors. At this point in our journey, we are almost there, and we can replace the spaces with underscores to be left with st_albans.\nOne problem we didn’t see in the above example is what happens you are working with accented characters. Consider the German word “schön.” The o with an umlaut (two dots over it) is a fairly simple character, but it can be represented in a couple of different ways. We can either use a single character \\U00f6 to represent the letter with an umlaut. Alternatively, we can use two characters, one for the o and one character to denote the presence of two dots over the previous character \\U0308. As you can imagine this can happen with many words if you have free-form data from a wide array of backgrounds. The method needed to fix this problem is called Unicode Normalization.\nTODO Pull nuggets from https://twitter.com/Emil_Hvitfeldt/status/1583466133977382912\nThis chapter was not meant to scare you, what I hope you get away from this chapter is that it is very important that you look at your data carefully, especially categorical variables that can be varied in so many unexpected ways. Nevertheless, using the above-described techniques, combined with some subject matter expertise should get you quite a long way."
   },
   {
     "objectID": "categorical-cleaning.html#r-examples",
@@ -336,18 +245,11 @@
     "text": "17.2 Python Examples"
   },
   {
-    "objectID": "categorical-unseen.html",
-    "href": "categorical-unseen.html",
-    "title": "18  Unseen Levels",
-    "section": "",
-    "text": "When you are dealing with categorical variables, it is understood that they can take many values. And we have various methods about how to deal with these categorical values, regardless of what values they take. One problem that eventually will happen for you is that you try to apply a trained preprocessor on data that has levels in your categorical variable that you haven’t seen before. This can happen when you are fitting your model using resampled data, when you are applying your model on the testing data set, or, if you are unlucky, at some future time in production.\nTODO add diagram here\nThe reason why you need to think about this problem is that some methods and/or models will complain and even error if you are providing unseen levels. Some implementations will allow you to deal with this at the method level. Other methods such as Chapter 28 don’t care at all that you have unseen levels in your data.\nOne surefire way to deal with this issue is to add a step in your data preprocessing pipeline that will turn any unseen levels into \"unseen\". What this method does in practice, is that it looks at your categorical variables during training, taking note of all the levels it sees and saving them. Then any time the preprocessing is applied to new data it will look at the levels again, and if it sees a level it hasn’t seen, label it \"unseen\" (or any other meaningful label that doesn’t conflict with the data). This way, you have any future levels.\nTODO add diagram here"
-  },
-  {
     "objectID": "categorical-unseen.html#r-examples",
     "href": "categorical-unseen.html#r-examples",
     "title": "18  Unseen Levels",
     "section": "18.1 R Examples",
-    "text": "18.1 R Examples\nWe will be using the nycflights13 data set. We are downsampling just a bit to only work on the first day and doing a test-train split.\n\nlibrary(recipes)\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nlibrary(rsample)\nlibrary(nycflights13)\n\nflights <- flights |>\n  filter(year == 2013, month == 1, day == 1)\n\nset.seed(13630)\nflights_split <- initial_split(flights)\nflights_train <- training(flights_split)\nflights_test <- testing(flights_split)\n\nNow we are doing the cardinal sin by looking at the testing data. But in this case, it is okay because we are doing it for educational purposes.\n\nflights_train |> pull(carrier) |> unique() |> sort()\n\n [1] \"9E\" \"AA\" \"B6\" \"DL\" \"EV\" \"F9\" \"FL\" \"MQ\" \"UA\" \"US\" \"VX\" \"WN\"\n\nflights_test |> pull(carrier) |> unique() |> sort()\n\n [1] \"9E\" \"AA\" \"AS\" \"B6\" \"DL\" \"EV\" \"FL\" \"HA\" \"MQ\" \"UA\" \"US\" \"VX\" \"WN\"\n\n\nNotice that the testing data includes the carrier \"AS\" and \"HA\" but the training data doesn’t know that. Let us see what would happen if we were to calculate dummy variables without doing any adjusting.\n\ndummy_spec <- recipe(arr_delay ~ carrier, data = flights_train) |>\n  step_dummy(carrier)\n\ndummy_spec_prepped <- prep(dummy_spec)\n\nbake(dummy_spec_prepped, new_data = flights_test)\n\nWarning: There are new levels in a factor: AS, HA\n\n\n# A tibble: 211 × 12\n   arr_delay carrier_AA carrie…¹ carri…² carri…³ carri…⁴ carri…⁵ carri…⁶ carri…⁷\n       <dbl>      <int>    <int>   <int>   <int>   <int>   <int>   <int>   <int>\n 1        12          0        0       0       0       0       0       0       1\n 2         8          1        0       0       0       0       0       0       0\n 3       -14          0        0       0       0       0       0       0       1\n 4        -6          0        1       0       0       0       0       0       0\n 5        -3          1        0       0       0       0       0       0       0\n 6       -33          0        0       1       0       0       0       0       0\n 7        -7          1        0       0       0       0       0       0       0\n 8         5          0        1       0       0       0       0       0       0\n 9        31          1        0       0       0       0       0       0       0\n10       -10         NA       NA      NA      NA      NA      NA      NA      NA\n# … with 201 more rows, 3 more variables: carrier_US <int>, carrier_VX <int>,\n#   carrier_WN <int>, and abbreviated variable names ¹​carrier_B6, ²​carrier_DL,\n#   ³​carrier_EV, ⁴​carrier_F9, ⁵​carrier_FL, ⁶​carrier_MQ, ⁷​carrier_UA\n\n\nWe get a warning, and if you look at the rows that were affected we see that it produces NAs. Let us now use the function step_novel() that implements the above-described method.\n\nnovel_spec <- recipe(arr_delay ~ carrier, data = flights_train) |>\n  step_novel(carrier) |>\n  step_dummy(carrier) \n\nnovel_spec_prepped <- prep(novel_spec)\n\nbake(novel_spec_prepped, new_data = flights_test)\n\n# A tibble: 211 × 13\n   arr_delay carrier_AA carrie…¹ carri…² carri…³ carri…⁴ carri…⁵ carri…⁶ carri…⁷\n       <dbl>      <int>    <int>   <int>   <int>   <int>   <int>   <int>   <int>\n 1        12          0        0       0       0       0       0       0       1\n 2         8          1        0       0       0       0       0       0       0\n 3       -14          0        0       0       0       0       0       0       1\n 4        -6          0        1       0       0       0       0       0       0\n 5        -3          1        0       0       0       0       0       0       0\n 6       -33          0        0       1       0       0       0       0       0\n 7        -7          1        0       0       0       0       0       0       0\n 8         5          0        1       0       0       0       0       0       0\n 9        31          1        0       0       0       0       0       0       0\n10       -10          0        0       0       0       0       0       0       0\n# … with 201 more rows, 4 more variables: carrier_US <int>, carrier_VX <int>,\n#   carrier_WN <int>, carrier_new <int>, and abbreviated variable names\n#   ¹​carrier_B6, ²​carrier_DL, ³​carrier_EV, ⁴​carrier_F9, ⁵​carrier_FL,\n#   ⁶​carrier_MQ, ⁷​carrier_UA\n\n\nAnd we see that we get no error or anything."
+    "text": "18.1 R Examples\nWe will be using the nycflights13 data set. We are downsampling just a bit to only work on the first day and doing a test-train split.\n\nlibrary(recipes)\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nlibrary(rsample)\nlibrary(nycflights13)\n\nflights <- flights |>\n  filter(year == 2013, month == 1, day == 1)\n\nset.seed(13630)\nflights_split <- initial_split(flights)\nflights_train <- training(flights_split)\nflights_test <- testing(flights_split)\n\nNow we are doing the cardinal sin by looking at the testing data. But in this case, it is okay because we are doing it for educational purposes.\n\nflights_train |> pull(carrier) |> unique() |> sort()\n\n [1] \"9E\" \"AA\" \"B6\" \"DL\" \"EV\" \"F9\" \"FL\" \"MQ\" \"UA\" \"US\" \"VX\" \"WN\"\n\nflights_test |> pull(carrier) |> unique() |> sort()\n\n [1] \"9E\" \"AA\" \"AS\" \"B6\" \"DL\" \"EV\" \"FL\" \"HA\" \"MQ\" \"UA\" \"US\" \"VX\" \"WN\"\n\n\nNotice that the testing data includes the carrier \"AS\" and \"HA\" but the training data doesn’t know that. Let us see what would happen if we were to calculate dummy variables without doing any adjusting.\n\ndummy_spec <- recipe(arr_delay ~ carrier, data = flights_train) |>\n  step_dummy(carrier)\n\ndummy_spec_prepped <- prep(dummy_spec)\n\nbake(dummy_spec_prepped, new_data = flights_test)\n\nWarning: There are new levels in a factor: AS, HA\n\n\n# A tibble: 211 × 12\n   arr_delay carrier_AA carrie…¹ carri…² carri…³ carri…⁴ carri…⁵ carri…⁶ carri…⁷\n       <dbl>      <dbl>    <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>\n 1        12          0        0       0       0       0       0       0       1\n 2         8          1        0       0       0       0       0       0       0\n 3       -14          0        0       0       0       0       0       0       1\n 4        -6          0        1       0       0       0       0       0       0\n 5        -3          1        0       0       0       0       0       0       0\n 6       -33          0        0       1       0       0       0       0       0\n 7        -7          1        0       0       0       0       0       0       0\n 8         5          0        1       0       0       0       0       0       0\n 9        31          1        0       0       0       0       0       0       0\n10       -10         NA       NA      NA      NA      NA      NA      NA      NA\n# … with 201 more rows, 3 more variables: carrier_US <dbl>, carrier_VX <dbl>,\n#   carrier_WN <dbl>, and abbreviated variable names ¹​carrier_B6, ²​carrier_DL,\n#   ³​carrier_EV, ⁴​carrier_F9, ⁵​carrier_FL, ⁶​carrier_MQ, ⁷​carrier_UA\n\n\nWe get a warning, and if you look at the rows that were affected we see that it produces NAs. Let us now use the function step_novel() that implements the above-described method.\n\nnovel_spec <- recipe(arr_delay ~ carrier, data = flights_train) |>\n  step_novel(carrier) |>\n  step_dummy(carrier) \n\nnovel_spec_prepped <- prep(novel_spec)\n\nbake(novel_spec_prepped, new_data = flights_test)\n\n# A tibble: 211 × 13\n   arr_delay carrier_AA carrie…¹ carri…² carri…³ carri…⁴ carri…⁵ carri…⁶ carri…⁷\n       <dbl>      <dbl>    <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>\n 1        12          0        0       0       0       0       0       0       1\n 2         8          1        0       0       0       0       0       0       0\n 3       -14          0        0       0       0       0       0       0       1\n 4        -6          0        1       0       0       0       0       0       0\n 5        -3          1        0       0       0       0       0       0       0\n 6       -33          0        0       1       0       0       0       0       0\n 7        -7          1        0       0       0       0       0       0       0\n 8         5          0        1       0       0       0       0       0       0\n 9        31          1        0       0       0       0       0       0       0\n10       -10          0        0       0       0       0       0       0       0\n# … with 201 more rows, 4 more variables: carrier_US <dbl>, carrier_VX <dbl>,\n#   carrier_WN <dbl>, carrier_new <dbl>, and abbreviated variable names\n#   ¹​carrier_B6, ²​carrier_DL, ³​carrier_EV, ⁴​carrier_F9, ⁵​carrier_FL,\n#   ⁶​carrier_MQ, ⁷​carrier_UA\n\n\nAnd we see that we get no error or anything."
   },
   {
     "objectID": "categorical-unseen.html#python-examples",
@@ -355,13 +257,6 @@
     "title": "18  Unseen Levels",
     "section": "18.2 Python Examples",
     "text": "18.2 Python Examples\nTODO"
-  },
-  {
-    "objectID": "categorical-dummy.html",
-    "href": "categorical-dummy.html",
-    "title": "19  Dummy Encoding",
-    "section": "",
-    "text": "We have some categorical variables and we want to turn them into numerical values, one of the most common ways of going about it it so create dummy variables. Dummy variables are variables that only take the values 0 and 1 to indicate the absence or presence of the levels in a categorical variable. This is nicely shown with an example.\nConsidering this short categorical variable of animals, we observe there are 3 unique values “cat”, “dog”, and “horse”.\nWhich just this knowledge we can create the corresponding dummy variables. There should be 3 columns one for each of the levels\nFrom this, we have a couple of observations. Firstly the length of each of these variables is equal to the length of the original categorical variable. The number of columns corresponds to the number of levels. And lastly, the sum of all the values on each row equals 1 since all the rows contain one 1 and the remaining 0s. This means that for even a small number of levels, you get sparse data. Sparse data is data where there are a lot of zeroes, meaning that it would take less space to store where the non-zero values are instead of all the values. You can read more about how and when to care about sparse data in Chapter 76. What this means for dummy variable creation, is that depending on whether your software can handle sparse data, you might need to limit the number of levels in your categorical variables. One way to do this would be to collapse levels together, which you can read about in Chapter 41.\nDummy variable creation is a trained method. This means that doing the training step, the levels of each categorical variable are saved, and then these and only these values are used for dummy variable creation. If we assumed that the above example data were used to train the preprocessor, and we passed in the values [\"dog\", \"cat\", \"cat\", \"dog\"] during future applications, we would expect the following dummy variables\nit is important that the horse variable is here too, even if it is empty as the subsequent preprocessing steps and model expect the horse variable to be present. Likewise, you can run into problems if the value \"duck\" was used as the preprocessor wouldn’t know what to do. These cases are talked about in Chapter 18."
   },
   {
     "objectID": "categorical-dummy.html#dummy-or-one-hot-encoding",
@@ -396,7 +291,7 @@
     "href": "categorical-dummy.html#r-examples",
     "title": "19  Dummy Encoding",
     "section": "19.5 R Examples",
-    "text": "19.5 R Examples\nWe will be using the ames data set for these examples. The step_dummy() function allows us to perform dummy encoding and one-hot encoding.\n\n\n\n\nlibrary(recipes)\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nlibrary(modeldata)\ndata(\"ames\")\n\names |>\n  select(Sale_Price, MS_SubClass, MS_Zoning)\n\n# A tibble: 2,930 × 3\n   Sale_Price MS_SubClass                         MS_Zoning               \n        <int> <fct>                               <fct>                   \n 1     215000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 2     105000 One_Story_1946_and_Newer_All_Styles Residential_High_Density\n 3     172000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 4     244000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 5     189900 Two_Story_1946_and_Newer            Residential_Low_Density \n 6     195500 Two_Story_1946_and_Newer            Residential_Low_Density \n 7     213500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n 8     191500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n 9     236500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n10     189000 Two_Story_1946_and_Newer            Residential_Low_Density \n# … with 2,920 more rows\n\n\nWe can take a quick look at the possible values MS_SubClass takes\n\names |>\n  count(MS_SubClass, sort = TRUE)\n\n# A tibble: 16 × 2\n   MS_SubClass                                   n\n   <fct>                                     <int>\n 1 One_Story_1946_and_Newer_All_Styles        1079\n 2 Two_Story_1946_and_Newer                    575\n 3 One_and_Half_Story_Finished_All_Ages        287\n 4 One_Story_PUD_1946_and_Newer                192\n 5 One_Story_1945_and_Older                    139\n 6 Two_Story_PUD_1946_and_Newer                129\n 7 Two_Story_1945_and_Older                    128\n 8 Split_or_Multilevel                         118\n 9 Duplex_All_Styles_and_Ages                  109\n10 Two_Family_conversion_All_Styles_and_Ages    61\n11 Split_Foyer                                  48\n12 Two_and_Half_Story_All_Ages                  23\n13 One_and_Half_Story_Unfinished_All_Ages       18\n14 PUD_Multilevel_Split_Level_Foyer             17\n15 One_Story_with_Finished_Attic_All_Ages        6\n16 One_and_Half_Story_PUD_All_Ages               1\n\n\nAnd since MS_SubClass is a factor, we can verify that they match and that all the levels are observed\n\names |> pull(MS_SubClass) |> levels()\n\n [1] \"One_Story_1946_and_Newer_All_Styles\"      \n [2] \"One_Story_1945_and_Older\"                 \n [3] \"One_Story_with_Finished_Attic_All_Ages\"   \n [4] \"One_and_Half_Story_Unfinished_All_Ages\"   \n [5] \"One_and_Half_Story_Finished_All_Ages\"     \n [6] \"Two_Story_1946_and_Newer\"                 \n [7] \"Two_Story_1945_and_Older\"                 \n [8] \"Two_and_Half_Story_All_Ages\"              \n [9] \"Split_or_Multilevel\"                      \n[10] \"Split_Foyer\"                              \n[11] \"Duplex_All_Styles_and_Ages\"               \n[12] \"One_Story_PUD_1946_and_Newer\"             \n[13] \"One_and_Half_Story_PUD_All_Ages\"          \n[14] \"Two_Story_PUD_1946_and_Newer\"             \n[15] \"PUD_Multilevel_Split_Level_Foyer\"         \n[16] \"Two_Family_conversion_All_Styles_and_Ages\"\n\n\nWe will be using the step_dummy() step for this, which defaults to creating dummy variables\n\ndummy_rec <- recipe(Sale_Price ~ ., data = ames) |>\n  step_dummy(all_nominal_predictors()) |>\n  prep()\n\ndummy_rec |>\n  bake(new_data = NULL, starts_with(\"MS_SubClass\"), starts_with(\"MS_Zoning\")) |>\n  glimpse()\n\nRows: 2,930\nColumns: 21\n$ MS_SubClass_One_Story_1945_and_Older                  <int> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_Story_with_Finished_Attic_All_Ages    <int> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_and_Half_Story_Unfinished_All_Ages    <int> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_and_Half_Story_Finished_All_Ages      <int> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_Story_1946_and_Newer                  <int> 0, 0, 0, 0, 1, 1…\n$ MS_SubClass_Two_Story_1945_and_Older                  <int> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_and_Half_Story_All_Ages               <int> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Split_or_Multilevel                       <int> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Split_Foyer                               <int> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Duplex_All_Styles_and_Ages                <int> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_Story_PUD_1946_and_Newer              <int> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_and_Half_Story_PUD_All_Ages           <int> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_Story_PUD_1946_and_Newer              <int> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_PUD_Multilevel_Split_Level_Foyer          <int> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_Family_conversion_All_Styles_and_Ages <int> 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_Residential_High_Density                    <int> 0, 1, 0, 0, 0, 0…\n$ MS_Zoning_Residential_Low_Density                     <int> 1, 0, 1, 1, 1, 1…\n$ MS_Zoning_Residential_Medium_Density                  <int> 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_A_agr                                       <int> 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_C_all                                       <int> 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_I_all                                       <int> 0, 0, 0, 0, 0, 0…\n\n\nWe can pull the factor levels for each variable by using tidy(). If a character vector was present in the data set, it would record the observed variables.\n\ndummy_rec |>\n  tidy(1)\n\n# A tibble: 243 × 3\n   terms       columns                                id         \n   <chr>       <chr>                                  <chr>      \n 1 MS_SubClass One_Story_1945_and_Older               dummy_Bp5vK\n 2 MS_SubClass One_Story_with_Finished_Attic_All_Ages dummy_Bp5vK\n 3 MS_SubClass One_and_Half_Story_Unfinished_All_Ages dummy_Bp5vK\n 4 MS_SubClass One_and_Half_Story_Finished_All_Ages   dummy_Bp5vK\n 5 MS_SubClass Two_Story_1946_and_Newer               dummy_Bp5vK\n 6 MS_SubClass Two_Story_1945_and_Older               dummy_Bp5vK\n 7 MS_SubClass Two_and_Half_Story_All_Ages            dummy_Bp5vK\n 8 MS_SubClass Split_or_Multilevel                    dummy_Bp5vK\n 9 MS_SubClass Split_Foyer                            dummy_Bp5vK\n10 MS_SubClass Duplex_All_Styles_and_Ages             dummy_Bp5vK\n# … with 233 more rows\n\n\nsetting one_hot = TRUE gives us the complete one-hot encoding results.\n\nonehot_rec <- recipe(Sale_Price ~ ., data = ames) |>\n  step_dummy(all_nominal_predictors(), one_hot = TRUE) |>\n  prep()\n\nonehot_rec |>\n  bake(new_data = NULL, starts_with(\"MS_SubClass\"), starts_with(\"MS_Zoning\")) |>\n  glimpse()\n\nRows: 2,930\nColumns: 23\n$ MS_SubClass_One_Story_1946_and_Newer_All_Styles       <int> 1, 1, 1, 1, 0, 0…\n$ MS_SubClass_One_Story_1945_and_Older                  <int> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_Story_with_Finished_Attic_All_Ages    <int> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_and_Half_Story_Unfinished_All_Ages    <int> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_and_Half_Story_Finished_All_Ages      <int> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_Story_1946_and_Newer                  <int> 0, 0, 0, 0, 1, 1…\n$ MS_SubClass_Two_Story_1945_and_Older                  <int> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_and_Half_Story_All_Ages               <int> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Split_or_Multilevel                       <int> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Split_Foyer                               <int> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Duplex_All_Styles_and_Ages                <int> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_Story_PUD_1946_and_Newer              <int> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_and_Half_Story_PUD_All_Ages           <int> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_Story_PUD_1946_and_Newer              <int> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_PUD_Multilevel_Split_Level_Foyer          <int> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_Family_conversion_All_Styles_and_Ages <int> 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_Floating_Village_Residential                <int> 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_Residential_High_Density                    <int> 0, 1, 0, 0, 0, 0…\n$ MS_Zoning_Residential_Low_Density                     <int> 1, 0, 1, 1, 1, 1…\n$ MS_Zoning_Residential_Medium_Density                  <int> 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_A_agr                                       <int> 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_C_all                                       <int> 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_I_all                                       <int> 0, 0, 0, 0, 0, 0…"
+    "text": "19.5 R Examples\nWe will be using the ames data set for these examples. The step_dummy() function allows us to perform dummy encoding and one-hot encoding.\n\n\n\n\nlibrary(recipes)\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nlibrary(modeldata)\ndata(\"ames\")\n\names |>\n  select(Sale_Price, MS_SubClass, MS_Zoning)\n\n# A tibble: 2,930 × 3\n   Sale_Price MS_SubClass                         MS_Zoning               \n        <int> <fct>                               <fct>                   \n 1     215000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 2     105000 One_Story_1946_and_Newer_All_Styles Residential_High_Density\n 3     172000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 4     244000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 5     189900 Two_Story_1946_and_Newer            Residential_Low_Density \n 6     195500 Two_Story_1946_and_Newer            Residential_Low_Density \n 7     213500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n 8     191500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n 9     236500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n10     189000 Two_Story_1946_and_Newer            Residential_Low_Density \n# … with 2,920 more rows\n\n\nWe can take a quick look at the possible values MS_SubClass takes\n\names |>\n  count(MS_SubClass, sort = TRUE)\n\n# A tibble: 16 × 2\n   MS_SubClass                                   n\n   <fct>                                     <int>\n 1 One_Story_1946_and_Newer_All_Styles        1079\n 2 Two_Story_1946_and_Newer                    575\n 3 One_and_Half_Story_Finished_All_Ages        287\n 4 One_Story_PUD_1946_and_Newer                192\n 5 One_Story_1945_and_Older                    139\n 6 Two_Story_PUD_1946_and_Newer                129\n 7 Two_Story_1945_and_Older                    128\n 8 Split_or_Multilevel                         118\n 9 Duplex_All_Styles_and_Ages                  109\n10 Two_Family_conversion_All_Styles_and_Ages    61\n11 Split_Foyer                                  48\n12 Two_and_Half_Story_All_Ages                  23\n13 One_and_Half_Story_Unfinished_All_Ages       18\n14 PUD_Multilevel_Split_Level_Foyer             17\n15 One_Story_with_Finished_Attic_All_Ages        6\n16 One_and_Half_Story_PUD_All_Ages               1\n\n\nAnd since MS_SubClass is a factor, we can verify that they match and that all the levels are observed\n\names |> pull(MS_SubClass) |> levels()\n\n [1] \"One_Story_1946_and_Newer_All_Styles\"      \n [2] \"One_Story_1945_and_Older\"                 \n [3] \"One_Story_with_Finished_Attic_All_Ages\"   \n [4] \"One_and_Half_Story_Unfinished_All_Ages\"   \n [5] \"One_and_Half_Story_Finished_All_Ages\"     \n [6] \"Two_Story_1946_and_Newer\"                 \n [7] \"Two_Story_1945_and_Older\"                 \n [8] \"Two_and_Half_Story_All_Ages\"              \n [9] \"Split_or_Multilevel\"                      \n[10] \"Split_Foyer\"                              \n[11] \"Duplex_All_Styles_and_Ages\"               \n[12] \"One_Story_PUD_1946_and_Newer\"             \n[13] \"One_and_Half_Story_PUD_All_Ages\"          \n[14] \"Two_Story_PUD_1946_and_Newer\"             \n[15] \"PUD_Multilevel_Split_Level_Foyer\"         \n[16] \"Two_Family_conversion_All_Styles_and_Ages\"\n\n\nWe will be using the step_dummy() step for this, which defaults to creating dummy variables\n\ndummy_rec <- recipe(Sale_Price ~ ., data = ames) |>\n  step_dummy(all_nominal_predictors()) |>\n  prep()\n\ndummy_rec |>\n  bake(new_data = NULL, starts_with(\"MS_SubClass\"), starts_with(\"MS_Zoning\")) |>\n  glimpse()\n\nRows: 2,930\nColumns: 21\n$ MS_SubClass_One_Story_1945_and_Older                  <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_Story_with_Finished_Attic_All_Ages    <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_and_Half_Story_Unfinished_All_Ages    <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_and_Half_Story_Finished_All_Ages      <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_Story_1946_and_Newer                  <dbl> 0, 0, 0, 0, 1, 1…\n$ MS_SubClass_Two_Story_1945_and_Older                  <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_and_Half_Story_All_Ages               <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Split_or_Multilevel                       <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Split_Foyer                               <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Duplex_All_Styles_and_Ages                <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_Story_PUD_1946_and_Newer              <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_and_Half_Story_PUD_All_Ages           <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_Story_PUD_1946_and_Newer              <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_PUD_Multilevel_Split_Level_Foyer          <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_Family_conversion_All_Styles_and_Ages <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_Residential_High_Density                    <dbl> 0, 1, 0, 0, 0, 0…\n$ MS_Zoning_Residential_Low_Density                     <dbl> 1, 0, 1, 1, 1, 1…\n$ MS_Zoning_Residential_Medium_Density                  <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_A_agr                                       <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_C_all                                       <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_I_all                                       <dbl> 0, 0, 0, 0, 0, 0…\n\n\nWe can pull the factor levels for each variable by using tidy(). If a character vector was present in the data set, it would record the observed variables.\n\ndummy_rec |>\n  tidy(1)\n\n# A tibble: 243 × 3\n   terms       columns                                id         \n   <chr>       <chr>                                  <chr>      \n 1 MS_SubClass One_Story_1945_and_Older               dummy_Bp5vK\n 2 MS_SubClass One_Story_with_Finished_Attic_All_Ages dummy_Bp5vK\n 3 MS_SubClass One_and_Half_Story_Unfinished_All_Ages dummy_Bp5vK\n 4 MS_SubClass One_and_Half_Story_Finished_All_Ages   dummy_Bp5vK\n 5 MS_SubClass Two_Story_1946_and_Newer               dummy_Bp5vK\n 6 MS_SubClass Two_Story_1945_and_Older               dummy_Bp5vK\n 7 MS_SubClass Two_and_Half_Story_All_Ages            dummy_Bp5vK\n 8 MS_SubClass Split_or_Multilevel                    dummy_Bp5vK\n 9 MS_SubClass Split_Foyer                            dummy_Bp5vK\n10 MS_SubClass Duplex_All_Styles_and_Ages             dummy_Bp5vK\n# … with 233 more rows\n\n\nsetting one_hot = TRUE gives us the complete one-hot encoding results.\n\nonehot_rec <- recipe(Sale_Price ~ ., data = ames) |>\n  step_dummy(all_nominal_predictors(), one_hot = TRUE) |>\n  prep()\n\nonehot_rec |>\n  bake(new_data = NULL, starts_with(\"MS_SubClass\"), starts_with(\"MS_Zoning\")) |>\n  glimpse()\n\nRows: 2,930\nColumns: 23\n$ MS_SubClass_One_Story_1946_and_Newer_All_Styles       <dbl> 1, 1, 1, 1, 0, 0…\n$ MS_SubClass_One_Story_1945_and_Older                  <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_Story_with_Finished_Attic_All_Ages    <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_and_Half_Story_Unfinished_All_Ages    <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_and_Half_Story_Finished_All_Ages      <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_Story_1946_and_Newer                  <dbl> 0, 0, 0, 0, 1, 1…\n$ MS_SubClass_Two_Story_1945_and_Older                  <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_and_Half_Story_All_Ages               <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Split_or_Multilevel                       <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Split_Foyer                               <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Duplex_All_Styles_and_Ages                <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_Story_PUD_1946_and_Newer              <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_and_Half_Story_PUD_All_Ages           <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_Story_PUD_1946_and_Newer              <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_PUD_Multilevel_Split_Level_Foyer          <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_Family_conversion_All_Styles_and_Ages <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_Floating_Village_Residential                <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_Residential_High_Density                    <dbl> 0, 1, 0, 0, 0, 0…\n$ MS_Zoning_Residential_Low_Density                     <dbl> 1, 0, 1, 1, 1, 1…\n$ MS_Zoning_Residential_Medium_Density                  <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_A_agr                                       <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_C_all                                       <dbl> 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_I_all                                       <dbl> 0, 0, 0, 0, 0, 0…"
   },
   {
     "objectID": "categorical-dummy.html#python-examples",
@@ -404,13 +299,6 @@
     "title": "19  Dummy Encoding",
     "section": "19.6 Python Examples",
     "text": "19.6 Python Examples\nTODO"
-  },
-  {
-    "objectID": "categorical-label.html",
-    "href": "categorical-label.html",
-    "title": "20  Label Encoding",
-    "section": "",
-    "text": "Label encoding (also called integer encoding) is a method that map the categorical levels into the integers 1 through n where n is the number of levels.\nThis method is a trained method since the preprocessor needs to keep a record of the possible values and their corresponding integer value. Unseen levels can be encoded outside the range to be either 0 or n + 1, allowing unseen levels to be handled with minimal extra work.\nTODO add diagram\nThis method is often not ideal as the ordering of the levels will matter a lot for the performance of the model that needs to make sense of the generated numeric variables. For a variable with the levels “Studio”, “Apartment”, “Loft”, “Duplex”. This variable contains 4! = 4 * 3 * 2 * 1 = 24 different orderings. And since the number of permutations is calculated with factorials, this number goes up fast. With just 10 levels we are looking at 3,628,800 different orderings. Even if some orders are better than others, It would be a very slow task to iterate through to find which ones are good. If you have prior information about the levels, then you should use Chapter 21.\nIf you are working on an implementation that works with factors, then they will be used. Otherwise, the ordering most likely will be alphabetical or in order of occurrence. You should check the documentation of your implementation to figure out which.\nThe performance of this method will depend a lot on the model. If you are working with a linear model, then you most likely are out of luck as it wouldn’t be able to use a variable where the values 2, 6, and 10 provide evidence one way, and the rest provide evidence the other way. Three-based models will be able to do better but would do even better if label encoding was applied to begin with."
   },
   {
     "objectID": "categorical-label.html#pros-and-cons",
@@ -434,13 +322,6 @@
     "text": "20.3 Python Examples"
   },
   {
-    "objectID": "categorical-ordinal.html",
-    "href": "categorical-ordinal.html",
-    "title": "21  Ordinal Encoding",
-    "section": "",
-    "text": "This method is similar to Chapter 20, except that we manually specify the mapping. This method is generally used for ordinal variables as they are encoded with a natural ordering. Where this method shines compared to integer encoding is that we allow arbitrary values for encoding, thus we can have (cold = 1, warm = 5, hot = 20). But we might as well use (cold = -1, warm = 0, hot = 1) or (cold = 1.618, warm = 2.718, hot = 3.141). Although you would have a hard time justifying the latter. Nothing is stopping you from using this method with an unordered categorical variable, you just need to spend some time justifying your levels.\nThis method feels like it but isn’t a trained method. This is because we are providing the record of the possible values and their corresponding integer value. Unseen levels can be manually specified, but it isn’t entirely obvious what their value should be.\nTODO add diagram\nManually setting values for your levels comes with some upsides and downsides. Assuming that you have the domain expertise to apply numeric values for the levels, removes a lot of the guesswork. This can be very effective if the numeric values selected for the levels have some intrinsic meaning. It can remove a lot of the guesswork and trial and error that we see in integer encoding. The downside is the other side of the coin. We need to have the domain expertise to be able to give the levels meaningful values, otherwise, we are doing no better than integer encoding."
-  },
-  {
     "objectID": "categorical-ordinal.html#pros-and-cons",
     "href": "categorical-ordinal.html#pros-and-cons",
     "title": "21  Ordinal Encoding",
@@ -460,13 +341,6 @@
     "title": "21  Ordinal Encoding",
     "section": "21.3 Python Examples",
     "text": "21.3 Python Examples"
-  },
-  {
-    "objectID": "categorical-binary.html",
-    "href": "categorical-binary.html",
-    "title": "22  Binary Encoding",
-    "section": "",
-    "text": "Binary encoding encodes each category by encoding it as its binary representation. From the categorical variables, you assign an integer value to each level, in the same way as in Chapter 20. That value will then be converted to its binary representation, and that value will be returned.\nSuppose we have the following variable, and the value they take are (cat = 11, dog = 3, horse = 20). We are using a subset to gain a better understanding of what is happening.\nThe first thing we need to do is to calculate the binary representation of these numbers. And we should do it to 5 digits since it is the highest we need in this hypothetical example. 11 = 01011, 3 = 00011, 20 = 10100. We can then encode this in the following matrix\nEach we would be able to uniquely encode 2^5=32 different value with just 5 columns compared to the 32 it would take if you used dummy encoding from Chapter 19. In general, you will be able to encode n variables in ceiling(log2(n)) columns.\nThis method isn’t widely used. It does a good job of showing the midpoint between dummy encoding and label encoding in terms of how sparse we want to store our data. Its limitations come in terms of how interpretable the final model ends up being. Further, if you want to encode your data more compactly than dummy encoding, you will find better luck using some of the later described methods.\nTODO link to actual methods"
   },
   {
     "objectID": "categorical-binary.html#pros-and-cons",
@@ -490,13 +364,6 @@
     "text": "22.3 Python Examples\nhttp://contrib.scikit-learn.org/category_encoders/binary.html"
   },
   {
-    "objectID": "categorical-frequency.html",
-    "href": "categorical-frequency.html",
-    "title": "23  Frequency Encoding",
-    "section": "",
-    "text": "Frequency encoding takes a categorical variable and replaces each level with its frequency in the training data set. This results in a single numeric variable, with values between 0 and 1. This is a trained method since we need to keep a record of the frequencies from the training data set.\nThis method isn’t a silver bullet, as it will only sometimes be useful. It is useful when the frequency/rarity of a category level is related to our outcome. Imagine we have data about wines and their producers, some big producers produce many wines, and small producers that only produce a couple. This information could potentially be useful and would be easily captured in frequency encoding. This method is not able to distinguish between two levels that have the same frequency.\nUnseen levels can be automatically handled by giving them a value of 0 as they are unseen in the training data set. Thus no extra treatment is neasesary. Sometimes taking the logarithm can be useful if you are having a big difference between the number of occurrences in your levels."
-  },
-  {
     "objectID": "categorical-frequency.html#pros-and-cons",
     "href": "categorical-frequency.html#pros-and-cons",
     "title": "23  Frequency Encoding",
@@ -518,6 +385,13 @@
     "text": "23.3 Python Examples"
   },
   {
+    "objectID": "categorical-target.html#pros-and-cons",
+    "href": "categorical-target.html#pros-and-cons",
+    "title": "24  Target Encoding",
+    "section": "24.1 Pros and Cons",
+    "text": "24.1 Pros and Cons\n\n24.1.1 Pros\n\n\n24.1.2 Cons"
+  },
+  {
     "objectID": "categorical-target.html#r-examples",
     "href": "categorical-target.html#r-examples",
     "title": "24  Target Encoding",
@@ -530,6 +404,13 @@
     "title": "24  Target Encoding",
     "section": "24.3 Python Examples",
     "text": "24.3 Python Examples"
+  },
+  {
+    "objectID": "categorical-impact.html#pros-and-cons",
+    "href": "categorical-impact.html#pros-and-cons",
+    "title": "25  Impact Encoding",
+    "section": "25.1 Pros and Cons",
+    "text": "25.1 Pros and Cons\n\n25.1.1 Pros\n\n\n25.1.2 Cons"
   },
   {
     "objectID": "categorical-impact.html#r-examples",
@@ -546,6 +427,13 @@
     "text": "25.3 Python Examples"
   },
   {
+    "objectID": "categorical-polynomial.html#pros-and-cons",
+    "href": "categorical-polynomial.html#pros-and-cons",
+    "title": "26  Polynomial Encoding",
+    "section": "26.1 Pros and Cons",
+    "text": "26.1 Pros and Cons\n\n26.1.1 Pros\n\n\n26.1.2 Cons"
+  },
+  {
     "objectID": "categorical-polynomial.html#r-examples",
     "href": "categorical-polynomial.html#r-examples",
     "title": "26  Polynomial Encoding",
@@ -558,6 +446,13 @@
     "title": "26  Polynomial Encoding",
     "section": "26.3 Python Examples",
     "text": "26.3 Python Examples"
+  },
+  {
+    "objectID": "categorical-sum.html#pros-and-cons",
+    "href": "categorical-sum.html#pros-and-cons",
+    "title": "27  Sum Encoding",
+    "section": "27.1 Pros and Cons",
+    "text": "27.1 Pros and Cons\n\n27.1.1 Pros\n\n\n27.1.2 Cons"
   },
   {
     "objectID": "categorical-sum.html#r-examples",
@@ -574,6 +469,13 @@
     "text": "27.3 Python Examples"
   },
   {
+    "objectID": "categorical-hashing.html#pros-and-cons",
+    "href": "categorical-hashing.html#pros-and-cons",
+    "title": "28  Hashing Encoding",
+    "section": "28.1 Pros and Cons",
+    "text": "28.1 Pros and Cons\n\n28.1.1 Pros\n\n\n28.1.2 Cons"
+  },
+  {
     "objectID": "categorical-hashing.html#r-examples",
     "href": "categorical-hashing.html#r-examples",
     "title": "28  Hashing Encoding",
@@ -586,6 +488,13 @@
     "title": "28  Hashing Encoding",
     "section": "28.3 Python Examples",
     "text": "28.3 Python Examples"
+  },
+  {
+    "objectID": "categorical-leaveoneout.html#pros-and-cons",
+    "href": "categorical-leaveoneout.html#pros-and-cons",
+    "title": "29  Leave One Out Encoding",
+    "section": "29.1 Pros and Cons",
+    "text": "29.1 Pros and Cons\n\n29.1.1 Pros\n\n\n29.1.2 Cons"
   },
   {
     "objectID": "categorical-leaveoneout.html#r-examples",
@@ -602,6 +511,13 @@
     "text": "29.3 Python Examples"
   },
   {
+    "objectID": "categorical-leaf.html#pros-and-cons",
+    "href": "categorical-leaf.html#pros-and-cons",
+    "title": "30  Leaf Encoding",
+    "section": "30.1 Pros and Cons",
+    "text": "30.1 Pros and Cons\n\n30.1.1 Pros\n\n\n30.1.2 Cons"
+  },
+  {
     "objectID": "categorical-leaf.html#r-examples",
     "href": "categorical-leaf.html#r-examples",
     "title": "30  Leaf Encoding",
@@ -614,6 +530,13 @@
     "title": "30  Leaf Encoding",
     "section": "30.3 Python Examples",
     "text": "30.3 Python Examples"
+  },
+  {
+    "objectID": "categorical-glmm.html#pros-and-cons",
+    "href": "categorical-glmm.html#pros-and-cons",
+    "title": "31  GLMM Encoding",
+    "section": "31.1 Pros and Cons",
+    "text": "31.1 Pros and Cons\n\n31.1.1 Pros\n\n\n31.1.2 Cons"
   },
   {
     "objectID": "categorical-glmm.html#r-examples",
@@ -630,6 +553,13 @@
     "text": "31.3 Python Examples"
   },
   {
+    "objectID": "categorical-randomforest.html#pros-and-cons",
+    "href": "categorical-randomforest.html#pros-and-cons",
+    "title": "32  Random Forest Encoding",
+    "section": "32.1 Pros and Cons",
+    "text": "32.1 Pros and Cons\n\n32.1.1 Pros\n\n\n32.1.2 Cons"
+  },
+  {
     "objectID": "categorical-randomforest.html#r-examples",
     "href": "categorical-randomforest.html#r-examples",
     "title": "32  Random Forest Encoding",
@@ -642,6 +572,13 @@
     "title": "32  Random Forest Encoding",
     "section": "32.3 Python Examples",
     "text": "32.3 Python Examples"
+  },
+  {
+    "objectID": "categorical-catboost.html#pros-and-cons",
+    "href": "categorical-catboost.html#pros-and-cons",
+    "title": "33  Catboost Encoding",
+    "section": "33.1 Pros and Cons",
+    "text": "33.1 Pros and Cons\n\n33.1.1 Pros\n\n\n33.1.2 Cons"
   },
   {
     "objectID": "categorical-catboost.html#r-examples",
@@ -658,6 +595,13 @@
     "text": "33.3 Python Examples"
   },
   {
+    "objectID": "categorical-woe.html#pros-and-cons",
+    "href": "categorical-woe.html#pros-and-cons",
+    "title": "34  Weight of Evidence Encoding",
+    "section": "34.1 Pros and Cons",
+    "text": "34.1 Pros and Cons\n\n34.1.1 Pros\n\n\n34.1.2 Cons"
+  },
+  {
     "objectID": "categorical-woe.html#r-examples",
     "href": "categorical-woe.html#r-examples",
     "title": "34  Weight of Evidence Encoding",
@@ -670,6 +614,13 @@
     "title": "34  Weight of Evidence Encoding",
     "section": "34.3 Python Examples",
     "text": "34.3 Python Examples"
+  },
+  {
+    "objectID": "categorical-jamesstein.html#pros-and-cons",
+    "href": "categorical-jamesstein.html#pros-and-cons",
+    "title": "35  James-Stein Encoding",
+    "section": "35.1 Pros and Cons",
+    "text": "35.1 Pros and Cons\n\n35.1.1 Pros\n\n\n35.1.2 Cons"
   },
   {
     "objectID": "categorical-jamesstein.html#r-examples",
@@ -686,6 +637,13 @@
     "text": "35.3 Python Examples"
   },
   {
+    "objectID": "categorical-mestimator.html#pros-and-cons",
+    "href": "categorical-mestimator.html#pros-and-cons",
+    "title": "36  M-Estimator Encoding",
+    "section": "36.1 Pros and Cons",
+    "text": "36.1 Pros and Cons\n\n36.1.1 Pros\n\n\n36.1.2 Cons"
+  },
+  {
     "objectID": "categorical-mestimator.html#r-examples",
     "href": "categorical-mestimator.html#r-examples",
     "title": "36  M-Estimator Encoding",
@@ -698,6 +656,13 @@
     "title": "36  M-Estimator Encoding",
     "section": "36.3 Python Examples",
     "text": "36.3 Python Examples"
+  },
+  {
+    "objectID": "categorical-thermometer.html#pros-and-cons",
+    "href": "categorical-thermometer.html#pros-and-cons",
+    "title": "37  Thermometer Encoding",
+    "section": "37.1 Pros and Cons",
+    "text": "37.1 Pros and Cons\n\n37.1.1 Pros\n\n\n37.1.2 Cons"
   },
   {
     "objectID": "categorical-thermometer.html#r-examples",
@@ -714,6 +679,13 @@
     "text": "37.3 Python Examples"
   },
   {
+    "objectID": "categorical-quantile.html#pros-and-cons",
+    "href": "categorical-quantile.html#pros-and-cons",
+    "title": "38  Quantile Encoding",
+    "section": "38.1 Pros and Cons",
+    "text": "38.1 Pros and Cons\n\n38.1.1 Pros\n\n\n38.1.2 Cons"
+  },
+  {
     "objectID": "categorical-quantile.html#r-examples",
     "href": "categorical-quantile.html#r-examples",
     "title": "38  Quantile Encoding",
@@ -726,6 +698,13 @@
     "title": "38  Quantile Encoding",
     "section": "38.3 Python Examples",
     "text": "38.3 Python Examples"
+  },
+  {
+    "objectID": "categorical-summary.html#pros-and-cons",
+    "href": "categorical-summary.html#pros-and-cons",
+    "title": "39  Summary Encoding",
+    "section": "39.1 Pros and Cons",
+    "text": "39.1 Pros and Cons\n\n39.1.1 Pros\n\n\n39.1.2 Cons"
   },
   {
     "objectID": "categorical-summary.html#r-examples",
@@ -742,6 +721,13 @@
     "text": "39.3 Python Examples"
   },
   {
+    "objectID": "categorical-multi-dummy.html#pros-and-cons",
+    "href": "categorical-multi-dummy.html#pros-and-cons",
+    "title": "40  Multi-Dummy encoding",
+    "section": "40.1 Pros and Cons",
+    "text": "40.1 Pros and Cons\n\n40.1.1 Pros\n\n\n40.1.2 Cons"
+  },
+  {
     "objectID": "categorical-multi-dummy.html#r-examples",
     "href": "categorical-multi-dummy.html#r-examples",
     "title": "40  Multi-Dummy encoding",
@@ -756,6 +742,13 @@
     "text": "40.3 Python Examples"
   },
   {
+    "objectID": "categorical-collapse.html#pros-and-cons",
+    "href": "categorical-collapse.html#pros-and-cons",
+    "title": "41  Collapsing Categories",
+    "section": "41.1 Pros and Cons",
+    "text": "41.1 Pros and Cons\n\n41.1.1 Pros\n\n\n41.1.2 Cons"
+  },
+  {
     "objectID": "categorical-collapse.html#r-examples",
     "href": "categorical-collapse.html#r-examples",
     "title": "41  Collapsing Categories",
@@ -768,6 +761,13 @@
     "title": "41  Collapsing Categories",
     "section": "41.3 Python Examples",
     "text": "41.3 Python Examples"
+  },
+  {
+    "objectID": "categorical-combination.html#pros-and-cons",
+    "href": "categorical-combination.html#pros-and-cons",
+    "title": "42  Combination",
+    "section": "42.1 Pros and Cons",
+    "text": "42.1 Pros and Cons\n\n42.1.1 Pros\n\n\n42.1.2 Cons"
   },
   {
     "objectID": "categorical-combination.html#r-examples",
@@ -942,7 +942,7 @@
     "href": "video.html",
     "title": "65  Overview",
     "section": "",
-    "text": "WIP"
+    "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "video-tmp.html",
@@ -956,7 +956,7 @@
     "href": "sound.html",
     "title": "67  Overview",
     "section": "",
-    "text": "WIP"
+    "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "sound-tmp.html",
@@ -970,7 +970,7 @@
     "href": "spatial.html",
     "title": "69  Overview",
     "section": "",
-    "text": "WIP"
+    "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "spatial-gps.html",
@@ -984,7 +984,7 @@
     "href": "geospatial.html",
     "title": "71  Overview",
     "section": "",
-    "text": "WIP"
+    "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "geospatial-shapefiles.html",
@@ -998,7 +998,7 @@
     "href": "relational.html",
     "title": "73  Overview",
     "section": "",
-    "text": "WIP"
+    "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "relational-tmp.html",
