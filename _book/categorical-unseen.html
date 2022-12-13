@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.251">
+<meta name="generator" content="quarto-1.2.269">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -768,6 +768,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="quarto-title-meta">
 
     
+  
     
   </div>
   
@@ -859,7 +860,7 @@ Attaching package: 'recipes'</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 211 × 12
    arr_delay carrier_AA carrie…¹ carri…² carri…³ carri…⁴ carri…⁵ carri…⁶ carri…⁷
-       &lt;dbl&gt;      &lt;int&gt;    &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
+       &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
  1        12          0        0       0       0       0       0       0       1
  2         8          1        0       0       0       0       0       0       0
  3       -14          0        0       0       0       0       0       0       1
@@ -870,8 +871,8 @@ Attaching package: 'recipes'</code></pre>
  8         5          0        1       0       0       0       0       0       0
  9        31          1        0       0       0       0       0       0       0
 10       -10         NA       NA      NA      NA      NA      NA      NA      NA
-# … with 201 more rows, 3 more variables: carrier_US &lt;int&gt;, carrier_VX &lt;int&gt;,
-#   carrier_WN &lt;int&gt;, and abbreviated variable names ¹​carrier_B6, ²​carrier_DL,
+# … with 201 more rows, 3 more variables: carrier_US &lt;dbl&gt;, carrier_VX &lt;dbl&gt;,
+#   carrier_WN &lt;dbl&gt;, and abbreviated variable names ¹​carrier_B6, ²​carrier_DL,
 #   ³​carrier_EV, ⁴​carrier_F9, ⁵​carrier_FL, ⁶​carrier_MQ, ⁷​carrier_UA</code></pre>
 </div>
 </div>
@@ -887,7 +888,7 @@ Attaching package: 'recipes'</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 211 × 13
    arr_delay carrier_AA carrie…¹ carri…² carri…³ carri…⁴ carri…⁵ carri…⁶ carri…⁷
-       &lt;dbl&gt;      &lt;int&gt;    &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
+       &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
  1        12          0        0       0       0       0       0       0       1
  2         8          1        0       0       0       0       0       0       0
  3       -14          0        0       0       0       0       0       0       1
@@ -898,8 +899,8 @@ Attaching package: 'recipes'</code></pre>
  8         5          0        1       0       0       0       0       0       0
  9        31          1        0       0       0       0       0       0       0
 10       -10          0        0       0       0       0       0       0       0
-# … with 201 more rows, 4 more variables: carrier_US &lt;int&gt;, carrier_VX &lt;int&gt;,
-#   carrier_WN &lt;int&gt;, carrier_new &lt;int&gt;, and abbreviated variable names
+# … with 201 more rows, 4 more variables: carrier_US &lt;dbl&gt;, carrier_VX &lt;dbl&gt;,
+#   carrier_WN &lt;dbl&gt;, carrier_new &lt;dbl&gt;, and abbreviated variable names
 #   ¹​carrier_B6, ²​carrier_DL, ³​carrier_EV, ⁴​carrier_F9, ⁵​carrier_FL,
 #   ⁶​carrier_MQ, ⁷​carrier_UA</code></pre>
 </div>
@@ -955,7 +956,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -991,24 +1009,42 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>
