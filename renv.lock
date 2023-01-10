@@ -107,34 +107,6 @@
       "Hash": "0cf10dab0d023d5b46a5a14387556891",
       "Requirements": []
     },
-    "V8": {
-      "Package": "V8",
-      "Version": "4.2.2",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "ebee37dadb0a8f5086663825d2c33076",
-      "Requirements": [
-        "Rcpp",
-        "curl",
-        "jsonlite"
-      ]
-    },
-    "almanac": {
-      "Package": "almanac",
-      "Version": "0.1.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "8741e3a34477438ee303492c3d3fb451",
-      "Requirements": [
-        "R6",
-        "V8",
-        "glue",
-        "lubridate",
-        "magrittr",
-        "rlang",
-        "vctrs"
-      ]
-    },
     "backports": {
       "Package": "backports",
       "Version": "1.4.1",
@@ -241,10 +213,10 @@
     },
     "cli": {
       "Package": "cli",
-      "Version": "3.5.0",
+      "Version": "3.6.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "eb9fc121ad9a1075c471107ef185be46",
+      "Hash": "3177a5a16c243adc199ba33117bd9657",
       "Requirements": []
     },
     "clipr": {
@@ -315,14 +287,6 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "e8a1e41acf02548751f45c718d55aa6a",
-      "Requirements": []
-    },
-    "curl": {
-      "Package": "curl",
-      "Version": "4.3.3",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "0eb86baa62f06e8855258fa5a8048667",
       "Requirements": []
     },
     "dials": {
@@ -408,10 +372,9 @@
       "RemoteRepo": "extrasteps",
       "RemoteUsername": "emilhvitfeldt",
       "RemoteRef": "HEAD",
-      "RemoteSha": "95b329c007b4df8a7faeabe9f7967e963f258fee",
-      "Hash": "b3cc76e2f7585754aeb31b1a6d902b90",
+      "RemoteSha": "1efc9c358ec3b6322e40b6a866da81f67a2a493b",
+      "Hash": "e1392b46fef4507e6571ed878429d3d5",
       "Requirements": [
-        "almanac",
         "dplyr",
         "generics",
         "magrittr",
@@ -419,7 +382,8 @@
         "recipes",
         "rlang",
         "stringdist",
-        "tibble"
+        "tibble",
+        "vctrs"
       ]
     },
     "fansi": {
@@ -759,10 +723,10 @@
     },
     "lava": {
       "Package": "lava",
-      "Version": "1.7.0",
+      "Version": "1.7.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "e16a0d9c76a09b8cf161597cbdcee6a6",
+      "Hash": "c2a096715467f53104d989f54afd0ee1",
       "Requirements": [
         "SQUAREM",
         "future.apply",
@@ -1124,10 +1088,15 @@
     },
     "recipes": {
       "Package": "recipes",
-      "Version": "1.0.3",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "0fa9fd45706dff916876da00e5bd2d02",
+      "Version": "1.0.3.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "recipes",
+      "RemoteUsername": "tidymodels",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "ab5ee580689b1542a0a978926552fe65957a1084",
+      "Hash": "647f85ae9e5b8380019a2e422d8eabf2",
       "Requirements": [
         "Matrix",
         "cli",
@@ -1438,10 +1407,10 @@
     },
     "timeDate": {
       "Package": "timeDate",
-      "Version": "4021.107",
+      "Version": "4022.108",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "d4ce13caae925f7bc20ad5e154f38ddb",
+      "Hash": "3f7918d2b36c17ffe07cddba6458453e",
       "Requirements": []
     },
     "timechange": {
