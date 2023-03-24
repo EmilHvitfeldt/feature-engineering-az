@@ -3,8 +3,10 @@ Encoding: UTF-8
 Imports: 
     readr,
     tidymodels,
-    emilhvitfeldt/extrasteps,
+    extrasteps,
     jsonlite,
     rmarkdown,
     remotes,
     reticulate
+Remotes:
+    emilhvitfeldt/extrasteps
