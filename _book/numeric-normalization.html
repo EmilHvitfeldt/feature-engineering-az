@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.2.475">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -840,7 +840,7 @@ Attaching package: 'recipes'</code></pre>
  8     191500     5005            0            0
  9     236500     5389          237            0
 10     189000     7500          140            0
-# … with 2,920 more rows</code></pre>
+# ℹ 2,920 more rows</code></pre>
 </div>
 </div>
 <p>{recipes} provides a step to perform scaling, centering, and normalization. They are called <code>step_scale()</code>, <code>step_center()</code> and <code>step_normalize()</code> respectively.</p>
@@ -866,7 +866,7 @@ Attaching package: 'recipes'</code></pre>
  8     191500    0.635         0           0    
  9     236500    0.684         1.88        0    
 10     189000    0.952         1.11        0    
-# … with 2,920 more rows</code></pre>
+# ℹ 2,920 more rows</code></pre>
 </div>
 </div>
 <p>We can also pull out the value of the standard deviation for each variable that was affected using <code>tidy()</code></p>
@@ -887,7 +887,7 @@ Attaching package: 'recipes'</code></pre>
  8 Bsmt_Unf_SF     440.   scale_FGmgk
  9 Total_Bsmt_SF   441.   scale_FGmgk
 10 First_Flr_SF    392.   scale_FGmgk
-# … with 23 more rows</code></pre>
+# ℹ 23 more rows</code></pre>
 </div>
 </div>
 <p>We could also have used <code>step_center()</code> and <code>step_scale()</code> together in one recipe</p>
@@ -913,7 +913,7 @@ Attaching package: 'recipes'</code></pre>
  8     191500  -0.653        -0.742      -0.566 
  9     236500  -0.604         1.13       -0.566 
 10     189000  -0.336         0.366      -0.566 
-# … with 2,920 more rows</code></pre>
+# ℹ 2,920 more rows</code></pre>
 </div>
 </div>
 <p>Using <code>tidy()</code> we can see information about each step</p>
@@ -946,7 +946,7 @@ Attaching package: 'recipes'</code></pre>
  8 Bsmt_Unf_SF      559.   center_tSRk5
  9 Total_Bsmt_SF   1051.   center_tSRk5
 10 First_Flr_SF    1160.   center_tSRk5
-# … with 23 more rows</code></pre>
+# ℹ 23 more rows</code></pre>
 </div>
 </div>
 <p>and the standard deviation using <code>tidy(2)</code></p>
@@ -967,7 +967,7 @@ Attaching package: 'recipes'</code></pre>
  8 Bsmt_Unf_SF     440.   scale_kjP2v
  9 Total_Bsmt_SF   441.   scale_kjP2v
 10 First_Flr_SF    392.   scale_kjP2v
-# … with 23 more rows</code></pre>
+# ℹ 23 more rows</code></pre>
 </div>
 </div>
 <p>Since these steps often follow each other, we often use the <code>step_normalize()</code> as a shortcut to do both operations in one step</p>
@@ -992,7 +992,7 @@ Attaching package: 'recipes'</code></pre>
  8     191500  -0.653        -0.742      -0.566 
  9     236500  -0.604         1.13       -0.566 
 10     189000  -0.336         0.366      -0.566 
-# … with 2,920 more rows</code></pre>
+# ℹ 2,920 more rows</code></pre>
 </div>
 </div>
 <p>And we can still pull out the means and standard deviations using <code>tidy()</code></p>
