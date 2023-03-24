@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.2.475">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -835,7 +835,7 @@ Attaching package: 'recipes'</code></pre>
  8     5005            0     191500
  9     5389          237     236500
 10     7500          140     189000
-# … with 2,920 more rows</code></pre>
+# ℹ 2,920 more rows</code></pre>
 </div>
 </div>
 <p>The {recipes} step to do this transformation is <code>step_percentile()</code>. It defaults to calculation 100 percentiles and using those to transform the data</p>
@@ -860,7 +860,7 @@ Attaching package: 'recipes'</code></pre>
  8    0.106     191500
  9    0.120     236500
 10    0.259     189000
-# … with 2,920 more rows</code></pre>
+# ℹ 2,920 more rows</code></pre>
 </div>
 </div>
 <p>We cna use the <code>tidy()</code> method to pull out what the specific values are for each percentile</p>
@@ -881,7 +881,7 @@ Attaching package: 'recipes'</code></pre>
  8 Lot_Area 3901.          7 percentile_Bp5vK
  9 Lot_Area 4122.          8 percentile_Bp5vK
 10 Lot_Area 4435           9 percentile_Bp5vK
-# … with 89 more rows</code></pre>
+# ℹ 89 more rows</code></pre>
 </div>
 </div>
 <p>You are able to change the granularity by using the <code>options</code> argument. In this example we are calculation 500 points evenly spaced between 0 and 1, both inclusive.</p>
@@ -906,7 +906,7 @@ Attaching package: 'recipes'</code></pre>
  8    0.106     191500
  9    0.118     236500
 10    0.254     189000
-# … with 2,920 more rows</code></pre>
+# ℹ 2,920 more rows</code></pre>
 </div>
 </div>
 <p>And we can see the more precise numbers.</p>
@@ -927,7 +927,7 @@ Attaching package: 'recipes'</code></pre>
  8 Lot_Area 1946.        1.8 percentile_RUieL
  9 Lot_Area 2040.        2   percentile_RUieL
 10 Lot_Area 2136.        2.2 percentile_RUieL
-# … with 447 more rows</code></pre>
+# ℹ 447 more rows</code></pre>
 </div>
 </div>
 <p>Notice how there are only 457 values in this output. This is happening because some percentile have been collapsed to save space since if the value for the 10.4 and 10.6 percentile is the same, we just store the 10.6 value.</p>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.2.475">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -839,21 +839,21 @@ Attaching package: 'recipes'</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 211 × 12
-   arr_delay carrier_AA carrie…¹ carri…² carri…³ carri…⁴ carri…⁵ carri…⁶ carri…⁷
-       &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
- 1        12          0        0       0       0       0       0       0       1
- 2         8          1        0       0       0       0       0       0       0
- 3       -14          0        0       0       0       0       0       0       1
- 4        -6          0        1       0       0       0       0       0       0
- 5        -3          1        0       0       0       0       0       0       0
- 6       -33          0        0       1       0       0       0       0       0
- 7        -7          1        0       0       0       0       0       0       0
- 8         5          0        1       0       0       0       0       0       0
- 9        31          1        0       0       0       0       0       0       0
-10       -10         NA       NA      NA      NA      NA      NA      NA      NA
-# … with 201 more rows, 3 more variables: carrier_US &lt;dbl&gt;, carrier_VX &lt;dbl&gt;,
-#   carrier_WN &lt;dbl&gt;, and abbreviated variable names ¹​carrier_B6, ²​carrier_DL,
-#   ³​carrier_EV, ⁴​carrier_F9, ⁵​carrier_FL, ⁶​carrier_MQ, ⁷​carrier_UA</code></pre>
+   arr_delay carrier_AA carrier_B6 carrier_DL carrier_EV carrier_F9 carrier_FL
+       &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+ 1        12          0          0          0          0          0          0
+ 2         8          1          0          0          0          0          0
+ 3       -14          0          0          0          0          0          0
+ 4        -6          0          1          0          0          0          0
+ 5        -3          1          0          0          0          0          0
+ 6       -33          0          0          1          0          0          0
+ 7        -7          1          0          0          0          0          0
+ 8         5          0          1          0          0          0          0
+ 9        31          1          0          0          0          0          0
+10       -10         NA         NA         NA         NA         NA         NA
+# ℹ 201 more rows
+# ℹ 5 more variables: carrier_MQ &lt;dbl&gt;, carrier_UA &lt;dbl&gt;, carrier_US &lt;dbl&gt;,
+#   carrier_VX &lt;dbl&gt;, carrier_WN &lt;dbl&gt;</code></pre>
 </div>
 </div>
 <p>We get a warning, and if you look at the rows that were affected we see that it produces NAs. Let us now use the function <code>step_novel()</code> that implements the above-described method.</p>
@@ -867,22 +867,21 @@ Attaching package: 'recipes'</code></pre>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">bake</span>(novel_spec_prepped, <span class="at">new_data =</span> flights_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 211 × 13
-   arr_delay carrier_AA carrie…¹ carri…² carri…³ carri…⁴ carri…⁵ carri…⁶ carri…⁷
-       &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
- 1        12          0        0       0       0       0       0       0       1
- 2         8          1        0       0       0       0       0       0       0
- 3       -14          0        0       0       0       0       0       0       1
- 4        -6          0        1       0       0       0       0       0       0
- 5        -3          1        0       0       0       0       0       0       0
- 6       -33          0        0       1       0       0       0       0       0
- 7        -7          1        0       0       0       0       0       0       0
- 8         5          0        1       0       0       0       0       0       0
- 9        31          1        0       0       0       0       0       0       0
-10       -10          0        0       0       0       0       0       0       0
-# … with 201 more rows, 4 more variables: carrier_US &lt;dbl&gt;, carrier_VX &lt;dbl&gt;,
-#   carrier_WN &lt;dbl&gt;, carrier_new &lt;dbl&gt;, and abbreviated variable names
-#   ¹​carrier_B6, ²​carrier_DL, ³​carrier_EV, ⁴​carrier_F9, ⁵​carrier_FL,
-#   ⁶​carrier_MQ, ⁷​carrier_UA</code></pre>
+   arr_delay carrier_AA carrier_B6 carrier_DL carrier_EV carrier_F9 carrier_FL
+       &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+ 1        12          0          0          0          0          0          0
+ 2         8          1          0          0          0          0          0
+ 3       -14          0          0          0          0          0          0
+ 4        -6          0          1          0          0          0          0
+ 5        -3          1          0          0          0          0          0
+ 6       -33          0          0          1          0          0          0
+ 7        -7          1          0          0          0          0          0
+ 8         5          0          1          0          0          0          0
+ 9        31          1          0          0          0          0          0
+10       -10          0          0          0          0          0          0
+# ℹ 201 more rows
+# ℹ 6 more variables: carrier_MQ &lt;dbl&gt;, carrier_UA &lt;dbl&gt;, carrier_US &lt;dbl&gt;,
+#   carrier_VX &lt;dbl&gt;, carrier_WN &lt;dbl&gt;, carrier_new &lt;dbl&gt;</code></pre>
 </div>
 </div>
 <p>And we see that we get no error or anything.</p>

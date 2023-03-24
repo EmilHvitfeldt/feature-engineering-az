@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.2.475">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -866,7 +866,7 @@ y = log_{base}(x + offset)
  8     5005            0     191500
  9     5389          237     236500
 10     7500          140     189000
-# … with 2,920 more rows</code></pre>
+# ℹ 2,920 more rows</code></pre>
 </div>
 </div>
 <p>{recipes} provides a step to perform logarithms, which out of the box uses <span class="math inline">\(e\)</span> as the base with an offset of 0.</p>
@@ -891,7 +891,7 @@ y = log_{base}(x + offset)
  8     8.52     191500
  9     8.59     236500
 10     8.92     189000
-# … with 2,920 more rows</code></pre>
+# ℹ 2,920 more rows</code></pre>
 </div>
 </div>
 <p>The base can be changed by setting the <code>base</code> argument.</p>
@@ -916,7 +916,7 @@ y = log_{base}(x + offset)
  8     12.3     191500
  9     12.4     236500
 10     12.9     189000
-# … with 2,920 more rows</code></pre>
+# ℹ 2,920 more rows</code></pre>
 </div>
 </div>
 <p>If we have non-positive values, which we do in the <code>Wood_Deck_SF</code> variable because it has quite a lot of zeroes, we get <code>-Inf</code> which isn’t going to work.</p>
@@ -941,7 +941,7 @@ y = log_{base}(x + offset)
  8      -Inf        191500
  9         5.47     236500
 10         4.94     189000
-# … with 2,920 more rows</code></pre>
+# ℹ 2,920 more rows</code></pre>
 </div>
 </div>
 <p>Setting the <code>offset</code> argument helps us to deal with that problem.</p>
@@ -966,7 +966,7 @@ y = log_{base}(x + offset)
  8       -0.693     191500
  9        5.47      236500
 10        4.95      189000
-# … with 2,920 more rows</code></pre>
+# ℹ 2,920 more rows</code></pre>
 </div>
 </div>
 </section>
