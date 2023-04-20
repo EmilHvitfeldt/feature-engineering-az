@@ -843,7 +843,7 @@ y = \text{sign}(x)\sqrt{\left| x \right|}
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in sqrt(getElement(new_data, col_names[i])): NaNs produced</code></pre>
+<pre><code>Warning in sqrt(new_data[[col_names[i]]]): NaNs produced</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 119,390 × 2
