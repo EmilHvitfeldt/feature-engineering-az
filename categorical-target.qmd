@@ -1,5 +1,23 @@
 # Target Encoding {#sec-target-encoding}
 
+**Target encoding** (also called **mean encoding**, **likelihood encoding**, or **impact encoding**) is a method that map the categorical levels to probabilities of your target variable.
+
+tmwr also calls this effect encoding, where as other places call sum-encoding effect encoding
+https://www.linkedin.com/pulse/encode-categorical-features-revanth-yadama/
+
+We need to talk about the subtleties. There is plain mean encoding, and then there is all the variants, 
+
+regularization
+
+https://embed.tidymodels.org/reference/step_lencode_glm.html
+https://embed.tidymodels.org/reference/step_lencode_mixed.html
+https://embed.tidymodels.org/reference/step_lencode_mixed.html
+https://contrib.scikit-learn.org/category_encoders/targetencoder.html
+
+https://dl.acm.org/doi/10.1145/507533.507538
+
+https://www.tmwr.org/categorical.html#using-the-outcome-for-encoding-predictors
+
 ## Pros and Cons
 
 ### Pros
