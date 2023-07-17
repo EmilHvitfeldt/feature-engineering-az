@@ -799,13 +799,55 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p><strong>Target encoding</strong> (also called <strong>mean encoding</strong>, <strong>likelihood encoding</strong>, or <strong>impact encoding</strong>) is a method that map the categorical levels to probabilities of your target variable.</p>
+<p><strong>Target encoding</strong> (also called <strong>mean encoding</strong>, <strong>likelihood encoding</strong>, or <strong>impact encoding</strong>) is a method that map the categorical levels to probabilities of your target variable. This method is in some ways quite similar to frequency encoding that we saw in <span class="quarto-unresolved-ref">?sec-categorical-frequency</span>. We are taking a single categorical variable, and turning it into a single numeric categorical variable.</p>
+<p>This is a trained and supervised method since we are using the outcome of our modeling problem to guide the way this method is estimated. In the most simple formulation, target encoding is done by replacing a categorical variable with the mean of the target variable. The target variable will typically be the outcome, but that is not necessarily a requirement.</p>
+<p>Consider the following example data set</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 2
+  cuteness animal
+     &lt;dbl&gt; &lt;chr&gt; 
+1        1 dog   
+2        5 cat   
+3        9 cat   
+4        3 cat   
+5        2 dog   
+6        4 horse </code></pre>
+</div>
+</div>
+<p>If we where to calculate target encoding on <code>animal</code> using <code>cuteness</code> as the target, we will first need to calculate the mean of <code>cuteness</code> within each</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  animal math             mean
+  &lt;chr&gt;  &lt;chr&gt;           &lt;dbl&gt;
+1 dog    (1 + 2) / 2      1.5 
+2 cat    (5 + 9 + 3) / 3  5.67
+3 horse  4 / 1            4   </code></pre>
+</div>
+</div>
+<p>Taking these means and we can now use them as an encoding</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 2
+  cuteness animal
+     &lt;dbl&gt;  &lt;dbl&gt;
+1        1   1.5 
+2        5   5.67
+3        9   5.67
+4        3   5.67
+5        2   1.5 
+6        4   4   </code></pre>
+</div>
+</div>
+<p>From the above example we notice 3 things. Firstly, once the calculations have been done, applying the encoding to new data is a fairly easy procedure as it amounts to left join. Secondly, some classes have different number of observations associated with them. The <code>"horse"</code> class only has 1 observation in this data set, how confident are we that the mean calculated from this value is as valid as the mean that was calculated over the 3 values for the <code>"cat"</code> class? Lastly, how will this method handle unseen levels?</p>
 <p>tmwr also calls this effect encoding, where as other places call sum-encoding effect encoding https://www.linkedin.com/pulse/encode-categorical-features-revanth-yadama/</p>
 <p>We need to talk about the subtleties. There is plain mean encoding, and then there is all the variants,</p>
 <p>regularization</p>
 <p>https://embed.tidymodels.org/reference/step_lencode_glm.html https://embed.tidymodels.org/reference/step_lencode_mixed.html https://embed.tidymodels.org/reference/step_lencode_mixed.html https://contrib.scikit-learn.org/category_encoders/targetencoder.html</p>
 <p>https://dl.acm.org/doi/10.1145/507533.507538</p>
 <p>https://www.tmwr.org/categorical.html#using-the-outcome-for-encoding-predictors</p>
+<p><a href="https://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/target-encoding.html#:~:text=Target%20encoding%20is%20the%20process,convert%20categorical%20columns%20to%20numeric." class="uri">https://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/target-encoding.html#:~:text=Target%20encoding%20is%20the%20process,convert%20categorical%20columns%20to%20numeric.</a></p>
 <section id="pros-and-cons" class="level2" data-number="24.1">
 <h2 data-number="24.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">24.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="24.1.1">
