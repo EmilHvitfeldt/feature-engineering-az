@@ -1,22 +1,65 @@
 # Target Encoding {#sec-target-encoding}
 
-**Target encoding** (also called **mean encoding**, **likelihood encoding**, or **impact encoding**) is a method that map the categorical levels to probabilities of your target variable.
+**Target encoding** (also called **mean encoding**, **likelihood encoding**, or **impact encoding**) is a method that map the categorical levels to probabilities of your target variable. This method is in some ways quite similar to frequency encoding that we saw in @sec-categorical-frequency. We are taking a single categorical variable, and turning it into a single numeric categorical variable.
 
-tmwr also calls this effect encoding, where as other places call sum-encoding effect encoding
-https://www.linkedin.com/pulse/encode-categorical-features-revanth-yadama/
+This is a trained and supervised method since we are using the outcome of our modeling problem to guide the way this method is estimated. In the most simple formulation, target encoding is done by replacing a categorical variable with the mean of the target variable. The target variable will typically be the outcome, but that is not necessarily a requirement.
 
-We need to talk about the subtleties. There is plain mean encoding, and then there is all the variants, 
+Consider the following example data set
+
+```{r}
+#| echo: false
+animals <- tibble::tibble(
+  cuteness = c(1, 5, 9, 3, 2, 4),
+  animal = c("dog", "cat", "cat", "cat", "dog", "horse")
+)
+
+animals
+```
+
+If we where to calculate target encoding on `animal` using `cuteness` as the target, we will first need to calculate the mean of `cuteness` within each
+
+```{r}
+#| echo: false
+#| message: false
+library(dplyr)
+animals_means <- animals |>
+  summarise(
+    math = paste(cuteness, collapse = " + "),
+    math = if_else(length(cuteness) == 1, 
+                   paste0(math, " / 1"), 
+                   paste0("(", math, ") / ", length(cuteness))),
+    mean = mean(cuteness), 
+    .by = animal
+  )
+
+animals_means
+```
+
+Taking these means and we can now use them as an encoding
+
+```{r}
+#| echo: false
+animals |>
+  left_join(animals_means, by = join_by(animal)) |>
+  select(-animal, -math) |>
+  rename(animal = mean)
+```
+
+From the above example we notice 3 things. Firstly, once the calculations have been done, applying the encoding to new data is a fairly easy procedure as it amounts to left join. Secondly, some classes have different number of observations associated with them. The `"horse"` class only has 1 observation in this data set, how confident are we that the mean calculated from this value is as valid as the mean that was calculated over the 3 values for the `"cat"` class? Lastly, how will this method handle unseen levels?
+
+tmwr also calls this effect encoding, where as other places call sum-encoding effect encoding https://www.linkedin.com/pulse/encode-categorical-features-revanth-yadama/
+
+We need to talk about the subtleties. There is plain mean encoding, and then there is all the variants,
 
 regularization
 
-https://embed.tidymodels.org/reference/step_lencode_glm.html
-https://embed.tidymodels.org/reference/step_lencode_mixed.html
-https://embed.tidymodels.org/reference/step_lencode_mixed.html
-https://contrib.scikit-learn.org/category_encoders/targetencoder.html
+https://embed.tidymodels.org/reference/step_lencode_glm.html https://embed.tidymodels.org/reference/step_lencode_mixed.html https://embed.tidymodels.org/reference/step_lencode_mixed.html https://contrib.scikit-learn.org/category_encoders/targetencoder.html
 
 https://dl.acm.org/doi/10.1145/507533.507538
 
 https://www.tmwr.org/categorical.html#using-the-outcome-for-encoding-predictors
+
+<https://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/target-encoding.html#:~:text=Target%20encoding%20is%20the%20process,convert%20categorical%20columns%20to%20numeric.>
 
 ## Pros and Cons
 
