@@ -53,9 +53,89 @@ This value is by no means a good value, but it is a educated guess that can be c
 
 The way we handle unseen levels gives us a glue as to how we can deal with low frequency counts. Knowing that the global mean of the target is our baseline when we have no information. We can combine the level mean with the global mean, in accordance to how many observations we observe. If we have a lot of observations in a level, we will let the global mean have little influence, and if there are fewer observations we will let the global mean have a higher influence.
 
-TODO: Add visualization to show how this works
+```{r}
+#| echo: false
+library(ggplot2)
 
-The exact way this is done will very from method to method, and the strength of this force can and should be tuned.
+set.seed(1234)
+n <- 50
+data <- tibble(
+  size = ceiling(rlnorm(n, 1.5)),
+  value = runif(n, 50, 100)
+)
+
+weighted_mean <- weighted.mean(data$value, data$value)
+
+range <- range(data$value) 
+range <- range + diff(range) * c(-0.1, 0.1)
+```
+
+We can visualize this effect in the following charts. First we have an example of what happens with a smaller amount of smoothing. The points mostly like along the diagonal. Remember that if we didn't do this, all the points would be along the diagonal regardless of their size.
+
+```{r}
+#| label: fig-target-smoothness-1
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   With a small amount of smoothing, the adjusted means are close to the 
+#|   original means, regardless of the number of observations.
+#| fig-alt: |
+#|   Scatter chart. A green line with slope 1 and intercept, and a blue line 
+#|   with slope 0 and a intercept equal to the global mean. The points are sized
+#|   according to the number of observations that where used to calculate the 
+#|   value. The points lie along the green line mostly, with some of the smaller
+#|   points getting closer to the blue line.
+smoothness <- 1
+
+data |>
+  mutate(new_value = (size * value + weighted_mean * smoothness) / (size + smoothness)) |>
+  ggplot(aes(value, new_value)) +
+  geom_abline(slope = 0, intercept = weighted_mean, color ="lightblue") +
+  geom_abline(slope = 1, intercept = 0, color = "lightgreen") +
+  geom_point(aes(size = size), alpha = 0.2) +
+  theme_minimal() +
+  xlim(range) +
+  ylim(range) +
+  labs(x = "Original mean value",
+       y = "Smoothed mean value",
+       size = "# observations",
+       title = "Small amount of smoothing")
+```
+
+In this next chart we see the effect of a higher amount of smoothing, now the levels with fewer observatiosn are pulled quite a bit closer to the global mean.
+
+```{r}
+#| label: fig-target-smoothness-5
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   With a large amount of smoothing, the adjusted means are not as close to
+#|   the original means, with smaller points getting quite close to the global
+#|   mean.
+#| fig-alt: |
+#|   Scatter chart. A green line with slope 1 and intercept, and a blue line 
+#|   with slope 0 and a intercept equal to the global mean. The points are sized
+#|   according to the number of observations that where used to calculate the 
+#|   value. The points lie between the green and blue line, with the smaller
+#|   points being close to the blue line than the larger points.
+smoothness <- 5
+
+data |>
+  mutate(new_value = (size * value + weighted_mean * smoothness) / (size + smoothness)) |>
+  ggplot(aes(value, new_value)) +
+  geom_abline(slope = 0, intercept = weighted_mean, color ="lightblue") +
+  geom_abline(slope = 1, intercept = 0, color = "lightgreen") +
+  geom_point(aes(size = size), alpha = 0.2) +
+  theme_minimal() +
+  xlim(range) +
+  ylim(range) +
+  labs(x = "Original mean value",
+       y = "Smoothed mean value",
+       size = "# observations",
+       title = "Large amount of smoothing")
+```
+
+The exact way this is done will very from method to method, and the strength of this smoothing can and should be tuned as there isn't a emperical best way to choose it. 
 
 tmwr also calls this effect encoding, where as other places call sum-encoding effect encoding https://www.linkedin.com/pulse/encode-categorical-features-revanth-yadama/
 
@@ -70,6 +150,8 @@ https://dl.acm.org/doi/10.1145/507533.507538
 https://www.tmwr.org/categorical.html#using-the-outcome-for-encoding-predictors
 
 <https://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/target-encoding.html#:~:text=Target%20encoding%20is%20the%20process,convert%20categorical%20columns%20to%20numeric.>
+
+<https://towardsdatascience.com/dealing-with-categorical-variables-by-using-target-encoder-a0f1733a4c69>
 
 ## Pros and Cons
 

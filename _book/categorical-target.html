@@ -844,8 +844,29 @@ ul.task-list li input[type="checkbox"] {
 <p>Let us think about the unseen levels first. If we have no information about a given class. This could happen in two different ways. Because the level is truly unseen, because the company was just started and wasn’t known in the training data set. Or because the known level wasn’t observed, e.i. no Sundays in the training data set. Regardless of the reason, we will want to give these levels a baseline number. For this we can use the mean value of the target, across all of the training data set. So for our toy example, we have a mean cuteness of 4, which we will assign to any new animal.</p>
 <p>This value is by no means a good value, but it is a educated guess that can be calculated with ease. This also means that regardless of the distribution of the target, this values can be calculated.</p>
 <p>The way we handle unseen levels gives us a glue as to how we can deal with low frequency counts. Knowing that the global mean of the target is our baseline when we have no information. We can combine the level mean with the global mean, in accordance to how many observations we observe. If we have a lot of observations in a level, we will let the global mean have little influence, and if there are fewer observations we will let the global mean have a higher influence.</p>
-<p>TODO: Add visualization to show how this works</p>
-<p>The exact way this is done will very from method to method, and the strength of this force can and should be tuned.</p>
+<p>We can visualize this effect in the following charts. First we have an example of what happens with a smaller amount of smoothing. The points mostly like along the diagonal. Remember that if we didn’t do this, all the points would be along the diagonal regardless of their size.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-target-smoothness-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="categorical-target_files/figure-html/fig-target-smoothness-1-1.png" class="img-fluid figure-img" alt="Scatter chart. A green line with slope 1 and intercept, and a blue line with slope 0 and a intercept equal to the global mean. The points are sized according to the number of observations that where used to calculate the value. The points lie along the green line mostly, with some of the smaller points getting closer to the blue line." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;24.1: With a small amount of smoothing, the adjusted means are close to the original means, regardless of the number of observations.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>In this next chart we see the effect of a higher amount of smoothing, now the levels with fewer observatiosn are pulled quite a bit closer to the global mean.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-target-smoothness-5" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="categorical-target_files/figure-html/fig-target-smoothness-5-1.png" class="img-fluid figure-img" alt="Scatter chart. A green line with slope 1 and intercept, and a blue line with slope 0 and a intercept equal to the global mean. The points are sized according to the number of observations that where used to calculate the value. The points lie between the green and blue line, with the smaller points being close to the blue line than the larger points." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;24.2: With a large amount of smoothing, the adjusted means are not as close to the original means, with smaller points getting quite close to the global mean.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The exact way this is done will very from method to method, and the strength of this smoothing can and should be tuned as there isn’t a emperical best way to choose it.</p>
 <p>tmwr also calls this effect encoding, where as other places call sum-encoding effect encoding https://www.linkedin.com/pulse/encode-categorical-features-revanth-yadama/</p>
 <p>We need to talk about the subtleties. There is plain mean encoding, and then there is all the variants,</p>
 <p>regularization</p>
@@ -853,6 +874,7 @@ ul.task-list li input[type="checkbox"] {
 <p>https://dl.acm.org/doi/10.1145/507533.507538</p>
 <p>https://www.tmwr.org/categorical.html#using-the-outcome-for-encoding-predictors</p>
 <p><a href="https://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/target-encoding.html#:~:text=Target%20encoding%20is%20the%20process,convert%20categorical%20columns%20to%20numeric." class="uri">https://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/target-encoding.html#:~:text=Target%20encoding%20is%20the%20process,convert%20categorical%20columns%20to%20numeric.</a></p>
+<p><a href="https://towardsdatascience.com/dealing-with-categorical-variables-by-using-target-encoder-a0f1733a4c69" class="uri">https://towardsdatascience.com/dealing-with-categorical-variables-by-using-target-encoder-a0f1733a4c69</a></p>
 <section id="pros-and-cons" class="level2" data-number="24.1">
 <h2 data-number="24.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">24.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="24.1.1">
