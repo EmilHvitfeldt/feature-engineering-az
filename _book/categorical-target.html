@@ -20,7 +20,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -799,8 +818,9 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p><strong>Target encoding</strong> (also called <strong>mean encoding</strong>, <strong>likelihood encoding</strong>, or <strong>impact encoding</strong>) is a method that maps the categorical levels to probabilities of your target variable. This method is in some ways quite similar to frequency encoding that we saw in <span class="quarto-unresolved-ref">?sec-categorical-frequency</span>. We are taking a single categorical variable, and turning it into a single numeric categorical variable.</p>
-<p>This is a trained and supervised method since we are using the outcome of our modeling problem to guide the way this method is estimated. In the most simple formulation, target encoding is done by replacing a categorical variable with the mean of the target variable. The target variable will typically be the outcome, but that is not necessarily a requirement.</p>
+<p>https://dl.acm.org/doi/10.1145/507533.507538</p>
+<p><strong>Target encoding</strong> (also called <strong>mean encoding</strong>, <strong>likelihood encoding</strong>, or <strong>impact encoding</strong>) is a method that maps the categorical levels to probabilities of your target variable <span class="citation" data-cites="micci2001">(<a href="references.html#ref-micci2001" role="doc-biblioref">Micci-Barreca 2001</a>)</span>. This method is in some ways quite similar to frequency encoding that we saw in <span class="quarto-unresolved-ref">?sec-categorical-frequency</span>. We are taking a single categorical variable, and turning it into a single numeric categorical variable.</p>
+<p>This is a trained and supervised method since we are using the outcome of our modeling problem to guide the way this method is estimated. In the most simple formulation, target encoding is done by replacing each level of a categorical variable with the mean of the target variable within said level. The target variable will typically be the outcome, but that is not necessarily a requirement.</p>
 <p>Consider the following example data set</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -891,6 +911,11 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="24.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">24.3</span> Python Examples</h2>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-micci2001" class="csl-entry" role="listitem">
+Micci-Barreca, Daniele. 2001. <span>“A Preprocessing Scheme for High-Cardinality Categorical Attributes in Classification and Prediction Problems.”</span> <em>SIGKDD Explor. Newsl.</em> 3 (1): 27–32. <a href="https://doi.org/10.1145/507533.507538">https://doi.org/10.1145/507533.507538</a>.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
