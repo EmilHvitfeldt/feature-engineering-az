@@ -1,6 +1,6 @@
 # Target Encoding {#sec-target-encoding}
 
-**Target encoding** (also called **mean encoding**, **likelihood encoding**, or **impact encoding**) is a method that map the categorical levels to probabilities of your target variable. This method is in some ways quite similar to frequency encoding that we saw in @sec-categorical-frequency. We are taking a single categorical variable, and turning it into a single numeric categorical variable.
+**Target encoding** (also called **mean encoding**, **likelihood encoding**, or **impact encoding**) is a method that maps the categorical levels to probabilities of your target variable. This method is in some ways quite similar to frequency encoding that we saw in @sec-categorical-frequency. We are taking a single categorical variable, and turning it into a single numeric categorical variable.
 
 This is a trained and supervised method since we are using the outcome of our modeling problem to guide the way this method is estimated. In the most simple formulation, target encoding is done by replacing a categorical variable with the mean of the target variable. The target variable will typically be the outcome, but that is not necessarily a requirement.
 
@@ -16,7 +16,7 @@ animals <- tibble::tibble(
 animals
 ```
 
-If we where to calculate target encoding on `animal` using `cuteness` as the target, we will first need to calculate the mean of `cuteness` within each
+If we were to calculate target encoding on `animal` using `cuteness` as the target, we will first need to calculate the mean of `cuteness` within each
 
 ```{r}
 #| echo: false
@@ -45,13 +45,13 @@ animals |>
   rename(animal = mean)
 ```
 
-From the above example we notice 3 things. Firstly, once the calculations have been done, applying the encoding to new data is a fairly easy procedure as it amounts to left join. Secondly, some classes have different number of observations associated with them. The `"horse"` class only has 1 observation in this data set, how confident are we that the mean calculated from this value is as valid as the mean that was calculated over the 3 values for the `"cat"` class? Lastly, how will this method handle unseen levels?
+From the above example, we notice 3 things. Firstly, once the calculations have been done, applying the encoding to new data is a fairly easy procedure as it amounts to a left join. Secondly, some classes have different numbers of observations associated with them. The `"horse"` class only has 1 observation in this data set, how confident are we that the mean calculated from this value is as valid as the mean that was calculated over the 3 values for the `"cat"` class? Lastly, how will this method handle unseen levels?
 
-Let us think about the unseen levels first. If we have no information about a given class. This could happen in two different ways. Because the level is truly unseen, because the company was just started and wasn't known in the training data set. Or because the known level wasn't observed, e.i. no Sundays in the training data set. Regardless of the reason, we will want to give these levels a baseline number. For this we can use the mean value of the target, across all of the training data set. So for our toy example, we have a mean cuteness of `r mean(animals$cuteness)`, which we will assign to any new animal.
+Let us think about the unseen levels first. If we have no information about a given class. This could happen in two different ways. Because the level is truly unseen because the company was just started and wasn't known in the training data set. Or because the known level wasn't observed, e.i. no Sundays in the training data set. Regardless of the reason, we will want to give these levels a baseline number. For this, we can use the mean value of the target, across all of the training data set. So for our toy example, we have a mean cuteness of `r mean(animals$cuteness)`, which we will assign to any new animal.
 
-This value is by no means a good value, but it is a educated guess that can be calculated with ease. This also means that regardless of the distribution of the target, this values can be calculated.
+This value is by no means a good value, but it is an educated guess that can be calculated with ease. This also means that regardless of the distribution of the target, these values can be calculated.
 
-The way we handle unseen levels gives us a glue as to how we can deal with low frequency counts. Knowing that the global mean of the target is our baseline when we have no information. We can combine the level mean with the global mean, in accordance to how many observations we observe. If we have a lot of observations in a level, we will let the global mean have little influence, and if there are fewer observations we will let the global mean have a higher influence.
+The way we handle unseen levels gives us a clue as to how we can deal with low-frequency counts. Knowing that the global mean of the target is our baseline when we have no information. We can combine the level mean with the global mean, in accordance with how many observations we observe. If we have a lot of observations in a level, we will let the global mean have little influence, and if there are fewer observations we will let the global mean have a higher influence.
 
 ```{r}
 #| echo: false
@@ -70,7 +70,7 @@ range <- range(data$value)
 range <- range + diff(range) * c(-0.1, 0.1)
 ```
 
-We can visualize this effect in the following charts. First we have an example of what happens with a smaller amount of smoothing. The points mostly like along the diagonal. Remember that if we didn't do this, all the points would be along the diagonal regardless of their size.
+We can visualize this effect in the following charts. First, we have an example of what happens with a smaller amount of smoothing. The points are mostly along the diagonal. Remember that if we didn't do this, all the points would be along the diagonal regardless of their size.
 
 ```{r}
 #| label: fig-target-smoothness-1
@@ -81,8 +81,8 @@ We can visualize this effect in the following charts. First we have an example o
 #|   original means, regardless of the number of observations.
 #| fig-alt: |
 #|   Scatter chart. A green line with slope 1 and intercept, and a blue line 
-#|   with slope 0 and a intercept equal to the global mean. The points are sized
-#|   according to the number of observations that where used to calculate the 
+#|   with slope 0 and an intercept equal to the global mean. The points are sized
+#|   according to the number of observations that were used to calculate the 
 #|   value. The points lie along the green line mostly, with some of the smaller
 #|   points getting closer to the blue line.
 smoothness <- 1
@@ -102,7 +102,7 @@ data |>
        title = "Small amount of smoothing")
 ```
 
-In this next chart we see the effect of a higher amount of smoothing, now the levels with fewer observatiosn are pulled quite a bit closer to the global mean.
+In this next chart, we see the effect of a higher amount of smoothing, now the levels with fewer observations are pulled quite a bit closer to the global mean.
 
 ```{r}
 #| label: fig-target-smoothness-5
@@ -114,9 +114,9 @@ In this next chart we see the effect of a higher amount of smoothing, now the le
 #|   mean.
 #| fig-alt: |
 #|   Scatter chart. A green line with slope 1 and intercept, and a blue line 
-#|   with slope 0 and a intercept equal to the global mean. The points are sized
-#|   according to the number of observations that where used to calculate the 
-#|   value. The points lie between the green and blue line, with the smaller
+#|   with slope 0 and an intercept equal to the global mean. The points are sized
+#|   according to the number of observations that were used to calculate the 
+#|   value. The points lie between the green and blue lines, with the smaller
 #|   points being close to the blue line than the larger points.
 smoothness <- 5
 
@@ -135,7 +135,7 @@ data |>
        title = "Large amount of smoothing")
 ```
 
-The exact way this is done will very from method to method, and the strength of this smoothing can and should be tuned as there isn't a emperical best way to choose it. 
+The exact way this is done will vary from method to method, and the strength of this smoothing can and should be tuned as there isn't an empirical best way to choose it. 
 
 tmwr also calls this effect encoding, where as other places call sum-encoding effect encoding https://www.linkedin.com/pulse/encode-categorical-features-revanth-yadama/
 
