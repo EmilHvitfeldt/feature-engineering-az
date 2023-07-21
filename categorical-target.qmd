@@ -1,8 +1,6 @@
 # Target Encoding {#sec-target-encoding}
 
-https://dl.acm.org/doi/10.1145/507533.507538
-
-**Target encoding** (also called **mean encoding**, **likelihood encoding**, or **impact encoding**) is a method that maps the categorical levels to probabilities of your target variable [@micci2001]. This method is in some ways quite similar to frequency encoding that we saw in @sec-categorical-frequency. We are taking a single categorical variable, and turning it into a single numeric categorical variable.
+**Target encoding** (also called **mean encoding**, **likelihood encoding**, or **impact encoding**) is a method that maps the categorical levels to probabilities of your target variable [@micci2001]. This method is in some ways quite similar to frequency encoding that we saw in @sec-frequency-encoding. We are taking a single categorical variable, and turning it into a single numeric categorical variable.
 
 This is a trained and supervised method since we are using the outcome of our modeling problem to guide the way this method is estimated. In the most simple formulation, target encoding is done by replacing each level of a categorical variable with the mean of the target variable within said level. The target variable will typically be the outcome, but that is not necessarily a requirement.
 
@@ -137,9 +135,7 @@ data |>
        title = "Large amount of smoothing")
 ```
 
-The exact way this is done will vary from method to method, and the strength of this smoothing can and should be tuned as there isn't an empirical best way to choose it. 
-
-tmwr also calls this effect encoding, where as other places call sum-encoding effect encoding https://www.linkedin.com/pulse/encode-categorical-features-revanth-yadama/
+The exact way this is done will vary from method to method, and the strength of this smoothing can and should be tuned as there isn't an empirical best way to choose it.
 
 We need to talk about the subtleties. There is plain mean encoding, and then there is all the variants,
 
@@ -148,8 +144,6 @@ regularization
 https://embed.tidymodels.org/reference/step_lencode_glm.html https://embed.tidymodels.org/reference/step_lencode_mixed.html https://embed.tidymodels.org/reference/step_lencode_mixed.html https://contrib.scikit-learn.org/category_encoders/targetencoder.html
 
 https://dl.acm.org/doi/10.1145/507533.507538
-
-https://www.tmwr.org/categorical.html#using-the-outcome-for-encoding-predictors
 
 <https://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/target-encoding.html#:~:text=Target%20encoding%20is%20the%20process,convert%20categorical%20columns%20to%20numeric.>
 
