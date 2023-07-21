@@ -1,8 +1,10 @@
 # Target Encoding {#sec-target-encoding}
 
-**Target encoding** (also called **mean encoding**, **likelihood encoding**, or **impact encoding**) is a method that maps the categorical levels to probabilities of your target variable. This method is in some ways quite similar to frequency encoding that we saw in @sec-categorical-frequency. We are taking a single categorical variable, and turning it into a single numeric categorical variable.
+https://dl.acm.org/doi/10.1145/507533.507538
 
-This is a trained and supervised method since we are using the outcome of our modeling problem to guide the way this method is estimated. In the most simple formulation, target encoding is done by replacing a categorical variable with the mean of the target variable. The target variable will typically be the outcome, but that is not necessarily a requirement.
+**Target encoding** (also called **mean encoding**, **likelihood encoding**, or **impact encoding**) is a method that maps the categorical levels to probabilities of your target variable [@micci2001]. This method is in some ways quite similar to frequency encoding that we saw in @sec-categorical-frequency. We are taking a single categorical variable, and turning it into a single numeric categorical variable.
+
+This is a trained and supervised method since we are using the outcome of our modeling problem to guide the way this method is estimated. In the most simple formulation, target encoding is done by replacing each level of a categorical variable with the mean of the target variable within said level. The target variable will typically be the outcome, but that is not necessarily a requirement.
 
 Consider the following example data set
 
