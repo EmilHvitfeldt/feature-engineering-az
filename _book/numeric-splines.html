@@ -904,6 +904,17 @@ Attaching package: 'recipes'</code></pre>
 </div>
 </div>
 </div>
+<p>One thing to note, is that you will get back correlated features when using splines.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-splines-correlation" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="numeric-splines_files/figure-html/fig-splines-correlation-1.png" class="img-fluid figure-img" alt="Correlation chart. The spline basis features are lined up one after another. Neightboring features show high correlation, features 2 apart are slightly correlated, and other features are anti correlated." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;14.5: Neightboring features are highly correlated, and anti correlated with far away features.</figcaption>
+</figure>
+</div>
+</div>
+</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>data_example <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="dv">10000</span>))</span>
@@ -917,7 +928,7 @@ Attaching package: 'recipes'</code></pre>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, value, <span class="at">color =</span> name)) <span class="sc">+</span></span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="numeric-splines_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<p><img src="numeric-splines_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">recipe</span>(<span class="sc">~</span> x, <span class="at">data =</span> data_example) <span class="sc">|&gt;</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_spline_convex</span>(x, <span class="at">keep_original_cols =</span> <span class="cn">TRUE</span>, <span class="at">deg_free =</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
@@ -927,7 +938,7 @@ Attaching package: 'recipes'</code></pre>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, value, <span class="at">color =</span> name)) <span class="sc">+</span></span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="numeric-splines_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid" width="672"></p>
+<p><img src="numeric-splines_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">recipe</span>(<span class="sc">~</span> x, <span class="at">data =</span> data_example) <span class="sc">|&gt;</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_spline_monotone</span>(x, <span class="at">keep_original_cols =</span> <span class="cn">TRUE</span>, <span class="at">deg_free =</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
@@ -937,7 +948,7 @@ Attaching package: 'recipes'</code></pre>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, value, <span class="at">color =</span> name)) <span class="sc">+</span></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="numeric-splines_files/figure-html/unnamed-chunk-7-3.png" class="img-fluid" width="672"></p>
+<p><img src="numeric-splines_files/figure-html/unnamed-chunk-8-3.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">recipe</span>(<span class="sc">~</span> x, <span class="at">data =</span> data_example) <span class="sc">|&gt;</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_spline_natural</span>(x, <span class="at">keep_original_cols =</span> <span class="cn">TRUE</span>, <span class="at">deg_free =</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
@@ -947,7 +958,7 @@ Attaching package: 'recipes'</code></pre>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, value, <span class="at">color =</span> name)) <span class="sc">+</span></span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="numeric-splines_files/figure-html/unnamed-chunk-7-4.png" class="img-fluid" width="672"></p>
+<p><img src="numeric-splines_files/figure-html/unnamed-chunk-8-4.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">recipe</span>(<span class="sc">~</span> x, <span class="at">data =</span> data_example) <span class="sc">|&gt;</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_spline_nonnegative</span>(x, <span class="at">keep_original_cols =</span> <span class="cn">TRUE</span>, <span class="at">deg_free =</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
@@ -957,7 +968,7 @@ Attaching package: 'recipes'</code></pre>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, value, <span class="at">color =</span> name)) <span class="sc">+</span></span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="numeric-splines_files/figure-html/unnamed-chunk-7-5.png" class="img-fluid" width="672"></p>
+<p><img src="numeric-splines_files/figure-html/unnamed-chunk-8-5.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">recipe</span>(<span class="sc">~</span> x, <span class="at">data =</span> data_example) <span class="sc">|&gt;</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_spline_nonnegative</span>(x, <span class="at">keep_original_cols =</span> <span class="cn">TRUE</span>, <span class="at">deg_free =</span> <span class="dv">5</span>,</span>
@@ -968,7 +979,7 @@ Attaching package: 'recipes'</code></pre>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, value, <span class="at">color =</span> name)) <span class="sc">+</span></span>
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="numeric-splines_files/figure-html/unnamed-chunk-7-6.png" class="img-fluid" width="672"></p>
+<p><img src="numeric-splines_files/figure-html/unnamed-chunk-8-6.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <section id="pros-and-cons" class="level2" data-number="14.1">
