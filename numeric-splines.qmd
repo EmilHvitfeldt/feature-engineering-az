@@ -112,6 +112,26 @@ data_splines |>
   theme_minimal()
 ```
 
+One thing to note, is that you will get back correlated features when using splines.
+
+```{r}
+#| label: fig-splines-correlation
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Neightboring features are highly correlated, and anti correlated with 
+#|   far away features.
+#| fig-alt: |
+#|   Correlation chart. The spline basis features are lined up one after
+#|   another. Neightboring features show high correlation, features 2 apart are
+#|   slightly correlated, and other features are anti correlated.
+data_splines |>
+  dplyr::select(-predictor, -outcome) |>
+  corrr::correlate(quiet = TRUE) |>
+  autoplot(method = "identity")
+```
+
+
 
 
 ```{r}
