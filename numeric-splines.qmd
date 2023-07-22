@@ -114,6 +114,62 @@ data_splines |>
 
 
 
+```{r}
+library(recipes)
+data_example <- data.frame(x = rnorm(10000))
+
+recipe(~ x, data = data_example) |>
+  step_spline_b(x, keep_original_cols = TRUE, deg_free = 5,
+                options = list(periodic = TRUE), complete_set = TRUE) |>
+  prep() |>
+  bake(new_data = tibble(x = seq(-3, 20, by = 0.01))) |>
+  tidyr::pivot_longer(-x) |>
+  ggplot(aes(x, value, color = name)) +
+  geom_line()
+
+recipe(~ x, data = data_example) |>
+  step_spline_convex(x, keep_original_cols = TRUE, deg_free = 5) |>
+  prep() |>
+  bake(new_data = data_example) |>
+  tidyr::pivot_longer(-x) |>
+  ggplot(aes(x, value, color = name)) +
+  geom_line()
+
+recipe(~ x, data = data_example) |>
+  step_spline_monotone(x, keep_original_cols = TRUE, deg_free = 5) |>
+  prep() |>
+  bake(new_data = data_example) |>
+  tidyr::pivot_longer(-x) |>
+  ggplot(aes(x, value, color = name)) +
+  geom_line()
+
+recipe(~ x, data = data_example) |>
+  step_spline_natural(x, keep_original_cols = TRUE, deg_free = 5) |>
+  prep() |>
+  bake(new_data = data_example) |>
+  tidyr::pivot_longer(-x) |>
+  ggplot(aes(x, value, color = name)) +
+  geom_line()
+
+recipe(~ x, data = data_example) |>
+  step_spline_nonnegative(x, keep_original_cols = TRUE, deg_free = 5) |>
+  prep() |>
+  bake(new_data = data_example) |>
+  tidyr::pivot_longer(-x) |>
+  ggplot(aes(x, value, color = name)) +
+  geom_line()
+
+recipe(~ x, data = data_example) |>
+  step_spline_nonnegative(x, keep_original_cols = TRUE, deg_free = 5,
+                          options = list(periodic = TRUE)) |>
+  prep() |>
+  bake(new_data = tibble(x = seq(-3, 20, by = 0.01))) |>
+  tidyr::pivot_longer(-x) |>
+  ggplot(aes(x, value, color = name)) +
+  geom_line()
+```
+
+
 
 ## Pros and Cons
 
