@@ -1,3 +1,126 @@
 # Splines {#sec-splines}
 
-WIP
+**Splines**, is one way to represent a curve that makes it useful in a modeling content, since it allows us to model non-linear relationships between predictors and outcomes.
+
+```{r}
+#| echo: false
+set.seed(1234)
+data <- tibble::tibble(
+  predictor = rnorm(100) + 1:100
+) |>
+  dplyr::mutate(outcome = sin(predictor/25) + rnorm(100, sd = 0.1) + 10)
+```
+
+
+
+```{r}
+#| label: fig-splines-predictor-outcome
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Non-linear relationship between predictor and outcome.
+#| fig-alt: |
+#|   Scatter chart. Predictor along the x-axis and outcome along the y-axis.
+#|   The data has some wiggliness to it, but it follows a curve. You would not 
+#|   be able to fit a straight line to this data.
+library(ggplot2)
+
+data |>
+  ggplot(aes(predictor, outcome)) +
+  geom_point() +
+  theme_minimal()
+```
+
+
+
+```{r}
+#| echo: false
+library(recipes)
+
+data_splines <- recipe(outcome ~ predictor, data = data) |>
+  step_bs(predictor, keep_original_cols = TRUE, degree = 10) |>
+  prep() |>
+  bake(new_data = data) |>
+  select(-predictor_bs_10)
+```
+
+
+
+```{r}
+#| label: fig-splines-spline-curves
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Each part of the spline detects a part of the data set.
+#| fig-alt: |
+#|   Facetted line chart. Predictor along the x-axis, value along the y-axis.
+#|   Each of the curves start at 0, goes to smoothly, and then down to zero.
+#|   The highpoint for each curve goes further to the right for each curve 
+#|   shown.
+data_splines |>
+  select(-outcome) |>
+  tidyr::pivot_longer(cols = -predictor) |>
+  ggplot(aes(predictor, value)) +
+  geom_line() +
+  facet_wrap(~name) +
+  theme_minimal()
+```
+
+
+
+```{r}
+#| label: fig-splines-spline-highlight
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Each part of the spline detects a part of the data set.
+#| fig-alt: |
+#|   Facetted scatter chart. Predictor along the x-axis, outcome along the 
+#|   y-axis. Each of the facets shows the same non-linear relationship between
+#|   predictor and outcome. Color is used to show how each spline term 
+#|   highlights a different part of the predictor. The highlight goes further 
+#|   to the right for each facet.
+data_splines |>
+  tidyr::pivot_longer(cols = -c(outcome, predictor)) |>
+  ggplot(aes(predictor, outcome, color = value)) +
+  geom_point() +
+  facet_wrap(~name) +
+  scale_color_viridis_c() +
+  theme_minimal()
+```
+
+
+
+```{r}
+#| label: fig-splines-spline-outcome
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Some spline terms have better relationship to the outcome than others.
+#| fig-alt: |
+#|   Facetted scatter chart. Spline value along the x-axis, outcome along the 
+#|   y-axis. Each facet shows the relationship between one of the spline terms
+#|   and the outcome. Some of them are non-linear, and a couple of them are 
+#|   fairly linear. A fitted line is overlaid in blue.
+data_splines |>
+  tidyr::pivot_longer(cols = -c(outcome, predictor)) |>
+  ggplot(aes(value, outcome)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = "y ~ x", se = FALSE) +
+  facet_wrap(~name) +
+  scale_color_viridis_c() +
+  theme_minimal()
+```
+
+
+
+
+## Pros and Cons
+
+### Pros
+
+### Cons
+
+## R Examples
+
+### Python Examples

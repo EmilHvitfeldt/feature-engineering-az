@@ -765,7 +765,21 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link active" data-scroll-target="#pros-and-cons"><span class="header-section-number">14.1</span> Pros and Cons</a>
+  <ul class="collapse">
+  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">14.1.1</span> Pros</a></li>
+  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">14.1.2</span> Cons</a></li>
+  </ul></li>
+  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">14.2</span> R Examples</a>
+  <ul class="collapse">
+  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">14.2.1</span> Python Examples</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -787,9 +801,92 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>WIP</p>
+<p><strong>Splines</strong>, is one way to represent a curve that makes it useful in a modeling content, since it allows us to model non-linear relationships between predictors and outcomes.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-splines-predictor-outcome" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="numeric-splines_files/figure-html/fig-splines-predictor-outcome-1.png" class="img-fluid figure-img" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. The data has some wiggliness to it, but it follows a curve. You would not be able to fit a straight line to this data." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;14.1: Non-linear relationship between predictor and outcome.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: dplyr</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'recipes'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:stats':
+
+    step</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-splines-spline-curves" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="numeric-splines_files/figure-html/fig-splines-spline-curves-1.png" class="img-fluid figure-img" alt="Facetted line chart. Predictor along the x-axis, value along the y-axis. Each of the curves start at 0, goes to smoothly, and then down to zero. The highpoint for each curve goes further to the right for each curve shown." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;14.2: Each part of the spline detects a part of the data set.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-splines-spline-highlight" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="numeric-splines_files/figure-html/fig-splines-spline-highlight-1.png" class="img-fluid figure-img" alt="Facetted scatter chart. Predictor along the x-axis, outcome along the y-axis. Each of the facets shows the same non-linear relationship between predictor and outcome. Color is used to show how each spline term highlights a different part of the predictor. The highlight goes further to the right for each facet." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;14.3: Each part of the spline detects a part of the data set.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-splines-spline-outcome" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="numeric-splines_files/figure-html/fig-splines-spline-outcome-1.png" class="img-fluid figure-img" alt="Facetted scatter chart. Spline value along the x-axis, outcome along the y-axis. Each facet shows the relationship between one of the spline terms and the outcome. Some of them are non-linear, and a couple of them are fairly linear. A fitted line is overlaid in blue." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;14.4: Some spline terms have better relationship to the outcome than others.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="pros-and-cons" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">14.1</span> Pros and Cons</h2>
+<section id="pros" class="level3" data-number="14.1.1">
+<h3 data-number="14.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">14.1.1</span> Pros</h3>
+</section>
+<section id="cons" class="level3" data-number="14.1.2">
+<h3 data-number="14.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">14.1.2</span> Cons</h3>
+</section>
+</section>
+<section id="r-examples" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">14.2</span> R Examples</h2>
+<section id="python-examples" class="level3" data-number="14.2.1">
+<h3 data-number="14.2.1" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">14.2.1</span> Python Examples</h3>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
