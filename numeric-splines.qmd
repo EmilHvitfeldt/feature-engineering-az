@@ -135,61 +135,75 @@ data_splines |>
 
 
 ```{r}
-library(recipes)
+#| echo: false
 data_example <- data.frame(x = rnorm(10000))
 
-recipe(~ x, data = data_example) |>
-  step_spline_b(x, keep_original_cols = TRUE, deg_free = 5,
-                options = list(periodic = TRUE), complete_set = TRUE) |>
-  prep() |>
-  bake(new_data = tibble(x = seq(-3, 20, by = 0.01))) |>
-  tidyr::pivot_longer(-x) |>
-  ggplot(aes(x, value, color = name)) +
-  geom_line()
-
-recipe(~ x, data = data_example) |>
+plot_convex <- recipe(~ x, data = data_example) |>
   step_spline_convex(x, keep_original_cols = TRUE, deg_free = 5) |>
   prep() |>
   bake(new_data = data_example) |>
   tidyr::pivot_longer(-x) |>
   ggplot(aes(x, value, color = name)) +
-  geom_line()
+  geom_line() +
+  guides(color = "none") +
+  theme_minimal() +
+  labs(title = "C-spline")
 
-recipe(~ x, data = data_example) |>
+plot_monotone <- recipe(~ x, data = data_example) |>
   step_spline_monotone(x, keep_original_cols = TRUE, deg_free = 5) |>
   prep() |>
   bake(new_data = data_example) |>
   tidyr::pivot_longer(-x) |>
   ggplot(aes(x, value, color = name)) +
-  geom_line()
+  geom_line() +
+  guides(color = "none") +
+  theme_minimal() +
+  labs(title = "M-spline")
 
-recipe(~ x, data = data_example) |>
-  step_spline_natural(x, keep_original_cols = TRUE, deg_free = 5) |>
+plot_natural <- recipe(~ x, data = data_example) |>
+  step_spline_natural(x, keep_original_cols = TRUE, deg_free = 5, 
+                      complete_set = TRUE) |>
   prep() |>
   bake(new_data = data_example) |>
   tidyr::pivot_longer(-x) |>
   ggplot(aes(x, value, color = name)) +
-  geom_line()
+  geom_line() +
+  guides(color = "none") +
+  theme_minimal() +
+  labs(title = "Natural spline")
 
-recipe(~ x, data = data_example) |>
-  step_spline_nonnegative(x, keep_original_cols = TRUE, deg_free = 5) |>
+plot_b <- recipe(~ x, data = data_example) |>
+  step_spline_b(x, keep_original_cols = TRUE, deg_free = 5,
+                options = list(periodic = TRUE), complete_set = TRUE) |>
   prep() |>
-  bake(new_data = data_example) |>
+  bake(new_data = tibble(x = seq(-3, 15, by = 0.01))) |>
   tidyr::pivot_longer(-x) |>
   ggplot(aes(x, value, color = name)) +
-  geom_line()
-
-recipe(~ x, data = data_example) |>
-  step_spline_nonnegative(x, keep_original_cols = TRUE, deg_free = 5,
-                          options = list(periodic = TRUE)) |>
-  prep() |>
-  bake(new_data = tibble(x = seq(-3, 20, by = 0.01))) |>
-  tidyr::pivot_longer(-x) |>
-  ggplot(aes(x, value, color = name)) +
-  geom_line()
+  geom_line() +
+  guides(color = "none") +
+  theme_minimal() +
+  labs(title = "Periodic b-spline")
 ```
 
 
+```{r}
+#| label: fig-splines-types-of-splines
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Neightboring features are highly correlated, and anti correlated with 
+#|   far away features.
+#| fig-alt: |
+#|   4 charts in a grid. Each representing a different type of spline. The 
+#|   C-splines here are all increasing at different rates of change. The 
+#|   M-splines are appear to have a sigmoidal shape, starting at 0 and ending 
+#|   at 1. The natural splines looks very similar to the basis splines we saw
+#|   earlier. And the last chart, shows a pariodic b-spline. These splines are
+#|   the same kind as earlier, but they have been modified to repeat at a
+#|   specific interval.
+library(patchwork)
+(plot_convex + plot_monotone) / (plot_natural + plot_b)
+```
 
 ## Pros and Cons
 
