@@ -1,15 +1,15 @@
 Package: feature-engineering-az
-Encoding: UTF-8
 Imports: 
-    readr,
-    tidymodels,
+    corrr,
     extrasteps,
     jsonlite,
-    rmarkdown,
+    patchwork,
+    readr,
     remotes,
     reticulate,
-    corrr,
+    rmarkdown,
     splines2,
-    patchwork
+    tidymodels
 Remotes:
     emilhvitfeldt/extrasteps
+Encoding: UTF-8
