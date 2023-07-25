@@ -53,7 +53,7 @@
     "href": "numeric.html#non-linear-effect",
     "title": "4  Overview",
     "section": "4.3 Non-linear effect",
-    "text": "4.3 Non-linear effect\n\nSplines\npolynomial"
+    "text": "4.3 Non-linear effect\n\nbinning\nsplines\npolynomial"
   },
   {
     "objectID": "numeric.html#sec-numeric-outliers-issues",
@@ -203,765 +203,786 @@
     "text": "13.2 R Examples\nWe will be using the ames data set for these examples.\n\n# remotes::install_github(\"emilhvitfeldt/extrasteps\")\nlibrary(recipes)\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nlibrary(extrasteps)\nlibrary(modeldata)\ndata(\"ames\")\n\names |&gt;\n  select(Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)\n\n# A tibble: 2,930 × 4\n   Sale_Price Lot_Area Wood_Deck_SF Mas_Vnr_Area\n        &lt;int&gt;    &lt;int&gt;        &lt;int&gt;        &lt;dbl&gt;\n 1     215000    31770          210          112\n 2     105000    11622          140            0\n 3     172000    14267          393          108\n 4     244000    11160            0            0\n 5     189900    13830          212            0\n 6     195500     9978          360           20\n 7     213500     4920            0            0\n 8     191500     5005            0            0\n 9     236500     5389          237            0\n10     189000     7500          140            0\n# ℹ 2,920 more rows\n\n\nWe will be using the step_robust() step for this, and it can be found in the extrasteps extension package.\n\nmaxabs_rec &lt;- recipe(Sale_Price ~ ., data = ames) |&gt;\n  step_robust(all_numeric_predictors()) |&gt;\n  prep()\n\nmaxabs_rec |&gt;\n  bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)\n\n# A tibble: 2,930 × 4\n   Sale_Price Lot_Area Wood_Deck_SF Mas_Vnr_Area\n        &lt;int&gt;    &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;\n 1     215000    5.43         1.25         0.688\n 2     105000    0.531        0.833        0    \n 3     172000    1.17         2.34         0.664\n 4     244000    0.419        0            0    \n 5     189900    1.07         1.26         0    \n 6     195500    0.132        2.14         0.123\n 7     213500   -1.10         0            0    \n 8     191500   -1.08         0            0    \n 9     236500   -0.984        1.41         0    \n10     189000   -0.471        0.833        0    \n# ℹ 2,920 more rows\n\n\nWe can also pull out what the max values were for each variable using tidy()\n\nmaxabs_rec |&gt;\n  tidy(1)\n\n# A tibble: 99 × 4\n   terms          statistic  value id          \n   &lt;chr&gt;          &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;       \n 1 Lot_Frontage   lower        43  robust_Bp5vK\n 2 Lot_Frontage   median       63  robust_Bp5vK\n 3 Lot_Frontage   higher       78  robust_Bp5vK\n 4 Lot_Area       lower      7440. robust_Bp5vK\n 5 Lot_Area       median     9436. robust_Bp5vK\n 6 Lot_Area       higher    11555. robust_Bp5vK\n 7 Year_Built     lower      1954  robust_Bp5vK\n 8 Year_Built     median     1973  robust_Bp5vK\n 9 Year_Built     higher     2001  robust_Bp5vK\n10 Year_Remod_Add lower      1965  robust_Bp5vK\n# ℹ 89 more rows\n\n\nWe can also can\n\nmaxabs_rec &lt;- recipe(Sale_Price ~ ., data = ames) |&gt;\n  step_robust(all_numeric_predictors(), range = c(0.1, 0.9)) |&gt;\n  prep()\n\nmaxabs_rec |&gt;\n  bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)\n\n# A tibble: 2,930 × 4\n   Sale_Price Lot_Area Wood_Deck_SF Mas_Vnr_Area\n        &lt;int&gt;    &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;\n 1     215000   2.35          0.820       0.350 \n 2     105000   0.230         0.547       0     \n 3     172000   0.509         1.53        0.337 \n 4     244000   0.181         0           0     \n 5     189900   0.463         0.828       0     \n 6     195500   0.0570        1.41        0.0625\n 7     213500  -0.475         0           0     \n 8     191500  -0.467         0           0     \n 9     236500  -0.426         0.925       0     \n10     189000  -0.204         0.547       0     \n# ℹ 2,920 more rows\n\n\nwhen we pull out the ranges, we see that they are wider\n\nmaxabs_rec |&gt;\n  tidy(1)\n\n# A tibble: 99 × 4\n   terms          statistic  value id          \n   &lt;chr&gt;          &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;       \n 1 Lot_Frontage   lower         0  robust_RUieL\n 2 Lot_Frontage   median       63  robust_RUieL\n 3 Lot_Frontage   higher       91  robust_RUieL\n 4 Lot_Area       lower      4800  robust_RUieL\n 5 Lot_Area       median     9436. robust_RUieL\n 6 Lot_Area       higher    14299. robust_RUieL\n 7 Year_Built     lower      1925. robust_RUieL\n 8 Year_Built     median     1973  robust_RUieL\n 9 Year_Built     higher     2006  robust_RUieL\n10 Year_Remod_Add lower      1950  robust_RUieL\n# ℹ 89 more rows\n\n\n\n13.2.1 Python Examples"
   },
   {
-    "objectID": "numeric-splines.html#pros-and-cons",
-    "href": "numeric-splines.html#pros-and-cons",
-    "title": "14  Splines",
+    "objectID": "numeric-binning.html#pros-and-cons",
+    "href": "numeric-binning.html#pros-and-cons",
+    "title": "14  Polynomial",
     "section": "14.1 Pros and Cons",
     "text": "14.1 Pros and Cons\n\n14.1.1 Pros\n\n\n14.1.2 Cons"
   },
   {
+    "objectID": "numeric-binning.html#r-examples",
+    "href": "numeric-binning.html#r-examples",
+    "title": "14  Polynomial",
+    "section": "14.2 R Examples",
+    "text": "14.2 R Examples"
+  },
+  {
+    "objectID": "numeric-binning.html#python-examples",
+    "href": "numeric-binning.html#python-examples",
+    "title": "14  Polynomial",
+    "section": "14.3 Python Examples",
+    "text": "14.3 Python Examples"
+  },
+  {
+    "objectID": "numeric-splines.html#pros-and-cons",
+    "href": "numeric-splines.html#pros-and-cons",
+    "title": "15  Splines",
+    "section": "15.1 Pros and Cons",
+    "text": "15.1 Pros and Cons\n\n15.1.1 Pros\n\n\n15.1.2 Cons"
+  },
+  {
     "objectID": "numeric-splines.html#r-examples",
     "href": "numeric-splines.html#r-examples",
-    "title": "14  Splines",
-    "section": "14.2 R Examples",
-    "text": "14.2 R Examples\n\n14.2.1 Python Examples"
+    "title": "15  Splines",
+    "section": "15.2 R Examples",
+    "text": "15.2 R Examples\n\n15.2.1 Python Examples"
   },
   {
     "objectID": "numeric-polynomial.html",
     "href": "numeric-polynomial.html",
-    "title": "15  Polynomial",
+    "title": "16  Polynomial",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "categorical.html#categorical-to-categorical",
     "href": "categorical.html#categorical-to-categorical",
-    "title": "16  Overview",
-    "section": "16.1 Categorical to Categorical",
-    "text": "16.1 Categorical to Categorical\nThese methods take a categorical variable and improve them. Whether it means cleaning levels, collapsing levels, or making sure it handles new levels correctly. These Tasks as not always needed depending on the method you are using but they are generally helpful to apply. One method that would have been located here if it wasn’t for the fact that it has a whole section by itself is dealing with missing values as seen in Chapter 41."
+    "title": "17  Overview",
+    "section": "17.1 Categorical to Categorical",
+    "text": "17.1 Categorical to Categorical\nThese methods take a categorical variable and improve them. Whether it means cleaning levels, collapsing levels, or making sure it handles new levels correctly. These Tasks as not always needed depending on the method you are using but they are generally helpful to apply. One method that would have been located here if it wasn’t for the fact that it has a whole section by itself is dealing with missing values as seen in Chapter 42."
   },
   {
     "objectID": "categorical.html#categorical-to-numerical",
     "href": "categorical.html#categorical-to-numerical",
-    "title": "16  Overview",
-    "section": "16.2 Categorical to Numerical",
-    "text": "16.2 Categorical to Numerical\nThe vast majority of the chapters in these chapters concern methods that take a categorical variable and produce one or more numerical variables suitable for modeling. There are quite a lot of different methods, all have upsides and downsides and they will all be explored in the remaining chapters."
+    "title": "17  Overview",
+    "section": "17.2 Categorical to Numerical",
+    "text": "17.2 Categorical to Numerical\nThe vast majority of the chapters in these chapters concern methods that take a categorical variable and produce one or more numerical variables suitable for modeling. There are quite a lot of different methods, all have upsides and downsides and they will all be explored in the remaining chapters."
   },
   {
     "objectID": "categorical-cleaning.html#r-examples",
     "href": "categorical-cleaning.html#r-examples",
-    "title": "17  Cleaning",
-    "section": "17.1 R examples",
-    "text": "17.1 R examples\nTODO find good data set for these examples\nUse janitor\ntextrecipes::step_clean_levels()"
+    "title": "18  Cleaning",
+    "section": "18.1 R examples",
+    "text": "18.1 R examples\nTODO find good data set for these examples\nUse janitor\ntextrecipes::step_clean_levels()"
   },
   {
     "objectID": "categorical-cleaning.html#python-examples",
     "href": "categorical-cleaning.html#python-examples",
-    "title": "17  Cleaning",
-    "section": "17.2 Python Examples",
-    "text": "17.2 Python Examples"
+    "title": "18  Cleaning",
+    "section": "18.2 Python Examples",
+    "text": "18.2 Python Examples"
   },
   {
     "objectID": "categorical-unseen.html#r-examples",
     "href": "categorical-unseen.html#r-examples",
-    "title": "18  Unseen Levels",
-    "section": "18.1 R Examples",
-    "text": "18.1 R Examples\nWe will be using the nycflights13 data set. We are downsampling just a bit to only work on the first day and doing a test-train split.\n\nlibrary(recipes)\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nlibrary(rsample)\nlibrary(nycflights13)\n\nflights &lt;- flights |&gt;\n  filter(year == 2013, month == 1, day == 1)\n\nset.seed(13630)\nflights_split &lt;- initial_split(flights)\nflights_train &lt;- training(flights_split)\nflights_test &lt;- testing(flights_split)\n\nNow we are doing the cardinal sin by looking at the testing data. But in this case, it is okay because we are doing it for educational purposes.\n\nflights_train |&gt; pull(carrier) |&gt; unique() |&gt; sort()\n\n [1] \"9E\" \"AA\" \"B6\" \"DL\" \"EV\" \"F9\" \"FL\" \"MQ\" \"UA\" \"US\" \"VX\" \"WN\"\n\nflights_test |&gt; pull(carrier) |&gt; unique() |&gt; sort()\n\n [1] \"9E\" \"AA\" \"AS\" \"B6\" \"DL\" \"EV\" \"FL\" \"HA\" \"MQ\" \"UA\" \"US\" \"VX\" \"WN\"\n\n\nNotice that the testing data includes the carrier \"AS\" and \"HA\" but the training data doesn’t know that. Let us see what would happen if we were to calculate dummy variables without doing any adjusting.\n\ndummy_spec &lt;- recipe(arr_delay ~ carrier, data = flights_train) |&gt;\n  step_dummy(carrier)\n\ndummy_spec_prepped &lt;- prep(dummy_spec)\n\nbake(dummy_spec_prepped, new_data = flights_test)\n\nWarning: There are new levels in a factor: AS, HA\n\n\n# A tibble: 211 × 12\n   arr_delay carrier_AA carrier_B6 carrier_DL carrier_EV carrier_F9 carrier_FL\n       &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;\n 1        12          0          0          0          0          0          0\n 2         8          1          0          0          0          0          0\n 3       -14          0          0          0          0          0          0\n 4        -6          0          1          0          0          0          0\n 5        -3          1          0          0          0          0          0\n 6       -33          0          0          1          0          0          0\n 7        -7          1          0          0          0          0          0\n 8         5          0          1          0          0          0          0\n 9        31          1          0          0          0          0          0\n10       -10         NA         NA         NA         NA         NA         NA\n# ℹ 201 more rows\n# ℹ 5 more variables: carrier_MQ &lt;dbl&gt;, carrier_UA &lt;dbl&gt;, carrier_US &lt;dbl&gt;,\n#   carrier_VX &lt;dbl&gt;, carrier_WN &lt;dbl&gt;\n\n\nWe get a warning, and if you look at the rows that were affected we see that it produces NAs. Let us now use the function step_novel() that implements the above-described method.\n\nnovel_spec &lt;- recipe(arr_delay ~ carrier, data = flights_train) |&gt;\n  step_novel(carrier) |&gt;\n  step_dummy(carrier) \n\nnovel_spec_prepped &lt;- prep(novel_spec)\n\nbake(novel_spec_prepped, new_data = flights_test)\n\n# A tibble: 211 × 13\n   arr_delay carrier_AA carrier_B6 carrier_DL carrier_EV carrier_F9 carrier_FL\n       &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;\n 1        12          0          0          0          0          0          0\n 2         8          1          0          0          0          0          0\n 3       -14          0          0          0          0          0          0\n 4        -6          0          1          0          0          0          0\n 5        -3          1          0          0          0          0          0\n 6       -33          0          0          1          0          0          0\n 7        -7          1          0          0          0          0          0\n 8         5          0          1          0          0          0          0\n 9        31          1          0          0          0          0          0\n10       -10          0          0          0          0          0          0\n# ℹ 201 more rows\n# ℹ 6 more variables: carrier_MQ &lt;dbl&gt;, carrier_UA &lt;dbl&gt;, carrier_US &lt;dbl&gt;,\n#   carrier_VX &lt;dbl&gt;, carrier_WN &lt;dbl&gt;, carrier_new &lt;dbl&gt;\n\n\nAnd we see that we get no error or anything."
+    "title": "19  Unseen Levels",
+    "section": "19.1 R Examples",
+    "text": "19.1 R Examples\nWe will be using the nycflights13 data set. We are downsampling just a bit to only work on the first day and doing a test-train split.\n\nlibrary(recipes)\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nlibrary(rsample)\nlibrary(nycflights13)\n\nflights &lt;- flights |&gt;\n  filter(year == 2013, month == 1, day == 1)\n\nset.seed(13630)\nflights_split &lt;- initial_split(flights)\nflights_train &lt;- training(flights_split)\nflights_test &lt;- testing(flights_split)\n\nNow we are doing the cardinal sin by looking at the testing data. But in this case, it is okay because we are doing it for educational purposes.\n\nflights_train |&gt; pull(carrier) |&gt; unique() |&gt; sort()\n\n [1] \"9E\" \"AA\" \"B6\" \"DL\" \"EV\" \"F9\" \"FL\" \"MQ\" \"UA\" \"US\" \"VX\" \"WN\"\n\nflights_test |&gt; pull(carrier) |&gt; unique() |&gt; sort()\n\n [1] \"9E\" \"AA\" \"AS\" \"B6\" \"DL\" \"EV\" \"FL\" \"HA\" \"MQ\" \"UA\" \"US\" \"VX\" \"WN\"\n\n\nNotice that the testing data includes the carrier \"AS\" and \"HA\" but the training data doesn’t know that. Let us see what would happen if we were to calculate dummy variables without doing any adjusting.\n\ndummy_spec &lt;- recipe(arr_delay ~ carrier, data = flights_train) |&gt;\n  step_dummy(carrier)\n\ndummy_spec_prepped &lt;- prep(dummy_spec)\n\nbake(dummy_spec_prepped, new_data = flights_test)\n\nWarning: There are new levels in a factor: AS, HA\n\n\n# A tibble: 211 × 12\n   arr_delay carrier_AA carrier_B6 carrier_DL carrier_EV carrier_F9 carrier_FL\n       &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;\n 1        12          0          0          0          0          0          0\n 2         8          1          0          0          0          0          0\n 3       -14          0          0          0          0          0          0\n 4        -6          0          1          0          0          0          0\n 5        -3          1          0          0          0          0          0\n 6       -33          0          0          1          0          0          0\n 7        -7          1          0          0          0          0          0\n 8         5          0          1          0          0          0          0\n 9        31          1          0          0          0          0          0\n10       -10         NA         NA         NA         NA         NA         NA\n# ℹ 201 more rows\n# ℹ 5 more variables: carrier_MQ &lt;dbl&gt;, carrier_UA &lt;dbl&gt;, carrier_US &lt;dbl&gt;,\n#   carrier_VX &lt;dbl&gt;, carrier_WN &lt;dbl&gt;\n\n\nWe get a warning, and if you look at the rows that were affected we see that it produces NAs. Let us now use the function step_novel() that implements the above-described method.\n\nnovel_spec &lt;- recipe(arr_delay ~ carrier, data = flights_train) |&gt;\n  step_novel(carrier) |&gt;\n  step_dummy(carrier) \n\nnovel_spec_prepped &lt;- prep(novel_spec)\n\nbake(novel_spec_prepped, new_data = flights_test)\n\n# A tibble: 211 × 13\n   arr_delay carrier_AA carrier_B6 carrier_DL carrier_EV carrier_F9 carrier_FL\n       &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;\n 1        12          0          0          0          0          0          0\n 2         8          1          0          0          0          0          0\n 3       -14          0          0          0          0          0          0\n 4        -6          0          1          0          0          0          0\n 5        -3          1          0          0          0          0          0\n 6       -33          0          0          1          0          0          0\n 7        -7          1          0          0          0          0          0\n 8         5          0          1          0          0          0          0\n 9        31          1          0          0          0          0          0\n10       -10          0          0          0          0          0          0\n# ℹ 201 more rows\n# ℹ 6 more variables: carrier_MQ &lt;dbl&gt;, carrier_UA &lt;dbl&gt;, carrier_US &lt;dbl&gt;,\n#   carrier_VX &lt;dbl&gt;, carrier_WN &lt;dbl&gt;, carrier_new &lt;dbl&gt;\n\n\nAnd we see that we get no error or anything."
   },
   {
     "objectID": "categorical-unseen.html#python-examples",
     "href": "categorical-unseen.html#python-examples",
-    "title": "18  Unseen Levels",
-    "section": "18.2 Python Examples",
-    "text": "18.2 Python Examples\nTODO"
+    "title": "19  Unseen Levels",
+    "section": "19.2 Python Examples",
+    "text": "19.2 Python Examples\nTODO"
   },
   {
     "objectID": "categorical-dummy.html#dummy-or-one-hot-encoding",
     "href": "categorical-dummy.html#dummy-or-one-hot-encoding",
-    "title": "19  Dummy Encoding",
-    "section": "19.1 Dummy or one-hot encoding",
-    "text": "19.1 Dummy or one-hot encoding\nTODO add diagram\nThe terms dummy encoding and one-hot encoding get thrown around interchangeably, but they do have different and distinct meanings. One-hot encoding is when you return k variables when you have k different levels. Like we have shown above\n\n\n     cat dog horse\n[1,]   0   1     0\n[2,]   1   0     0\n[3,]   0   0     1\n[4,]   0   1     0\n[5,]   1   0     0\n\n\nDummy encoding on the other hand returns k-1 variables, where the excluded one typically is the first one.\n\n\n     dog horse\n[1,]   1     0\n[2,]   0     0\n[3,]   0     1\n[4,]   1     0\n[5,]   0     0\n\n\nThese two encodings store the exact same information, even though the dummy encoding has 1 less column. Because we are able to deduce which observations are cat by finding the rows with all zeros. The main reason why one would use dummy variables is because of what some people call the dummy variable trap. When you use one-hot encoding, you are increasing the likelihood that you run into a collinearity problem. With the above example, if you included an intercept in your model you have that intercept = cat + dog + horse which gives perfect collinearity and would cause some models to error as they aren’t able to handle that.\n\n\n\n\n\n\nNote\n\n\n\nAn intercept is a variable that takes the value 1 for all entries.\n\n\nEven if you don’t include an intercept you could still run into collinearity. Imagine that in addition to the animal variable also creates a one-hot encoding of the home variable taking the two values \"house\" and \"apartment\", you would get the following indicator variables\n\n\n     cat dog horse house apartment\n[1,]   0   1     0     0         1\n[2,]   1   0     0     1         0\n[3,]   0   0     1     0         1\n[4,]   0   1     0     0         1\n[5,]   1   0     0     1         0\n\n\nAnd in this case, we have that house = cat + dog + horse - apartment which again is an example of perfect collinearity. Unless you have a reason to do otherwise I would suggest that you use dummy encoding in your models. Additionally, this leads to slightly smaller models as each categorical variable produces 1 less variable. It is worth noting that the choice between dummy encoding and one-hot encoding does matter for some models such as decision trees. Depending on what types of rules they are able to use. Being able to write animal == \"cat\" is easier then saying animal != \"dog\" & animal != \"horse\". This is unlikely to be an issue as many tree-based models can work with categorical variables directly without the need for encoding."
+    "title": "20  Dummy Encoding",
+    "section": "20.1 Dummy or one-hot encoding",
+    "text": "20.1 Dummy or one-hot encoding\nTODO add diagram\nThe terms dummy encoding and one-hot encoding get thrown around interchangeably, but they do have different and distinct meanings. One-hot encoding is when you return k variables when you have k different levels. Like we have shown above\n\n\n     cat dog horse\n[1,]   0   1     0\n[2,]   1   0     0\n[3,]   0   0     1\n[4,]   0   1     0\n[5,]   1   0     0\n\n\nDummy encoding on the other hand returns k-1 variables, where the excluded one typically is the first one.\n\n\n     dog horse\n[1,]   1     0\n[2,]   0     0\n[3,]   0     1\n[4,]   1     0\n[5,]   0     0\n\n\nThese two encodings store the exact same information, even though the dummy encoding has 1 less column. Because we are able to deduce which observations are cat by finding the rows with all zeros. The main reason why one would use dummy variables is because of what some people call the dummy variable trap. When you use one-hot encoding, you are increasing the likelihood that you run into a collinearity problem. With the above example, if you included an intercept in your model you have that intercept = cat + dog + horse which gives perfect collinearity and would cause some models to error as they aren’t able to handle that.\n\n\n\n\n\n\nNote\n\n\n\nAn intercept is a variable that takes the value 1 for all entries.\n\n\nEven if you don’t include an intercept you could still run into collinearity. Imagine that in addition to the animal variable also creates a one-hot encoding of the home variable taking the two values \"house\" and \"apartment\", you would get the following indicator variables\n\n\n     cat dog horse house apartment\n[1,]   0   1     0     0         1\n[2,]   1   0     0     1         0\n[3,]   0   0     1     0         1\n[4,]   0   1     0     0         1\n[5,]   1   0     0     1         0\n\n\nAnd in this case, we have that house = cat + dog + horse - apartment which again is an example of perfect collinearity. Unless you have a reason to do otherwise I would suggest that you use dummy encoding in your models. Additionally, this leads to slightly smaller models as each categorical variable produces 1 less variable. It is worth noting that the choice between dummy encoding and one-hot encoding does matter for some models such as decision trees. Depending on what types of rules they are able to use. Being able to write animal == \"cat\" is easier then saying animal != \"dog\" & animal != \"horse\". This is unlikely to be an issue as many tree-based models can work with categorical variables directly without the need for encoding."
   },
   {
     "objectID": "categorical-dummy.html#ordered-factors",
     "href": "categorical-dummy.html#ordered-factors",
-    "title": "19  Dummy Encoding",
-    "section": "19.2 Ordered factors",
-    "text": "19.2 Ordered factors\nTODO"
+    "title": "20  Dummy Encoding",
+    "section": "20.2 Ordered factors",
+    "text": "20.2 Ordered factors\nTODO"
   },
   {
     "objectID": "categorical-dummy.html#contrasts",
     "href": "categorical-dummy.html#contrasts",
-    "title": "19  Dummy Encoding",
-    "section": "19.3 Contrasts",
-    "text": "19.3 Contrasts\nTODO"
+    "title": "20  Dummy Encoding",
+    "section": "20.3 Contrasts",
+    "text": "20.3 Contrasts\nTODO"
   },
   {
     "objectID": "categorical-dummy.html#pros-and-cons",
     "href": "categorical-dummy.html#pros-and-cons",
-    "title": "19  Dummy Encoding",
-    "section": "19.4 Pros and Cons",
-    "text": "19.4 Pros and Cons\n\n19.4.1 Pros\n\nVersatile and commonly used\nEasy interpretation\nWill rarely lead to a decrease in performance\n\n\n\n19.4.2 Cons\n\nDoes require fairly clean categorical levels\nCan be quite memory intensive if you have many levels in your categorical variables and you are unable to use sparse representation\nProvides a complete, but not necessarily compact set of variables"
+    "title": "20  Dummy Encoding",
+    "section": "20.4 Pros and Cons",
+    "text": "20.4 Pros and Cons\n\n20.4.1 Pros\n\nVersatile and commonly used\nEasy interpretation\nWill rarely lead to a decrease in performance\n\n\n\n20.4.2 Cons\n\nDoes require fairly clean categorical levels\nCan be quite memory intensive if you have many levels in your categorical variables and you are unable to use sparse representation\nProvides a complete, but not necessarily compact set of variables"
   },
   {
     "objectID": "categorical-dummy.html#r-examples",
     "href": "categorical-dummy.html#r-examples",
-    "title": "19  Dummy Encoding",
-    "section": "19.5 R Examples",
-    "text": "19.5 R Examples\nWe will be using the ames data set for these examples. The step_dummy() function allows us to perform dummy encoding and one-hot encoding.\n\nlibrary(recipes)\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nlibrary(modeldata)\ndata(\"ames\")\n\names |&gt;\n  select(Sale_Price, MS_SubClass, MS_Zoning)\n\n# A tibble: 2,930 × 3\n   Sale_Price MS_SubClass                         MS_Zoning               \n        &lt;int&gt; &lt;fct&gt;                               &lt;fct&gt;                   \n 1     215000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 2     105000 One_Story_1946_and_Newer_All_Styles Residential_High_Density\n 3     172000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 4     244000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 5     189900 Two_Story_1946_and_Newer            Residential_Low_Density \n 6     195500 Two_Story_1946_and_Newer            Residential_Low_Density \n 7     213500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n 8     191500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n 9     236500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n10     189000 Two_Story_1946_and_Newer            Residential_Low_Density \n# ℹ 2,920 more rows\n\n\nWe can take a quick look at the possible values MS_SubClass takes\n\names |&gt;\n  count(MS_SubClass, sort = TRUE)\n\n# A tibble: 16 × 2\n   MS_SubClass                                   n\n   &lt;fct&gt;                                     &lt;int&gt;\n 1 One_Story_1946_and_Newer_All_Styles        1079\n 2 Two_Story_1946_and_Newer                    575\n 3 One_and_Half_Story_Finished_All_Ages        287\n 4 One_Story_PUD_1946_and_Newer                192\n 5 One_Story_1945_and_Older                    139\n 6 Two_Story_PUD_1946_and_Newer                129\n 7 Two_Story_1945_and_Older                    128\n 8 Split_or_Multilevel                         118\n 9 Duplex_All_Styles_and_Ages                  109\n10 Two_Family_conversion_All_Styles_and_Ages    61\n11 Split_Foyer                                  48\n12 Two_and_Half_Story_All_Ages                  23\n13 One_and_Half_Story_Unfinished_All_Ages       18\n14 PUD_Multilevel_Split_Level_Foyer             17\n15 One_Story_with_Finished_Attic_All_Ages        6\n16 One_and_Half_Story_PUD_All_Ages               1\n\n\nAnd since MS_SubClass is a factor, we can verify that they match and that all the levels are observed\n\names |&gt; pull(MS_SubClass) |&gt; levels()\n\n [1] \"One_Story_1946_and_Newer_All_Styles\"      \n [2] \"One_Story_1945_and_Older\"                 \n [3] \"One_Story_with_Finished_Attic_All_Ages\"   \n [4] \"One_and_Half_Story_Unfinished_All_Ages\"   \n [5] \"One_and_Half_Story_Finished_All_Ages\"     \n [6] \"Two_Story_1946_and_Newer\"                 \n [7] \"Two_Story_1945_and_Older\"                 \n [8] \"Two_and_Half_Story_All_Ages\"              \n [9] \"Split_or_Multilevel\"                      \n[10] \"Split_Foyer\"                              \n[11] \"Duplex_All_Styles_and_Ages\"               \n[12] \"One_Story_PUD_1946_and_Newer\"             \n[13] \"One_and_Half_Story_PUD_All_Ages\"          \n[14] \"Two_Story_PUD_1946_and_Newer\"             \n[15] \"PUD_Multilevel_Split_Level_Foyer\"         \n[16] \"Two_Family_conversion_All_Styles_and_Ages\"\n\n\nWe will be using the step_dummy() step for this, which defaults to creating dummy variables\n\ndummy_rec &lt;- recipe(Sale_Price ~ ., data = ames) |&gt;\n  step_dummy(all_nominal_predictors()) |&gt;\n  prep()\n\ndummy_rec |&gt;\n  bake(new_data = NULL, starts_with(\"MS_SubClass\"), starts_with(\"MS_Zoning\")) |&gt;\n  glimpse()\n\nRows: 2,930\nColumns: 21\n$ MS_SubClass_One_Story_1945_and_Older                  &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_Story_with_Finished_Attic_All_Ages    &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_and_Half_Story_Unfinished_All_Ages    &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_and_Half_Story_Finished_All_Ages      &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_Story_1946_and_Newer                  &lt;dbl&gt; 0, 0, 0, 0, 1, 1…\n$ MS_SubClass_Two_Story_1945_and_Older                  &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_and_Half_Story_All_Ages               &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Split_or_Multilevel                       &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Split_Foyer                               &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Duplex_All_Styles_and_Ages                &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_Story_PUD_1946_and_Newer              &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_and_Half_Story_PUD_All_Ages           &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_Story_PUD_1946_and_Newer              &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_PUD_Multilevel_Split_Level_Foyer          &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_Family_conversion_All_Styles_and_Ages &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_Residential_High_Density                    &lt;dbl&gt; 0, 1, 0, 0, 0, 0…\n$ MS_Zoning_Residential_Low_Density                     &lt;dbl&gt; 1, 0, 1, 1, 1, 1…\n$ MS_Zoning_Residential_Medium_Density                  &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_A_agr                                       &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_C_all                                       &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_I_all                                       &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n\n\nWe can pull the factor levels for each variable by using tidy(). If a character vector was present in the data set, it would record the observed variables.\n\ndummy_rec |&gt;\n  tidy(1)\n\n# A tibble: 243 × 3\n   terms       columns                                id         \n   &lt;chr&gt;       &lt;chr&gt;                                  &lt;chr&gt;      \n 1 MS_SubClass One_Story_1945_and_Older               dummy_Bp5vK\n 2 MS_SubClass One_Story_with_Finished_Attic_All_Ages dummy_Bp5vK\n 3 MS_SubClass One_and_Half_Story_Unfinished_All_Ages dummy_Bp5vK\n 4 MS_SubClass One_and_Half_Story_Finished_All_Ages   dummy_Bp5vK\n 5 MS_SubClass Two_Story_1946_and_Newer               dummy_Bp5vK\n 6 MS_SubClass Two_Story_1945_and_Older               dummy_Bp5vK\n 7 MS_SubClass Two_and_Half_Story_All_Ages            dummy_Bp5vK\n 8 MS_SubClass Split_or_Multilevel                    dummy_Bp5vK\n 9 MS_SubClass Split_Foyer                            dummy_Bp5vK\n10 MS_SubClass Duplex_All_Styles_and_Ages             dummy_Bp5vK\n# ℹ 233 more rows\n\n\nsetting one_hot = TRUE gives us the complete one-hot encoding results.\n\nonehot_rec &lt;- recipe(Sale_Price ~ ., data = ames) |&gt;\n  step_dummy(all_nominal_predictors(), one_hot = TRUE) |&gt;\n  prep()\n\nonehot_rec |&gt;\n  bake(new_data = NULL, starts_with(\"MS_SubClass\"), starts_with(\"MS_Zoning\")) |&gt;\n  glimpse()\n\nRows: 2,930\nColumns: 23\n$ MS_SubClass_One_Story_1946_and_Newer_All_Styles       &lt;dbl&gt; 1, 1, 1, 1, 0, 0…\n$ MS_SubClass_One_Story_1945_and_Older                  &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_Story_with_Finished_Attic_All_Ages    &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_and_Half_Story_Unfinished_All_Ages    &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_and_Half_Story_Finished_All_Ages      &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_Story_1946_and_Newer                  &lt;dbl&gt; 0, 0, 0, 0, 1, 1…\n$ MS_SubClass_Two_Story_1945_and_Older                  &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_and_Half_Story_All_Ages               &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Split_or_Multilevel                       &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Split_Foyer                               &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Duplex_All_Styles_and_Ages                &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_Story_PUD_1946_and_Newer              &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_and_Half_Story_PUD_All_Ages           &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_Story_PUD_1946_and_Newer              &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_PUD_Multilevel_Split_Level_Foyer          &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_Family_conversion_All_Styles_and_Ages &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_Floating_Village_Residential                &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_Residential_High_Density                    &lt;dbl&gt; 0, 1, 0, 0, 0, 0…\n$ MS_Zoning_Residential_Low_Density                     &lt;dbl&gt; 1, 0, 1, 1, 1, 1…\n$ MS_Zoning_Residential_Medium_Density                  &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_A_agr                                       &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_C_all                                       &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_I_all                                       &lt;dbl&gt; 0, 0, 0, 0, 0, 0…"
+    "title": "20  Dummy Encoding",
+    "section": "20.5 R Examples",
+    "text": "20.5 R Examples\nWe will be using the ames data set for these examples. The step_dummy() function allows us to perform dummy encoding and one-hot encoding.\n\nlibrary(recipes)\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nlibrary(modeldata)\ndata(\"ames\")\n\names |&gt;\n  select(Sale_Price, MS_SubClass, MS_Zoning)\n\n# A tibble: 2,930 × 3\n   Sale_Price MS_SubClass                         MS_Zoning               \n        &lt;int&gt; &lt;fct&gt;                               &lt;fct&gt;                   \n 1     215000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 2     105000 One_Story_1946_and_Newer_All_Styles Residential_High_Density\n 3     172000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 4     244000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 5     189900 Two_Story_1946_and_Newer            Residential_Low_Density \n 6     195500 Two_Story_1946_and_Newer            Residential_Low_Density \n 7     213500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n 8     191500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n 9     236500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n10     189000 Two_Story_1946_and_Newer            Residential_Low_Density \n# ℹ 2,920 more rows\n\n\nWe can take a quick look at the possible values MS_SubClass takes\n\names |&gt;\n  count(MS_SubClass, sort = TRUE)\n\n# A tibble: 16 × 2\n   MS_SubClass                                   n\n   &lt;fct&gt;                                     &lt;int&gt;\n 1 One_Story_1946_and_Newer_All_Styles        1079\n 2 Two_Story_1946_and_Newer                    575\n 3 One_and_Half_Story_Finished_All_Ages        287\n 4 One_Story_PUD_1946_and_Newer                192\n 5 One_Story_1945_and_Older                    139\n 6 Two_Story_PUD_1946_and_Newer                129\n 7 Two_Story_1945_and_Older                    128\n 8 Split_or_Multilevel                         118\n 9 Duplex_All_Styles_and_Ages                  109\n10 Two_Family_conversion_All_Styles_and_Ages    61\n11 Split_Foyer                                  48\n12 Two_and_Half_Story_All_Ages                  23\n13 One_and_Half_Story_Unfinished_All_Ages       18\n14 PUD_Multilevel_Split_Level_Foyer             17\n15 One_Story_with_Finished_Attic_All_Ages        6\n16 One_and_Half_Story_PUD_All_Ages               1\n\n\nAnd since MS_SubClass is a factor, we can verify that they match and that all the levels are observed\n\names |&gt; pull(MS_SubClass) |&gt; levels()\n\n [1] \"One_Story_1946_and_Newer_All_Styles\"      \n [2] \"One_Story_1945_and_Older\"                 \n [3] \"One_Story_with_Finished_Attic_All_Ages\"   \n [4] \"One_and_Half_Story_Unfinished_All_Ages\"   \n [5] \"One_and_Half_Story_Finished_All_Ages\"     \n [6] \"Two_Story_1946_and_Newer\"                 \n [7] \"Two_Story_1945_and_Older\"                 \n [8] \"Two_and_Half_Story_All_Ages\"              \n [9] \"Split_or_Multilevel\"                      \n[10] \"Split_Foyer\"                              \n[11] \"Duplex_All_Styles_and_Ages\"               \n[12] \"One_Story_PUD_1946_and_Newer\"             \n[13] \"One_and_Half_Story_PUD_All_Ages\"          \n[14] \"Two_Story_PUD_1946_and_Newer\"             \n[15] \"PUD_Multilevel_Split_Level_Foyer\"         \n[16] \"Two_Family_conversion_All_Styles_and_Ages\"\n\n\nWe will be using the step_dummy() step for this, which defaults to creating dummy variables\n\ndummy_rec &lt;- recipe(Sale_Price ~ ., data = ames) |&gt;\n  step_dummy(all_nominal_predictors()) |&gt;\n  prep()\n\ndummy_rec |&gt;\n  bake(new_data = NULL, starts_with(\"MS_SubClass\"), starts_with(\"MS_Zoning\")) |&gt;\n  glimpse()\n\nRows: 2,930\nColumns: 21\n$ MS_SubClass_One_Story_1945_and_Older                  &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_Story_with_Finished_Attic_All_Ages    &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_and_Half_Story_Unfinished_All_Ages    &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_and_Half_Story_Finished_All_Ages      &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_Story_1946_and_Newer                  &lt;dbl&gt; 0, 0, 0, 0, 1, 1…\n$ MS_SubClass_Two_Story_1945_and_Older                  &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_and_Half_Story_All_Ages               &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Split_or_Multilevel                       &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Split_Foyer                               &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Duplex_All_Styles_and_Ages                &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_Story_PUD_1946_and_Newer              &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_and_Half_Story_PUD_All_Ages           &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_Story_PUD_1946_and_Newer              &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_PUD_Multilevel_Split_Level_Foyer          &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_Family_conversion_All_Styles_and_Ages &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_Residential_High_Density                    &lt;dbl&gt; 0, 1, 0, 0, 0, 0…\n$ MS_Zoning_Residential_Low_Density                     &lt;dbl&gt; 1, 0, 1, 1, 1, 1…\n$ MS_Zoning_Residential_Medium_Density                  &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_A_agr                                       &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_C_all                                       &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_I_all                                       &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n\n\nWe can pull the factor levels for each variable by using tidy(). If a character vector was present in the data set, it would record the observed variables.\n\ndummy_rec |&gt;\n  tidy(1)\n\n# A tibble: 243 × 3\n   terms       columns                                id         \n   &lt;chr&gt;       &lt;chr&gt;                                  &lt;chr&gt;      \n 1 MS_SubClass One_Story_1945_and_Older               dummy_Bp5vK\n 2 MS_SubClass One_Story_with_Finished_Attic_All_Ages dummy_Bp5vK\n 3 MS_SubClass One_and_Half_Story_Unfinished_All_Ages dummy_Bp5vK\n 4 MS_SubClass One_and_Half_Story_Finished_All_Ages   dummy_Bp5vK\n 5 MS_SubClass Two_Story_1946_and_Newer               dummy_Bp5vK\n 6 MS_SubClass Two_Story_1945_and_Older               dummy_Bp5vK\n 7 MS_SubClass Two_and_Half_Story_All_Ages            dummy_Bp5vK\n 8 MS_SubClass Split_or_Multilevel                    dummy_Bp5vK\n 9 MS_SubClass Split_Foyer                            dummy_Bp5vK\n10 MS_SubClass Duplex_All_Styles_and_Ages             dummy_Bp5vK\n# ℹ 233 more rows\n\n\nsetting one_hot = TRUE gives us the complete one-hot encoding results.\n\nonehot_rec &lt;- recipe(Sale_Price ~ ., data = ames) |&gt;\n  step_dummy(all_nominal_predictors(), one_hot = TRUE) |&gt;\n  prep()\n\nonehot_rec |&gt;\n  bake(new_data = NULL, starts_with(\"MS_SubClass\"), starts_with(\"MS_Zoning\")) |&gt;\n  glimpse()\n\nRows: 2,930\nColumns: 23\n$ MS_SubClass_One_Story_1946_and_Newer_All_Styles       &lt;dbl&gt; 1, 1, 1, 1, 0, 0…\n$ MS_SubClass_One_Story_1945_and_Older                  &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_Story_with_Finished_Attic_All_Ages    &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_and_Half_Story_Unfinished_All_Ages    &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_and_Half_Story_Finished_All_Ages      &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_Story_1946_and_Newer                  &lt;dbl&gt; 0, 0, 0, 0, 1, 1…\n$ MS_SubClass_Two_Story_1945_and_Older                  &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_and_Half_Story_All_Ages               &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Split_or_Multilevel                       &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Split_Foyer                               &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Duplex_All_Styles_and_Ages                &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_Story_PUD_1946_and_Newer              &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_One_and_Half_Story_PUD_All_Ages           &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_Story_PUD_1946_and_Newer              &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_PUD_Multilevel_Split_Level_Foyer          &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_SubClass_Two_Family_conversion_All_Styles_and_Ages &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_Floating_Village_Residential                &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_Residential_High_Density                    &lt;dbl&gt; 0, 1, 0, 0, 0, 0…\n$ MS_Zoning_Residential_Low_Density                     &lt;dbl&gt; 1, 0, 1, 1, 1, 1…\n$ MS_Zoning_Residential_Medium_Density                  &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_A_agr                                       &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_C_all                                       &lt;dbl&gt; 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_I_all                                       &lt;dbl&gt; 0, 0, 0, 0, 0, 0…"
   },
   {
     "objectID": "categorical-dummy.html#python-examples",
     "href": "categorical-dummy.html#python-examples",
-    "title": "19  Dummy Encoding",
-    "section": "19.6 Python Examples",
-    "text": "19.6 Python Examples\nTODO"
+    "title": "20  Dummy Encoding",
+    "section": "20.6 Python Examples",
+    "text": "20.6 Python Examples\nTODO"
   },
   {
     "objectID": "categorical-label.html#pros-and-cons",
     "href": "categorical-label.html#pros-and-cons",
-    "title": "20  Label Encoding",
-    "section": "20.1 Pros and Cons",
-    "text": "20.1 Pros and Cons\n\n20.1.1 Pros\n\nOnly produces a single numeric variable for each categorical variable\nHas a way to handle unseen levels, although poorly\n\n\n\n20.1.2 Cons\n\nOrdering of the levels matters a lot!\nWill very often give inferior performance compared to other methods."
+    "title": "21  Label Encoding",
+    "section": "21.1 Pros and Cons",
+    "text": "21.1 Pros and Cons\n\n21.1.1 Pros\n\nOnly produces a single numeric variable for each categorical variable\nHas a way to handle unseen levels, although poorly\n\n\n\n21.1.2 Cons\n\nOrdering of the levels matters a lot!\nWill very often give inferior performance compared to other methods."
   },
   {
     "objectID": "categorical-label.html#r-examples",
     "href": "categorical-label.html#r-examples",
-    "title": "20  Label Encoding",
-    "section": "20.2 R Examples",
-    "text": "20.2 R Examples\nWe will be using the ames data set for these examples. The step_dummy() function allows us to perform dummy encoding and one-hot encoding.\n\nlibrary(recipes)\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nlibrary(modeldata)\ndata(\"ames\")\n\names |&gt;\n  select(Sale_Price, MS_SubClass, MS_Zoning)\n\n# A tibble: 2,930 × 3\n   Sale_Price MS_SubClass                         MS_Zoning               \n        &lt;int&gt; &lt;fct&gt;                               &lt;fct&gt;                   \n 1     215000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 2     105000 One_Story_1946_and_Newer_All_Styles Residential_High_Density\n 3     172000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 4     244000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 5     189900 Two_Story_1946_and_Newer            Residential_Low_Density \n 6     195500 Two_Story_1946_and_Newer            Residential_Low_Density \n 7     213500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n 8     191500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n 9     236500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n10     189000 Two_Story_1946_and_Newer            Residential_Low_Density \n# ℹ 2,920 more rows\n\n\nLooking at the levels of MS_SubClass we see that levels are set in a specific way. It isn’t alphabetical, but there isn’t one clear order. No clarification of the ordering can be done in the data documentation http://jse.amstat.org/v19n3/decock/DataDocumentation.txt.\n\names |&gt; pull(MS_SubClass) |&gt; levels()\n\n [1] \"One_Story_1946_and_Newer_All_Styles\"      \n [2] \"One_Story_1945_and_Older\"                 \n [3] \"One_Story_with_Finished_Attic_All_Ages\"   \n [4] \"One_and_Half_Story_Unfinished_All_Ages\"   \n [5] \"One_and_Half_Story_Finished_All_Ages\"     \n [6] \"Two_Story_1946_and_Newer\"                 \n [7] \"Two_Story_1945_and_Older\"                 \n [8] \"Two_and_Half_Story_All_Ages\"              \n [9] \"Split_or_Multilevel\"                      \n[10] \"Split_Foyer\"                              \n[11] \"Duplex_All_Styles_and_Ages\"               \n[12] \"One_Story_PUD_1946_and_Newer\"             \n[13] \"One_and_Half_Story_PUD_All_Ages\"          \n[14] \"Two_Story_PUD_1946_and_Newer\"             \n[15] \"PUD_Multilevel_Split_Level_Foyer\"         \n[16] \"Two_Family_conversion_All_Styles_and_Ages\"\n\n\nWe will be using the step_integer() step for this, which defaults to 1-based indexing\n\nlabel_rec &lt;- recipe(Sale_Price ~ ., data = ames) |&gt;\n  step_integer(all_nominal_predictors()) |&gt;\n  prep()\n\nlabel_rec |&gt;\n  bake(new_data = NULL, starts_with(\"MS_SubClass\"), starts_with(\"MS_Zoning\"))\n\n# A tibble: 2,930 × 2\n   MS_SubClass MS_Zoning\n         &lt;int&gt;     &lt;int&gt;\n 1           1         3\n 2           1         2\n 3           1         3\n 4           1         3\n 5           6         3\n 6           6         3\n 7          12         3\n 8          12         3\n 9          12         3\n10           6         3\n# ℹ 2,920 more rows"
+    "title": "21  Label Encoding",
+    "section": "21.2 R Examples",
+    "text": "21.2 R Examples\nWe will be using the ames data set for these examples. The step_dummy() function allows us to perform dummy encoding and one-hot encoding.\n\nlibrary(recipes)\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nlibrary(modeldata)\ndata(\"ames\")\n\names |&gt;\n  select(Sale_Price, MS_SubClass, MS_Zoning)\n\n# A tibble: 2,930 × 3\n   Sale_Price MS_SubClass                         MS_Zoning               \n        &lt;int&gt; &lt;fct&gt;                               &lt;fct&gt;                   \n 1     215000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 2     105000 One_Story_1946_and_Newer_All_Styles Residential_High_Density\n 3     172000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 4     244000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 5     189900 Two_Story_1946_and_Newer            Residential_Low_Density \n 6     195500 Two_Story_1946_and_Newer            Residential_Low_Density \n 7     213500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n 8     191500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n 9     236500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n10     189000 Two_Story_1946_and_Newer            Residential_Low_Density \n# ℹ 2,920 more rows\n\n\nLooking at the levels of MS_SubClass we see that levels are set in a specific way. It isn’t alphabetical, but there isn’t one clear order. No clarification of the ordering can be done in the data documentation http://jse.amstat.org/v19n3/decock/DataDocumentation.txt.\n\names |&gt; pull(MS_SubClass) |&gt; levels()\n\n [1] \"One_Story_1946_and_Newer_All_Styles\"      \n [2] \"One_Story_1945_and_Older\"                 \n [3] \"One_Story_with_Finished_Attic_All_Ages\"   \n [4] \"One_and_Half_Story_Unfinished_All_Ages\"   \n [5] \"One_and_Half_Story_Finished_All_Ages\"     \n [6] \"Two_Story_1946_and_Newer\"                 \n [7] \"Two_Story_1945_and_Older\"                 \n [8] \"Two_and_Half_Story_All_Ages\"              \n [9] \"Split_or_Multilevel\"                      \n[10] \"Split_Foyer\"                              \n[11] \"Duplex_All_Styles_and_Ages\"               \n[12] \"One_Story_PUD_1946_and_Newer\"             \n[13] \"One_and_Half_Story_PUD_All_Ages\"          \n[14] \"Two_Story_PUD_1946_and_Newer\"             \n[15] \"PUD_Multilevel_Split_Level_Foyer\"         \n[16] \"Two_Family_conversion_All_Styles_and_Ages\"\n\n\nWe will be using the step_integer() step for this, which defaults to 1-based indexing\n\nlabel_rec &lt;- recipe(Sale_Price ~ ., data = ames) |&gt;\n  step_integer(all_nominal_predictors()) |&gt;\n  prep()\n\nlabel_rec |&gt;\n  bake(new_data = NULL, starts_with(\"MS_SubClass\"), starts_with(\"MS_Zoning\"))\n\n# A tibble: 2,930 × 2\n   MS_SubClass MS_Zoning\n         &lt;int&gt;     &lt;int&gt;\n 1           1         3\n 2           1         2\n 3           1         3\n 4           1         3\n 5           6         3\n 6           6         3\n 7          12         3\n 8          12         3\n 9          12         3\n10           6         3\n# ℹ 2,920 more rows"
   },
   {
     "objectID": "categorical-label.html#python-examples",
     "href": "categorical-label.html#python-examples",
-    "title": "20  Label Encoding",
-    "section": "20.3 Python Examples",
-    "text": "20.3 Python Examples"
-  },
-  {
-    "objectID": "categorical-ordinal.html#pros-and-cons",
-    "href": "categorical-ordinal.html#pros-and-cons",
-    "title": "21  Ordinal Encoding",
-    "section": "21.1 Pros and Cons",
-    "text": "21.1 Pros and Cons\n\n21.1.1 Pros\n\nOnly produces a single numeric variable for each categorical variable\nPreserves the natural ordering of ordered values\n\n\n\n21.1.2 Cons\n\nWill very often give inferior performance compared to other methods\nUnseen levels need to be manually specified"
-  },
-  {
-    "objectID": "categorical-ordinal.html#r-examples",
-    "href": "categorical-ordinal.html#r-examples",
-    "title": "21  Ordinal Encoding",
-    "section": "21.2 R Examples",
-    "text": "21.2 R Examples\nWe will be using the ames data set for these examples. The step_dummy() function allows us to perform dummy encoding and one-hot encoding.\n\nlibrary(recipes)\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nlibrary(modeldata)\ndata(\"ames\")\n\names |&gt;\n  select(Lot_Shape, Land_Slope)\n\n# A tibble: 2,930 × 2\n   Lot_Shape          Land_Slope\n   &lt;fct&gt;              &lt;fct&gt;     \n 1 Slightly_Irregular Gtl       \n 2 Regular            Gtl       \n 3 Slightly_Irregular Gtl       \n 4 Regular            Gtl       \n 5 Slightly_Irregular Gtl       \n 6 Slightly_Irregular Gtl       \n 7 Regular            Gtl       \n 8 Slightly_Irregular Gtl       \n 9 Slightly_Irregular Gtl       \n10 Regular            Gtl       \n# ℹ 2,920 more rows\n\n\nLooking at the levels of Lot_Shape and Land_Slope we see that they match the levels in the documentation http://jse.amstat.org/v19n3/decock/DataDocumentation.txt. Furthermore, these variables are listed as ordinal, they just aren’t denoted like this in this data set.\n\names |&gt; pull(Lot_Shape) |&gt; levels()\n\n[1] \"Regular\"              \"Slightly_Irregular\"   \"Moderately_Irregular\"\n[4] \"Irregular\"           \n\names |&gt; pull(Land_Slope) |&gt; levels()\n\n[1] \"Gtl\" \"Mod\" \"Sev\"\n\n\nWe will fix that by turning them into ordered factors.\n\names &lt;- ames |&gt;\n  mutate(across(.cols = c(Lot_Shape, Land_Slope), .fns = as.ordered))\n\nto perform ordinal encoding we will use the step_ordinalscore() step. This defaults to giving each level values between 1 and n, much like step_integer().\n\nordinal_rec &lt;- recipe(Sale_Price ~ ., data = ames) |&gt;\n  step_ordinalscore(Lot_Shape, Land_Slope) |&gt;\n  prep()\n\nordinal_rec |&gt;\n  bake(new_data = NULL, starts_with(\"Lot_Shape\"), starts_with(\"Land_Slope\"))\n\n# A tibble: 2,930 × 2\n   Lot_Shape Land_Slope\n       &lt;int&gt;      &lt;int&gt;\n 1         2          1\n 2         1          1\n 3         2          1\n 4         1          1\n 5         2          1\n 6         2          1\n 7         1          1\n 8         2          1\n 9         2          1\n10         1          1\n# ℹ 2,920 more rows\n\n\nWhat we can do is define a special transformation function for each of the steps. One way is to use the case_when() function\n\nLot_Shape_transformer &lt;- function(x) {\n  case_when(\n    x == \"Regular\" ~ 0, \n    x == \"Slightly_Irregular\" ~ -1,\n    x == \"Moderately_Irregular\" ~ -5,\n    x == \"Irregular\" ~ -10\n  )\n}\n\nIf you have the values for each of the levels as a vector or data, you can write the function to use that information as well.\n\nLand_Slope_values &lt;- c(Gtl = 0, Mod = 1, Sev = 5)\n\nLand_Slope_transformer &lt;- function(x) {\n  Land_Slope_values[x]\n}\n\nWith these functions, we can now apply them to the respective columns by using the convert argument.\n\nordinal_rec &lt;- recipe(Sale_Price ~ ., data = ames) |&gt;\n  step_ordinalscore(Lot_Shape, convert = Lot_Shape_transformer) |&gt;\n  step_ordinalscore(Land_Slope, convert = Land_Slope_transformer) |&gt;\n  prep()\n\nordinal_rec |&gt;\n  bake(new_data = NULL, starts_with(\"Lot_Shape\"), starts_with(\"Land_Slope\")) |&gt;\n  distinct()\n\n# A tibble: 11 × 2\n   Lot_Shape Land_Slope\n       &lt;int&gt;      &lt;int&gt;\n 1        -1          0\n 2         0          0\n 3        -5          1\n 4        -1          1\n 5         0          1\n 6        -5          0\n 7         0          5\n 8        -1          5\n 9       -10          0\n10        -5          5\n11       -10          5"
-  },
-  {
-    "objectID": "categorical-ordinal.html#python-examples",
-    "href": "categorical-ordinal.html#python-examples",
-    "title": "21  Ordinal Encoding",
+    "title": "21  Label Encoding",
     "section": "21.3 Python Examples",
     "text": "21.3 Python Examples"
   },
   {
+    "objectID": "categorical-ordinal.html#pros-and-cons",
+    "href": "categorical-ordinal.html#pros-and-cons",
+    "title": "22  Ordinal Encoding",
+    "section": "22.1 Pros and Cons",
+    "text": "22.1 Pros and Cons\n\n22.1.1 Pros\n\nOnly produces a single numeric variable for each categorical variable\nPreserves the natural ordering of ordered values\n\n\n\n22.1.2 Cons\n\nWill very often give inferior performance compared to other methods\nUnseen levels need to be manually specified"
+  },
+  {
+    "objectID": "categorical-ordinal.html#r-examples",
+    "href": "categorical-ordinal.html#r-examples",
+    "title": "22  Ordinal Encoding",
+    "section": "22.2 R Examples",
+    "text": "22.2 R Examples\nWe will be using the ames data set for these examples. The step_dummy() function allows us to perform dummy encoding and one-hot encoding.\n\nlibrary(recipes)\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nlibrary(modeldata)\ndata(\"ames\")\n\names |&gt;\n  select(Lot_Shape, Land_Slope)\n\n# A tibble: 2,930 × 2\n   Lot_Shape          Land_Slope\n   &lt;fct&gt;              &lt;fct&gt;     \n 1 Slightly_Irregular Gtl       \n 2 Regular            Gtl       \n 3 Slightly_Irregular Gtl       \n 4 Regular            Gtl       \n 5 Slightly_Irregular Gtl       \n 6 Slightly_Irregular Gtl       \n 7 Regular            Gtl       \n 8 Slightly_Irregular Gtl       \n 9 Slightly_Irregular Gtl       \n10 Regular            Gtl       \n# ℹ 2,920 more rows\n\n\nLooking at the levels of Lot_Shape and Land_Slope we see that they match the levels in the documentation http://jse.amstat.org/v19n3/decock/DataDocumentation.txt. Furthermore, these variables are listed as ordinal, they just aren’t denoted like this in this data set.\n\names |&gt; pull(Lot_Shape) |&gt; levels()\n\n[1] \"Regular\"              \"Slightly_Irregular\"   \"Moderately_Irregular\"\n[4] \"Irregular\"           \n\names |&gt; pull(Land_Slope) |&gt; levels()\n\n[1] \"Gtl\" \"Mod\" \"Sev\"\n\n\nWe will fix that by turning them into ordered factors.\n\names &lt;- ames |&gt;\n  mutate(across(.cols = c(Lot_Shape, Land_Slope), .fns = as.ordered))\n\nto perform ordinal encoding we will use the step_ordinalscore() step. This defaults to giving each level values between 1 and n, much like step_integer().\n\nordinal_rec &lt;- recipe(Sale_Price ~ ., data = ames) |&gt;\n  step_ordinalscore(Lot_Shape, Land_Slope) |&gt;\n  prep()\n\nordinal_rec |&gt;\n  bake(new_data = NULL, starts_with(\"Lot_Shape\"), starts_with(\"Land_Slope\"))\n\n# A tibble: 2,930 × 2\n   Lot_Shape Land_Slope\n       &lt;int&gt;      &lt;int&gt;\n 1         2          1\n 2         1          1\n 3         2          1\n 4         1          1\n 5         2          1\n 6         2          1\n 7         1          1\n 8         2          1\n 9         2          1\n10         1          1\n# ℹ 2,920 more rows\n\n\nWhat we can do is define a special transformation function for each of the steps. One way is to use the case_when() function\n\nLot_Shape_transformer &lt;- function(x) {\n  case_when(\n    x == \"Regular\" ~ 0, \n    x == \"Slightly_Irregular\" ~ -1,\n    x == \"Moderately_Irregular\" ~ -5,\n    x == \"Irregular\" ~ -10\n  )\n}\n\nIf you have the values for each of the levels as a vector or data, you can write the function to use that information as well.\n\nLand_Slope_values &lt;- c(Gtl = 0, Mod = 1, Sev = 5)\n\nLand_Slope_transformer &lt;- function(x) {\n  Land_Slope_values[x]\n}\n\nWith these functions, we can now apply them to the respective columns by using the convert argument.\n\nordinal_rec &lt;- recipe(Sale_Price ~ ., data = ames) |&gt;\n  step_ordinalscore(Lot_Shape, convert = Lot_Shape_transformer) |&gt;\n  step_ordinalscore(Land_Slope, convert = Land_Slope_transformer) |&gt;\n  prep()\n\nordinal_rec |&gt;\n  bake(new_data = NULL, starts_with(\"Lot_Shape\"), starts_with(\"Land_Slope\")) |&gt;\n  distinct()\n\n# A tibble: 11 × 2\n   Lot_Shape Land_Slope\n       &lt;int&gt;      &lt;int&gt;\n 1        -1          0\n 2         0          0\n 3        -5          1\n 4        -1          1\n 5         0          1\n 6        -5          0\n 7         0          5\n 8        -1          5\n 9       -10          0\n10        -5          5\n11       -10          5"
+  },
+  {
+    "objectID": "categorical-ordinal.html#python-examples",
+    "href": "categorical-ordinal.html#python-examples",
+    "title": "22  Ordinal Encoding",
+    "section": "22.3 Python Examples",
+    "text": "22.3 Python Examples"
+  },
+  {
     "objectID": "categorical-binary.html#pros-and-cons",
     "href": "categorical-binary.html#pros-and-cons",
-    "title": "22  Binary Encoding",
-    "section": "22.1 Pros and Cons",
-    "text": "22.1 Pros and Cons\n\n22.1.1 Pros\n\nuses fewer variables to store the same information as dummy encoding\n\n\n\n22.1.2 Cons\n\nLess interpretability compared to dummy variables"
+    "title": "23  Binary Encoding",
+    "section": "23.1 Pros and Cons",
+    "text": "23.1 Pros and Cons\n\n23.1.1 Pros\n\nuses fewer variables to store the same information as dummy encoding\n\n\n\n23.1.2 Cons\n\nLess interpretability compared to dummy variables"
   },
   {
     "objectID": "categorical-binary.html#r-examples",
     "href": "categorical-binary.html#r-examples",
-    "title": "22  Binary Encoding",
-    "section": "22.2 R Examples",
-    "text": "22.2 R Examples"
+    "title": "23  Binary Encoding",
+    "section": "23.2 R Examples",
+    "text": "23.2 R Examples"
   },
   {
     "objectID": "categorical-binary.html#r-examples-1",
     "href": "categorical-binary.html#r-examples-1",
-    "title": "22  Binary Encoding",
-    "section": "22.3 R Examples",
-    "text": "22.3 R Examples\nWe will be using the ames data set for these examples. The step_encoding_binary() function from the extrasteps package allows us to perform binary encoding.\n\nlibrary(recipes)\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nlibrary(extrasteps)\nlibrary(modeldata)\ndata(\"ames\")\n\names |&gt;\n  select(Sale_Price, MS_SubClass, MS_Zoning)\n\n# A tibble: 2,930 × 3\n   Sale_Price MS_SubClass                         MS_Zoning               \n        &lt;int&gt; &lt;fct&gt;                               &lt;fct&gt;                   \n 1     215000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 2     105000 One_Story_1946_and_Newer_All_Styles Residential_High_Density\n 3     172000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 4     244000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 5     189900 Two_Story_1946_and_Newer            Residential_Low_Density \n 6     195500 Two_Story_1946_and_Newer            Residential_Low_Density \n 7     213500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n 8     191500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n 9     236500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n10     189000 Two_Story_1946_and_Newer            Residential_Low_Density \n# ℹ 2,920 more rows\n\n\nWe can take a quick look at the possible values MS_SubClass takes\n\names |&gt;\n  count(MS_SubClass, sort = TRUE)\n\n# A tibble: 16 × 2\n   MS_SubClass                                   n\n   &lt;fct&gt;                                     &lt;int&gt;\n 1 One_Story_1946_and_Newer_All_Styles        1079\n 2 Two_Story_1946_and_Newer                    575\n 3 One_and_Half_Story_Finished_All_Ages        287\n 4 One_Story_PUD_1946_and_Newer                192\n 5 One_Story_1945_and_Older                    139\n 6 Two_Story_PUD_1946_and_Newer                129\n 7 Two_Story_1945_and_Older                    128\n 8 Split_or_Multilevel                         118\n 9 Duplex_All_Styles_and_Ages                  109\n10 Two_Family_conversion_All_Styles_and_Ages    61\n11 Split_Foyer                                  48\n12 Two_and_Half_Story_All_Ages                  23\n13 One_and_Half_Story_Unfinished_All_Ages       18\n14 PUD_Multilevel_Split_Level_Foyer             17\n15 One_Story_with_Finished_Attic_All_Ages        6\n16 One_and_Half_Story_PUD_All_Ages               1\n\n\nWe can then apply binary encoding using step_encoding_binary(). Notice how we only get 1 numeric variable for each categorical variable\n\ndummy_rec &lt;- recipe(Sale_Price ~ ., data = ames) |&gt;\n  step_encoding_binary(all_nominal_predictors()) |&gt;\n  prep()\n\ndummy_rec |&gt;\n  bake(new_data = NULL, starts_with(\"MS_SubClass\"), starts_with(\"MS_Zoning\")) |&gt;\n  glimpse()\n\nRows: 2,930\nColumns: 9\n$ MS_SubClass_1  &lt;int&gt; 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 1…\n$ MS_SubClass_2  &lt;int&gt; 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0…\n$ MS_SubClass_4  &lt;int&gt; 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0…\n$ MS_SubClass_8  &lt;int&gt; 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0…\n$ MS_SubClass_16 &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_1    &lt;int&gt; 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…\n$ MS_Zoning_2    &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…\n$ MS_Zoning_4    &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_8    &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…\n\n\nWe can pull the number of distinct levels of each variable by using tidy().\n\ndummy_rec |&gt;\n  tidy(1)\n\n# A tibble: 40 × 3\n   terms        value id                   \n   &lt;chr&gt;        &lt;int&gt; &lt;chr&gt;                \n 1 MS_SubClass     16 encoding_binary_Bp5vK\n 2 MS_Zoning        7 encoding_binary_Bp5vK\n 3 Street           2 encoding_binary_Bp5vK\n 4 Alley            3 encoding_binary_Bp5vK\n 5 Lot_Shape        4 encoding_binary_Bp5vK\n 6 Land_Contour     4 encoding_binary_Bp5vK\n 7 Utilities        3 encoding_binary_Bp5vK\n 8 Lot_Config       5 encoding_binary_Bp5vK\n 9 Land_Slope       3 encoding_binary_Bp5vK\n10 Neighborhood    29 encoding_binary_Bp5vK\n# ℹ 30 more rows"
+    "title": "23  Binary Encoding",
+    "section": "23.3 R Examples",
+    "text": "23.3 R Examples\nWe will be using the ames data set for these examples. The step_encoding_binary() function from the extrasteps package allows us to perform binary encoding.\n\nlibrary(recipes)\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nlibrary(extrasteps)\nlibrary(modeldata)\ndata(\"ames\")\n\names |&gt;\n  select(Sale_Price, MS_SubClass, MS_Zoning)\n\n# A tibble: 2,930 × 3\n   Sale_Price MS_SubClass                         MS_Zoning               \n        &lt;int&gt; &lt;fct&gt;                               &lt;fct&gt;                   \n 1     215000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 2     105000 One_Story_1946_and_Newer_All_Styles Residential_High_Density\n 3     172000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 4     244000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 5     189900 Two_Story_1946_and_Newer            Residential_Low_Density \n 6     195500 Two_Story_1946_and_Newer            Residential_Low_Density \n 7     213500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n 8     191500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n 9     236500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n10     189000 Two_Story_1946_and_Newer            Residential_Low_Density \n# ℹ 2,920 more rows\n\n\nWe can take a quick look at the possible values MS_SubClass takes\n\names |&gt;\n  count(MS_SubClass, sort = TRUE)\n\n# A tibble: 16 × 2\n   MS_SubClass                                   n\n   &lt;fct&gt;                                     &lt;int&gt;\n 1 One_Story_1946_and_Newer_All_Styles        1079\n 2 Two_Story_1946_and_Newer                    575\n 3 One_and_Half_Story_Finished_All_Ages        287\n 4 One_Story_PUD_1946_and_Newer                192\n 5 One_Story_1945_and_Older                    139\n 6 Two_Story_PUD_1946_and_Newer                129\n 7 Two_Story_1945_and_Older                    128\n 8 Split_or_Multilevel                         118\n 9 Duplex_All_Styles_and_Ages                  109\n10 Two_Family_conversion_All_Styles_and_Ages    61\n11 Split_Foyer                                  48\n12 Two_and_Half_Story_All_Ages                  23\n13 One_and_Half_Story_Unfinished_All_Ages       18\n14 PUD_Multilevel_Split_Level_Foyer             17\n15 One_Story_with_Finished_Attic_All_Ages        6\n16 One_and_Half_Story_PUD_All_Ages               1\n\n\nWe can then apply binary encoding using step_encoding_binary(). Notice how we only get 1 numeric variable for each categorical variable\n\ndummy_rec &lt;- recipe(Sale_Price ~ ., data = ames) |&gt;\n  step_encoding_binary(all_nominal_predictors()) |&gt;\n  prep()\n\ndummy_rec |&gt;\n  bake(new_data = NULL, starts_with(\"MS_SubClass\"), starts_with(\"MS_Zoning\")) |&gt;\n  glimpse()\n\nRows: 2,930\nColumns: 9\n$ MS_SubClass_1  &lt;int&gt; 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 1…\n$ MS_SubClass_2  &lt;int&gt; 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0…\n$ MS_SubClass_4  &lt;int&gt; 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0…\n$ MS_SubClass_8  &lt;int&gt; 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0…\n$ MS_SubClass_16 &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_1    &lt;int&gt; 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…\n$ MS_Zoning_2    &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…\n$ MS_Zoning_4    &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…\n$ MS_Zoning_8    &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…\n\n\nWe can pull the number of distinct levels of each variable by using tidy().\n\ndummy_rec |&gt;\n  tidy(1)\n\n# A tibble: 40 × 3\n   terms        value id                   \n   &lt;chr&gt;        &lt;int&gt; &lt;chr&gt;                \n 1 MS_SubClass     16 encoding_binary_Bp5vK\n 2 MS_Zoning        7 encoding_binary_Bp5vK\n 3 Street           2 encoding_binary_Bp5vK\n 4 Alley            3 encoding_binary_Bp5vK\n 5 Lot_Shape        4 encoding_binary_Bp5vK\n 6 Land_Contour     4 encoding_binary_Bp5vK\n 7 Utilities        3 encoding_binary_Bp5vK\n 8 Lot_Config       5 encoding_binary_Bp5vK\n 9 Land_Slope       3 encoding_binary_Bp5vK\n10 Neighborhood    29 encoding_binary_Bp5vK\n# ℹ 30 more rows"
   },
   {
     "objectID": "categorical-binary.html#python-examples",
     "href": "categorical-binary.html#python-examples",
-    "title": "22  Binary Encoding",
-    "section": "22.4 Python Examples",
-    "text": "22.4 Python Examples\nhttp://contrib.scikit-learn.org/category_encoders/binary.html"
+    "title": "23  Binary Encoding",
+    "section": "23.4 Python Examples",
+    "text": "23.4 Python Examples\nhttp://contrib.scikit-learn.org/category_encoders/binary.html"
   },
   {
     "objectID": "categorical-frequency.html#pros-and-cons",
     "href": "categorical-frequency.html#pros-and-cons",
-    "title": "23  Frequency Encoding",
-    "section": "23.1 Pros and Cons",
-    "text": "23.1 Pros and Cons\n\n23.1.1 Pros\n\nPowerful and simple when used correctly\nHigh interpretability\n\n\n\n23.1.2 Cons\n\nIs not able to distinguish between two levels that have the same frequency\nMay not add predictive power"
+    "title": "24  Frequency Encoding",
+    "section": "24.1 Pros and Cons",
+    "text": "24.1 Pros and Cons\n\n24.1.1 Pros\n\nPowerful and simple when used correctly\nHigh interpretability\n\n\n\n24.1.2 Cons\n\nIs not able to distinguish between two levels that have the same frequency\nMay not add predictive power"
   },
   {
     "objectID": "categorical-frequency.html#r-examples",
     "href": "categorical-frequency.html#r-examples",
-    "title": "23  Frequency Encoding",
-    "section": "23.2 R Examples",
-    "text": "23.2 R Examples\nWe will be using the ames data set for these examples. The step_encoding_frequency() function from the extrasteps package allows us to perform frequency encoding.\n\nlibrary(recipes)\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nlibrary(extrasteps)\nlibrary(modeldata)\ndata(\"ames\")\n\names |&gt;\n  select(Sale_Price, MS_SubClass, MS_Zoning)\n\n# A tibble: 2,930 × 3\n   Sale_Price MS_SubClass                         MS_Zoning               \n        &lt;int&gt; &lt;fct&gt;                               &lt;fct&gt;                   \n 1     215000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 2     105000 One_Story_1946_and_Newer_All_Styles Residential_High_Density\n 3     172000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 4     244000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 5     189900 Two_Story_1946_and_Newer            Residential_Low_Density \n 6     195500 Two_Story_1946_and_Newer            Residential_Low_Density \n 7     213500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n 8     191500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n 9     236500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n10     189000 Two_Story_1946_and_Newer            Residential_Low_Density \n# ℹ 2,920 more rows\n\n\nWe can take a quick look at the possible values MS_SubClass takes\n\names |&gt;\n  count(MS_SubClass, sort = TRUE)\n\n# A tibble: 16 × 2\n   MS_SubClass                                   n\n   &lt;fct&gt;                                     &lt;int&gt;\n 1 One_Story_1946_and_Newer_All_Styles        1079\n 2 Two_Story_1946_and_Newer                    575\n 3 One_and_Half_Story_Finished_All_Ages        287\n 4 One_Story_PUD_1946_and_Newer                192\n 5 One_Story_1945_and_Older                    139\n 6 Two_Story_PUD_1946_and_Newer                129\n 7 Two_Story_1945_and_Older                    128\n 8 Split_or_Multilevel                         118\n 9 Duplex_All_Styles_and_Ages                  109\n10 Two_Family_conversion_All_Styles_and_Ages    61\n11 Split_Foyer                                  48\n12 Two_and_Half_Story_All_Ages                  23\n13 One_and_Half_Story_Unfinished_All_Ages       18\n14 PUD_Multilevel_Split_Level_Foyer             17\n15 One_Story_with_Finished_Attic_All_Ages        6\n16 One_and_Half_Story_PUD_All_Ages               1\n\n\nWe can then apply frequency encoding using step_encoding_frequency(). Notice how we only get 1 numeric variable for each categorical variable\n\ndummy_rec &lt;- recipe(Sale_Price ~ ., data = ames) |&gt;\n  step_encoding_frequency(all_nominal_predictors()) |&gt;\n  prep()\n\ndummy_rec |&gt;\n  bake(new_data = NULL, starts_with(\"MS_SubClass\"), starts_with(\"MS_Zoning\")) |&gt;\n  glimpse()\n\nRows: 2,930\nColumns: 2\n$ MS_SubClass &lt;dbl&gt; 0.36825939, 0.36825939, 0.36825939, 0.36825939, 0.19624573…\n$ MS_Zoning   &lt;dbl&gt; 0.775767918, 0.009215017, 0.775767918, 0.775767918, 0.7757…\n\n\nWe can pull the frequencies for each level of each variable by using tidy().\n\ndummy_rec |&gt;\n  tidy(1)\n\n# A tibble: 283 × 4\n   terms       level                                  frequency id              \n   &lt;chr&gt;       &lt;chr&gt;                                      &lt;dbl&gt; &lt;chr&gt;           \n 1 MS_SubClass One_Story_1946_and_Newer_All_Styles      0.368   encoding_freque…\n 2 MS_SubClass One_Story_1945_and_Older                 0.0474  encoding_freque…\n 3 MS_SubClass One_Story_with_Finished_Attic_All_Ages   0.00205 encoding_freque…\n 4 MS_SubClass One_and_Half_Story_Unfinished_All_Ages   0.00614 encoding_freque…\n 5 MS_SubClass One_and_Half_Story_Finished_All_Ages     0.0980  encoding_freque…\n 6 MS_SubClass Two_Story_1946_and_Newer                 0.196   encoding_freque…\n 7 MS_SubClass Two_Story_1945_and_Older                 0.0437  encoding_freque…\n 8 MS_SubClass Two_and_Half_Story_All_Ages              0.00785 encoding_freque…\n 9 MS_SubClass Split_or_Multilevel                      0.0403  encoding_freque…\n10 MS_SubClass Split_Foyer                              0.0164  encoding_freque…\n# ℹ 273 more rows"
+    "title": "24  Frequency Encoding",
+    "section": "24.2 R Examples",
+    "text": "24.2 R Examples\nWe will be using the ames data set for these examples. The step_encoding_frequency() function from the extrasteps package allows us to perform frequency encoding.\n\nlibrary(recipes)\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nlibrary(extrasteps)\nlibrary(modeldata)\ndata(\"ames\")\n\names |&gt;\n  select(Sale_Price, MS_SubClass, MS_Zoning)\n\n# A tibble: 2,930 × 3\n   Sale_Price MS_SubClass                         MS_Zoning               \n        &lt;int&gt; &lt;fct&gt;                               &lt;fct&gt;                   \n 1     215000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 2     105000 One_Story_1946_and_Newer_All_Styles Residential_High_Density\n 3     172000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 4     244000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density \n 5     189900 Two_Story_1946_and_Newer            Residential_Low_Density \n 6     195500 Two_Story_1946_and_Newer            Residential_Low_Density \n 7     213500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n 8     191500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n 9     236500 One_Story_PUD_1946_and_Newer        Residential_Low_Density \n10     189000 Two_Story_1946_and_Newer            Residential_Low_Density \n# ℹ 2,920 more rows\n\n\nWe can take a quick look at the possible values MS_SubClass takes\n\names |&gt;\n  count(MS_SubClass, sort = TRUE)\n\n# A tibble: 16 × 2\n   MS_SubClass                                   n\n   &lt;fct&gt;                                     &lt;int&gt;\n 1 One_Story_1946_and_Newer_All_Styles        1079\n 2 Two_Story_1946_and_Newer                    575\n 3 One_and_Half_Story_Finished_All_Ages        287\n 4 One_Story_PUD_1946_and_Newer                192\n 5 One_Story_1945_and_Older                    139\n 6 Two_Story_PUD_1946_and_Newer                129\n 7 Two_Story_1945_and_Older                    128\n 8 Split_or_Multilevel                         118\n 9 Duplex_All_Styles_and_Ages                  109\n10 Two_Family_conversion_All_Styles_and_Ages    61\n11 Split_Foyer                                  48\n12 Two_and_Half_Story_All_Ages                  23\n13 One_and_Half_Story_Unfinished_All_Ages       18\n14 PUD_Multilevel_Split_Level_Foyer             17\n15 One_Story_with_Finished_Attic_All_Ages        6\n16 One_and_Half_Story_PUD_All_Ages               1\n\n\nWe can then apply frequency encoding using step_encoding_frequency(). Notice how we only get 1 numeric variable for each categorical variable\n\ndummy_rec &lt;- recipe(Sale_Price ~ ., data = ames) |&gt;\n  step_encoding_frequency(all_nominal_predictors()) |&gt;\n  prep()\n\ndummy_rec |&gt;\n  bake(new_data = NULL, starts_with(\"MS_SubClass\"), starts_with(\"MS_Zoning\")) |&gt;\n  glimpse()\n\nRows: 2,930\nColumns: 2\n$ MS_SubClass &lt;dbl&gt; 0.36825939, 0.36825939, 0.36825939, 0.36825939, 0.19624573…\n$ MS_Zoning   &lt;dbl&gt; 0.775767918, 0.009215017, 0.775767918, 0.775767918, 0.7757…\n\n\nWe can pull the frequencies for each level of each variable by using tidy().\n\ndummy_rec |&gt;\n  tidy(1)\n\n# A tibble: 283 × 4\n   terms       level                                  frequency id              \n   &lt;chr&gt;       &lt;chr&gt;                                      &lt;dbl&gt; &lt;chr&gt;           \n 1 MS_SubClass One_Story_1946_and_Newer_All_Styles      0.368   encoding_freque…\n 2 MS_SubClass One_Story_1945_and_Older                 0.0474  encoding_freque…\n 3 MS_SubClass One_Story_with_Finished_Attic_All_Ages   0.00205 encoding_freque…\n 4 MS_SubClass One_and_Half_Story_Unfinished_All_Ages   0.00614 encoding_freque…\n 5 MS_SubClass One_and_Half_Story_Finished_All_Ages     0.0980  encoding_freque…\n 6 MS_SubClass Two_Story_1946_and_Newer                 0.196   encoding_freque…\n 7 MS_SubClass Two_Story_1945_and_Older                 0.0437  encoding_freque…\n 8 MS_SubClass Two_and_Half_Story_All_Ages              0.00785 encoding_freque…\n 9 MS_SubClass Split_or_Multilevel                      0.0403  encoding_freque…\n10 MS_SubClass Split_Foyer                              0.0164  encoding_freque…\n# ℹ 273 more rows"
   },
   {
     "objectID": "categorical-frequency.html#python-examples",
     "href": "categorical-frequency.html#python-examples",
-    "title": "23  Frequency Encoding",
-    "section": "23.3 Python Examples",
-    "text": "23.3 Python Examples"
+    "title": "24  Frequency Encoding",
+    "section": "24.3 Python Examples",
+    "text": "24.3 Python Examples"
   },
   {
     "objectID": "categorical-target.html#pros-and-cons",
     "href": "categorical-target.html#pros-and-cons",
-    "title": "24  Target Encoding",
-    "section": "24.1 Pros and Cons",
-    "text": "24.1 Pros and Cons\n\n24.1.1 Pros\n\n\n24.1.2 Cons"
-  },
-  {
-    "objectID": "categorical-target.html#r-examples",
-    "href": "categorical-target.html#r-examples",
-    "title": "24  Target Encoding",
-    "section": "24.2 R Examples",
-    "text": "24.2 R Examples"
-  },
-  {
-    "objectID": "categorical-target.html#python-examples",
-    "href": "categorical-target.html#python-examples",
-    "title": "24  Target Encoding",
-    "section": "24.3 Python Examples",
-    "text": "24.3 Python Examples\n\n\n\n\nMicci-Barreca, Daniele. 2001. “A Preprocessing Scheme for High-Cardinality Categorical Attributes in Classification and Prediction Problems.” SIGKDD Explor. Newsl. 3 (1): 27–32. https://doi.org/10.1145/507533.507538."
-  },
-  {
-    "objectID": "categorical-hashing.html#pros-and-cons",
-    "href": "categorical-hashing.html#pros-and-cons",
-    "title": "25  Hashing Encoding",
+    "title": "25  Target Encoding",
     "section": "25.1 Pros and Cons",
     "text": "25.1 Pros and Cons\n\n25.1.1 Pros\n\n\n25.1.2 Cons"
   },
   {
-    "objectID": "categorical-hashing.html#r-examples",
-    "href": "categorical-hashing.html#r-examples",
-    "title": "25  Hashing Encoding",
+    "objectID": "categorical-target.html#r-examples",
+    "href": "categorical-target.html#r-examples",
+    "title": "25  Target Encoding",
     "section": "25.2 R Examples",
     "text": "25.2 R Examples"
   },
   {
-    "objectID": "categorical-hashing.html#python-examples",
-    "href": "categorical-hashing.html#python-examples",
-    "title": "25  Hashing Encoding",
+    "objectID": "categorical-target.html#python-examples",
+    "href": "categorical-target.html#python-examples",
+    "title": "25  Target Encoding",
     "section": "25.3 Python Examples",
-    "text": "25.3 Python Examples"
+    "text": "25.3 Python Examples\n\n\n\n\nMicci-Barreca, Daniele. 2001. “A Preprocessing Scheme for High-Cardinality Categorical Attributes in Classification and Prediction Problems.” SIGKDD Explor. Newsl. 3 (1): 27–32. https://doi.org/10.1145/507533.507538."
   },
   {
-    "objectID": "categorical-leaveoneout.html#pros-and-cons",
-    "href": "categorical-leaveoneout.html#pros-and-cons",
-    "title": "26  Leave One Out Encoding",
+    "objectID": "categorical-hashing.html#pros-and-cons",
+    "href": "categorical-hashing.html#pros-and-cons",
+    "title": "26  Hashing Encoding",
     "section": "26.1 Pros and Cons",
     "text": "26.1 Pros and Cons\n\n26.1.1 Pros\n\n\n26.1.2 Cons"
   },
   {
-    "objectID": "categorical-leaveoneout.html#r-examples",
-    "href": "categorical-leaveoneout.html#r-examples",
-    "title": "26  Leave One Out Encoding",
+    "objectID": "categorical-hashing.html#r-examples",
+    "href": "categorical-hashing.html#r-examples",
+    "title": "26  Hashing Encoding",
     "section": "26.2 R Examples",
     "text": "26.2 R Examples"
   },
   {
-    "objectID": "categorical-leaveoneout.html#python-examples",
-    "href": "categorical-leaveoneout.html#python-examples",
-    "title": "26  Leave One Out Encoding",
+    "objectID": "categorical-hashing.html#python-examples",
+    "href": "categorical-hashing.html#python-examples",
+    "title": "26  Hashing Encoding",
     "section": "26.3 Python Examples",
     "text": "26.3 Python Examples"
   },
   {
-    "objectID": "categorical-leaf.html#pros-and-cons",
-    "href": "categorical-leaf.html#pros-and-cons",
-    "title": "27  Leaf Encoding",
+    "objectID": "categorical-leaveoneout.html#pros-and-cons",
+    "href": "categorical-leaveoneout.html#pros-and-cons",
+    "title": "27  Leave One Out Encoding",
     "section": "27.1 Pros and Cons",
     "text": "27.1 Pros and Cons\n\n27.1.1 Pros\n\n\n27.1.2 Cons"
   },
   {
-    "objectID": "categorical-leaf.html#r-examples",
-    "href": "categorical-leaf.html#r-examples",
-    "title": "27  Leaf Encoding",
+    "objectID": "categorical-leaveoneout.html#r-examples",
+    "href": "categorical-leaveoneout.html#r-examples",
+    "title": "27  Leave One Out Encoding",
     "section": "27.2 R Examples",
     "text": "27.2 R Examples"
   },
   {
-    "objectID": "categorical-leaf.html#python-examples",
-    "href": "categorical-leaf.html#python-examples",
-    "title": "27  Leaf Encoding",
+    "objectID": "categorical-leaveoneout.html#python-examples",
+    "href": "categorical-leaveoneout.html#python-examples",
+    "title": "27  Leave One Out Encoding",
     "section": "27.3 Python Examples",
     "text": "27.3 Python Examples"
   },
   {
-    "objectID": "categorical-glmm.html#pros-and-cons",
-    "href": "categorical-glmm.html#pros-and-cons",
-    "title": "28  GLMM Encoding",
+    "objectID": "categorical-leaf.html#pros-and-cons",
+    "href": "categorical-leaf.html#pros-and-cons",
+    "title": "28  Leaf Encoding",
     "section": "28.1 Pros and Cons",
     "text": "28.1 Pros and Cons\n\n28.1.1 Pros\n\n\n28.1.2 Cons"
   },
   {
-    "objectID": "categorical-glmm.html#r-examples",
-    "href": "categorical-glmm.html#r-examples",
-    "title": "28  GLMM Encoding",
+    "objectID": "categorical-leaf.html#r-examples",
+    "href": "categorical-leaf.html#r-examples",
+    "title": "28  Leaf Encoding",
     "section": "28.2 R Examples",
     "text": "28.2 R Examples"
   },
   {
-    "objectID": "categorical-glmm.html#python-examples",
-    "href": "categorical-glmm.html#python-examples",
-    "title": "28  GLMM Encoding",
+    "objectID": "categorical-leaf.html#python-examples",
+    "href": "categorical-leaf.html#python-examples",
+    "title": "28  Leaf Encoding",
     "section": "28.3 Python Examples",
     "text": "28.3 Python Examples"
   },
   {
-    "objectID": "categorical-catboost.html#pros-and-cons",
-    "href": "categorical-catboost.html#pros-and-cons",
-    "title": "29  Catboost Encoding",
+    "objectID": "categorical-glmm.html#pros-and-cons",
+    "href": "categorical-glmm.html#pros-and-cons",
+    "title": "29  GLMM Encoding",
     "section": "29.1 Pros and Cons",
     "text": "29.1 Pros and Cons\n\n29.1.1 Pros\n\n\n29.1.2 Cons"
   },
   {
-    "objectID": "categorical-catboost.html#r-examples",
-    "href": "categorical-catboost.html#r-examples",
-    "title": "29  Catboost Encoding",
+    "objectID": "categorical-glmm.html#r-examples",
+    "href": "categorical-glmm.html#r-examples",
+    "title": "29  GLMM Encoding",
     "section": "29.2 R Examples",
     "text": "29.2 R Examples"
   },
   {
-    "objectID": "categorical-catboost.html#python-examples",
-    "href": "categorical-catboost.html#python-examples",
-    "title": "29  Catboost Encoding",
+    "objectID": "categorical-glmm.html#python-examples",
+    "href": "categorical-glmm.html#python-examples",
+    "title": "29  GLMM Encoding",
     "section": "29.3 Python Examples",
     "text": "29.3 Python Examples"
   },
   {
-    "objectID": "categorical-woe.html#pros-and-cons",
-    "href": "categorical-woe.html#pros-and-cons",
-    "title": "30  Weight of Evidence Encoding",
+    "objectID": "categorical-catboost.html#pros-and-cons",
+    "href": "categorical-catboost.html#pros-and-cons",
+    "title": "30  Catboost Encoding",
     "section": "30.1 Pros and Cons",
     "text": "30.1 Pros and Cons\n\n30.1.1 Pros\n\n\n30.1.2 Cons"
   },
   {
-    "objectID": "categorical-woe.html#r-examples",
-    "href": "categorical-woe.html#r-examples",
-    "title": "30  Weight of Evidence Encoding",
+    "objectID": "categorical-catboost.html#r-examples",
+    "href": "categorical-catboost.html#r-examples",
+    "title": "30  Catboost Encoding",
     "section": "30.2 R Examples",
     "text": "30.2 R Examples"
   },
   {
-    "objectID": "categorical-woe.html#python-examples",
-    "href": "categorical-woe.html#python-examples",
-    "title": "30  Weight of Evidence Encoding",
+    "objectID": "categorical-catboost.html#python-examples",
+    "href": "categorical-catboost.html#python-examples",
+    "title": "30  Catboost Encoding",
     "section": "30.3 Python Examples",
     "text": "30.3 Python Examples"
   },
   {
-    "objectID": "categorical-jamesstein.html#pros-and-cons",
-    "href": "categorical-jamesstein.html#pros-and-cons",
-    "title": "31  James-Stein Encoding",
+    "objectID": "categorical-woe.html#pros-and-cons",
+    "href": "categorical-woe.html#pros-and-cons",
+    "title": "31  Weight of Evidence Encoding",
     "section": "31.1 Pros and Cons",
     "text": "31.1 Pros and Cons\n\n31.1.1 Pros\n\n\n31.1.2 Cons"
   },
   {
-    "objectID": "categorical-jamesstein.html#r-examples",
-    "href": "categorical-jamesstein.html#r-examples",
-    "title": "31  James-Stein Encoding",
+    "objectID": "categorical-woe.html#r-examples",
+    "href": "categorical-woe.html#r-examples",
+    "title": "31  Weight of Evidence Encoding",
     "section": "31.2 R Examples",
     "text": "31.2 R Examples"
   },
   {
-    "objectID": "categorical-jamesstein.html#python-examples",
-    "href": "categorical-jamesstein.html#python-examples",
-    "title": "31  James-Stein Encoding",
+    "objectID": "categorical-woe.html#python-examples",
+    "href": "categorical-woe.html#python-examples",
+    "title": "31  Weight of Evidence Encoding",
     "section": "31.3 Python Examples",
     "text": "31.3 Python Examples"
   },
   {
-    "objectID": "categorical-mestimator.html#pros-and-cons",
-    "href": "categorical-mestimator.html#pros-and-cons",
-    "title": "32  M-Estimator Encoding",
+    "objectID": "categorical-jamesstein.html#pros-and-cons",
+    "href": "categorical-jamesstein.html#pros-and-cons",
+    "title": "32  James-Stein Encoding",
     "section": "32.1 Pros and Cons",
     "text": "32.1 Pros and Cons\n\n32.1.1 Pros\n\n\n32.1.2 Cons"
   },
   {
-    "objectID": "categorical-mestimator.html#r-examples",
-    "href": "categorical-mestimator.html#r-examples",
-    "title": "32  M-Estimator Encoding",
+    "objectID": "categorical-jamesstein.html#r-examples",
+    "href": "categorical-jamesstein.html#r-examples",
+    "title": "32  James-Stein Encoding",
     "section": "32.2 R Examples",
     "text": "32.2 R Examples"
   },
   {
-    "objectID": "categorical-mestimator.html#python-examples",
-    "href": "categorical-mestimator.html#python-examples",
-    "title": "32  M-Estimator Encoding",
+    "objectID": "categorical-jamesstein.html#python-examples",
+    "href": "categorical-jamesstein.html#python-examples",
+    "title": "32  James-Stein Encoding",
     "section": "32.3 Python Examples",
     "text": "32.3 Python Examples"
   },
   {
-    "objectID": "categorical-thermometer.html#pros-and-cons",
-    "href": "categorical-thermometer.html#pros-and-cons",
-    "title": "33  Thermometer Encoding",
+    "objectID": "categorical-mestimator.html#pros-and-cons",
+    "href": "categorical-mestimator.html#pros-and-cons",
+    "title": "33  M-Estimator Encoding",
     "section": "33.1 Pros and Cons",
     "text": "33.1 Pros and Cons\n\n33.1.1 Pros\n\n\n33.1.2 Cons"
   },
   {
-    "objectID": "categorical-thermometer.html#r-examples",
-    "href": "categorical-thermometer.html#r-examples",
-    "title": "33  Thermometer Encoding",
+    "objectID": "categorical-mestimator.html#r-examples",
+    "href": "categorical-mestimator.html#r-examples",
+    "title": "33  M-Estimator Encoding",
     "section": "33.2 R Examples",
     "text": "33.2 R Examples"
   },
   {
-    "objectID": "categorical-thermometer.html#python-examples",
-    "href": "categorical-thermometer.html#python-examples",
-    "title": "33  Thermometer Encoding",
+    "objectID": "categorical-mestimator.html#python-examples",
+    "href": "categorical-mestimator.html#python-examples",
+    "title": "33  M-Estimator Encoding",
     "section": "33.3 Python Examples",
     "text": "33.3 Python Examples"
   },
   {
-    "objectID": "categorical-quantile.html#pros-and-cons",
-    "href": "categorical-quantile.html#pros-and-cons",
-    "title": "34  Quantile Encoding",
+    "objectID": "categorical-thermometer.html#pros-and-cons",
+    "href": "categorical-thermometer.html#pros-and-cons",
+    "title": "34  Thermometer Encoding",
     "section": "34.1 Pros and Cons",
     "text": "34.1 Pros and Cons\n\n34.1.1 Pros\n\n\n34.1.2 Cons"
   },
   {
-    "objectID": "categorical-quantile.html#r-examples",
-    "href": "categorical-quantile.html#r-examples",
-    "title": "34  Quantile Encoding",
+    "objectID": "categorical-thermometer.html#r-examples",
+    "href": "categorical-thermometer.html#r-examples",
+    "title": "34  Thermometer Encoding",
     "section": "34.2 R Examples",
     "text": "34.2 R Examples"
   },
   {
-    "objectID": "categorical-quantile.html#python-examples",
-    "href": "categorical-quantile.html#python-examples",
-    "title": "34  Quantile Encoding",
+    "objectID": "categorical-thermometer.html#python-examples",
+    "href": "categorical-thermometer.html#python-examples",
+    "title": "34  Thermometer Encoding",
     "section": "34.3 Python Examples",
     "text": "34.3 Python Examples"
   },
   {
-    "objectID": "categorical-summary.html#pros-and-cons",
-    "href": "categorical-summary.html#pros-and-cons",
-    "title": "35  Summary Encoding",
+    "objectID": "categorical-quantile.html#pros-and-cons",
+    "href": "categorical-quantile.html#pros-and-cons",
+    "title": "35  Quantile Encoding",
     "section": "35.1 Pros and Cons",
     "text": "35.1 Pros and Cons\n\n35.1.1 Pros\n\n\n35.1.2 Cons"
   },
   {
-    "objectID": "categorical-summary.html#r-examples",
-    "href": "categorical-summary.html#r-examples",
-    "title": "35  Summary Encoding",
+    "objectID": "categorical-quantile.html#r-examples",
+    "href": "categorical-quantile.html#r-examples",
+    "title": "35  Quantile Encoding",
     "section": "35.2 R Examples",
     "text": "35.2 R Examples"
   },
   {
-    "objectID": "categorical-summary.html#python-examples",
-    "href": "categorical-summary.html#python-examples",
-    "title": "35  Summary Encoding",
+    "objectID": "categorical-quantile.html#python-examples",
+    "href": "categorical-quantile.html#python-examples",
+    "title": "35  Quantile Encoding",
     "section": "35.3 Python Examples",
     "text": "35.3 Python Examples"
   },
   {
-    "objectID": "categorical-multi-dummy.html#pros-and-cons",
-    "href": "categorical-multi-dummy.html#pros-and-cons",
-    "title": "36  Multi-Dummy encoding",
+    "objectID": "categorical-summary.html#pros-and-cons",
+    "href": "categorical-summary.html#pros-and-cons",
+    "title": "36  Summary Encoding",
     "section": "36.1 Pros and Cons",
     "text": "36.1 Pros and Cons\n\n36.1.1 Pros\n\n\n36.1.2 Cons"
   },
   {
-    "objectID": "categorical-multi-dummy.html#r-examples",
-    "href": "categorical-multi-dummy.html#r-examples",
-    "title": "36  Multi-Dummy encoding",
+    "objectID": "categorical-summary.html#r-examples",
+    "href": "categorical-summary.html#r-examples",
+    "title": "36  Summary Encoding",
     "section": "36.2 R Examples",
     "text": "36.2 R Examples"
   },
   {
-    "objectID": "categorical-multi-dummy.html#python-examples",
-    "href": "categorical-multi-dummy.html#python-examples",
-    "title": "36  Multi-Dummy encoding",
+    "objectID": "categorical-summary.html#python-examples",
+    "href": "categorical-summary.html#python-examples",
+    "title": "36  Summary Encoding",
     "section": "36.3 Python Examples",
     "text": "36.3 Python Examples"
   },
   {
-    "objectID": "categorical-collapse.html#pros-and-cons",
-    "href": "categorical-collapse.html#pros-and-cons",
-    "title": "37  Collapsing Categories",
+    "objectID": "categorical-multi-dummy.html#pros-and-cons",
+    "href": "categorical-multi-dummy.html#pros-and-cons",
+    "title": "37  Multi-Dummy encoding",
     "section": "37.1 Pros and Cons",
     "text": "37.1 Pros and Cons\n\n37.1.1 Pros\n\n\n37.1.2 Cons"
   },
   {
-    "objectID": "categorical-collapse.html#r-examples",
-    "href": "categorical-collapse.html#r-examples",
-    "title": "37  Collapsing Categories",
+    "objectID": "categorical-multi-dummy.html#r-examples",
+    "href": "categorical-multi-dummy.html#r-examples",
+    "title": "37  Multi-Dummy encoding",
     "section": "37.2 R Examples",
     "text": "37.2 R Examples"
   },
   {
-    "objectID": "categorical-collapse.html#python-examples",
-    "href": "categorical-collapse.html#python-examples",
-    "title": "37  Collapsing Categories",
+    "objectID": "categorical-multi-dummy.html#python-examples",
+    "href": "categorical-multi-dummy.html#python-examples",
+    "title": "37  Multi-Dummy encoding",
     "section": "37.3 Python Examples",
     "text": "37.3 Python Examples"
   },
   {
-    "objectID": "categorical-combination.html#pros-and-cons",
-    "href": "categorical-combination.html#pros-and-cons",
-    "title": "38  Combination",
+    "objectID": "categorical-collapse.html#pros-and-cons",
+    "href": "categorical-collapse.html#pros-and-cons",
+    "title": "38  Collapsing Categories",
     "section": "38.1 Pros and Cons",
     "text": "38.1 Pros and Cons\n\n38.1.1 Pros\n\n\n38.1.2 Cons"
   },
   {
-    "objectID": "categorical-combination.html#r-examples",
-    "href": "categorical-combination.html#r-examples",
-    "title": "38  Combination",
+    "objectID": "categorical-collapse.html#r-examples",
+    "href": "categorical-collapse.html#r-examples",
+    "title": "38  Collapsing Categories",
     "section": "38.2 R Examples",
     "text": "38.2 R Examples"
   },
   {
-    "objectID": "categorical-combination.html#python-examples",
-    "href": "categorical-combination.html#python-examples",
-    "title": "38  Combination",
+    "objectID": "categorical-collapse.html#python-examples",
+    "href": "categorical-collapse.html#python-examples",
+    "title": "38  Collapsing Categories",
     "section": "38.3 Python Examples",
     "text": "38.3 Python Examples"
   },
   {
+    "objectID": "categorical-combination.html#pros-and-cons",
+    "href": "categorical-combination.html#pros-and-cons",
+    "title": "39  Combination",
+    "section": "39.1 Pros and Cons",
+    "text": "39.1 Pros and Cons\n\n39.1.1 Pros\n\n\n39.1.2 Cons"
+  },
+  {
+    "objectID": "categorical-combination.html#r-examples",
+    "href": "categorical-combination.html#r-examples",
+    "title": "39  Combination",
+    "section": "39.2 R Examples",
+    "text": "39.2 R Examples"
+  },
+  {
+    "objectID": "categorical-combination.html#python-examples",
+    "href": "categorical-combination.html#python-examples",
+    "title": "39  Combination",
+    "section": "39.3 Python Examples",
+    "text": "39.3 Python Examples"
+  },
+  {
     "objectID": "imbalenced.html",
     "href": "imbalenced.html",
-    "title": "39  Overview",
+    "title": "40  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "imbalenced-smote.html",
     "href": "imbalenced-smote.html",
-    "title": "40  SMOTE",
+    "title": "41  SMOTE",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "missing.html",
     "href": "missing.html",
-    "title": "41  Overview",
+    "title": "42  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "missing-imputation.html",
     "href": "missing-imputation.html",
-    "title": "42  Imputation",
+    "title": "43  Imputation",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "too-many.html",
     "href": "too-many.html",
-    "title": "43  Overview",
+    "title": "44  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "too-many-pca.html",
     "href": "too-many-pca.html",
-    "title": "44  Principal Component Analysis",
+    "title": "45  Principal Component Analysis",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "outliers.html",
     "href": "outliers.html",
-    "title": "45  Overview",
+    "title": "46  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "outliers-remove.html",
     "href": "outliers-remove.html",
-    "title": "46  Removal",
+    "title": "47  Removal",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "datetime.html",
     "href": "datetime.html",
-    "title": "47  Overview",
+    "title": "48  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "datetime-holiday.html",
     "href": "datetime-holiday.html",
-    "title": "48  Holidays",
+    "title": "49  Holidays",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "text.html",
     "href": "text.html",
-    "title": "49  Overview",
+    "title": "50  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "text-tfidf.html",
     "href": "text-tfidf.html",
-    "title": "50  TF-IDF",
+    "title": "51  TF-IDF",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "image.html",
     "href": "image.html",
-    "title": "51  Overview",
+    "title": "52  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "image-stats.html",
     "href": "image-stats.html",
-    "title": "52  Visual Features",
+    "title": "53  Visual Features",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "circular.html",
     "href": "circular.html",
-    "title": "53  Overview",
+    "title": "54  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "circular-trig.html",
     "href": "circular-trig.html",
-    "title": "54  Trigonometric",
+    "title": "55  Trigonometric",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "time-series.html",
     "href": "time-series.html",
-    "title": "55  Overview",
+    "title": "56  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "time-series-fourier.html",
     "href": "time-series-fourier.html",
-    "title": "56  Fourier Features",
+    "title": "57  Fourier Features",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "correlated.html",
     "href": "correlated.html",
-    "title": "57  Overview",
+    "title": "58  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "correlated-filter.html",
     "href": "correlated-filter.html",
-    "title": "58  High Correlation Filter",
+    "title": "59  High Correlation Filter",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "miscellaneous.html",
     "href": "miscellaneous.html",
-    "title": "59  Overview",
+    "title": "60  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "miscellaneous-zipcodes.html",
     "href": "miscellaneous-zipcodes.html",
-    "title": "60  Zip Codes",
+    "title": "61  Zip Codes",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "video.html",
     "href": "video.html",
-    "title": "61  Overview",
+    "title": "62  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "video-tmp.html",
     "href": "video-tmp.html",
-    "title": "62  Temporary",
+    "title": "63  Temporary",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "sound.html",
     "href": "sound.html",
-    "title": "63  Overview",
+    "title": "64  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "sound-tmp.html",
     "href": "sound-tmp.html",
-    "title": "64  Temporary",
+    "title": "65  Temporary",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "spatial.html",
     "href": "spatial.html",
-    "title": "65  Overview",
+    "title": "66  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "spatial-gps.html",
     "href": "spatial-gps.html",
-    "title": "66  GPS",
+    "title": "67  GPS",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "geospatial.html",
     "href": "geospatial.html",
-    "title": "67  Overview",
+    "title": "68  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "geospatial-shapefiles.html",
     "href": "geospatial-shapefiles.html",
-    "title": "68  Shapefiles",
+    "title": "69  Shapefiles",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "relational.html",
     "href": "relational.html",
-    "title": "69  Overview",
+    "title": "70  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "relational-tmp.html",
     "href": "relational-tmp.html",
-    "title": "70  Temporary",
+    "title": "71  Temporary",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "order.html",
     "href": "order.html",
-    "title": "71  Order of transformations",
+    "title": "72  Order of transformations",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "sparse.html",
     "href": "sparse.html",
-    "title": "72  What should you do if you have sparse data?",
+    "title": "73  What should you do if you have sparse data?",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "models.html",
     "href": "models.html",
-    "title": "73  How Different Models Deal With Input",
+    "title": "74  How Different Models Deal With Input",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "summary.html",
     "href": "summary.html",
-    "title": "74  Summary",
+    "title": "75  Summary",
     "section": "",
     "text": "WIP"
   },
