@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -802,6 +836,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <p><strong>Splines</strong>, is one way to represent a curve that makes it useful in a modeling content, since it allows us to model non-linear relationships between predictors and outcomes.</p>
+<p>Being able to transform a numeric variable that has a non-linear relationship with the outcome into one or more variables that does have linear relationships with the outcome is of great importance, as many models wouldn’t be able to work with these types of variables effectively themselves. Below is a toy example of one such variable</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-splines-predictor-outcome" class="quarto-figure quarto-figure-center anchored">
@@ -812,6 +847,8 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
+<p>Here we have a non-linear relationship. It is a fairly simple one, the outcome is high when the predictor takes values between 25 and 50, and the outside the ranges it takes over values. Given that this is a toy example, we do not have any expert knowledge regarding what we expect the relationship to be outside this range. The trend could go back up, it could go down or flatten out. We don’t know.</p>
+<p>As we saw in <span class="quarto-unresolved-ref">?sec-numeric-binning</span>, one way to deal with this non-linearity is to chop up the predictor and emit indicators for which region the values take. While this works, we are losing quite a lot by detail by the rounding that occurs. This is where splines comes in. Imagine that instead of indicators for whether a value is within a range, we have a set of functions that gives each predictor value a set of values, related to its location in the distribution.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-splines-spline-curves" class="quarto-figure quarto-figure-center anchored">
@@ -823,6 +860,100 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>spline_rounder <span class="ot">&lt;-</span> <span class="cf">function</span>(value, name) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  name <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"predictor_bs_"</span>, name)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  value <span class="ot">&lt;-</span> <span class="fu">bake</span>(rec_splines, <span class="fu">tibble</span>(<span class="at">predictor =</span> value))[[name]]</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  value <span class="ot">&lt;-</span> <span class="fu">round</span>(value <span class="sc">/</span> <span class="fl">0.05</span>) <span class="sc">*</span> <span class="fl">0.05</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sprintf</span>(<span class="st">"%.2f"</span>, value)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Above we see an example of a Basis function that creates 6 features. The curves represent the area where they are “activated”. So if the predictor has a value of 15 then the first basis function returns 0.40, the second basis fuction returns 0.20 and so one, with the last basis function returning 0.00 since it is all flat over there.</p>
+<p>So in this example we are taking 1 numeric variable and turning it into 6 numeric variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>rec_splines <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="fu">tibble</span>(<span class="at">predictor =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">35</span>, <span class="dv">50</span>, <span class="dv">80</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>predictor_bs_7) <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(round, <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename_all</span>(stringr<span class="sc">::</span>str_replace, <span class="st">"predictor_bs_"</span>, <span class="st">"Basis Feature "</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="tbl-splines-values" class="anchored">
+<table class="table table-sm table-striped small">
+<caption>Table&nbsp;14.1: Spline values for different values of the predictor</caption>
+<colgroup>
+<col style="width: 9%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">predictor</th>
+<th style="text-align: right;">Basis Feature 1</th>
+<th style="text-align: right;">Basis Feature 2</th>
+<th style="text-align: right;">Basis Feature 3</th>
+<th style="text-align: right;">Basis Feature 4</th>
+<th style="text-align: right;">Basis Feature 5</th>
+<th style="text-align: right;">Basis Feature 6</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0.37</td>
+<td style="text-align: right;">0.12</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">0.19</td>
+<td style="text-align: right;">0.30</td>
+<td style="text-align: right;">0.26</td>
+<td style="text-align: right;">0.14</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">0.17</td>
+<td style="text-align: right;">0.28</td>
+<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">0.15</td>
+<td style="text-align: right;">0.05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.13</td>
+<td style="text-align: right;">0.29</td>
+<td style="text-align: right;">0.35</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>This spline is set up in such a way, that each spline function signals if the values are close to a given region. This way we have a smooth transition throughout the distribution.</p>
+<p>If we take a look at how this plays out when we bring back the outcome we can look at this visualization</p>
+<div class="cell">
 <div class="cell-output-display">
 <div id="fig-splines-spline-highlight" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -832,6 +963,8 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
+<p>and we have that since the different spline features highlights different parts of the predictor, we have that at least some of them are useful when we look at the relationship between the predictor and the outcome.</p>
+<p>It it important to point out that this transformation only uses the predictor variable to do its calculations. And the fact that it works in a modeling sense it that the outcome predictor relationship in this case, and in many real life cases, can helpfully be explained by “the predictor value has these values”.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-splines-spline-outcome" class="quarto-figure quarto-figure-center anchored">
