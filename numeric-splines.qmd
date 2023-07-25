@@ -35,13 +35,14 @@ data |>
 
 ```{r}
 #| echo: false
+#| message: false
 library(recipes)
 
 data_splines <- recipe(outcome ~ predictor, data = data) |>
-  step_bs(predictor, keep_original_cols = TRUE, degree = 10) |>
+  step_bs(predictor, keep_original_cols = TRUE, degree = 7) |>
   prep() |>
   bake(new_data = data) |>
-  select(-predictor_bs_10)
+  select(-predictor_bs_7)
 ```
 
 
@@ -139,7 +140,7 @@ data_splines |>
 data_example <- data.frame(x = rnorm(10000))
 
 plot_convex <- recipe(~ x, data = data_example) |>
-  step_spline_convex(x, keep_original_cols = TRUE, deg_free = 5) |>
+  step_spline_convex(x, keep_original_cols = TRUE, deg_free = 6) |>
   prep() |>
   bake(new_data = data_example) |>
   tidyr::pivot_longer(-x) |>
@@ -150,7 +151,7 @@ plot_convex <- recipe(~ x, data = data_example) |>
   labs(title = "C-spline")
 
 plot_monotone <- recipe(~ x, data = data_example) |>
-  step_spline_monotone(x, keep_original_cols = TRUE, deg_free = 5) |>
+  step_spline_monotone(x, keep_original_cols = TRUE, deg_free = 6) |>
   prep() |>
   bake(new_data = data_example) |>
   tidyr::pivot_longer(-x) |>
@@ -161,7 +162,7 @@ plot_monotone <- recipe(~ x, data = data_example) |>
   labs(title = "M-spline")
 
 plot_natural <- recipe(~ x, data = data_example) |>
-  step_spline_natural(x, keep_original_cols = TRUE, deg_free = 5, 
+  step_spline_natural(x, keep_original_cols = TRUE, deg_free = 6, 
                       complete_set = TRUE) |>
   prep() |>
   bake(new_data = data_example) |>
@@ -173,7 +174,7 @@ plot_natural <- recipe(~ x, data = data_example) |>
   labs(title = "Natural spline")
 
 plot_b <- recipe(~ x, data = data_example) |>
-  step_spline_b(x, keep_original_cols = TRUE, deg_free = 5,
+  step_spline_b(x, keep_original_cols = TRUE, deg_free = 6,
                 options = list(periodic = TRUE), complete_set = TRUE) |>
   prep() |>
   bake(new_data = tibble(x = seq(-3, 15, by = 0.01))) |>
