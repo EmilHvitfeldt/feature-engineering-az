@@ -841,7 +841,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p><strong>Splines</strong>, is one way to represent a curve that makes it useful in a modeling content, since it allows us to model non-linear relationships between predictors and outcomes.</p>
+<p><strong>Splines</strong>, is one way to represent a curve that makes it useful in a modeling content, since it allows us to model non-linear relationships between predictors and outcomes. This is a trained method.</p>
 <p>Being able to transform a numeric variable that has a non-linear relationship with the outcome into one or more variables that does have linear relationships with the outcome is of great importance, as many models wouldn’t be able to work with these types of variables effectively themselves. Below is a toy example of one such variable</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -873,7 +873,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sprintf</span>(<span class="st">"%.2f"</span>, value)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Above we see an example of a Basis function that creates 6 features. The curves represent the area where they are “activated”. So if the predictor has a value of 15 then the first basis function returns 0.40, the second basis fuction returns 0.20 and so one, with the last basis function returning 0.00 since it is all flat over there.</p>
+<p>Above we see an example of a Basis function that creates 6 features. The curves represent the area where they are “activated”. So if the predictor has a value of 15 then the first basis function returns 0.40, the second basis function returns 0.20 and so one, with the last basis function returning 0.00 since it is all flat over there.</p>
+<p>This is a trained method as the location and shape of these functions is determined by the distribution of the variables we are trying to apply the spline to.</p>
 <p>So in this example we are taking 1 numeric variable and turning it into 6 numeric variables.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>rec_splines <span class="sc">|&gt;</span></span>
@@ -981,7 +982,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>One thing to note, is that you will get back correlated features when using splines.</p>
+<p>As we see in the above visualization, some of these new predictors are not much better than the original. But a couple of them do appear to work pretty well, especially the 3rd one. Depending on which model we use, having these 6 variables are gonna give us higher performance than using the original variable alone.</p>
+<p>One thing to note, is that you will get back correlated features when using splines. Some values of the predictor will influence multiple of the spline features as the spline functions overlap. This is expected, but is worth noting. If you are using a model type that doesn’t handle correlated features well, then you should take a look at the methods outlined in <span class="quarto-unresolved-ref">?sec-correlated</span> for ways to deal with correlated features.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-splines-correlation" class="quarto-figure quarto-figure-center anchored">
@@ -992,6 +994,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>Lastly, the above spline functions you saw were called B-splines, but they are not the only kind of splines you can use.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-splines-types-of-splines" class="quarto-figure quarto-figure-center anchored">
@@ -1002,13 +1005,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>Above we see a number of different kinds of splines. As we can see they are all trying to do different things. You generally can’t go too wrong by picking any of them, but knowing the data can help guide which of them you should use. The M-splines intuitively can be seen as a threshold features. The periodic example is also interesting. Many of the types of splines can be formulated to work periodically. This can be really handy for data that has a naturally periodic nature to them.</p>
 <section id="pros-and-cons" class="level2" data-number="15.1">
 <h2 data-number="15.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">15.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="15.1.1">
 <h3 data-number="15.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">15.1.1</span> Pros</h3>
+<ul>
+<li>Works fast computationally</li>
+<li>Good performance compared to binning</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="15.1.2">
 <h3 data-number="15.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">15.1.2</span> Cons</h3>
+<ul>
+<li>arguably less interpretable than binning</li>
+<li>creates correlated features</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="15.2">
