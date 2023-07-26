@@ -881,14 +881,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="fu">tibble</span>(<span class="at">predictor =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">35</span>, <span class="dv">50</span>, <span class="dv">80</span>))) <span class="sc">|&gt;</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>predictor_bs_7) <span class="sc">|&gt;</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(round, <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename_all</span>(stringr<span class="sc">::</span>str_replace, <span class="st">"predictor_bs_"</span>, <span class="st">"Basis Feature "</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename_all</span>(stringr<span class="sc">::</span>str_replace, <span class="st">"predictor_bs_"</span>, <span class="st">"Spline Feature "</span>) <span class="sc">|&gt;</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="tbl-splines-values" class="anchored">
 <table class="table table-sm table-striped small">
 <caption>Table&nbsp;15.1: Spline values for different values of the predictor</caption>
 <colgroup>
-<col style="width: 9%">
+<col style="width: 8%">
 <col style="width: 15%">
 <col style="width: 15%">
 <col style="width: 15%">
@@ -899,12 +899,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <thead>
 <tr class="header">
 <th style="text-align: right;">predictor</th>
-<th style="text-align: right;">Basis Feature 1</th>
-<th style="text-align: right;">Basis Feature 2</th>
-<th style="text-align: right;">Basis Feature 3</th>
-<th style="text-align: right;">Basis Feature 4</th>
-<th style="text-align: right;">Basis Feature 5</th>
-<th style="text-align: right;">Basis Feature 6</th>
+<th style="text-align: right;">Spline Feature 1</th>
+<th style="text-align: right;">Spline Feature 2</th>
+<th style="text-align: right;">Spline Feature 3</th>
+<th style="text-align: right;">Spline Feature 4</th>
+<th style="text-align: right;">Spline Feature 5</th>
+<th style="text-align: right;">Spline Feature 6</th>
 </tr>
 </thead>
 <tbody>
@@ -983,7 +983,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>As we see in the above visualization, some of these new predictors are not much better than the original. But a couple of them do appear to work pretty well, especially the 3rd one. Depending on which model we use, having these 6 variables are gonna give us higher performance than using the original variable alone.</p>
-<p>One thing to note, is that you will get back correlated features when using splines. Some values of the predictor will influence multiple of the spline features as the spline functions overlap. This is expected, but is worth noting. If you are using a model type that doesn’t handle correlated features well, then you should take a look at the methods outlined in <span class="quarto-unresolved-ref">?sec-correlated</span> for ways to deal with correlated features.</p>
+<p>One thing to note, is that you will get back correlated features when using splines. Some values of the predictor will influence multiple of the spline features as the spline functions overlap. This is expected, but is worth noting. If you are using a model type that doesn’t handle correlated features well, then you should take a look at the methods outlined in <a href="correlated.html"><span>Chapter&nbsp;58</span></a> for ways to deal with correlated features.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-splines-correlation" class="quarto-figure quarto-figure-center anchored">
