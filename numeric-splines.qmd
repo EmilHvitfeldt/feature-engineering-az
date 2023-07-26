@@ -1,6 +1,6 @@
 # Splines {#sec-splines}
 
-**Splines**, is one way to represent a curve that makes it useful in a modeling content, since it allows us to model non-linear relationships between predictors and outcomes.
+**Splines**, is one way to represent a curve that makes it useful in a modeling content, since it allows us to model non-linear relationships between predictors and outcomes. This is a trained method.
 
 Being able to transform a numeric variable that has a non-linear relationship with the outcome into one or more variables that does have linear relationships with the outcome is of great importance, as many models wouldn't be able to work with these types of variables effectively themselves. Below is a toy example of one such variable
 
@@ -78,7 +78,9 @@ spline_rounder <- function(value, name) {
 }
 ```
 
-Above we see an example of a Basis function that creates 6 features. The curves represent the area where they are "activated". So if the predictor has a value of 15 then the first basis function returns `r spline_rounder(15, 1)`, the second basis fuction returns `r spline_rounder(15, 2)` and so one, with the last basis function returning `r spline_rounder(15, 6)` since it is all flat over there.
+Above we see an example of a Basis function that creates 6 features. The curves represent the area where they are "activated". So if the predictor has a value of 15 then the first basis function returns `r spline_rounder(15, 1)`, the second basis function returns `r spline_rounder(15, 2)` and so one, with the last basis function returning `r spline_rounder(15, 6)` since it is all flat over there.
+
+This is a trained method as the location and shape of these functions is determined by the distribution of the variables we are trying to apply the spline to.
 
 So in this example we are taking 1 numeric variable and turning it into 6 numeric variables.
 
@@ -143,7 +145,9 @@ data_splines |>
   theme_minimal()
 ```
 
-One thing to note, is that you will get back correlated features when using splines.
+As we see in the above visualization, some of these new predictors are not much better than the original. But a couple of them do appear to work pretty well, especially the 3rd one. Depending on which model we use, having these 6 variables are gonna give us higher performance than using the original variable alone.
+
+One thing to note, is that you will get back correlated features when using splines. Some values of the predictor will influence  multiple of the spline features as the spline functions overlap. This is expected, but is worth noting. If you are using a model type that doesn't handle correlated features well, then you should take a look at the methods outlined in @sec-correlated for ways to deal with correlated features.
 
 ```{r}
 #| label: fig-splines-correlation
@@ -162,8 +166,7 @@ data_splines |>
   autoplot(method = "identity")
 ```
 
-
-
+Lastly, the above spline functions you saw were called B-splines, but they are not the only kind of splines you can use.
 
 ```{r}
 #| echo: false
@@ -216,7 +219,6 @@ plot_b <- recipe(~ x, data = data_example) |>
   labs(title = "Periodic b-spline")
 ```
 
-
 ```{r}
 #| label: fig-splines-types-of-splines
 #| echo: false
@@ -236,11 +238,19 @@ library(patchwork)
 (plot_convex + plot_monotone) / (plot_natural + plot_b)
 ```
 
+Above we see a number of different kinds of splines. As we can see they are all trying to do different things. You generally can't go too wrong by picking any of them, but knowing the data can help guide which of them you should use. The M-splines intuitively can be seen as a threshold features. The periodic example is also interesting. Many of the types of splines can be formulated to work periodically. This can be really handy for data that has a naturally periodic nature to them.
+
 ## Pros and Cons
 
 ### Pros
 
+- Works fast computationally
+- Good performance compared to binning
+
 ### Cons
+
+- arguably less interpretable than binning
+- creates correlated features
 
 ## R Examples
 
