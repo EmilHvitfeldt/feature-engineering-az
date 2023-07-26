@@ -46,7 +46,8 @@ rec_splines <- recipe(outcome ~ predictor, data = data_toy) |>
 
 data_splines <- rec_splines |>
   bake(new_data = data_toy) |>
-  select(-predictor_bs_7)
+  select(-predictor_bs_7) |>
+  rename_all(\(x) {stringr::str_replace(x, "predictor_bs_", "Spline Feature ")})
 ```
 
 ```{r}
@@ -91,7 +92,7 @@ rec_splines |>
   bake(tibble(predictor = c(0, 10, 35, 50, 80))) |>
   select(-predictor_bs_7) |>
   mutate_all(round, 2) |>
-  rename_all(stringr::str_replace, "predictor_bs_", "Basis Feature ") |>
+  rename_all(stringr::str_replace, "predictor_bs_", "Spline Feature ") |>
   knitr::kable()
 ```
 
@@ -181,7 +182,7 @@ plot_convex <- recipe(~ x, data = data_example) |>
   geom_line() +
   guides(color = "none") +
   theme_minimal() +
-  labs(title = "C-spline")
+  labs(title = "C-spline", x = NULL)
 
 plot_monotone <- recipe(~ x, data = data_example) |>
   step_spline_monotone(x, keep_original_cols = TRUE, deg_free = 6) |>
@@ -192,7 +193,7 @@ plot_monotone <- recipe(~ x, data = data_example) |>
   geom_line() +
   guides(color = "none") +
   theme_minimal() +
-  labs(title = "M-spline")
+  labs(title = "M-spline", x = NULL)
 
 plot_natural <- recipe(~ x, data = data_example) |>
   step_spline_natural(x, keep_original_cols = TRUE, deg_free = 6, 
@@ -204,7 +205,7 @@ plot_natural <- recipe(~ x, data = data_example) |>
   geom_line() +
   guides(color = "none") +
   theme_minimal() +
-  labs(title = "Natural spline")
+  labs(title = "Natural spline", x = NULL)
 
 plot_b <- recipe(~ x, data = data_example) |>
   step_spline_b(x, keep_original_cols = TRUE, deg_free = 6,
@@ -216,7 +217,7 @@ plot_b <- recipe(~ x, data = data_example) |>
   geom_line() +
   guides(color = "none") +
   theme_minimal() +
-  labs(title = "Periodic b-spline")
+  labs(title = "Periodic b-spline", x = NULL)
 ```
 
 ```{r}
