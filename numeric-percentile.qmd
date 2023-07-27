@@ -75,4 +75,4 @@ percentile500_rec |>
 
 Notice how there are only `r nrow(tidy(percentile500_rec, 1))` values in this output. This is happening because some percentile have been collapsed to save space since if the value for the 10.4 and 10.6 percentile is the same, we just store the 10.6 value.
 
-### Python Examples
+## Python Examples
