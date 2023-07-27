@@ -1,6 +1,142 @@
 # Polynomial {#sec-polynomial}
 
-WIP
+
+```{r}
+#| echo: false
+library(recipes)
+set.seed(1234)
+data_toy <- tibble::tibble(
+  predictor = rnorm(100) + 1:100
+) |>
+  dplyr::mutate(outcome = sin(predictor/25) + rnorm(100, sd = 0.1) + 10)
+```
+
+```{r}
+#| label: fig-polynomial-predictor-outcome
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Non-linear relationship between predictor and outcome.
+#| fig-alt: |
+#|   Scatter chart. Predictor along the x-axis and outcome along the y-axis.
+#|   The data has some wiggliness to it, but it follows a curve. You would not 
+#|   be able to fit a straight line to this data.
+library(ggplot2)
+
+data_toy |>
+  ggplot(aes(predictor, outcome)) +
+  geom_point() +
+  theme_minimal()
+```
+
+We know that we can fit a polynomial function to some data set. And it would take the following format
+
+$$
+\text{poly}(x,\ \text{degree} = n) = a_0 + a_1 x + a_2 x ^ 2 + \cdots + a_n x ^ n
+$$
+
+This can then we used to to generate features for such that each feature is done taking the value to a given degree. And multiplying according
+
+```{r}
+#| label: tbl-poly-raw-values
+#| tbl-cap: |
+#|   Polynomial values for different values of the predictor, for constants 
+#|   equal to 1.
+tibble::tibble(
+  x = 1:5,
+  `x^2` = (1:5) ^ 2,
+  `x^3` = (1:5) ^ 3,
+  `x^4` = (1:5) ^ 4
+) |>
+  knitr::kable()
+```
+
+```{r}
+#| label: fig-poly-poly-raw-curves
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Each part of the spline detects a part of the data set.
+#| fig-alt: |
+#|   Facetted line chart. Predictor along the x-axis, value along the y-axis.
+#|   Each of the curves start at 0, goes to smoothly, and then down to zero.
+#|   The highpoint for each curve goes further to the right for each curve 
+#|   shown.
+recipe(outcome ~ predictor, data = data_toy) |>
+  step_poly(predictor, keep_original_cols = TRUE, degree = 5, 
+            options = list(raw = TRUE)) |>
+  prep() |>
+  bake(new_data = data_toy) |>
+  dplyr::rename_all(\(x) {stringr::str_replace(x, "predictor_poly_", "Polynomial Feature ")}) |>
+  dplyr::select(-outcome) |>
+  tidyr::pivot_longer(cols = -predictor) |>
+  ggplot(aes(predictor, value)) +
+  geom_line() +
+  facet_wrap(~name, scales = "free_y") +
+  theme_minimal()
+```
+
+```{r}
+#| label: fig-poly-raw-correlation
+recipe(outcome ~ predictor, data = data_toy) |>
+  step_poly(predictor, keep_original_cols = FALSE, degree = 10, 
+            options = list(raw = TRUE)) |>
+  prep() |>
+  bake(new_data = data_toy) |>
+  dplyr::rename_all(\(x) {stringr::str_replace(x, "predictor_poly_", "Polynomial Feature ")}) |>
+  dplyr::select(-outcome) |>
+  corrr::correlate(quiet = TRUE) |>
+  autoplot(method = "identity")
+```
+
+```{r}
+#| label: fig-poly-otho-correlation
+recipe(outcome ~ predictor, data = data_toy) |>
+  step_poly(predictor, keep_original_cols = FALSE, degree = 10, 
+            options = list(raw = FALSE)) |>
+  prep() |>
+  bake(new_data = data_toy) |>
+  rename_all(\(x) {stringr::str_replace(x, "predictor_poly_", "Polynomial Feature ")}) |>
+  select(-outcome) |>
+  corrr::correlate(quiet = TRUE) |>
+  autoplot(method = "identity")
+```
+
+
+
+```{r}
+#| echo: false
+#| message: false
+library(recipes)
+
+rec_splines <- recipe(outcome ~ predictor, data = data_toy) |>
+  step_poly(predictor, keep_original_cols = TRUE, degree = 5) |>
+  prep()
+
+data_splines <- rec_splines |>
+  bake(new_data = data_toy) |>
+  rename_all(\(x) {stringr::str_replace(x, "predictor_poly_", "Polynomial Feature ")})
+```
+
+```{r}
+#| label: fig-poly-poly-curves
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Each part of the spline detects a part of the data set.
+#| fig-alt: |
+#|   Facetted line chart. Predictor along the x-axis, value along the y-axis.
+#|   Each of the curves start at 0, goes to smoothly, and then down to zero.
+#|   The highpoint for each curve goes further to the right for each curve 
+#|   shown.
+data_splines |>
+  select(-outcome) |>
+  tidyr::pivot_longer(cols = -predictor) |>
+  ggplot(aes(predictor, value)) +
+  geom_line() +
+  facet_wrap(~name) +
+  theme_minimal()
+```
 
 ## Pros and Cons
 
