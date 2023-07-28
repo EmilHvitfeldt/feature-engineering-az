@@ -883,7 +883,7 @@ Attaching package: 'recipes'</code></pre>
 <p><span class="math display">\[
 \text{poly}(x,\ \text{degree} = n) = a_0 + a_1 x + a_2 x ^ 2 + \cdots + a_n x ^ n
 \]</span></p>
-<p>This can then we used to to generate features for such that each feature is done taking the value to a given degree. And multiplying according</p>
+<p>This can then be used to to generate features. Such that each feature is done taking the value to a given degree and multiplying according with the corresponding coefficient.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">tibble</span>(</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,</span>
@@ -940,6 +940,7 @@ Attaching package: 'recipes'</code></pre>
 </div>
 </div>
 </div>
+<p>In the above table we are seeing a small example of how this could be done, using a 4th degree polynomial with coefficients of 1. If we were to look at the individual functions over the domain of our data we are seing the following</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-poly-poly-raw-curves" class="quarto-figure quarto-figure-center anchored">
@@ -950,50 +951,49 @@ Attaching package: 'recipes'</code></pre>
 </div>
 </div>
 </div>
+<p>This is to be expected, but we are noticing that these curve look quite similar, and the values these functions are taking very quickly escalate. And this is for predictor values between 0 and 100, higher values will get even higher, possibly causing overflow issues.</p>
+<p>We also have an issue where the values appear quite correlated, since the functions are all increasing. As we see below, the correlation between the variables are close to 1 for all pairs.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">recipe</span>(outcome <span class="sc">~</span> predictor, <span class="at">data =</span> data_toy) <span class="sc">|&gt;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_poly</span>(predictor, <span class="at">keep_original_cols =</span> <span class="cn">FALSE</span>, <span class="at">degree =</span> <span class="dv">10</span>, </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">options =</span> <span class="fu">list</span>(<span class="at">raw =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> data_toy) <span class="sc">|&gt;</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename_all</span>(\(x) {stringr<span class="sc">::</span><span class="fu">str_replace</span>(x, <span class="st">"predictor_poly_"</span>, <span class="st">"Polynomial Feature "</span>)}) <span class="sc">|&gt;</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>outcome) <span class="sc">|&gt;</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  corrr<span class="sc">::</span><span class="fu">correlate</span>(<span class="at">quiet =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(<span class="at">method =</span> <span class="st">"identity"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-poly-raw-correlation" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="numeric-polynomial_files/figure-html/fig-poly-raw-correlation-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;16.3: <strong>?(caption)</strong></figcaption>
+<p><img src="numeric-polynomial_files/figure-html/fig-poly-raw-correlation-1.png" class="img-fluid figure-img" alt="Correlation chart. The polynomial features are lined up one after another. almost all the correlation between the pairs are close to 1." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;16.3: Almost complete correlation is found between variables</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">recipe</span>(outcome <span class="sc">~</span> predictor, <span class="at">data =</span> data_toy) <span class="sc">|&gt;</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_poly</span>(predictor, <span class="at">keep_original_cols =</span> <span class="cn">FALSE</span>, <span class="at">degree =</span> <span class="dv">10</span>, </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">options =</span> <span class="fu">list</span>(<span class="at">raw =</span> <span class="cn">FALSE</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> data_toy) <span class="sc">|&gt;</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename_all</span>(\(x) {stringr<span class="sc">::</span><span class="fu">str_replace</span>(x, <span class="st">"predictor_poly_"</span>, <span class="st">"Polynomial Feature "</span>)}) <span class="sc">|&gt;</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>outcome) <span class="sc">|&gt;</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  corrr<span class="sc">::</span><span class="fu">correlate</span>(<span class="at">quiet =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(<span class="at">method =</span> <span class="st">"identity"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="fig-poly-otho-correlation" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="numeric-polynomial_files/figure-html/fig-poly-otho-correlation-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;16.4: <strong>?(caption)</strong></figcaption>
-</figure>
-</div>
-</div>
-</div>
+<p>This is a problem that needs to be dealt with. The way we can deal with this is by calculation <strong>orthogonal polynomials</strong> instead. We have that any set polynomial function can be rewritten as a set of orthogonal polynomial functions.</p>
+<p>TODO Add more bath background here</p>
+<p>With this, we deal with the two problems we had before. As seen in the figure below, the functions takes smaller values within their ranges</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-poly-poly-curves" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="numeric-polynomial_files/figure-html/fig-poly-poly-curves-1.png" class="img-fluid figure-img" alt="Facetted line chart. Predictor along the x-axis, value along the y-axis. Each of the curves start at 0, goes to smoothly, and then down to zero. The highpoint for each curve goes further to the right for each curve shown." width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;16.5: Each part of the spline detects a part of the data set.</figcaption>
+<p><img src="numeric-polynomial_files/figure-html/fig-poly-poly-curves-1.png" class="img-fluid figure-img" alt="Facetted line chart. Predictor along the x-axis, value along the y-axis. All the curves are betwwen the ranges of -4 and 4." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;16.4: Each part of the spline detects a part of the data set.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>And since they are orthogonal by design, we won’t have to worry about correlated features.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-poly-otho-correlation" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="numeric-polynomial_files/figure-html/fig-poly-otho-correlation-1.png" class="img-fluid figure-img" alt="Correlation chart. The polynomial features are lined up one after another. No correlation is found between any of the pairs." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;16.5: No correlation to be found</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The interpretation of these polynomial features are not as easy as with binning in <a href="numeric-binning.html"><span>Chapter&nbsp;14</span></a> or splines <a href="numeric-splines.html"><span>Chapter&nbsp;15</span></a>, but the calculations are quite fast and versatile.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-poly-poly-curves-extrapolate" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="numeric-polynomial_files/figure-html/fig-poly-poly-curves-extrapolate-1.png" class="img-fluid figure-img" alt="Facetted line chart. Predictor along the x-axis, value along the y-axis. Each of the curves have their endpoints go towards infinite or minus infinite depending on their degree." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;16.6: Polynomial features don’t handle extrapolation well and values outside the normal ranges can explode quite fast for higher degree polynomials.</figcaption>
 </figure>
 </div>
 </div>

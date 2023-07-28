@@ -1,6 +1,5 @@
 # Polynomial {#sec-polynomial}
 
-
 ```{r}
 #| echo: false
 library(recipes)
@@ -35,7 +34,7 @@ $$
 \text{poly}(x,\ \text{degree} = n) = a_0 + a_1 x + a_2 x ^ 2 + \cdots + a_n x ^ n
 $$
 
-This can then we used to to generate features for such that each feature is done taking the value to a given degree. And multiplying according
+This can then be used to to generate features. Such that each feature is done taking the value to a given degree and multiplying according with the corresponding coefficient.
 
 ```{r}
 #| label: tbl-poly-raw-values
@@ -51,6 +50,8 @@ tibble::tibble(
   knitr::kable()
 ```
 
+In the above table we are seeing a small example of how this could be done, using a 4th degree polynomial with coefficients of 1. If we were to look at the individual functions over the domain of our data we are seing the following
+
 ```{r}
 #| label: fig-poly-poly-raw-curves
 #| echo: false
@@ -63,7 +64,7 @@ tibble::tibble(
 #|   The highpoint for each curve goes further to the right for each curve 
 #|   shown.
 recipe(outcome ~ predictor, data = data_toy) |>
-  step_poly(predictor, keep_original_cols = TRUE, degree = 5, 
+  step_poly(predictor, keep_original_cols = TRUE, degree = 6, 
             options = list(raw = TRUE)) |>
   prep() |>
   bake(new_data = data_toy) |>
@@ -76,10 +77,21 @@ recipe(outcome ~ predictor, data = data_toy) |>
   theme_minimal()
 ```
 
+This is to be expected, but we are noticing that these curve look quite similar, and the values these functions are taking very quickly escalate. And this is for predictor values between 0 and 100, higher values will get even higher, possibly causing overflow issues.
+
+We also have an issue where the values appear quite correlated, since the functions are all increasing. As we see below, the correlation between the variables are close to 1 for all pairs.
+
 ```{r}
 #| label: fig-poly-raw-correlation
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Almost complete correlation is found between variables
+#| fig-alt: |
+#|   Correlation chart. The polynomial features are lined up one after
+#|   another. almost all the correlation between the pairs are close to 1.
 recipe(outcome ~ predictor, data = data_toy) |>
-  step_poly(predictor, keep_original_cols = FALSE, degree = 10, 
+  step_poly(predictor, keep_original_cols = FALSE, degree = 6, 
             options = list(raw = TRUE)) |>
   prep() |>
   bake(new_data = data_toy) |>
@@ -89,20 +101,11 @@ recipe(outcome ~ predictor, data = data_toy) |>
   autoplot(method = "identity")
 ```
 
-```{r}
-#| label: fig-poly-otho-correlation
-recipe(outcome ~ predictor, data = data_toy) |>
-  step_poly(predictor, keep_original_cols = FALSE, degree = 10, 
-            options = list(raw = FALSE)) |>
-  prep() |>
-  bake(new_data = data_toy) |>
-  rename_all(\(x) {stringr::str_replace(x, "predictor_poly_", "Polynomial Feature ")}) |>
-  select(-outcome) |>
-  corrr::correlate(quiet = TRUE) |>
-  autoplot(method = "identity")
-```
+This is a problem that needs to be dealt with. The way we can deal with this is by calculation **orthogonal polynomials** instead. We have that any set polynomial function can be rewritten as a set of orthogonal polynomial functions.
 
+TODO Add more bath background here
 
+With this, we deal with the two problems we had before. As seen in the figure below, the functions takes smaller values within their ranges
 
 ```{r}
 #| echo: false
@@ -110,7 +113,7 @@ recipe(outcome ~ predictor, data = data_toy) |>
 library(recipes)
 
 rec_splines <- recipe(outcome ~ predictor, data = data_toy) |>
-  step_poly(predictor, keep_original_cols = TRUE, degree = 5) |>
+  step_poly(predictor, keep_original_cols = TRUE, degree = 6) |>
   prep()
 
 data_splines <- rec_splines |>
@@ -126,15 +129,59 @@ data_splines <- rec_splines |>
 #|   Each part of the spline detects a part of the data set.
 #| fig-alt: |
 #|   Facetted line chart. Predictor along the x-axis, value along the y-axis.
-#|   Each of the curves start at 0, goes to smoothly, and then down to zero.
-#|   The highpoint for each curve goes further to the right for each curve 
-#|   shown.
+#|   All the curves are betwwen the ranges of -4 and 4.
 data_splines |>
   select(-outcome) |>
   tidyr::pivot_longer(cols = -predictor) |>
   ggplot(aes(predictor, value)) +
   geom_line() +
   facet_wrap(~name) +
+  theme_minimal()
+```
+
+And since they are orthogonal by design, we won't have to worry about correlated features.
+
+```{r}
+#| label: fig-poly-otho-correlation
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   No correlation to be found
+#| fig-alt: |
+#|   Correlation chart. The polynomial features are lined up one after another. 
+#|   No correlation is found between any of the pairs.
+recipe(outcome ~ predictor, data = data_toy) |>
+  step_poly(predictor, keep_original_cols = FALSE, degree = 6, 
+            options = list(raw = FALSE)) |>
+  prep() |>
+  bake(new_data = data_toy) |>
+  rename_all(\(x) {stringr::str_replace(x, "predictor_poly_", "Polynomial Feature ")}) |>
+  select(-outcome) |>
+  corrr::correlate(quiet = TRUE) |>
+  autoplot(method = "identity")
+```
+
+
+The interpretation of these polynomial features are not as easy as with binning in @sec-numeric-binning or splines @sec-splines, but the calculations are quite fast and versatile.
+
+```{r}
+#| label: fig-poly-poly-curves-extrapolate
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Polynomial features don't handle extrapolation well and values outside
+#|   the normal ranges can explode quite fast for higher degree polynomials.
+#| fig-alt: |
+#|   Facetted line chart. Predictor along the x-axis, value along the y-axis.
+#|   Each of the curves have their endpoints go towards infinite or minus 
+#|   infinite depending on their degree.
+rec_splines |>
+  bake(new_data = tibble::tibble(predictor = seq(-500, 500))) |>
+  rename_all(\(x) {stringr::str_replace(x, "predictor_poly_", "Polynomial Feature ")}) |>
+  tidyr::pivot_longer(cols = -predictor) |>
+  ggplot(aes(predictor, value)) +
+  geom_line() +
+  facet_wrap(~name, scales = "free_y") +
   theme_minimal()
 ```
 
