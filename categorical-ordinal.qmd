@@ -57,7 +57,6 @@ ames <- ames |>
   mutate(across(.cols = c(Lot_Shape, Land_Slope), .fns = as.ordered))
 ```
 
-
 to perform ordinal encoding we will use the `step_ordinalscore()` step. This defaults to giving each level values between `1` and `n`, much like `step_integer()`.
 
 ```{r}

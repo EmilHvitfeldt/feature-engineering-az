@@ -161,7 +161,6 @@ recipe(outcome ~ predictor, data = data_toy) |>
   autoplot(method = "identity")
 ```
 
-
 The interpretation of these polynomial features are not as easy as with binning in @sec-numeric-binning or splines @sec-splines, but the calculations are quite fast and versatile.
 
 ```{r}
