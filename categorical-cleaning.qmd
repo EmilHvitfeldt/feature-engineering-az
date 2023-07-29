@@ -127,9 +127,6 @@ wine_ratings$region_1 |>
   self_stringdist() |>
   as_tibble() |>
   arrange(value)
-
-
 ```
-
 
 ## Python Examples

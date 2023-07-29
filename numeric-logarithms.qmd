@@ -101,7 +101,6 @@ set.seed(1234)
 runif(10000) |> log10() |> hist(breaks = 20) 
 ```
 
-
 ## R Examples
 
 We will be using the `ames` data set for these examples.
