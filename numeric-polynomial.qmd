@@ -189,8 +189,68 @@ rec_poly |>
 
 ### Pros
 
+- Works fast computationally
+- Good performance compared to binning
+- Doesn't create correlated features
+
 ### Cons
 
+- arguably less interpretable than binning and splines
+- can produce a lot of variables
+
 ## R Examples
+
+```{r}
+#| echo: false
+#| message: false
+library(tidymodels)
+data("ames")
+```
+
+We will be using the `ames` data set for these examples.
+
+```{r}
+ames |>
+  select(Lot_Area, Year_Built)
+```
+
+{recipes} provides a number of steps to perform spline operations, each of them starts with `step_spline_`. Let us use a B-spline and a M-spline as examples here:
+
+```{r}
+log_rec <- recipe(~ Lot_Area + Year_Built, data = ames) |>
+  step_spline_b(Lot_Area) |>
+  step_spline_monotone(Year_Built)
+
+log_rec |>
+  prep() |>
+  bake(new_data = NULL) |>
+  glimpse()
+```
+
+We can set the `deg_free` argument to specify how many spline features we want for each of the splines.
+
+```{r}
+log_rec <- recipe(~ Lot_Area + Year_Built, data = ames) |>
+  step_spline_b(Lot_Area, deg_free = 3) |>
+  step_spline_monotone(Year_Built, deg_free = 4)
+
+log_rec |>
+  prep() |>
+  bake(new_data = NULL) |>
+  glimpse()
+```
+
+These steps have more arguments, so we can change other things. The B-splines created by `step_spline_b()` defaults to cubic splines, but we can change that by specifying which polynomial degree with want with the `degree` argument.
+
+```{r}
+log_rec <- recipe(~ Lot_Area + Year_Built, data = ames) |>
+  step_spline_b(Lot_Area, deg_free = 3, degree = 1) |>
+  step_spline_monotone(Year_Built, deg_free = 4)
+
+log_rec |>
+  prep() |>
+  bake(new_data = NULL) |>
+  glimpse()
+```
 
 ## Python Examples

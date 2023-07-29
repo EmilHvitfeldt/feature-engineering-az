@@ -1002,13 +1002,122 @@ Attaching package: 'recipes'</code></pre>
 <h2 data-number="16.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">16.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="16.1.1">
 <h3 data-number="16.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">16.1.1</span> Pros</h3>
+<ul>
+<li>Works fast computationally</li>
+<li>Good performance compared to binning</li>
+<li>Doesn’t create correlated features</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="16.1.2">
 <h3 data-number="16.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">16.1.2</span> Cons</h3>
+<ul>
+<li>arguably less interpretable than binning and splines</li>
+<li>can produce a lot of variables</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="16.2">
 <h2 data-number="16.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">16.2</span> R Examples</h2>
+<p>We will be using the <code>ames</code> data set for these examples.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ames <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Lot_Area, Year_Built)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,930 × 2
+   Lot_Area Year_Built
+      &lt;int&gt;      &lt;int&gt;
+ 1    31770       1960
+ 2    11622       1961
+ 3    14267       1958
+ 4    11160       1968
+ 5    13830       1997
+ 6     9978       1998
+ 7     4920       2001
+ 8     5005       1992
+ 9     5389       1995
+10     7500       1999
+# ℹ 2,920 more rows</code></pre>
+</div>
+</div>
+<p>{recipes} provides a number of steps to perform spline operations, each of them starts with <code>step_spline_</code>. Let us use a B-spline and a M-spline as examples here:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>log_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(<span class="sc">~</span> Lot_Area <span class="sc">+</span> Year_Built, <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_spline_b</span>(Lot_Area) <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_spline_monotone</span>(Year_Built)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>log_rec <span class="sc">|&gt;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,930
+Columns: 20
+$ Lot_Area_01   &lt;dbl&gt; 0.000000000, 0.000000000, 0.000000000, 0.000000000, 0.00…
+$ Lot_Area_02   &lt;dbl&gt; 0.000000e+00, 0.000000e+00, 0.000000e+00, 0.000000e+00, …
+$ Lot_Area_03   &lt;dbl&gt; 0.0000000, 0.0000000, 0.0000000, 0.0000000, 0.0000000, 0…
+$ Lot_Area_04   &lt;dbl&gt; 0.0000000000, 0.0000000000, 0.0000000000, 0.0000000000, …
+$ Lot_Area_05   &lt;dbl&gt; 0.0000000000, 0.0000000000, 0.0000000000, 0.0078526499, …
+$ Lot_Area_06   &lt;dbl&gt; 0.000000000, 0.283603274, 0.000000000, 0.507327055, 0.00…
+$ Lot_Area_07   &lt;dbl&gt; 0.73399934, 0.71382012, 0.96474057, 0.48414256, 0.971047…
+$ Lot_Area_08   &lt;dbl&gt; 2.408258e-01, 2.576602e-03, 3.503161e-02, 6.777374e-04, …
+$ Lot_Area_09   &lt;dbl&gt; 2.444735e-02, 3.441535e-09, 2.277849e-04, 0.000000e+00, …
+$ Lot_Area_10   &lt;dbl&gt; 7.274651e-04, 0.000000e+00, 3.035128e-08, 0.000000e+00, …
+$ Year_Built_01 &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+$ Year_Built_02 &lt;dbl&gt; 1.0000000, 1.0000000, 1.0000000, 1.0000000, 1.0000000, 1…
+$ Year_Built_03 &lt;dbl&gt; 0.9991483, 0.9995281, 0.9977527, 1.0000000, 1.0000000, 1…
+$ Year_Built_04 &lt;dbl&gt; 0.9041892, 0.9210803, 0.8649607, 0.9884577, 1.0000000, 1…
+$ Year_Built_05 &lt;dbl&gt; 0.20672563, 0.24041792, 0.14882796, 0.54043388, 0.999999…
+$ Year_Built_06 &lt;dbl&gt; 4.792231e-04, 1.169978e-03, 2.995144e-05, 3.881537e-02, …
+$ Year_Built_07 &lt;dbl&gt; 0.000000e+00, 0.000000e+00, 0.000000e+00, 4.491099e-07, …
+$ Year_Built_08 &lt;dbl&gt; 0.00000000, 0.00000000, 0.00000000, 0.00000000, 0.221125…
+$ Year_Built_09 &lt;dbl&gt; 0.000000e+00, 0.000000e+00, 0.000000e+00, 0.000000e+00, …
+$ Year_Built_10 &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,…</code></pre>
+</div>
+</div>
+<p>We can set the <code>deg_free</code> argument to specify how many spline features we want for each of the splines.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>log_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(<span class="sc">~</span> Lot_Area <span class="sc">+</span> Year_Built, <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_spline_b</span>(Lot_Area, <span class="at">deg_free =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_spline_monotone</span>(Year_Built, <span class="at">deg_free =</span> <span class="dv">4</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>log_rec <span class="sc">|&gt;</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,930
+Columns: 7
+$ Lot_Area_1   &lt;dbl&gt; 0.31422525, 0.13110895, 0.16045431, 0.12580964, 0.1557218…
+$ Lot_Area_2   &lt;dbl&gt; 0.0521839123, 0.0066461383, 0.0103524317, 0.0060782666, 0…
+$ Lot_Area_3   &lt;dbl&gt; 2.888757e-03, 1.123014e-04, 2.226446e-04, 9.788684e-05, 2…
+$ Year_Built_1 &lt;dbl&gt; 0.9827669, 0.9841047, 0.9798397, 0.9914201, 0.9999212, 0.…
+$ Year_Built_2 &lt;dbl&gt; 0.8614458, 0.8686207, 0.8464715, 0.9129756, 0.9968924, 0.…
+$ Year_Built_3 &lt;dbl&gt; 0.5411581, 0.5539857, 0.5156159, 0.6440229, 0.9532064, 0.…
+$ Year_Built_4 &lt;dbl&gt; 0.1653539, 0.1729990, 0.1508264, 0.2341901, 0.6731684, 0.…</code></pre>
+</div>
+</div>
+<p>These steps have more arguments, so we can change other things. The B-splines created by <code>step_spline_b()</code> defaults to cubic splines, but we can change that by specifying which polynomial degree with want with the <code>degree</code> argument.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>log_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(<span class="sc">~</span> Lot_Area <span class="sc">+</span> Year_Built, <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_spline_b</span>(Lot_Area, <span class="at">deg_free =</span> <span class="dv">3</span>, <span class="at">degree =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_spline_monotone</span>(Year_Built, <span class="at">deg_free =</span> <span class="dv">4</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>log_rec <span class="sc">|&gt;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,930
+Columns: 7
+$ Lot_Area_1   &lt;dbl&gt; 0.00000000, 0.00000000, 0.00000000, 0.00000000, 0.0000000…
+$ Lot_Area_2   &lt;dbl&gt; 0.89690903, 0.99540159, 0.98247163, 0.99766006, 0.9846078…
+$ Lot_Area_3   &lt;dbl&gt; 0.103090969, 0.004598405, 0.017528365, 0.002339940, 0.015…
+$ Year_Built_1 &lt;dbl&gt; 0.9827669, 0.9841047, 0.9798397, 0.9914201, 0.9999212, 0.…
+$ Year_Built_2 &lt;dbl&gt; 0.8614458, 0.8686207, 0.8464715, 0.9129756, 0.9968924, 0.…
+$ Year_Built_3 &lt;dbl&gt; 0.5411581, 0.5539857, 0.5156159, 0.6440229, 0.9532064, 0.…
+$ Year_Built_4 &lt;dbl&gt; 0.1653539, 0.1729990, 0.1508264, 0.2341901, 0.6731684, 0.…</code></pre>
+</div>
+</div>
 </section>
 <section id="python-examples" class="level2" data-number="16.3">
 <h2 data-number="16.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">16.3</span> Python Examples</h2>
