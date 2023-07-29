@@ -112,11 +112,11 @@ With this, we deal with the two problems we had before. As seen in the figure be
 #| message: false
 library(recipes)
 
-rec_splines <- recipe(outcome ~ predictor, data = data_toy) |>
+rec_poly <- recipe(outcome ~ predictor, data = data_toy) |>
   step_poly(predictor, keep_original_cols = TRUE, degree = 6) |>
   prep()
 
-data_splines <- rec_splines |>
+data_poly <- rec_poly |>
   bake(new_data = data_toy) |>
   rename_all(\(x) {stringr::str_replace(x, "predictor_poly_", "Polynomial Feature ")})
 ```
@@ -130,7 +130,7 @@ data_splines <- rec_splines |>
 #| fig-alt: |
 #|   Facetted line chart. Predictor along the x-axis, value along the y-axis.
 #|   All the curves are betwwen the ranges of -4 and 4.
-data_splines |>
+data_poly |>
   select(-outcome) |>
   tidyr::pivot_longer(cols = -predictor) |>
   ggplot(aes(predictor, value)) +
@@ -175,7 +175,7 @@ The interpretation of these polynomial features are not as easy as with binning 
 #|   Facetted line chart. Predictor along the x-axis, value along the y-axis.
 #|   Each of the curves have their endpoints go towards infinite or minus 
 #|   infinite depending on their degree.
-rec_splines |>
+rec_poly |>
   bake(new_data = tibble::tibble(predictor = seq(-500, 500))) |>
   rename_all(\(x) {stringr::str_replace(x, "predictor_poly_", "Polynomial Feature ")}) |>
   tidyr::pivot_longer(cols = -predictor) |>
