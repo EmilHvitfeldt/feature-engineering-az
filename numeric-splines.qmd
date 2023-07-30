@@ -241,6 +241,47 @@ library(patchwork)
 
 Above we see a number of different kinds of splines. As we can see they are all trying to do different things. You generally can't go too wrong by picking any of them, but knowing the data can help guide which of them you should use. The M-splines intuitively can be seen as a threshold features. The periodic example is also interesting. Many of the types of splines can be formulated to work periodically. This can be really handy for data that has a naturally periodic nature to them.
 
+Below is a chart of how well using splines works when using it on our toy example. Since the data isn't that complicated, a small `deg_free` is sufficient to fit the data well.
+
+```{r}
+#| label: fig-splines-different-degrees
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   All the splines follow the data well, the higher degrees appears to 
+#|   overfit quite a bit.
+#| fig-alt: |
+#|   Scatter chart. Predictor along the x-axis and outcome along the y-axis.
+#|   The data has some wiggliness to it, but it follows a curve. You would not 
+#|   be able to fit a straight line to this data. 4 spline fits are 
+#|   plotted to fit the data. deg_free = 5 appears to fit well without 
+#|   overfitting, the rest are overfitting the data.
+library(tidymodels)
+
+map(
+  c(5, 15, 25, 35),
+  \(x) {
+    workflow(
+      recipe(outcome ~ predictor, data = data_toy) |> 
+        step_spline_b(predictor, deg_free = x),
+      linear_reg()
+    ) |>
+      fit(data = data_toy) |>
+      augment(new_data = arrange(data_toy, predictor))
+  }
+) |>
+  list_rbind(names_to = "degree") |>
+  mutate(degree = c(5, 15, 25, 35)[degree]) |>
+  mutate(degree = as.factor(degree)) |>
+  ggplot(aes(predictor, .pred)) +
+  geom_point(aes(predictor, outcome), data = data_toy) +
+  geom_line(aes(color = degree, group = degree)) +
+  theme_minimal() +
+  scale_color_viridis_d() +
+  labs(y = "outcome", color = "deg_free")
+```
+
+
 ## Pros and Cons
 
 ### Pros

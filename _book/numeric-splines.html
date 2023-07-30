@@ -1004,6 +1004,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Above we see a number of different kinds of splines. As we can see they are all trying to do different things. You generally can’t go too wrong by picking any of them, but knowing the data can help guide which of them you should use. The M-splines intuitively can be seen as a threshold features. The periodic example is also interesting. Many of the types of splines can be formulated to work periodically. This can be really handy for data that has a naturally periodic nature to them.</p>
+<p>Below is a chart of how well using splines works when using it on our toy example. Since the data isn’t that complicated, a small <code>deg_free</code> is sufficient to fit the data well.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-splines-different-degrees" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="numeric-splines_files/figure-html/fig-splines-different-degrees-1.png" class="img-fluid figure-img" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. The data has some wiggliness to it, but it follows a curve. You would not be able to fit a straight line to this data. 4 spline fits are plotted to fit the data. deg_free = 5 appears to fit well without overfitting, the rest are overfitting the data." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;15.7: All the splines follow the data well, the higher degrees appears to overfit quite a bit.</figcaption>
+</figure>
+</div>
+</div>
+</div>
 <section id="pros-and-cons" class="level2" data-number="15.1">
 <h2 data-number="15.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">15.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="15.1.1">
