@@ -184,6 +184,45 @@ rec_poly |>
   theme_minimal()
 ```
 
+Below is a chart of how well using polynomial expansion works when using it on our toy example. Since the data isn't that complicated, having `degree` larger than 1 will do the trick.
+
+```{r}
+#| label: fig-poly-different-degrees
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   A first degree polynomial isn't enough to fit this data, but second and 
+#|   higher does a good job.
+#| fig-alt: |
+#|   Scatter chart. Predictor along the x-axis and outcome along the y-axis.
+#|   The data has some wiggliness to it, but it follows a curve. You would not 
+#|   be able to fit a straight line to this data. 4 polynomial curves are 
+#|   plotted to fit the data. The first degree polynomial doesn't fit the data,
+#|   the other ones do.
+library(tidymodels)
+
+map(
+  1:4,
+  \(x) {
+    workflow(
+      recipe(outcome ~ predictor, data = data_toy) |> 
+        step_poly(predictor, degree = x),
+      linear_reg()
+    ) |>
+      fit(data = data_toy) |>
+      augment(new_data = arrange(data_toy, predictor))
+  }
+) |>
+  list_rbind(names_to = "degree") |>
+  mutate(degree = as.factor(degree)) |>
+  ggplot(aes(predictor, .pred)) +
+  geom_point(aes(predictor, outcome), data = data_toy) +
+  geom_line(aes(color = degree, group = degree)) +
+  theme_minimal() +
+  scale_color_viridis_d() +
+  labs(y = "outcome")
+```
+
 ## Pros and Cons
 
 ### Pros
