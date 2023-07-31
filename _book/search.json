@@ -53,7 +53,7 @@
     "href": "numeric.html#non-linear-effect",
     "title": "4  Overview",
     "section": "4.3 Non-linear effect",
-    "text": "4.3 Non-linear effect\n\nbinning\nsplines\npolynomial"
+    "text": "4.3 Non-linear effect\n\nbinning\nsplines\npolynomial\n\nTODO: Show different distributions, and how well the different methods does at dealing with them"
   },
   {
     "objectID": "numeric.html#sec-numeric-outliers-issues",
@@ -261,21 +261,21 @@
   {
     "objectID": "numeric-binning.html#pros-and-cons",
     "href": "numeric-binning.html#pros-and-cons",
-    "title": "14  Polynomial",
+    "title": "14  Binning",
     "section": "14.1 Pros and Cons",
     "text": "14.1 Pros and Cons\n\n14.1.1 Pros\n\n\n14.1.2 Cons"
   },
   {
     "objectID": "numeric-binning.html#r-examples",
     "href": "numeric-binning.html#r-examples",
-    "title": "14  Polynomial",
+    "title": "14  Binning",
     "section": "14.2 R Examples",
     "text": "14.2 R Examples"
   },
   {
     "objectID": "numeric-binning.html#python-examples",
     "href": "numeric-binning.html#python-examples",
-    "title": "14  Polynomial",
+    "title": "14  Binning",
     "section": "14.3 Python Examples",
     "text": "14.3 Python Examples"
   },
@@ -284,7 +284,7 @@
     "href": "numeric-splines.html#pros-and-cons",
     "title": "15  Splines",
     "section": "15.1 Pros and Cons",
-    "text": "15.1 Pros and Cons\n\n15.1.1 Pros\n\nWorks fast computationally\nGood performance compared to binning\n\n\n\n15.1.2 Cons\n\narguably less interpretable than binning\ncreates correlated features\ncan produce a lot of variables"
+    "text": "15.1 Pros and Cons\n\n15.1.1 Pros\n\nWorks fast computationally\nGood performance compared to binning\nis good at handling continuous changes in predictors\n\n\n\n15.1.2 Cons\n\narguably less interpretable than binning\ncreates correlated features\ncan produce a lot of variables\nhave a hard time modeling sudden changes in distributions"
   },
   {
     "objectID": "numeric-splines.html#r-examples",
@@ -305,7 +305,7 @@
     "href": "numeric-polynomial.html#pros-and-cons",
     "title": "16  Polynomial",
     "section": "16.1 Pros and Cons",
-    "text": "16.1 Pros and Cons\n\n16.1.1 Pros\n\nWorks fast computationally\nGood performance compared to binning\nDoesn’t create correlated features\n\n\n\n16.1.2 Cons\n\narguably less interpretable than binning and splines\ncan produce a lot of variables"
+    "text": "16.1 Pros and Cons\n\n16.1.1 Pros\n\nWorks fast computationally\nGood performance compared to binning\nDoesn’t create correlated features\nis good at handling continuous changes in predictors\n\n\n\n16.1.2 Cons\n\narguably less interpretable than binning and splines\ncan produce a lot of variables\nhave a hard time modeling sudden changes in distributions"
   },
   {
     "objectID": "numeric-polynomial.html#r-examples",

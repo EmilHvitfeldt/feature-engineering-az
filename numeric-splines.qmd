@@ -288,12 +288,14 @@ map(
 
 - Works fast computationally
 - Good performance compared to binning
+- is good at handling continuous changes in predictors
 
 ### Cons
 
 - arguably less interpretable than binning
 - creates correlated features
 - can produce a lot of variables
+- have a hard time modeling sudden changes in distributions
 
 ## R Examples
 
