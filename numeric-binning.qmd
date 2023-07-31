@@ -1,6 +1,125 @@
-# Polynomial {#sec-numeric-binning}
+# Binning {#sec-numeric-binning}
 
-WIP
+```{r}
+#| echo: false
+set.seed(1234)
+data_toy <- tibble::tibble(
+  predictor = rnorm(100) + 1:100
+) |>
+  dplyr::mutate(outcome = sin(predictor/25) + rnorm(100, sd = 0.1) + 10)
+```
+
+```{r}
+#| label: fig-binning-predictor-outcome
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Non-linear relationship between predictor and outcome.
+#| fig-alt: |
+#|   Scatter chart. Predictor along the x-axis and outcome along the y-axis.
+#|   The data has some wiggliness to it, but it follows a curve. You would not 
+#|   be able to fit a straight line to this data.
+library(ggplot2)
+
+data_toy |>
+  ggplot(aes(predictor, outcome)) +
+  geom_point() +
+  theme_minimal()
+```
+
+```{r}
+#| echo: false
+#| message: false
+library(recipes)
+
+rec_bins <- recipe(outcome ~ predictor, data = data_toy) |>
+  step_mutate(predictor1 = predictor) |>
+  step_discretize(predictor1, num_breaks = 4) |>
+  step_dummy(predictor1, one_hot = TRUE) |>
+  prep()
+
+data_bins <- rec_bins |>
+  bake(new_data = data_toy) |>
+  rename_all(\(x) {stringr::str_replace(x, "predictor1_bin", "Bin ")})
+```
+
+```{r}
+#| label: fig-binning-curves
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Binning gives us a series of indicators of different regions
+#| fig-alt: |
+#|   Facetted line chart. Predictor along the x-axis, value along the y-axis.
+#|   Each of the curves are either 0 or 1, with each bin taking up a 4th of the
+#|   region where it returns 1 with 0 otherwise.
+data_bins |>
+  select(-outcome) |>
+  tidyr::pivot_longer(cols = -predictor) |>
+  ggplot(aes(predictor, value)) +
+  geom_line() +
+  facet_wrap(~name) +
+  theme_minimal()
+```
+
+```{r}
+#| label: fig-binning-highlight
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Each part of the binning detects a part of the data set.
+#| fig-alt: |
+#|   Facetted scatter chart. Predictor along the x-axis, outcome along the 
+#|   y-axis. Each of the facets shows the same non-linear relationship between
+#|   predictor and outcome. Color is used to show how each bin highlights a 
+#|   different part of the predictor. The highlight goes further to the right 
+#|   for each facet.
+data_bins |>
+  tidyr::pivot_longer(cols = -c(outcome, predictor)) |>
+  ggplot(aes(predictor, outcome, color = value)) +
+  geom_point() +
+  facet_wrap(~name) +
+  scale_color_viridis_c() +
+  theme_minimal()
+```
+
+```{r}
+#| label: fig-binning-different-num_breaks
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Increasing the number of bins makes for a better fit.
+#| fig-alt: |
+#|   Scatter chart. Predictor along the x-axis and outcome along the y-axis.
+#|   The data has some wiggliness to it, but it follows a curve. You would not 
+#|   be able to fit a straight line to this data.
+library(tidymodels)
+
+num_breaks <- c(3, 5, 7, 9)
+
+map(
+  num_breaks,
+  \(x) {
+    workflow(
+      recipe(outcome ~ predictor, data = data_toy) |> 
+        step_discretize(predictor, num_breaks = x),
+      linear_reg()
+    ) |>
+      fit(data = data_toy) |>
+      augment(new_data = arrange(data_toy, predictor))
+  }
+) |>
+  list_rbind(names_to = "degree") |>
+  mutate(degree = num_breaks[degree]) |>
+  mutate(degree = as.factor(degree)) |>
+  ggplot(aes(predictor, .pred)) +
+  geom_point(aes(predictor, outcome), data = data_toy) +
+  geom_line(aes(color = degree, group = degree)) +
+  theme_minimal() +
+  scale_color_viridis_d(begin = 0.15, end = 0.85) +
+  labs(y = "outcome", color = "deg_free")
+```
+
 
 ## Pros and Cons
 

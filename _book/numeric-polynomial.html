@@ -237,7 +237,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./numeric-binning.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Polynomial</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Binning</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1017,6 +1017,7 @@ Attaching package: 'recipes'</code></pre>
 <li>Works fast computationally</li>
 <li>Good performance compared to binning</li>
 <li>Doesn’t create correlated features</li>
+<li>is good at handling continuous changes in predictors</li>
 </ul>
 </section>
 <section id="cons" class="level3" data-number="16.1.2">
@@ -1024,6 +1025,7 @@ Attaching package: 'recipes'</code></pre>
 <ul>
 <li>arguably less interpretable than binning and splines</li>
 <li>can produce a lot of variables</li>
+<li>have a hard time modeling sudden changes in distributions</li>
 </ul>
 </section>
 </section>

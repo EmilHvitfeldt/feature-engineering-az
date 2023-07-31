@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Feature Engineering A-Z - 14&nbsp; Polynomial</title>
+<title>Feature Engineering A-Z - 14&nbsp; Binning</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -74,7 +74,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./numeric.html">Numeric Features</a></li><li class="breadcrumb-item"><a href="./numeric-binning.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Polynomial</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./numeric.html">Numeric Features</a></li><li class="breadcrumb-item"><a href="./numeric-binning.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Binning</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -201,7 +201,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./numeric-binning.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Polynomial</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Binning</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -790,7 +790,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-numeric-binning" class="quarto-section-identifier"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Polynomial</span></span></h1>
+<h1 class="title"><span id="sec-numeric-binning" class="quarto-section-identifier"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Binning</span></span></h1>
 </div>
 
 
@@ -805,7 +805,46 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>WIP</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-binning-predictor-outcome" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="numeric-binning_files/figure-html/fig-binning-predictor-outcome-1.png" class="img-fluid figure-img" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. The data has some wiggliness to it, but it follows a curve. You would not be able to fit a straight line to this data." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;14.1: Non-linear relationship between predictor and outcome.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-binning-curves" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="numeric-binning_files/figure-html/fig-binning-curves-1.png" class="img-fluid figure-img" alt="Facetted line chart. Predictor along the x-axis, value along the y-axis. Each of the curves are either 0 or 1, with each bin taking up a 4th of the region where it returns 1 with 0 otherwise." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;14.2: Binning gives us a series of indicators of different regions</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-binning-highlight" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="numeric-binning_files/figure-html/fig-binning-highlight-1.png" class="img-fluid figure-img" alt="Facetted scatter chart. Predictor along the x-axis, outcome along the y-axis. Each of the facets shows the same non-linear relationship between predictor and outcome. Color is used to show how each bin highlights a different part of the predictor. The highlight goes further to the right for each facet." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;14.3: Each part of the binning detects a part of the data set.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-binning-different-num_breaks" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="numeric-binning_files/figure-html/fig-binning-different-num_breaks-1.png" class="img-fluid figure-img" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. The data has some wiggliness to it, but it follows a curve. You would not be able to fit a straight line to this data." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;14.4: Increasing the number of bins makes for a better fit.</figcaption>
+</figure>
+</div>
+</div>
+</div>
 <section id="pros-and-cons" class="level2" data-number="14.1">
 <h2 data-number="14.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">14.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="14.1.1">
