@@ -1,5 +1,9 @@
 # Polynomial {#sec-polynomial}
 
+**Polynomial expansion**, is one way to turn a numeric variable into something that can represent a non-linear relationship between two variables. This it useful in a modeling content, since it allows us to model non-linear relationships between predictors and outcomes. This is a trained method.
+
+Being able to transform a numeric variable that has a non-linear relationship with the outcome into one or more variables that does have linear relationships with the outcome is of great importance, as many models wouldn't be able to work with these types of variables effectively themselves. Below is a toy example of one such variable
+
 ```{r}
 #| echo: false
 library(recipes)
@@ -27,6 +31,10 @@ data_toy |>
   geom_point() +
   theme_minimal()
 ```
+
+Here we have a non-linear relationship. It is a fairly simple one, the outcome is high when the predictor takes values between 25 and 50, and the outside the ranges it takes over values. Given that this is a toy example, we do not have any expert knowledge regarding what we expect the relationship to be outside this range. The trend could go back up, it could go down or flatten out. We don't know.
+
+As we saw in @sec-numeric-binning, one way to deal with this non-linearity is to chop up the predictor and emit indicators for which region the values take. While this works, we are losing quite a lot by detail by the rounding that occurs.
 
 We know that we can fit a polynomial function to some data set. And it would take the following format
 
