@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -805,6 +839,8 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<p><strong>Binning</strong>, is one way to represent a curve that makes it useful in a modeling content, since it allows us to model non-linear relationships between predictors and outcomes. This is a trained method.</p>
+<p>Being able to transform a numeric variable that has a non-linear relationship with the outcome into one or more variables that does have linear relationships with the outcome is of great importance, as many models wouldn’t be able to work with these types of variables effectively themselves. Below is a toy example of one such variable</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-binning-predictor-outcome" class="quarto-figure quarto-figure-center anchored">
@@ -815,6 +851,8 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
+<p>Here we have a non-linear relationship. It is a fairly simple one, the outcome is high when the predictor takes values between 25 and 50, and the outside the ranges it takes over values. Given that this is a toy example, we do not have any expert knowledge regarding what we expect the relationship to be outside this range. The trend could go back up, it could go down or flatten out. We don’t know.</p>
+<p>Below we see the way each of the new variables activete different areas of the domain.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-binning-curves" class="quarto-figure quarto-figure-center anchored">
@@ -825,6 +863,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
+<p>What we see in this example that the regions appears to be evenly spaces over the observed values of the predictor. This is neither and good or bad thing, but something we need to think about. Ideally we want the different regions to represent something shared within them. If the cuts are happening at non-ideal locations we don’t get the full benefit. See below for such an example</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-binning-highlight" class="quarto-figure quarto-figure-center anchored">
@@ -835,6 +874,8 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
+<p>Ideally we would want the region with the highest values of <code>outcome</code> to be in the same region. but It appears to be split between Bin 2 and Bin 3.</p>
+<p>Below is a chart of how well using evenly split binning works when using it on our toy example. We notice that using binning doesn’t really work that well for this type of data. And it makes sense, binning will naturally create a step function like we see below, and if your predictor doesn’t have that shape, you are unlikely to see as good performance as with splines <a href="numeric-splines.html"><span>Chapter&nbsp;15</span></a> or polynomial expansion <span class="quarto-unresolved-ref">?sec-polynomiall</span>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-binning-different-num_breaks" class="quarto-figure quarto-figure-center anchored">
@@ -849,13 +890,117 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="14.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">14.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="14.1.1">
 <h3 data-number="14.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">14.1.1</span> Pros</h3>
+<ul>
+<li>Works fast computationally</li>
+<li>Behaves predictably outside the range of the predictors</li>
+<li>If cuts are playes well, it can handle sudden changes in distributions</li>
+<li>Interpretable</li>
+<li>doens’t create correlated features</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="14.1.2">
 <h3 data-number="14.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">14.1.2</span> Cons</h3>
+<ul>
+<li>The inherent rounding that happens, can lead to loss of performance and interpretations</li>
+<li>arguably less interpretable than binning</li>
+<li>can produce a lot of variables</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="14.2">
 <h2 data-number="14.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">14.2</span> R Examples</h2>
+<p>We will be using the <code>ames</code> data set for these examples.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ames <span class="sc">|&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Lot_Area, Year_Built)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,930 × 2
+   Lot_Area Year_Built
+      &lt;int&gt;      &lt;int&gt;
+ 1    31770       1960
+ 2    11622       1961
+ 3    14267       1958
+ 4    11160       1968
+ 5    13830       1997
+ 6     9978       1998
+ 7     4920       2001
+ 8     5005       1992
+ 9     5389       1995
+10     7500       1999
+# ℹ 2,920 more rows</code></pre>
+</div>
+</div>
+<p>{recipes} has the function <code>step_discretize()</code> for just this occasion.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>bin_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(<span class="sc">~</span> Lot_Area <span class="sc">+</span> Year_Built, <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_discretize</span>(Lot_Area, Year_Built)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>bin_rec <span class="sc">|&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Note that the options `prefix` and `labels` will be applied to all
+variables</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,930
+Columns: 2
+$ Lot_Area   &lt;fct&gt; bin4, bin4, bin4, bin3, bin4, bin3, bin1, bin1, bin1, bin2,…
+$ Year_Built &lt;fct&gt; bin2, bin2, bin2, bin2, bin3, bin3, bin3, bin3, bin3, bin3,…</code></pre>
+</div>
+</div>
+<p>If you don’t like the default number of breaks created, you can use the <code>num_breaks = 6</code> argument to change it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>bin_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(<span class="sc">~</span> Lot_Area <span class="sc">+</span> Year_Built, <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_discretize</span>(Lot_Area, Year_Built, <span class="at">num_breaks =</span> <span class="dv">6</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>bin_rec <span class="sc">|&gt;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Note that the options `prefix` and `labels` will be applied to all
+variables</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,930
+Columns: 2
+$ Lot_Area   &lt;fct&gt; bin6, bin5, bin6, bin5, bin6, bin4, bin1, bin1, bin1, bin2,…
+$ Year_Built &lt;fct&gt; bin2, bin3, bin2, bin3, bin5, bin5, bin5, bin4, bin4, bin5,…</code></pre>
+</div>
+</div>
+<p>This step technically creates a factor variable, but we can turn it into a series of indicator functions with <code>step_dummy()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>bin_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(<span class="sc">~</span> Lot_Area <span class="sc">+</span> Year_Built, <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_discretize</span>(Lot_Area, Year_Built, <span class="at">num_breaks =</span> <span class="dv">6</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_dummy</span>(Lot_Area, Year_Built, <span class="at">one_hot =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>bin_rec <span class="sc">|&gt;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Note that the options `prefix` and `labels` will be applied to all
+variables</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,930
+Columns: 12
+$ Lot_Area_bin1   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+$ Lot_Area_bin2   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, …
+$ Lot_Area_bin3   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, …
+$ Lot_Area_bin4   &lt;dbl&gt; 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, …
+$ Lot_Area_bin5   &lt;dbl&gt; 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, …
+$ Lot_Area_bin6   &lt;dbl&gt; 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, …
+$ Year_Built_bin1 &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+$ Year_Built_bin2 &lt;dbl&gt; 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+$ Year_Built_bin3 &lt;dbl&gt; 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+$ Year_Built_bin4 &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, …
+$ Year_Built_bin5 &lt;dbl&gt; 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, …
+$ Year_Built_bin6 &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, …</code></pre>
+</div>
+</div>
 </section>
 <section id="python-examples" class="level2" data-number="14.3">
 <h2 data-number="14.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">14.3</span> Python Examples</h2>
