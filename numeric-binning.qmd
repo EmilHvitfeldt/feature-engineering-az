@@ -89,7 +89,7 @@ data_bins |>
   ggplot(aes(predictor, outcome, color = value)) +
   geom_point() +
   facet_wrap(~name) +
-  scale_color_viridis_c() +
+  scale_color_gradient(high = "darkblue", low = "white") +
   theme_minimal()
 ```
 
