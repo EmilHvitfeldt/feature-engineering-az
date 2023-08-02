@@ -95,7 +95,7 @@ data_bins |>
 
 Ideally we would want the region with the highest values of `outcome` to be in the same region. but It appears to be split between Bin 2 and Bin 3.
 
-Below is a chart of how well using evenly split binning works when using it on our toy example. We notice that using binning doesn't really work that well for this type of data. And it makes sense, binning will naturally create a step function like we see below, and if your predictor doesn't have that shape, you are unlikely to see as good performance as with splines @sec-splines or polynomial expansion @sec-polynomiall.
+Below is a chart of how well using evenly split binning works when using it on our toy example. We notice that using binning doesn't really work that well for this type of data. And it makes sense, binning will naturally create a step function like we see below, and if your predictor doesn't have that shape, you are unlikely to see as good performance as with splines @sec-splines or polynomial expansion @sec-polynomial.
 
 ```{r}
 #| label: fig-binning-different-num_breaks
@@ -134,6 +134,96 @@ map(
   labs(y = "outcome", color = "deg_free")
 ```
 
+```{r}
+#| echo: false
+data_toy_discont <- data_toy |>
+  mutate(outcome = (floor(predictor/40) %% 2) + outcome + predictor / 25) |>
+  filter(predictor > 0, predictor < 100)
+```
+
+Imagine we have a different data set, where the relationship between predictor and outcomes isn't as continuous, but instead has some breaks in it.
+
+```{r}
+#| label: fig-discont-binning-different-num_breaks
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   The evenly spaced cuts does not perform well when the breaks in the data
+#|   set isn't evenly spaced.
+#| fig-alt: |
+#|   Scatter chart. Predictor along the x-axis and outcome along the y-axis.
+#|   The data has some wiggliness to it with two big breaks in the curve. Both 
+#|   of the fitted lines doesn't match the data, as the breaks doens't align
+#|   with the data set.
+library(tidymodels)
+
+num_breaks <- c(3, 4)
+
+map(
+  num_breaks,
+  \(x) {
+    workflow(
+      recipe(outcome ~ predictor, data = data_toy_discont) |> 
+        step_discretize(predictor, num_breaks = x),
+      linear_reg()
+    ) |>
+      fit(data = data_toy_discont) |>
+      augment(new_data = arrange(data_toy_discont, predictor))
+  }
+) |>
+  list_rbind(names_to = "degree") |>
+  mutate(degree = num_breaks[degree]) |>
+  mutate(degree = as.factor(degree)) |>
+  ggplot(aes(predictor, .pred)) +
+  geom_point(aes(predictor, outcome), data = data_toy_discont) +
+  geom_step(aes(color = degree, group = degree)) +
+  theme_minimal() +
+  scale_color_viridis_d(begin = 0.15, end = 0.85) +
+  labs(y = "outcome", color = "deg_free")
+```
+
+The evenly spaced cut points doesn't give us good performance, since they didn't happen to align with the breaks in the data. What we can do instead is to use a more supervised method of finding these splits. Such as using a CART model of xgboost model, to find the optimal breaks in the data. This would make the method supervised and outcome dependent. Below is an example where we use a CARt model.
+
+```{r}
+#| label: fig-discont-binning-different-num_breaks-cart
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Cuts are played using a fitted CART model. The y are played exactly at the
+#|   right places.
+#| fig-alt: |
+#|   Scatter chart. Predictor along the x-axis and outcome along the y-axis.
+#|   The data has some wiggliness to it with two big breaks in the curve. The
+#|   functions now correctly split the data at the breaks in the data.
+library(tidymodels)
+library(embed)
+
+num_breaks <- c(1, 2, 3)
+
+map(
+  num_breaks,
+  \(x) {
+    workflow(
+      recipe(outcome ~ predictor, data = data_toy_discont) |> 
+        step_discretize_cart(predictor, outcome = "outcome", tree_depth = x),
+      linear_reg()
+    ) |>
+      fit(data = data_toy_discont) |>
+      augment(new_data = arrange(data_toy_discont, predictor))
+  }
+) |>
+  list_rbind(names_to = "degree") |>
+  mutate(degree = num_breaks[degree]) |>
+  mutate(degree = as.factor(degree)) |>
+  ggplot(aes(predictor, .pred)) +
+  geom_point(aes(predictor, outcome), data = data_toy_discont) +
+  geom_step(aes(color = degree, group = degree)) +
+  theme_minimal() +
+  scale_color_viridis_d(begin = 0.15, end = 0.85) +
+  labs(y = "outcome", color = "deg_free")
+```
+
+While these results looks promising, there are a couple of things that are worth remembering. Firstly, this is not a silver bullet, as we still need to tune the method, to find the optimal value of for the model we are fitting. Secondly, this type of data is not seen that much in the wild, and if you are seeing them in your application, there is a good change that you can manually encode this information without having to resort to these methods. 
 
 ## Pros and Cons
 
