@@ -771,14 +771,24 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#text-cleaning" id="toc-text-cleaning" class="nav-link active" data-scroll-target="#text-cleaning"><span class="header-section-number">50.1</span> Text cleaning</a></li>
+  <li><a href="#tokenization" id="toc-tokenization" class="nav-link" data-scroll-target="#tokenization"><span class="header-section-number">50.2</span> tokenization</a></li>
+  <li><a href="#modifying-tokens" id="toc-modifying-tokens" class="nav-link" data-scroll-target="#modifying-tokens"><span class="header-section-number">50.3</span> Modifying tokens</a></li>
+  <li><a href="#filtering-tokens" id="toc-filtering-tokens" class="nav-link" data-scroll-target="#filtering-tokens"><span class="header-section-number">50.4</span> Filtering tokens</a></li>
+  <li><a href="#counting-tokens" id="toc-counting-tokens" class="nav-link" data-scroll-target="#counting-tokens"><span class="header-section-number">50.5</span> Counting tokens</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Overview</span></h1>
+<h1 class="title"><span id="sec-text" class="quarto-section-identifier"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Overview</span></span></h1>
 </div>
 
 
@@ -793,9 +803,41 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>WIP</p>
+<p>Sometimes you have fields that are free long form text. This cannot be dealt with using the methods we saw in <a href="categorical.html"><span>Chapter&nbsp;17</span></a>, as the natural text will have enough variation that counting the full text fields is not going to be fruitful. Imagine this fictitious short book reviews</p>
+<ul>
+<li>This book is excellent</li>
+<li>Best book I have read all year</li>
+<li>This book is absolutely excellent</li>
+<li>This book is far form excellent</li>
+<li>Not worth your time</li>
+</ul>
+<p>On a character-level, these are all uniquely different. But to us English speakers, the first 3 are positive, and the last 2 are negative. We will in the upcoming chapters look at all the methods and their details, to see how we can modify and extract as much information out of this as we can.</p>
+<p>We will adhere to the #BenderRule<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and make it clear that while the examples you will see in this book are going to be in English, it doesn’t mean that the results you see can be replicated in other languages. All languages have unique things about them that makes these types calculations harder or easier to use.</p>
+<p>In these chapters, we will be studying methods to work with text. Notably, text and language are different things, with many languages starting as spoken words, and smaller number of these develop a writing system. This is important to remember, as written text will almost always has lower information than the language it is transcribing. You have seen examples of this when you send a text message that wasn’t received correctly, because of the missing non-verbal information.</p>
+<p>Text data, like all other types of data, isn’t guaranteed to contain information that help your modeling data at hand. This is especially true with shorter text fields, but can be true with just about anything.</p>
+<section id="text-cleaning" class="level2" data-number="50.1">
+<h2 data-number="50.1" class="anchored" data-anchor-id="text-cleaning"><span class="header-section-number">50.1</span> Text cleaning</h2>
+</section>
+<section id="tokenization" class="level2" data-number="50.2">
+<h2 data-number="50.2" class="anchored" data-anchor-id="tokenization"><span class="header-section-number">50.2</span> tokenization</h2>
+</section>
+<section id="modifying-tokens" class="level2" data-number="50.3">
+<h2 data-number="50.3" class="anchored" data-anchor-id="modifying-tokens"><span class="header-section-number">50.3</span> Modifying tokens</h2>
+</section>
+<section id="filtering-tokens" class="level2" data-number="50.4">
+<h2 data-number="50.4" class="anchored" data-anchor-id="filtering-tokens"><span class="header-section-number">50.4</span> Filtering tokens</h2>
+</section>
+<section id="counting-tokens" class="level2" data-number="50.5">
+<h2 data-number="50.5" class="anchored" data-anchor-id="counting-tokens"><span class="header-section-number">50.5</span> Counting tokens</h2>
 
 
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>https://thegradient.pub/the-benderrule-on-naming-the-languages-we-study-and-why-it-matters/<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
