@@ -935,35 +935,42 @@
     "href": "text.html#text-cleaning",
     "title": "50  Overview",
     "section": "50.1 Text cleaning",
-    "text": "50.1 Text cleaning"
+    "text": "50.1 Text cleaning\nIn Chapter 52, we will look over the ways we take raw text and get it ready for later tasks. This work deals with encoding issues, standardization, cases and sometimes you need to get rid of a lot of unwanted chunks."
   },
   {
     "objectID": "text.html#tokenization",
     "href": "text.html#tokenization",
     "title": "50  Overview",
-    "section": "50.2 tokenization",
-    "text": "50.2 tokenization"
+    "section": "50.2 Tokenization",
+    "text": "50.2 Tokenization\nOnce the text is cleaned, we need to split it into a smaller unit of information such that we can count it, this is called tokenization and we will visit that in Chapter 53."
   },
   {
     "objectID": "text.html#modifying-tokens",
     "href": "text.html#modifying-tokens",
     "title": "50  Overview",
     "section": "50.3 Modifying tokens",
-    "text": "50.3 Modifying tokens"
+    "text": "50.3 Modifying tokens\nOnce you have the data as tokens, once of the things you might want to do is modifying them in various ways. This could things like changing the endings to words or changing the words entirely. We see examples of this in Chapter 54, and Chapter 55."
   },
   {
     "objectID": "text.html#filtering-tokens",
     "href": "text.html#filtering-tokens",
     "title": "50  Overview",
     "section": "50.4 Filtering tokens",
-    "text": "50.4 Filtering tokens"
+    "text": "50.4 Filtering tokens\nThe tokens you are created might not all be of the same quality. Depending on your choice of tokenizer, there will be reasons for you to remove some of the tokens you have created. We see examples of this in Chapter 56 and Chapter 57."
   },
   {
     "objectID": "text.html#counting-tokens",
     "href": "text.html#counting-tokens",
     "title": "50  Overview",
     "section": "50.5 Counting tokens",
-    "text": "50.5 Counting tokens"
+    "text": "50.5 Counting tokens\nWe have gotten to the end of the line and we are ready to turn the tokens into numeric variables we can use. There are many different ways are we look at them in Chapter 58, Chapter 59, Chapter 60, Chapter 61, and Chapter 62."
+  },
+  {
+    "objectID": "text.html#embeddings",
+    "href": "text.html#embeddings",
+    "title": "50  Overview",
+    "section": "50.6 Embeddings",
+    "text": "50.6 Embeddings\nAnother way to use text is to work with embeddings, this is another powerful tool that can give you good performance. We look at some of them in Chapter 63."
   },
   {
     "objectID": "text.html#footnotes",
@@ -973,331 +980,583 @@
     "text": "https://thegradient.pub/the-benderrule-on-naming-the-languages-we-study-and-why-it-matters/↩︎"
   },
   {
-    "objectID": "text-tfidf.html#pros-and-cons",
-    "href": "text-tfidf.html#pros-and-cons",
-    "title": "51  TF-IDF",
+    "objectID": "text-manual.html#pros-and-cons",
+    "href": "text-manual.html#pros-and-cons",
+    "title": "51  Manual Text Features",
     "section": "51.1 Pros and Cons",
     "text": "51.1 Pros and Cons\n\n51.1.1 Pros\n\n\n51.1.2 Cons"
   },
   {
-    "objectID": "text-tfidf.html#r-examples",
-    "href": "text-tfidf.html#r-examples",
-    "title": "51  TF-IDF",
+    "objectID": "text-manual.html#r-examples",
+    "href": "text-manual.html#r-examples",
+    "title": "51  Manual Text Features",
     "section": "51.2 R Examples",
     "text": "51.2 R Examples"
   },
   {
-    "objectID": "text-tfidf.html#python-examples",
-    "href": "text-tfidf.html#python-examples",
-    "title": "51  TF-IDF",
+    "objectID": "text-manual.html#python-examples",
+    "href": "text-manual.html#python-examples",
+    "title": "51  Manual Text Features",
     "section": "51.3 Python Examples",
     "text": "51.3 Python Examples"
   },
   {
+    "objectID": "text-cleaning.html#pros-and-cons",
+    "href": "text-cleaning.html#pros-and-cons",
+    "title": "52  Text cleaning",
+    "section": "52.1 Pros and Cons",
+    "text": "52.1 Pros and Cons\n\n52.1.1 Pros\n\n\n52.1.2 Cons"
+  },
+  {
+    "objectID": "text-cleaning.html#r-examples",
+    "href": "text-cleaning.html#r-examples",
+    "title": "52  Text cleaning",
+    "section": "52.2 R Examples",
+    "text": "52.2 R Examples"
+  },
+  {
+    "objectID": "text-cleaning.html#python-examples",
+    "href": "text-cleaning.html#python-examples",
+    "title": "52  Text cleaning",
+    "section": "52.3 Python Examples",
+    "text": "52.3 Python Examples"
+  },
+  {
+    "objectID": "text-tokenization.html#pros-and-cons",
+    "href": "text-tokenization.html#pros-and-cons",
+    "title": "53  Tokenization",
+    "section": "53.1 Pros and Cons",
+    "text": "53.1 Pros and Cons\n\n53.1.1 Pros\n\n\n53.1.2 Cons"
+  },
+  {
+    "objectID": "text-tokenization.html#r-examples",
+    "href": "text-tokenization.html#r-examples",
+    "title": "53  Tokenization",
+    "section": "53.2 R Examples",
+    "text": "53.2 R Examples"
+  },
+  {
+    "objectID": "text-tokenization.html#python-examples",
+    "href": "text-tokenization.html#python-examples",
+    "title": "53  Tokenization",
+    "section": "53.3 Python Examples",
+    "text": "53.3 Python Examples"
+  },
+  {
+    "objectID": "text-stemming.html#pros-and-cons",
+    "href": "text-stemming.html#pros-and-cons",
+    "title": "54  Stemming",
+    "section": "54.1 Pros and Cons",
+    "text": "54.1 Pros and Cons\n\n54.1.1 Pros\n\n\n54.1.2 Cons"
+  },
+  {
+    "objectID": "text-stemming.html#r-examples",
+    "href": "text-stemming.html#r-examples",
+    "title": "54  Stemming",
+    "section": "54.2 R Examples",
+    "text": "54.2 R Examples"
+  },
+  {
+    "objectID": "text-stemming.html#python-examples",
+    "href": "text-stemming.html#python-examples",
+    "title": "54  Stemming",
+    "section": "54.3 Python Examples",
+    "text": "54.3 Python Examples"
+  },
+  {
+    "objectID": "text-ngrams.html#pros-and-cons",
+    "href": "text-ngrams.html#pros-and-cons",
+    "title": "55  N-grams",
+    "section": "55.1 Pros and Cons",
+    "text": "55.1 Pros and Cons\n\n55.1.1 Pros\n\n\n55.1.2 Cons"
+  },
+  {
+    "objectID": "text-ngrams.html#r-examples",
+    "href": "text-ngrams.html#r-examples",
+    "title": "55  N-grams",
+    "section": "55.2 R Examples",
+    "text": "55.2 R Examples"
+  },
+  {
+    "objectID": "text-ngrams.html#python-examples",
+    "href": "text-ngrams.html#python-examples",
+    "title": "55  N-grams",
+    "section": "55.3 Python Examples",
+    "text": "55.3 Python Examples"
+  },
+  {
+    "objectID": "text-stopwords.html#pros-and-cons",
+    "href": "text-stopwords.html#pros-and-cons",
+    "title": "56  Stop words",
+    "section": "56.1 Pros and Cons",
+    "text": "56.1 Pros and Cons\n\n56.1.1 Pros\n\n\n56.1.2 Cons"
+  },
+  {
+    "objectID": "text-stopwords.html#r-examples",
+    "href": "text-stopwords.html#r-examples",
+    "title": "56  Stop words",
+    "section": "56.2 R Examples",
+    "text": "56.2 R Examples"
+  },
+  {
+    "objectID": "text-stopwords.html#python-examples",
+    "href": "text-stopwords.html#python-examples",
+    "title": "56  Stop words",
+    "section": "56.3 Python Examples",
+    "text": "56.3 Python Examples"
+  },
+  {
+    "objectID": "text-filter.html#pros-and-cons",
+    "href": "text-filter.html#pros-and-cons",
+    "title": "57  Token filter",
+    "section": "57.1 Pros and Cons",
+    "text": "57.1 Pros and Cons\n\n57.1.1 Pros\n\n\n57.1.2 Cons"
+  },
+  {
+    "objectID": "text-filter.html#r-examples",
+    "href": "text-filter.html#r-examples",
+    "title": "57  Token filter",
+    "section": "57.2 R Examples",
+    "text": "57.2 R Examples"
+  },
+  {
+    "objectID": "text-filter.html#python-examples",
+    "href": "text-filter.html#python-examples",
+    "title": "57  Token filter",
+    "section": "57.3 Python Examples",
+    "text": "57.3 Python Examples"
+  },
+  {
+    "objectID": "text-tf.html#pros-and-cons",
+    "href": "text-tf.html#pros-and-cons",
+    "title": "58  Term Frequency",
+    "section": "58.1 Pros and Cons",
+    "text": "58.1 Pros and Cons\n\n58.1.1 Pros\n\n\n58.1.2 Cons"
+  },
+  {
+    "objectID": "text-tf.html#r-examples",
+    "href": "text-tf.html#r-examples",
+    "title": "58  Term Frequency",
+    "section": "58.2 R Examples",
+    "text": "58.2 R Examples"
+  },
+  {
+    "objectID": "text-tf.html#python-examples",
+    "href": "text-tf.html#python-examples",
+    "title": "58  Term Frequency",
+    "section": "58.3 Python Examples",
+    "text": "58.3 Python Examples"
+  },
+  {
+    "objectID": "text-tfidf.html#pros-and-cons",
+    "href": "text-tfidf.html#pros-and-cons",
+    "title": "59  TF-IDF",
+    "section": "59.1 Pros and Cons",
+    "text": "59.1 Pros and Cons\n\n59.1.1 Pros\n\n\n59.1.2 Cons"
+  },
+  {
+    "objectID": "text-tfidf.html#r-examples",
+    "href": "text-tfidf.html#r-examples",
+    "title": "59  TF-IDF",
+    "section": "59.2 R Examples",
+    "text": "59.2 R Examples"
+  },
+  {
+    "objectID": "text-tfidf.html#python-examples",
+    "href": "text-tfidf.html#python-examples",
+    "title": "59  TF-IDF",
+    "section": "59.3 Python Examples",
+    "text": "59.3 Python Examples"
+  },
+  {
+    "objectID": "text-hashing.html#pros-and-cons",
+    "href": "text-hashing.html#pros-and-cons",
+    "title": "60  Token Hashing",
+    "section": "60.1 Pros and Cons",
+    "text": "60.1 Pros and Cons\n\n60.1.1 Pros\n\n\n60.1.2 Cons"
+  },
+  {
+    "objectID": "text-hashing.html#r-examples",
+    "href": "text-hashing.html#r-examples",
+    "title": "60  Token Hashing",
+    "section": "60.2 R Examples",
+    "text": "60.2 R Examples"
+  },
+  {
+    "objectID": "text-hashing.html#python-examples",
+    "href": "text-hashing.html#python-examples",
+    "title": "60  Token Hashing",
+    "section": "60.3 Python Examples",
+    "text": "60.3 Python Examples"
+  },
+  {
+    "objectID": "text-onehot.html#pros-and-cons",
+    "href": "text-onehot.html#pros-and-cons",
+    "title": "61  Sequence Encoding",
+    "section": "61.1 Pros and Cons",
+    "text": "61.1 Pros and Cons\n\n61.1.1 Pros\n\n\n61.1.2 Cons"
+  },
+  {
+    "objectID": "text-onehot.html#r-examples",
+    "href": "text-onehot.html#r-examples",
+    "title": "61  Sequence Encoding",
+    "section": "61.2 R Examples",
+    "text": "61.2 R Examples"
+  },
+  {
+    "objectID": "text-onehot.html#python-examples",
+    "href": "text-onehot.html#python-examples",
+    "title": "61  Sequence Encoding",
+    "section": "61.3 Python Examples",
+    "text": "61.3 Python Examples"
+  },
+  {
+    "objectID": "text-lda.html#pros-and-cons",
+    "href": "text-lda.html#pros-and-cons",
+    "title": "62  LDA",
+    "section": "62.1 Pros and Cons",
+    "text": "62.1 Pros and Cons\n\n62.1.1 Pros\n\n\n62.1.2 Cons"
+  },
+  {
+    "objectID": "text-lda.html#r-examples",
+    "href": "text-lda.html#r-examples",
+    "title": "62  LDA",
+    "section": "62.2 R Examples",
+    "text": "62.2 R Examples"
+  },
+  {
+    "objectID": "text-lda.html#python-examples",
+    "href": "text-lda.html#python-examples",
+    "title": "62  LDA",
+    "section": "62.3 Python Examples",
+    "text": "62.3 Python Examples"
+  },
+  {
+    "objectID": "text-bert.html#pros-and-cons",
+    "href": "text-bert.html#pros-and-cons",
+    "title": "63  BERT",
+    "section": "63.1 Pros and Cons",
+    "text": "63.1 Pros and Cons\n\n63.1.1 Pros\n\n\n63.1.2 Cons"
+  },
+  {
+    "objectID": "text-bert.html#r-examples",
+    "href": "text-bert.html#r-examples",
+    "title": "63  BERT",
+    "section": "63.2 R Examples",
+    "text": "63.2 R Examples"
+  },
+  {
+    "objectID": "text-bert.html#python-examples",
+    "href": "text-bert.html#python-examples",
+    "title": "63  BERT",
+    "section": "63.3 Python Examples",
+    "text": "63.3 Python Examples"
+  },
+  {
     "objectID": "image.html",
     "href": "image.html",
-    "title": "52  Overview",
+    "title": "64  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "image-stats.html#pros-and-cons",
     "href": "image-stats.html#pros-and-cons",
-    "title": "53  Visual Features",
-    "section": "53.1 Pros and Cons",
-    "text": "53.1 Pros and Cons\n\n53.1.1 Pros\n\n\n53.1.2 Cons"
+    "title": "65  Visual Features",
+    "section": "65.1 Pros and Cons",
+    "text": "65.1 Pros and Cons\n\n65.1.1 Pros\n\n\n65.1.2 Cons"
   },
   {
     "objectID": "image-stats.html#r-examples",
     "href": "image-stats.html#r-examples",
-    "title": "53  Visual Features",
-    "section": "53.2 R Examples",
-    "text": "53.2 R Examples"
+    "title": "65  Visual Features",
+    "section": "65.2 R Examples",
+    "text": "65.2 R Examples"
   },
   {
     "objectID": "image-stats.html#python-examples",
     "href": "image-stats.html#python-examples",
-    "title": "53  Visual Features",
-    "section": "53.3 Python Examples",
-    "text": "53.3 Python Examples"
+    "title": "65  Visual Features",
+    "section": "65.3 Python Examples",
+    "text": "65.3 Python Examples"
   },
   {
     "objectID": "circular.html",
     "href": "circular.html",
-    "title": "54  Overview",
+    "title": "66  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "circular-trig.html#pros-and-cons",
     "href": "circular-trig.html#pros-and-cons",
-    "title": "55  Trigonometric",
-    "section": "55.1 Pros and Cons",
-    "text": "55.1 Pros and Cons\n\n55.1.1 Pros\n\n\n55.1.2 Cons"
+    "title": "67  Trigonometric",
+    "section": "67.1 Pros and Cons",
+    "text": "67.1 Pros and Cons\n\n67.1.1 Pros\n\n\n67.1.2 Cons"
   },
   {
     "objectID": "circular-trig.html#r-examples",
     "href": "circular-trig.html#r-examples",
-    "title": "55  Trigonometric",
-    "section": "55.2 R Examples",
-    "text": "55.2 R Examples"
+    "title": "67  Trigonometric",
+    "section": "67.2 R Examples",
+    "text": "67.2 R Examples"
   },
   {
     "objectID": "circular-trig.html#python-examples",
     "href": "circular-trig.html#python-examples",
-    "title": "55  Trigonometric",
-    "section": "55.3 Python Examples",
-    "text": "55.3 Python Examples"
+    "title": "67  Trigonometric",
+    "section": "67.3 Python Examples",
+    "text": "67.3 Python Examples"
   },
   {
     "objectID": "time-series.html",
     "href": "time-series.html",
-    "title": "56  Overview",
+    "title": "68  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "time-series-fourier.html#pros-and-cons",
     "href": "time-series-fourier.html#pros-and-cons",
-    "title": "57  Fourier Features",
-    "section": "57.1 Pros and Cons",
-    "text": "57.1 Pros and Cons\n\n57.1.1 Pros\n\n\n57.1.2 Cons"
+    "title": "69  Fourier Features",
+    "section": "69.1 Pros and Cons",
+    "text": "69.1 Pros and Cons\n\n69.1.1 Pros\n\n\n69.1.2 Cons"
   },
   {
     "objectID": "time-series-fourier.html#r-examples",
     "href": "time-series-fourier.html#r-examples",
-    "title": "57  Fourier Features",
-    "section": "57.2 R Examples",
-    "text": "57.2 R Examples"
+    "title": "69  Fourier Features",
+    "section": "69.2 R Examples",
+    "text": "69.2 R Examples"
   },
   {
     "objectID": "time-series-fourier.html#python-examples",
     "href": "time-series-fourier.html#python-examples",
-    "title": "57  Fourier Features",
-    "section": "57.3 Python Examples",
-    "text": "57.3 Python Examples"
+    "title": "69  Fourier Features",
+    "section": "69.3 Python Examples",
+    "text": "69.3 Python Examples"
   },
   {
     "objectID": "correlated.html",
     "href": "correlated.html",
-    "title": "58  Overview",
+    "title": "70  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "correlated-filter.html#pros-and-cons",
     "href": "correlated-filter.html#pros-and-cons",
-    "title": "59  High Correlation Filter",
-    "section": "59.1 Pros and Cons",
-    "text": "59.1 Pros and Cons\n\n59.1.1 Pros\n\n\n59.1.2 Cons"
+    "title": "71  High Correlation Filter",
+    "section": "71.1 Pros and Cons",
+    "text": "71.1 Pros and Cons\n\n71.1.1 Pros\n\n\n71.1.2 Cons"
   },
   {
     "objectID": "correlated-filter.html#r-examples",
     "href": "correlated-filter.html#r-examples",
-    "title": "59  High Correlation Filter",
-    "section": "59.2 R Examples",
-    "text": "59.2 R Examples"
+    "title": "71  High Correlation Filter",
+    "section": "71.2 R Examples",
+    "text": "71.2 R Examples"
   },
   {
     "objectID": "correlated-filter.html#python-examples",
     "href": "correlated-filter.html#python-examples",
-    "title": "59  High Correlation Filter",
-    "section": "59.3 Python Examples",
-    "text": "59.3 Python Examples"
+    "title": "71  High Correlation Filter",
+    "section": "71.3 Python Examples",
+    "text": "71.3 Python Examples"
   },
   {
     "objectID": "miscellaneous.html",
     "href": "miscellaneous.html",
-    "title": "60  Overview",
+    "title": "72  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "miscellaneous-zipcodes.html#pros-and-cons",
     "href": "miscellaneous-zipcodes.html#pros-and-cons",
-    "title": "61  Zip Codes",
-    "section": "61.1 Pros and Cons",
-    "text": "61.1 Pros and Cons\n\n61.1.1 Pros\n\n\n61.1.2 Cons"
+    "title": "73  Zip Codes",
+    "section": "73.1 Pros and Cons",
+    "text": "73.1 Pros and Cons\n\n73.1.1 Pros\n\n\n73.1.2 Cons"
   },
   {
     "objectID": "miscellaneous-zipcodes.html#r-examples",
     "href": "miscellaneous-zipcodes.html#r-examples",
-    "title": "61  Zip Codes",
-    "section": "61.2 R Examples",
-    "text": "61.2 R Examples"
+    "title": "73  Zip Codes",
+    "section": "73.2 R Examples",
+    "text": "73.2 R Examples"
   },
   {
     "objectID": "miscellaneous-zipcodes.html#python-examples",
     "href": "miscellaneous-zipcodes.html#python-examples",
-    "title": "61  Zip Codes",
-    "section": "61.3 Python Examples",
-    "text": "61.3 Python Examples"
+    "title": "73  Zip Codes",
+    "section": "73.3 Python Examples",
+    "text": "73.3 Python Examples"
   },
   {
     "objectID": "video.html",
     "href": "video.html",
-    "title": "62  Overview",
+    "title": "74  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "video-tmp.html#pros-and-cons",
     "href": "video-tmp.html#pros-and-cons",
-    "title": "63  Temporary",
-    "section": "63.1 Pros and Cons",
-    "text": "63.1 Pros and Cons\n\n63.1.1 Pros\n\n\n63.1.2 Cons"
+    "title": "75  Temporary",
+    "section": "75.1 Pros and Cons",
+    "text": "75.1 Pros and Cons\n\n75.1.1 Pros\n\n\n75.1.2 Cons"
   },
   {
     "objectID": "video-tmp.html#r-examples",
     "href": "video-tmp.html#r-examples",
-    "title": "63  Temporary",
-    "section": "63.2 R Examples",
-    "text": "63.2 R Examples"
+    "title": "75  Temporary",
+    "section": "75.2 R Examples",
+    "text": "75.2 R Examples"
   },
   {
     "objectID": "video-tmp.html#python-examples",
     "href": "video-tmp.html#python-examples",
-    "title": "63  Temporary",
-    "section": "63.3 Python Examples",
-    "text": "63.3 Python Examples"
+    "title": "75  Temporary",
+    "section": "75.3 Python Examples",
+    "text": "75.3 Python Examples"
   },
   {
     "objectID": "sound.html",
     "href": "sound.html",
-    "title": "64  Overview",
+    "title": "76  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "sound-tmp.html#pros-and-cons",
     "href": "sound-tmp.html#pros-and-cons",
-    "title": "65  Temporary",
-    "section": "65.1 Pros and Cons",
-    "text": "65.1 Pros and Cons\n\n65.1.1 Pros\n\n\n65.1.2 Cons"
+    "title": "77  Temporary",
+    "section": "77.1 Pros and Cons",
+    "text": "77.1 Pros and Cons\n\n77.1.1 Pros\n\n\n77.1.2 Cons"
   },
   {
     "objectID": "sound-tmp.html#r-examples",
     "href": "sound-tmp.html#r-examples",
-    "title": "65  Temporary",
-    "section": "65.2 R Examples",
-    "text": "65.2 R Examples"
+    "title": "77  Temporary",
+    "section": "77.2 R Examples",
+    "text": "77.2 R Examples"
   },
   {
     "objectID": "sound-tmp.html#python-examples",
     "href": "sound-tmp.html#python-examples",
-    "title": "65  Temporary",
-    "section": "65.3 Python Examples",
-    "text": "65.3 Python Examples"
+    "title": "77  Temporary",
+    "section": "77.3 Python Examples",
+    "text": "77.3 Python Examples"
   },
   {
     "objectID": "spatial.html",
     "href": "spatial.html",
-    "title": "66  Overview",
+    "title": "78  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "spatial-gps.html#pros-and-cons",
     "href": "spatial-gps.html#pros-and-cons",
-    "title": "67  GPS",
-    "section": "67.1 Pros and Cons",
-    "text": "67.1 Pros and Cons\n\n67.1.1 Pros\n\n\n67.1.2 Cons"
+    "title": "79  GPS",
+    "section": "79.1 Pros and Cons",
+    "text": "79.1 Pros and Cons\n\n79.1.1 Pros\n\n\n79.1.2 Cons"
   },
   {
     "objectID": "spatial-gps.html#r-examples",
     "href": "spatial-gps.html#r-examples",
-    "title": "67  GPS",
-    "section": "67.2 R Examples",
-    "text": "67.2 R Examples"
+    "title": "79  GPS",
+    "section": "79.2 R Examples",
+    "text": "79.2 R Examples"
   },
   {
     "objectID": "spatial-gps.html#python-examples",
     "href": "spatial-gps.html#python-examples",
-    "title": "67  GPS",
-    "section": "67.3 Python Examples",
-    "text": "67.3 Python Examples"
+    "title": "79  GPS",
+    "section": "79.3 Python Examples",
+    "text": "79.3 Python Examples"
   },
   {
     "objectID": "geospatial.html",
     "href": "geospatial.html",
-    "title": "68  Overview",
+    "title": "80  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "geospatial-shapefiles.html#pros-and-cons",
     "href": "geospatial-shapefiles.html#pros-and-cons",
-    "title": "69  Shapefiles",
-    "section": "69.1 Pros and Cons",
-    "text": "69.1 Pros and Cons\n\n69.1.1 Pros\n\n\n69.1.2 Cons"
+    "title": "81  Shapefiles",
+    "section": "81.1 Pros and Cons",
+    "text": "81.1 Pros and Cons\n\n81.1.1 Pros\n\n\n81.1.2 Cons"
   },
   {
     "objectID": "geospatial-shapefiles.html#r-examples",
     "href": "geospatial-shapefiles.html#r-examples",
-    "title": "69  Shapefiles",
-    "section": "69.2 R Examples",
-    "text": "69.2 R Examples"
+    "title": "81  Shapefiles",
+    "section": "81.2 R Examples",
+    "text": "81.2 R Examples"
   },
   {
     "objectID": "geospatial-shapefiles.html#python-examples",
     "href": "geospatial-shapefiles.html#python-examples",
-    "title": "69  Shapefiles",
-    "section": "69.3 Python Examples",
-    "text": "69.3 Python Examples"
+    "title": "81  Shapefiles",
+    "section": "81.3 Python Examples",
+    "text": "81.3 Python Examples"
   },
   {
     "objectID": "relational.html",
     "href": "relational.html",
-    "title": "70  Overview",
+    "title": "82  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "relational-tmp.html#pros-and-cons",
     "href": "relational-tmp.html#pros-and-cons",
-    "title": "71  Temporary",
-    "section": "71.1 Pros and Cons",
-    "text": "71.1 Pros and Cons\n\n71.1.1 Pros\n\n\n71.1.2 Cons"
+    "title": "83  Temporary",
+    "section": "83.1 Pros and Cons",
+    "text": "83.1 Pros and Cons\n\n83.1.1 Pros\n\n\n83.1.2 Cons"
   },
   {
     "objectID": "relational-tmp.html#r-examples",
     "href": "relational-tmp.html#r-examples",
-    "title": "71  Temporary",
-    "section": "71.2 R Examples",
-    "text": "71.2 R Examples"
+    "title": "83  Temporary",
+    "section": "83.2 R Examples",
+    "text": "83.2 R Examples"
   },
   {
     "objectID": "relational-tmp.html#python-examples",
     "href": "relational-tmp.html#python-examples",
-    "title": "71  Temporary",
-    "section": "71.3 Python Examples",
-    "text": "71.3 Python Examples"
+    "title": "83  Temporary",
+    "section": "83.3 Python Examples",
+    "text": "83.3 Python Examples"
   },
   {
     "objectID": "order.html",
     "href": "order.html",
-    "title": "72  Order of transformations",
+    "title": "84  Order of transformations",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "sparse.html",
     "href": "sparse.html",
-    "title": "73  What should you do if you have sparse data?",
+    "title": "85  What should you do if you have sparse data?",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "models.html",
     "href": "models.html",
-    "title": "74  How Different Models Deal With Input",
+    "title": "86  How Different Models Deal With Input",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "summary.html",
     "href": "summary.html",
-    "title": "75  Summary",
+    "title": "87  Summary",
     "section": "",
     "text": "WIP"
   },

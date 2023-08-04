@@ -77,7 +77,19 @@ book:
     - part: "Text Features"
       chapters:
         - text.qmd # Progress
+        - text-manual.qmd
+        - text-cleaning.qmd
+        - text-tokenization.qmd
+        - text-stemming.qmd
+        - text-ngrams.qmd
+        - text-stopwords.qmd
+        - text-filter.qmd
+        - text-tf.qmd
         - text-tfidf.qmd
+        - text-hashing.qmd
+        - text-onehot.qmd
+        - text-lda.qmd
+        - text-bert.qmd
     - part: "Image Features"
       chapters:
         - image.qmd
