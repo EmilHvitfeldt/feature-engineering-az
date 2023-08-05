@@ -72,12 +72,14 @@ book:
         - outliers-remove.qmd
     - part: "Datetime Features"
       chapters:
-        - datetime.qmd
-        - datetime-holiday.qmd
+        - datetime.qmd # Progress
+        - datetime-extraction.qmd
+        - datetime-advanced.qmd
+        - datetime-circular.qmd
     - part: "Text Features"
       chapters:
-        - text.qmd # Progress
-        - text-manual.qmd
+        - text.qmd
+        - text-manual.qmd # Progress
         - text-cleaning.qmd
         - text-tokenization.qmd
         - text-stemming.qmd
