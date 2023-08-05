@@ -1,3 +1,13 @@
-# Overview
+# Overview {#sec-datetime}
 
-WIP
+Date and datetime variables are another type of data that can be quite common. This is different than time as we talked about in @sec-time-series, as when we talk about time series data, it is typically a series of data points that are related, and we use that inherent structure of the data as the basis for the modeling problem. Here we are talking about predictors, that happen be to expressed as a date or datetime field. 
+
+These types of data could be the day where the sale took place, or when the taxi started and ended its trip. In some of these cases, it wouldn't make sense to treat it as a time-series model, but we still wants to be able to pull out valuable information. In many cases, date and datetime variables will be treated as text fields if they are unparsed, and as fancy integer representation. When encoded they typically use integers to denote time since a specific reference point.
+
+If date and datetime variables were used directly in a modeling function it will at best use the underlying integer representation, which is unlikely to be useful since it just denotes chronological time. At worst the modeling function will error and complain.
+
+The chapters in this section is going to assume that you have parsed the date and datetime variables, and that we are working with those directly.
+
+@sec-datetime-extraction
+@sec-datetime-advanced
+@sec-datetime-circular
