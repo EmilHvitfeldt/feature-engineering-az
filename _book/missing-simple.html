@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Feature Engineering A-Z - 24&nbsp; Frequency Encoding</title>
+<title>Feature Engineering A-Z - 41&nbsp; Simple Imputation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -64,8 +30,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./categorical-target.html" rel="next">
-<link href="./categorical-binary.html" rel="prev">
+<link href="./missing-model.html" rel="next">
+<link href="./missing.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -108,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./categorical.html">Categorical Features</a></li><li class="breadcrumb-item"><a href="./categorical-frequency.html"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Frequency Encoding</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./missing.html">Missing Data</a></li><li class="breadcrumb-item"><a href="./missing-simple.html"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Simple Imputation</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -305,7 +271,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-frequency.html" class="sidebar-item-text sidebar-link active">
+  <a href="./categorical-frequency.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Frequency Encoding</span></span></a>
   </div>
 </li>
@@ -418,7 +384,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./missing-simple.html" class="sidebar-item-text sidebar-link">
+  <a href="./missing-simple.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Simple Imputation</span></span></a>
   </div>
 </li>
@@ -911,13 +877,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link active" data-scroll-target="#pros-and-cons"><span class="header-section-number">24.1</span> Pros and Cons</a>
+  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link active" data-scroll-target="#pros-and-cons"><span class="header-section-number">41.1</span> Pros and Cons</a>
   <ul class="collapse">
-  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">24.1.1</span> Pros</a></li>
-  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">24.1.2</span> Cons</a></li>
+  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">41.1.1</span> Pros</a></li>
+  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">41.1.2</span> Cons</a></li>
   </ul></li>
-  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">24.2</span> R Examples</a></li>
-  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">24.3</span> Python Examples</a></li>
+  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">41.2</span> R Examples</a></li>
+  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">41.3</span> Python Examples</a></li>
   </ul>
 </nav>
     </div>
@@ -926,7 +892,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-frequency-encoding" class="quarto-section-identifier"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Frequency Encoding</span></span></h1>
+<h1 class="title"><span id="sec-missing-simple" class="quarto-section-identifier"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Simple Imputation</span></span></h1>
 </div>
 
 
@@ -941,159 +907,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>Frequency encoding takes a categorical variable and replaces each level with its frequency in the training data set. This results in a single numeric variable, with values between 0 and 1. This is a trained method since we need to keep a record of the frequencies from the training data set.</p>
-<p>This method isn’t a silver bullet, as it will only sometimes be useful. It is useful when the frequency/rarity of a category level is related to our outcome. Imagine we have data about wines and their producers, some big producers produce many wines, and small producers that only produce a couple. This information could potentially be useful and would be easily captured in frequency encoding. This method is not able to distinguish between two levels that have the same frequency.</p>
-<p>Unseen levels can be automatically handled by giving them a value of 0 as they are unseen in the training data set. Thus no extra treatment is neasesary. Sometimes taking the logarithm can be useful if you are having a big difference between the number of occurrences in your levels.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>This is similar to <strong>count encoding</strong> in the sense that both these encodings calculate the same quantity, the difference is just what you put in the denominator. Since we divide by a constant value in frequency encoding, these will be treated as identical methods.</p>
-</div>
-</div>
-<section id="pros-and-cons" class="level2" data-number="24.1">
-<h2 data-number="24.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">24.1</span> Pros and Cons</h2>
-<section id="pros" class="level3" data-number="24.1.1">
-<h3 data-number="24.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">24.1.1</span> Pros</h3>
-<ul>
-<li>Powerful and simple when used correctly</li>
-<li>High interpretability</li>
-</ul>
+<p>WIP</p>
+<section id="pros-and-cons" class="level2" data-number="41.1">
+<h2 data-number="41.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">41.1</span> Pros and Cons</h2>
+<section id="pros" class="level3" data-number="41.1.1">
+<h3 data-number="41.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">41.1.1</span> Pros</h3>
 </section>
-<section id="cons" class="level3" data-number="24.1.2">
-<h3 data-number="24.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">24.1.2</span> Cons</h3>
-<ul>
-<li>Is not able to distinguish between two levels that have the same frequency</li>
-<li>May not add predictive power</li>
-</ul>
+<section id="cons" class="level3" data-number="41.1.2">
+<h3 data-number="41.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">41.1.2</span> Cons</h3>
 </section>
 </section>
-<section id="r-examples" class="level2" data-number="24.2">
-<h2 data-number="24.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">24.2</span> R Examples</h2>
-<p>We will be using the <code>ames</code> data set for these examples. The <code>step_encoding_frequency()</code> function from the <a href="https://github.com/emilhvitfeldt/extrasteps">extrasteps</a> package allows us to perform frequency encoding.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: dplyr</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'dplyr'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
-
-    filter, lag</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'recipes'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:stats':
-
-    step</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(extrasteps)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modeldata)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"ames"</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>ames <span class="sc">|&gt;</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Sale_Price, MS_SubClass, MS_Zoning)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2,930 × 3
-   Sale_Price MS_SubClass                         MS_Zoning               
-        &lt;int&gt; &lt;fct&gt;                               &lt;fct&gt;                   
- 1     215000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density 
- 2     105000 One_Story_1946_and_Newer_All_Styles Residential_High_Density
- 3     172000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density 
- 4     244000 One_Story_1946_and_Newer_All_Styles Residential_Low_Density 
- 5     189900 Two_Story_1946_and_Newer            Residential_Low_Density 
- 6     195500 Two_Story_1946_and_Newer            Residential_Low_Density 
- 7     213500 One_Story_PUD_1946_and_Newer        Residential_Low_Density 
- 8     191500 One_Story_PUD_1946_and_Newer        Residential_Low_Density 
- 9     236500 One_Story_PUD_1946_and_Newer        Residential_Low_Density 
-10     189000 Two_Story_1946_and_Newer            Residential_Low_Density 
-# ℹ 2,920 more rows</code></pre>
-</div>
-</div>
-<p>We can take a quick look at the possible values <code>MS_SubClass</code> takes</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ames <span class="sc">|&gt;</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(MS_SubClass, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 16 × 2
-   MS_SubClass                                   n
-   &lt;fct&gt;                                     &lt;int&gt;
- 1 One_Story_1946_and_Newer_All_Styles        1079
- 2 Two_Story_1946_and_Newer                    575
- 3 One_and_Half_Story_Finished_All_Ages        287
- 4 One_Story_PUD_1946_and_Newer                192
- 5 One_Story_1945_and_Older                    139
- 6 Two_Story_PUD_1946_and_Newer                129
- 7 Two_Story_1945_and_Older                    128
- 8 Split_or_Multilevel                         118
- 9 Duplex_All_Styles_and_Ages                  109
-10 Two_Family_conversion_All_Styles_and_Ages    61
-11 Split_Foyer                                  48
-12 Two_and_Half_Story_All_Ages                  23
-13 One_and_Half_Story_Unfinished_All_Ages       18
-14 PUD_Multilevel_Split_Level_Foyer             17
-15 One_Story_with_Finished_Attic_All_Ages        6
-16 One_and_Half_Story_PUD_All_Ages               1</code></pre>
-</div>
-</div>
-<p>We can then apply frequency encoding using <code>step_encoding_frequency()</code>. Notice how we only get 1 numeric variable for each categorical variable</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>dummy_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> ., <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_encoding_frequency</span>(<span class="fu">all_nominal_predictors</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>dummy_rec <span class="sc">|&gt;</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>, <span class="fu">starts_with</span>(<span class="st">"MS_SubClass"</span>), <span class="fu">starts_with</span>(<span class="st">"MS_Zoning"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Rows: 2,930
-Columns: 2
-$ MS_SubClass &lt;dbl&gt; 0.36825939, 0.36825939, 0.36825939, 0.36825939, 0.19624573…
-$ MS_Zoning   &lt;dbl&gt; 0.775767918, 0.009215017, 0.775767918, 0.775767918, 0.7757…</code></pre>
-</div>
-</div>
-<p>We can pull the frequencies for each level of each variable by using <code>tidy()</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>dummy_rec <span class="sc">|&gt;</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 283 × 4
-   terms       level                                  frequency id              
-   &lt;chr&gt;       &lt;chr&gt;                                      &lt;dbl&gt; &lt;chr&gt;           
- 1 MS_SubClass One_Story_1946_and_Newer_All_Styles      0.368   encoding_freque…
- 2 MS_SubClass One_Story_1945_and_Older                 0.0474  encoding_freque…
- 3 MS_SubClass One_Story_with_Finished_Attic_All_Ages   0.00205 encoding_freque…
- 4 MS_SubClass One_and_Half_Story_Unfinished_All_Ages   0.00614 encoding_freque…
- 5 MS_SubClass One_and_Half_Story_Finished_All_Ages     0.0980  encoding_freque…
- 6 MS_SubClass Two_Story_1946_and_Newer                 0.196   encoding_freque…
- 7 MS_SubClass Two_Story_1945_and_Older                 0.0437  encoding_freque…
- 8 MS_SubClass Two_and_Half_Story_All_Ages              0.00785 encoding_freque…
- 9 MS_SubClass Split_or_Multilevel                      0.0403  encoding_freque…
-10 MS_SubClass Split_Foyer                              0.0164  encoding_freque…
-# ℹ 273 more rows</code></pre>
-</div>
-</div>
+<section id="r-examples" class="level2" data-number="41.2">
+<h2 data-number="41.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">41.2</span> R Examples</h2>
 </section>
-<section id="python-examples" class="level2" data-number="24.3">
-<h2 data-number="24.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">24.3</span> Python Examples</h2>
+<section id="python-examples" class="level2" data-number="41.3">
+<h2 data-number="41.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">41.3</span> Python Examples</h2>
 
 
 </section>
@@ -1334,13 +1162,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./categorical-binary.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Binary Encoding</span></span>
+      <a href="./missing.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Overview</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./categorical-target.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Target Encoding</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./missing-model.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Model Based Imputation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

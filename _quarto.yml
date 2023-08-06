@@ -56,8 +56,11 @@ book:
         - categorical-combination.qmd
     - part: "Missing Data"
       chapters:
-        - missing.qmd # Progress
-        - missing-imputation.qmd
+        - missing.qmd
+        - missing-simple.qmd # Progress
+        - missing-model.qmd
+        - missing-indicator.qmd
+        - missing-remove.qmd
     - part: "Too Many Variables"
       chapters:
         - too-many.qmd # Progress
