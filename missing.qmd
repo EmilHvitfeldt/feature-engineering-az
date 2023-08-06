@@ -1,3 +1,23 @@
 # Overview {#sec-missing}
 
-WIP
+Missing data is sometimes hard to avoid. So we will have to work to deal with them. This is something we can't avoid since many implemented models are not set up to work with missing data, and will error if it encounters them.
+
+TODO add paragraphs about MCAR, MAR and MNAR
+
+How and why the data might be missing will require investigation and domain knowledge, both of which this book won't be able to give you. What the following chapters will show you, is the ways to deal with the missingness, once you find out what measure is appropriate.
+
+TODO: Add diagrams to show different types of missingness
+
+The following chapters assume that the reader has identified missing values. Sometimes they are easily labeled as `NA` in your code and database. but creativity knows no bounds, which sadly has influenced some users in their way of identifying missing values. Common values are `-9`, `9999`, `9000`. If you are lucky, then you can find this information in the data dictionary, but sometimes you need to be in contact with the people in charge of data collection. To make matters more complicated, there will also be times where different types of missingness will be encoded differently, such as `9000` for machine failure, and `9001` for missing sheet.
+
+## Imputation
+
+One of the most common way of dealing with missing values, is to fill them in with some values. The types of methods that do this can be split into two groups. Simple imputation in @sec-missing-simple is when you uses the values in the variable to impute its own missing values, which is where mean and mode imputation are found. Anything more complicated than this will be found in @sec-missing-model. This is where multiple columns are used to determine the type of imputation needed.
+
+## Indication
+
+If you suspect that the data is not missing at random, it might be worthwhile to include the missingness as a indicator in your data. We will see how we can do that in @sec-missing-indicator.
+
+## Removal
+
+At a last resort, you might want to remove variables or rows with missing data, we will see how that is done in @sec-missing-remove. This chapter is put last in this section, as it is generally not the preferred action, and all other avenues should be considered before removal is done. 
