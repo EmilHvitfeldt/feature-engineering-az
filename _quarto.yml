@@ -10,9 +10,9 @@ book:
     search: true
   chapters:
     - index.qmd
-    - introduction.qmd
-    - motivation.qmd
-    - modeling.qmd
+    - introduction.qmd # Progress
+    - motivation.qmd # Progress
+    - modeling.qmd # Progress
     - how-to-deal-with.qmd
     - part: "Numeric Features"
       chapters:
@@ -54,21 +54,17 @@ book:
         - categorical-multi-dummy.qmd
         - categorical-collapse.qmd
         - categorical-combination.qmd
-    - part: "Imbalanced Data"
-      chapters:
-        - imbalenced.qmd
-        - imbalenced-smote.qmd
     - part: "Missing Data"
       chapters:
-        - missing.qmd
+        - missing.qmd # Progress
         - missing-imputation.qmd
     - part: "Too Many Variables"
       chapters:
-        - too-many.qmd
+        - too-many.qmd # Progress
         - too-many-pca.qmd
     - part: "Outliers"
       chapters:
-        - outliers.qmd
+        - outliers.qmd # Progress
         - outliers-remove.qmd
     - part: "Datetime Features"
       chapters:
@@ -94,49 +90,53 @@ book:
         - text-bert.qmd
     - part: "Image Features"
       chapters:
-        - image.qmd
+        - image.qmd # Progress
         - image-stats.qmd
     - part: "Circular Features"
       chapters:
-        - circular.qmd
+        - circular.qmd # Progress
         - circular-trig.qmd
     - part: "Time-Series Data"
       chapters:
-        - time-series.qmd
+        - time-series.qmd # Progress
         - time-series-fourier.qmd
+    - part: "Imbalanced Data"
+      chapters:
+        - imbalenced.qmd # Progress
+        - imbalenced-smote.qmd
     - part: "Correlated Data"
       chapters:
-        - correlated.qmd
+        - correlated.qmd # Progress
         - correlated-filter.qmd
     - part: "Miscellaneous"
       chapters:
-        - miscellaneous.qmd
+        - miscellaneous.qmd # Progress
         - miscellaneous-zipcodes.qmd
     - part: "Video Data"
       chapters:
-        - video.qmd
+        - video.qmd # Progress
         - video-tmp.qmd
     - part: "Sound Data"
       chapters:
-        - sound.qmd
+        - sound.qmd # Progress
         - sound-tmp.qmd
     - part: "Spatial"
       chapters:
-        - spatial.qmd
+        - spatial.qmd # Progress
         - spatial-gps.qmd
     - part: "Geospatial"
       chapters:
-        - geospatial.qmd
+        - geospatial.qmd # Progress
         - geospatial-shapefiles.qmd
     - part: "Ralational Data"
       chapters:
-        - relational.qmd
+        - relational.qmd # Progress
         - relational-tmp.qmd
-    - order.qmd
-    - sparse.qmd
-    - models.qmd
-    - summary.qmd
-    - references.qmd
+    - order.qmd # Progress
+    - sparse.qmd # Progress
+    - models.qmd # Progress
+    - summary.qmd # Progress
+    - references.qmd # Progress
 
 bibliography: references.bib
 

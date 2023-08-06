@@ -326,7 +326,7 @@
     "href": "categorical.html#categorical-to-categorical",
     "title": "17  Overview",
     "section": "17.1 Categorical to Categorical",
-    "text": "17.1 Categorical to Categorical\nThese methods take a categorical variable and improve them. Whether it means cleaning levels, collapsing levels, or making sure it handles new levels correctly. These Tasks as not always needed depending on the method you are using but they are generally helpful to apply. One method that would have been located here if it wasn’t for the fact that it has a whole section by itself is dealing with missing values as seen in Chapter 42."
+    "text": "17.1 Categorical to Categorical\nThese methods take a categorical variable and improve them. Whether it means cleaning levels, collapsing levels, or making sure it handles new levels correctly. These Tasks as not always needed depending on the method you are using but they are generally helpful to apply. One method that would have been located here if it wasn’t for the fact that it has a whole section by itself is dealing with missing values as seen in Chapter 40."
   },
   {
     "objectID": "categorical.html#categorical-to-numerical",
@@ -805,576 +805,576 @@
     "text": "39.3 Python Examples"
   },
   {
-    "objectID": "imbalenced.html",
-    "href": "imbalenced.html",
-    "title": "40  Overview",
-    "section": "",
-    "text": "WIP"
-  },
-  {
-    "objectID": "imbalenced-smote.html#pros-and-cons",
-    "href": "imbalenced-smote.html#pros-and-cons",
-    "title": "41  SMOTE",
-    "section": "41.1 Pros and Cons",
-    "text": "41.1 Pros and Cons\n\n41.1.1 Pros\n\n\n41.1.2 Cons"
-  },
-  {
-    "objectID": "imbalenced-smote.html#r-examples",
-    "href": "imbalenced-smote.html#r-examples",
-    "title": "41  SMOTE",
-    "section": "41.2 R Examples",
-    "text": "41.2 R Examples"
-  },
-  {
-    "objectID": "imbalenced-smote.html#python-examples",
-    "href": "imbalenced-smote.html#python-examples",
-    "title": "41  SMOTE",
-    "section": "41.3 Python Examples",
-    "text": "41.3 Python Examples"
-  },
-  {
     "objectID": "missing.html",
     "href": "missing.html",
-    "title": "42  Overview",
+    "title": "40  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "missing-imputation.html#pros-and-cons",
     "href": "missing-imputation.html#pros-and-cons",
-    "title": "43  Imputation",
-    "section": "43.1 Pros and Cons",
-    "text": "43.1 Pros and Cons\n\n43.1.1 Pros\n\n\n43.1.2 Cons"
+    "title": "41  Imputation",
+    "section": "41.1 Pros and Cons",
+    "text": "41.1 Pros and Cons\n\n41.1.1 Pros\n\n\n41.1.2 Cons"
   },
   {
     "objectID": "missing-imputation.html#r-examples",
     "href": "missing-imputation.html#r-examples",
-    "title": "43  Imputation",
-    "section": "43.2 R Examples",
-    "text": "43.2 R Examples"
+    "title": "41  Imputation",
+    "section": "41.2 R Examples",
+    "text": "41.2 R Examples"
   },
   {
     "objectID": "missing-imputation.html#python-examples",
     "href": "missing-imputation.html#python-examples",
-    "title": "43  Imputation",
-    "section": "43.3 Python Examples",
-    "text": "43.3 Python Examples"
+    "title": "41  Imputation",
+    "section": "41.3 Python Examples",
+    "text": "41.3 Python Examples"
   },
   {
     "objectID": "too-many.html",
     "href": "too-many.html",
-    "title": "44  Overview",
+    "title": "42  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "too-many-pca.html",
     "href": "too-many-pca.html",
-    "title": "45  Principal Component Analysis",
+    "title": "43  Principal Component Analysis",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "outliers.html",
     "href": "outliers.html",
-    "title": "46  Overview",
+    "title": "44  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "outliers-remove.html#pros-and-cons",
     "href": "outliers-remove.html#pros-and-cons",
-    "title": "47  Removal",
-    "section": "47.1 Pros and Cons",
-    "text": "47.1 Pros and Cons\n\n47.1.1 Pros\n\n\n47.1.2 Cons"
+    "title": "45  Removal",
+    "section": "45.1 Pros and Cons",
+    "text": "45.1 Pros and Cons\n\n45.1.1 Pros\n\n\n45.1.2 Cons"
   },
   {
     "objectID": "outliers-remove.html#r-examples",
     "href": "outliers-remove.html#r-examples",
-    "title": "47  Removal",
-    "section": "47.2 R Examples",
-    "text": "47.2 R Examples"
+    "title": "45  Removal",
+    "section": "45.2 R Examples",
+    "text": "45.2 R Examples"
   },
   {
     "objectID": "outliers-remove.html#python-examples",
     "href": "outliers-remove.html#python-examples",
-    "title": "47  Removal",
-    "section": "47.3 Python Examples",
-    "text": "47.3 Python Examples"
+    "title": "45  Removal",
+    "section": "45.3 Python Examples",
+    "text": "45.3 Python Examples"
   },
   {
     "objectID": "datetime.html",
     "href": "datetime.html",
-    "title": "48  Overview",
+    "title": "46  Overview",
     "section": "",
-    "text": "Date and datetime variables are another type of data that can be quite common. This is different than time as we talked about in Chapter 70, as when we talk about time series data, it is typically a series of data points that are related, and we use that inherent structure of the data as the basis for the modeling problem. Here we are talking about predictors, that happen be to expressed as a date or datetime field.\nThese types of data could be the day where the sale took place, or when the taxi started and ended its trip. In some of these cases, it wouldn’t make sense to treat it as a time-series model, but we still wants to be able to pull out valuable information. In many cases, date and datetime variables will be treated as text fields if they are unparsed, and as fancy integer representation. When encoded they typically use integers to denote time since a specific reference point.\nIf date and datetime variables were used directly in a modeling function it will at best use the underlying integer representation, which is unlikely to be useful since it just denotes chronological time. At worst the modeling function will error and complain.\nThe chapters in this section is going to assume that you have parsed the date and datetime variables, and that we are working with those directly.\nWhen we talk about extraction in Chapter 49, what we will be doing is extracting components of the data. So this can be things like year, month, day, hour, minutes and seconds. There are more complicated things like “is this a holiday” or “is it a weekend”. After that, we will go over some more complicated features in Chapter 50. These features will mostly be based on the extraction features from earlier. But it can be things like “closest holiday” and “how long since last Monday”. Lastly we will talk about how many of these features work in a very circular way in Chapter 51. Naturally if we were to model using hours of the day, 1 hour before midnight and 1 hour after midnight are close on the clock but not numerically."
+    "text": "Date and datetime variables are another type of data that can be quite common. This is different than time as we talked about in Chapter 68, as when we talk about time series data, it is typically a series of data points that are related, and we use that inherent structure of the data as the basis for the modeling problem. Here we are talking about predictors, that happen be to expressed as a date or datetime field.\nThese types of data could be the day where the sale took place, or when the taxi started and ended its trip. In some of these cases, it wouldn’t make sense to treat it as a time-series model, but we still wants to be able to pull out valuable information. In many cases, date and datetime variables will be treated as text fields if they are unparsed, and as fancy integer representation. When encoded they typically use integers to denote time since a specific reference point.\nIf date and datetime variables were used directly in a modeling function it will at best use the underlying integer representation, which is unlikely to be useful since it just denotes chronological time. At worst the modeling function will error and complain.\nThe chapters in this section is going to assume that you have parsed the date and datetime variables, and that we are working with those directly.\nWhen we talk about extraction in Chapter 47, what we will be doing is extracting components of the data. So this can be things like year, month, day, hour, minutes and seconds. There are more complicated things like “is this a holiday” or “is it a weekend”. After that, we will go over some more complicated features in Chapter 48. These features will mostly be based on the extraction features from earlier. But it can be things like “closest holiday” and “how long since last Monday”. Lastly we will talk about how many of these features work in a very circular way in Chapter 49. Naturally if we were to model using hours of the day, 1 hour before midnight and 1 hour after midnight are close on the clock but not numerically."
   },
   {
     "objectID": "datetime-extraction.html#pros-and-cons",
     "href": "datetime-extraction.html#pros-and-cons",
-    "title": "49  Value extraction",
-    "section": "49.1 Pros and Cons",
-    "text": "49.1 Pros and Cons\n\n49.1.1 Pros\n\n\n49.1.2 Cons"
+    "title": "47  Value extraction",
+    "section": "47.1 Pros and Cons",
+    "text": "47.1 Pros and Cons\n\n47.1.1 Pros\n\n\n47.1.2 Cons"
   },
   {
     "objectID": "datetime-extraction.html#r-examples",
     "href": "datetime-extraction.html#r-examples",
-    "title": "49  Value extraction",
-    "section": "49.2 R Examples",
-    "text": "49.2 R Examples"
+    "title": "47  Value extraction",
+    "section": "47.2 R Examples",
+    "text": "47.2 R Examples"
   },
   {
     "objectID": "datetime-extraction.html#python-examples",
     "href": "datetime-extraction.html#python-examples",
-    "title": "49  Value extraction",
-    "section": "49.3 Python Examples",
-    "text": "49.3 Python Examples"
+    "title": "47  Value extraction",
+    "section": "47.3 Python Examples",
+    "text": "47.3 Python Examples"
   },
   {
     "objectID": "datetime-advanced.html#pros-and-cons",
     "href": "datetime-advanced.html#pros-and-cons",
-    "title": "50  Advanced features",
-    "section": "50.1 Pros and Cons",
-    "text": "50.1 Pros and Cons\n\n50.1.1 Pros\n\n\n50.1.2 Cons"
+    "title": "48  Advanced features",
+    "section": "48.1 Pros and Cons",
+    "text": "48.1 Pros and Cons\n\n48.1.1 Pros\n\n\n48.1.2 Cons"
   },
   {
     "objectID": "datetime-advanced.html#r-examples",
     "href": "datetime-advanced.html#r-examples",
-    "title": "50  Advanced features",
-    "section": "50.2 R Examples",
-    "text": "50.2 R Examples"
+    "title": "48  Advanced features",
+    "section": "48.2 R Examples",
+    "text": "48.2 R Examples"
   },
   {
     "objectID": "datetime-advanced.html#python-examples",
     "href": "datetime-advanced.html#python-examples",
-    "title": "50  Advanced features",
-    "section": "50.3 Python Examples",
-    "text": "50.3 Python Examples"
+    "title": "48  Advanced features",
+    "section": "48.3 Python Examples",
+    "text": "48.3 Python Examples"
   },
   {
     "objectID": "datetime-circular.html#pros-and-cons",
     "href": "datetime-circular.html#pros-and-cons",
-    "title": "51  Circular",
-    "section": "51.1 Pros and Cons",
-    "text": "51.1 Pros and Cons\n\n51.1.1 Pros\n\n\n51.1.2 Cons"
+    "title": "49  Circular",
+    "section": "49.1 Pros and Cons",
+    "text": "49.1 Pros and Cons\n\n49.1.1 Pros\n\n\n49.1.2 Cons"
   },
   {
     "objectID": "datetime-circular.html#r-examples",
     "href": "datetime-circular.html#r-examples",
-    "title": "51  Circular",
-    "section": "51.2 R Examples",
-    "text": "51.2 R Examples"
+    "title": "49  Circular",
+    "section": "49.2 R Examples",
+    "text": "49.2 R Examples"
   },
   {
     "objectID": "datetime-circular.html#python-examples",
     "href": "datetime-circular.html#python-examples",
-    "title": "51  Circular",
-    "section": "51.3 Python Examples",
-    "text": "51.3 Python Examples"
+    "title": "49  Circular",
+    "section": "49.3 Python Examples",
+    "text": "49.3 Python Examples"
   },
   {
     "objectID": "text.html#text-cleaning",
     "href": "text.html#text-cleaning",
-    "title": "52  Overview",
-    "section": "52.1 Text cleaning",
-    "text": "52.1 Text cleaning\nIn Chapter 54, we will look over the ways we take raw text and get it ready for later tasks. This work deals with encoding issues, standardization, cases and sometimes you need to get rid of a lot of unwanted chunks."
+    "title": "50  Overview",
+    "section": "50.1 Text cleaning",
+    "text": "50.1 Text cleaning\nIn Chapter 52, we will look over the ways we take raw text and get it ready for later tasks. This work deals with encoding issues, standardization, cases and sometimes you need to get rid of a lot of unwanted chunks."
   },
   {
     "objectID": "text.html#tokenization",
     "href": "text.html#tokenization",
-    "title": "52  Overview",
-    "section": "52.2 Tokenization",
-    "text": "52.2 Tokenization\nOnce the text is cleaned, we need to split it into a smaller unit of information such that we can count it, this is called tokenization and we will visit that in Chapter 55."
+    "title": "50  Overview",
+    "section": "50.2 Tokenization",
+    "text": "50.2 Tokenization\nOnce the text is cleaned, we need to split it into a smaller unit of information such that we can count it, this is called tokenization and we will visit that in Chapter 53."
   },
   {
     "objectID": "text.html#modifying-tokens",
     "href": "text.html#modifying-tokens",
-    "title": "52  Overview",
-    "section": "52.3 Modifying tokens",
-    "text": "52.3 Modifying tokens\nOnce you have the data as tokens, once of the things you might want to do is modifying them in various ways. This could things like changing the endings to words or changing the words entirely. We see examples of this in Chapter 56, and Chapter 57."
+    "title": "50  Overview",
+    "section": "50.3 Modifying tokens",
+    "text": "50.3 Modifying tokens\nOnce you have the data as tokens, once of the things you might want to do is modifying them in various ways. This could things like changing the endings to words or changing the words entirely. We see examples of this in Chapter 54, and Chapter 55."
   },
   {
     "objectID": "text.html#filtering-tokens",
     "href": "text.html#filtering-tokens",
-    "title": "52  Overview",
-    "section": "52.4 Filtering tokens",
-    "text": "52.4 Filtering tokens\nThe tokens you are created might not all be of the same quality. Depending on your choice of tokenizer, there will be reasons for you to remove some of the tokens you have created. We see examples of this in Chapter 58 and Chapter 59."
+    "title": "50  Overview",
+    "section": "50.4 Filtering tokens",
+    "text": "50.4 Filtering tokens\nThe tokens you are created might not all be of the same quality. Depending on your choice of tokenizer, there will be reasons for you to remove some of the tokens you have created. We see examples of this in Chapter 56 and Chapter 57."
   },
   {
     "objectID": "text.html#counting-tokens",
     "href": "text.html#counting-tokens",
-    "title": "52  Overview",
-    "section": "52.5 Counting tokens",
-    "text": "52.5 Counting tokens\nWe have gotten to the end of the line and we are ready to turn the tokens into numeric variables we can use. There are many different ways are we look at them in Chapter 60, Chapter 61, Chapter 62, Chapter 63, and Chapter 64."
+    "title": "50  Overview",
+    "section": "50.5 Counting tokens",
+    "text": "50.5 Counting tokens\nWe have gotten to the end of the line and we are ready to turn the tokens into numeric variables we can use. There are many different ways are we look at them in Chapter 58, Chapter 59, Chapter 60, Chapter 61, and Chapter 62."
   },
   {
     "objectID": "text.html#embeddings",
     "href": "text.html#embeddings",
-    "title": "52  Overview",
-    "section": "52.6 Embeddings",
-    "text": "52.6 Embeddings\nAnother way to use text is to work with embeddings, this is another powerful tool that can give you good performance. We look at some of them in Chapter 65."
+    "title": "50  Overview",
+    "section": "50.6 Embeddings",
+    "text": "50.6 Embeddings\nAnother way to use text is to work with embeddings, this is another powerful tool that can give you good performance. We look at some of them in Chapter 63."
   },
   {
     "objectID": "text.html#footnotes",
     "href": "text.html#footnotes",
-    "title": "52  Overview",
+    "title": "50  Overview",
     "section": "",
     "text": "https://thegradient.pub/the-benderrule-on-naming-the-languages-we-study-and-why-it-matters/↩︎"
   },
   {
     "objectID": "text-manual.html#pros-and-cons",
     "href": "text-manual.html#pros-and-cons",
-    "title": "53  Manual Text Features",
-    "section": "53.1 Pros and Cons",
-    "text": "53.1 Pros and Cons\n\n53.1.1 Pros\n\n\n53.1.2 Cons"
+    "title": "51  Manual Text Features",
+    "section": "51.1 Pros and Cons",
+    "text": "51.1 Pros and Cons\n\n51.1.1 Pros\n\n\n51.1.2 Cons"
   },
   {
     "objectID": "text-manual.html#r-examples",
     "href": "text-manual.html#r-examples",
-    "title": "53  Manual Text Features",
-    "section": "53.2 R Examples",
-    "text": "53.2 R Examples"
+    "title": "51  Manual Text Features",
+    "section": "51.2 R Examples",
+    "text": "51.2 R Examples"
   },
   {
     "objectID": "text-manual.html#python-examples",
     "href": "text-manual.html#python-examples",
-    "title": "53  Manual Text Features",
-    "section": "53.3 Python Examples",
-    "text": "53.3 Python Examples"
+    "title": "51  Manual Text Features",
+    "section": "51.3 Python Examples",
+    "text": "51.3 Python Examples"
   },
   {
     "objectID": "text-cleaning.html#pros-and-cons",
     "href": "text-cleaning.html#pros-and-cons",
-    "title": "54  Text cleaning",
-    "section": "54.1 Pros and Cons",
-    "text": "54.1 Pros and Cons\n\n54.1.1 Pros\n\n\n54.1.2 Cons"
+    "title": "52  Text cleaning",
+    "section": "52.1 Pros and Cons",
+    "text": "52.1 Pros and Cons\n\n52.1.1 Pros\n\n\n52.1.2 Cons"
   },
   {
     "objectID": "text-cleaning.html#r-examples",
     "href": "text-cleaning.html#r-examples",
-    "title": "54  Text cleaning",
-    "section": "54.2 R Examples",
-    "text": "54.2 R Examples"
+    "title": "52  Text cleaning",
+    "section": "52.2 R Examples",
+    "text": "52.2 R Examples"
   },
   {
     "objectID": "text-cleaning.html#python-examples",
     "href": "text-cleaning.html#python-examples",
-    "title": "54  Text cleaning",
-    "section": "54.3 Python Examples",
-    "text": "54.3 Python Examples"
+    "title": "52  Text cleaning",
+    "section": "52.3 Python Examples",
+    "text": "52.3 Python Examples"
   },
   {
     "objectID": "text-tokenization.html#pros-and-cons",
     "href": "text-tokenization.html#pros-and-cons",
-    "title": "55  Tokenization",
-    "section": "55.1 Pros and Cons",
-    "text": "55.1 Pros and Cons\n\n55.1.1 Pros\n\n\n55.1.2 Cons"
+    "title": "53  Tokenization",
+    "section": "53.1 Pros and Cons",
+    "text": "53.1 Pros and Cons\n\n53.1.1 Pros\n\n\n53.1.2 Cons"
   },
   {
     "objectID": "text-tokenization.html#r-examples",
     "href": "text-tokenization.html#r-examples",
-    "title": "55  Tokenization",
-    "section": "55.2 R Examples",
-    "text": "55.2 R Examples"
+    "title": "53  Tokenization",
+    "section": "53.2 R Examples",
+    "text": "53.2 R Examples"
   },
   {
     "objectID": "text-tokenization.html#python-examples",
     "href": "text-tokenization.html#python-examples",
-    "title": "55  Tokenization",
-    "section": "55.3 Python Examples",
-    "text": "55.3 Python Examples"
+    "title": "53  Tokenization",
+    "section": "53.3 Python Examples",
+    "text": "53.3 Python Examples"
   },
   {
     "objectID": "text-stemming.html#pros-and-cons",
     "href": "text-stemming.html#pros-and-cons",
-    "title": "56  Stemming",
-    "section": "56.1 Pros and Cons",
-    "text": "56.1 Pros and Cons\n\n56.1.1 Pros\n\n\n56.1.2 Cons"
+    "title": "54  Stemming",
+    "section": "54.1 Pros and Cons",
+    "text": "54.1 Pros and Cons\n\n54.1.1 Pros\n\n\n54.1.2 Cons"
   },
   {
     "objectID": "text-stemming.html#r-examples",
     "href": "text-stemming.html#r-examples",
-    "title": "56  Stemming",
-    "section": "56.2 R Examples",
-    "text": "56.2 R Examples"
+    "title": "54  Stemming",
+    "section": "54.2 R Examples",
+    "text": "54.2 R Examples"
   },
   {
     "objectID": "text-stemming.html#python-examples",
     "href": "text-stemming.html#python-examples",
-    "title": "56  Stemming",
-    "section": "56.3 Python Examples",
-    "text": "56.3 Python Examples"
+    "title": "54  Stemming",
+    "section": "54.3 Python Examples",
+    "text": "54.3 Python Examples"
   },
   {
     "objectID": "text-ngrams.html#pros-and-cons",
     "href": "text-ngrams.html#pros-and-cons",
-    "title": "57  N-grams",
-    "section": "57.1 Pros and Cons",
-    "text": "57.1 Pros and Cons\n\n57.1.1 Pros\n\n\n57.1.2 Cons"
+    "title": "55  N-grams",
+    "section": "55.1 Pros and Cons",
+    "text": "55.1 Pros and Cons\n\n55.1.1 Pros\n\n\n55.1.2 Cons"
   },
   {
     "objectID": "text-ngrams.html#r-examples",
     "href": "text-ngrams.html#r-examples",
-    "title": "57  N-grams",
-    "section": "57.2 R Examples",
-    "text": "57.2 R Examples"
+    "title": "55  N-grams",
+    "section": "55.2 R Examples",
+    "text": "55.2 R Examples"
   },
   {
     "objectID": "text-ngrams.html#python-examples",
     "href": "text-ngrams.html#python-examples",
-    "title": "57  N-grams",
-    "section": "57.3 Python Examples",
-    "text": "57.3 Python Examples"
+    "title": "55  N-grams",
+    "section": "55.3 Python Examples",
+    "text": "55.3 Python Examples"
   },
   {
     "objectID": "text-stopwords.html#pros-and-cons",
     "href": "text-stopwords.html#pros-and-cons",
-    "title": "58  Stop words",
-    "section": "58.1 Pros and Cons",
-    "text": "58.1 Pros and Cons\n\n58.1.1 Pros\n\n\n58.1.2 Cons"
+    "title": "56  Stop words",
+    "section": "56.1 Pros and Cons",
+    "text": "56.1 Pros and Cons\n\n56.1.1 Pros\n\n\n56.1.2 Cons"
   },
   {
     "objectID": "text-stopwords.html#r-examples",
     "href": "text-stopwords.html#r-examples",
-    "title": "58  Stop words",
-    "section": "58.2 R Examples",
-    "text": "58.2 R Examples"
+    "title": "56  Stop words",
+    "section": "56.2 R Examples",
+    "text": "56.2 R Examples"
   },
   {
     "objectID": "text-stopwords.html#python-examples",
     "href": "text-stopwords.html#python-examples",
-    "title": "58  Stop words",
-    "section": "58.3 Python Examples",
-    "text": "58.3 Python Examples"
+    "title": "56  Stop words",
+    "section": "56.3 Python Examples",
+    "text": "56.3 Python Examples"
   },
   {
     "objectID": "text-filter.html#pros-and-cons",
     "href": "text-filter.html#pros-and-cons",
-    "title": "59  Token filter",
-    "section": "59.1 Pros and Cons",
-    "text": "59.1 Pros and Cons\n\n59.1.1 Pros\n\n\n59.1.2 Cons"
+    "title": "57  Token filter",
+    "section": "57.1 Pros and Cons",
+    "text": "57.1 Pros and Cons\n\n57.1.1 Pros\n\n\n57.1.2 Cons"
   },
   {
     "objectID": "text-filter.html#r-examples",
     "href": "text-filter.html#r-examples",
-    "title": "59  Token filter",
-    "section": "59.2 R Examples",
-    "text": "59.2 R Examples"
+    "title": "57  Token filter",
+    "section": "57.2 R Examples",
+    "text": "57.2 R Examples"
   },
   {
     "objectID": "text-filter.html#python-examples",
     "href": "text-filter.html#python-examples",
-    "title": "59  Token filter",
-    "section": "59.3 Python Examples",
-    "text": "59.3 Python Examples"
+    "title": "57  Token filter",
+    "section": "57.3 Python Examples",
+    "text": "57.3 Python Examples"
   },
   {
     "objectID": "text-tf.html#pros-and-cons",
     "href": "text-tf.html#pros-and-cons",
-    "title": "60  Term Frequency",
-    "section": "60.1 Pros and Cons",
-    "text": "60.1 Pros and Cons\n\n60.1.1 Pros\n\n\n60.1.2 Cons"
+    "title": "58  Term Frequency",
+    "section": "58.1 Pros and Cons",
+    "text": "58.1 Pros and Cons\n\n58.1.1 Pros\n\n\n58.1.2 Cons"
   },
   {
     "objectID": "text-tf.html#r-examples",
     "href": "text-tf.html#r-examples",
-    "title": "60  Term Frequency",
-    "section": "60.2 R Examples",
-    "text": "60.2 R Examples"
+    "title": "58  Term Frequency",
+    "section": "58.2 R Examples",
+    "text": "58.2 R Examples"
   },
   {
     "objectID": "text-tf.html#python-examples",
     "href": "text-tf.html#python-examples",
-    "title": "60  Term Frequency",
-    "section": "60.3 Python Examples",
-    "text": "60.3 Python Examples"
+    "title": "58  Term Frequency",
+    "section": "58.3 Python Examples",
+    "text": "58.3 Python Examples"
   },
   {
     "objectID": "text-tfidf.html#pros-and-cons",
     "href": "text-tfidf.html#pros-and-cons",
-    "title": "61  TF-IDF",
-    "section": "61.1 Pros and Cons",
-    "text": "61.1 Pros and Cons\n\n61.1.1 Pros\n\n\n61.1.2 Cons"
+    "title": "59  TF-IDF",
+    "section": "59.1 Pros and Cons",
+    "text": "59.1 Pros and Cons\n\n59.1.1 Pros\n\n\n59.1.2 Cons"
   },
   {
     "objectID": "text-tfidf.html#r-examples",
     "href": "text-tfidf.html#r-examples",
-    "title": "61  TF-IDF",
-    "section": "61.2 R Examples",
-    "text": "61.2 R Examples"
+    "title": "59  TF-IDF",
+    "section": "59.2 R Examples",
+    "text": "59.2 R Examples"
   },
   {
     "objectID": "text-tfidf.html#python-examples",
     "href": "text-tfidf.html#python-examples",
-    "title": "61  TF-IDF",
-    "section": "61.3 Python Examples",
-    "text": "61.3 Python Examples"
+    "title": "59  TF-IDF",
+    "section": "59.3 Python Examples",
+    "text": "59.3 Python Examples"
   },
   {
     "objectID": "text-hashing.html#pros-and-cons",
     "href": "text-hashing.html#pros-and-cons",
-    "title": "62  Token Hashing",
-    "section": "62.1 Pros and Cons",
-    "text": "62.1 Pros and Cons\n\n62.1.1 Pros\n\n\n62.1.2 Cons"
+    "title": "60  Token Hashing",
+    "section": "60.1 Pros and Cons",
+    "text": "60.1 Pros and Cons\n\n60.1.1 Pros\n\n\n60.1.2 Cons"
   },
   {
     "objectID": "text-hashing.html#r-examples",
     "href": "text-hashing.html#r-examples",
-    "title": "62  Token Hashing",
-    "section": "62.2 R Examples",
-    "text": "62.2 R Examples"
+    "title": "60  Token Hashing",
+    "section": "60.2 R Examples",
+    "text": "60.2 R Examples"
   },
   {
     "objectID": "text-hashing.html#python-examples",
     "href": "text-hashing.html#python-examples",
-    "title": "62  Token Hashing",
-    "section": "62.3 Python Examples",
-    "text": "62.3 Python Examples"
+    "title": "60  Token Hashing",
+    "section": "60.3 Python Examples",
+    "text": "60.3 Python Examples"
   },
   {
     "objectID": "text-onehot.html#pros-and-cons",
     "href": "text-onehot.html#pros-and-cons",
-    "title": "63  Sequence Encoding",
-    "section": "63.1 Pros and Cons",
-    "text": "63.1 Pros and Cons\n\n63.1.1 Pros\n\n\n63.1.2 Cons"
+    "title": "61  Sequence Encoding",
+    "section": "61.1 Pros and Cons",
+    "text": "61.1 Pros and Cons\n\n61.1.1 Pros\n\n\n61.1.2 Cons"
   },
   {
     "objectID": "text-onehot.html#r-examples",
     "href": "text-onehot.html#r-examples",
-    "title": "63  Sequence Encoding",
-    "section": "63.2 R Examples",
-    "text": "63.2 R Examples"
+    "title": "61  Sequence Encoding",
+    "section": "61.2 R Examples",
+    "text": "61.2 R Examples"
   },
   {
     "objectID": "text-onehot.html#python-examples",
     "href": "text-onehot.html#python-examples",
-    "title": "63  Sequence Encoding",
-    "section": "63.3 Python Examples",
-    "text": "63.3 Python Examples"
+    "title": "61  Sequence Encoding",
+    "section": "61.3 Python Examples",
+    "text": "61.3 Python Examples"
   },
   {
     "objectID": "text-lda.html#pros-and-cons",
     "href": "text-lda.html#pros-and-cons",
-    "title": "64  LDA",
-    "section": "64.1 Pros and Cons",
-    "text": "64.1 Pros and Cons\n\n64.1.1 Pros\n\n\n64.1.2 Cons"
+    "title": "62  LDA",
+    "section": "62.1 Pros and Cons",
+    "text": "62.1 Pros and Cons\n\n62.1.1 Pros\n\n\n62.1.2 Cons"
   },
   {
     "objectID": "text-lda.html#r-examples",
     "href": "text-lda.html#r-examples",
-    "title": "64  LDA",
-    "section": "64.2 R Examples",
-    "text": "64.2 R Examples"
+    "title": "62  LDA",
+    "section": "62.2 R Examples",
+    "text": "62.2 R Examples"
   },
   {
     "objectID": "text-lda.html#python-examples",
     "href": "text-lda.html#python-examples",
-    "title": "64  LDA",
-    "section": "64.3 Python Examples",
-    "text": "64.3 Python Examples"
+    "title": "62  LDA",
+    "section": "62.3 Python Examples",
+    "text": "62.3 Python Examples"
   },
   {
     "objectID": "text-bert.html#pros-and-cons",
     "href": "text-bert.html#pros-and-cons",
-    "title": "65  BERT",
-    "section": "65.1 Pros and Cons",
-    "text": "65.1 Pros and Cons\n\n65.1.1 Pros\n\n\n65.1.2 Cons"
+    "title": "63  BERT",
+    "section": "63.1 Pros and Cons",
+    "text": "63.1 Pros and Cons\n\n63.1.1 Pros\n\n\n63.1.2 Cons"
   },
   {
     "objectID": "text-bert.html#r-examples",
     "href": "text-bert.html#r-examples",
-    "title": "65  BERT",
-    "section": "65.2 R Examples",
-    "text": "65.2 R Examples"
+    "title": "63  BERT",
+    "section": "63.2 R Examples",
+    "text": "63.2 R Examples"
   },
   {
     "objectID": "text-bert.html#python-examples",
     "href": "text-bert.html#python-examples",
-    "title": "65  BERT",
-    "section": "65.3 Python Examples",
-    "text": "65.3 Python Examples"
+    "title": "63  BERT",
+    "section": "63.3 Python Examples",
+    "text": "63.3 Python Examples"
   },
   {
     "objectID": "image.html",
     "href": "image.html",
-    "title": "66  Overview",
+    "title": "64  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "image-stats.html#pros-and-cons",
     "href": "image-stats.html#pros-and-cons",
-    "title": "67  Visual Features",
-    "section": "67.1 Pros and Cons",
-    "text": "67.1 Pros and Cons\n\n67.1.1 Pros\n\n\n67.1.2 Cons"
+    "title": "65  Visual Features",
+    "section": "65.1 Pros and Cons",
+    "text": "65.1 Pros and Cons\n\n65.1.1 Pros\n\n\n65.1.2 Cons"
   },
   {
     "objectID": "image-stats.html#r-examples",
     "href": "image-stats.html#r-examples",
-    "title": "67  Visual Features",
-    "section": "67.2 R Examples",
-    "text": "67.2 R Examples"
+    "title": "65  Visual Features",
+    "section": "65.2 R Examples",
+    "text": "65.2 R Examples"
   },
   {
     "objectID": "image-stats.html#python-examples",
     "href": "image-stats.html#python-examples",
-    "title": "67  Visual Features",
-    "section": "67.3 Python Examples",
-    "text": "67.3 Python Examples"
+    "title": "65  Visual Features",
+    "section": "65.3 Python Examples",
+    "text": "65.3 Python Examples"
   },
   {
     "objectID": "circular.html",
     "href": "circular.html",
-    "title": "68  Overview",
+    "title": "66  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "circular-trig.html#pros-and-cons",
     "href": "circular-trig.html#pros-and-cons",
-    "title": "69  Trigonometric",
-    "section": "69.1 Pros and Cons",
-    "text": "69.1 Pros and Cons\n\n69.1.1 Pros\n\n\n69.1.2 Cons"
+    "title": "67  Trigonometric",
+    "section": "67.1 Pros and Cons",
+    "text": "67.1 Pros and Cons\n\n67.1.1 Pros\n\n\n67.1.2 Cons"
   },
   {
     "objectID": "circular-trig.html#r-examples",
     "href": "circular-trig.html#r-examples",
-    "title": "69  Trigonometric",
-    "section": "69.2 R Examples",
-    "text": "69.2 R Examples"
+    "title": "67  Trigonometric",
+    "section": "67.2 R Examples",
+    "text": "67.2 R Examples"
   },
   {
     "objectID": "circular-trig.html#python-examples",
     "href": "circular-trig.html#python-examples",
-    "title": "69  Trigonometric",
-    "section": "69.3 Python Examples",
-    "text": "69.3 Python Examples"
+    "title": "67  Trigonometric",
+    "section": "67.3 Python Examples",
+    "text": "67.3 Python Examples"
   },
   {
     "objectID": "time-series.html",
     "href": "time-series.html",
-    "title": "70  Overview",
+    "title": "68  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "time-series-fourier.html#pros-and-cons",
     "href": "time-series-fourier.html#pros-and-cons",
-    "title": "71  Fourier Features",
-    "section": "71.1 Pros and Cons",
-    "text": "71.1 Pros and Cons\n\n71.1.1 Pros\n\n\n71.1.2 Cons"
+    "title": "69  Fourier Features",
+    "section": "69.1 Pros and Cons",
+    "text": "69.1 Pros and Cons\n\n69.1.1 Pros\n\n\n69.1.2 Cons"
   },
   {
     "objectID": "time-series-fourier.html#r-examples",
     "href": "time-series-fourier.html#r-examples",
-    "title": "71  Fourier Features",
-    "section": "71.2 R Examples",
-    "text": "71.2 R Examples"
+    "title": "69  Fourier Features",
+    "section": "69.2 R Examples",
+    "text": "69.2 R Examples"
   },
   {
     "objectID": "time-series-fourier.html#python-examples",
     "href": "time-series-fourier.html#python-examples",
-    "title": "71  Fourier Features",
+    "title": "69  Fourier Features",
+    "section": "69.3 Python Examples",
+    "text": "69.3 Python Examples"
+  },
+  {
+    "objectID": "imbalenced.html",
+    "href": "imbalenced.html",
+    "title": "70  Overview",
+    "section": "",
+    "text": "WIP"
+  },
+  {
+    "objectID": "imbalenced-smote.html#pros-and-cons",
+    "href": "imbalenced-smote.html#pros-and-cons",
+    "title": "71  SMOTE",
+    "section": "71.1 Pros and Cons",
+    "text": "71.1 Pros and Cons\n\n71.1.1 Pros\n\n\n71.1.2 Cons"
+  },
+  {
+    "objectID": "imbalenced-smote.html#r-examples",
+    "href": "imbalenced-smote.html#r-examples",
+    "title": "71  SMOTE",
+    "section": "71.2 R Examples",
+    "text": "71.2 R Examples"
+  },
+  {
+    "objectID": "imbalenced-smote.html#python-examples",
+    "href": "imbalenced-smote.html#python-examples",
+    "title": "71  SMOTE",
     "section": "71.3 Python Examples",
     "text": "71.3 Python Examples"
   },
