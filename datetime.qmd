@@ -8,6 +8,4 @@ If date and datetime variables were used directly in a modeling function it will
 
 The chapters in this section is going to assume that you have parsed the date and datetime variables, and that we are working with those directly.
 
-@sec-datetime-extraction
-@sec-datetime-advanced
-@sec-datetime-circular
+When we talk about extraction in @sec-datetime-extraction, what we will be doing is extracting components of the data. So this can be things like year, month, day, hour, minutes and seconds. There are more complicated things like "is this a holiday" or "is it a weekend". After that, we will go over some more complicated features in @sec-datetime-advanced. These features will mostly be based on the extraction features from earlier. But it can be things like "closest holiday" and "how long since last Monday". Lastly we will talk about how many of these features work in a very circular way in @sec-datetime-circular. Naturally if we were to model using hours of the day, 1 hour before midnight and 1 hour after midnight are close on the clock but not numerically.

@@ -72,8 +72,8 @@ book:
         - outliers-remove.qmd
     - part: "Datetime Features"
       chapters:
-        - datetime.qmd # Progress
-        - datetime-extraction.qmd
+        - datetime.qmd
+        - datetime-extraction.qmd # Progress
         - datetime-advanced.qmd
         - datetime-circular.qmd
     - part: "Text Features"
