@@ -63,9 +63,20 @@ book:
         - missing-remove.qmd
     - part: "Too Many Variables"
       chapters:
-        - too-many.qmd # Progress
+        - too-many.qmd
+        - too-many-zv.qmd # Progress
         - too-many-pca.qmd
-        - too-many-zv.qmd
+        - too-many-pca-variants.qmd
+        - too-many-ica.qmd
+        - too-many-nmf.qmd
+        - too-many-lda.qmd
+        - too-many-gda.qmd
+        - too-many-autoencoder.qmd
+        - too-many-umap.qmd
+        - too-many-isomap.qmd
+        - too-many-filter.qmd
+        - too-many-wrapper.qmd
+        - too-many-embedded.qmd
     - part: "Outliers"
       chapters:
         - outliers.qmd # Progress
@@ -91,6 +102,7 @@ book:
         - text-hashing.qmd
         - text-onehot.qmd
         - text-lda.qmd
+        - text-word2vec.qmd
         - text-bert.qmd
     - part: "Image Features"
       chapters:

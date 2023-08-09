@@ -12,7 +12,18 @@ These types of methods are quite simple, we remove variables that takes a few nu
 
 ## Dimensionality reduction
 
-The bulk of the chapter will be in this category. 
+The bulk of the chapter will be in this category. This books categorizes dimensionality reduction methods as methods where a calculation is done on a number of features, with the same or fewer features being returned. Remember that we only look at methods that can be used in predictive settings, hence we won't be talking about t-distributed stochastic neighbor embedding (t-SNE) (https://stats.stackexchange.com/a/584327).
+
+- Principal Component Analysis (PCA) @sec-too-many-pca
+- PCA variants @sec-too-many-pca-variants
+- Independent Component Analysis (ICA) @sec-too-many-ica
+- Non-negative matrix factorization (NMF) @sec-too-many-nmf
+- Linear discriminant analysis (LDA) @sec-too-many-lda
+- Generalized discriminant analysis (GDA) @sec-too-many-gda
+- Autoencoders @sec-too-many-autoencoder
+- Uniform Manifold Approximation and Projection (UMAP) @sec-too-many-umap
+- ISOMAP @sec-too-many-isomap
 
 ## Feature selection
 
+Feature selection on the other hand finds which variables to keep or remove. And then you act on that. This can be done in a couple of different ways. Filter based approaches are covered in @sec-too-many-filter, these methods give each feature a score or rank, and then you use this information to select variables. There are many different ways to get these rankings and many will be covered in the chapter. Wrapper based approaches are covered in @sec-too-many-wrapper. These methods iteratively look at subsets of data to try to find the best set. Their main downside is they tend to add a lot of computational overhead as you need to fit your model many times. Lastly we have embedded methods which will be covered in @sec-too-many-embedded. These methods uses more advanced method, sometimes other models, to do the feature selection.
