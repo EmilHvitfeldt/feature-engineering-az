@@ -1,3 +1,46 @@
-# Overview
+# Overview {#sec-outliers}
 
-WIP
+When we talk about outliers, we mean values that are different from the rest of the values. This is typically seen as extreme values. Let us talk about it with an example first. 
+
+```{r}
+#| echo: false
+#| message: false
+library(modeldata)
+library(dplyr)
+library(ggplot2)
+library(ggforce)
+ames |>
+  mutate(outlier = case_when(
+    Sale_Price > 4e+5 & Gr_Liv_Area > 4000 ~ "outliner1",
+    Sale_Price < 4e+5 & Gr_Liv_Area > 4000 ~ "outliner2"
+    )) |>
+  ggplot(aes(Sale_Price, Gr_Liv_Area)) +
+  geom_point() +
+  labs(x = "Sale Price in USD", y = "Above grade (ground) living area square feet") +
+  theme_minimal() +
+  geom_mark_rect(aes(fill = outlier, filter = !is.na(outlier))) +
+  guides(fill = "none")
+```
+
+> There are 5 observations that an instructor may wish to remove from the data set before giving it to students (a plot of SALE PRICE versus GR LIV AREA will indicate them quickly). Three of them are true outliers (Partial Sales that likely don’t represent actual market values) and two of them are simply unusual sales (very large houses priced relatively appropriately).
+
+
+talk about difference between naturally occuring outliers and the kinds you can disregard
+
+Deleting observations
+Transforming values / winsorization
+Imputation
+Separately treating
+
+robust methods doesn't mind outliers, same thing for model choices
+
+What happens when you remove an outlier?
+- model performace
+- more importantly, you change the domain where the model works
+
+
+
+@sec-outliers-remove
+@sec-outliers-transforming
+@sec-outliers-imputation
+@sec-outliers-indicate
