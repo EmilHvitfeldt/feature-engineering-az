@@ -1026,7 +1026,7 @@
     "href": "outliers.html",
     "title": "59  Overview",
     "section": "",
-    "text": "WIP"
+    "text": "When we talk about outliers, we mean values that are different from the rest of the values. This is typically seen as extreme values. Let us talk about it with an example first.\n\n\n\n\n\n\nThere are 5 observations that an instructor may wish to remove from the data set before giving it to students (a plot of SALE PRICE versus GR LIV AREA will indicate them quickly). Three of them are true outliers (Partial Sales that likely don’t represent actual market values) and two of them are simply unusual sales (very large houses priced relatively appropriately).\n\ntalk about difference between naturally occuring outliers and the kinds you can disregard\nDeleting observations Transforming values / winsorization Imputation Separately treating\nrobust methods doesn’t mind outliers, same thing for model choices\nWhat happens when you remove an outlier? - model performace - more importantly, you change the domain where the model works\n?sec-outliers-remove ?sec-outliers-transforming ?sec-outliers-imputation ?sec-outliers-indicate"
   },
   {
     "objectID": "outliers-remove.html#pros-and-cons",
@@ -1160,13 +1160,6 @@
     "title": "65  Overview",
     "section": "65.6 Embeddings",
     "text": "65.6 Embeddings\nAnother way to use text is to work with embeddings, this is another powerful tool that can give you good performance. We look at some of them in Chapter 78 and Chapter 79."
-  },
-  {
-    "objectID": "text.html#footnotes",
-    "href": "text.html#footnotes",
-    "title": "65  Overview",
-    "section": "",
-    "text": "https://thegradient.pub/the-benderrule-on-naming-the-languages-we-study-and-why-it-matters/↩︎"
   },
   {
     "objectID": "text-manual.html#pros-and-cons",
