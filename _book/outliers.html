@@ -979,16 +979,25 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>When we talk about outliers, we mean values that are different from the rest of the values. This is typically seen as extreme values. Let us talk about it with an example first.</p>
+<p>When we talk about outliers, we mean values that are different from the rest of the values. This is typically seen as extreme values. Let us talk about it with an example first. Below is the famous Ames housing data set. We have plotted the living area against the sale price.</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="outliers_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+<div id="fig-outlier-ames" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="outliers_files/figure-html/fig-outlier-ames-1.png" class="img-fluid figure-img" alt="Scatter chart. Above grade (ground) living area square feet along the x-axis, Sale price in USD along the y-axis. The data forms a fairly dense cloud, with the majority of houses being below a diagonal. Two group of points are away from the main cluster. 3 points have higher living area than anything else, but quite low sale prices. The other group includes 2 points wih high living area and sale price." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;59.1: Two groups of points doesn’t appear close to the main group of points.</figcaption>
+</figure>
 </div>
 </div>
+</div>
+<p>Two groups of observations appear to quite far away from the rest of the points. We are in luck as these points are discussed in the <a href="http://jse.amstat.org/v19n3/decock/DataDocumentation.txt">data directory</a>. The relevant quote is shown below:</p>
 <blockquote class="blockquote">
 <p>There are 5 observations that an instructor may wish to remove from the data set before giving it to students (a plot of SALE PRICE versus GR LIV AREA will indicate them quickly). Three of them are true outliers (Partial Sales that likely don’t represent actual market values) and two of them are simply unusual sales (very large houses priced relatively appropriately).</p>
 </blockquote>
+<p>These types of points would typically be called <strong>outliers</strong>. They are different enough from the rest of the observations. “Different enough” is by itself really hard to define. And we wont try in this book. What we will show is some ways that people define it and let you decide what is best for your data with regards to treatment.</p>
+<p>In this care, we had enough domain knowledge to be able to determine the reason for these points to be outliers, and how to deal with them. We won’t always be this lucky. These points were outliers in 2 ways. 3 of the points didn’t include the full price of the house, so it could be classified as a error. If we think of this data set as “houses with know full prices” then we could exclude them as not fitting that criteria. The other two houses are outliers in a purely numerical sense. They take values that are much more different than the rest of the observations.</p>
 <p>talk about difference between naturally occuring outliers and the kinds you can disregard</p>
+<p>talk about how if you filter, you essentially limit the domain where the model works</p>
 <p>Deleting observations Transforming values / winsorization Imputation Separately treating</p>
 <p>robust methods doesn’t mind outliers, same thing for model choices</p>
 <p>What happens when you remove an outlier? - model performace - more importantly, you change the domain where the model works</p>
