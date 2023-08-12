@@ -1,6 +1,6 @@
 # How to Deal With ... {.unnumbered}
 
-This book is structured according to the types of data and problems you will encounter. Each section specifies a type of data or problem, and each chapter details a method that can be useful in dealing with that type. So for example @sec-numeric contains methods that deal with numeric variables such as @sec-logarithms and @sec-maxabs, and @sec-categorical contains methods that deal with categorical variables such as @sec-dummy-encoding and @sec-hashing-encoding. There should be sections and chapters for most methods you will find in practice that isn't too domain-specific.
+This book is structured according to the types of data and problems you will encounter. Each section specifies a type of data or problem, and each chapter details a method that can be useful in dealing with that type. So for example @sec-numeric contains methods that deal with numeric variables such as @sec-numeric-logarithms and @sec-numeric-maxabs, and @sec-categorical contains methods that deal with categorical variables such as @sec-dummy-encoding and @sec-hashing-encoding. There should be sections and chapters for most methods you will find in practice that isn't too domain-specific.
 
 It is because of this structure that this book is most suited as reference material, each time you encounter some data you are unsure how to deal with, you find the corresponding section and study the methods listed to see which would be best for your use case. This isn't to say that you can't read this book from end to end. In fact, the sections have been ordered roughly such that earlier chapters are broadly useful and later chapters touch on less used data types and problems.
 
@@ -18,9 +18,9 @@ Reading this book will not tell you how to think of your data as we don't know w
 
 ### Learned
 
-Some methods requires information to be transformed, that we are not able to supply beforehand. In the case of centering of numeric variables described in @sec-normalization. To be able to do this transformation, you need to know the mean value of the training data set. This mean is the sufficient information needed to perform the calculations, and is the reason why the method is a *learned* method.
+Some methods requires information to be transformed, that we are not able to supply beforehand. In the case of centering of numeric variables described in @sec-numeric-normalization. To be able to do this transformation, you need to know the mean value of the training data set. This mean is the sufficient information needed to perform the calculations, and is the reason why the method is a *learned* method.
 
-On the other hand, taking the square root of a variable as described in @sec-sqrt isn't a learned method as there isn't any sufficient information needed. The method can be applied right away.
+On the other hand, taking the square root of a variable as described in @sec-numeric-sqrt isn't a learned method as there isn't any sufficient information needed. The method can be applied right away.
 
 ### Supervised / Unsupervised
 
