@@ -45,7 +45,7 @@ In this care, we had enough domain knowledge to be able to determine the reason 
 
 When you remove observations in a systematic way, regardless of if you think they are outliers or not. then you you are limiting the domain where you model is expected to work in. This may be fine or not, it will depend on your specific problem you working on. But be very careful not to remove actual observations from your data. 
 
-We have a handful of different ways to deal with outliers. the first choice is to not. Some model types doesn't care about outliers that much. Anything that uses distances are very affected by outliers. Tree based models doesn't. Some other preprocessing method such as @sec-robust also isn't affected by outliers.
+We have a handful of different ways to deal with outliers. the first choice is to not. Some model types doesn't care about outliers that much. Anything that uses distances are very affected by outliers. Tree based models doesn't. Some other preprocessing method such as @sec-numeric-robust also isn't affected by outliers.
 
 If you are planning on handling outliers you want to start by identifying them. In @sec-outliers-remove we look at how we can identity and remove outliers. In @sec-numeric-outliers-issues we cover numerical transformations that lessen the effect that outliers has on the distribution. Instead of removing the specific observation that has outliers, or transform the whole variable, we can choose to only modify the value of the outliers. We look at method on how to do that in @sec-outliers-imputation. In addition to all of these methods we can also add additional indicator variables to denote whether an observation is an outlier or not, this is covered in @sec-outliers-indicate.
 

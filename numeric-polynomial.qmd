@@ -1,4 +1,4 @@
-# Polynomial {#sec-polynomial}
+# Polynomial {#sec-numeric-polynomial}
 
 **Polynomial expansion**, is one way to turn a numeric variable into something that can represent a non-linear relationship between two variables. This it useful in a modeling content, since it allows us to model non-linear relationships between predictors and outcomes. This is a trained method.
 
@@ -169,7 +169,7 @@ recipe(outcome ~ predictor, data = data_toy) |>
   autoplot(method = "identity")
 ```
 
-The interpretation of these polynomial features are not as easy as with binning in @sec-numeric-binning or splines @sec-splines, but the calculations are quite fast and versatile.
+The interpretation of these polynomial features are not as easy as with binning in @sec-numeric-binning or splines @sec-numeric-splines, but the calculations are quite fast and versatile.
 
 ```{r}
 #| label: fig-poly-poly-curves-extrapolate

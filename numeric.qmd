@@ -35,7 +35,7 @@ $$
 X_{scaled} = \dfrac{X - a}{b}
 $$ {#eq-feature-scaling}
 
-The main difference between the methods is how $a$ and $b$ are calculated. These methods are learned transformation. So we use the training data to derive the right values of $a$ and $b$, and then these values are used to perform the transformations when applied to new data. The different methods might differ on what property is desired for the transformed variables, same range or same spread, but they never change the distribution itself. The power transformations we saw in @sec-boxcox and @sec-yeojohnson, distort the transformations, where these feature scalings essentially perform a "zooming" effect.
+The main difference between the methods is how $a$ and $b$ are calculated. These methods are learned transformation. So we use the training data to derive the right values of $a$ and $b$, and then these values are used to perform the transformations when applied to new data. The different methods might differ on what property is desired for the transformed variables, same range or same spread, but they never change the distribution itself. The power transformations we saw in @sec-numeric-boxcox and @sec-numeric-yeojohnson, distort the transformations, where these feature scalings essentially perform a "zooming" effect.
 
 | Method        | Definition                                                               |
 |----------------|--------------------------------------------------------|
@@ -48,7 +48,7 @@ The main difference between the methods is how $a$ and $b$ are calculated. These
 
 : All feature scaling methods {#tbl-feature-scaling}
 
-We see here that all the methods in @tbl-feature-scaling follows the equation @eq-feature-scaling. Sometimes $a$ and $b$ takes a value of 0, which is perfectly fine. Centering and scaling when used together is equal to normalization. They are kept separate in the table since they are sometimes used independently. Centering, scaling, and normalization will all be discussed in @sec-normalization.
+We see here that all the methods in @tbl-feature-scaling follows the equation @eq-feature-scaling. Sometimes $a$ and $b$ takes a value of 0, which is perfectly fine. Centering and scaling when used together is equal to normalization. They are kept separate in the table since they are sometimes used independently. Centering, scaling, and normalization will all be discussed in @sec-numeric-normalization.
 
 There are 2 main reasons why we want to perform feature scaling. Firstly, many different types of models take the magnitude of the variables into account when fitting the models, so having variables on different scales can be disadvantageous because some variables have high priorities. In turn, we get that the other variables have low priority. Models that work using Euclidean distances like KNN models are affected by this change. Regularized models such as lasso and ridge regression also need to be scaled since the regularization depends on the magnitude of the estimates. Secondly, some algorithms simply converge much faster when all the variables are on the same scale. These types of models produce the same fit, just at a slower pace than if you don't scale the variables. Any algorithms using Gradient Descent fits into this category.
 
