@@ -79,8 +79,10 @@ book:
         - too-many-embedded.qmd
     - part: "Outliers"
       chapters:
-        - outliers.qmd # Progress
-        - outliers-remove.qmd
+        - outliers.qmd
+        - outliers-remove.qmd # Progress
+        - outliers-imputation.qmd
+        - outliers-indicate.qmd
     - part: "Datetime Features"
       chapters:
         - datetime.qmd
