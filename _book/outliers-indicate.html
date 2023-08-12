@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Feature Engineering A-Z - 98&nbsp; Overview</title>
+<title>Feature Engineering A-Z - 62&nbsp; Indicate</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./spatial-gps.html" rel="next">
-<link href="./sound-tmp.html" rel="prev">
+<link href="./datetime.html" rel="next">
+<link href="./outliers-imputation.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -79,7 +79,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./spatial.html">Spatial</a></li><li class="breadcrumb-item"><a href="./spatial.html"><span class="chapter-number">98</span>&nbsp; <span class="chapter-title">Overview</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./outliers.html">Outliers</a></li><li class="breadcrumb-item"><a href="./outliers-indicate.html"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">Indicate</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -537,7 +537,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./outliers-indicate.html" class="sidebar-item-text sidebar-link">
+  <a href="./outliers-indicate.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">Indicate</span></span></a>
   </div>
 </li>
@@ -874,7 +874,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./spatial.html" class="sidebar-item-text sidebar-link active">
+  <a href="./spatial.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">98</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
   </div>
 </li>
@@ -968,14 +968,26 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link active" data-scroll-target="#pros-and-cons"><span class="header-section-number">62.1</span> Pros and Cons</a>
+  <ul class="collapse">
+  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">62.1.1</span> Pros</a></li>
+  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">62.1.2</span> Cons</a></li>
+  </ul></li>
+  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">62.2</span> R Examples</a></li>
+  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">62.3</span> Python Examples</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./spatial.html">Spatial</a></li><li class="breadcrumb-item"><a href="./spatial.html"><span class="chapter-number">98</span>&nbsp; <span class="chapter-title">Overview</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./outliers.html">Outliers</a></li><li class="breadcrumb-item"><a href="./outliers-indicate.html"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">Indicate</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">98</span>&nbsp; <span class="chapter-title">Overview</span></h1>
+<h1 class="title"><span id="sec-outliers-indicate" class="quarto-section-identifier"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">Indicate</span></span></h1>
 </div>
 
 
@@ -991,10 +1003,24 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post <a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues">an issue in the Github repository</a>.</p>
 <p>WIP</p>
+<section id="pros-and-cons" class="level2" data-number="62.1">
+<h2 data-number="62.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">62.1</span> Pros and Cons</h2>
+<section id="pros" class="level3" data-number="62.1.1">
+<h3 data-number="62.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">62.1.1</span> Pros</h3>
+</section>
+<section id="cons" class="level3" data-number="62.1.2">
+<h3 data-number="62.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">62.1.2</span> Cons</h3>
+</section>
+</section>
+<section id="r-examples" class="level2" data-number="62.2">
+<h2 data-number="62.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">62.2</span> R Examples</h2>
+</section>
+<section id="python-examples" class="level2" data-number="62.3">
+<h2 data-number="62.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">62.3</span> Python Examples</h2>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1343,13 +1369,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./sound-tmp.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">97</span>&nbsp; <span class="chapter-title">Temporary</span></span>
+      <a href="./outliers-imputation.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">Imputation</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./spatial-gps.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">99</span>&nbsp; <span class="chapter-title">GPS</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./datetime.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">Overview</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -43,24 +43,10 @@ These types of points would typically be called **outliers**. They are different
 
 In this care, we had enough domain knowledge to be able to determine the reason for these points to be outliers, and how to deal with them. We won't always be this lucky. These points were outliers in 2 ways. 3 of the points didn't include the full price of the house, so it could be classified as a error. If we think of this data set as "houses with know full prices" then we could exclude them as not fitting that criteria. The other two houses are outliers in a purely numerical sense. They take values that are much more different than the rest of the observations.
 
-talk about difference between naturally occuring outliers and the kinds you can disregard
+When you remove observations in a systematic way, regardless of if you think they are outliers or not. then you you are limiting the domain where you model is expected to work in. This may be fine or not, it will depend on your specific problem you working on. But be very careful not to remove actual observations from your data. 
 
-talk about how if you filter, you essentially limit the domain where the model works
+We have a handful of different ways to deal with outliers. the first choice is to not. Some model types doesn't care about outliers that much. Anything that uses distances are very affected by outliers. Tree based models doesn't. Some other preprocessing method such as @sec-robust also isn't affected by outliers.
 
-Deleting observations
-Transforming values / winsorization
-Imputation
-Separately treating
+If you are planning on handling outliers you want to start by identifying them. In @sec-outliers-remove we look at how we can identity and remove outliers. In @sec-numeric-outliers-issues we cover numerical transformations that lessen the effect that outliers has on the distribution. Instead of removing the specific observation that has outliers, or transform the whole variable, we can choose to only modify the value of the outliers. We look at method on how to do that in @sec-outliers-imputation. In addition to all of these methods we can also add additional indicator variables to denote whether an observation is an outlier or not, this is covered in @sec-outliers-indicate.
 
-robust methods doesn't mind outliers, same thing for model choices
-
-What happens when you remove an outlier?
-- model performace
-- more importantly, you change the domain where the model works
-
-
-
-@sec-outliers-remove
-@sec-outliers-transforming
-@sec-outliers-imputation
-@sec-outliers-indicate
+Lastly, it might be appropriate to treat the outliers as a separate data set, and fit a specific model to that part of the data.
