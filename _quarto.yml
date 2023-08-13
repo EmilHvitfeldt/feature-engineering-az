@@ -106,10 +106,6 @@ book:
         - text-lda.qmd
         - text-word2vec.qmd
         - text-bert.qmd
-    - part: "Image Features"
-      chapters:
-        - image.qmd # Progress
-        - image-stats.qmd
     - part: "Circular Features"
       chapters:
         - circular.qmd # Progress
@@ -130,14 +126,6 @@ book:
       chapters:
         - miscellaneous.qmd # Progress
         - miscellaneous-zipcodes.qmd
-    - part: "Video Data"
-      chapters:
-        - video.qmd # Progress
-        - video-tmp.qmd
-    - part: "Sound Data"
-      chapters:
-        - sound.qmd # Progress
-        - sound-tmp.qmd
     - part: "Spatial"
       chapters:
         - spatial.qmd # Progress
@@ -146,6 +134,18 @@ book:
       chapters:
         - geospatial.qmd # Progress
         - geospatial-shapefiles.qmd
+    - part: "Image Features"
+      chapters:
+        - image.qmd # Progress
+        - image-stats.qmd
+    - part: "Video Data"
+      chapters:
+        - video.qmd # Progress
+        - video-tmp.qmd
+    - part: "Sound Data"
+      chapters:
+        - sound.qmd # Progress
+        - sound-tmp.qmd
     - part: "Ralational Data"
       chapters:
         - relational.qmd # Progress
