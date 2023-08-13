@@ -1,3 +1,14 @@
-# Overview
+# Overview {#sec-circular}
 
-WIP
+When working with numeric variables, you see many different kind of relationship. Positive, negative, non-linear. But a special type of relationship is the circular type. It is in essence a non-linear relationship, but specifically it relies on the assumption that the begining of the domain behaves the same way as the end. Another assumption in this type of data is that the domain of values are restricted on the left and right side.
+
+Typical examples of this are type based, such as time of day, day of the week, day of the month, day of the year. If we have an effect, we would image that the end and beginning are similar. Another examples are directions, 1° of a circle is very close to 359° in reality. And the goal of the chapters in this section is to use transformations to make sure they are close numerically in your model.
+
+TODO find good example of this
+
+There are 2 main ways we can handle this. 
+
+- trig functions
+- periodic calculations
+  - splines
+  - other things

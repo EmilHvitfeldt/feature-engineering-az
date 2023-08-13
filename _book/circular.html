@@ -975,7 +975,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./circular.html">Circular Features</a></li><li class="breadcrumb-item"><a href="./circular.html"><span class="chapter-number">82</span>&nbsp; <span class="chapter-title">Overview</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">82</span>&nbsp; <span class="chapter-title">Overview</span></h1>
+<h1 class="title"><span id="sec-circular" class="quarto-section-identifier"><span class="chapter-number">82</span>&nbsp; <span class="chapter-title">Overview</span></span></h1>
 </div>
 
 
@@ -991,7 +991,18 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>WIP</p>
+<p>When working with numeric variables, you see many different kind of relationship. Positive, negative, non-linear. But a special type of relationship is the circular type. It is in essence a non-linear relationship, but specifically it relies on the assumption that the begining of the domain behaves the same way as the end. Another assumption in this type of data is that the domain of values are restricted on the left and right side.</p>
+<p>Typical examples of this are type based, such as time of day, day of the week, day of the month, day of the year. If we have an effect, we would image that the end and beginning are similar. Another examples are directions, 1° of a circle is very close to 359° in reality. And the goal of the chapters in this section is to use transformations to make sure they are close numerically in your model.</p>
+<p>TODO find good example of this</p>
+<p>There are 2 main ways we can handle this.</p>
+<ul>
+<li>trig functions</li>
+<li>periodic calculations
+<ul>
+<li>splines</li>
+<li>other things</li>
+</ul></li>
+</ul>
 
 
 
