@@ -1096,7 +1096,7 @@
     "href": "datetime.html",
     "title": "63  Overview",
     "section": "",
-    "text": "Date and datetime variables are another type of data that can be quite common. This is different than time as we talked about in Chapter 84, as when we talk about time series data, it is typically a series of data points that are related, and we use that inherent structure of the data as the basis for the modeling problem. Here we are talking about predictors, that happen be to expressed as a date or datetime field.\nThese types of data could be the day where the sale took place, or when the taxi started and ended its trip. In some of these cases, it wouldn’t make sense to treat it as a time-series model, but we still wants to be able to pull out valuable information. In many cases, date and datetime variables will be treated as text fields if they are unparsed, and as fancy integer representation. When encoded they typically use integers to denote time since a specific reference point.\nIf date and datetime variables were used directly in a modeling function it will at best use the underlying integer representation, which is unlikely to be useful since it just denotes chronological time. At worst the modeling function will error and complain.\nThe chapters in this section is going to assume that you have parsed the date and datetime variables, and that we are working with those directly.\nWhen we talk about extraction in Chapter 64, what we will be doing is extracting components of the data. So this can be things like year, month, day, hour, minutes and seconds. There are more complicated things like “is this a holiday” or “is it a weekend”. After that, we will go over some more complicated features in Chapter 65. These features will mostly be based on the extraction features from earlier. But it can be things like “closest holiday” and “how long since last Monday”. Lastly we will talk about how many of these features work in a very circular way in Chapter 66. Naturally if we were to model using hours of the day, 1 hour before midnight and 1 hour after midnight are close on the clock but not numerically."
+    "text": "Date and datetime variables are another type of data that can be quite common. This is different than time as we talked about in Chapter 86, as when we talk about time series data, it is typically a series of data points that are related, and we use that inherent structure of the data as the basis for the modeling problem. Here we are talking about predictors, that happen be to expressed as a date or datetime field.\nThese types of data could be the day where the sale took place, or when the taxi started and ended its trip. In some of these cases, it wouldn’t make sense to treat it as a time-series model, but we still wants to be able to pull out valuable information. In many cases, date and datetime variables will be treated as text fields if they are unparsed, and as fancy integer representation. When encoded they typically use integers to denote time since a specific reference point.\nIf date and datetime variables were used directly in a modeling function it will at best use the underlying integer representation, which is unlikely to be useful since it just denotes chronological time. At worst the modeling function will error and complain.\nThe chapters in this section is going to assume that you have parsed the date and datetime variables, and that we are working with those directly.\nWhen we talk about extraction in Chapter 64, what we will be doing is extracting components of the data. So this can be things like year, month, day, hour, minutes and seconds. There are more complicated things like “is this a holiday” or “is it a weekend”. After that, we will go over some more complicated features in Chapter 65. These features will mostly be based on the extraction features from earlier. But it can be things like “closest holiday” and “how long since last Monday”. Lastly we will talk about how many of these features work in a very circular way in Chapter 66. Naturally if we were to model using hours of the day, 1 hour before midnight and 1 hour after midnight are close on the clock but not numerically."
   },
   {
     "objectID": "datetime-extraction.html#pros-and-cons",
@@ -1502,7 +1502,7 @@
     "href": "circular.html",
     "title": "82  Overview",
     "section": "",
-    "text": "When working with numeric variables, you see many different kind of relationship. Positive, negative, non-linear. But a special type of relationship is the circular type. It is in essence a non-linear relationship, but specifically it relies on the assumption that the begining of the domain behaves the same way as the end. Another assumption in this type of data is that the domain of values are restricted on the left and right side.\nTypical examples of this are type based, such as time of day, day of the week, day of the month, day of the year. If we have an effect, we would image that the end and beginning are similar. Another examples are directions, 1° of a circle is very close to 359° in reality. And the goal of the chapters in this section is to use transformations to make sure they are close numerically in your model.\nTODO find good example of this\nThere are 2 main ways we can handle this.\n\ntrig functions\nperiodic calculations\n\nsplines\nother things"
+    "text": "When working with numeric variables, you see many different kind of relationship. Positive, negative, non-linear. But a special type of relationship is the circular type. It is in essence a non-linear relationship, but specifically it relies on the assumption that the begining of the domain behaves the same way as the end. Another assumption in this type of data is that the domain of values are restricted on the left and right side.\nTypical examples of this are type based, such as time of day, day of the week, day of the month, day of the year. If we have an effect, we would image that the end and beginning are similar. Another examples are directions, 1° of a circle is very close to 359° in reality. And the goal of the chapters in this section is to use transformations to make sure they are close numerically in your model.\nTODO find good example of this\nThere are 2 main ways we can handle this. Harmonic calculations using trigonometric functions will be showcased in Chapter 83, Essentially what happens is that we are mapping the features to the unit circle in 2 dimensions. Another intriguing type of methods are using periodic indicators such as splines or other methods. It doesn’t have to be splines, but it if you carefully set the range of the indicators, you can get good performance. Splines are covered in Chapter 84, and the other more general methods are covered in Chapter 85."
   },
   {
     "objectID": "circular-trig.html#pros-and-cons",
@@ -1526,310 +1526,352 @@
     "text": "83.3 Python Examples"
   },
   {
+    "objectID": "circular-splines.html#pros-and-cons",
+    "href": "circular-splines.html#pros-and-cons",
+    "title": "84  Period Splines",
+    "section": "84.1 Pros and Cons",
+    "text": "84.1 Pros and Cons\n\n84.1.1 Pros\n\n\n84.1.2 Cons"
+  },
+  {
+    "objectID": "circular-splines.html#r-examples",
+    "href": "circular-splines.html#r-examples",
+    "title": "84  Period Splines",
+    "section": "84.2 R Examples",
+    "text": "84.2 R Examples"
+  },
+  {
+    "objectID": "circular-splines.html#python-examples",
+    "href": "circular-splines.html#python-examples",
+    "title": "84  Period Splines",
+    "section": "84.3 Python Examples",
+    "text": "84.3 Python Examples"
+  },
+  {
+    "objectID": "circular-indicators.html#pros-and-cons",
+    "href": "circular-indicators.html#pros-and-cons",
+    "title": "85  Periodic Indicators",
+    "section": "85.1 Pros and Cons",
+    "text": "85.1 Pros and Cons\n\n85.1.1 Pros\n\n\n85.1.2 Cons"
+  },
+  {
+    "objectID": "circular-indicators.html#r-examples",
+    "href": "circular-indicators.html#r-examples",
+    "title": "85  Periodic Indicators",
+    "section": "85.2 R Examples",
+    "text": "85.2 R Examples"
+  },
+  {
+    "objectID": "circular-indicators.html#python-examples",
+    "href": "circular-indicators.html#python-examples",
+    "title": "85  Periodic Indicators",
+    "section": "85.3 Python Examples",
+    "text": "85.3 Python Examples"
+  },
+  {
     "objectID": "time-series.html",
     "href": "time-series.html",
-    "title": "84  Overview",
+    "title": "86  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "time-series-fourier.html#pros-and-cons",
     "href": "time-series-fourier.html#pros-and-cons",
-    "title": "85  Fourier Features",
-    "section": "85.1 Pros and Cons",
-    "text": "85.1 Pros and Cons\n\n85.1.1 Pros\n\n\n85.1.2 Cons"
+    "title": "87  Fourier Features",
+    "section": "87.1 Pros and Cons",
+    "text": "87.1 Pros and Cons\n\n87.1.1 Pros\n\n\n87.1.2 Cons"
   },
   {
     "objectID": "time-series-fourier.html#r-examples",
     "href": "time-series-fourier.html#r-examples",
-    "title": "85  Fourier Features",
-    "section": "85.2 R Examples",
-    "text": "85.2 R Examples"
+    "title": "87  Fourier Features",
+    "section": "87.2 R Examples",
+    "text": "87.2 R Examples"
   },
   {
     "objectID": "time-series-fourier.html#python-examples",
     "href": "time-series-fourier.html#python-examples",
-    "title": "85  Fourier Features",
-    "section": "85.3 Python Examples",
-    "text": "85.3 Python Examples"
+    "title": "87  Fourier Features",
+    "section": "87.3 Python Examples",
+    "text": "87.3 Python Examples"
   },
   {
     "objectID": "imbalenced.html",
     "href": "imbalenced.html",
-    "title": "86  Overview",
+    "title": "88  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "imbalenced-smote.html#pros-and-cons",
     "href": "imbalenced-smote.html#pros-and-cons",
-    "title": "87  SMOTE",
-    "section": "87.1 Pros and Cons",
-    "text": "87.1 Pros and Cons\n\n87.1.1 Pros\n\n\n87.1.2 Cons"
+    "title": "89  SMOTE",
+    "section": "89.1 Pros and Cons",
+    "text": "89.1 Pros and Cons\n\n89.1.1 Pros\n\n\n89.1.2 Cons"
   },
   {
     "objectID": "imbalenced-smote.html#r-examples",
     "href": "imbalenced-smote.html#r-examples",
-    "title": "87  SMOTE",
-    "section": "87.2 R Examples",
-    "text": "87.2 R Examples"
+    "title": "89  SMOTE",
+    "section": "89.2 R Examples",
+    "text": "89.2 R Examples"
   },
   {
     "objectID": "imbalenced-smote.html#python-examples",
     "href": "imbalenced-smote.html#python-examples",
-    "title": "87  SMOTE",
-    "section": "87.3 Python Examples",
-    "text": "87.3 Python Examples"
+    "title": "89  SMOTE",
+    "section": "89.3 Python Examples",
+    "text": "89.3 Python Examples"
   },
   {
     "objectID": "correlated.html",
     "href": "correlated.html",
-    "title": "88  Overview",
+    "title": "90  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "correlated-filter.html#pros-and-cons",
     "href": "correlated-filter.html#pros-and-cons",
-    "title": "89  High Correlation Filter",
-    "section": "89.1 Pros and Cons",
-    "text": "89.1 Pros and Cons\n\n89.1.1 Pros\n\n\n89.1.2 Cons"
+    "title": "91  High Correlation Filter",
+    "section": "91.1 Pros and Cons",
+    "text": "91.1 Pros and Cons\n\n91.1.1 Pros\n\n\n91.1.2 Cons"
   },
   {
     "objectID": "correlated-filter.html#r-examples",
     "href": "correlated-filter.html#r-examples",
-    "title": "89  High Correlation Filter",
-    "section": "89.2 R Examples",
-    "text": "89.2 R Examples"
+    "title": "91  High Correlation Filter",
+    "section": "91.2 R Examples",
+    "text": "91.2 R Examples"
   },
   {
     "objectID": "correlated-filter.html#python-examples",
     "href": "correlated-filter.html#python-examples",
-    "title": "89  High Correlation Filter",
-    "section": "89.3 Python Examples",
-    "text": "89.3 Python Examples"
+    "title": "91  High Correlation Filter",
+    "section": "91.3 Python Examples",
+    "text": "91.3 Python Examples"
   },
   {
     "objectID": "miscellaneous.html",
     "href": "miscellaneous.html",
-    "title": "90  Overview",
+    "title": "92  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "miscellaneous-zipcodes.html#pros-and-cons",
     "href": "miscellaneous-zipcodes.html#pros-and-cons",
-    "title": "91  Zip Codes",
-    "section": "91.1 Pros and Cons",
-    "text": "91.1 Pros and Cons\n\n91.1.1 Pros\n\n\n91.1.2 Cons"
+    "title": "93  Zip Codes",
+    "section": "93.1 Pros and Cons",
+    "text": "93.1 Pros and Cons\n\n93.1.1 Pros\n\n\n93.1.2 Cons"
   },
   {
     "objectID": "miscellaneous-zipcodes.html#r-examples",
     "href": "miscellaneous-zipcodes.html#r-examples",
-    "title": "91  Zip Codes",
-    "section": "91.2 R Examples",
-    "text": "91.2 R Examples"
+    "title": "93  Zip Codes",
+    "section": "93.2 R Examples",
+    "text": "93.2 R Examples"
   },
   {
     "objectID": "miscellaneous-zipcodes.html#python-examples",
     "href": "miscellaneous-zipcodes.html#python-examples",
-    "title": "91  Zip Codes",
-    "section": "91.3 Python Examples",
-    "text": "91.3 Python Examples"
+    "title": "93  Zip Codes",
+    "section": "93.3 Python Examples",
+    "text": "93.3 Python Examples"
   },
   {
     "objectID": "spatial.html",
     "href": "spatial.html",
-    "title": "92  Overview",
+    "title": "94  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "spatial-gps.html#pros-and-cons",
     "href": "spatial-gps.html#pros-and-cons",
-    "title": "93  GPS",
-    "section": "93.1 Pros and Cons",
-    "text": "93.1 Pros and Cons\n\n93.1.1 Pros\n\n\n93.1.2 Cons"
+    "title": "95  GPS",
+    "section": "95.1 Pros and Cons",
+    "text": "95.1 Pros and Cons\n\n95.1.1 Pros\n\n\n95.1.2 Cons"
   },
   {
     "objectID": "spatial-gps.html#r-examples",
     "href": "spatial-gps.html#r-examples",
-    "title": "93  GPS",
-    "section": "93.2 R Examples",
-    "text": "93.2 R Examples"
+    "title": "95  GPS",
+    "section": "95.2 R Examples",
+    "text": "95.2 R Examples"
   },
   {
     "objectID": "spatial-gps.html#python-examples",
     "href": "spatial-gps.html#python-examples",
-    "title": "93  GPS",
-    "section": "93.3 Python Examples",
-    "text": "93.3 Python Examples"
+    "title": "95  GPS",
+    "section": "95.3 Python Examples",
+    "text": "95.3 Python Examples"
   },
   {
     "objectID": "geospatial.html",
     "href": "geospatial.html",
-    "title": "94  Overview",
+    "title": "96  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "geospatial-shapefiles.html#pros-and-cons",
     "href": "geospatial-shapefiles.html#pros-and-cons",
-    "title": "95  Shapefiles",
-    "section": "95.1 Pros and Cons",
-    "text": "95.1 Pros and Cons\n\n95.1.1 Pros\n\n\n95.1.2 Cons"
+    "title": "97  Shapefiles",
+    "section": "97.1 Pros and Cons",
+    "text": "97.1 Pros and Cons\n\n97.1.1 Pros\n\n\n97.1.2 Cons"
   },
   {
     "objectID": "geospatial-shapefiles.html#r-examples",
     "href": "geospatial-shapefiles.html#r-examples",
-    "title": "95  Shapefiles",
-    "section": "95.2 R Examples",
-    "text": "95.2 R Examples"
+    "title": "97  Shapefiles",
+    "section": "97.2 R Examples",
+    "text": "97.2 R Examples"
   },
   {
     "objectID": "geospatial-shapefiles.html#python-examples",
     "href": "geospatial-shapefiles.html#python-examples",
-    "title": "95  Shapefiles",
-    "section": "95.3 Python Examples",
-    "text": "95.3 Python Examples"
+    "title": "97  Shapefiles",
+    "section": "97.3 Python Examples",
+    "text": "97.3 Python Examples"
   },
   {
     "objectID": "image.html",
     "href": "image.html",
-    "title": "96  Overview",
+    "title": "98  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "image-stats.html#pros-and-cons",
     "href": "image-stats.html#pros-and-cons",
-    "title": "97  Visual Features",
-    "section": "97.1 Pros and Cons",
-    "text": "97.1 Pros and Cons\n\n97.1.1 Pros\n\n\n97.1.2 Cons"
+    "title": "99  Visual Features",
+    "section": "99.1 Pros and Cons",
+    "text": "99.1 Pros and Cons\n\n99.1.1 Pros\n\n\n99.1.2 Cons"
   },
   {
     "objectID": "image-stats.html#r-examples",
     "href": "image-stats.html#r-examples",
-    "title": "97  Visual Features",
-    "section": "97.2 R Examples",
-    "text": "97.2 R Examples"
+    "title": "99  Visual Features",
+    "section": "99.2 R Examples",
+    "text": "99.2 R Examples"
   },
   {
     "objectID": "image-stats.html#python-examples",
     "href": "image-stats.html#python-examples",
-    "title": "97  Visual Features",
-    "section": "97.3 Python Examples",
-    "text": "97.3 Python Examples"
+    "title": "99  Visual Features",
+    "section": "99.3 Python Examples",
+    "text": "99.3 Python Examples"
   },
   {
     "objectID": "video.html",
     "href": "video.html",
-    "title": "98  Overview",
+    "title": "100  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "video-tmp.html#pros-and-cons",
     "href": "video-tmp.html#pros-and-cons",
-    "title": "99  Temporary",
-    "section": "99.1 Pros and Cons",
-    "text": "99.1 Pros and Cons\n\n99.1.1 Pros\n\n\n99.1.2 Cons"
+    "title": "101  Temporary",
+    "section": "101.1 Pros and Cons",
+    "text": "101.1 Pros and Cons\n\n101.1.1 Pros\n\n\n101.1.2 Cons"
   },
   {
     "objectID": "video-tmp.html#r-examples",
     "href": "video-tmp.html#r-examples",
-    "title": "99  Temporary",
-    "section": "99.2 R Examples",
-    "text": "99.2 R Examples"
+    "title": "101  Temporary",
+    "section": "101.2 R Examples",
+    "text": "101.2 R Examples"
   },
   {
     "objectID": "video-tmp.html#python-examples",
     "href": "video-tmp.html#python-examples",
-    "title": "99  Temporary",
-    "section": "99.3 Python Examples",
-    "text": "99.3 Python Examples"
+    "title": "101  Temporary",
+    "section": "101.3 Python Examples",
+    "text": "101.3 Python Examples"
   },
   {
     "objectID": "sound.html",
     "href": "sound.html",
-    "title": "100  Overview",
+    "title": "102  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "sound-tmp.html#pros-and-cons",
     "href": "sound-tmp.html#pros-and-cons",
-    "title": "101  Temporary",
-    "section": "101.1 Pros and Cons",
-    "text": "101.1 Pros and Cons\n\n101.1.1 Pros\n\n\n101.1.2 Cons"
+    "title": "103  Temporary",
+    "section": "103.1 Pros and Cons",
+    "text": "103.1 Pros and Cons\n\n103.1.1 Pros\n\n\n103.1.2 Cons"
   },
   {
     "objectID": "sound-tmp.html#r-examples",
     "href": "sound-tmp.html#r-examples",
-    "title": "101  Temporary",
-    "section": "101.2 R Examples",
-    "text": "101.2 R Examples"
+    "title": "103  Temporary",
+    "section": "103.2 R Examples",
+    "text": "103.2 R Examples"
   },
   {
     "objectID": "sound-tmp.html#python-examples",
     "href": "sound-tmp.html#python-examples",
-    "title": "101  Temporary",
-    "section": "101.3 Python Examples",
-    "text": "101.3 Python Examples"
+    "title": "103  Temporary",
+    "section": "103.3 Python Examples",
+    "text": "103.3 Python Examples"
   },
   {
     "objectID": "relational.html",
     "href": "relational.html",
-    "title": "102  Overview",
+    "title": "104  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "relational-tmp.html#pros-and-cons",
     "href": "relational-tmp.html#pros-and-cons",
-    "title": "103  Temporary",
-    "section": "103.1 Pros and Cons",
-    "text": "103.1 Pros and Cons\n\n103.1.1 Pros\n\n\n103.1.2 Cons"
+    "title": "105  Temporary",
+    "section": "105.1 Pros and Cons",
+    "text": "105.1 Pros and Cons\n\n105.1.1 Pros\n\n\n105.1.2 Cons"
   },
   {
     "objectID": "relational-tmp.html#r-examples",
     "href": "relational-tmp.html#r-examples",
-    "title": "103  Temporary",
-    "section": "103.2 R Examples",
-    "text": "103.2 R Examples"
+    "title": "105  Temporary",
+    "section": "105.2 R Examples",
+    "text": "105.2 R Examples"
   },
   {
     "objectID": "relational-tmp.html#python-examples",
     "href": "relational-tmp.html#python-examples",
-    "title": "103  Temporary",
-    "section": "103.3 Python Examples",
-    "text": "103.3 Python Examples"
+    "title": "105  Temporary",
+    "section": "105.3 Python Examples",
+    "text": "105.3 Python Examples"
   },
   {
     "objectID": "order.html",
     "href": "order.html",
-    "title": "104  Order of transformations",
+    "title": "106  Order of transformations",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "sparse.html",
     "href": "sparse.html",
-    "title": "105  What should you do if you have sparse data?",
+    "title": "107  What should you do if you have sparse data?",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "models.html",
     "href": "models.html",
-    "title": "106  How Different Models Deal With Input",
+    "title": "108  How Different Models Deal With Input",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "summary.html",
     "href": "summary.html",
-    "title": "107  Summary",
+    "title": "109  Summary",
     "section": "",
     "text": "WIP"
   },

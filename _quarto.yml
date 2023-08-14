@@ -108,8 +108,10 @@ book:
         - text-bert.qmd
     - part: "Circular Features"
       chapters:
-        - circular.qmd # Progress
-        - circular-trig.qmd
+        - circular.qmd
+        - circular-trig.qmd # Progress
+        - circular-splines.qmd
+        - circular-indicators.qmd
     - part: "Time-Series Data"
       chapters:
         - time-series.qmd # Progress

@@ -6,9 +6,4 @@ Typical examples of this are type based, such as time of day, day of the week, d
 
 TODO find good example of this
 
-There are 2 main ways we can handle this. 
-
-- trig functions
-- periodic calculations
-  - splines
-  - other things
+There are 2 main ways we can handle this. Harmonic calculations using trigonometric functions will be showcased in @sec-circular-trig, Essentially what happens is that we are mapping the features to the unit circle in 2 dimensions. Another intriguing type of methods are using periodic indicators such as splines or other methods. It doesn't have to be splines, but it if you carefully set the range of the indicators, you can get good performance. Splines are covered in @sec-circular-splines, and the other more general methods are covered in @sec-circular-indicators.
