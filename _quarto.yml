@@ -54,35 +54,6 @@ book:
         - categorical-multi-dummy.qmd
         - categorical-collapse.qmd
         - categorical-combination.qmd
-    - part: "Missing Data"
-      chapters:
-        - missing.qmd
-        - missing-simple.qmd # Progress
-        - missing-model.qmd
-        - missing-indicator.qmd
-        - missing-remove.qmd
-    - part: "Too Many Variables"
-      chapters:
-        - too-many.qmd
-        - too-many-zv.qmd # Progress
-        - too-many-pca.qmd
-        - too-many-pca-variants.qmd
-        - too-many-ica.qmd
-        - too-many-nmf.qmd
-        - too-many-lda.qmd
-        - too-many-gda.qmd
-        - too-many-autoencoder.qmd
-        - too-many-umap.qmd
-        - too-many-isomap.qmd
-        - too-many-filter.qmd
-        - too-many-wrapper.qmd
-        - too-many-embedded.qmd
-    - part: "Outliers"
-      chapters:
-        - outliers.qmd
-        - outliers-remove.qmd # Progress
-        - outliers-imputation.qmd
-        - outliers-indicate.qmd
     - part: "Datetime Features"
       chapters:
         - datetime.qmd
@@ -112,18 +83,43 @@ book:
         - circular-trig.qmd # Progress
         - circular-splines.qmd
         - circular-indicators.qmd
-    - part: "Time-Series Data"
+    - part: "Missing Data"
       chapters:
-        - time-series.qmd # Progress
-        - time-series-fourier.qmd
-    - part: "Imbalanced Data"
+        - missing.qmd
+        - missing-simple.qmd # Progress
+        - missing-model.qmd
+        - missing-indicator.qmd
+        - missing-remove.qmd
+    - part: "Too Many Variables"
       chapters:
-        - imbalenced.qmd # Progress
-        - imbalenced-smote.qmd
+        - too-many.qmd
+        - too-many-zv.qmd # Progress
+        - too-many-pca.qmd
+        - too-many-pca-variants.qmd
+        - too-many-ica.qmd
+        - too-many-nmf.qmd
+        - too-many-lda.qmd
+        - too-many-gda.qmd
+        - too-many-autoencoder.qmd
+        - too-many-umap.qmd
+        - too-many-isomap.qmd
+        - too-many-filter.qmd
+        - too-many-wrapper.qmd
+        - too-many-embedded.qmd
     - part: "Correlated Data"
       chapters:
         - correlated.qmd # Progress
         - correlated-filter.qmd
+    - part: "Outliers"
+      chapters:
+        - outliers.qmd
+        - outliers-remove.qmd # Progress
+        - outliers-imputation.qmd
+        - outliers-indicate.qmd
+    - part: "Imbalanced Data"
+      chapters:
+        - imbalenced.qmd # Progress
+        - imbalenced-smote.qmd
     - part: "Miscellaneous"
       chapters:
         - miscellaneous.qmd # Progress
@@ -136,6 +132,10 @@ book:
       chapters:
         - geospatial.qmd # Progress
         - geospatial-shapefiles.qmd
+    - part: "Time-Series Data"
+      chapters:
+        - time-series.qmd # Progress
+        - time-series-fourier.qmd
     - part: "Image Features"
       chapters:
         - image.qmd # Progress
