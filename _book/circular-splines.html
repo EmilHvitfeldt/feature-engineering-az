@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Feature Engineering A-Z - 63&nbsp; Overview</title>
+<title>Feature Engineering A-Z - 84&nbsp; Period Splines</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./datetime-extraction.html" rel="next">
-<link href="./outliers-indicate.html" rel="prev">
+<link href="./circular-indicators.html" rel="next">
+<link href="./circular-trig.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -79,7 +79,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./datetime.html">Datetime Features</a></li><li class="breadcrumb-item"><a href="./datetime.html"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">Overview</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./circular.html">Circular Features</a></li><li class="breadcrumb-item"><a href="./circular-splines.html"><span class="chapter-number">84</span>&nbsp; <span class="chapter-title">Period Splines</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -554,7 +554,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./datetime.html" class="sidebar-item-text sidebar-link active">
+  <a href="./datetime.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
   </div>
 </li>
@@ -702,7 +702,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./circular-splines.html" class="sidebar-item-text sidebar-link">
+  <a href="./circular-splines.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">84</span>&nbsp; <span class="chapter-title">Period Splines</span></span></a>
   </div>
 </li>
@@ -980,14 +980,26 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link active" data-scroll-target="#pros-and-cons"><span class="header-section-number">84.1</span> Pros and Cons</a>
+  <ul class="collapse">
+  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">84.1.1</span> Pros</a></li>
+  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">84.1.2</span> Cons</a></li>
+  </ul></li>
+  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">84.2</span> R Examples</a></li>
+  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">84.3</span> Python Examples</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./datetime.html">Datetime Features</a></li><li class="breadcrumb-item"><a href="./datetime.html"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">Overview</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./circular.html">Circular Features</a></li><li class="breadcrumb-item"><a href="./circular-splines.html"><span class="chapter-number">84</span>&nbsp; <span class="chapter-title">Period Splines</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-datetime" class="quarto-section-identifier"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">Overview</span></span></h1>
+<h1 class="title"><span id="sec-circular-splines" class="quarto-section-identifier"><span class="chapter-number">84</span>&nbsp; <span class="chapter-title">Period Splines</span></span></h1>
 </div>
 
 
@@ -1003,13 +1015,24 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Date and datetime variables are another type of data that can be quite common. This is different than time as we talked about in <a href="time-series.html" class="quarto-xref"><span>Chapter&nbsp;86</span></a>, as when we talk about time series data, it is typically a series of data points that are related, and we use that inherent structure of the data as the basis for the modeling problem. Here we are talking about predictors, that happen be to expressed as a date or datetime field.</p>
-<p>These types of data could be the day where the sale took place, or when the taxi started and ended its trip. In some of these cases, it wouldn’t make sense to treat it as a time-series model, but we still wants to be able to pull out valuable information. In many cases, date and datetime variables will be treated as text fields if they are unparsed, and as fancy integer representation. When encoded they typically use integers to denote time since a specific reference point.</p>
-<p>If date and datetime variables were used directly in a modeling function it will at best use the underlying integer representation, which is unlikely to be useful since it just denotes chronological time. At worst the modeling function will error and complain.</p>
-<p>The chapters in this section is going to assume that you have parsed the date and datetime variables, and that we are working with those directly.</p>
-<p>When we talk about extraction in <a href="datetime-extraction.html" class="quarto-xref"><span>Chapter&nbsp;64</span></a>, what we will be doing is extracting components of the data. So this can be things like year, month, day, hour, minutes and seconds. There are more complicated things like “is this a holiday” or “is it a weekend”. After that, we will go over some more complicated features in <a href="datetime-advanced.html" class="quarto-xref"><span>Chapter&nbsp;65</span></a>. These features will mostly be based on the extraction features from earlier. But it can be things like “closest holiday” and “how long since last Monday”. Lastly we will talk about how many of these features work in a very circular way in <a href="datetime-circular.html" class="quarto-xref"><span>Chapter&nbsp;66</span></a>. Naturally if we were to model using hours of the day, 1 hour before midnight and 1 hour after midnight are close on the clock but not numerically.</p>
+<p>WIP</p>
+<section id="pros-and-cons" class="level2" data-number="84.1">
+<h2 data-number="84.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">84.1</span> Pros and Cons</h2>
+<section id="pros" class="level3" data-number="84.1.1">
+<h3 data-number="84.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">84.1.1</span> Pros</h3>
+</section>
+<section id="cons" class="level3" data-number="84.1.2">
+<h3 data-number="84.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">84.1.2</span> Cons</h3>
+</section>
+</section>
+<section id="r-examples" class="level2" data-number="84.2">
+<h2 data-number="84.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">84.2</span> R Examples</h2>
+</section>
+<section id="python-examples" class="level2" data-number="84.3">
+<h2 data-number="84.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">84.3</span> Python Examples</h2>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1358,13 +1381,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./outliers-indicate.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">Indicate</span></span>
+      <a href="./circular-trig.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">83</span>&nbsp; <span class="chapter-title">Trigonometric</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./datetime-extraction.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">Value extraction</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./circular-indicators.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">85</span>&nbsp; <span class="chapter-title">Periodic Indicators</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
