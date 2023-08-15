@@ -1003,7 +1003,18 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>WIP</p>
+<p>Correlation happens when two or more variables contain similar information. We typically refer to correlation when we talk about predictors. This can be a problem for some machine learning models as they don’t perform well with correlated predictors. There are many different ways to calculate the degree of correlation. And those details aren’t going to matter much right now. The important thing is that it can happen. Below we see such examples</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-correlation-examples" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="correlated_files/figure-html/fig-correlation-examples-1.png" class="img-fluid figure-img" alt="4 Scatter charts. All present the relationship between predictor_1 and predictor_2. The first chart shows points uniformally spread. With each of the following charts having stronger and stronger trend between the two predictors." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;82.1: uncorrelated features and correlated feature</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The reason why correlated features are bad for our models is that two correlated features have the potential to share information that is useful. Imagine we are working with strongly correlated variables. Furthermore, we propose that <code>predictor_1</code> is highly predictive in our model, since <code>predictor_1</code> and <code>predictor_2</code> are correlated, we can conclude that <code>predictor_2</code> would also be highly predictive. The problem then arises when one of these predictors are used, the other predictor will no longer be predictor since they share their information. Another way to think about it, is that we could replace these two predictors with just one predictor with minimal loss of information. This is one of the reasons why we sometimes want to do dimension reduction, as seen in <a href="too-many.html" class="quarto-xref"><span>Chapter&nbsp;68</span></a>.</p>
 
 
 
