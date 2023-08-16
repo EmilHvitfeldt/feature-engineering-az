@@ -1015,6 +1015,8 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <p>The reason why correlated features are bad for our models is that two correlated features have the potential to share information that is useful. Imagine we are working with strongly correlated variables. Furthermore, we propose that <code>predictor_1</code> is highly predictive in our model, since <code>predictor_1</code> and <code>predictor_2</code> are correlated, we can conclude that <code>predictor_2</code> would also be highly predictive. The problem then arises when one of these predictors are used, the other predictor will no longer be predictor since they share their information. Another way to think about it, is that we could replace these two predictors with just one predictor with minimal loss of information. This is one of the reasons why we sometimes want to do dimension reduction, as seen in <a href="too-many.html" class="quarto-xref"><span>Chapter&nbsp;68</span></a>.</p>
+<p>We will see how we can example the correlation structure to figure out which variables we can eliminate, this is covered in <a href="correlated-filter.html" class="quarto-xref"><span>Chapter&nbsp;83</span></a>. This is a more specialized version of the methods we cover in <a href="too-many-filter.html" class="quarto-xref"><span>Chapter&nbsp;79</span></a> as we are looking at correlation to determine which variablees to remove rather then their relationship to the outcome.</p>
+<p>Another method that works well in anything PCA related, these are covered in <a href="too-many-pca.html" class="quarto-xref"><span>Chapter&nbsp;70</span></a> and <a href="too-many-pca-variants.html" class="quarto-xref"><span>Chapter&nbsp;71</span></a>. The resulting data coming out of PCA will be uncorrelated.</p>
 
 
 
