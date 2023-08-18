@@ -809,7 +809,7 @@
     "href": "datetime.html",
     "title": "40  Overview",
     "section": "",
-    "text": "Date and datetime variables are another type of data that can be quite common. This is different than time as we talked about in Chapter 96, as when we talk about time series data, it is typically a series of data points that are related, and we use that inherent structure of the data as the basis for the modeling problem. Here we are talking about predictors, that happen be to expressed as a date or datetime field.\nThese types of data could be the day where the sale took place, or when the taxi started and ended its trip. In some of these cases, it wouldn’t make sense to treat it as a time-series model, but we still wants to be able to pull out valuable information. In many cases, date and datetime variables will be treated as text fields if they are unparsed, and as fancy integer representation. When encoded they typically use integers to denote time since a specific reference point.\nIf date and datetime variables were used directly in a modeling function it will at best use the underlying integer representation, which is unlikely to be useful since it just denotes chronological time. At worst the modeling function will error and complain.\nThe chapters in this section is going to assume that you have parsed the date and datetime variables, and that we are working with those directly.\nWhen we talk about extraction in Chapter 41, what we will be doing is extracting components of the data. So this can be things like year, month, day, hour, minutes and seconds. There are more complicated things like “is this a holiday” or “is it a weekend”. After that, we will go over some more complicated features in Chapter 42. These features will mostly be based on the extraction features from earlier. But it can be things like “closest holiday” and “how long since last Monday”. Lastly we will talk about how many of these features work in a very circular way in Chapter 43. Naturally if we were to model using hours of the day, 1 hour before midnight and 1 hour after midnight are close on the clock but not numerically."
+    "text": "Date and datetime variables are another type of data that can be quite common. This is different than time as we talked about in Chapter 108, as when we talk about time series data, it is typically a series of data points that are related, and we use that inherent structure of the data as the basis for the modeling problem. Here we are talking about predictors, that happen be to expressed as a date or datetime field.\nThese types of data could be the day where the sale took place, or when the taxi started and ended its trip. In some of these cases, it wouldn’t make sense to treat it as a time-series model, but we still wants to be able to pull out valuable information. In many cases, date and datetime variables will be treated as text fields if they are unparsed, and as fancy integer representation. When encoded they typically use integers to denote time since a specific reference point.\nIf date and datetime variables were used directly in a modeling function it will at best use the underlying integer representation, which is unlikely to be useful since it just denotes chronological time. At worst the modeling function will error and complain.\nThe chapters in this section is going to assume that you have parsed the date and datetime variables, and that we are working with those directly.\nWhen we talk about extraction in Chapter 41, what we will be doing is extracting components of the data. So this can be things like year, month, day, hour, minutes and seconds. There are more complicated things like “is this a holiday” or “is it a weekend”. After that, we will go over some more complicated features in Chapter 42. These features will mostly be based on the extraction features from earlier. But it can be things like “closest holiday” and “how long since last Monday”. Lastly we will talk about how many of these features work in a very circular way in Chapter 43. Naturally if we were to model using hours of the day, 1 hour before midnight and 1 hour after midnight are close on the clock but not numerically."
   },
   {
     "objectID": "datetime-extraction.html#pros-and-cons",
@@ -1600,278 +1600,530 @@
     "href": "imbalenced.html",
     "title": "88  Overview",
     "section": "",
-    "text": "Whether to keep this chapter in this book or not was considered, as the methods in this section are borderline feature engineering methods.\nThe potential problem with imbalanced data can most easily be seen in a classification setting. Propose we want to predict if an incoming email is spam or not. Furthermore, we assume that the spam-rate is low and around 1% of the incoming emails. If you are not careful, you can easily end up with a model that predicts “not spam” all the time, since it will be correct 100% of the times. This is a common scenario, and it happens all the time. One culprit could be that there isn’t enough information in the minority class to be able to distinguish it from the majority class. And that is okay, not all modeling problems are easy. But your model will do its best anyways.\nThere are a number of different ways to handle imbalanced data, we will list all the ways in broad strokes, and then cover the methods that we could count as feature engineering.\n\nusing the right performance metrics\nweights\nloss functions\nCalibrating the predictions\nSampling the data, can be done naively and with more advanced methods\n\nThe example above showcases why accuracy as a metric isn’t a good choice when the classes are not uniformly represented. So you can look at other metrics, such as precision, recall, ROC-AUC, or Brier score. You will need to know what metric works best for your project.\nAnother way we can handle this is by adding weights, either to the observations directly, or in the modeling framework as class weights. By giving your minority class high enough a weight forces your model to take them into consideration.\nRelated to the last point, some methods allow you the user to pass in custom objective functions, this can also be beneficial.\nEven if your model performs badly by default, your classification model might still have good separation, just not around the 50% cut-off point. Changing the threshold is another way you can overcome imbalanced data set.\nLastly, and the ways will be cover in this book is sampling of the data. There are a number of different methods that we will cover in this book. These methods cluster somehow, so for some groups we only explain the general idea."
+    "text": "Whether to keep this chapter in this book or not was considered, as the methods in this section are borderline feature engineering methods.\nThe potential problem with imbalanced data can most easily be seen in a classification setting. Propose we want to predict if an incoming email is spam or not. Furthermore, we assume that the spam-rate is low and around 1% of the incoming emails. If you are not careful, you can easily end up with a model that predicts “not spam” all the time, since it will be correct 100% of the times. This is a common scenario, and it happens all the time. One culprit could be that there isn’t enough information in the minority class to be able to distinguish it from the majority class. And that is okay, not all modeling problems are easy. But your model will do its best anyways.\nThere are a number of different ways to handle imbalanced data, we will list all the ways in broad strokes, and then cover the methods that we could count as feature engineering.\n\nusing the right performance metrics\nweights\nloss functions\nCalibrating the predictions\nSampling the data, can be done naively and with more advanced methods\n\nThe example above showcases why accuracy as a metric isn’t a good choice when the classes are not uniformly represented. So you can look at other metrics, such as precision, recall, ROC-AUC, or Brier score. You will need to know what metric works best for your project.\nAnother way we can handle this is by adding weights, either to the observations directly, or in the modeling framework as class weights. By giving your minority class high enough a weight forces your model to take them into consideration.\nRelated to the last point, some methods allow you the user to pass in custom objective functions, this can also be beneficial.\nEven if your model performs badly by default, your classification model might still have good separation, just not around the 50% cut-off point. Changing the threshold is another way you can overcome imbalanced data set.\nLastly, and the ways will be cover in this book is sampling of the data. There are a number of different methods that we will cover in this book. These methods cluster somehow, so for some groups we only explain the general idea.\nWe can split these methods into two groups, under-sampling methods and over-sampling methods. In the under-sampling methods, we are removing observations and in over-sampling we are adding observations. Adding observations are usually done by basing the new observations on the existing observations, exactly or by interpolation.\nOver-sampling methods we will cover are:\n\nUp-sampling in Chapter 89\nROSE in Chapter 90\nSMOTE in Chapter 91\nSMITE variants in Chapter 92\nBorderline Smote in Chapter 93\nAdaptive Synthetic Algorithm in Chapter 94\n\nUnder-sampling methods we will cover are:\n\nDown-sampling in Chapter 95\nNearMiss in Chapter 96\nTomek Links in Chapter 97\nCondensed Nearest Neighbor in Chapter 98\nEdited Nearest Neighbor in Chapter 99\nInstance Hardness Threshold in Chapter 100\nOne Sided Selection Chapter 101\n\nThere are also some methods that do these methods together. We won’t consider those methods by themselves and instead let you know that you can do over-sampling followed by under-sampling if you choose."
   },
   {
-    "objectID": "imbalenced-smote.html#pros-and-cons",
-    "href": "imbalenced-smote.html#pros-and-cons",
-    "title": "89  SMOTE",
+    "objectID": "imbalenced-upsample.html#pros-and-cons",
+    "href": "imbalenced-upsample.html#pros-and-cons",
+    "title": "89  Up-sampling",
     "section": "89.1 Pros and Cons",
     "text": "89.1 Pros and Cons\n\n89.1.1 Pros\n\n\n89.1.2 Cons"
   },
   {
-    "objectID": "imbalenced-smote.html#r-examples",
-    "href": "imbalenced-smote.html#r-examples",
-    "title": "89  SMOTE",
+    "objectID": "imbalenced-upsample.html#r-examples",
+    "href": "imbalenced-upsample.html#r-examples",
+    "title": "89  Up-sampling",
     "section": "89.2 R Examples",
     "text": "89.2 R Examples"
   },
   {
-    "objectID": "imbalenced-smote.html#python-examples",
-    "href": "imbalenced-smote.html#python-examples",
-    "title": "89  SMOTE",
+    "objectID": "imbalenced-upsample.html#python-examples",
+    "href": "imbalenced-upsample.html#python-examples",
+    "title": "89  Up-sampling",
     "section": "89.3 Python Examples",
     "text": "89.3 Python Examples"
   },
   {
+    "objectID": "imbalenced-rose.html#pros-and-cons",
+    "href": "imbalenced-rose.html#pros-and-cons",
+    "title": "90  ROSE",
+    "section": "90.1 Pros and Cons",
+    "text": "90.1 Pros and Cons\n\n90.1.1 Pros\n\n\n90.1.2 Cons"
+  },
+  {
+    "objectID": "imbalenced-rose.html#r-examples",
+    "href": "imbalenced-rose.html#r-examples",
+    "title": "90  ROSE",
+    "section": "90.2 R Examples",
+    "text": "90.2 R Examples"
+  },
+  {
+    "objectID": "imbalenced-rose.html#python-examples",
+    "href": "imbalenced-rose.html#python-examples",
+    "title": "90  ROSE",
+    "section": "90.3 Python Examples",
+    "text": "90.3 Python Examples"
+  },
+  {
+    "objectID": "imbalenced-smote.html#pros-and-cons",
+    "href": "imbalenced-smote.html#pros-and-cons",
+    "title": "91  SMOTE",
+    "section": "91.1 Pros and Cons",
+    "text": "91.1 Pros and Cons\n\n91.1.1 Pros\n\n\n91.1.2 Cons"
+  },
+  {
+    "objectID": "imbalenced-smote.html#r-examples",
+    "href": "imbalenced-smote.html#r-examples",
+    "title": "91  SMOTE",
+    "section": "91.2 R Examples",
+    "text": "91.2 R Examples"
+  },
+  {
+    "objectID": "imbalenced-smote.html#python-examples",
+    "href": "imbalenced-smote.html#python-examples",
+    "title": "91  SMOTE",
+    "section": "91.3 Python Examples",
+    "text": "91.3 Python Examples"
+  },
+  {
+    "objectID": "imbalenced-smote-variants.html#pros-and-cons",
+    "href": "imbalenced-smote-variants.html#pros-and-cons",
+    "title": "92  SMOTE Variants",
+    "section": "92.1 Pros and Cons",
+    "text": "92.1 Pros and Cons\n\n92.1.1 Pros\n\n\n92.1.2 Cons"
+  },
+  {
+    "objectID": "imbalenced-smote-variants.html#r-examples",
+    "href": "imbalenced-smote-variants.html#r-examples",
+    "title": "92  SMOTE Variants",
+    "section": "92.2 R Examples",
+    "text": "92.2 R Examples"
+  },
+  {
+    "objectID": "imbalenced-smote-variants.html#python-examples",
+    "href": "imbalenced-smote-variants.html#python-examples",
+    "title": "92  SMOTE Variants",
+    "section": "92.3 Python Examples",
+    "text": "92.3 Python Examples"
+  },
+  {
+    "objectID": "imbalenced-borderline-smote.html#pros-and-cons",
+    "href": "imbalenced-borderline-smote.html#pros-and-cons",
+    "title": "93  Borderline SMOTE",
+    "section": "93.1 Pros and Cons",
+    "text": "93.1 Pros and Cons\n\n93.1.1 Pros\n\n\n93.1.2 Cons"
+  },
+  {
+    "objectID": "imbalenced-borderline-smote.html#r-examples",
+    "href": "imbalenced-borderline-smote.html#r-examples",
+    "title": "93  Borderline SMOTE",
+    "section": "93.2 R Examples",
+    "text": "93.2 R Examples"
+  },
+  {
+    "objectID": "imbalenced-borderline-smote.html#python-examples",
+    "href": "imbalenced-borderline-smote.html#python-examples",
+    "title": "93  Borderline SMOTE",
+    "section": "93.3 Python Examples",
+    "text": "93.3 Python Examples"
+  },
+  {
+    "objectID": "imbalenced-adasyn.html#pros-and-cons",
+    "href": "imbalenced-adasyn.html#pros-and-cons",
+    "title": "94  Adaptive Synthetic Algorithm",
+    "section": "94.1 Pros and Cons",
+    "text": "94.1 Pros and Cons\n\n94.1.1 Pros\n\n\n94.1.2 Cons"
+  },
+  {
+    "objectID": "imbalenced-adasyn.html#r-examples",
+    "href": "imbalenced-adasyn.html#r-examples",
+    "title": "94  Adaptive Synthetic Algorithm",
+    "section": "94.2 R Examples",
+    "text": "94.2 R Examples"
+  },
+  {
+    "objectID": "imbalenced-adasyn.html#python-examples",
+    "href": "imbalenced-adasyn.html#python-examples",
+    "title": "94  Adaptive Synthetic Algorithm",
+    "section": "94.3 Python Examples",
+    "text": "94.3 Python Examples"
+  },
+  {
+    "objectID": "imbalenced-downsample.html#pros-and-cons",
+    "href": "imbalenced-downsample.html#pros-and-cons",
+    "title": "95  Down-Sampling",
+    "section": "95.1 Pros and Cons",
+    "text": "95.1 Pros and Cons\n\n95.1.1 Pros\n\n\n95.1.2 Cons"
+  },
+  {
+    "objectID": "imbalenced-downsample.html#r-examples",
+    "href": "imbalenced-downsample.html#r-examples",
+    "title": "95  Down-Sampling",
+    "section": "95.2 R Examples",
+    "text": "95.2 R Examples"
+  },
+  {
+    "objectID": "imbalenced-downsample.html#python-examples",
+    "href": "imbalenced-downsample.html#python-examples",
+    "title": "95  Down-Sampling",
+    "section": "95.3 Python Examples",
+    "text": "95.3 Python Examples"
+  },
+  {
+    "objectID": "imbalenced-nearmiss.html#pros-and-cons",
+    "href": "imbalenced-nearmiss.html#pros-and-cons",
+    "title": "96  Near-Miss",
+    "section": "96.1 Pros and Cons",
+    "text": "96.1 Pros and Cons\n\n96.1.1 Pros\n\n\n96.1.2 Cons"
+  },
+  {
+    "objectID": "imbalenced-nearmiss.html#r-examples",
+    "href": "imbalenced-nearmiss.html#r-examples",
+    "title": "96  Near-Miss",
+    "section": "96.2 R Examples",
+    "text": "96.2 R Examples"
+  },
+  {
+    "objectID": "imbalenced-nearmiss.html#python-examples",
+    "href": "imbalenced-nearmiss.html#python-examples",
+    "title": "96  Near-Miss",
+    "section": "96.3 Python Examples",
+    "text": "96.3 Python Examples"
+  },
+  {
+    "objectID": "imbalenced-tomek.html#pros-and-cons",
+    "href": "imbalenced-tomek.html#pros-and-cons",
+    "title": "97  Tomek Links",
+    "section": "97.1 Pros and Cons",
+    "text": "97.1 Pros and Cons\n\n97.1.1 Pros\n\n\n97.1.2 Cons"
+  },
+  {
+    "objectID": "imbalenced-tomek.html#r-examples",
+    "href": "imbalenced-tomek.html#r-examples",
+    "title": "97  Tomek Links",
+    "section": "97.2 R Examples",
+    "text": "97.2 R Examples"
+  },
+  {
+    "objectID": "imbalenced-tomek.html#python-examples",
+    "href": "imbalenced-tomek.html#python-examples",
+    "title": "97  Tomek Links",
+    "section": "97.3 Python Examples",
+    "text": "97.3 Python Examples"
+  },
+  {
+    "objectID": "imbalenced-cnn.html#pros-and-cons",
+    "href": "imbalenced-cnn.html#pros-and-cons",
+    "title": "98  Condensed Nearest Neighbor",
+    "section": "98.1 Pros and Cons",
+    "text": "98.1 Pros and Cons\n\n98.1.1 Pros\n\n\n98.1.2 Cons"
+  },
+  {
+    "objectID": "imbalenced-cnn.html#r-examples",
+    "href": "imbalenced-cnn.html#r-examples",
+    "title": "98  Condensed Nearest Neighbor",
+    "section": "98.2 R Examples",
+    "text": "98.2 R Examples"
+  },
+  {
+    "objectID": "imbalenced-cnn.html#python-examples",
+    "href": "imbalenced-cnn.html#python-examples",
+    "title": "98  Condensed Nearest Neighbor",
+    "section": "98.3 Python Examples",
+    "text": "98.3 Python Examples"
+  },
+  {
+    "objectID": "imbalenced-enn.html#pros-and-cons",
+    "href": "imbalenced-enn.html#pros-and-cons",
+    "title": "99  Edited Nearest Neighbor",
+    "section": "99.1 Pros and Cons",
+    "text": "99.1 Pros and Cons\n\n99.1.1 Pros\n\n\n99.1.2 Cons"
+  },
+  {
+    "objectID": "imbalenced-enn.html#r-examples",
+    "href": "imbalenced-enn.html#r-examples",
+    "title": "99  Edited Nearest Neighbor",
+    "section": "99.2 R Examples",
+    "text": "99.2 R Examples"
+  },
+  {
+    "objectID": "imbalenced-enn.html#python-examples",
+    "href": "imbalenced-enn.html#python-examples",
+    "title": "99  Edited Nearest Neighbor",
+    "section": "99.3 Python Examples",
+    "text": "99.3 Python Examples"
+  },
+  {
+    "objectID": "imbalenced-hardness-threshold.html#pros-and-cons",
+    "href": "imbalenced-hardness-threshold.html#pros-and-cons",
+    "title": "100  Instance Hardness Threshold",
+    "section": "100.1 Pros and Cons",
+    "text": "100.1 Pros and Cons\n\n100.1.1 Pros\n\n\n100.1.2 Cons"
+  },
+  {
+    "objectID": "imbalenced-hardness-threshold.html#r-examples",
+    "href": "imbalenced-hardness-threshold.html#r-examples",
+    "title": "100  Instance Hardness Threshold",
+    "section": "100.2 R Examples",
+    "text": "100.2 R Examples"
+  },
+  {
+    "objectID": "imbalenced-hardness-threshold.html#python-examples",
+    "href": "imbalenced-hardness-threshold.html#python-examples",
+    "title": "100  Instance Hardness Threshold",
+    "section": "100.3 Python Examples",
+    "text": "100.3 Python Examples"
+  },
+  {
+    "objectID": "imbalenced-one-sided.html#pros-and-cons",
+    "href": "imbalenced-one-sided.html#pros-and-cons",
+    "title": "101  One Sided Selection",
+    "section": "101.1 Pros and Cons",
+    "text": "101.1 Pros and Cons\n\n101.1.1 Pros\n\n\n101.1.2 Cons"
+  },
+  {
+    "objectID": "imbalenced-one-sided.html#r-examples",
+    "href": "imbalenced-one-sided.html#r-examples",
+    "title": "101  One Sided Selection",
+    "section": "101.2 R Examples",
+    "text": "101.2 R Examples"
+  },
+  {
+    "objectID": "imbalenced-one-sided.html#python-examples",
+    "href": "imbalenced-one-sided.html#python-examples",
+    "title": "101  One Sided Selection",
+    "section": "101.3 Python Examples",
+    "text": "101.3 Python Examples"
+  },
+  {
     "objectID": "miscellaneous.html",
     "href": "miscellaneous.html",
-    "title": "90  Overview",
+    "title": "102  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "miscellaneous-zipcodes.html#pros-and-cons",
     "href": "miscellaneous-zipcodes.html#pros-and-cons",
-    "title": "91  Zip Codes",
-    "section": "91.1 Pros and Cons",
-    "text": "91.1 Pros and Cons\n\n91.1.1 Pros\n\n\n91.1.2 Cons"
+    "title": "103  Zip Codes",
+    "section": "103.1 Pros and Cons",
+    "text": "103.1 Pros and Cons\n\n103.1.1 Pros\n\n\n103.1.2 Cons"
   },
   {
     "objectID": "miscellaneous-zipcodes.html#r-examples",
     "href": "miscellaneous-zipcodes.html#r-examples",
-    "title": "91  Zip Codes",
-    "section": "91.2 R Examples",
-    "text": "91.2 R Examples"
+    "title": "103  Zip Codes",
+    "section": "103.2 R Examples",
+    "text": "103.2 R Examples"
   },
   {
     "objectID": "miscellaneous-zipcodes.html#python-examples",
     "href": "miscellaneous-zipcodes.html#python-examples",
-    "title": "91  Zip Codes",
-    "section": "91.3 Python Examples",
-    "text": "91.3 Python Examples"
+    "title": "103  Zip Codes",
+    "section": "103.3 Python Examples",
+    "text": "103.3 Python Examples"
   },
   {
     "objectID": "spatial.html",
     "href": "spatial.html",
-    "title": "92  Overview",
+    "title": "104  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "spatial-gps.html#pros-and-cons",
     "href": "spatial-gps.html#pros-and-cons",
-    "title": "93  GPS",
-    "section": "93.1 Pros and Cons",
-    "text": "93.1 Pros and Cons\n\n93.1.1 Pros\n\n\n93.1.2 Cons"
+    "title": "105  GPS",
+    "section": "105.1 Pros and Cons",
+    "text": "105.1 Pros and Cons\n\n105.1.1 Pros\n\n\n105.1.2 Cons"
   },
   {
     "objectID": "spatial-gps.html#r-examples",
     "href": "spatial-gps.html#r-examples",
-    "title": "93  GPS",
-    "section": "93.2 R Examples",
-    "text": "93.2 R Examples"
+    "title": "105  GPS",
+    "section": "105.2 R Examples",
+    "text": "105.2 R Examples"
   },
   {
     "objectID": "spatial-gps.html#python-examples",
     "href": "spatial-gps.html#python-examples",
-    "title": "93  GPS",
-    "section": "93.3 Python Examples",
-    "text": "93.3 Python Examples"
+    "title": "105  GPS",
+    "section": "105.3 Python Examples",
+    "text": "105.3 Python Examples"
   },
   {
     "objectID": "geospatial.html",
     "href": "geospatial.html",
-    "title": "94  Overview",
+    "title": "106  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "geospatial-shapefiles.html#pros-and-cons",
     "href": "geospatial-shapefiles.html#pros-and-cons",
-    "title": "95  Shapefiles",
-    "section": "95.1 Pros and Cons",
-    "text": "95.1 Pros and Cons\n\n95.1.1 Pros\n\n\n95.1.2 Cons"
+    "title": "107  Shapefiles",
+    "section": "107.1 Pros and Cons",
+    "text": "107.1 Pros and Cons\n\n107.1.1 Pros\n\n\n107.1.2 Cons"
   },
   {
     "objectID": "geospatial-shapefiles.html#r-examples",
     "href": "geospatial-shapefiles.html#r-examples",
-    "title": "95  Shapefiles",
-    "section": "95.2 R Examples",
-    "text": "95.2 R Examples"
+    "title": "107  Shapefiles",
+    "section": "107.2 R Examples",
+    "text": "107.2 R Examples"
   },
   {
     "objectID": "geospatial-shapefiles.html#python-examples",
     "href": "geospatial-shapefiles.html#python-examples",
-    "title": "95  Shapefiles",
-    "section": "95.3 Python Examples",
-    "text": "95.3 Python Examples"
+    "title": "107  Shapefiles",
+    "section": "107.3 Python Examples",
+    "text": "107.3 Python Examples"
   },
   {
     "objectID": "time-series.html",
     "href": "time-series.html",
-    "title": "96  Overview",
+    "title": "108  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "time-series-fourier.html#pros-and-cons",
     "href": "time-series-fourier.html#pros-and-cons",
-    "title": "97  Fourier Features",
-    "section": "97.1 Pros and Cons",
-    "text": "97.1 Pros and Cons\n\n97.1.1 Pros\n\n\n97.1.2 Cons"
+    "title": "109  Fourier Features",
+    "section": "109.1 Pros and Cons",
+    "text": "109.1 Pros and Cons\n\n109.1.1 Pros\n\n\n109.1.2 Cons"
   },
   {
     "objectID": "time-series-fourier.html#r-examples",
     "href": "time-series-fourier.html#r-examples",
-    "title": "97  Fourier Features",
-    "section": "97.2 R Examples",
-    "text": "97.2 R Examples"
+    "title": "109  Fourier Features",
+    "section": "109.2 R Examples",
+    "text": "109.2 R Examples"
   },
   {
     "objectID": "time-series-fourier.html#python-examples",
     "href": "time-series-fourier.html#python-examples",
-    "title": "97  Fourier Features",
-    "section": "97.3 Python Examples",
-    "text": "97.3 Python Examples"
+    "title": "109  Fourier Features",
+    "section": "109.3 Python Examples",
+    "text": "109.3 Python Examples"
   },
   {
     "objectID": "image.html",
     "href": "image.html",
-    "title": "98  Overview",
+    "title": "110  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "image-stats.html#pros-and-cons",
     "href": "image-stats.html#pros-and-cons",
-    "title": "99  Visual Features",
-    "section": "99.1 Pros and Cons",
-    "text": "99.1 Pros and Cons\n\n99.1.1 Pros\n\n\n99.1.2 Cons"
+    "title": "111  Visual Features",
+    "section": "111.1 Pros and Cons",
+    "text": "111.1 Pros and Cons\n\n111.1.1 Pros\n\n\n111.1.2 Cons"
   },
   {
     "objectID": "image-stats.html#r-examples",
     "href": "image-stats.html#r-examples",
-    "title": "99  Visual Features",
-    "section": "99.2 R Examples",
-    "text": "99.2 R Examples"
+    "title": "111  Visual Features",
+    "section": "111.2 R Examples",
+    "text": "111.2 R Examples"
   },
   {
     "objectID": "image-stats.html#python-examples",
     "href": "image-stats.html#python-examples",
-    "title": "99  Visual Features",
-    "section": "99.3 Python Examples",
-    "text": "99.3 Python Examples"
+    "title": "111  Visual Features",
+    "section": "111.3 Python Examples",
+    "text": "111.3 Python Examples"
   },
   {
     "objectID": "video.html",
     "href": "video.html",
-    "title": "100  Overview",
+    "title": "112  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "video-tmp.html#pros-and-cons",
     "href": "video-tmp.html#pros-and-cons",
-    "title": "101  Temporary",
-    "section": "101.1 Pros and Cons",
-    "text": "101.1 Pros and Cons\n\n101.1.1 Pros\n\n\n101.1.2 Cons"
+    "title": "113  Temporary",
+    "section": "113.1 Pros and Cons",
+    "text": "113.1 Pros and Cons\n\n113.1.1 Pros\n\n\n113.1.2 Cons"
   },
   {
     "objectID": "video-tmp.html#r-examples",
     "href": "video-tmp.html#r-examples",
-    "title": "101  Temporary",
-    "section": "101.2 R Examples",
-    "text": "101.2 R Examples"
+    "title": "113  Temporary",
+    "section": "113.2 R Examples",
+    "text": "113.2 R Examples"
   },
   {
     "objectID": "video-tmp.html#python-examples",
     "href": "video-tmp.html#python-examples",
-    "title": "101  Temporary",
-    "section": "101.3 Python Examples",
-    "text": "101.3 Python Examples"
+    "title": "113  Temporary",
+    "section": "113.3 Python Examples",
+    "text": "113.3 Python Examples"
   },
   {
     "objectID": "sound.html",
     "href": "sound.html",
-    "title": "102  Overview",
+    "title": "114  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "sound-tmp.html#pros-and-cons",
     "href": "sound-tmp.html#pros-and-cons",
-    "title": "103  Temporary",
-    "section": "103.1 Pros and Cons",
-    "text": "103.1 Pros and Cons\n\n103.1.1 Pros\n\n\n103.1.2 Cons"
+    "title": "115  Temporary",
+    "section": "115.1 Pros and Cons",
+    "text": "115.1 Pros and Cons\n\n115.1.1 Pros\n\n\n115.1.2 Cons"
   },
   {
     "objectID": "sound-tmp.html#r-examples",
     "href": "sound-tmp.html#r-examples",
-    "title": "103  Temporary",
-    "section": "103.2 R Examples",
-    "text": "103.2 R Examples"
+    "title": "115  Temporary",
+    "section": "115.2 R Examples",
+    "text": "115.2 R Examples"
   },
   {
     "objectID": "sound-tmp.html#python-examples",
     "href": "sound-tmp.html#python-examples",
-    "title": "103  Temporary",
-    "section": "103.3 Python Examples",
-    "text": "103.3 Python Examples"
+    "title": "115  Temporary",
+    "section": "115.3 Python Examples",
+    "text": "115.3 Python Examples"
   },
   {
     "objectID": "relational.html",
     "href": "relational.html",
-    "title": "104  Overview",
+    "title": "116  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "relational-tmp.html#pros-and-cons",
     "href": "relational-tmp.html#pros-and-cons",
-    "title": "105  Temporary",
-    "section": "105.1 Pros and Cons",
-    "text": "105.1 Pros and Cons\n\n105.1.1 Pros\n\n\n105.1.2 Cons"
+    "title": "117  Temporary",
+    "section": "117.1 Pros and Cons",
+    "text": "117.1 Pros and Cons\n\n117.1.1 Pros\n\n\n117.1.2 Cons"
   },
   {
     "objectID": "relational-tmp.html#r-examples",
     "href": "relational-tmp.html#r-examples",
-    "title": "105  Temporary",
-    "section": "105.2 R Examples",
-    "text": "105.2 R Examples"
+    "title": "117  Temporary",
+    "section": "117.2 R Examples",
+    "text": "117.2 R Examples"
   },
   {
     "objectID": "relational-tmp.html#python-examples",
     "href": "relational-tmp.html#python-examples",
-    "title": "105  Temporary",
-    "section": "105.3 Python Examples",
-    "text": "105.3 Python Examples"
+    "title": "117  Temporary",
+    "section": "117.3 Python Examples",
+    "text": "117.3 Python Examples"
   },
   {
     "objectID": "order.html",
     "href": "order.html",
-    "title": "106  Order of transformations",
+    "title": "118  Order of transformations",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "sparse.html",
     "href": "sparse.html",
-    "title": "107  What should you do if you have sparse data?",
+    "title": "119  What should you do if you have sparse data?",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "models.html",
     "href": "models.html",
-    "title": "108  How Different Models Deal With Input",
+    "title": "120  How Different Models Deal With Input",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "summary.html",
     "href": "summary.html",
-    "title": "109  Summary",
+    "title": "121  Summary",
     "section": "",
     "text": "WIP"
   },
