@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Feature Engineering A-Z - 9&nbsp; Percentile</title>
+<title>Feature Engineering A-Z - 103&nbsp; IDs</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -64,8 +30,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./numeric-normalization.html" rel="next">
-<link href="./numeric-yeojohnson.html" rel="prev">
+<link href="./miscellaneous-color.html" rel="next">
+<link href="./miscellaneous.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -96,8 +62,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -110,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./numeric.html">Numeric Features</a></li><li class="breadcrumb-item"><a href="./numeric-percentile.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Percentile</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./miscellaneous.html">Miscellaneous</a></li><li class="breadcrumb-item"><a href="./miscellaneous-id.html"><span class="chapter-number">103</span>&nbsp; <span class="chapter-title">IDs</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -206,7 +170,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./numeric-percentile.html" class="sidebar-item-text sidebar-link active">
+  <a href="./numeric-percentile.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Percentile</span></span></a>
   </div>
 </li>
@@ -880,7 +844,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./miscellaneous-id.html" class="sidebar-item-text sidebar-link">
+  <a href="./miscellaneous-id.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">103</span>&nbsp; <span class="chapter-title">IDs</span></span></a>
   </div>
 </li>
@@ -1105,13 +1069,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link active" data-scroll-target="#pros-and-cons"><span class="header-section-number">9.1</span> Pros and Cons</a>
+  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link active" data-scroll-target="#pros-and-cons"><span class="header-section-number">103.1</span> Pros and Cons</a>
   <ul class="collapse">
-  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">9.1.1</span> Pros</a></li>
-  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">9.1.2</span> Cons</a></li>
+  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">103.1.1</span> Pros</a></li>
+  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">103.1.2</span> Cons</a></li>
   </ul></li>
-  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">9.2</span> R Examples</a></li>
-  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">9.3</span> Python Examples</a></li>
+  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">103.2</span> R Examples</a></li>
+  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">103.3</span> Python Examples</a></li>
   </ul>
 </nav>
     </div>
@@ -1120,7 +1084,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-numeric-percentile" class="quarto-section-identifier"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Percentile</span></span></h1>
+<h1 class="title"><span id="sec-miscellaneous-id" class="quarto-section-identifier"><span class="chapter-number">103</span>&nbsp; <span class="chapter-title">IDs</span></span></h1>
 </div>
 
 
@@ -1135,174 +1099,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p><strong>Percentile scaling</strong> (also sometimes called <strong>Rank Scaling</strong>) is a method where we apply a non-linear transformation to to our data where each value is the percentile of the training data.</p>
-<p>TODO: Add equation</p>
-<p>This does a couple of things for us. It naturally constraints the transformed data into the range <span class="math inline">\([0, 1]\)</span>, and it deals with outlier values nicely in the sense that they don’t change the transformation that much. Moreover if the testing distribution is close to the training distribution then the transformed distribution would be approximately uniformly distributed between 0 and 1.</p>
-<section id="pros-and-cons" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">9.1</span> Pros and Cons</h2>
-<section id="pros" class="level3" data-number="9.1.1">
-<h3 data-number="9.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">9.1.1</span> Pros</h3>
-<ul>
-<li>Transformation isn’t affected much by outliers</li>
-</ul>
+<p>WIP</p>
+<section id="pros-and-cons" class="level2" data-number="103.1">
+<h2 data-number="103.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">103.1</span> Pros and Cons</h2>
+<section id="pros" class="level3" data-number="103.1.1">
+<h3 data-number="103.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">103.1.1</span> Pros</h3>
 </section>
-<section id="cons" class="level3" data-number="9.1.2">
-<h3 data-number="9.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">9.1.2</span> Cons</h3>
-<ul>
-<li><p>Doesn’t allow to exact reverse transformation</p></li>
-<li><p>Isn’t ideal if training data doesn’t have that many unique values</p></li>
-</ul>
+<section id="cons" class="level3" data-number="103.1.2">
+<h3 data-number="103.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">103.1.2</span> Cons</h3>
 </section>
 </section>
-<section id="r-examples" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">9.2</span> R Examples</h2>
-<p>We will be using the <code>ames</code> data set for these examples.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: dplyr</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'dplyr'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
-
-    filter, lag</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'recipes'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:stats':
-
-    step</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modeldata)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"ames"</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>ames <span class="sc">|&gt;</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Lot_Area, Wood_Deck_SF, Sale_Price)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2,930 × 3
-   Lot_Area Wood_Deck_SF Sale_Price
-      &lt;int&gt;        &lt;int&gt;      &lt;int&gt;
- 1    31770          210     215000
- 2    11622          140     105000
- 3    14267          393     172000
- 4    11160            0     244000
- 5    13830          212     189900
- 6     9978          360     195500
- 7     4920            0     213500
- 8     5005            0     191500
- 9     5389          237     236500
-10     7500          140     189000
-# ℹ 2,920 more rows</code></pre>
-</div>
-</div>
-<p>The {recipes} step to do this transformation is <code>step_percentile()</code>. It defaults to calculation 100 percentiles and using those to transform the data</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>percentile_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> Lot_Area, <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_percentile</span>(Lot_Area) <span class="sc">|&gt;</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>percentile_rec <span class="sc">|&gt;</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2,930 × 2
-   Lot_Area Sale_Price
-      &lt;dbl&gt;      &lt;int&gt;
- 1    0.989     215000
- 2    0.756     105000
- 3    0.898     172000
- 4    0.717     244000
- 5    0.883     189900
- 6    0.580     195500
- 7    0.104     213500
- 8    0.106     191500
- 9    0.120     236500
-10    0.259     189000
-# ℹ 2,920 more rows</code></pre>
-</div>
-</div>
-<p>We cna use the <code>tidy()</code> method to pull out what the specific values are for each percentile</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>percentile_rec <span class="sc">|&gt;</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 99 × 4
-   term     value percentile id              
-   &lt;chr&gt;    &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;           
- 1 Lot_Area 1300           0 percentile_Bp5vK
- 2 Lot_Area 1680           1 percentile_Bp5vK
- 3 Lot_Area 2040.          2 percentile_Bp5vK
- 4 Lot_Area 2362.          3 percentile_Bp5vK
- 5 Lot_Area 2779.          4 percentile_Bp5vK
- 6 Lot_Area 3188.          5 percentile_Bp5vK
- 7 Lot_Area 3674.          6 percentile_Bp5vK
- 8 Lot_Area 3901.          7 percentile_Bp5vK
- 9 Lot_Area 4122.          8 percentile_Bp5vK
-10 Lot_Area 4435           9 percentile_Bp5vK
-# ℹ 89 more rows</code></pre>
-</div>
-</div>
-<p>You are able to change the granularity by using the <code>options</code> argument. In this example we are calculation 500 points evenly spaced between 0 and 1, both inclusive.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>percentile500_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> Lot_Area, <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_percentile</span>(Lot_Area, <span class="at">options =</span> <span class="fu">list</span>(<span class="at">probs =</span> (<span class="dv">0</span><span class="sc">:</span><span class="dv">500</span>)<span class="sc">/</span><span class="dv">500</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>percentile500_rec <span class="sc">|&gt;</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2,930 × 2
-   Lot_Area Sale_Price
-      &lt;dbl&gt;      &lt;int&gt;
- 1    0.989     215000
- 2    0.755     105000
- 3    0.899     172000
- 4    0.717     244000
- 5    0.884     189900
- 6    0.580     195500
- 7    0.103     213500
- 8    0.106     191500
- 9    0.118     236500
-10    0.254     189000
-# ℹ 2,920 more rows</code></pre>
-</div>
-</div>
-<p>And we can see the more precise numbers.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>percentile500_rec <span class="sc">|&gt;</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 457 × 4
-   term     value percentile id              
-   &lt;chr&gt;    &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;           
- 1 Lot_Area 1300         0   percentile_RUieL
- 2 Lot_Area 1487.        0.2 percentile_RUieL
- 3 Lot_Area 1531.        0.4 percentile_RUieL
- 4 Lot_Area 1605.        0.6 percentile_RUieL
- 5 Lot_Area 1680         0.8 percentile_RUieL
- 6 Lot_Area 1879.        1.4 percentile_RUieL
- 7 Lot_Area 1890         1.6 percentile_RUieL
- 8 Lot_Area 1946.        1.8 percentile_RUieL
- 9 Lot_Area 2040.        2   percentile_RUieL
-10 Lot_Area 2136.        2.2 percentile_RUieL
-# ℹ 447 more rows</code></pre>
-</div>
-</div>
-<p>Notice how there are only 457 values in this output. This is happening because some percentile have been collapsed to save space since if the value for the 10.4 and 10.6 percentile is the same, we just store the 10.6 value.</p>
+<section id="r-examples" class="level2" data-number="103.2">
+<h2 data-number="103.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">103.2</span> R Examples</h2>
 </section>
-<section id="python-examples" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">9.3</span> Python Examples</h2>
+<section id="python-examples" class="level2" data-number="103.3">
+<h2 data-number="103.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">103.3</span> Python Examples</h2>
 
 
 </section>
@@ -1543,13 +1354,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./numeric-yeojohnson.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Yeo-Johnson</span></span>
+      <a href="./miscellaneous.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">102</span>&nbsp; <span class="chapter-title">Overview</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./numeric-normalization.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Normalization</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./miscellaneous-color.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">104</span>&nbsp; <span class="chapter-title">Colors</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
