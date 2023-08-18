@@ -119,7 +119,19 @@ book:
     - part: "Imbalanced Data"
       chapters:
         - imbalenced.qmd # Progress
+        - imbalenced-upsample.qmd
+        - imbalenced-rose.qmd
         - imbalenced-smote.qmd
+        - imbalenced-smote-variants.qmd
+        - imbalenced-borderline-smote.qmd
+        - imbalenced-adasyn.qmd
+        - imbalenced-downsample.qmd
+        - imbalenced-nearmiss.qmd
+        - imbalenced-tomek.qmd
+        - imbalenced-cnn.qmd
+        - imbalenced-enn.qmd
+        - imbalenced-hardness-threshold.qmd
+        - imbalenced-one-sided.qmd
     - part: "Miscellaneous"
       chapters:
         - miscellaneous.qmd # Progress
