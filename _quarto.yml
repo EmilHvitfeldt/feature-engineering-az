@@ -141,9 +141,13 @@ book:
         - miscellaneous-email.qmd
     - part: "Spatial"
       chapters:
-        - spatial.qmd # Progress
-        - spatial-gps.qmd
-        - spatial-shapefiles.qmd
+        - spatial.qmd
+        - spatial-distance.qmd # Progress
+        - spatial-nearest.qmd
+        - spatial-count.qmd
+        - spatial-query.qmd
+        - spatial-embedding.qmd
+        - spatial-characteristics.qmd
     - part: "Time-Series Data"
       chapters:
         - time-series.qmd # Progress
