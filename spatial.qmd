@@ -1,5 +1,12 @@
-# Overview
+# Overview {#sec-spatial}
 
-This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post [an issue in the Github repository](https://github.com/EmilHvitfeldt/feature-engineering-az/issues).
+When we talk about spatial and geo-spatial feature engineering, we want to focus on transformation and enrichment of the data set, based on spatial information. Typically this will be longitude and latitude based, with the additional information be based on areas and regions such as cities or countries.
 
-WIP
+What sets these methods apart from some of the other methods we see in this book, is that they almost always requires a reference data set to be able to perform the calculations. If you want to find the closest city to an observation, you need a data set of all the cities and their location. For all the methods in this section, the reader is expected to know how to gather this reference material for their problem.
+
+We will split this data up into two types of methods, depending on your spatial information. **point based methods** and **shape based methods**.
+
+In point based methods, you know the location of your observation, and you calculate where it is in relationship to something else. You could look at distances by finding the distance to a fixed point, or multiple points as covered in @sec-spatial-distance. You could find the nearest of something as covered in @sec-spatial-nearest. These two methods are really different sides to the same coin. Another thing we could do is count the number of occurrences within a given distance or region. This is covered in @sec-spatial-count. By knowing the location of something we are also able to query certain types of information such as "height from sea", "rainfall in inches in 2000" and so on. We cover these types of methods in @sec-spatial-query. We can also expand some of these concepts and look at spatial embeddings, we will be covered in @sec-spatial-embedding.
+
+In shape based methods, you don't just have the positioning of your observation, but also its shape. This can be any shape; line, polygon, circle. The methods seen in point based methods can be applied to shape based methods, we just need to be a little more careful when performing the calculations. Since we are given the shape of our observation, there are characteristics we can extract from those that might be useful. We look at how we can incorporate that information in @sec-spatial-characteristics.
+
