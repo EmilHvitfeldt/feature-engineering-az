@@ -151,7 +151,17 @@ book:
     - part: "Time-Series Data"
       chapters:
         - time-series.qmd # Progress
+        - time-series-smooth.qmd
+        - time-series-sliding.qmd
+        - time-series-log-interval.qmd
+        - time-series-missing.qmd
+        - time-series-outliers.qmd
+        - time-series-diff.qmd
+        - time-series-lag.qmd
+        - time-series-rolling-window.qmd
+        - time-series-expanding-window.qmd
         - time-series-fourier.qmd
+        - time-series-wavelet.qmd
     - part: "Image Data"
       chapters:
         - image.qmd # Progress

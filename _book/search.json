@@ -2111,166 +2111,376 @@
     "href": "time-series.html",
     "title": "114  Overview",
     "section": "",
-    "text": "A very common type of data is time-series data. This is data where the observations is taken across time with time stamps. This data will inherently be correlated with with itself as the same measurement for the same unit likely isn’t going to change too much. Time series data is typically modeling using different methods than for other predictive modeling for this reason.\nNevertheless there are still some methods that will provide useful for us. It is important to note that there is a time component to this data, which is what we are trying to predict. The observations can happen at regular intervals, once a day, or irregular intervals, each time the engine errors. Different types of data uses different types of models, and makes the feature engineering a little different depending on what you are trying to do.\nThis chapter assumes the user knows how to use time series data and the precoutions that are need when working with data of this type.\nTODO: add link to appropiate resources\nOne area of work is modifying the sequence itself. Some of these transformations can be taken from Chapter 4. But there are some metrics that are specific to time series data. Likewise some metrics ar similar to what we do in Chapter 63 and Chapter 84, but special care needs to be taken with time series data.\n?sec-time-series-smooth ?sec-time-series-sliding ?sec-time-series-log-interval ?sec-time-series-missing ?sec-time-series-outliers\nAnother area of methods is where we extract or modify the sequence or its data to create new variables, this is done with taking the time component into consideration.\n?sec-time-series-lag ?sec-time-series-rolling-window ?sec-time-series-expanding-window ?sec-time-series-fourier ?sec-time-series-wavelet ?sec-time-diff Chapter 40"
+    "text": "A very common type of data is time-series data. This is data where the observations is taken across time with time stamps. This data will inherently be correlated with with itself as the same measurement for the same unit likely isn’t going to change too much. Time series data is typically modeling using different methods than for other predictive modeling for this reason.\nNevertheless there are still some methods that will provide useful for us. It is important to note that there is a time component to this data, which is what we are trying to predict. The observations can happen at regular intervals, once a day, or irregular intervals, each time the engine errors. Different types of data uses different types of models, and makes the feature engineering a little different depending on what you are trying to do.\nThis chapter assumes the user knows how to use time series data and the precautions that are need when working with data of this type.\nTODO: add link to appropriate resources\nOne area of work is modifying the sequence itself. Some of these transformations can be taken from Chapter 4. But there are some metrics that are specific to time series data. Likewise some metrics ar similar to what we do in Chapter 63 and Chapter 84, but special care needs to be taken with time series data.\n\nSmoothing in Chapter 115\nSliding window transformations in Chapter 116\nLog Interval Transformation in Chapter 117\nTime series specific handling of missing values in Chapter 118\nTime series specific handling of outliers in Chapter 119\n\nAnother area of methods is where we extract or modify the sequence or its data to create new variables, this is done with taking the time component into consideration. This will result in breaking about the time component in a decomposition kind of way, or by getting information out of the values themselves. One such example of the latter is found in the datetime section Chapter 40. Particularly like holiday extraction as seen in Chapter 41.\n\nDifferences in Chapter 120\nLagging features in Chapter 121\nrolling window features in Chapter 122\nexpanding window features in Chapter 123\nFourier decomposition in Chapter 124\nWavelet decomposition in Chapter 125"
   },
   {
-    "objectID": "time-series-fourier.html#pros-and-cons",
-    "href": "time-series-fourier.html#pros-and-cons",
-    "title": "115  Fourier Features",
+    "objectID": "time-series-smooth.html#pros-and-cons",
+    "href": "time-series-smooth.html#pros-and-cons",
+    "title": "115  Smoothing",
     "section": "115.1 Pros and Cons",
     "text": "115.1 Pros and Cons\n\n115.1.1 Pros\n\n\n115.1.2 Cons"
   },
   {
-    "objectID": "time-series-fourier.html#r-examples",
-    "href": "time-series-fourier.html#r-examples",
-    "title": "115  Fourier Features",
+    "objectID": "time-series-smooth.html#r-examples",
+    "href": "time-series-smooth.html#r-examples",
+    "title": "115  Smoothing",
     "section": "115.2 R Examples",
     "text": "115.2 R Examples"
   },
   {
-    "objectID": "time-series-fourier.html#python-examples",
-    "href": "time-series-fourier.html#python-examples",
-    "title": "115  Fourier Features",
+    "objectID": "time-series-smooth.html#python-examples",
+    "href": "time-series-smooth.html#python-examples",
+    "title": "115  Smoothing",
     "section": "115.3 Python Examples",
     "text": "115.3 Python Examples"
   },
   {
+    "objectID": "time-series-sliding.html#pros-and-cons",
+    "href": "time-series-sliding.html#pros-and-cons",
+    "title": "116  Sliding",
+    "section": "116.1 Pros and Cons",
+    "text": "116.1 Pros and Cons\n\n116.1.1 Pros\n\n\n116.1.2 Cons"
+  },
+  {
+    "objectID": "time-series-sliding.html#r-examples",
+    "href": "time-series-sliding.html#r-examples",
+    "title": "116  Sliding",
+    "section": "116.2 R Examples",
+    "text": "116.2 R Examples"
+  },
+  {
+    "objectID": "time-series-sliding.html#python-examples",
+    "href": "time-series-sliding.html#python-examples",
+    "title": "116  Sliding",
+    "section": "116.3 Python Examples",
+    "text": "116.3 Python Examples"
+  },
+  {
+    "objectID": "time-series-log-interval.html#pros-and-cons",
+    "href": "time-series-log-interval.html#pros-and-cons",
+    "title": "117  Log Interval",
+    "section": "117.1 Pros and Cons",
+    "text": "117.1 Pros and Cons\n\n117.1.1 Pros\n\n\n117.1.2 Cons"
+  },
+  {
+    "objectID": "time-series-log-interval.html#r-examples",
+    "href": "time-series-log-interval.html#r-examples",
+    "title": "117  Log Interval",
+    "section": "117.2 R Examples",
+    "text": "117.2 R Examples"
+  },
+  {
+    "objectID": "time-series-log-interval.html#python-examples",
+    "href": "time-series-log-interval.html#python-examples",
+    "title": "117  Log Interval",
+    "section": "117.3 Python Examples",
+    "text": "117.3 Python Examples"
+  },
+  {
+    "objectID": "time-series-missing.html#pros-and-cons",
+    "href": "time-series-missing.html#pros-and-cons",
+    "title": "118  Time series Missing values",
+    "section": "118.1 Pros and Cons",
+    "text": "118.1 Pros and Cons\n\n118.1.1 Pros\n\n\n118.1.2 Cons"
+  },
+  {
+    "objectID": "time-series-missing.html#r-examples",
+    "href": "time-series-missing.html#r-examples",
+    "title": "118  Time series Missing values",
+    "section": "118.2 R Examples",
+    "text": "118.2 R Examples"
+  },
+  {
+    "objectID": "time-series-missing.html#python-examples",
+    "href": "time-series-missing.html#python-examples",
+    "title": "118  Time series Missing values",
+    "section": "118.3 Python Examples",
+    "text": "118.3 Python Examples"
+  },
+  {
+    "objectID": "time-series-outliers.html#pros-and-cons",
+    "href": "time-series-outliers.html#pros-and-cons",
+    "title": "119  Time Series outliers",
+    "section": "119.1 Pros and Cons",
+    "text": "119.1 Pros and Cons\n\n119.1.1 Pros\n\n\n119.1.2 Cons"
+  },
+  {
+    "objectID": "time-series-outliers.html#r-examples",
+    "href": "time-series-outliers.html#r-examples",
+    "title": "119  Time Series outliers",
+    "section": "119.2 R Examples",
+    "text": "119.2 R Examples"
+  },
+  {
+    "objectID": "time-series-outliers.html#python-examples",
+    "href": "time-series-outliers.html#python-examples",
+    "title": "119  Time Series outliers",
+    "section": "119.3 Python Examples",
+    "text": "119.3 Python Examples"
+  },
+  {
+    "objectID": "time-series-diff.html#pros-and-cons",
+    "href": "time-series-diff.html#pros-and-cons",
+    "title": "120  Differences",
+    "section": "120.1 Pros and Cons",
+    "text": "120.1 Pros and Cons\n\n120.1.1 Pros\n\n\n120.1.2 Cons"
+  },
+  {
+    "objectID": "time-series-diff.html#r-examples",
+    "href": "time-series-diff.html#r-examples",
+    "title": "120  Differences",
+    "section": "120.2 R Examples",
+    "text": "120.2 R Examples"
+  },
+  {
+    "objectID": "time-series-diff.html#python-examples",
+    "href": "time-series-diff.html#python-examples",
+    "title": "120  Differences",
+    "section": "120.3 Python Examples",
+    "text": "120.3 Python Examples"
+  },
+  {
+    "objectID": "time-series-lag.html#pros-and-cons",
+    "href": "time-series-lag.html#pros-and-cons",
+    "title": "121  Lagging features",
+    "section": "121.1 Pros and Cons",
+    "text": "121.1 Pros and Cons\n\n121.1.1 Pros\n\n\n121.1.2 Cons"
+  },
+  {
+    "objectID": "time-series-lag.html#r-examples",
+    "href": "time-series-lag.html#r-examples",
+    "title": "121  Lagging features",
+    "section": "121.2 R Examples",
+    "text": "121.2 R Examples"
+  },
+  {
+    "objectID": "time-series-lag.html#python-examples",
+    "href": "time-series-lag.html#python-examples",
+    "title": "121  Lagging features",
+    "section": "121.3 Python Examples",
+    "text": "121.3 Python Examples"
+  },
+  {
+    "objectID": "time-series-rolling-window.html#pros-and-cons",
+    "href": "time-series-rolling-window.html#pros-and-cons",
+    "title": "122  Rolling Window",
+    "section": "122.1 Pros and Cons",
+    "text": "122.1 Pros and Cons\n\n122.1.1 Pros\n\n\n122.1.2 Cons"
+  },
+  {
+    "objectID": "time-series-rolling-window.html#r-examples",
+    "href": "time-series-rolling-window.html#r-examples",
+    "title": "122  Rolling Window",
+    "section": "122.2 R Examples",
+    "text": "122.2 R Examples"
+  },
+  {
+    "objectID": "time-series-rolling-window.html#python-examples",
+    "href": "time-series-rolling-window.html#python-examples",
+    "title": "122  Rolling Window",
+    "section": "122.3 Python Examples",
+    "text": "122.3 Python Examples"
+  },
+  {
+    "objectID": "time-series-expanding-window.html#pros-and-cons",
+    "href": "time-series-expanding-window.html#pros-and-cons",
+    "title": "123  Expanding Window",
+    "section": "123.1 Pros and Cons",
+    "text": "123.1 Pros and Cons\n\n123.1.1 Pros\n\n\n123.1.2 Cons"
+  },
+  {
+    "objectID": "time-series-expanding-window.html#r-examples",
+    "href": "time-series-expanding-window.html#r-examples",
+    "title": "123  Expanding Window",
+    "section": "123.2 R Examples",
+    "text": "123.2 R Examples"
+  },
+  {
+    "objectID": "time-series-expanding-window.html#python-examples",
+    "href": "time-series-expanding-window.html#python-examples",
+    "title": "123  Expanding Window",
+    "section": "123.3 Python Examples",
+    "text": "123.3 Python Examples"
+  },
+  {
+    "objectID": "time-series-fourier.html#pros-and-cons",
+    "href": "time-series-fourier.html#pros-and-cons",
+    "title": "124  Fourier Features",
+    "section": "124.1 Pros and Cons",
+    "text": "124.1 Pros and Cons\n\n124.1.1 Pros\n\n\n124.1.2 Cons"
+  },
+  {
+    "objectID": "time-series-fourier.html#r-examples",
+    "href": "time-series-fourier.html#r-examples",
+    "title": "124  Fourier Features",
+    "section": "124.2 R Examples",
+    "text": "124.2 R Examples"
+  },
+  {
+    "objectID": "time-series-fourier.html#python-examples",
+    "href": "time-series-fourier.html#python-examples",
+    "title": "124  Fourier Features",
+    "section": "124.3 Python Examples",
+    "text": "124.3 Python Examples"
+  },
+  {
+    "objectID": "time-series-wavelet.html#pros-and-cons",
+    "href": "time-series-wavelet.html#pros-and-cons",
+    "title": "125  Wavelet",
+    "section": "125.1 Pros and Cons",
+    "text": "125.1 Pros and Cons\n\n125.1.1 Pros\n\n\n125.1.2 Cons"
+  },
+  {
+    "objectID": "time-series-wavelet.html#r-examples",
+    "href": "time-series-wavelet.html#r-examples",
+    "title": "125  Wavelet",
+    "section": "125.2 R Examples",
+    "text": "125.2 R Examples"
+  },
+  {
+    "objectID": "time-series-wavelet.html#python-examples",
+    "href": "time-series-wavelet.html#python-examples",
+    "title": "125  Wavelet",
+    "section": "125.3 Python Examples",
+    "text": "125.3 Python Examples"
+  },
+  {
     "objectID": "image.html",
     "href": "image.html",
-    "title": "116  Overview",
+    "title": "126  Overview",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "image-stats.html#pros-and-cons",
     "href": "image-stats.html#pros-and-cons",
-    "title": "117  Visual Features",
-    "section": "117.1 Pros and Cons",
-    "text": "117.1 Pros and Cons\n\n117.1.1 Pros\n\n\n117.1.2 Cons"
+    "title": "127  Visual Features",
+    "section": "127.1 Pros and Cons",
+    "text": "127.1 Pros and Cons\n\n127.1.1 Pros\n\n\n127.1.2 Cons"
   },
   {
     "objectID": "image-stats.html#r-examples",
     "href": "image-stats.html#r-examples",
-    "title": "117  Visual Features",
-    "section": "117.2 R Examples",
-    "text": "117.2 R Examples"
+    "title": "127  Visual Features",
+    "section": "127.2 R Examples",
+    "text": "127.2 R Examples"
   },
   {
     "objectID": "image-stats.html#python-examples",
     "href": "image-stats.html#python-examples",
-    "title": "117  Visual Features",
-    "section": "117.3 Python Examples",
-    "text": "117.3 Python Examples"
+    "title": "127  Visual Features",
+    "section": "127.3 Python Examples",
+    "text": "127.3 Python Examples"
   },
   {
     "objectID": "video.html",
     "href": "video.html",
-    "title": "118  Overview",
+    "title": "128  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "video-tmp.html#pros-and-cons",
     "href": "video-tmp.html#pros-and-cons",
-    "title": "119  Temporary",
-    "section": "119.1 Pros and Cons",
-    "text": "119.1 Pros and Cons\n\n119.1.1 Pros\n\n\n119.1.2 Cons"
+    "title": "129  Temporary",
+    "section": "129.1 Pros and Cons",
+    "text": "129.1 Pros and Cons\n\n129.1.1 Pros\n\n\n129.1.2 Cons"
   },
   {
     "objectID": "video-tmp.html#r-examples",
     "href": "video-tmp.html#r-examples",
-    "title": "119  Temporary",
-    "section": "119.2 R Examples",
-    "text": "119.2 R Examples"
+    "title": "129  Temporary",
+    "section": "129.2 R Examples",
+    "text": "129.2 R Examples"
   },
   {
     "objectID": "video-tmp.html#python-examples",
     "href": "video-tmp.html#python-examples",
-    "title": "119  Temporary",
-    "section": "119.3 Python Examples",
-    "text": "119.3 Python Examples"
+    "title": "129  Temporary",
+    "section": "129.3 Python Examples",
+    "text": "129.3 Python Examples"
   },
   {
     "objectID": "sound.html",
     "href": "sound.html",
-    "title": "120  Overview",
+    "title": "130  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "sound-tmp.html#pros-and-cons",
     "href": "sound-tmp.html#pros-and-cons",
-    "title": "121  Temporary",
-    "section": "121.1 Pros and Cons",
-    "text": "121.1 Pros and Cons\n\n121.1.1 Pros\n\n\n121.1.2 Cons"
+    "title": "131  Temporary",
+    "section": "131.1 Pros and Cons",
+    "text": "131.1 Pros and Cons\n\n131.1.1 Pros\n\n\n131.1.2 Cons"
   },
   {
     "objectID": "sound-tmp.html#r-examples",
     "href": "sound-tmp.html#r-examples",
-    "title": "121  Temporary",
-    "section": "121.2 R Examples",
-    "text": "121.2 R Examples"
+    "title": "131  Temporary",
+    "section": "131.2 R Examples",
+    "text": "131.2 R Examples"
   },
   {
     "objectID": "sound-tmp.html#python-examples",
     "href": "sound-tmp.html#python-examples",
-    "title": "121  Temporary",
-    "section": "121.3 Python Examples",
-    "text": "121.3 Python Examples"
+    "title": "131  Temporary",
+    "section": "131.3 Python Examples",
+    "text": "131.3 Python Examples"
   },
   {
     "objectID": "relational.html",
     "href": "relational.html",
-    "title": "122  Overview",
+    "title": "132  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "relational-tmp.html#pros-and-cons",
     "href": "relational-tmp.html#pros-and-cons",
-    "title": "123  Temporary",
-    "section": "123.1 Pros and Cons",
-    "text": "123.1 Pros and Cons\n\n123.1.1 Pros\n\n\n123.1.2 Cons"
+    "title": "133  Temporary",
+    "section": "133.1 Pros and Cons",
+    "text": "133.1 Pros and Cons\n\n133.1.1 Pros\n\n\n133.1.2 Cons"
   },
   {
     "objectID": "relational-tmp.html#r-examples",
     "href": "relational-tmp.html#r-examples",
-    "title": "123  Temporary",
-    "section": "123.2 R Examples",
-    "text": "123.2 R Examples"
+    "title": "133  Temporary",
+    "section": "133.2 R Examples",
+    "text": "133.2 R Examples"
   },
   {
     "objectID": "relational-tmp.html#python-examples",
     "href": "relational-tmp.html#python-examples",
-    "title": "123  Temporary",
-    "section": "123.3 Python Examples",
-    "text": "123.3 Python Examples"
+    "title": "133  Temporary",
+    "section": "133.3 Python Examples",
+    "text": "133.3 Python Examples"
   },
   {
     "objectID": "order.html",
     "href": "order.html",
-    "title": "124  Order of transformations",
+    "title": "134  Order of transformations",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "sparse.html",
     "href": "sparse.html",
-    "title": "125  What should you do if you have sparse data?",
+    "title": "135  What should you do if you have sparse data?",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "models.html",
     "href": "models.html",
-    "title": "126  How Different Models Deal With Input",
+    "title": "136  How Different Models Deal With Input",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "summary.html",
     "href": "summary.html",
-    "title": "127  Summary",
+    "title": "137  Summary",
     "section": "",
     "text": "WIP"
   },
