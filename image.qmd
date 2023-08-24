@@ -1,3 +1,38 @@
 # Overview {#sec-image}
 
-WIP
+Image data is quite dissimilar to anything we have seen so far in this book. And will be need a whole different set of techniques to deal with them. For Most of this book, the unit of data was 1 value, such as 4, 7, or 0.3562 for numeric, and "cat" and "dog" for categorical. Text data as seen in @sec-text, is being treated as a series of tokens.
+
+Image data on the other hand is represented as an array of numbers, typically integers with varying dimensions. Each image is comprised of pixels, these pixels are laid out in a rectangular grid. For each pixel value you typically have between 1 and 4 values. These are called channels. 1 channel is used for gray-scale images. 3 channels are used for color images as they have a red channel, green channel and blue channel. Lastly sometimes there are also a forth channel for opacity.
+
+TODO: Add diagrams
+
+This means that for a 500 pixel by 1000 pixel color image, we have `500 * 1000 * 3 = 1500000` values. This is quite a lot of data, and hopefully we will be able to squeeze some out if it.
+
+The preprocessing techniques for images can be split into a couple of categories. All of which will be covered.
+
+## Feature Extraction
+
+- Edge detection
+- corner detection
+- texture analysis
+
+## Image Modification
+
+- Grayscale conversion
+- color modifications (includes brightness and contrast)
+- noise reduction
+- Value normalization
+- resizing
+
+## Augmentation
+
+To create a larger data set, with the hopes of increasing the performance and generalization
+
+- Changing brightness
+- Shifting, Flipping, Rotation
+- Cropping, Scaling
+
+## Embeddings
+
+- ImageNet
+- resNet

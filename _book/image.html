@@ -1132,7 +1132,16 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#feature-extraction" id="toc-feature-extraction" class="nav-link active" data-scroll-target="#feature-extraction"><span class="header-section-number">126.1</span> Feature Extraction</a></li>
+  <li><a href="#image-modification" id="toc-image-modification" class="nav-link" data-scroll-target="#image-modification"><span class="header-section-number">126.2</span> Image Modification</a></li>
+  <li><a href="#augmentation" id="toc-augmentation" class="nav-link" data-scroll-target="#augmentation"><span class="header-section-number">126.3</span> Augmentation</a></li>
+  <li><a href="#embeddings" id="toc-embeddings" class="nav-link" data-scroll-target="#embeddings"><span class="header-section-number">126.4</span> Embeddings</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -1154,9 +1163,47 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>WIP</p>
+<p>Image data is quite dissimilar to anything we have seen so far in this book. And will be need a whole different set of techniques to deal with them. For Most of this book, the unit of data was 1 value, such as 4, 7, or 0.3562 for numeric, and “cat” and “dog” for categorical. Text data as seen in <a href="text.html"><span>Chapter&nbsp;44</span></a>, is being treated as a series of tokens.</p>
+<p>Image data on the other hand is represented as an array of numbers, typically integers with varying dimensions. Each image is comprised of pixels, these pixels are laid out in a rectangular grid. For each pixel value you typically have between 1 and 4 values. These are called channels. 1 channel is used for gray-scale images. 3 channels are used for color images as they have a red channel, green channel and blue channel. Lastly sometimes there are also a forth channel for opacity.</p>
+<p>TODO: Add diagrams</p>
+<p>This means that for a 500 pixel by 1000 pixel color image, we have <code>500 * 1000 * 3 = 1500000</code> values. This is quite a lot of data, and hopefully we will be able to squeeze some out if it.</p>
+<p>The preprocessing techniques for images can be split into a couple of categories. All of which will be covered.</p>
+<section id="feature-extraction" class="level2" data-number="126.1">
+<h2 data-number="126.1" class="anchored" data-anchor-id="feature-extraction"><span class="header-section-number">126.1</span> Feature Extraction</h2>
+<ul>
+<li>Edge detection</li>
+<li>corner detection</li>
+<li>texture analysis</li>
+</ul>
+</section>
+<section id="image-modification" class="level2" data-number="126.2">
+<h2 data-number="126.2" class="anchored" data-anchor-id="image-modification"><span class="header-section-number">126.2</span> Image Modification</h2>
+<ul>
+<li>Grayscale conversion</li>
+<li>color modifications (includes brightness and contrast)</li>
+<li>noise reduction</li>
+<li>Value normalization</li>
+<li>resizing</li>
+</ul>
+</section>
+<section id="augmentation" class="level2" data-number="126.3">
+<h2 data-number="126.3" class="anchored" data-anchor-id="augmentation"><span class="header-section-number">126.3</span> Augmentation</h2>
+<p>To create a larger data set, with the hopes of increasing the performance and generalization</p>
+<ul>
+<li>Changing brightness</li>
+<li>Shifting, Flipping, Rotation</li>
+<li>Cropping, Scaling</li>
+</ul>
+</section>
+<section id="embeddings" class="level2" data-number="126.4">
+<h2 data-number="126.4" class="anchored" data-anchor-id="embeddings"><span class="header-section-number">126.4</span> Embeddings</h2>
+<ul>
+<li>ImageNet</li>
+<li>resNet</li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
