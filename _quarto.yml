@@ -166,6 +166,10 @@ book:
       chapters:
         - image.qmd # Progress
         - image-stats.qmd
+    - part: "Ralational Data"
+      chapters:
+        - relational.qmd # Progress
+        - relational-tmp.qmd
     - part: "Video Data"
       chapters:
         - video.qmd # Progress
@@ -174,10 +178,6 @@ book:
       chapters:
         - sound.qmd # Progress
         - sound-tmp.qmd
-    - part: "Ralational Data"
-      chapters:
-        - relational.qmd # Progress
-        - relational-tmp.qmd
     - order.qmd # Progress
     - sparse.qmd # Progress
     - models.qmd # Progress
