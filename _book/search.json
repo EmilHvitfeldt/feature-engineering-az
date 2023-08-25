@@ -2608,110 +2608,131 @@
     "href": "relational.html",
     "title": "138  Overview",
     "section": "",
-    "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
+    "text": "So far in this book we have almost exclusively talked about tabular data. with the exception of image data in Chapter 126, and to some degree time series data as seen in Chapter 114. The latter doesn’t quite count as is it typically stored in a tabular way. This section will talk about the scenario where you are working with more than 1 table. A situation that is quite common.\nWhen you have data, one way to store is in a data base. You have a number of smaller tables with information. Once you want to do some kind of modeling, you go to your data base and query out the data so you get it in a tabular format that our modeling tools will accept.\nTODO: add some kind of diagram here\nIt is at this stage we can use some feature engineering tricks. Propose that we are looking at daily sales targets for a number of different store. There will be tables of the individual store performances, who works there, the items the carry and so on. As well as their past behavior. Using the knowledge of these cross tables can be very valuable. We will look at two ways to handle this. Manually in Chapter 139 and automatically in Chapter 140."
   },
   {
-    "objectID": "relational-tmp.html#pros-and-cons",
-    "href": "relational-tmp.html#pros-and-cons",
-    "title": "139  Temporary",
+    "objectID": "relational-manual.html#pros-and-cons",
+    "href": "relational-manual.html#pros-and-cons",
+    "title": "139  Manual",
     "section": "139.1 Pros and Cons",
     "text": "139.1 Pros and Cons\n\n139.1.1 Pros\n\n\n139.1.2 Cons"
   },
   {
-    "objectID": "relational-tmp.html#r-examples",
-    "href": "relational-tmp.html#r-examples",
-    "title": "139  Temporary",
+    "objectID": "relational-manual.html#r-examples",
+    "href": "relational-manual.html#r-examples",
+    "title": "139  Manual",
     "section": "139.2 R Examples",
     "text": "139.2 R Examples"
   },
   {
-    "objectID": "relational-tmp.html#python-examples",
-    "href": "relational-tmp.html#python-examples",
-    "title": "139  Temporary",
+    "objectID": "relational-manual.html#python-examples",
+    "href": "relational-manual.html#python-examples",
+    "title": "139  Manual",
     "section": "139.3 Python Examples",
     "text": "139.3 Python Examples"
   },
   {
+    "objectID": "relational-auto.html#pros-and-cons",
+    "href": "relational-auto.html#pros-and-cons",
+    "title": "140  Automatic",
+    "section": "140.1 Pros and Cons",
+    "text": "140.1 Pros and Cons\n\n140.1.1 Pros\n\n\n140.1.2 Cons"
+  },
+  {
+    "objectID": "relational-auto.html#r-examples",
+    "href": "relational-auto.html#r-examples",
+    "title": "140  Automatic",
+    "section": "140.2 R Examples",
+    "text": "140.2 R Examples"
+  },
+  {
+    "objectID": "relational-auto.html#python-examples",
+    "href": "relational-auto.html#python-examples",
+    "title": "140  Automatic",
+    "section": "140.3 Python Examples",
+    "text": "140.3 Python Examples"
+  },
+  {
     "objectID": "video.html",
     "href": "video.html",
-    "title": "140  Overview",
+    "title": "141  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "video-tmp.html#pros-and-cons",
     "href": "video-tmp.html#pros-and-cons",
-    "title": "141  Temporary",
-    "section": "141.1 Pros and Cons",
-    "text": "141.1 Pros and Cons\n\n141.1.1 Pros\n\n\n141.1.2 Cons"
+    "title": "142  Temporary",
+    "section": "142.1 Pros and Cons",
+    "text": "142.1 Pros and Cons\n\n142.1.1 Pros\n\n\n142.1.2 Cons"
   },
   {
     "objectID": "video-tmp.html#r-examples",
     "href": "video-tmp.html#r-examples",
-    "title": "141  Temporary",
-    "section": "141.2 R Examples",
-    "text": "141.2 R Examples"
+    "title": "142  Temporary",
+    "section": "142.2 R Examples",
+    "text": "142.2 R Examples"
   },
   {
     "objectID": "video-tmp.html#python-examples",
     "href": "video-tmp.html#python-examples",
-    "title": "141  Temporary",
-    "section": "141.3 Python Examples",
-    "text": "141.3 Python Examples"
+    "title": "142  Temporary",
+    "section": "142.3 Python Examples",
+    "text": "142.3 Python Examples"
   },
   {
     "objectID": "sound.html",
     "href": "sound.html",
-    "title": "142  Overview",
+    "title": "143  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "sound-tmp.html#pros-and-cons",
     "href": "sound-tmp.html#pros-and-cons",
-    "title": "143  Temporary",
-    "section": "143.1 Pros and Cons",
-    "text": "143.1 Pros and Cons\n\n143.1.1 Pros\n\n\n143.1.2 Cons"
+    "title": "144  Temporary",
+    "section": "144.1 Pros and Cons",
+    "text": "144.1 Pros and Cons\n\n144.1.1 Pros\n\n\n144.1.2 Cons"
   },
   {
     "objectID": "sound-tmp.html#r-examples",
     "href": "sound-tmp.html#r-examples",
-    "title": "143  Temporary",
-    "section": "143.2 R Examples",
-    "text": "143.2 R Examples"
+    "title": "144  Temporary",
+    "section": "144.2 R Examples",
+    "text": "144.2 R Examples"
   },
   {
     "objectID": "sound-tmp.html#python-examples",
     "href": "sound-tmp.html#python-examples",
-    "title": "143  Temporary",
-    "section": "143.3 Python Examples",
-    "text": "143.3 Python Examples"
+    "title": "144  Temporary",
+    "section": "144.3 Python Examples",
+    "text": "144.3 Python Examples"
   },
   {
     "objectID": "order.html",
     "href": "order.html",
-    "title": "144  Order of transformations",
+    "title": "145  Order of transformations",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "sparse.html",
     "href": "sparse.html",
-    "title": "145  What should you do if you have sparse data?",
+    "title": "146  What should you do if you have sparse data?",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "models.html",
     "href": "models.html",
-    "title": "146  How Different Models Deal With Input",
+    "title": "147  How Different Models Deal With Input",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "summary.html",
     "href": "summary.html",
-    "title": "147  Summary",
+    "title": "148  Summary",
     "section": "",
     "text": "WIP"
   },

@@ -1138,8 +1138,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./relational-tmp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">139</span>&nbsp; <span class="chapter-title">Temporary</span></span></a>
+  <a href="./relational-manual.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">139</span>&nbsp; <span class="chapter-title">Manual</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./relational-auto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">140</span>&nbsp; <span class="chapter-title">Automatic</span></span></a>
   </div>
 </li>
       </ul>
@@ -1156,13 +1162,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./video.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">140</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+ <span class="menu-text"><span class="chapter-number">141</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./video-tmp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">141</span>&nbsp; <span class="chapter-title">Temporary</span></span></a>
+ <span class="menu-text"><span class="chapter-number">142</span>&nbsp; <span class="chapter-title">Temporary</span></span></a>
   </div>
 </li>
       </ul>
@@ -1179,13 +1185,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sound.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">142</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+ <span class="menu-text"><span class="chapter-number">143</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sound-tmp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">143</span>&nbsp; <span class="chapter-title">Temporary</span></span></a>
+ <span class="menu-text"><span class="chapter-number">144</span>&nbsp; <span class="chapter-title">Temporary</span></span></a>
   </div>
 </li>
       </ul>
@@ -1193,25 +1199,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./order.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">144</span>&nbsp; <span class="chapter-title">Order of transformations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">145</span>&nbsp; <span class="chapter-title">Order of transformations</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sparse.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">145</span>&nbsp; <span class="chapter-title">What should you do if you have sparse data?</span></span></a>
+ <span class="menu-text"><span class="chapter-number">146</span>&nbsp; <span class="chapter-title">What should you do if you have sparse data?</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">146</span>&nbsp; <span class="chapter-title">How Different Models Deal With Input</span></span></a>
+ <span class="menu-text"><span class="chapter-number">147</span>&nbsp; <span class="chapter-title">How Different Models Deal With Input</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">147</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+ <span class="menu-text"><span class="chapter-number">148</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -1281,7 +1287,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [5,]   1   0     0</code></pre>
 </div>
 </div>
-<p>From this, we have a couple of observations. Firstly the length of each of these variables is equal to the length of the original categorical variable. The number of columns corresponds to the number of levels. And lastly, the sum of all the values on each row equals 1 since all the rows contain one 1 and the remaining 0s. This means that for even a small number of levels, you get <strong>sparse data</strong>. Sparse data is data where there are a lot of zeroes, meaning that it would take less space to store where the non-zero values are instead of all the values. You can read more about how and when to care about sparse data in <a href="sparse.html"><span>Chapter&nbsp;145</span></a>. What this means for dummy variable creation, is that depending on whether your software can handle sparse data, you might need to limit the number of levels in your categorical variables. One way to do this would be to collapse levels together, which you can read about in <a href="categorical-collapse.html"><span>Chapter&nbsp;38</span></a>.</p>
+<p>From this, we have a couple of observations. Firstly the length of each of these variables is equal to the length of the original categorical variable. The number of columns corresponds to the number of levels. And lastly, the sum of all the values on each row equals 1 since all the rows contain one 1 and the remaining 0s. This means that for even a small number of levels, you get <strong>sparse data</strong>. Sparse data is data where there are a lot of zeroes, meaning that it would take less space to store where the non-zero values are instead of all the values. You can read more about how and when to care about sparse data in <a href="sparse.html"><span>Chapter&nbsp;146</span></a>. What this means for dummy variable creation, is that depending on whether your software can handle sparse data, you might need to limit the number of levels in your categorical variables. One way to do this would be to collapse levels together, which you can read about in <a href="categorical-collapse.html"><span>Chapter&nbsp;38</span></a>.</p>
 <p>Dummy variable creation is a <em>trained</em> method. This means that doing the training step, the levels of each categorical variable are saved, and then these and only these values are used for dummy variable creation. If we assumed that the above example data were used to train the preprocessor, and we passed in the values <code>["dog", "cat", "cat", "dog"]</code> during future applications, we would expect the following dummy variables</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
