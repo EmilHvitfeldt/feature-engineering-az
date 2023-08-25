@@ -165,7 +165,17 @@ book:
     - part: "Image Data"
       chapters:
         - image.qmd # Progress
-        - image-stats.qmd
+        - image-edge-corner.qmd
+        - image-texture.qmd
+        - image-grayscale.qmd
+        - image-colors.qmd
+        - image-noise.qmd
+        - image-normalization.qmd
+        - image-resize.qmd
+        - image-brightness.qmd
+        - image-shift-flip-rotate.qmd
+        - image-crop-scale.qmd
+        - image-embeddings.qmd
     - part: "Ralational Data"
       chapters:
         - relational.qmd # Progress

@@ -12,27 +12,29 @@ The preprocessing techniques for images can be split into a couple of categories
 
 ## Feature Extraction
 
-- Edge detection
-- corner detection
-- texture analysis
+In the extraction setting, we take the images and try to extract smaller, hopefully smaller vectors of information. These could be simple statistics or larger and more complicated methods. One does not need to do this right away, and sometimes it is beneficent to apply some of the image modifications methods below before doing the extraction.
+
+- Edge detection and corner detection in @sec-image-edge-corner
+- texture analysis in @sec-image-texture
 
 ## Image Modification
 
-- Grayscale conversion
-- color modifications (includes brightness and contrast)
-- noise reduction
-- Value normalization
-- resizing
+Sometimes the images you get in will not be in the best shape for your task at hand. This could be for various reasons. Applying color changes of different kinds can help highlight the important parts of the image, such that later preprocessing steps or models have a easier time picking up on it. Likewise you might need to scale the data to help the model and well as reduce noise. Lastly you will properly need to resize your images as many deep learning image modes works on fixed input sizes.
+
+- Grayscale conversion in @sec-image-grayscale
+- color modifications in @sec-image-colors
+- noise reduction in @sec-image-noise
+- Value normalization in @sec-image-normalization
+- resizing in @sec-image-resize
 
 ## Augmentation
 
-To create a larger data set, with the hopes of increasing the performance and generalization
+A common trick in when working with image data is to do augmentation. What we mean with that, is that we do different kinds of transformations to generate new images that contain the same information but in different ways. It creates a larger data set. With with the hopes of increasing the performance and generalization. Being able to detect cat pictures regardless if they are center in the image or not.
 
-- Changing brightness
-- Shifting, Flipping, Rotation
-- Cropping, Scaling
+- Changing brightness in @sec-image-brightness
+- Shifting, Flipping, Rotation in @sec-image-shift-flip-rotate
+- Cropping, Scaling in @sec-image-crop-scale
 
 ## Embeddings
 
-- ImageNet
-- resNet
+We can also take advantage of transfer learning. People have fit image deep learning models on many images before us. And some of these trained models can be reused for us. We will look at that in @sec-image-embeddings.
