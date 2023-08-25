@@ -2349,159 +2349,369 @@
     "href": "image.html#feature-extraction",
     "title": "126  Overview",
     "section": "126.1 Feature Extraction",
-    "text": "126.1 Feature Extraction\n\nEdge detection\ncorner detection\ntexture analysis"
+    "text": "126.1 Feature Extraction\nIn the extraction setting, we take the images and try to extract smaller, hopefully smaller vectors of information. These could be simple statistics or larger and more complicated methods. One does not need to do this right away, and sometimes it is beneficent to apply some of the image modifications methods below before doing the extraction.\n\nEdge detection and corner detection in Chapter 127\ntexture analysis in Chapter 128"
   },
   {
     "objectID": "image.html#image-modification",
     "href": "image.html#image-modification",
     "title": "126  Overview",
     "section": "126.2 Image Modification",
-    "text": "126.2 Image Modification\n\nGrayscale conversion\ncolor modifications (includes brightness and contrast)\nnoise reduction\nValue normalization\nresizing"
+    "text": "126.2 Image Modification\nSometimes the images you get in will not be in the best shape for your task at hand. This could be for various reasons. Applying color changes of different kinds can help highlight the important parts of the image, such that later preprocessing steps or models have a easier time picking up on it. Likewise you might need to scale the data to help the model and well as reduce noise. Lastly you will properly need to resize your images as many deep learning image modes works on fixed input sizes.\n\nGrayscale conversion in Chapter 129\ncolor modifications in Chapter 130\nnoise reduction in Chapter 131\nValue normalization in Chapter 132\nresizing in Chapter 133"
   },
   {
     "objectID": "image.html#augmentation",
     "href": "image.html#augmentation",
     "title": "126  Overview",
     "section": "126.3 Augmentation",
-    "text": "126.3 Augmentation\nTo create a larger data set, with the hopes of increasing the performance and generalization\n\nChanging brightness\nShifting, Flipping, Rotation\nCropping, Scaling"
+    "text": "126.3 Augmentation\nA common trick in when working with image data is to do augmentation. What we mean with that, is that we do different kinds of transformations to generate new images that contain the same information but in different ways. It creates a larger data set. With with the hopes of increasing the performance and generalization. Being able to detect cat pictures regardless if they are center in the image or not.\n\nChanging brightness in Chapter 134\nShifting, Flipping, Rotation in Chapter 135\nCropping, Scaling in Chapter 136"
   },
   {
     "objectID": "image.html#embeddings",
     "href": "image.html#embeddings",
     "title": "126  Overview",
     "section": "126.4 Embeddings",
-    "text": "126.4 Embeddings\n\nImageNet\nresNet"
+    "text": "126.4 Embeddings\nWe can also take advantage of transfer learning. People have fit image deep learning models on many images before us. And some of these trained models can be reused for us. We will look at that in Chapter 137."
   },
   {
-    "objectID": "image-stats.html#pros-and-cons",
-    "href": "image-stats.html#pros-and-cons",
-    "title": "127  Visual Features",
+    "objectID": "image-edge-corner.html#pros-and-cons",
+    "href": "image-edge-corner.html#pros-and-cons",
+    "title": "127  Edge and corner detection",
     "section": "127.1 Pros and Cons",
     "text": "127.1 Pros and Cons\n\n127.1.1 Pros\n\n\n127.1.2 Cons"
   },
   {
-    "objectID": "image-stats.html#r-examples",
-    "href": "image-stats.html#r-examples",
-    "title": "127  Visual Features",
+    "objectID": "image-edge-corner.html#r-examples",
+    "href": "image-edge-corner.html#r-examples",
+    "title": "127  Edge and corner detection",
     "section": "127.2 R Examples",
     "text": "127.2 R Examples"
   },
   {
-    "objectID": "image-stats.html#python-examples",
-    "href": "image-stats.html#python-examples",
-    "title": "127  Visual Features",
+    "objectID": "image-edge-corner.html#python-examples",
+    "href": "image-edge-corner.html#python-examples",
+    "title": "127  Edge and corner detection",
     "section": "127.3 Python Examples",
     "text": "127.3 Python Examples"
   },
   {
+    "objectID": "image-texture.html#pros-and-cons",
+    "href": "image-texture.html#pros-and-cons",
+    "title": "128  Texture Analysis",
+    "section": "128.1 Pros and Cons",
+    "text": "128.1 Pros and Cons\n\n128.1.1 Pros\n\n\n128.1.2 Cons"
+  },
+  {
+    "objectID": "image-texture.html#r-examples",
+    "href": "image-texture.html#r-examples",
+    "title": "128  Texture Analysis",
+    "section": "128.2 R Examples",
+    "text": "128.2 R Examples"
+  },
+  {
+    "objectID": "image-texture.html#python-examples",
+    "href": "image-texture.html#python-examples",
+    "title": "128  Texture Analysis",
+    "section": "128.3 Python Examples",
+    "text": "128.3 Python Examples"
+  },
+  {
+    "objectID": "image-grayscale.html#pros-and-cons",
+    "href": "image-grayscale.html#pros-and-cons",
+    "title": "129  Greyscale conversion",
+    "section": "129.1 Pros and Cons",
+    "text": "129.1 Pros and Cons\n\n129.1.1 Pros\n\n\n129.1.2 Cons"
+  },
+  {
+    "objectID": "image-grayscale.html#r-examples",
+    "href": "image-grayscale.html#r-examples",
+    "title": "129  Greyscale conversion",
+    "section": "129.2 R Examples",
+    "text": "129.2 R Examples"
+  },
+  {
+    "objectID": "image-grayscale.html#python-examples",
+    "href": "image-grayscale.html#python-examples",
+    "title": "129  Greyscale conversion",
+    "section": "129.3 Python Examples",
+    "text": "129.3 Python Examples"
+  },
+  {
+    "objectID": "image-colors.html#pros-and-cons",
+    "href": "image-colors.html#pros-and-cons",
+    "title": "130  Color Modifications",
+    "section": "130.1 Pros and Cons",
+    "text": "130.1 Pros and Cons\n\n130.1.1 Pros\n\n\n130.1.2 Cons"
+  },
+  {
+    "objectID": "image-colors.html#r-examples",
+    "href": "image-colors.html#r-examples",
+    "title": "130  Color Modifications",
+    "section": "130.2 R Examples",
+    "text": "130.2 R Examples"
+  },
+  {
+    "objectID": "image-colors.html#python-examples",
+    "href": "image-colors.html#python-examples",
+    "title": "130  Color Modifications",
+    "section": "130.3 Python Examples",
+    "text": "130.3 Python Examples"
+  },
+  {
+    "objectID": "image-noise.html#pros-and-cons",
+    "href": "image-noise.html#pros-and-cons",
+    "title": "131  Noise Reduction",
+    "section": "131.1 Pros and Cons",
+    "text": "131.1 Pros and Cons\n\n131.1.1 Pros\n\n\n131.1.2 Cons"
+  },
+  {
+    "objectID": "image-noise.html#r-examples",
+    "href": "image-noise.html#r-examples",
+    "title": "131  Noise Reduction",
+    "section": "131.2 R Examples",
+    "text": "131.2 R Examples"
+  },
+  {
+    "objectID": "image-noise.html#python-examples",
+    "href": "image-noise.html#python-examples",
+    "title": "131  Noise Reduction",
+    "section": "131.3 Python Examples",
+    "text": "131.3 Python Examples"
+  },
+  {
+    "objectID": "image-normalization.html#pros-and-cons",
+    "href": "image-normalization.html#pros-and-cons",
+    "title": "132  Value Normalization",
+    "section": "132.1 Pros and Cons",
+    "text": "132.1 Pros and Cons\n\n132.1.1 Pros\n\n\n132.1.2 Cons"
+  },
+  {
+    "objectID": "image-normalization.html#r-examples",
+    "href": "image-normalization.html#r-examples",
+    "title": "132  Value Normalization",
+    "section": "132.2 R Examples",
+    "text": "132.2 R Examples"
+  },
+  {
+    "objectID": "image-normalization.html#python-examples",
+    "href": "image-normalization.html#python-examples",
+    "title": "132  Value Normalization",
+    "section": "132.3 Python Examples",
+    "text": "132.3 Python Examples"
+  },
+  {
+    "objectID": "image-resize.html#pros-and-cons",
+    "href": "image-resize.html#pros-and-cons",
+    "title": "133  Resizing",
+    "section": "133.1 Pros and Cons",
+    "text": "133.1 Pros and Cons\n\n133.1.1 Pros\n\n\n133.1.2 Cons"
+  },
+  {
+    "objectID": "image-resize.html#r-examples",
+    "href": "image-resize.html#r-examples",
+    "title": "133  Resizing",
+    "section": "133.2 R Examples",
+    "text": "133.2 R Examples"
+  },
+  {
+    "objectID": "image-resize.html#python-examples",
+    "href": "image-resize.html#python-examples",
+    "title": "133  Resizing",
+    "section": "133.3 Python Examples",
+    "text": "133.3 Python Examples"
+  },
+  {
+    "objectID": "image-brightness.html#pros-and-cons",
+    "href": "image-brightness.html#pros-and-cons",
+    "title": "134  Changing Brightness",
+    "section": "134.1 Pros and Cons",
+    "text": "134.1 Pros and Cons\n\n134.1.1 Pros\n\n\n134.1.2 Cons"
+  },
+  {
+    "objectID": "image-brightness.html#r-examples",
+    "href": "image-brightness.html#r-examples",
+    "title": "134  Changing Brightness",
+    "section": "134.2 R Examples",
+    "text": "134.2 R Examples"
+  },
+  {
+    "objectID": "image-brightness.html#python-examples",
+    "href": "image-brightness.html#python-examples",
+    "title": "134  Changing Brightness",
+    "section": "134.3 Python Examples",
+    "text": "134.3 Python Examples"
+  },
+  {
+    "objectID": "image-shift-flip-rotate.html#pros-and-cons",
+    "href": "image-shift-flip-rotate.html#pros-and-cons",
+    "title": "135  Shifting, Flipping, and Rotation",
+    "section": "135.1 Pros and Cons",
+    "text": "135.1 Pros and Cons\n\n135.1.1 Pros\n\n\n135.1.2 Cons"
+  },
+  {
+    "objectID": "image-shift-flip-rotate.html#r-examples",
+    "href": "image-shift-flip-rotate.html#r-examples",
+    "title": "135  Shifting, Flipping, and Rotation",
+    "section": "135.2 R Examples",
+    "text": "135.2 R Examples"
+  },
+  {
+    "objectID": "image-shift-flip-rotate.html#python-examples",
+    "href": "image-shift-flip-rotate.html#python-examples",
+    "title": "135  Shifting, Flipping, and Rotation",
+    "section": "135.3 Python Examples",
+    "text": "135.3 Python Examples"
+  },
+  {
+    "objectID": "image-crop-scale.html#pros-and-cons",
+    "href": "image-crop-scale.html#pros-and-cons",
+    "title": "136  Cropping and Scaling",
+    "section": "136.1 Pros and Cons",
+    "text": "136.1 Pros and Cons\n\n136.1.1 Pros\n\n\n136.1.2 Cons"
+  },
+  {
+    "objectID": "image-crop-scale.html#r-examples",
+    "href": "image-crop-scale.html#r-examples",
+    "title": "136  Cropping and Scaling",
+    "section": "136.2 R Examples",
+    "text": "136.2 R Examples"
+  },
+  {
+    "objectID": "image-crop-scale.html#python-examples",
+    "href": "image-crop-scale.html#python-examples",
+    "title": "136  Cropping and Scaling",
+    "section": "136.3 Python Examples",
+    "text": "136.3 Python Examples"
+  },
+  {
+    "objectID": "image-embeddings.html#pros-and-cons",
+    "href": "image-embeddings.html#pros-and-cons",
+    "title": "137  Image embeddings",
+    "section": "137.1 Pros and Cons",
+    "text": "137.1 Pros and Cons\n\n137.1.1 Pros\n\n\n137.1.2 Cons"
+  },
+  {
+    "objectID": "image-embeddings.html#r-examples",
+    "href": "image-embeddings.html#r-examples",
+    "title": "137  Image embeddings",
+    "section": "137.2 R Examples",
+    "text": "137.2 R Examples"
+  },
+  {
+    "objectID": "image-embeddings.html#python-examples",
+    "href": "image-embeddings.html#python-examples",
+    "title": "137  Image embeddings",
+    "section": "137.3 Python Examples",
+    "text": "137.3 Python Examples"
+  },
+  {
     "objectID": "relational.html",
     "href": "relational.html",
-    "title": "128  Overview",
+    "title": "138  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "relational-tmp.html#pros-and-cons",
     "href": "relational-tmp.html#pros-and-cons",
-    "title": "129  Temporary",
-    "section": "129.1 Pros and Cons",
-    "text": "129.1 Pros and Cons\n\n129.1.1 Pros\n\n\n129.1.2 Cons"
+    "title": "139  Temporary",
+    "section": "139.1 Pros and Cons",
+    "text": "139.1 Pros and Cons\n\n139.1.1 Pros\n\n\n139.1.2 Cons"
   },
   {
     "objectID": "relational-tmp.html#r-examples",
     "href": "relational-tmp.html#r-examples",
-    "title": "129  Temporary",
-    "section": "129.2 R Examples",
-    "text": "129.2 R Examples"
+    "title": "139  Temporary",
+    "section": "139.2 R Examples",
+    "text": "139.2 R Examples"
   },
   {
     "objectID": "relational-tmp.html#python-examples",
     "href": "relational-tmp.html#python-examples",
-    "title": "129  Temporary",
-    "section": "129.3 Python Examples",
-    "text": "129.3 Python Examples"
+    "title": "139  Temporary",
+    "section": "139.3 Python Examples",
+    "text": "139.3 Python Examples"
   },
   {
     "objectID": "video.html",
     "href": "video.html",
-    "title": "130  Overview",
+    "title": "140  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "video-tmp.html#pros-and-cons",
     "href": "video-tmp.html#pros-and-cons",
-    "title": "131  Temporary",
-    "section": "131.1 Pros and Cons",
-    "text": "131.1 Pros and Cons\n\n131.1.1 Pros\n\n\n131.1.2 Cons"
+    "title": "141  Temporary",
+    "section": "141.1 Pros and Cons",
+    "text": "141.1 Pros and Cons\n\n141.1.1 Pros\n\n\n141.1.2 Cons"
   },
   {
     "objectID": "video-tmp.html#r-examples",
     "href": "video-tmp.html#r-examples",
-    "title": "131  Temporary",
-    "section": "131.2 R Examples",
-    "text": "131.2 R Examples"
+    "title": "141  Temporary",
+    "section": "141.2 R Examples",
+    "text": "141.2 R Examples"
   },
   {
     "objectID": "video-tmp.html#python-examples",
     "href": "video-tmp.html#python-examples",
-    "title": "131  Temporary",
-    "section": "131.3 Python Examples",
-    "text": "131.3 Python Examples"
+    "title": "141  Temporary",
+    "section": "141.3 Python Examples",
+    "text": "141.3 Python Examples"
   },
   {
     "objectID": "sound.html",
     "href": "sound.html",
-    "title": "132  Overview",
+    "title": "142  Overview",
     "section": "",
     "text": "This chapter is still tentative, if you have any methods you need think would fit in this chapter, please post an issue in the Github repository.\nWIP"
   },
   {
     "objectID": "sound-tmp.html#pros-and-cons",
     "href": "sound-tmp.html#pros-and-cons",
-    "title": "133  Temporary",
-    "section": "133.1 Pros and Cons",
-    "text": "133.1 Pros and Cons\n\n133.1.1 Pros\n\n\n133.1.2 Cons"
+    "title": "143  Temporary",
+    "section": "143.1 Pros and Cons",
+    "text": "143.1 Pros and Cons\n\n143.1.1 Pros\n\n\n143.1.2 Cons"
   },
   {
     "objectID": "sound-tmp.html#r-examples",
     "href": "sound-tmp.html#r-examples",
-    "title": "133  Temporary",
-    "section": "133.2 R Examples",
-    "text": "133.2 R Examples"
+    "title": "143  Temporary",
+    "section": "143.2 R Examples",
+    "text": "143.2 R Examples"
   },
   {
     "objectID": "sound-tmp.html#python-examples",
     "href": "sound-tmp.html#python-examples",
-    "title": "133  Temporary",
-    "section": "133.3 Python Examples",
-    "text": "133.3 Python Examples"
+    "title": "143  Temporary",
+    "section": "143.3 Python Examples",
+    "text": "143.3 Python Examples"
   },
   {
     "objectID": "order.html",
     "href": "order.html",
-    "title": "134  Order of transformations",
+    "title": "144  Order of transformations",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "sparse.html",
     "href": "sparse.html",
-    "title": "135  What should you do if you have sparse data?",
+    "title": "145  What should you do if you have sparse data?",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "models.html",
     "href": "models.html",
-    "title": "136  How Different Models Deal With Input",
+    "title": "146  How Different Models Deal With Input",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "summary.html",
     "href": "summary.html",
-    "title": "137  Summary",
+    "title": "147  Summary",
     "section": "",
     "text": "WIP"
   },
