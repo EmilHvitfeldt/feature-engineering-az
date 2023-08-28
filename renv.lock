@@ -194,6 +194,13 @@
       ],
       "Hash": "0cf10dab0d023d5b46a5a14387556891"
     },
+    "SnowballC": {
+      "Package": "SnowballC",
+      "Version": "0.7.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "46da3912f69e3e6258a033802c4af32e"
+    },
     "TSP": {
       "Package": "TSP",
       "Version": "1.2-4",
@@ -446,10 +453,13 @@
     },
     "cpp11": {
       "Package": "cpp11",
-      "Version": "0.4.5",
+      "Version": "0.4.6",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "f07821e9b0aada6c999d4692e22a2ea7"
+      "Requirements": [
+        "R"
+      ],
+      "Hash": "707fae4bbf73697ec8d85f9d7076c061"
     },
     "crayon": {
       "Package": "crayon",
@@ -1457,7 +1467,7 @@
     },
     "progressr": {
       "Package": "progressr",
-      "Version": "0.13.0",
+      "Version": "0.14.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -1465,7 +1475,7 @@
         "digest",
         "utils"
       ],
-      "Hash": "376a8ebcc878f9c1395e212548fc297a"
+      "Hash": "ac50c4ffa8f6a46580dd4d7813add3c4"
     },
     "ps": {
       "Package": "ps",
@@ -1480,7 +1490,7 @@
     },
     "purrr": {
       "Package": "purrr",
-      "Version": "1.0.1",
+      "Version": "1.0.2",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -1491,7 +1501,7 @@
         "rlang",
         "vctrs"
       ],
-      "Hash": "d71c815267c640f17ddbf7f16144b4bb"
+      "Hash": "1cba04a4e9414bdefc9dcaa99649a8dc"
     },
     "qap": {
       "Package": "qap",
@@ -1535,14 +1545,14 @@
     },
     "recipes": {
       "Package": "recipes",
-      "Version": "1.0.6.9000",
+      "Version": "1.0.8.9000",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteRepo": "recipes",
       "RemoteUsername": "tidymodels",
       "RemoteRef": "HEAD",
-      "RemoteSha": "59486ec5cf0d345eebdc5e278a69e8883de3e232",
+      "RemoteSha": "be9f35b7d198870c2a767c54d91220e9ec4834d7",
       "Requirements": [
         "Matrix",
         "R",
@@ -1569,7 +1579,7 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "aeb7adfa532bddd781453c64b9e69aa6"
+      "Hash": "430843f27fff04d5a495a48b65e68917"
     },
     "registry": {
       "Package": "registry",
@@ -1908,6 +1918,30 @@
       ],
       "Hash": "34fddd59db96f799164f802ab7e0de8d"
     },
+    "textrecipes": {
+      "Package": "textrecipes",
+      "Version": "1.0.4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "Matrix",
+        "R",
+        "SnowballC",
+        "cpp11",
+        "dplyr",
+        "generics",
+        "glue",
+        "lifecycle",
+        "magrittr",
+        "purrr",
+        "recipes",
+        "rlang",
+        "tibble",
+        "tokenizers",
+        "vctrs"
+      ],
+      "Hash": "f8759ddc4098c923b9761ec91b46950a"
+    },
     "tfautograph": {
       "Package": "tfautograph",
       "Version": "0.3.2",
@@ -2064,6 +2098,19 @@
         "xfun"
       ],
       "Hash": "e4e357f28c2edff493936b6cb30c3d65"
+    },
+    "tokenizers": {
+      "Package": "tokenizers",
+      "Version": "0.3.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "Rcpp",
+        "SnowballC",
+        "stringi"
+      ],
+      "Hash": "76d35ebfaaf291e08c15696c9f2ec96d"
     },
     "tune": {
       "Package": "tune",
