@@ -1232,6 +1232,16 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<p>Hashing encoding, also known as the <strong>hashing trick</strong> and <strong>feature hashing</strong>, is an method where we take in the categorical values, run those values through a fast hashing function and let the resulting value determine how the encoding is done.</p>
+<p>There are a couple of things to unpack here. Hashing functions being one of them. But the first thing we will deal with is the motivation. Some categorical variables contain many unique levels, enough to make dummy encoding <a href="categorical-dummy.html"><span>Chapter&nbsp;20</span></a> unfeasible. This happens for a couple of reasons. Firstly, we are creating many columns and thus high sparsity. Secondly, high cardinality often comes with many new unseen levels. Feature hashing can be used to deal with both.</p>
+<p>TODO: Add code to showcase what happens</p>
+<p>One mental model, is that we are constructing a dummy encoding, and then combining the columns in a deterministically random way. And for this we are using a hashing function. A <strong>hashing function</strong> is a function that takes an input, and returns a integer. The same value will always return the same output. It is computationally easy to perform this transformation, but it is hard to reverse it. This is not a downside as we don’t need to perform the reverse transformation. Furthermore a good hashing function output values evenly across their supported range, and similar values such as <code>cat</code> and <code>cats</code> will produce vastly different hashes, <code>1751422759</code> and <code>2517493566</code> respective for the MurmurHash3 hashing function.</p>
+<p>The MurmurHash3, which is commonly used for its speed, produces values 32-but hash values, which gives us integers between <code>1</code> and <code>2^32 = 4294967296</code>. Producing <code>4294967296</code> columns would not help us, so what is typically done is to round these values down to a more manageable range. Specifically rounding by a power of 2 is common since that can be archived by bit manipulation. Propose we round such that we only keep the 6 significant digets, then we are left with <code>2^6 = 64</code> values. And the hashes for <code>cat</code> is now <code>39</code> and <code>cats</code> is <code>62</code>. They are still different, but now they take up a smaller space of possible values.</p>
+<p>One thing that will happen when you use these hashing functions is that different levels hash to the same value. This is called a <strong>collision</strong>. And are technically a bad thing, as the model will be unable to distinguish between the influence of those two levels. However it is not something to avoid at all costs. One of the main tenets of hashing encoding, is that we are getting a trade-off between storage size and information. (TODO find better thing to say here).</p>
+<p>talk about how we need to tune this value</p>
+<p>talk about sign</p>
+<p>TODO: find examples of this happening</p>
+<p>TODO: Add diagram</p>
 <section id="pros-and-cons" class="level2" data-number="26.1">
 <h2 data-number="26.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">26.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="26.1.1">

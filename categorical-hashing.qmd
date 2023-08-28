@@ -1,5 +1,25 @@
 # Hashing Encoding {#sec-hashing-encoding}
 
+Hashing encoding, also known as the **hashing trick** and **feature hashing**, is an method where we take in the categorical values, run those values through a fast hashing function and let the resulting value determine how the encoding is done.
+
+There are a couple of things to unpack here. Hashing functions being one of them. But the first thing we will deal with is the motivation. Some categorical variables contain many unique levels, enough to make dummy encoding @sec-dummy-encoding unfeasible. This happens for a couple of reasons. Firstly, we are creating many columns and thus high sparsity. Secondly, high cardinality often comes with many new unseen levels. Feature hashing can be used to deal with both.
+
+TODO: Add code to showcase what happens
+
+One mental model, is that we are constructing a dummy encoding, and then combining the columns in a deterministically random way. And for this we are using a hashing function. A **hashing function** is a function that takes an input, and returns a integer. The same value will always return the same output. It is computationally easy to perform this transformation, but it is hard to reverse it. This is not a downside as we don't need to perform the reverse transformation. Furthermore a good hashing function output values evenly across their supported range, and similar values such as `cat` and `cats` will produce vastly different hashes, `1751422759` and `2517493566` respective for the MurmurHash3 hashing function. 
+
+The MurmurHash3, which is commonly used for its speed, produces values 32-but hash values, which gives us integers between `1` and `2^32 = 4294967296`. Producing `4294967296` columns would not help us, so what is typically done is to round these values down to a more manageable range. Specifically rounding by a power of 2 is common since that can be archived by bit manipulation. Propose we round such that we only keep the 6 significant digets, then we are left with `2^6 = 64` values. And the hashes for `cat` is now `39` and `cats` is `62`. They are still different, but now they take up a smaller space of possible values.
+
+One thing that will happen when you use these hashing functions is that different levels hash to the same value. This is called a **collision**. And are technically a bad thing, as the model will be unable to distinguish between the influence of those two levels. However it is not something to avoid at all costs. One of the main tenets of hashing encoding, is that we are getting a trade-off between storage size and information. (TODO find better thing to say here). 
+
+talk about how we need to tune this value
+
+talk about sign
+
+TODO: find examples of this happening
+
+TODO: Add diagram
+
 ## Pros and Cons
 
 ### Pros
