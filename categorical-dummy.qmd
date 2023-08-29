@@ -1,4 +1,4 @@
-# Dummy Encoding {#sec-dummy-encoding}
+# Dummy Encoding {#sec-categorical-dummy}
 
 We have some categorical variables and we want to turn them into numerical values, one of the most common ways of going about it it so create **dummy variables**. Dummy variables are variables that only take the values 0 and 1 to indicate the absence or presence of the levels in a categorical variable. This is nicely shown with an example.
 
@@ -38,7 +38,7 @@ dummy[4, 2] <- 1L
 dummy
 ```
 
-it is important that the `horse` variable is here too, even if it is empty as the subsequent preprocessing steps and model expect the horse variable to be present. Likewise, you can run into problems if the value `"duck"` was used as the preprocessor wouldn't know what to do. These cases are talked about in @sec-unseen.
+it is important that the `horse` variable is here too, even if it is empty as the subsequent preprocessing steps and model expect the horse variable to be present. Likewise, you can run into problems if the value `"duck"` was used as the preprocessor wouldn't know what to do. These cases are talked about in @sec-categorical-unseen.
 
 ## Dummy or one-hot encoding
 

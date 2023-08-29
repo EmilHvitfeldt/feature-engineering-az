@@ -1,10 +1,10 @@
-# Unseen Levels {#sec-unseen}
+# Unseen Levels {#sec-categorical-unseen}
 
 When you are dealing with categorical variables, it is understood that they can take many values. And we have various methods about how to deal with these categorical values, regardless of what values they take. One problem that eventually will happen for you is that you try to apply a trained preprocessor on data that has levels in your categorical variable that you haven't seen before. This can happen when you are fitting your model using resampled data, when you are applying your model on the testing data set, or, if you are unlucky, at some future time in production. 
 
 TODO add diagram here
 
-The reason why you need to think about this problem is that some methods and/or models will complain and even error if you are providing unseen levels. Some implementations will allow you to deal with this at the method level. Other methods such as @sec-hashing-encoding don't care at all that you have unseen levels in your data.
+The reason why you need to think about this problem is that some methods and/or models will complain and even error if you are providing unseen levels. Some implementations will allow you to deal with this at the method level. Other methods such as @sec-categorical-hashing don't care at all that you have unseen levels in your data.
 
 One surefire way to deal with this issue is to add a step in your data preprocessing pipeline that will turn any unseen levels into `"unseen"`. What this method does in practice, is that it looks at your categorical variables during training, taking note of all the levels it sees and saving them. Then any time the preprocessing is applied to new data it will look at the levels again, and if it sees a level it hasn't seen, label it `"unseen"` (or any other meaningful label that doesn't conflict with the data). This way, you have any future levels. 
 
