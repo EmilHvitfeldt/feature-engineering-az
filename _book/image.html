@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.4.104">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -1229,7 +1229,7 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Image data is quite dissimilar to anything we have seen so far in this book. And will be need a whole different set of techniques to deal with them. For Most of this book, the unit of data was 1 value, such as 4, 7, or 0.3562 for numeric, and “cat” and “dog” for categorical. Text data as seen in <a href="text.html"><span>Chapter&nbsp;44</span></a>, is being treated as a series of tokens.</p>
+<p>Image data is quite dissimilar to anything we have seen so far in this book. And will be need a whole different set of techniques to deal with them. For Most of this book, the unit of data was 1 value, such as 4, 7, or 0.3562 for numeric, and “cat” and “dog” for categorical. Text data as seen in <a href="text.html" class="quarto-xref"><span>Chapter&nbsp;44</span></a>, is being treated as a series of tokens.</p>
 <p>Image data on the other hand is represented as an array of numbers, typically integers with varying dimensions. Each image is comprised of pixels, these pixels are laid out in a rectangular grid. For each pixel value you typically have between 1 and 4 values. These are called channels. 1 channel is used for gray-scale images. 3 channels are used for color images as they have a red channel, green channel and blue channel. Lastly sometimes there are also a forth channel for opacity.</p>
 <p>TODO: Add diagrams</p>
 <p>This means that for a 500 pixel by 1000 pixel color image, we have <code>500 * 1000 * 3 = 1500000</code> values. This is quite a lot of data, and hopefully we will be able to squeeze some out if it.</p>
@@ -1238,33 +1238,33 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="126.1" class="anchored" data-anchor-id="feature-extraction"><span class="header-section-number">126.1</span> Feature Extraction</h2>
 <p>In the extraction setting, we take the images and try to extract smaller, hopefully smaller vectors of information. These could be simple statistics or larger and more complicated methods. One does not need to do this right away, and sometimes it is beneficent to apply some of the image modifications methods below before doing the extraction.</p>
 <ul>
-<li>Edge detection and corner detection in <a href="image-edge-corner.html"><span>Chapter&nbsp;127</span></a></li>
-<li>texture analysis in <a href="image-texture.html"><span>Chapter&nbsp;128</span></a></li>
+<li>Edge detection and corner detection in <a href="image-edge-corner.html" class="quarto-xref"><span>Chapter&nbsp;127</span></a></li>
+<li>texture analysis in <a href="image-texture.html" class="quarto-xref"><span>Chapter&nbsp;128</span></a></li>
 </ul>
 </section>
 <section id="image-modification" class="level2" data-number="126.2">
 <h2 data-number="126.2" class="anchored" data-anchor-id="image-modification"><span class="header-section-number">126.2</span> Image Modification</h2>
 <p>Sometimes the images you get in will not be in the best shape for your task at hand. This could be for various reasons. Applying color changes of different kinds can help highlight the important parts of the image, such that later preprocessing steps or models have a easier time picking up on it. Likewise you might need to scale the data to help the model and well as reduce noise. Lastly you will properly need to resize your images as many deep learning image modes works on fixed input sizes.</p>
 <ul>
-<li>Grayscale conversion in <a href="image-grayscale.html"><span>Chapter&nbsp;129</span></a></li>
-<li>color modifications in <a href="image-colors.html"><span>Chapter&nbsp;130</span></a></li>
-<li>noise reduction in <a href="image-noise.html"><span>Chapter&nbsp;131</span></a></li>
-<li>Value normalization in <a href="image-normalization.html"><span>Chapter&nbsp;132</span></a></li>
-<li>resizing in <a href="image-resize.html"><span>Chapter&nbsp;133</span></a></li>
+<li>Grayscale conversion in <a href="image-grayscale.html" class="quarto-xref"><span>Chapter&nbsp;129</span></a></li>
+<li>color modifications in <a href="image-colors.html" class="quarto-xref"><span>Chapter&nbsp;130</span></a></li>
+<li>noise reduction in <a href="image-noise.html" class="quarto-xref"><span>Chapter&nbsp;131</span></a></li>
+<li>Value normalization in <a href="image-normalization.html" class="quarto-xref"><span>Chapter&nbsp;132</span></a></li>
+<li>resizing in <a href="image-resize.html" class="quarto-xref"><span>Chapter&nbsp;133</span></a></li>
 </ul>
 </section>
 <section id="augmentation" class="level2" data-number="126.3">
 <h2 data-number="126.3" class="anchored" data-anchor-id="augmentation"><span class="header-section-number">126.3</span> Augmentation</h2>
 <p>A common trick in when working with image data is to do augmentation. What we mean with that, is that we do different kinds of transformations to generate new images that contain the same information but in different ways. It creates a larger data set. With with the hopes of increasing the performance and generalization. Being able to detect cat pictures regardless if they are center in the image or not.</p>
 <ul>
-<li>Changing brightness in <a href="image-brightness.html"><span>Chapter&nbsp;134</span></a></li>
-<li>Shifting, Flipping, Rotation in <a href="image-shift-flip-rotate.html"><span>Chapter&nbsp;135</span></a></li>
-<li>Cropping, Scaling in <a href="image-crop-scale.html"><span>Chapter&nbsp;136</span></a></li>
+<li>Changing brightness in <a href="image-brightness.html" class="quarto-xref"><span>Chapter&nbsp;134</span></a></li>
+<li>Shifting, Flipping, Rotation in <a href="image-shift-flip-rotate.html" class="quarto-xref"><span>Chapter&nbsp;135</span></a></li>
+<li>Cropping, Scaling in <a href="image-crop-scale.html" class="quarto-xref"><span>Chapter&nbsp;136</span></a></li>
 </ul>
 </section>
 <section id="embeddings" class="level2" data-number="126.4">
 <h2 data-number="126.4" class="anchored" data-anchor-id="embeddings"><span class="header-section-number">126.4</span> Embeddings</h2>
-<p>We can also take advantage of transfer learning. People have fit image deep learning models on many images before us. And some of these trained models can be reused for us. We will look at that in <a href="image-embeddings.html"><span>Chapter&nbsp;137</span></a>.</p>
+<p>We can also take advantage of transfer learning. People have fit image deep learning models on many images before us. And some of these trained models can be reused for us. We will look at that in <a href="image-embeddings.html" class="quarto-xref"><span>Chapter&nbsp;137</span></a>.</p>
 
 
 </section>
@@ -1349,10 +1349,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1362,8 +1361,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1376,6 +1384,61 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    if (id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        for (let i = 0; i < 2; i++) {
+          container.appendChild(note.children[i].cloneNode(true));
+        }
+        return container.innerHTML
+      } else {
+        return note.innerHTML;
+      }
+    } else {
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      try { hash = new URL(url).hash; } catch {}
+      const id = hash.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note !== null) {
+        try {
+          const html = processXRef(id, note);
+          instance.setContent(html);
+        } finally {
+          instance.enable();
+          instance.show();
+        }
+      } else {
+        // See if we can fetch this
+        fetch(url.split('#')[0])
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.getElementById(id);
+          console.log(htmlDoc.body.innerHTML);
+          if (note !== null) {
+            const html = processXRef(id, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1419,6 +1482,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
