@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -1238,21 +1272,112 @@ ul.task-list li input[type="checkbox"] {
 <p>One mental model, is that we are constructing a dummy encoding, and then combining the columns in a deterministically random way. And for this we are using a hashing function. A <strong>hashing function</strong> is a function that takes an input, and returns a integer. The same value will always return the same output. It is computationally easy to perform this transformation, but it is hard to reverse it. This is not a downside as we don’t need to perform the reverse transformation. Furthermore a good hashing function output values evenly across their supported range, and similar values such as <code>cat</code> and <code>cats</code> will produce vastly different hashes, <code>1751422759</code> and <code>2517493566</code> respective for the MurmurHash3 hashing function.</p>
 <p>The MurmurHash3, which is commonly used for its speed, produces values 32-but hash values, which gives us integers between <code>1</code> and <code>2^32 = 4294967296</code>. Producing <code>4294967296</code> columns would not help us, so what is typically done is to round these values down to a more manageable range. Specifically rounding by a power of 2 is common since that can be archived by bit manipulation. Propose we round such that we only keep the 6 significant digets, then we are left with <code>2^6 = 64</code> values. And the hashes for <code>cat</code> is now <code>39</code> and <code>cats</code> is <code>62</code>. They are still different, but now they take up a smaller space of possible values.</p>
 <p>One thing that will happen when you use these hashing functions is that different levels hash to the same value. This is called a <strong>collision</strong>. And are technically a bad thing, as the model will be unable to distinguish between the influence of those two levels. However it is not something to avoid at all costs. One of the main tenets of hashing encoding, is that we are getting a trade-off between storage size and information. (TODO find better thing to say here).</p>
-<p>talk about how we need to tune this value</p>
-<p>talk about sign</p>
 <p>TODO: find examples of this happening</p>
-<p>TODO: Add diagram</p>
+<p>With this in mind, the optional number of features produces by hashing encoding cannot be inferred directly, and we will need to try different values. Too few columns and we have too many collisions and the performance drops, too many columns and we run into a memory and speed issue.</p>
+<p>TODO: Add diagram with trade-off here</p>
+<p>One thing that is used to combat collisions is the use of a hashed sign function. Much like we are using a hashing function to generate integers, we will use a different hashing function to give us one of two values <code>-1</code> and <code>1</code>. This will determine the sign of each hashed word. This is done to lessen the negative effects of collisions as there is a 50% chance that a pair of strings that hash to the same values will have different signs and thus cancel each other out.</p>
+<p>TODO: show diagram of this happening</p>
+<p>The main downside to this method is the lack of explainability, as the collisions makes we so we can’t know for sure which level contributed to the effect of that variable. On the other hand, we get the added benefit of being able to handle unseen labels directly. These will not be of use directly, but they are handled in the sense that we don’t have to keep track of levels, as the hashing function just does its job.</p>
 <section id="pros-and-cons" class="level2" data-number="26.1">
 <h2 data-number="26.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">26.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="26.1.1">
 <h3 data-number="26.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">26.1.1</span> Pros</h3>
+<ul>
+<li>Computationally fast</li>
+<li>Allows for fixed number of output columns</li>
+<li>gives less sparse output than dummy encoding</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="26.1.2">
 <h3 data-number="26.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">26.1.2</span> Cons</h3>
+<ul>
+<li>Loss of interpretability</li>
+<li>Still gives quite sparse output</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="26.2">
 <h2 data-number="26.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">26.2</span> R Examples</h2>
+<p>TODO: find higher cardionality data set for this</p>
+<p>We will be using the <code>ames</code> data set for these examples. The <code>step_dummy_hash()</code> function from the <a href="textrecipes.tidymodels.org">textrecipes</a> package allows us to perform hashing encoding.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: dplyr</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'recipes'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:stats':
+
+    step</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textrecipes)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modeldata)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"ames"</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>ames <span class="sc">|&gt;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Sale_Price, Exterior_1st)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,930 × 2
+   Sale_Price Exterior_1st
+        &lt;int&gt; &lt;fct&gt;       
+ 1     215000 BrkFace     
+ 2     105000 VinylSd     
+ 3     172000 Wd Sdng     
+ 4     244000 BrkFace     
+ 5     189900 VinylSd     
+ 6     195500 VinylSd     
+ 7     213500 CemntBd     
+ 8     191500 HdBoard     
+ 9     236500 CemntBd     
+10     189000 VinylSd     
+# ℹ 2,920 more rows</code></pre>
+</div>
+</div>
+<p>We will be using the <code>step_dummy_hash()</code> step for this. For illustrative purposes we will be creating <code>8</code> columns, where in practice you would likely want this value higher.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dummy_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> Exterior_1st, <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_dummy_hash</span>(Exterior_1st, <span class="at">num_terms =</span> <span class="dv">8</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>'as(&lt;dgTMatrix&gt;, "dgCMatrix")' is deprecated.
+Use 'as(., "CsparseMatrix")' instead.
+See help("Deprecated") and help("Matrix-deprecated").</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>dummy_rec <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,930
+Columns: 9
+$ Sale_Price               &lt;int&gt; 215000, 105000, 172000, 244000, 189900, 19550…
+$ dummyhash_Exterior_1st_1 &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, -1,…
+$ dummyhash_Exterior_1st_2 &lt;int&gt; 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+$ dummyhash_Exterior_1st_3 &lt;int&gt; 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+$ dummyhash_Exterior_1st_4 &lt;int&gt; -1, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ dummyhash_Exterior_1st_5 &lt;int&gt; 0, 0, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, 0, 0…
+$ dummyhash_Exterior_1st_6 &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+$ dummyhash_Exterior_1st_7 &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+$ dummyhash_Exterior_1st_8 &lt;int&gt; 0, -1, 0, 0, -1, -1, 0, 0, 0, -1, 0, 0, -1, 0…</code></pre>
+</div>
+</div>
 </section>
 <section id="python-examples" class="level2" data-number="26.3">
 <h2 data-number="26.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">26.3</span> Python Examples</h2>
