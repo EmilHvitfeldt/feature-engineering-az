@@ -95,6 +95,20 @@
       ],
       "Hash": "31262fd18481fab05c5e7258dac163ca"
     },
+    "MatrixExtra": {
+      "Package": "MatrixExtra",
+      "Version": "0.1.14",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "Matrix",
+        "Rcpp",
+        "RhpcBLASctl",
+        "float",
+        "methods"
+      ],
+      "Hash": "430fe3baae635c639d4059a3bd0f193f"
+    },
     "R6": {
       "Package": "R6",
       "Version": "2.5.1",
@@ -183,6 +197,13 @@
         "Rcpp"
       ],
       "Hash": "c232938949fcd8126034419cc529333a"
+    },
+    "RhpcBLASctl": {
+      "Package": "RhpcBLASctl",
+      "Version": "0.23-42",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "c966ea2957ff75e77afa5c908dfc89e1"
     },
     "SQUAREM": {
       "Package": "SQUAREM",
@@ -668,6 +689,19 @@
       "Repository": "CRAN",
       "Hash": "f7736a18de97dea803bde0a2daaafb27"
     },
+    "float": {
+      "Package": "float",
+      "Version": "0.3-1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "methods",
+        "tools",
+        "utils"
+      ],
+      "Hash": "f3b27b4d5181bc230dde2f0314771856"
+    },
     "fontawesome": {
       "Package": "fontawesome",
       "Version": "0.5.1",
@@ -1128,6 +1162,17 @@
       ],
       "Hash": "bbc70840ea0f91f34dd9703efe4c96c3"
     },
+    "lgr": {
+      "Package": "lgr",
+      "Version": "0.4.4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "R6"
+      ],
+      "Hash": "a6bc51765d7e9eeb2b225a11805527aa"
+    },
     "lhs": {
       "Package": "lhs",
       "Version": "1.1.6",
@@ -1222,6 +1267,18 @@
         "tools"
       ],
       "Hash": "18e9c28c1d3ca1560ce30658b22ce104"
+    },
+    "mlapi": {
+      "Package": "mlapi",
+      "Version": "0.1.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "Matrix",
+        "R6",
+        "methods"
+      ],
+      "Hash": "12498a143cf0333be625ca133f381c28"
     },
     "modeldata": {
       "Package": "modeldata",
@@ -1719,6 +1776,25 @@
       ],
       "Hash": "cb0c54ebc268ec382be8e4d4a8c34557"
     },
+    "rsparse": {
+      "Package": "rsparse",
+      "Version": "0.5.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "Matrix",
+        "MatrixExtra",
+        "R",
+        "Rcpp",
+        "RcppArmadillo",
+        "RhpcBLASctl",
+        "data.table",
+        "float",
+        "lgr",
+        "methods"
+      ],
+      "Hash": "42dda788315ed0b1c53b66aaba40af30"
+    },
     "rstudioapi": {
       "Package": "rstudioapi",
       "Version": "0.15.0",
@@ -1917,6 +1993,26 @@
         "yaml"
       ],
       "Hash": "34fddd59db96f799164f802ab7e0de8d"
+    },
+    "text2vec": {
+      "Package": "text2vec",
+      "Version": "0.6.3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "Matrix",
+        "R",
+        "R6",
+        "Rcpp",
+        "data.table",
+        "digest",
+        "lgr",
+        "methods",
+        "mlapi",
+        "rsparse",
+        "stringi"
+      ],
+      "Hash": "9d190b0838d150daba133a9963e282fd"
     },
     "textrecipes": {
       "Package": "textrecipes",
