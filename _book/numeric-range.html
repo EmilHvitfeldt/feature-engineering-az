@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.4.104">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -1272,7 +1272,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><span id="eq-range-minimal"><span class="math display">\[
 X_{scaled} = \dfrac{X - \text{min}(X)}{\text{max}(X) - \text{min}(X)}
 \tag{11.1}\]</span></span></p>
-<p>This equations only shows what happens if you use the software with defaults. This will scale your variable to be in the range <span class="math inline">\([0, 1]\)</span>. It is important to treat this as a learned method, and we will thus calculate <span class="math inline">\(\text{min}(X)\)</span> and <span class="math inline">\(\text{max}(X)\)</span> on the training data set, and use those to apply the transformation on new data. One of the benefits of this method is that it transforms any variable into a predefined range of 0 and 1. Unless of cause a new data point is outside the range. Suppose that the original data was on the range <span class="math inline">\(\text{min}(X) = 5\)</span> and <span class="math inline">\(\text{max}(X) = 100\)</span>, and we encounter a new data point with the value 200. Then according to <a href="#eq-range-clip">Equation&nbsp;<span>11.2</span></a> we would get a transformed value of (200-5)/(100-5) = 2.0526 which is very much not between 0 and 1. We thus have a violation of our original goal. One way to get around this is to use clipping. Clipping is a technique when using this method where any values less then <span class="math inline">\(\text{min}(X)\)</span> will be noted as 0 and any values larger than <span class="math inline">\(\text{max}(X)\)</span> will be noted as 1. This little tick ensures that any new data points stays within the range. Expending our equation to the following</p>
+<p>This equations only shows what happens if you use the software with defaults. This will scale your variable to be in the range <span class="math inline">\([0, 1]\)</span>. It is important to treat this as a learned method, and we will thus calculate <span class="math inline">\(\text{min}(X)\)</span> and <span class="math inline">\(\text{max}(X)\)</span> on the training data set, and use those to apply the transformation on new data. One of the benefits of this method is that it transforms any variable into a predefined range of 0 and 1. Unless of cause a new data point is outside the range. Suppose that the original data was on the range <span class="math inline">\(\text{min}(X) = 5\)</span> and <span class="math inline">\(\text{max}(X) = 100\)</span>, and we encounter a new data point with the value 200. Then according to <a href="#eq-range-clip" class="quarto-xref">Equation&nbsp;<span>11.2</span></a> we would get a transformed value of (200-5)/(100-5) = 2.0526 which is very much not between 0 and 1. We thus have a violation of our original goal. One way to get around this is to use clipping. Clipping is a technique when using this method where any values less then <span class="math inline">\(\text{min}(X)\)</span> will be noted as 0 and any values larger than <span class="math inline">\(\text{max}(X)\)</span> will be noted as 1. This little tick ensures that any new data points stays within the range. Expending our equation to the following</p>
 <p><span id="eq-range-clip"><span class="math display">\[
 X_{scaled}=    
 \begin{cases}        
@@ -1281,7 +1281,7 @@ X_{scaled}=
 \dfrac{X_{new} - \text{min}(X_{train})}{\text{max}(X_{train}) - \text{min}(X_{train})}, &amp; \text{otherwise}
 \end{cases}
 \tag{11.2}\]</span></span></p>
-<p>The equation is a lot bigger, but was it different is that we are specify that the transformation should be done using training data, and by adding a couple of branches to reflect the clipping. In practice it will look something like <a href="#fig-range-clipping">Figure&nbsp;<span>11.1</span></a> where the original data had a range of <span class="math inline">\([10, 32]\)</span>.</p>
+<p>The equation is a lot bigger, but was it different is that we are specify that the transformation should be done using training data, and by adding a couple of branches to reflect the clipping. In practice it will look something like <a href="#fig-range-clipping" class="quarto-xref">Figure&nbsp;<span>11.1</span></a> where the original data had a range of <span class="math inline">\([10, 32]\)</span>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-range-clipping" class="quarto-figure quarto-figure-center anchored">
@@ -1292,7 +1292,7 @@ X_{scaled}=
 </div>
 </div>
 </div>
-<p>Sadly we are not done quite yet. One last thing that <a href="#eq-range-clip">Equation&nbsp;<span>11.2</span></a> doesn’t take into account is that sometimes people don’t want to transformation to be into any range, not just <span class="math inline">\([0, 1]\)</span> . This gives us the final equation</p>
+<p>Sadly we are not done quite yet. One last thing that <a href="#eq-range-clip" class="quarto-xref">Equation&nbsp;<span>11.2</span></a> doesn’t take into account is that sometimes people don’t want to transformation to be into any range, not just <span class="math inline">\([0, 1]\)</span> . This gives us the final equation</p>
 <p><span id="eq-range-custom"><span class="math display">\[
 X_{scaled}=    
 \begin{cases}        
@@ -1301,9 +1301,9 @@ R_{upper} &amp; X_{new} &gt; \text{max}(X_{train})\\
 \dfrac{X_{new} - \text{min}(X_{train})}{\text{max}(X_{train}) - \text{min}(X_{train})} \cdot (R_{upper}-R_{lower}) + R_{lower}, &amp; \text{otherwise}
 \end{cases}
 \tag{11.3}\]</span></span></p>
-<p>Where <a href="#eq-range-custom">Equation&nbsp;<span>11.3</span></a> now have <span class="math inline">\(R_{lower}\)</span> to represent a user defined lower bound, and <span class="math inline">\(R_{upper}\)</span> representing the corresponding user defined upper bound. I would recommend that you keep <a href="#eq-range-minimal">Equation&nbsp;<span>11.1</span></a> in your mind when thinking about this method, but also include a little footnote that it doesn’t include all the little options.</p>
+<p>Where <a href="#eq-range-custom" class="quarto-xref">Equation&nbsp;<span>11.3</span></a> now have <span class="math inline">\(R_{lower}\)</span> to represent a user defined lower bound, and <span class="math inline">\(R_{upper}\)</span> representing the corresponding user defined upper bound. I would recommend that you keep <a href="#eq-range-minimal" class="quarto-xref">Equation&nbsp;<span>11.1</span></a> in your mind when thinking about this method, but also include a little footnote that it doesn’t include all the little options.</p>
 <p>One thing you should know is how this transformation is affected by outliers. Clipping essentially ignores the magnitude of how much an outlier is. There is no difference between a new value of 100 and 100000 to a variable that had a range of <span class="math inline">\([0, 90]\)</span> on the training data set. This might be a problem, and it is up to you as the practitioner to decide. One option would be to turn off clipping, but it would violate the assumption that all future transformed observations will be within a specific range.</p>
-<p>Below is the figure <a href="#fig-range-outlier">Figure&nbsp;<span>11.2</span></a> is an illustration of the effect by having a single high value. In this case, a single observation with the value `10000` moved the transformed distribution much tighter around zero. And all but removed the variance of the non-outliers.</p>
+<p>Below is the figure <a href="#fig-range-outlier" class="quarto-xref">Figure&nbsp;<span>11.2</span></a> is an illustration of the effect by having a single high value. In this case, a single observation with the value `10000` moved the transformed distribution much tighter around zero. And all but removed the variance of the non-outliers.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4,000 × 3
@@ -1535,10 +1535,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1548,8 +1547,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1562,6 +1570,61 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    if (id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        for (let i = 0; i < 2; i++) {
+          container.appendChild(note.children[i].cloneNode(true));
+        }
+        return container.innerHTML
+      } else {
+        return note.innerHTML;
+      }
+    } else {
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      try { hash = new URL(url).hash; } catch {}
+      const id = hash.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note !== null) {
+        try {
+          const html = processXRef(id, note);
+          instance.setContent(html);
+        } finally {
+          instance.enable();
+          instance.show();
+        }
+      } else {
+        // See if we can fetch this
+        fetch(url.split('#')[0])
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.getElementById(id);
+          console.log(htmlDoc.body.innerHTML);
+          if (note !== null) {
+            const html = processXRef(id, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1605,6 +1668,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");

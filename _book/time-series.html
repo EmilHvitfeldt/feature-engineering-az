@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.4.104">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -1224,22 +1224,22 @@ ul.task-list li input[type="checkbox"] {
 <p>Nevertheless there are still some methods that will provide useful for us. It is important to note that there is a time component to this data, which is what we are trying to predict. The observations can happen at regular intervals, once a day, or irregular intervals, each time the engine errors. Different types of data uses different types of models, and makes the feature engineering a little different depending on what you are trying to do.</p>
 <p>This chapter assumes the user knows how to use time series data and the precautions that are need when working with data of this type.</p>
 <p>TODO: add link to appropriate resources</p>
-<p>One area of work is modifying the sequence itself. Some of these transformations can be taken from <a href="numeric.html"><span>Chapter&nbsp;4</span></a>. But there are some metrics that are specific to time series data. Likewise some metrics ar similar to what we do in <a href="missing.html"><span>Chapter&nbsp;63</span></a> and <a href="outliers.html"><span>Chapter&nbsp;84</span></a>, but special care needs to be taken with time series data.</p>
+<p>One area of work is modifying the sequence itself. Some of these transformations can be taken from <a href="numeric.html" class="quarto-xref"><span>Chapter&nbsp;4</span></a>. But there are some metrics that are specific to time series data. Likewise some metrics ar similar to what we do in <a href="missing.html" class="quarto-xref"><span>Chapter&nbsp;63</span></a> and <a href="outliers.html" class="quarto-xref"><span>Chapter&nbsp;84</span></a>, but special care needs to be taken with time series data.</p>
 <ul>
-<li>Smoothing in <a href="time-series-smooth.html"><span>Chapter&nbsp;115</span></a></li>
-<li>Sliding window transformations in <a href="time-series-sliding.html"><span>Chapter&nbsp;116</span></a></li>
-<li>Log Interval Transformation in <a href="time-series-log-interval.html"><span>Chapter&nbsp;117</span></a></li>
-<li>Time series specific handling of missing values in <a href="time-series-missing.html"><span>Chapter&nbsp;118</span></a></li>
-<li>Time series specific handling of outliers in <a href="time-series-outliers.html"><span>Chapter&nbsp;119</span></a></li>
+<li>Smoothing in <a href="time-series-smooth.html" class="quarto-xref"><span>Chapter&nbsp;115</span></a></li>
+<li>Sliding window transformations in <a href="time-series-sliding.html" class="quarto-xref"><span>Chapter&nbsp;116</span></a></li>
+<li>Log Interval Transformation in <a href="time-series-log-interval.html" class="quarto-xref"><span>Chapter&nbsp;117</span></a></li>
+<li>Time series specific handling of missing values in <a href="time-series-missing.html" class="quarto-xref"><span>Chapter&nbsp;118</span></a></li>
+<li>Time series specific handling of outliers in <a href="time-series-outliers.html" class="quarto-xref"><span>Chapter&nbsp;119</span></a></li>
 </ul>
-<p>Another area of methods is where we extract or modify the sequence or its data to create new variables, this is done with taking the time component into consideration. This will result in breaking about the time component in a decomposition kind of way, or by getting information out of the values themselves. One such example of the latter is found in the datetime section <a href="datetime.html"><span>Chapter&nbsp;40</span></a>. Particularly like holiday extraction as seen in <a href="datetime-extraction.html"><span>Chapter&nbsp;41</span></a>.</p>
+<p>Another area of methods is where we extract or modify the sequence or its data to create new variables, this is done with taking the time component into consideration. This will result in breaking about the time component in a decomposition kind of way, or by getting information out of the values themselves. One such example of the latter is found in the datetime section <a href="datetime.html" class="quarto-xref"><span>Chapter&nbsp;40</span></a>. Particularly like holiday extraction as seen in <a href="datetime-extraction.html" class="quarto-xref"><span>Chapter&nbsp;41</span></a>.</p>
 <ul>
-<li>Differences in <a href="time-series-diff.html"><span>Chapter&nbsp;120</span></a></li>
-<li>Lagging features in <a href="time-series-lag.html"><span>Chapter&nbsp;121</span></a></li>
-<li>rolling window features in <a href="time-series-rolling-window.html"><span>Chapter&nbsp;122</span></a></li>
-<li>expanding window features in <a href="time-series-expanding-window.html"><span>Chapter&nbsp;123</span></a></li>
-<li>Fourier decomposition in <a href="time-series-fourier.html"><span>Chapter&nbsp;124</span></a></li>
-<li>Wavelet decomposition in <a href="time-series-wavelet.html"><span>Chapter&nbsp;125</span></a></li>
+<li>Differences in <a href="time-series-diff.html" class="quarto-xref"><span>Chapter&nbsp;120</span></a></li>
+<li>Lagging features in <a href="time-series-lag.html" class="quarto-xref"><span>Chapter&nbsp;121</span></a></li>
+<li>rolling window features in <a href="time-series-rolling-window.html" class="quarto-xref"><span>Chapter&nbsp;122</span></a></li>
+<li>expanding window features in <a href="time-series-expanding-window.html" class="quarto-xref"><span>Chapter&nbsp;123</span></a></li>
+<li>Fourier decomposition in <a href="time-series-fourier.html" class="quarto-xref"><span>Chapter&nbsp;124</span></a></li>
+<li>Wavelet decomposition in <a href="time-series-wavelet.html" class="quarto-xref"><span>Chapter&nbsp;125</span></a></li>
 </ul>
 
 
@@ -1324,10 +1324,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1337,8 +1336,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1351,6 +1359,61 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    if (id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        for (let i = 0; i < 2; i++) {
+          container.appendChild(note.children[i].cloneNode(true));
+        }
+        return container.innerHTML
+      } else {
+        return note.innerHTML;
+      }
+    } else {
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      try { hash = new URL(url).hash; } catch {}
+      const id = hash.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note !== null) {
+        try {
+          const html = processXRef(id, note);
+          instance.setContent(html);
+        } finally {
+          instance.enable();
+          instance.show();
+        }
+      } else {
+        // See if we can fetch this
+        fetch(url.split('#')[0])
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.getElementById(id);
+          console.log(htmlDoc.body.innerHTML);
+          if (note !== null) {
+            const html = processXRef(id, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1394,6 +1457,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");

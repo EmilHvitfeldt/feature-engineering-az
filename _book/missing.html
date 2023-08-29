@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.4.104">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -1235,15 +1235,15 @@ ul.task-list li input[type="checkbox"] {
 <p>The following chapters assume that the reader has identified missing values. Sometimes they are easily labeled as <code>NA</code> in your code and database. but creativity knows no bounds, which sadly has influenced some users in their way of identifying missing values. Common values are <code>-9</code>, <code>9999</code>, <code>9000</code>. If you are lucky, then you can find this information in the data dictionary, but sometimes you need to be in contact with the people in charge of data collection. To make matters more complicated, there will also be times where different types of missingness will be encoded differently, such as <code>9000</code> for machine failure, and <code>9001</code> for missing sheet.</p>
 <section id="imputation" class="level2" data-number="63.1">
 <h2 data-number="63.1" class="anchored" data-anchor-id="imputation"><span class="header-section-number">63.1</span> Imputation</h2>
-<p>One of the most common way of dealing with missing values, is to fill them in with some values. The types of methods that do this can be split into two groups. Simple imputation in <a href="missing-simple.html"><span>Chapter&nbsp;64</span></a> is when you uses the values in the variable to impute its own missing values, which is where mean and mode imputation are found. Anything more complicated than this will be found in <a href="missing-model.html"><span>Chapter&nbsp;65</span></a>. This is where multiple columns are used to determine the type of imputation needed.</p>
+<p>One of the most common way of dealing with missing values, is to fill them in with some values. The types of methods that do this can be split into two groups. Simple imputation in <a href="missing-simple.html" class="quarto-xref"><span>Chapter&nbsp;64</span></a> is when you uses the values in the variable to impute its own missing values, which is where mean and mode imputation are found. Anything more complicated than this will be found in <a href="missing-model.html" class="quarto-xref"><span>Chapter&nbsp;65</span></a>. This is where multiple columns are used to determine the type of imputation needed.</p>
 </section>
 <section id="indication" class="level2" data-number="63.2">
 <h2 data-number="63.2" class="anchored" data-anchor-id="indication"><span class="header-section-number">63.2</span> Indication</h2>
-<p>If you suspect that the data is not missing at random, it might be worthwhile to include the missingness as a indicator in your data. We will see how we can do that in <a href="missing-indicator.html"><span>Chapter&nbsp;66</span></a>.</p>
+<p>If you suspect that the data is not missing at random, it might be worthwhile to include the missingness as a indicator in your data. We will see how we can do that in <a href="missing-indicator.html" class="quarto-xref"><span>Chapter&nbsp;66</span></a>.</p>
 </section>
 <section id="removal" class="level2" data-number="63.3">
 <h2 data-number="63.3" class="anchored" data-anchor-id="removal"><span class="header-section-number">63.3</span> Removal</h2>
-<p>At a last resort, you might want to remove variables or rows with missing data, we will see how that is done in <a href="missing-remove.html"><span>Chapter&nbsp;67</span></a>. This chapter is put last in this section, as it is generally not the preferred action, and all other avenues should be considered before removal is done.</p>
+<p>At a last resort, you might want to remove variables or rows with missing data, we will see how that is done in <a href="missing-remove.html" class="quarto-xref"><span>Chapter&nbsp;67</span></a>. This chapter is put last in this section, as it is generally not the preferred action, and all other avenues should be considered before removal is done.</p>
 
 
 </section>
@@ -1328,10 +1328,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1341,8 +1340,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1355,6 +1363,61 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    if (id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        for (let i = 0; i < 2; i++) {
+          container.appendChild(note.children[i].cloneNode(true));
+        }
+        return container.innerHTML
+      } else {
+        return note.innerHTML;
+      }
+    } else {
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      try { hash = new URL(url).hash; } catch {}
+      const id = hash.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note !== null) {
+        try {
+          const html = processXRef(id, note);
+          instance.setContent(html);
+        } finally {
+          instance.enable();
+          instance.show();
+        }
+      } else {
+        // See if we can fetch this
+        fetch(url.split('#')[0])
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.getElementById(id);
+          console.log(htmlDoc.body.innerHTML);
+          if (note !== null) {
+            const html = processXRef(id, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1398,6 +1461,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");

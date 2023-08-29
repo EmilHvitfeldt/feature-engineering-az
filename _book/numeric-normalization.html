@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.4.104">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -1270,7 +1270,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>Normalization is a method where we modify a variable by subtracting the mean and dividing by the standard deviation</p>
 <p><span class="math display">\[X_{scaled} = \dfrac{X - \text{mean}(X)}{\text{sd}(X)}\]</span></p>
-<p>Performing this transformation means that the resulting variable will have a mean of 0 and a standard deviation and variance of 1. This method is a learned transformation. So we use the training data to derive the right values of <span class="math inline">\(\text{sd}(X)\)</span> and <span class="math inline">\(\text{mean}(X)\)</span> and then these values are used to perform the transformations when applied to new data. It is a common misconception that this transformation is done to make the data normally distributed. This transformation doesn’t change the distribution, it scales the values. Below is a figure <a href="#fig-normalization-not-normal">Figure&nbsp;<span>10.1</span></a> that illustrates that point</p>
+<p>Performing this transformation means that the resulting variable will have a mean of 0 and a standard deviation and variance of 1. This method is a learned transformation. So we use the training data to derive the right values of <span class="math inline">\(\text{sd}(X)\)</span> and <span class="math inline">\(\text{mean}(X)\)</span> and then these values are used to perform the transformations when applied to new data. It is a common misconception that this transformation is done to make the data normally distributed. This transformation doesn’t change the distribution, it scales the values. Below is a figure <a href="#fig-normalization-not-normal" class="quarto-xref">Figure&nbsp;<span>10.1</span></a> that illustrates that point</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-normalization-not-normal" class="quarto-figure quarto-figure-center anchored">
@@ -1281,7 +1281,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>In <a href="#fig-normalization-not-normal">Figure&nbsp;<span>10.1</span></a> we see some distribution, before and after applying normalization to it. Both the original and transformed distribution are bimodal, and the transformed distribution is no more normal than the original. And that is fine because the transformation did its job by moving the values close to 0 and a specific spread, which in this case is a variance of 1.</p>
+<p>In <a href="#fig-normalization-not-normal" class="quarto-xref">Figure&nbsp;<span>10.1</span></a> we see some distribution, before and after applying normalization to it. Both the original and transformed distribution are bimodal, and the transformed distribution is no more normal than the original. And that is fine because the transformation did its job by moving the values close to 0 and a specific spread, which in this case is a variance of 1.</p>
 <section id="pros-and-cons" class="level2" data-number="10.1">
 <h2 data-number="10.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">10.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="10.1.1">
@@ -1299,7 +1299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Cannot be used with sparse data as it isn’t preserved because of the centering that is happening. If you only scale the data you don’t have a problem</li>
 <li>This transformation is highly affected by outliers, as they affect the mean and standard deviation quite a lot</li>
 </ul>
-<p>Below is the figure <a href="#fig-normalization-outlier">Figure&nbsp;<span>10.2</span></a> is an illustration of the effect by having a single high value. In this case, a single observation with the value <code>10000</code> moved the transformed distribution much tighter around zero. And all but removed the variance of the non-outliers.</p>
+<p>Below is the figure <a href="#fig-normalization-outlier" class="quarto-xref">Figure&nbsp;<span>10.2</span></a> is an illustration of the effect by having a single high value. In this case, a single observation with the value <code>10000</code> moved the transformed distribution much tighter around zero. And all but removed the variance of the non-outliers.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-normalization-outlier" class="quarto-figure quarto-figure-center anchored">
@@ -1604,10 +1604,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1617,8 +1616,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1631,6 +1639,61 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    if (id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        for (let i = 0; i < 2; i++) {
+          container.appendChild(note.children[i].cloneNode(true));
+        }
+        return container.innerHTML
+      } else {
+        return note.innerHTML;
+      }
+    } else {
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      try { hash = new URL(url).hash; } catch {}
+      const id = hash.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note !== null) {
+        try {
+          const html = processXRef(id, note);
+          instance.setContent(html);
+        } finally {
+          instance.enable();
+          instance.show();
+        }
+      } else {
+        // See if we can fetch this
+        fetch(url.split('#')[0])
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.getElementById(id);
+          console.log(htmlDoc.body.innerHTML);
+          if (note !== null) {
+            const html = processXRef(id, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1674,6 +1737,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");

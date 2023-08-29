@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.4.104">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -1233,7 +1233,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <p>Data can come in all shapes and sizes, but the most common one is the numeric variable. These are values such as <code>age</code>, <code>height</code>, <code>deficit</code>, <code>price</code>, and <code>quantity</code>. We call these <em>quantitative</em> variables and they are plentiful in most data sets and immediately usable in all statistical and machine learning models. That being said, it doesn’t mean that there are things that wouldn’t help to be done.</p>
-<p>The following chapters will focus on different methods that follow 1-to-1 or 1-to-more transformations. These methods will mostly be applied one at a time to each variable. Methods that take many variables and return fewer variables such as dimensionality reduction methods which will be covered in <a href="too-many.html"><span>Chapter&nbsp;68</span></a>.</p>
+<p>The following chapters will focus on different methods that follow 1-to-1 or 1-to-more transformations. These methods will mostly be applied one at a time to each variable. Methods that take many variables and return fewer variables such as dimensionality reduction methods which will be covered in <a href="too-many.html" class="quarto-xref"><span>Chapter&nbsp;68</span></a>.</p>
 <p>When we are working with a single variable at a time, there is a handful of problems we can run into. Identifying the problem and how each of the following methods tries to remedy the said problem is key to getting the most out of numeric variables.</p>
 <p>The 4 main types of problems we deal with when working with individual numeric variables are:</p>
 <ul>
@@ -1272,7 +1272,7 @@ Note
 <p><span id="eq-feature-scaling"><span class="math display">\[
 X_{scaled} = \dfrac{X - a}{b}
 \tag{4.1}\]</span></span></p>
-<p>The main difference between the methods is how <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are calculated. These methods are learned transformation. So we use the training data to derive the right values of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, and then these values are used to perform the transformations when applied to new data. The different methods might differ on what property is desired for the transformed variables, same range or same spread, but they never change the distribution itself. The power transformations we saw in <a href="numeric-boxcox.html"><span>Chapter&nbsp;7</span></a> and <a href="numeric-yeojohnson.html"><span>Chapter&nbsp;8</span></a>, distort the transformations, where these feature scalings essentially perform a “zooming” effect.</p>
+<p>The main difference between the methods is how <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are calculated. These methods are learned transformation. So we use the training data to derive the right values of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, and then these values are used to perform the transformations when applied to new data. The different methods might differ on what property is desired for the transformed variables, same range or same spread, but they never change the distribution itself. The power transformations we saw in <a href="numeric-boxcox.html" class="quarto-xref"><span>Chapter&nbsp;7</span></a> and <a href="numeric-yeojohnson.html" class="quarto-xref"><span>Chapter&nbsp;8</span></a>, distort the transformations, where these feature scalings essentially perform a “zooming” effect.</p>
 <div id="tbl-feature-scaling" class="anchored">
 <table class="table">
 <caption>Table&nbsp;4.1: All feature scaling methods</caption>
@@ -1314,7 +1314,7 @@ X_{scaled} = \dfrac{X - a}{b}
 </tbody>
 </table>
 </div>
-<p>We see here that all the methods in <a href="#tbl-feature-scaling">Table&nbsp;<span>4.1</span></a> follows the equation <a href="#eq-feature-scaling">Equation&nbsp;<span>4.1</span></a>. Sometimes <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> takes a value of 0, which is perfectly fine. Centering and scaling when used together is equal to normalization. They are kept separate in the table since they are sometimes used independently. Centering, scaling, and normalization will all be discussed in <a href="numeric-normalization.html"><span>Chapter&nbsp;10</span></a>.</p>
+<p>We see here that all the methods in <a href="#tbl-feature-scaling" class="quarto-xref">Table&nbsp;<span>4.1</span></a> follows the equation <a href="#eq-feature-scaling" class="quarto-xref">Equation&nbsp;<span>4.1</span></a>. Sometimes <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> takes a value of 0, which is perfectly fine. Centering and scaling when used together is equal to normalization. They are kept separate in the table since they are sometimes used independently. Centering, scaling, and normalization will all be discussed in <a href="numeric-normalization.html" class="quarto-xref"><span>Chapter&nbsp;10</span></a>.</p>
 <p>There are 2 main reasons why we want to perform feature scaling. Firstly, many different types of models take the magnitude of the variables into account when fitting the models, so having variables on different scales can be disadvantageous because some variables have high priorities. In turn, we get that the other variables have low priority. Models that work using Euclidean distances like KNN models are affected by this change. Regularized models such as lasso and ridge regression also need to be scaled since the regularization depends on the magnitude of the estimates. Secondly, some algorithms simply converge much faster when all the variables are on the same scale. These types of models produce the same fit, just at a slower pace than if you don’t scale the variables. Any algorithms using Gradient Descent fits into this category.</p>
 <p>TODO: Have KNN diagram show why this is important</p>
 <p>List which types of models need feature scaling. Should be a 2 column list. Left=name, right=comment %in% c(no effect, different fit, slow down)</p>
@@ -1425,10 +1425,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1438,8 +1437,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1452,6 +1460,61 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    if (id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        for (let i = 0; i < 2; i++) {
+          container.appendChild(note.children[i].cloneNode(true));
+        }
+        return container.innerHTML
+      } else {
+        return note.innerHTML;
+      }
+    } else {
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      try { hash = new URL(url).hash; } catch {}
+      const id = hash.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note !== null) {
+        try {
+          const html = processXRef(id, note);
+          instance.setContent(html);
+        } finally {
+          instance.enable();
+          instance.show();
+        }
+      } else {
+        // See if we can fetch this
+        fetch(url.split('#')[0])
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.getElementById(id);
+          console.log(htmlDoc.body.innerHTML);
+          if (note !== null) {
+            const html = processXRef(id, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1495,6 +1558,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
