@@ -9,39 +9,39 @@ book:
     style: "floating"
     search: true
   chapters:
-    - index.qmd
-    - introduction.qmd # Progress
-    - motivation.qmd # Progress
-    - modeling.qmd # Progress
-    - how-to-deal-with.qmd
+    - index.qmd # v1
+    - introduction.qmd # v1
+    - motivation.qmd
+    - modeling.qmd
+    - how-to-deal-with.qmd # v1
     - part: "Numeric Features"
       chapters:
-        - numeric.qmd
-        - numeric-logarithms.qmd
-        - numeric-sqrt.qmd
-        - numeric-boxcox.qmd
-        - numeric-yeojohnson.qmd
-        - numeric-percentile.qmd
-        - numeric-normalization.qmd
-        - numeric-range.qmd
-        - numeric-maxabs.qmd
-        - numeric-robust.qmd
-        - numeric-binning.qmd
-        - numeric-splines.qmd
-        - numeric-polynomial.qmd
+        - numeric.qmd # v1
+        - numeric-logarithms.qmd # v1
+        - numeric-sqrt.qmd # v1
+        - numeric-boxcox.qmd # v1
+        - numeric-yeojohnson.qmd # v1
+        - numeric-percentile.qmd # v1
+        - numeric-normalization.qmd # v1
+        - numeric-range.qmd # v1
+        - numeric-maxabs.qmd # v1
+        - numeric-robust.qmd # v1
+        - numeric-binning.qmd # v1
+        - numeric-splines.qmd # v1
+        - numeric-polynomial.qmd # v1
     - part: "Categorical Features"
       chapters:
-        - categorical.qmd
-        - categorical-cleaning.qmd
-        - categorical-unseen.qmd
-        - categorical-dummy.qmd
-        - categorical-label.qmd
-        - categorical-ordinal.qmd
-        - categorical-binary.qmd
-        - categorical-frequency.qmd
+        - categorical.qmd # v1
+        - categorical-cleaning.qmd # v1
+        - categorical-unseen.qmd # v1
+        - categorical-dummy.qmd # v1
+        - categorical-label.qmd # v1
+        - categorical-ordinal.qmd # v1
+        - categorical-binary.qmd # v1
+        - categorical-frequency.qmd # v1
         - categorical-target.qmd # Progress
-        - categorical-hashing.qmd
-        - categorical-leaveoneout.qmd  # Progress
+        - categorical-hashing.qmd # v1
+        - categorical-leaveoneout.qmd
         - categorical-leaf.qmd
         - categorical-glmm.qmd
         - categorical-catboost.qmd
@@ -56,14 +56,14 @@ book:
         - categorical-combination.qmd
     - part: "Datetime Features"
       chapters:
-        - datetime.qmd
+        - datetime.qmd # v1
         - datetime-extraction.qmd # Progress
         - datetime-advanced.qmd
         - datetime-circular.qmd
     - part: "Text Features"
       chapters:
-        - text.qmd
-        - text-manual.qmd # Progress
+        - text.qmd # v1
+        - text-manual.qmd
         - text-cleaning.qmd
         - text-tokenization.qmd
         - text-stemming.qmd
@@ -79,21 +79,21 @@ book:
         - text-bert.qmd
     - part: "Circular Features"
       chapters:
-        - circular.qmd
-        - circular-trig.qmd # Progress
+        - circular.qmd # v1
+        - circular-trig.qmd
         - circular-splines.qmd
         - circular-indicators.qmd
     - part: "Missing Data"
       chapters:
-        - missing.qmd
-        - missing-simple.qmd # Progress
+        - missing.qmd # v1
+        - missing-simple.qmd
         - missing-model.qmd
         - missing-indicator.qmd
         - missing-remove.qmd
     - part: "Too Many Variables"
       chapters:
-        - too-many.qmd
-        - too-many-zv.qmd # Progress
+        - too-many.qmd # v1
+        - too-many-zv.qmd
         - too-many-pca.qmd
         - too-many-pca-variants.qmd
         - too-many-ica.qmd
@@ -108,18 +108,18 @@ book:
         - too-many-embedded.qmd
     - part: "Correlated Data"
       chapters:
-        - correlated.qmd
-        - correlated-filter.qmd # Progress
+        - correlated.qmd # v1
+        - correlated-filter.qmd
     - part: "Outliers"
       chapters:
-        - outliers.qmd
-        - outliers-remove.qmd # Progress
+        - outliers.qmd # v1
+        - outliers-remove.qmd
         - outliers-imputation.qmd
         - outliers-indicate.qmd
     - part: "Imbalanced Data"
       chapters:
-        - imbalenced.qmd
-        - imbalenced-upsample.qmd # Progress
+        - imbalenced.qmd # v1
+        - imbalenced-upsample.qmd
         - imbalenced-rose.qmd
         - imbalenced-smote.qmd
         - imbalenced-smote-variants.qmd
@@ -134,15 +134,15 @@ book:
         - imbalenced-one-sided.qmd
     - part: "Miscellaneous"
       chapters:
-        - miscellaneous.qmd
-        - miscellaneous-id.qmd # Progress
+        - miscellaneous.qmd # v1
+        - miscellaneous-id.qmd
         - miscellaneous-color.qmd
         - miscellaneous-zipcodes.qmd
         - miscellaneous-email.qmd
     - part: "Spatial"
       chapters:
-        - spatial.qmd
-        - spatial-distance.qmd # Progress
+        - spatial.qmd # v1
+        - spatial-distance.qmd
         - spatial-nearest.qmd
         - spatial-count.qmd
         - spatial-query.qmd
@@ -150,8 +150,8 @@ book:
         - spatial-characteristics.qmd
     - part: "Time-Series Data"
       chapters:
-        - time-series.qmd
-        - time-series-smooth.qmd # Progress
+        - time-series.qmd # v1
+        - time-series-smooth.qmd
         - time-series-sliding.qmd
         - time-series-log-interval.qmd
         - time-series-missing.qmd
@@ -164,8 +164,8 @@ book:
         - time-series-wavelet.qmd
     - part: "Image Data"
       chapters:
-        - image.qmd
-        - image-edge-corner.qmd # Progress
+        - image.qmd # v1
+        - image-edge-corner.qmd
         - image-texture.qmd
         - image-grayscale.qmd
         - image-colors.qmd
@@ -178,22 +178,22 @@ book:
         - image-embeddings.qmd
     - part: "Ralational Data"
       chapters:
-        - relational.qmd
-        - relational-manual.qmd # Progress
+        - relational.qmd # v1
+        - relational-manual.qmd
         - relational-auto.qmd
     - part: "Video Data"
       chapters:
-        - video.qmd # Progress
+        - video.qmd
         - video-tmp.qmd
     - part: "Sound Data"
       chapters:
-        - sound.qmd # Progress
+        - sound.qmd
         - sound-tmp.qmd
-    - order.qmd # Progress
-    - sparse.qmd # Progress
-    - models.qmd # Progress
-    - summary.qmd # Progress
-    - references.qmd # Progress
+    - order.qmd
+    - sparse.qmd
+    - models.qmd
+    - summary.qmd
+    - references.qmd
 
 bibliography: references.bib
 
