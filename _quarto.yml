@@ -9,38 +9,38 @@ book:
     style: "floating"
     search: true
   chapters:
-    - index.qmd # v1
-    - introduction.qmd # v1
+    - index.qmd # draft
+    - introduction.qmd # draft
     - motivation.qmd
     - modeling.qmd
-    - how-to-deal-with.qmd # v1
+    - how-to-deal-with.qmd # draft
     - part: "Numeric Features"
       chapters:
-        - numeric.qmd # v1
-        - numeric-logarithms.qmd # v1
-        - numeric-sqrt.qmd # v1
-        - numeric-boxcox.qmd # v1
-        - numeric-yeojohnson.qmd # v1
-        - numeric-percentile.qmd # v1
-        - numeric-normalization.qmd # v1
-        - numeric-range.qmd # v1
-        - numeric-maxabs.qmd # v1
-        - numeric-robust.qmd # v1
-        - numeric-binning.qmd # v1
-        - numeric-splines.qmd # v1
-        - numeric-polynomial.qmd # v1
+        - numeric.qmd # draft
+        - numeric-logarithms.qmd # draft
+        - numeric-sqrt.qmd # draft
+        - numeric-boxcox.qmd # draft
+        - numeric-yeojohnson.qmd # draft
+        - numeric-percentile.qmd # draft
+        - numeric-normalization.qmd # draft
+        - numeric-range.qmd # draft
+        - numeric-maxabs.qmd # draft
+        - numeric-robust.qmd # draft
+        - numeric-binning.qmd # draft
+        - numeric-splines.qmd # draft
+        - numeric-polynomial.qmd # draft
     - part: "Categorical Features"
       chapters:
-        - categorical.qmd # v1
-        - categorical-cleaning.qmd # v1
-        - categorical-unseen.qmd # v1
-        - categorical-dummy.qmd # v1
-        - categorical-label.qmd # v1
-        - categorical-ordinal.qmd # v1
-        - categorical-binary.qmd # v1
-        - categorical-frequency.qmd # v1
-        - categorical-target.qmd # Progress
-        - categorical-hashing.qmd # v1
+        - categorical.qmd # draft
+        - categorical-cleaning.qmd # draft
+        - categorical-unseen.qmd # draft
+        - categorical-dummy.qmd # draft
+        - categorical-label.qmd # draft
+        - categorical-ordinal.qmd # draft
+        - categorical-binary.qmd # draft
+        - categorical-frequency.qmd # draft
+        - categorical-target.qmd # progress
+        - categorical-hashing.qmd # draft
         - categorical-leaveoneout.qmd
         - categorical-leaf.qmd
         - categorical-glmm.qmd
@@ -56,13 +56,13 @@ book:
         - categorical-combination.qmd
     - part: "Datetime Features"
       chapters:
-        - datetime.qmd # v1
-        - datetime-extraction.qmd # Progress
+        - datetime.qmd # draft
+        - datetime-extraction.qmd # progress
         - datetime-advanced.qmd
         - datetime-circular.qmd
     - part: "Text Features"
       chapters:
-        - text.qmd # v1
+        - text.qmd # draft
         - text-manual.qmd
         - text-cleaning.qmd
         - text-tokenization.qmd
@@ -79,20 +79,20 @@ book:
         - text-bert.qmd
     - part: "Circular Features"
       chapters:
-        - circular.qmd # v1
+        - circular.qmd # draft
         - circular-trig.qmd
         - circular-splines.qmd
         - circular-indicators.qmd
     - part: "Missing Data"
       chapters:
-        - missing.qmd # v1
+        - missing.qmd # draft
         - missing-simple.qmd
         - missing-model.qmd
         - missing-indicator.qmd
         - missing-remove.qmd
     - part: "Too Many Variables"
       chapters:
-        - too-many.qmd # v1
+        - too-many.qmd # draft
         - too-many-zv.qmd
         - too-many-pca.qmd
         - too-many-pca-variants.qmd
@@ -108,17 +108,17 @@ book:
         - too-many-embedded.qmd
     - part: "Correlated Data"
       chapters:
-        - correlated.qmd # v1
+        - correlated.qmd # draft
         - correlated-filter.qmd
     - part: "Outliers"
       chapters:
-        - outliers.qmd # v1
+        - outliers.qmd # draft
         - outliers-remove.qmd
         - outliers-imputation.qmd
         - outliers-indicate.qmd
     - part: "Imbalanced Data"
       chapters:
-        - imbalenced.qmd # v1
+        - imbalenced.qmd # draft
         - imbalenced-upsample.qmd
         - imbalenced-rose.qmd
         - imbalenced-smote.qmd
@@ -134,14 +134,14 @@ book:
         - imbalenced-one-sided.qmd
     - part: "Miscellaneous"
       chapters:
-        - miscellaneous.qmd # v1
+        - miscellaneous.qmd # draft
         - miscellaneous-id.qmd
         - miscellaneous-color.qmd
         - miscellaneous-zipcodes.qmd
         - miscellaneous-email.qmd
     - part: "Spatial"
       chapters:
-        - spatial.qmd # v1
+        - spatial.qmd # draft
         - spatial-distance.qmd
         - spatial-nearest.qmd
         - spatial-count.qmd
@@ -150,7 +150,7 @@ book:
         - spatial-characteristics.qmd
     - part: "Time-Series Data"
       chapters:
-        - time-series.qmd # v1
+        - time-series.qmd # draft
         - time-series-smooth.qmd
         - time-series-sliding.qmd
         - time-series-log-interval.qmd
@@ -164,7 +164,7 @@ book:
         - time-series-wavelet.qmd
     - part: "Image Data"
       chapters:
-        - image.qmd # v1
+        - image.qmd # draft
         - image-edge-corner.qmd
         - image-texture.qmd
         - image-grayscale.qmd
@@ -178,7 +178,7 @@ book:
         - image-embeddings.qmd
     - part: "Ralational Data"
       chapters:
-        - relational.qmd # v1
+        - relational.qmd # draft
         - relational-manual.qmd
         - relational-auto.qmd
     - part: "Video Data"
