@@ -1,4 +1,4 @@
-# Frequency Encoding {#sec-frequency-encoding}
+# Frequency Encoding {#sec-categorical-frequency}
 
 Frequency encoding takes a categorical variable and replaces each level with its frequency in the training data set. This results in a single numeric variable, with values between 0 and 1. This is a trained method since we need to keep a record of the frequencies from the training data set.
 
