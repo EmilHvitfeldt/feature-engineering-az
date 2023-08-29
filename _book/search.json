@@ -515,14 +515,14 @@
     "href": "categorical-hashing.html#pros-and-cons",
     "title": "26  Hashing Encoding",
     "section": "26.1 Pros and Cons",
-    "text": "26.1 Pros and Cons\n\n26.1.1 Pros\n\n\n26.1.2 Cons"
+    "text": "26.1 Pros and Cons\n\n26.1.1 Pros\n\nComputationally fast\nAllows for fixed number of output columns\ngives less sparse output than dummy encoding\n\n\n\n26.1.2 Cons\n\nLoss of interpretability\nStill gives quite sparse output"
   },
   {
     "objectID": "categorical-hashing.html#r-examples",
     "href": "categorical-hashing.html#r-examples",
     "title": "26  Hashing Encoding",
     "section": "26.2 R Examples",
-    "text": "26.2 R Examples"
+    "text": "26.2 R Examples\nTODO: find higher cardionality data set for this\nWe will be using the ames data set for these examples. The step_dummy_hash() function from the textrecipes package allows us to perform hashing encoding.\n\nlibrary(recipes)\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nlibrary(textrecipes)\nlibrary(modeldata)\ndata(\"ames\")\n\names |&gt;\n  select(Sale_Price, Exterior_1st)\n\n# A tibble: 2,930 × 2\n   Sale_Price Exterior_1st\n        &lt;int&gt; &lt;fct&gt;       \n 1     215000 BrkFace     \n 2     105000 VinylSd     \n 3     172000 Wd Sdng     \n 4     244000 BrkFace     \n 5     189900 VinylSd     \n 6     195500 VinylSd     \n 7     213500 CemntBd     \n 8     191500 HdBoard     \n 9     236500 CemntBd     \n10     189000 VinylSd     \n# ℹ 2,920 more rows\n\n\nWe will be using the step_dummy_hash() step for this. For illustrative purposes we will be creating 8 columns, where in practice you would likely want this value higher.\n\ndummy_rec &lt;- recipe(Sale_Price ~ Exterior_1st, data = ames) |&gt;\n  step_dummy_hash(Exterior_1st, num_terms = 8) |&gt;\n  prep()\n\n'as(&lt;dgTMatrix&gt;, \"dgCMatrix\")' is deprecated.\nUse 'as(., \"CsparseMatrix\")' instead.\nSee help(\"Deprecated\") and help(\"Matrix-deprecated\").\n\ndummy_rec |&gt;\n  bake(new_data = NULL) |&gt;\n  glimpse()\n\nRows: 2,930\nColumns: 9\n$ Sale_Price               &lt;int&gt; 215000, 105000, 172000, 244000, 189900, 19550…\n$ dummyhash_Exterior_1st_1 &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, -1,…\n$ dummyhash_Exterior_1st_2 &lt;int&gt; 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …\n$ dummyhash_Exterior_1st_3 &lt;int&gt; 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …\n$ dummyhash_Exterior_1st_4 &lt;int&gt; -1, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…\n$ dummyhash_Exterior_1st_5 &lt;int&gt; 0, 0, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, 0, 0…\n$ dummyhash_Exterior_1st_6 &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …\n$ dummyhash_Exterior_1st_7 &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …\n$ dummyhash_Exterior_1st_8 &lt;int&gt; 0, -1, 0, 0, -1, -1, 0, 0, 0, -1, 0, 0, -1, 0…"
   },
   {
     "objectID": "categorical-hashing.html#python-examples",
