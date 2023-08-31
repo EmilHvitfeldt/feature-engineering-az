@@ -68,35 +68,37 @@ make_line <- function(info, text_pad, progress_width = 50) {
   )
 }
 
-cli::cli_h1("Legend")
+cli::cli({
+  cli::cli_h1("Legend")
 
-cli::cli_text(
-  "Not Done = ", not_done_col("███"),
-  ", ",
-  "Progress = ", progress_col("███"),
-  ", ",
-  "Draft = ", draft_col("███"),
-  ", ",
-  "Nice = ", nice_col("███"),
-  ", ",
-  "Done = ", done_col("███")
-)
+  cli::cli_text(
+    "Not Done = ", not_done_col("███"),
+    ", ",
+    "Progress = ", progress_col("███"),
+    ", ",
+    "Draft = ", draft_col("███"),
+    ", ",
+    "Nice = ", nice_col("███"),
+    ", ",
+    "Done = ", done_col("███")
+  )
 
-text_pad <- max(stringr::str_length(res$Part)) + 1
+  text_pad <- max(stringr::str_length(res$Part)) + 1
 
-cli::cli_h1("Sections")
+  cli::cli_h1("Sections")
 
-for (i in seq_len(nrow(res))) {
-  make_line(res[i, ], text_pad)
-}
+  for (i in seq_len(nrow(res))) {
+    make_line(res[i, ], text_pad)
+  }
 
-cli::cli_h1("Total")
+  cli::cli_h1("Total")
 
-res |>
-  dplyr::summarise(
-    Part = "Total",
-    Total = sum(Total),
-    draft = sum(draft),
-    Progress = sum(Progress),
-  ) |>
-  make_line(text_pad)
+  res |>
+    dplyr::summarise(
+      Part = "Total",
+      Total = sum(Total),
+      draft = sum(draft),
+      Progress = sum(Progress),
+    ) |>
+    make_line(text_pad)
+})
