@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -1232,7 +1266,54 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>WIP</p>
+<p>Sometimes date variables come in many data sets and problems. The presence of a date time variable doesn’t mean that we are working with a time series data set. If you are, then read more about how to handle that in <a href="time-series.html" class="quarto-xref"><span>Chapter&nbsp;114</span></a>. Dates and date times are typically stores as integers. With dates represented as the number of days since 1970-01-01, with negative values for earlier dates. with date times representing the number of seconds since 1970-01-01.</p>
+<p>This means that if your are lucky and the model you were trying to fit knew to convert dates and date times into integers, and that “time since 1970-01-01” would be a helpful predictor. If not then we need to do some more advanced work.</p>
+<p>We have assumed for this chapter that we already have the date variables in the right format. This would typically be</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>YYYY‐MM‐DD</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>for dates, and</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>YYYY‐MM‐DD HH<span class="sc">:</span>MM<span class="sc">:</span>SS</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>for date times.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There are other format, and it isn’t too big of a deal, as long as the libraries you are using can handle them.</p>
+</div>
+</div>
+<p>There is also the wrinkle with regards to time zones, leap years and leap seconds. There are many rules that can miss you up. It is for this reason that we recommend that you use a trusted date time library to do the following calculations.</p>
+<p>TODO: find good reference to messed up time, for above paragraph</p>
+<p>Most libraries allows us to pull out standard measurements like</p>
+<ul>
+<li>year</li>
+<li>month</li>
+<li>day</li>
+<li>hour</li>
+<li>minute</li>
+<li>second</li>
+</ul>
+<p>but we can include a couple more. <code>quarter</code>, <code>semester</code>, <code>week</code>. These are highly related to the above list, they are just on a different format. <code>season</code> is another possibly nice feature, but we have to be careful as the seasons flip depending on where on the globe we are at.</p>
+<p>In our above list of features, each of them counts up from 1, until we reach the level level. So minutes stops at 60 and starts over. This might not be what we want, so we can include finer detail by extracting <code>seconds in day</code>, <code>days in week</code>, and <code>days in year</code>. If will be up to you to figure out if these are useful for you.</p>
+<p>From these we can also do things like <code>weekends</code>, <code>weekdays</code>, <code>morning</code> and holidays such as Christmas and Easter. Remember that there are libraries to extract these for you.</p>
+<p>Lastly, there are a couple of measurements</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Most of the advise here tracks to sub-second measurements too if that is applicable to your problem.</p>
+</div>
+</div>
 <section id="pros-and-cons" class="level2" data-number="41.1">
 <h2 data-number="41.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">41.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="41.1.1">
