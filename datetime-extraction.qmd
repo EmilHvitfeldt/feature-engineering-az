@@ -1,6 +1,51 @@
 # Value extraction {#sec-datetime-extraction}
 
-WIP
+Sometimes date variables come in many data sets and problems. The presence of a date time variable doesn't mean that we are working with a time series data set. If you are, then read more about how to handle that in @sec-time-series. Dates and date times are typically stores as integers. With dates represented as the number of days since 1970-01-01, with negative values for earlier dates. with date times representing the number of seconds since 1970-01-01. 
+
+This means that if your are lucky and the model you were trying to fit knew to convert dates and date times into integers, and that "time since 1970-01-01" would be a helpful predictor. If not then we need to do some more advanced work.
+
+We have assumed for this chapter that we already have the date variables in the right format. This would typically be 
+
+```r
+YYYY‐MM‐DD
+```
+
+for dates, and
+
+```r
+YYYY‐MM‐DD HH:MM:SS
+```
+
+for date times.
+
+::: callout-note
+There are other format, and it isn't too big of a deal, as long as the libraries you are using can handle them.
+:::
+
+There is also the wrinkle with regards to time zones, leap years and leap seconds. There are many rules that can miss you up. It is for this reason that we recommend that you use a trusted date time library to do the following calculations.
+
+TODO: find good reference to messed up time, for above paragraph
+
+Most libraries allows us to pull out standard measurements like
+
+- year
+- month
+- day
+- hour
+- minute
+- second
+
+but we can include a couple more. `quarter`, `semester`, `week`. These are highly related to the above list, they are just on a different format. `season` is another possibly nice feature, but we have to be careful as the seasons flip depending on where on the globe we are at.
+
+In our above list of features, each of them counts up from 1, until we reach the level level. So minutes stops at 60 and starts over. This might not be what we want, so we can include finer detail by extracting `seconds in day`, `days in week`, and `days in year`. If will be up to you to figure out if these are useful for you.
+
+From these we can also do things like `weekends`, `weekdays`, `morning` and holidays such as Christmas and Easter. Remember that there are libraries to extract these for you.
+
+Lastly, there are a couple of measurements 
+
+::: callout-note
+Most of the advise here tracks to sub-second measurements too if that is applicable to your problem.
+:::
 
 ## Pros and Cons
 
