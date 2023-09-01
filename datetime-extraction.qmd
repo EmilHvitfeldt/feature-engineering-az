@@ -37,15 +37,17 @@ Most libraries allows us to pull out standard measurements like
 
 but we can include a couple more. `quarter`, `semester`, `week`. These are highly related to the above list, they are just on a different format. `season` is another possibly nice feature, but we have to be careful as the seasons flip depending on where on the globe we are at.
 
-In our above list of features, each of them counts up from 1, until we reach the level level. So minutes stops at 60 and starts over. This might not be what we want, so we can include finer detail by extracting `seconds in day`, `days in week`, and `days in year`. If will be up to you to figure out if these are useful for you.
+In our above list of features, each of them counts up from 1, until we reach the level level. So minutes stops at 60 and starts over. This might not be what we want, so we can include finer detail by extracting `seconds in day`, `days in week`, and `days in year`. If will be up to you to figure out if these are useful for you. Generally these become useful in the broader sense. `seconds in day` is more finely grained than `hour`, so if you want to figure out time of day, then the smaller measurements are helpful.
 
 From these we can also do things like `weekends`, `weekdays`, `morning` and holidays such as Christmas and Easter. Remember that there are libraries to extract these for you.
 
-Lastly, there are a couple of measurements 
+Some of the measurements here can be extracted as categorical rather than numeric, things like `day of week` can either be extracted as `1, 2, 3` or `Monday, Tuesday, Wednesday` or `month` that can be extracted . We can think of the numeric extract as being a automatic label encoding @sec-categorical-label of the categorical version. Some times it will be worth extracting the categorical version and use it directly or embed it with other methods in @sec-categorical.
 
 ::: callout-note
 Most of the advise here tracks to sub-second measurements too if that is applicable to your problem.
 :::
+
+The talk in this chapter is very Euro and US focused. Many cultures around the world divide the "year" and "day" up differently. Always use the conventions that are most appropriate with the culture you are working with.
 
 ## Pros and Cons
 
