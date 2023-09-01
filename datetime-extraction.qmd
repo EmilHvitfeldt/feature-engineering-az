@@ -1,6 +1,8 @@
 # Value extraction {#sec-datetime-extraction}
 
-Sometimes date variables come in many data sets and problems. The presence of a date time variable doesn't mean that we are working with a time series data set. If you are, then read more about how to handle that in @sec-time-series. Dates and date times are typically stores as integers. With dates represented as the number of days since 1970-01-01, with negative values for earlier dates. with date times representing the number of seconds since 1970-01-01. 
+Sometimes date variables come in many data sets and problems. The presence of a date time variable doesn't mean that we are working with a time series data set. If you are, then read more about how to handle that in @sec-time-series. All the extract methods are not learned, as there isn't anything to estimate.
+
+Dates and date times are typically stores as integers. With dates represented as the number of days since 1970-01-01, with negative values for earlier dates. with date times representing the number of seconds since 1970-01-01. 
 
 This means that if your are lucky and the model you were trying to fit knew to convert dates and date times into integers, and that "time since 1970-01-01" would be a helpful predictor. If not then we need to do some more advanced work.
 
@@ -41,7 +43,7 @@ In our above list of features, each of them counts up from 1, until we reach the
 
 From these we can also do things like `weekends`, `weekdays`, `morning` and holidays such as Christmas and Easter. Remember that there are libraries to extract these for you.
 
-Some of the measurements here can be extracted as categorical rather than numeric, things like `day of week` can either be extracted as `1, 2, 3` or `Monday, Tuesday, Wednesday` or `month` that can be extracted . We can think of the numeric extract as being a automatic label encoding @sec-categorical-label of the categorical version. Some times it will be worth extracting the categorical version and use it directly or embed it with other methods in @sec-categorical.
+Some of the measurements here can be extracted as categorical rather than numeric, things like `day of week` can either be extracted as `1, 2, 3` or `Monday, Tuesday, Wednesday` or `month` that can be extracted . We can think of the numeric extract as being a automatic label encoding @sec-categorical-label of the categorical version. Some times it will be worth extracting the categorical version and use it directly or embed it with other methods in @sec-categorical. It is worth noting that the categorical version of these variables are ordinal in nature.
 
 ::: callout-note
 Most of the advise here tracks to sub-second measurements too if that is applicable to your problem.
@@ -53,9 +55,73 @@ The talk in this chapter is very Euro and US focused. Many cultures around the w
 
 ### Pros
 
+- Fast and easy computations
+- Can provide good results
+
 ### Cons
 
+- The numerical features generated are all increasing with time linearly
+- There are a lot of extractions, and they correlate quite a bit
+
 ## R Examples
+
+We will be using the `hotel_bookings` data set for these examples.
+
+```{r}
+#| echo: false 
+library(tidymodels)
+
+hotel_bookings <- readr::read_csv("data/hotel_bookings.csv")
+```
+
+
+```{r}
+hotel_bookings |>
+  select(reservation_status_date)
+```
+
+{recipes} provide two steps for date time extraction. `step_date()` handles dates, and `step_time()` handles the sub-day time features. The steps work the same way, so we will only show how `step_date()` works here. A couple of features are selected by default, 
+
+```{r}
+date_rec <- recipe(is_canceled ~ reservation_status_date, 
+                   data = hotel_bookings) |>
+  step_date(reservation_status_date)
+
+date_rec |>
+  prep() |>
+  bake(new_data = NULL) |>
+  glimpse()
+```
+
+But you can use the `features` argument to specify other types as well
+
+```{r}
+date_rec <- recipe(is_canceled ~ reservation_status_date, 
+                   data = hotel_bookings) |>
+  step_date(reservation_status_date, 
+            features = c( "year", "doy", "week", "decimal", "semester", 
+                          "quarter", "dow", "month"))
+
+date_rec |>
+  prep() |>
+  bake(new_data = NULL) |>
+  glimpse()
+```
+
+features that can be categorical will be so by default, but can be turned off by setting `label = FALSE`.
+
+```{r}
+date_rec <- recipe(is_canceled ~ reservation_status_date, 
+                   data = hotel_bookings) |>
+  step_date(reservation_status_date, 
+            features = c( "year", "doy", "week", "decimal", "semester", 
+                          "quarter", "dow", "month"), label = FALSE)
+
+date_rec |>
+  prep() |>
+  bake(new_data = NULL) |>
+  glimpse()
+```
 
 ## Python Examples
 

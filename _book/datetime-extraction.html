@@ -1266,7 +1266,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>Sometimes date variables come in many data sets and problems. The presence of a date time variable doesn’t mean that we are working with a time series data set. If you are, then read more about how to handle that in <a href="time-series.html" class="quarto-xref"><span>Chapter&nbsp;114</span></a>. Dates and date times are typically stores as integers. With dates represented as the number of days since 1970-01-01, with negative values for earlier dates. with date times representing the number of seconds since 1970-01-01.</p>
+<p>Sometimes date variables come in many data sets and problems. The presence of a date time variable doesn’t mean that we are working with a time series data set. If you are, then read more about how to handle that in <a href="time-series.html" class="quarto-xref"><span>Chapter&nbsp;114</span></a>. All the extract methods are not learned, as there isn’t anything to estimate.</p>
+<p>Dates and date times are typically stores as integers. With dates represented as the number of days since 1970-01-01, with negative values for earlier dates. with date times representing the number of seconds since 1970-01-01.</p>
 <p>This means that if your are lucky and the model you were trying to fit knew to convert dates and date times into integers, and that “time since 1970-01-01” would be a helpful predictor. If not then we need to do some more advanced work.</p>
 <p>We have assumed for this chapter that we already have the date variables in the right format. This would typically be</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>YYYY‐MM‐DD</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1298,9 +1299,9 @@ Note
 <li>second</li>
 </ul>
 <p>but we can include a couple more. <code>quarter</code>, <code>semester</code>, <code>week</code>. These are highly related to the above list, they are just on a different format. <code>season</code> is another possibly nice feature, but we have to be careful as the seasons flip depending on where on the globe we are at.</p>
-<p>In our above list of features, each of them counts up from 1, until we reach the level level. So minutes stops at 60 and starts over. This might not be what we want, so we can include finer detail by extracting <code>seconds in day</code>, <code>days in week</code>, and <code>days in year</code>. If will be up to you to figure out if these are useful for you.</p>
+<p>In our above list of features, each of them counts up from 1, until we reach the level level. So minutes stops at 60 and starts over. This might not be what we want, so we can include finer detail by extracting <code>seconds in day</code>, <code>days in week</code>, and <code>days in year</code>. If will be up to you to figure out if these are useful for you. Generally these become useful in the broader sense. <code>seconds in day</code> is more finely grained than <code>hour</code>, so if you want to figure out time of day, then the smaller measurements are helpful.</p>
 <p>From these we can also do things like <code>weekends</code>, <code>weekdays</code>, <code>morning</code> and holidays such as Christmas and Easter. Remember that there are libraries to extract these for you.</p>
-<p>Lastly, there are a couple of measurements</p>
+<p>Some of the measurements here can be extracted as categorical rather than numeric, things like <code>day of week</code> can either be extracted as <code>1, 2, 3</code> or <code>Monday, Tuesday, Wednesday</code> or <code>month</code> that can be extracted . We can think of the numeric extract as being a automatic label encoding <a href="categorical-label.html" class="quarto-xref"><span>Chapter&nbsp;21</span></a> of the categorical version. Some times it will be worth extracting the categorical version and use it directly or embed it with other methods in <a href="categorical.html" class="quarto-xref"><span>Chapter&nbsp;17</span></a>. It is worth noting that the categorical version of these variables are ordinal in nature.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1314,17 +1315,155 @@ Note
 <p>Most of the advise here tracks to sub-second measurements too if that is applicable to your problem.</p>
 </div>
 </div>
+<p>The talk in this chapter is very Euro and US focused. Many cultures around the world divide the “year” and “day” up differently. Always use the conventions that are most appropriate with the culture you are working with.</p>
 <section id="pros-and-cons" class="level2" data-number="41.1">
 <h2 data-number="41.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">41.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="41.1.1">
 <h3 data-number="41.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">41.1.1</span> Pros</h3>
+<ul>
+<li>Fast and easy computations</li>
+<li>Can provide good results</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="41.1.2">
 <h3 data-number="41.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">41.1.2</span> Cons</h3>
+<ul>
+<li>The numerical features generated are all increasing with time linearly</li>
+<li>There are a lot of extractions, and they correlate quite a bit</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="41.2">
 <h2 data-number="41.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">41.2</span> R Examples</h2>
+<p>We will be using the <code>hotel_bookings</code> data set for these examples.</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching packages ────────────────────────────────────── tidymodels 1.1.0 ──</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>✔ broom        1.0.5          ✔ recipes      1.0.8.9000
+✔ dials        1.2.0          ✔ rsample      1.1.1     
+✔ dplyr        1.1.2          ✔ tibble       3.2.1     
+✔ ggplot2      3.4.2          ✔ tidyr        1.3.0     
+✔ infer        1.0.4          ✔ tune         1.1.1     
+✔ modeldata    1.1.0          ✔ workflows    1.1.3     
+✔ parsnip      1.1.0          ✔ workflowsets 1.0.1     
+✔ purrr        1.0.2          ✔ yardstick    1.2.0     </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Conflicts ───────────────────────────────────────── tidymodels_conflicts() ──
+✖ purrr::discard() masks scales::discard()
+✖ dplyr::filter()  masks stats::filter()
+✖ dplyr::lag()     masks stats::lag()
+✖ recipes::step()  masks stats::step()
+• Dig deeper into tidy modeling with R at https://www.tmwr.org</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 119390 Columns: 32
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (13): hotel, arrival_date_month, meal, country, market_segment, distrib...
+dbl  (18): is_canceled, lead_time, arrival_date_year, arrival_date_week_numb...
+date  (1): reservation_status_date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>hotel_bookings <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(reservation_status_date)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 119,390 × 1
+   reservation_status_date
+   &lt;date&gt;                 
+ 1 2015-07-01             
+ 2 2015-07-01             
+ 3 2015-07-02             
+ 4 2015-07-02             
+ 5 2015-07-03             
+ 6 2015-07-03             
+ 7 2015-07-03             
+ 8 2015-07-03             
+ 9 2015-05-06             
+10 2015-04-22             
+# ℹ 119,380 more rows</code></pre>
+</div>
+</div>
+<p>{recipes} provide two steps for date time extraction. <code>step_date()</code> handles dates, and <code>step_time()</code> handles the sub-day time features. The steps work the same way, so we will only show how <code>step_date()</code> works here. A couple of features are selected by default,</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>date_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(is_canceled <span class="sc">~</span> reservation_status_date, </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> hotel_bookings) <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_date</span>(reservation_status_date)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>date_rec <span class="sc">|&gt;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 119,390
+Columns: 5
+$ reservation_status_date       &lt;date&gt; 2015-07-01, 2015-07-01, 2015-07-02, 201…
+$ is_canceled                   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0…
+$ reservation_status_date_dow   &lt;fct&gt; Wed, Wed, Thu, Thu, Fri, Fri, Fri, Fri, …
+$ reservation_status_date_month &lt;fct&gt; Jul, Jul, Jul, Jul, Jul, Jul, Jul, Jul, …
+$ reservation_status_date_year  &lt;int&gt; 2015, 2015, 2015, 2015, 2015, 2015, 2015…</code></pre>
+</div>
+</div>
+<p>But you can use the <code>features</code> argument to specify other types as well</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>date_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(is_canceled <span class="sc">~</span> reservation_status_date, </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> hotel_bookings) <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_date</span>(reservation_status_date, </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">features =</span> <span class="fu">c</span>( <span class="st">"year"</span>, <span class="st">"doy"</span>, <span class="st">"week"</span>, <span class="st">"decimal"</span>, <span class="st">"semester"</span>, </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"quarter"</span>, <span class="st">"dow"</span>, <span class="st">"month"</span>))</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>date_rec <span class="sc">|&gt;</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 119,390
+Columns: 10
+$ reservation_status_date          &lt;date&gt; 2015-07-01, 2015-07-01, 2015-07-02, …
+$ is_canceled                      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0…
+$ reservation_status_date_year     &lt;int&gt; 2015, 2015, 2015, 2015, 2015, 2015, 2…
+$ reservation_status_date_doy      &lt;int&gt; 182, 182, 183, 183, 184, 184, 184, 18…
+$ reservation_status_date_week     &lt;int&gt; 26, 26, 27, 27, 27, 27, 27, 27, 18, 1…
+$ reservation_status_date_decimal  &lt;dbl&gt; 2015.496, 2015.496, 2015.499, 2015.49…
+$ reservation_status_date_semester &lt;int&gt; 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 2, 2…
+$ reservation_status_date_quarter  &lt;int&gt; 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 3, 3…
+$ reservation_status_date_dow      &lt;fct&gt; Wed, Wed, Thu, Thu, Fri, Fri, Fri, Fr…
+$ reservation_status_date_month    &lt;fct&gt; Jul, Jul, Jul, Jul, Jul, Jul, Jul, Ju…</code></pre>
+</div>
+</div>
+<p>features that can be categorical will be so by default, but can be turned off by setting <code>label = FALSE</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>date_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(is_canceled <span class="sc">~</span> reservation_status_date, </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> hotel_bookings) <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_date</span>(reservation_status_date, </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">features =</span> <span class="fu">c</span>( <span class="st">"year"</span>, <span class="st">"doy"</span>, <span class="st">"week"</span>, <span class="st">"decimal"</span>, <span class="st">"semester"</span>, </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"quarter"</span>, <span class="st">"dow"</span>, <span class="st">"month"</span>), <span class="at">label =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>date_rec <span class="sc">|&gt;</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 119,390
+Columns: 10
+$ reservation_status_date          &lt;date&gt; 2015-07-01, 2015-07-01, 2015-07-02, …
+$ is_canceled                      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0…
+$ reservation_status_date_year     &lt;int&gt; 2015, 2015, 2015, 2015, 2015, 2015, 2…
+$ reservation_status_date_doy      &lt;int&gt; 182, 182, 183, 183, 184, 184, 184, 18…
+$ reservation_status_date_week     &lt;int&gt; 26, 26, 27, 27, 27, 27, 27, 27, 18, 1…
+$ reservation_status_date_decimal  &lt;dbl&gt; 2015.496, 2015.496, 2015.499, 2015.49…
+$ reservation_status_date_semester &lt;int&gt; 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 2, 2…
+$ reservation_status_date_quarter  &lt;int&gt; 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 3, 3…
+$ reservation_status_date_dow      &lt;int&gt; 4, 4, 5, 5, 6, 6, 6, 6, 4, 4, 3, 1, 1…
+$ reservation_status_date_month    &lt;int&gt; 7, 7, 7, 7, 7, 7, 7, 7, 5, 4, 6, 7, 7…</code></pre>
+</div>
+</div>
 </section>
 <section id="python-examples" class="level2" data-number="41.3">
 <h2 data-number="41.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">41.3</span> Python Examples</h2>
