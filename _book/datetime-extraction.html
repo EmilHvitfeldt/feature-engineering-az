@@ -1356,7 +1356,7 @@ Note
 ✖ dplyr::filter()  masks stats::filter()
 ✖ dplyr::lag()     masks stats::lag()
 ✖ recipes::step()  masks stats::step()
-• Dig deeper into tidy modeling with R at https://www.tmwr.org</code></pre>
+• Use suppressPackageStartupMessages() to eliminate package startup messages</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 119390 Columns: 32
@@ -1462,6 +1462,27 @@ $ reservation_status_date_semester &lt;int&gt; 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 
 $ reservation_status_date_quarter  &lt;int&gt; 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 3, 3…
 $ reservation_status_date_dow      &lt;int&gt; 4, 4, 5, 5, 6, 6, 6, 6, 4, 4, 3, 1, 1…
 $ reservation_status_date_month    &lt;int&gt; 7, 7, 7, 7, 7, 7, 7, 7, 5, 4, 6, 7, 7…</code></pre>
+</div>
+</div>
+<p>If we want to extract holiday features, we can use the <code>step_holiday()</code> function, that uses the {timeDate} library. With known holiday listed in <code>timeDate::listHolidays()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>date_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(is_canceled <span class="sc">~</span> reservation_status_date, </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> hotel_bookings) <span class="sc">|&gt;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_holiday</span>(reservation_status_date, </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">holidays =</span> <span class="fu">c</span>(<span class="st">"BoxingDay"</span>, <span class="st">"CAFamilyDay"</span>, <span class="st">"JPConstitutionDay"</span>))</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>date_rec <span class="sc">|&gt;</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 119,390
+Columns: 5
+$ reservation_status_date                   &lt;date&gt; 2015-07-01, 2015-07-01, 201…
+$ is_canceled                               &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 1, 1…
+$ reservation_status_date_BoxingDay         &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ reservation_status_date_CAFamilyDay       &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ reservation_status_date_JPConstitutionDay &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…</code></pre>
 </div>
 </div>
 </section>
