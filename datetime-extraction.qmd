@@ -123,5 +123,19 @@ date_rec |>
   glimpse()
 ```
 
+If we want to extract holiday features, we can use the `step_holiday()` function, that uses the {timeDate} library. With known holiday listed in `timeDate::listHolidays()`.
+
+```{r}
+date_rec <- recipe(is_canceled ~ reservation_status_date, 
+                   data = hotel_bookings) |>
+  step_holiday(reservation_status_date, 
+               holidays = c("BoxingDay", "CAFamilyDay", "JPConstitutionDay"))
+
+date_rec |>
+  prep() |>
+  bake(new_data = NULL) |>
+  glimpse()
+```
+
 ## Python Examples
 
