@@ -11,7 +11,7 @@ All the features we were able to extract were related to what day or time it was
 
 Consider merchandise sale related data. The mere indication of a specific dates might become useful, but the sale amount is not likely to be affected just on the sale days, but on the surrounding days as well. Consider the American Black Friday. This day is predetermined to come every year at a easily recognized day, namely the last Friday of November. Considering its close time to Christmas other gift-giving holidays, it is a common day for thrifty people to start buying presents.
 
-In the extraction sense we have a single indicator for the day of black friday
+In the extraction sense we have a single indicator for the day of Black Friday
 
 ```{r}
 tibble(
@@ -23,7 +23,7 @@ tibble(
   theme_minimal()
 ```
 
-But it would make sense that since we know the day of black friday, that the sales will see a drop on the previous days, we can incorporate that as well.
+But it would make sense that since we know the day of Black Friday, that the sales will see a drop on the previous days, we can incorporate that as well.
 
 ```{r}
 tibble(
@@ -48,16 +48,65 @@ tibble(
 ```
 
 The exact effects shown here are just approximate to our story at hand. But they provide a useful illustration. There are a lot of bandwidth to be given if we look at date times from a distance perspective. 
-
 We can play around with "distance from" and "distance to", different numerical transformations we saw in @sec-numeric, signs and indicators we talked about in @sec-datetime-extraction to tailor our feature engineering to our problem.
 
-talk about slopes before and after
+What all these methods have in common is a reference point. For an extracted `day` feature, the reference point is "first of month" and the **after**-function is `x`, or in other words "days since time of day". We see this in the following chart. Almost all extracted functions follow this formula
 
-talk about that we can do this periodically
+```{r}
+tibble(
+  date = as_date("2023-11-24") + seq(-90, 0)
+) |>
+  mutate(day = day(date)) |>
+  ggplot(aes(date, day)) +
+  geom_col() +
+  theme_minimal()
+```
 
-talk about how we can do it irregularly (preplaned sales/holidays)
+we could just as well do the inverse and look at how many days are left in the month. This would have a **before**-function of `x` as well.
 
-This is different than circular
+```{r}
+tibble(
+  date = as_date("2023-11-24") + seq(-90, 0)
+) |>
+  mutate(day = day(date)) |>
+  mutate(month = month(date)) |>
+  mutate(day = max(day) - day + 1, .by = month) |>
+  ggplot(aes(date, day)) +
+  geom_col() +
+  theme_minimal()
+```
+
+We can do a both-sided formula by looking at "how many days are we away from a weekend". This would have both the before and after functions be `x` and look like so. Here it isn't too interesting as it is quite periodic, but using the same measure with "sale" instead of "weekend" and suddenly you have something different.
+
+```{r}
+tibble(
+  date = as_date("2023-11-24") + seq(-90, 0)
+) |>
+  mutate(day = c(1, 2, 3, 2, 1, 0, 0)[wday(date)]) |>
+  ggplot(aes(date, day)) +
+  geom_col() +
+  theme_minimal()
+```
+
+There are many other functions you can use, they will depend entirely on your task at hand. A few examples are shown below for inspiration.
+
+```{r}
+tibble(
+  date = as_date("2023-11-24") + seq(-90, 0)
+) |>
+  mutate(day = day(date)) |>
+  mutate(`log(x)` = log(day)) |>
+  mutate(`x^2` = day ^ 2) |>
+  mutate(`pmin(day, 10)` = pmin(day, 10)) |>
+  rename(x = day) |>
+  pivot_longer(-date) |>
+  ggplot(aes(date, value)) +
+  geom_col() +
+  facet_wrap(~name, scales = "free_y") +
+  theme_minimal() 
+```
+
+What makes these calculations so neat is that they can be tailored to our task at hand, and that they work with irregular events such as holidays and signup dates. These methods are not circular by definition, but they will work in many ways like it. We will cover explicit circular methods in @sec-datetime-circular.
 
 ## Pros and Cons
 
