@@ -1,11 +1,10 @@
-# Advanced features {#sec-datetime-advanced}
+# Advanced Features {#sec-datetime-advanced}
 
 ```{r}
 #| echo: false
 #| message: false
 library(tidyverse)
 ```
-
 
 All the features we were able to extract were related to what day or time it was for an given observation. Or numbers on the form "how many since start of month" or "how many days since start of week". And while this information can be useful, there will often be times where we want to do slight modifications that can result in huge payoff.
 
@@ -14,6 +13,14 @@ Consider merchandise sale related data. The mere indication of a specific dates 
 In the extraction sense we have a single indicator for the day of Black Friday
 
 ```{r}
+#| label: fig-datetime-advanced-indicator
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   We only see the effect of a single Day
+#| fig-alt: |
+#|   Bar chart. Dates along the x-axis, numeric effect along the y-axis. A
+#|   Single bar at Nov 24 with a value of 1 is shown.
 tibble(
   day = as_date("2023-11-24") + c(-5:5),
   black_friday = c(rep(0, 5), 1, rep(0, 5))
@@ -26,6 +33,16 @@ tibble(
 But it would make sense that since we know the day of Black Friday, that the sales will see a drop on the previous days, we can incorporate that as well.
 
 ```{r}
+#| label: fig-datetime-advanced-indicator-before
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Negative before effects can capture hesitancy to buy before big sale.
+#| fig-alt: |
+#|   Bar chart. Dates along the x-axis, numeric effect along the y-axis. A
+#|   Single bar at Nov 24 with a value of 1 is shown, the columns before the 
+#|   24ths takes negative values, with the 23 having the highest value, 22 less
+#|   and so on.
 tibble(
   day = as_date("2023-11-24") + c(-5:5),
   black_friday = c(-0.5 ^ (5:1), 1, rep(0, 5))
@@ -38,6 +55,17 @@ tibble(
 On the other hand, once the sale has started happening for the sales to pick up again. Since this is the last big sale before the Holidays, shoppers are free to buy their remaining presents as they don't have to fear of the item going on sale.
 
 ```{r}
+#| label: fig-datetime-advanced-indicator-before-after
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Positive affects effects can capture ease of mind that no other sale will
+#|   come.
+#| fig-alt: |
+#|   Bar chart. Dates along the x-axis, numeric effect along the y-axis. A
+#|   Single bar at Nov 24 with a value of 1 is shown, the columns before the 
+#|   24ths takes negative values, with the 23 having the highest value, 22 less
+#|   and so on. The values after the Nov 24 have decreasing values. 
 tibble(
   day = as_date("2023-11-24") + c(-5:5),
   black_friday = c(-0.5 ^ (5:1), 1, 0.25 ^ (1:5/2))
@@ -53,6 +81,22 @@ We can play around with "distance from" and "distance to", different numerical t
 What all these methods have in common is a reference point. For an extracted `day` feature, the reference point is "first of month" and the **after**-function is `x`, or in other words "days since time of day". We see this in the following chart. Almost all extracted functions follow this formula
 
 ```{r}
+#| label: fig-datetime-advanced-increasing
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Repeated increasing values.
+#| fig-alt: |
+#|   Bar chart. Dates along the x-axis, numeric effect along the y-axis. Values
+#|   start at 1 and the first of the month, and increase by 1 for each day. A
+#|   Triangle pattern appears.
+tibble(
+  day = as_date("2023-11-24") + c(-5:5),
+  black_friday = c(-0.5 ^ (5:1), 1, 0.25 ^ (1:5/2))
+) |>
+  ggplot(aes(day, black_friday)) +
+  geom_col() +
+  theme_minimal()
 tibble(
   date = as_date("2023-11-24") + seq(-90, 0)
 ) |>
@@ -65,6 +109,16 @@ tibble(
 we could just as well do the inverse and look at how many days are left in the month. This would have a **before**-function of `x` as well.
 
 ```{r}
+#| label: fig-datetime-advanced-decreasing
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Repeated increasing values.
+#| fig-alt: |
+#|   Bar chart. Dates along the x-axis, numeric effect along the y-axis. Values
+#|   start at 1 and the last of the month, and increase by 1 for each day going 
+#|   backwards. A Triangle pattern appears. The starting value is different for
+#|   each month as each month has a different number of days.
 tibble(
   date = as_date("2023-11-24") + seq(-90, 0)
 ) |>
@@ -79,8 +133,17 @@ tibble(
 We can do a both-sided formula by looking at "how many days are we away from a weekend". This would have both the before and after functions be `x` and look like so. Here it isn't too interesting as it is quite periodic, but using the same measure with "sale" instead of "weekend" and suddenly you have something different.
 
 ```{r}
+#| label: fig-datetime-advanced-weekend
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Repeated 
+#| fig-alt: |
+#|   Bar chart. Dates along the x-axis, numeric effect along the y-axis. Values
+#|   are zero for both Saturdays and Sundays. 1 for Mondays and Fridays, 2 for
+#|   Tuesdays and Thursdays, and 3 for Wednesday.
 tibble(
-  date = as_date("2023-11-24") + seq(-90, 0)
+  date = as_date("2023-11-24") + seq(-30, 0)
 ) |>
   mutate(day = c(1, 2, 3, 2, 1, 0, 0)[wday(date)]) |>
   ggplot(aes(date, day)) +
@@ -91,6 +154,17 @@ tibble(
 There are many other functions you can use, they will depend entirely on your task at hand. A few examples are shown below for inspiration.
 
 ```{r}
+#| label: fig-datetime-advanced-functions
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Repeated 
+#| fig-alt: |
+#|   Faceted bar chart. Dates along the x-axis, numeric effect along the y-axis.
+#|   Each of the charts represents the day of the month for a couple of months.
+#|   One shows the logarithmic transformation, one shows the untransformed data
+#|   one looks at the square transformation, and one looks at the untransformed
+#|   data which has been rounded down to 10, creating a plateau.
 tibble(
   date = as_date("2023-11-24") + seq(-90, 0)
 ) |>
