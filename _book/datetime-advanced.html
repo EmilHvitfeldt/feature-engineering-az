@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Feature Engineering A-Z - 42&nbsp; Advanced features</title>
+<title>Feature Engineering A-Z - 42&nbsp; Advanced Features</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -108,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./datetime.html">Datetime Features</a></li><li class="breadcrumb-item"><a href="./datetime-advanced.html"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Advanced features</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./datetime.html">Datetime Features</a></li><li class="breadcrumb-item"><a href="./datetime-advanced.html"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Advanced Features</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -419,19 +385,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./datetime-extraction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Value extraction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Value Extraction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./datetime-advanced.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Advanced features</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Advanced Features</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./datetime-circular.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Circular</span></span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Circular Features</span></span></a>
   </div>
 </li>
       </ul>
@@ -1251,7 +1217,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-datetime-advanced" class="quarto-section-identifier"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Advanced features</span></span></h1>
+<h1 class="title"><span id="sec-datetime-advanced" class="quarto-section-identifier"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Advanced Features</span></span></h1>
 </div>
 
 
@@ -1270,102 +1236,88 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Consider merchandise sale related data. The mere indication of a specific dates might become useful, but the sale amount is not likely to be affected just on the sale days, but on the surrounding days as well. Consider the American Black Friday. This day is predetermined to come every year at a easily recognized day, namely the last Friday of November. Considering its close time to Christmas other gift-giving holidays, it is a common day for thrifty people to start buying presents.</p>
 <p>In the extraction sense we have a single indicator for the day of Black Friday</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">day =</span> <span class="fu">as_date</span>(<span class="st">"2023-11-24"</span>) <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span><span class="sc">:</span><span class="dv">5</span>),</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">black_friday =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">5</span>), <span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">5</span>))</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(day, black_friday)) <span class="sc">+</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="datetime-advanced_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+<div id="fig-datetime-advanced-indicator" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="datetime-advanced_files/figure-html/fig-datetime-advanced-indicator-1.png" class="img-fluid figure-img" alt="Bar chart. Dates along the x-axis, numeric effect along the y-axis. A Single bar at Nov 24 with a value of 1 is shown." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;42.1: We only see the effect of a single Day</figcaption>
+</figure>
+</div>
 </div>
 </div>
 <p>But it would make sense that since we know the day of Black Friday, that the sales will see a drop on the previous days, we can incorporate that as well.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">day =</span> <span class="fu">as_date</span>(<span class="st">"2023-11-24"</span>) <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span><span class="sc">:</span><span class="dv">5</span>),</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">black_friday =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.5</span> <span class="sc">^</span> (<span class="dv">5</span><span class="sc">:</span><span class="dv">1</span>), <span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">5</span>))</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(day, black_friday)) <span class="sc">+</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="datetime-advanced_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+<div id="fig-datetime-advanced-indicator-before" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="datetime-advanced_files/figure-html/fig-datetime-advanced-indicator-before-1.png" class="img-fluid figure-img" alt="Bar chart. Dates along the x-axis, numeric effect along the y-axis. A Single bar at Nov 24 with a value of 1 is shown, the columns before the 24ths takes negative values, with the 23 having the highest value, 22 less and so on." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;42.2: Negative before effects can capture hesitancy to buy before big sale.</figcaption>
+</figure>
+</div>
 </div>
 </div>
 <p>On the other hand, once the sale has started happening for the sales to pick up again. Since this is the last big sale before the Holidays, shoppers are free to buy their remaining presents as they don’t have to fear of the item going on sale.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">day =</span> <span class="fu">as_date</span>(<span class="st">"2023-11-24"</span>) <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span><span class="sc">:</span><span class="dv">5</span>),</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">black_friday =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.5</span> <span class="sc">^</span> (<span class="dv">5</span><span class="sc">:</span><span class="dv">1</span>), <span class="dv">1</span>, <span class="fl">0.25</span> <span class="sc">^</span> (<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span><span class="sc">/</span><span class="dv">2</span>))</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(day, black_friday)) <span class="sc">+</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="datetime-advanced_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+<div id="fig-datetime-advanced-indicator-before-after" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="datetime-advanced_files/figure-html/fig-datetime-advanced-indicator-before-after-1.png" class="img-fluid figure-img" alt="Bar chart. Dates along the x-axis, numeric effect along the y-axis. A Single bar at Nov 24 with a value of 1 is shown, the columns before the 24ths takes negative values, with the 23 having the highest value, 22 less and so on. The values after the Nov 24 have decreasing values." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;42.3: Positive affects effects can capture ease of mind that no other sale will come.</figcaption>
+</figure>
+</div>
 </div>
 </div>
 <p>The exact effects shown here are just approximate to our story at hand. But they provide a useful illustration. There are a lot of bandwidth to be given if we look at date times from a distance perspective. We can play around with “distance from” and “distance to”, different numerical transformations we saw in <a href="numeric.html" class="quarto-xref"><span>Chapter&nbsp;4</span></a>, signs and indicators we talked about in <a href="datetime-extraction.html" class="quarto-xref"><span>Chapter&nbsp;41</span></a> to tailor our feature engineering to our problem.</p>
 <p>What all these methods have in common is a reference point. For an extracted <code>day</code> feature, the reference point is “first of month” and the <strong>after</strong>-function is <code>x</code>, or in other words “days since time of day”. We see this in the following chart. Almost all extracted functions follow this formula</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">date =</span> <span class="fu">as_date</span>(<span class="st">"2023-11-24"</span>) <span class="sc">+</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">90</span>, <span class="dv">0</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">day =</span> <span class="fu">day</span>(date)) <span class="sc">|&gt;</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, day)) <span class="sc">+</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="datetime-advanced_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<div id="fig-datetime-advanced-increasing-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="datetime-advanced_files/figure-html/fig-datetime-advanced-increasing-1.png" class="img-fluid figure-img" alt="Bar chart. Dates along the x-axis, numeric effect along the y-axis. Values start at 1 and the first of the month, and increase by 1 for each day. A Triangle pattern appears." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;42.4: Repeated increasing values.</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-datetime-advanced-increasing-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="datetime-advanced_files/figure-html/fig-datetime-advanced-increasing-2.png" class="img-fluid figure-img" alt="Bar chart. Dates along the x-axis, numeric effect along the y-axis. Values start at 1 and the first of the month, and increase by 1 for each day. A Triangle pattern appears." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;42.5: Repeated increasing values.</figcaption>
+</figure>
+</div>
 </div>
 </div>
 <p>we could just as well do the inverse and look at how many days are left in the month. This would have a <strong>before</strong>-function of <code>x</code> as well.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">date =</span> <span class="fu">as_date</span>(<span class="st">"2023-11-24"</span>) <span class="sc">+</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">90</span>, <span class="dv">0</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">day =</span> <span class="fu">day</span>(date)) <span class="sc">|&gt;</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> <span class="fu">month</span>(date)) <span class="sc">|&gt;</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">day =</span> <span class="fu">max</span>(day) <span class="sc">-</span> day <span class="sc">+</span> <span class="dv">1</span>, <span class="at">.by =</span> month) <span class="sc">|&gt;</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, day)) <span class="sc">+</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="datetime-advanced_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<div id="fig-datetime-advanced-decreasing" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="datetime-advanced_files/figure-html/fig-datetime-advanced-decreasing-1.png" class="img-fluid figure-img" alt="Bar chart. Dates along the x-axis, numeric effect along the y-axis. Values start at 1 and the last of the month, and increase by 1 for each day going backwards. A Triangle pattern appears. The starting value is different for each month as each month has a different number of days." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;42.6: Repeated increasing values.</figcaption>
+</figure>
+</div>
 </div>
 </div>
 <p>We can do a both-sided formula by looking at “how many days are we away from a weekend”. This would have both the before and after functions be <code>x</code> and look like so. Here it isn’t too interesting as it is quite periodic, but using the same measure with “sale” instead of “weekend” and suddenly you have something different.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">date =</span> <span class="fu">as_date</span>(<span class="st">"2023-11-24"</span>) <span class="sc">+</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">90</span>, <span class="dv">0</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">day =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>)[<span class="fu">wday</span>(date)]) <span class="sc">|&gt;</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, day)) <span class="sc">+</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="datetime-advanced_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<div id="fig-datetime-advanced-weekend" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="datetime-advanced_files/figure-html/fig-datetime-advanced-weekend-1.png" class="img-fluid figure-img" alt="Bar chart. Dates along the x-axis, numeric effect along the y-axis. Values are zero for both Saturdays and Sundays. 1 for Mondays and Fridays, 2 for Tuesdays and Thursdays, and 3 for Wednesday." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;42.7: Repeated</figcaption>
+</figure>
+</div>
 </div>
 </div>
 <p>There are many other functions you can use, they will depend entirely on your task at hand. A few examples are shown below for inspiration.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">date =</span> <span class="fu">as_date</span>(<span class="st">"2023-11-24"</span>) <span class="sc">+</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">90</span>, <span class="dv">0</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">day =</span> <span class="fu">day</span>(date)) <span class="sc">|&gt;</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">log(x)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">log</span>(day)) <span class="sc">|&gt;</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">x^2</span><span class="st">`</span> <span class="ot">=</span> day <span class="sc">^</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">pmin(day, 10)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">pmin</span>(day, <span class="dv">10</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">x =</span> day) <span class="sc">|&gt;</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>date) <span class="sc">|&gt;</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, value)) <span class="sc">+</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>name, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="datetime-advanced_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+<div id="fig-datetime-advanced-functions" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="datetime-advanced_files/figure-html/fig-datetime-advanced-functions-1.png" class="img-fluid figure-img" alt="Faceted bar chart. Dates along the x-axis, numeric effect along the y-axis. Each of the charts represents the day of the month for a couple of months. One shows the logarithmic transformation, one shows the untransformed data one looks at the square transformation, and one looks at the untransformed data which has been rounded down to 10, creating a plateau." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;42.8: Repeated</figcaption>
+</figure>
+</div>
 </div>
 </div>
 <p>What makes these calculations so neat is that they can be tailored to our task at hand, and that they work with irregular events such as holidays and signup dates. These methods are not circular by definition, but they will work in many ways like it. We will cover explicit circular methods in <a href="datetime-circular.html" class="quarto-xref"><span>Chapter&nbsp;43</span></a>.</p>
@@ -1688,12 +1640,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./datetime-extraction.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Value extraction</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Value Extraction</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./datetime-circular.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Circular</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Circular Features</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

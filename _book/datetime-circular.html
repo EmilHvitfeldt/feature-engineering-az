@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Feature Engineering A-Z - 43&nbsp; Circular</title>
+<title>Feature Engineering A-Z - 43&nbsp; Circular Features</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -74,7 +74,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./datetime.html">Datetime Features</a></li><li class="breadcrumb-item"><a href="./datetime-circular.html"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Circular</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./datetime.html">Datetime Features</a></li><li class="breadcrumb-item"><a href="./datetime-circular.html"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Circular Features</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -385,19 +385,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./datetime-extraction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Value extraction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Value Extraction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./datetime-advanced.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Advanced features</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Advanced Features</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./datetime-circular.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Circular</span></span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Circular Features</span></span></a>
   </div>
 </li>
       </ul>
@@ -1217,7 +1217,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-datetime-circular" class="quarto-section-identifier"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Circular</span></span></h1>
+<h1 class="title"><span id="sec-datetime-circular" class="quarto-section-identifier"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Circular Features</span></span></h1>
 </div>
 
 
@@ -1232,18 +1232,29 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>WIP</p>
+<p>When working with datetime features, there are a couple of instances where it is useful to work with them in a purely circular sense. We will cover those instances and why we would want to do it in this chapter. For a broader and more comprehensive look at how to work with circular features, see the <a href="circular.html" class="quarto-xref"><span>Chapter&nbsp;59</span></a> section.</p>
+<p>To make things perfectly circular we need to work with regular units of seasonality. This is quite nice as we have the units that are going to guide the circular nature of the effects. This is unlike other types of circular data where we need to find the scale of the period.</p>
+<p>We can work with things like hours, days and weeks directly. But we need to take extra care when working with uneven periods such as months and years, since the months are not all the same length, and leap years exist. One way to deal with this is to work with the decimal representation.</p>
+<p>Once we have the datetime variables in the right format, all we have to to is find an appropriate circular method in <a href="circular.html" class="quarto-xref"><span>Chapter&nbsp;59</span></a> and apply it.</p>
+<p>TODO: Wait for recipes step to show how this would look</p>
 <section id="pros-and-cons" class="level2" data-number="43.1">
 <h2 data-number="43.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">43.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="43.1.1">
 <h3 data-number="43.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">43.1.1</span> Pros</h3>
+<ul>
+<li>The nature of datetime variables naturally leads to circular patterns</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="43.1.2">
 <h3 data-number="43.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">43.1.2</span> Cons</h3>
+<ul>
+<li>Extra care and work needs to be done to find the right period</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="43.2">
 <h2 data-number="43.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">43.2</span> R Examples</h2>
+<p>TODO: Add recipes steps</p>
 </section>
 <section id="python-examples" class="level2" data-number="43.3">
 <h2 data-number="43.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">43.3</span> Python Examples</h2>
@@ -1552,7 +1563,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./datetime-advanced.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Advanced features</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Advanced Features</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
