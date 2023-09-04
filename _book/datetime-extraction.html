@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Feature Engineering A-Z - 41&nbsp; Value extraction</title>
+<title>Feature Engineering A-Z - 41&nbsp; Value Extraction</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -108,7 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./datetime.html">Datetime Features</a></li><li class="breadcrumb-item"><a href="./datetime-extraction.html"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Value extraction</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./datetime.html">Datetime Features</a></li><li class="breadcrumb-item"><a href="./datetime-extraction.html"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Value Extraction</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -419,19 +419,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./datetime-extraction.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Value extraction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Value Extraction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./datetime-advanced.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Advanced features</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Advanced Features</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./datetime-circular.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Circular</span></span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Circular Features</span></span></a>
   </div>
 </li>
       </ul>
@@ -1251,7 +1251,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-datetime-extraction" class="quarto-section-identifier"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Value extraction</span></span></h1>
+<h1 class="title"><span id="sec-datetime-extraction" class="quarto-section-identifier"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Value Extraction</span></span></h1>
 </div>
 
 
@@ -1299,7 +1299,7 @@ Note
 <li>second</li>
 </ul>
 <p>but we can include a couple more. <code>quarter</code>, <code>semester</code>, <code>week</code>. These are highly related to the above list, they are just on a different format. <code>season</code> is another possibly nice feature, but we have to be careful as the seasons flip depending on where on the globe we are at.</p>
-<p>In our above list of features, each of them counts up from 1, until we reach the level level. So minutes stops at 60 and starts over. This might not be what we want, so we can include finer detail by extracting <code>seconds in day</code>, <code>days in week</code>, and <code>days in year</code>. If will be up to you to figure out if these are useful for you. Generally these become useful in the broader sense. <code>seconds in day</code> is more finely grained than <code>hour</code>, so if you want to figure out time of day, then the smaller measurements are helpful.</p>
+<p>In our above list of features, each of them counts up from 1, until we reach the level level. So minutes stops at 60 and starts over. This might not be what we want, so we can include finer detail by extracting <code>seconds in day</code>, <code>days in week</code>, and <code>days in year</code>. If will be up to you to figure out if these are useful for you. Generally these become useful in the broader sense. <code>seconds in day</code> is more finely grained than <code>hour</code>, so if you want to figure out time of day, then the smaller measurements are helpful. Likewise, some of these methods are better expressed as decimals, as periods such as <code>month</code> have different lengths, and will thus be different. Talking about being <code>0.9</code> through the month will be more precise.</p>
 <p>From these we can also do things like <code>weekends</code>, <code>weekdays</code>, <code>morning</code> and holidays such as Christmas and Easter. Remember that there are libraries to extract these for you.</p>
 <p>Some of the measurements here can be extracted as categorical rather than numeric, things like <code>day of week</code> can either be extracted as <code>1, 2, 3</code> or <code>Monday, Tuesday, Wednesday</code> or <code>month</code> that can be extracted . We can think of the numeric extract as being a automatic label encoding <a href="categorical-label.html" class="quarto-xref"><span>Chapter&nbsp;21</span></a> of the categorical version. Some times it will be worth extracting the categorical version and use it directly or embed it with other methods in <a href="categorical.html" class="quarto-xref"><span>Chapter&nbsp;17</span></a>. It is worth noting that the categorical version of these variables are ordinal in nature.</p>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -1356,7 +1356,7 @@ Note
 ✖ dplyr::filter()  masks stats::filter()
 ✖ dplyr::lag()     masks stats::lag()
 ✖ recipes::step()  masks stats::step()
-• Search for functions across packages at https://www.tidymodels.org/find/</code></pre>
+• Use tidymodels_prefer() to resolve common conflicts.</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 119390 Columns: 32
@@ -1798,7 +1798,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="./datetime-advanced.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Advanced features</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Advanced Features</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
