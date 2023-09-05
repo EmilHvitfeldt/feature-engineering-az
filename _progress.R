@@ -45,7 +45,7 @@ not_done_col <- cli::make_ansi_style("grey90")
 
 make_line <- function(info, text_pad, progress_width = 50) {
   draft <- ceiling((info$draft / info$Total) * progress_width)
-  progress <- ceiling((info$Progress / info$Total) * progress_width)
+  progress <- floor((info$Progress / info$Total) * progress_width)
 
   not_done <- progress_width - draft - progress
 
