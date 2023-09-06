@@ -1,6 +1,39 @@
 # High Correlation Filter {#sec-correlated-filter}
 
-WIP
+We are looking to remove correlated features. By correlated features we typically talk about Pearson correlation. The methods in this chapter doesn't require that Pearson correlation is used, just that any correlation method is used.
+Next we will look at how we can remove the offending variables. 
+
+I always find it useful to look at a correlations matrix first
+
+```{r}
+#| echo: false
+library(tidymodels)
+library(corrr)
+```
+
+```{r}
+#| echo: false
+ames |>
+  select(where(is.numeric)) |>
+  correlate(method = "pearson", quiet = TRUE) |>
+  autoplot(method = "identity")
+```
+
+looking at the above chart we see some correlated features. One way to perform our filtering is to find all the correlated pairs over a certain threshold, and remove one of them. Below is a chart of all the pairs with a Pearson correlation above `0.65`.
+
+```{r}
+#| echo: true
+ames |>
+  select(where(is.numeric)) |>
+  correlate(method = "pearson", quiet = TRUE) |>
+  shave() |>
+  stretch() |>
+  filter(abs(r) > 0.65) |>
+  mutate(r = round(r, 3)) |>
+  arrange(r) |>
+  knitr::kable()
+```
+
 
 ## Pros and Cons
 
