@@ -12,7 +12,13 @@ library(corrr)
 ```
 
 ```{r}
+#| label: fig-correlation-matrix
 #| echo: false
+#| message: false
+#| fig-cap: |
+#|   Some clusters of correlated features.
+#| fig-alt: |
+#|   Correlation chart. 
 ames |>
   select(where(is.numeric)) |>
   correlate(method = "pearson", quiet = TRUE) |>
@@ -22,7 +28,8 @@ ames |>
 looking at the above chart we see some correlated features. One way to perform our filtering is to find all the correlated pairs over a certain threshold, and remove one of them. Below is a chart of the 10 most correlated pairs
 
 ```{r}
-#| echo: true
+#| label: tbl-correlation-values
+#| tbl-cap: Some predictors appears multiple times in this table.
 ames |>
   select(where(is.numeric)) |>
   correlate(method = "pearson", quiet = TRUE) |>

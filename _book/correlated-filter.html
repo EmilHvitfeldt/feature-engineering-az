@@ -1282,12 +1282,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ✖ dplyr::filter()  masks stats::filter()
 ✖ dplyr::lag()     masks stats::lag()
 ✖ recipes::step()  masks stats::step()
-• Use suppressPackageStartupMessages() to eliminate package startup messages</code></pre>
+• Use tidymodels_prefer() to resolve common conflicts.</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="correlated-filter_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+<div id="fig-correlation-matrix" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="correlated-filter_files/figure-html/fig-correlation-matrix-1.png" class="img-fluid figure-img" alt="Correlation chart." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;81.1: Some clusters of correlated features.</figcaption>
+</figure>
+</div>
 </div>
 </div>
 <p>looking at the above chart we see some correlated features. One way to perform our filtering is to find all the correlated pairs over a certain threshold, and remove one of them. Below is a chart of the 10 most correlated pairs</p>
@@ -1302,7 +1307,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">r =</span> <span class="fu">round</span>(r, <span class="dv">3</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
+<div id="tbl-correlation-values" class="anchored">
 <table class="table table-sm table-striped small">
+<caption>Table&nbsp;81.1: Some predictors appears multiple times in this table.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">x</th>
@@ -1365,6 +1372,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 </div>
+</div>
 <p>One way to do filtering is to pink a threshold and repeatably remove one of the variables of the most correlated pair, until there are no pairs left with an correlation over the threshold. This method has a minimal computational footprint as it just needs to calculate the correlations once at the beginning. The threshold is likely to be needed to be tuned as we can’t say for sure what a good threshold is. With removal of variables there is always a chance that we are removing signal rather than noise, this is increasingly true as we remove more and more predictors.</p>
 <p>TODO: rewrite this as an algorithm</p>
 <p>If we look at the above table, we notice that some of the variables occur together. One such example is <code>Garage_Cars</code>, <code>Garage_Area</code> and <code>Sale_Price</code>. These 3 variables are highly co-correlated and it would be neat if we could deal with these variables at the same time.</p>
@@ -1405,9 +1413,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 3 × 2
   terms        id        
   &lt;chr&gt;        &lt;chr&gt;     
-1 First_Flr_SF corr_JSPur
-2 Gr_Liv_Area  corr_JSPur
-3 Garage_Cars  corr_JSPur</code></pre>
+1 First_Flr_SF corr_VP6NX
+2 Gr_Liv_Area  corr_VP6NX
+3 Garage_Cars  corr_VP6NX</code></pre>
 </div>
 </div>
 <p>We can see that when we lower this threshold to the extreme, that more predictors are removed.</p>
@@ -1420,19 +1428,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 13 × 2
    terms          id        
    &lt;chr&gt;          &lt;chr&gt;     
- 1 Bsmt_Unf_SF    corr_yZO8f
- 2 Total_Bsmt_SF  corr_yZO8f
- 3 First_Flr_SF   corr_yZO8f
- 4 Gr_Liv_Area    corr_yZO8f
- 5 Bsmt_Full_Bath corr_yZO8f
- 6 Full_Bath      corr_yZO8f
- 7 TotRms_AbvGrd  corr_yZO8f
- 8 Fireplaces     corr_yZO8f
- 9 Garage_Cars    corr_yZO8f
-10 Garage_Area    corr_yZO8f
-11 Year_Built     corr_yZO8f
-12 Second_Flr_SF  corr_yZO8f
-13 Year_Remod_Add corr_yZO8f</code></pre>
+ 1 Bsmt_Unf_SF    corr_f5Kh2
+ 2 Total_Bsmt_SF  corr_f5Kh2
+ 3 First_Flr_SF   corr_f5Kh2
+ 4 Gr_Liv_Area    corr_f5Kh2
+ 5 Bsmt_Full_Bath corr_f5Kh2
+ 6 Full_Bath      corr_f5Kh2
+ 7 TotRms_AbvGrd  corr_f5Kh2
+ 8 Fireplaces     corr_f5Kh2
+ 9 Garage_Cars    corr_f5Kh2
+10 Garage_Area    corr_f5Kh2
+11 Year_Built     corr_f5Kh2
+12 Second_Flr_SF  corr_f5Kh2
+13 Year_Remod_Add corr_f5Kh2</code></pre>
 </div>
 </div>
 </section>
