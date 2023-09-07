@@ -1260,7 +1260,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>We are looking to remove correlated features. By correlated features we typically talk about Pearson correlation. The methods in this chapter doesn’t require that Pearson correlation is used, just that any correlation method is used. Next we will look at how we can remove the offending variables.</p>
+<p>We are looking to remove correlated features. By correlated features we typically talk about Pearson correlation. The methods in this chapter doesn’t require that Pearson correlation is used, just that any correlation method is used. Next we will look at how we can remove the offending variables. We will show an <strong>iterative approach</strong> and a <strong>clustering approach</strong>. Both methods are learned methods as they identify variables to be kept.</p>
 <p>I always find it useful to look at a correlations matrix first</p>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
@@ -1282,7 +1282,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ✖ dplyr::filter()  masks stats::filter()
 ✖ dplyr::lag()     masks stats::lag()
 ✖ recipes::step()  masks stats::step()
-• Use tidymodels_prefer() to resolve common conflicts.</code></pre>
+• Use suppressPackageStartupMessages() to eliminate package startup messages</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1290,16 +1290,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="correlated-filter_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>looking at the above chart we see some correlated features. One way to perform our filtering is to find all the correlated pairs over a certain threshold, and remove one of them. Below is a chart of all the pairs with a Pearson correlation above <code>0.65</code>.</p>
+<p>looking at the above chart we see some correlated features. One way to perform our filtering is to find all the correlated pairs over a certain threshold, and remove one of them. Below is a chart of the 10 most correlated pairs</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ames <span class="sc">|&gt;</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric)) <span class="sc">|&gt;</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">correlate</span>(<span class="at">method =</span> <span class="st">"pearson"</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shave</span>() <span class="sc">|&gt;</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stretch</span>() <span class="sc">|&gt;</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">abs</span>(r) <span class="sc">&gt;</span> <span class="fl">0.65</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">r =</span> <span class="fu">round</span>(r, <span class="dv">3</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(r) <span class="sc">|&gt;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="fu">abs</span>(r))) <span class="sc">|&gt;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">r =</span> <span class="fu">round</span>(r, <span class="dv">3</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
@@ -1312,50 +1312,129 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Second_Flr_SF</td>
-<td style="text-align: left;">Gr_Liv_Area</td>
-<td style="text-align: right;">0.655</td>
+<td style="text-align: left;">Garage_Cars</td>
+<td style="text-align: left;">Garage_Area</td>
+<td style="text-align: right;">0.890</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Bedroom_AbvGr</td>
-<td style="text-align: left;">TotRms_AbvGrd</td>
-<td style="text-align: right;">0.673</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Gr_Liv_Area</td>
-<td style="text-align: left;">Sale_Price</td>
-<td style="text-align: right;">0.707</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Total_Bsmt_SF</td>
-<td style="text-align: left;">First_Flr_SF</td>
-<td style="text-align: right;">0.800</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">Gr_Liv_Area</td>
 <td style="text-align: left;">TotRms_AbvGrd</td>
 <td style="text-align: right;">0.808</td>
 </tr>
+<tr class="odd">
+<td style="text-align: left;">Total_Bsmt_SF</td>
+<td style="text-align: left;">First_Flr_SF</td>
+<td style="text-align: right;">0.800</td>
+</tr>
 <tr class="even">
+<td style="text-align: left;">Gr_Liv_Area</td>
+<td style="text-align: left;">Sale_Price</td>
+<td style="text-align: right;">0.707</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Bedroom_AbvGr</td>
+<td style="text-align: left;">TotRms_AbvGrd</td>
+<td style="text-align: right;">0.673</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Second_Flr_SF</td>
+<td style="text-align: left;">Gr_Liv_Area</td>
+<td style="text-align: right;">0.655</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">Garage_Cars</td>
+<td style="text-align: left;">Sale_Price</td>
+<td style="text-align: right;">0.648</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">Garage_Area</td>
-<td style="text-align: right;">0.890</td>
+<td style="text-align: left;">Sale_Price</td>
+<td style="text-align: right;">0.640</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total_Bsmt_SF</td>
+<td style="text-align: left;">Sale_Price</td>
+<td style="text-align: right;">0.633</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Gr_Liv_Area</td>
+<td style="text-align: left;">Full_Bath</td>
+<td style="text-align: right;">0.630</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
+<p>One way to do filtering is to pink a threshold and repeatably remove one of the variables of the most correlated pair, until there are no pairs left with an correlation over the threshold. This method has a minimal computational footprint as it just needs to calculate the correlations once at the beginning. The threshold is likely to be needed to be tuned as we can’t say for sure what a good threshold is. With removal of variables there is always a chance that we are removing signal rather than noise, this is increasingly true as we remove more and more predictors.</p>
+<p>TODO: rewrite this as an algorithm</p>
+<p>If we look at the above table, we notice that some of the variables occur together. One such example is <code>Garage_Cars</code>, <code>Garage_Area</code> and <code>Sale_Price</code>. These 3 variables are highly co-correlated and it would be neat if we could deal with these variables at the same time.</p>
+<p>TODO: find different example so <code>Sale_Price</code> isn’t part of this as it is usually the outcome.</p>
+<p>TODO: Add good graph showing this effect.</p>
+<p>What we could do, is take the correlation matrix and apply a clustering model on it. Them we use the clustering model to lump together the groups of highly correlated predictors. Then within each cluster one predictor is chosen to be kept. The clusters should ideally be chosen such that uncorrelated predictors are alone in their cluster. This method is able to work better with the global structure of the data, but requires fitting and tuning another model.</p>
 <section id="pros-and-cons" class="level2" data-number="81.1">
 <h2 data-number="81.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">81.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="81.1.1">
 <h3 data-number="81.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">81.1.1</span> Pros</h3>
+<ul>
+<li>Computationally simple and fast</li>
+<li>Easily explainable. “Predictors were removed”</li>
+<li>Will lead to faster and simpler model</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="81.1.2">
 <h3 data-number="81.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">81.1.2</span> Cons</h3>
+<ul>
+<li>Can be hard to justify. “Why was this predictor kept instead of this one?”</li>
+<li>Will lead to loss of signal and performance, with the hope that this loss is kept minimal</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="81.2">
 <h2 data-number="81.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">81.2</span> R Examples</h2>
+<p>We will use the <code>ames</code> data set from {modeldata} in this example. The {recipes} step <code>step_corrr()</code> performs the simple correlation filter described at the beginning of this chapter.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>corr_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> ., <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_corr</span>(<span class="fu">all_numeric_predictors</span>(), <span class="at">threshold =</span> <span class="fl">0.75</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can see the variables that were removed with the <code>tidy()</code> method</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>corr_rec <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  terms        id        
+  &lt;chr&gt;        &lt;chr&gt;     
+1 First_Flr_SF corr_JSPur
+2 Gr_Liv_Area  corr_JSPur
+3 Garage_Cars  corr_JSPur</code></pre>
+</div>
+</div>
+<p>We can see that when we lower this threshold to the extreme, that more predictors are removed.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> ., <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_corr</span>(<span class="fu">all_numeric_predictors</span>(), <span class="at">threshold =</span> <span class="fl">0.25</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 13 × 2
+   terms          id        
+   &lt;chr&gt;          &lt;chr&gt;     
+ 1 Bsmt_Unf_SF    corr_yZO8f
+ 2 Total_Bsmt_SF  corr_yZO8f
+ 3 First_Flr_SF   corr_yZO8f
+ 4 Gr_Liv_Area    corr_yZO8f
+ 5 Bsmt_Full_Bath corr_yZO8f
+ 6 Full_Bath      corr_yZO8f
+ 7 TotRms_AbvGrd  corr_yZO8f
+ 8 Fireplaces     corr_yZO8f
+ 9 Garage_Cars    corr_yZO8f
+10 Garage_Area    corr_yZO8f
+11 Year_Built     corr_yZO8f
+12 Second_Flr_SF  corr_yZO8f
+13 Year_Remod_Add corr_yZO8f</code></pre>
+</div>
+</div>
 </section>
 <section id="python-examples" class="level2" data-number="81.3">
 <h2 data-number="81.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">81.3</span> Python Examples</h2>
