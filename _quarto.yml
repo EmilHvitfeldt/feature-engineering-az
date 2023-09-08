@@ -59,6 +59,13 @@ book:
         - datetime-extraction.qmd # draft
         - datetime-advanced.qmd # draft
         - datetime-circular.qmd # draft
+    - part: "Missing Data"
+      chapters:
+        - missing.qmd # draft
+        - missing-simple.qmd
+        - missing-model.qmd
+        - missing-indicator.qmd
+        - missing-remove.qmd
     - part: "Text Features"
       chapters:
         - text.qmd # draft
@@ -82,13 +89,6 @@ book:
         - circular-trig.qmd
         - circular-splines.qmd
         - circular-indicators.qmd
-    - part: "Missing Data"
-      chapters:
-        - missing.qmd # draft
-        - missing-simple.qmd
-        - missing-model.qmd
-        - missing-indicator.qmd
-        - missing-remove.qmd
     - part: "Too Many Variables"
       chapters:
         - too-many.qmd # draft
