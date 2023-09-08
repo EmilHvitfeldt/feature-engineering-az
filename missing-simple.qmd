@@ -1,6 +1,30 @@
 # Simple Imputation {#sec-missing-simple}
 
-WIP
+When dealing with missing data, the first suggestion is often imputation. **Simple imputation** as covered in this chapter refers to the method where for each variable a single value is selected, and all missing values will be replaced by that value. It is important to remind ourselves why we impute missing values. Because the model we are using isn't able to handle missing values natively. Simple imputation is the simplest way to handle missing values.
+
+The way we find this value will depend on the variable type, and within each type of variable we find multiple ways to decide on a value. The main categories are categorical and numeric variables.
+
+For categorical we have 2 main options. We can 
+These methods also work for low cardinality integers.
+
+TODO: talk about the one case where it isn't a single value, but rather a sampling of the training distribution.
+
+One of the main downsides to simple imputation is that it can lead to impossible configurations in the data.
+
+You could imagine that total square area is missing, but we knows the number of rooms and number of bedrooms. Certain combinations are more likely than others. Below is the classic ames data set
+
+```{r}
+library(tidymodels)
+ames |>
+  count(TotRms_AbvGrd, Bedroom_AbvGr) |>
+  ggplot(aes(TotRms_AbvGrd, Bedroom_AbvGr, fill = log(n))) +
+  geom_tile() +
+  geom_abline(slope = 1, intercept = 0) +
+  coord_fixed() +
+  theme_minimal() +
+  scale_fill_viridis_c()
+```
+
 
 ## Pros and Cons
 
