@@ -4,8 +4,11 @@ When dealing with missing data, the first suggestion is often imputation. **Simp
 
 The way we find this value will depend on the variable type, and within each type of variable we find multiple ways to decide on a value. The main categories are categorical and numeric variables.
 
-For categorical we have 2 main options. We can 
-These methods also work for low cardinality integers.
+For categorical we have 2 main options. We can add replace the value of `NA`  with `"missing"` or some other unused value. This would denote that the value was missing, without trying to pick a value. It would change the cardinality of the predictors as a variables with levels "new", "used", and "old" would go from 3 levels to 4. Which may be undesirable. Especially with ordinal variables as it is unclear where the `"missing"` should go in the ordering.
+
+The simple imputation way to deal with categorical is to find the a value with want to impute with. Typically this will be calculated with the mode, e.i. the most frequent value. It doesn't have to be the most frequent value, you could set up the imputation to pick the 5th most common value, or the least common value. But this is quite uncommon, and the mode is used by far the most. These methods also work for low cardinality integers.
+
+For numeric values we don't have the option to add a new type of value. One option is to manually select the imputed value. If this approach is taken, then it should be done with utmost caution! It would also make it a unlearned imputation method. What is typically done is that some value is picked as the replacement. Be it the median, mean or even mode. 
 
 TODO: talk about the one case where it isn't a single value, but rather a sampling of the training distribution.
 
