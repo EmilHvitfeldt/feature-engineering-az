@@ -7,8 +7,10 @@ I always find it useful to look at a correlations matrix first
 
 ```{r}
 #| echo: false
+#| message: false
 library(tidymodels)
 library(corrr)
+set.seed(1234)
 ```
 
 ```{r}
