@@ -10,11 +10,9 @@ The simple imputation way to deal with categorical is to find the a value with w
 
 For numeric values we don't have the option to add a new type of value. One option is to manually select the imputed value. If this approach is taken, then it should be done with utmost caution! It would also make it a unlearned imputation method. What is typically done is that some value is picked as the replacement. Be it the median, mean or even mode. 
 
-TODO: talk about the one case where it isn't a single value, but rather a sampling of the training distribution.
+Datetime variables will be a different story. One could use the mode, or an adjusted mean or median. Another way is to let the value extraction work first, and then apply imputation to the extracted variables. Time series data is different enough that it has its own chapter in @sec-time-series-missing.
 
-One of the main downsides to simple imputation is that it can lead to impossible configurations in the data.
-
-You could imagine that total square area is missing, but we knows the number of rooms and number of bedrooms. Certain combinations are more likely than others. Below is the classic ames data set
+One of the main downsides to simple imputation is that it can lead to impossible configurations in the data. Imagine that total square area is missing, but we knows the number of rooms and number of bedrooms. Certain combinations are more likely than others. Below is the classic ames data set
 
 ```{r}
 library(tidymodels)
@@ -27,6 +25,10 @@ ames |>
   theme_minimal() +
   scale_fill_viridis_c()
 ```
+
+It is not possible for there to be more bedrooms than total number of rooms. And we see that in the data. The average number of bedrooms is `r `round(mean(ames$Bedroom_AbvGr), 2)`, and if we round, then it will be `r round(mean(ames$Bedroom_AbvGr), 0)`. That is perfectly fine for a house with an average number of rooms, but it will be impossible for small houses and quite inadequate for large houses. This is obvoisly bad, but can be seen as an improvement to the situation where the model didn't fit because a missing value was present. This scenario is part of the motivation to @sec-missing-model.
+
+TODO: talk about the one case where it isn't a single value, but rather a sampling of the training distribution. 
 
 
 ## Pros and Cons
