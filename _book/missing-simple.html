@@ -1288,7 +1288,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ✖ dplyr::filter()  masks stats::filter()
 ✖ dplyr::lag()     masks stats::lag()
 ✖ recipes::step()  masks stats::step()
-• Dig deeper into tidy modeling with R at https://www.tmwr.org</code></pre>
+• Use tidymodels_prefer() to resolve common conflicts.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ames <span class="sc">|&gt;</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(TotRms_AbvGrd, Bedroom_AbvGr) <span class="sc">|&gt;</span></span>
@@ -1302,7 +1302,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="missing-simple_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>It is not possible for there to be more bedrooms than total number of rooms. And we see that in the data. The average number of bedrooms is <code>r</code>round(mean(ames$Bedroom_AbvGr), 2)`, and if we round, then it will be 3. That is perfectly fine for a house with an average number of rooms, but it will be impossible for small houses and quite inadequate for large houses. This is obvoisly bad, but can be seen as an improvement to the situation where the model didn’t fit because a missing value was present. This scenario is part of the motivation to <a href="missing-model.html" class="quarto-xref"><span>Chapter&nbsp;44</span></a>.</p>
+<p>It is not possible for there to be more bedrooms than total number of rooms. And we see that in the data. The average number of bedrooms is <code>r</code>round(mean(ames$Bedroom_AbvGr), 2)`, and if we round, then it will be 3. That is perfectly fine for a house with an average number of rooms, but it will be impossible for small houses and quite inadequate for large houses. This is obviously bad, but can be seen as an improvement to the situation where the model didn’t fit because a missing value was present. This scenario is part of the motivation to <a href="missing-model.html" class="quarto-xref"><span>Chapter&nbsp;44</span></a>.</p>
+<p>Other drawbacks of simple include; reducing the variance and standard diviation of the data. This happens because we are adding zero-variance information to the variables. In the same vain, we are changing the distribution of our variables, which can also affect downstream modeling and feature engineering.</p>
+<p>Below we see this in effect, as more and more missing data, leads to a larger peak of the mean of the distribution.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">20</span>), <span class="fu">rnorm</span>(<span class="dv">600</span>, <span class="at">mean =</span> <span class="dv">150</span>, <span class="at">sd =</span> <span class="dv">10</span>))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(x)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>x_05 <span class="ot">&lt;-</span> x</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>x_05[<span class="fu">seq_len</span>(<span class="fu">floor</span>(<span class="fu">length</span>(x) <span class="sc">*</span> <span class="fl">0.05</span>))] <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>x_10 <span class="ot">&lt;-</span> x</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>x_10[<span class="fu">seq_len</span>(<span class="fu">floor</span>(<span class="fu">length</span>(x) <span class="sc">*</span> <span class="fl">0.10</span>))] <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>x_15 <span class="ot">&lt;-</span> x</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>x_15[<span class="fu">seq_len</span>(<span class="fu">floor</span>(<span class="fu">length</span>(x) <span class="sc">*</span> <span class="fl">0.15</span>))] <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">c</span>(x, x_05, x_10, x_15),</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">percentage =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"0"</span>, <span class="st">"5%"</span>, <span class="st">"10%"</span>, <span class="st">"15%"</span>), <span class="at">each =</span> <span class="dv">1600</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percentage =</span> <span class="fu">factor</span>(percentage, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"0"</span>, <span class="st">"5%"</span>, <span class="st">"10%"</span>, <span class="st">"15%"</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x)) <span class="sc">+</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">50</span>) <span class="sc">+</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>percentage) <span class="sc">+</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="missing-simple_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p>TODO: talk about the one case where it isn’t a single value, but rather a sampling of the training distribution.</p>
 <section id="pros-and-cons" class="level2" data-number="43.1">
 <h2 data-number="43.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">43.1</span> Pros and Cons</h2>
@@ -1311,6 +1338,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="cons" class="level3" data-number="43.1.2">
 <h3 data-number="43.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">43.1.2</span> Cons</h3>
+<ul>
+<li>Doesn’t preserve relationship between predictors</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="43.2">

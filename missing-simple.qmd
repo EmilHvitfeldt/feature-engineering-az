@@ -26,7 +26,35 @@ ames |>
   scale_fill_viridis_c()
 ```
 
-It is not possible for there to be more bedrooms than total number of rooms. And we see that in the data. The average number of bedrooms is `r `round(mean(ames$Bedroom_AbvGr), 2)`, and if we round, then it will be `r round(mean(ames$Bedroom_AbvGr), 0)`. That is perfectly fine for a house with an average number of rooms, but it will be impossible for small houses and quite inadequate for large houses. This is obvoisly bad, but can be seen as an improvement to the situation where the model didn't fit because a missing value was present. This scenario is part of the motivation to @sec-missing-model.
+It is not possible for there to be more bedrooms than total number of rooms. And we see that in the data. The average number of bedrooms is `r `round(mean(ames$Bedroom_AbvGr), 2)`, and if we round, then it will be `r round(mean(ames$Bedroom_AbvGr), 0)`. That is perfectly fine for a house with an average number of rooms, but it will be impossible for small houses and quite inadequate for large houses. This is obviously bad, but can be seen as an improvement to the situation where the model didn't fit because a missing value was present. This scenario is part of the motivation to @sec-missing-model.
+
+Other drawbacks of simple include; reducing the variance and standard diviation of the data. This happens because we are adding zero-variance information to the variables. In the same vain, we are changing the distribution of our variables, which can also affect downstream modeling and feature engineering.
+
+Below we see this in effect, as more and more missing data, leads to a larger peak of the mean of the distribution.
+
+```{r}
+set.seed(1234)
+x <- c(rnorm(1000, mean = 100, sd = 20), rnorm(600, mean = 150, sd = 10))
+x <- sample(x)
+
+x_05 <- x
+x_05[seq_len(floor(length(x) * 0.05))] <- mean(x)
+x_10 <- x
+x_10[seq_len(floor(length(x) * 0.10))] <- mean(x)
+x_15 <- x
+x_15[seq_len(floor(length(x) * 0.15))] <- mean(x)
+
+tibble(
+  x = c(x, x_05, x_10, x_15),
+  percentage = rep(c("0", "5%", "10%", "15%"), each = 1600)
+) |>
+  mutate(percentage = factor(percentage, levels = c("0", "5%", "10%", "15%"))) |>
+  ggplot(aes(x)) +
+  geom_histogram(bins = 50) +
+  facet_wrap(~percentage) +
+  theme_minimal()
+```
+
 
 TODO: talk about the one case where it isn't a single value, but rather a sampling of the training distribution. 
 
@@ -36,6 +64,8 @@ TODO: talk about the one case where it isn't a single value, but rather a sampli
 ### Pros
 
 ### Cons
+
+- Doesn't preserve relationship between predictors
 
 ## R Examples
 
