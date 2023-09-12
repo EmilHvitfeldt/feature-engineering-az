@@ -15,6 +15,16 @@ Datetime variables will be a different story. One could use the mode, or an adju
 One of the main downsides to simple imputation is that it can lead to impossible configurations in the data. Imagine that total square area is missing, but we knows the number of rooms and number of bedrooms. Certain combinations are more likely than others. Below is the classic ames data set
 
 ```{r}
+#| label: fig-missing-simple-heatmap
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   All houses has fewer bedrooms than rooms itself.
+#| fig-alt: |
+#|   Tile chart. Total number of rooms a long the x-axis, number of bedrooms
+#|   along the y-axis. All of the observations have more rooms than bedrooms
+#|   with most of the observations having around 3 bedrooms and 6 rooms in
+#|   total.
 library(tidymodels)
 ames |>
   count(TotRms_AbvGrd, Bedroom_AbvGr) |>
@@ -28,11 +38,21 @@ ames |>
 
 It is not possible for there to be more bedrooms than total number of rooms. And we see that in the data. The average number of bedrooms is `r `round(mean(ames$Bedroom_AbvGr), 2)`, and if we round, then it will be `r round(mean(ames$Bedroom_AbvGr), 0)`. That is perfectly fine for a house with an average number of rooms, but it will be impossible for small houses and quite inadequate for large houses. This is obviously bad, but can be seen as an improvement to the situation where the model didn't fit because a missing value was present. This scenario is part of the motivation to @sec-missing-model.
 
-Other drawbacks of simple include; reducing the variance and standard diviation of the data. This happens because we are adding zero-variance information to the variables. In the same vain, we are changing the distribution of our variables, which can also affect downstream modeling and feature engineering.
+Other drawbacks of simple include; reducing the variance and standard deviation of the data. This happens because we are adding zero-variance information to the variables. In the same vain, we are changing the distribution of our variables, which can also affect downstream modeling and feature engineering.
 
 Below we see this in effect, as more and more missing data, leads to a larger peak of the mean of the distribution.
 
 ```{r}
+#| label: fig-missing-simple-mean
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Same distribution with longer and longer spike at mean.
+#| fig-alt: |
+#|   Facetted histogram chart. Predictor along the x-axis, count along the 
+#|   y-axis. facetted along 0%, 5%, 10%, and 15%. All of the distributions
+#|   appear identical, with the the 5%, 10%, and 15% having a simple spike at
+#|   the mean value, each being higher than the previous.
 set.seed(1234)
 x <- c(rnorm(1000, mean = 100, sd = 20), rnorm(600, mean = 150, sd = 10))
 x <- sample(x)
@@ -55,19 +75,62 @@ tibble(
   theme_minimal()
 ```
 
+Another thing we can do, while we stay in this domain of only using a single variable to impute itself, is to impute using the original distribution. So instead of imputing by the mode, a sample is drawn from the non-missing values, and that value is used. This is then done for each observation. Each observation won't get the same values, but it will preserve the distribution, variance and standard deviation. It won't help with the relationship between variables and as an added downside, it adds noise into imputation, making it a seeded feature engineering method.
 
-TODO: talk about the one case where it isn't a single value, but rather a sampling of the training distribution. 
-
+On the implementation side we need to be careful about how we extract the original distribution. This distribution needs to be saved for later reapply. Imagine a numeric predictor, if it is a non-integer, it will likely take many unique values, if not all unique values. We might want to bin the data to create a distribution that way to same memory. 
 
 ## Pros and Cons
 
 ### Pros
 
+- Fast computationally
+- Easy to explain what was done
+
 ### Cons
 
 - Doesn't preserve relationship between predictors
+- reducing the variance and standard deviation of the data
+- unlikely to help performance
 
 ## R Examples
+
+The recipes package contain a number of steps. It includes the steps `step_impute_mean()`, `step_impute_median()` and `step_impute_mode()` which imputes by the mean, median and mode respectively.
+
+TODO: find good data set with missing values
+
+```{r}
+library(recipes)
+library(modeldata)
+
+impute_rec <- recipe(Sale_Price ~ ., data = ames) |>
+  step_impute_mean(contains("Area")) |>
+  step_impute_median(contains("_SF")) |>
+  step_impute_mode(all_nominal_predictors()) |>
+  prep()
+```
+
+We can use the `tidy()` function to find the estimated mean
+
+```{r}
+impute_rec |>
+  tidy(1)
+```
+
+estimated median
+
+```{r}
+impute_rec |>
+  tidy(2)
+```
+
+and estimated mode
+
+```{r}
+impute_rec |>
+  tidy(3)
+```
+
+TODO: wait for distribution step
 
 ## Python Examples
 
