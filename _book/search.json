@@ -893,14 +893,14 @@
     "href": "missing-simple.html#pros-and-cons",
     "title": "43  Simple Imputation",
     "section": "43.1 Pros and Cons",
-    "text": "43.1 Pros and Cons\n\n43.1.1 Pros\n\n\n43.1.2 Cons\n\nDoesn’t preserve relationship between predictors"
+    "text": "43.1 Pros and Cons\n\n43.1.1 Pros\n\nFast computationally\nEasy to explain what was done\n\n\n\n43.1.2 Cons\n\nDoesn’t preserve relationship between predictors\nreducing the variance and standard deviation of the data\nunlikely to help performance"
   },
   {
     "objectID": "missing-simple.html#r-examples",
     "href": "missing-simple.html#r-examples",
     "title": "43  Simple Imputation",
     "section": "43.2 R Examples",
-    "text": "43.2 R Examples"
+    "text": "43.2 R Examples\nThe recipes package contain a number of steps. It includes the steps step_impute_mean(), step_impute_median() and step_impute_mode() which imputes by the mean, median and mode respectively.\nTODO: find good data set with missing values\n\nlibrary(recipes)\nlibrary(modeldata)\n\nimpute_rec &lt;- recipe(Sale_Price ~ ., data = ames) |&gt;\n  step_impute_mean(contains(\"Area\")) |&gt;\n  step_impute_median(contains(\"_SF\")) |&gt;\n  step_impute_mode(all_nominal_predictors()) |&gt;\n  prep()\n\nWe can use the tidy() function to find the estimated mean\n\nimpute_rec |&gt;\n  tidy(1)\n\n# A tibble: 5 × 3\n  terms         value id               \n  &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;            \n1 Lot_Area     10148  impute_mean_CnWw4\n2 Mas_Vnr_Area   101. impute_mean_CnWw4\n3 Gr_Liv_Area   1500  impute_mean_CnWw4\n4 Garage_Area    473. impute_mean_CnWw4\n5 Pool_Area        2  impute_mean_CnWw4\n\n\nestimated median\n\nimpute_rec |&gt;\n  tidy(2)\n\n# A tibble: 8 × 3\n  terms         value id                 \n  &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;              \n1 BsmtFin_SF_1     3  impute_median_UoO9a\n2 BsmtFin_SF_2     0  impute_median_UoO9a\n3 Bsmt_Unf_SF    466. impute_median_UoO9a\n4 Total_Bsmt_SF  990  impute_median_UoO9a\n5 First_Flr_SF  1084  impute_median_UoO9a\n6 Second_Flr_SF    0  impute_median_UoO9a\n7 Wood_Deck_SF     0  impute_median_UoO9a\n8 Open_Porch_SF   27  impute_median_UoO9a\n\n\nand estimated mode\n\nimpute_rec |&gt;\n  tidy(3)\n\n# A tibble: 40 × 3\n   terms        value                               id               \n   &lt;chr&gt;        &lt;chr&gt;                               &lt;chr&gt;            \n 1 MS_SubClass  One_Story_1946_and_Newer_All_Styles impute_mode_I3pVC\n 2 MS_Zoning    Residential_Low_Density             impute_mode_I3pVC\n 3 Street       Pave                                impute_mode_I3pVC\n 4 Alley        No_Alley_Access                     impute_mode_I3pVC\n 5 Lot_Shape    Regular                             impute_mode_I3pVC\n 6 Land_Contour Lvl                                 impute_mode_I3pVC\n 7 Utilities    AllPub                              impute_mode_I3pVC\n 8 Lot_Config   Inside                              impute_mode_I3pVC\n 9 Land_Slope   Gtl                                 impute_mode_I3pVC\n10 Neighborhood North_Ames                          impute_mode_I3pVC\n# ℹ 30 more rows\n\n\nTODO: wait for distribution step"
   },
   {
     "objectID": "missing-simple.html#python-examples",
