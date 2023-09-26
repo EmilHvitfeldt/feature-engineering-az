@@ -933,21 +933,21 @@
   {
     "objectID": "missing-indicator.html#pros-and-cons",
     "href": "missing-indicator.html#pros-and-cons",
-    "title": "45  Remove Missing Values",
+    "title": "45  Missing Values Indicators",
     "section": "45.1 Pros and Cons",
-    "text": "45.1 Pros and Cons\n\n45.1.1 Pros\n\n\n45.1.2 Cons"
+    "text": "45.1 Pros and Cons\n\n45.1.1 Pros\n\nNo performance harm when added to variables with no missing data\nSimple and interpretable\n\n\n\n45.1.2 Cons\n\nWill produce zero variance columns when used on data with no missing values\nCan create a sizable increase in data set size"
   },
   {
     "objectID": "missing-indicator.html#r-examples",
     "href": "missing-indicator.html#r-examples",
-    "title": "45  Remove Missing Values",
+    "title": "45  Missing Values Indicators",
     "section": "45.2 R Examples",
-    "text": "45.2 R Examples"
+    "text": "45.2 R Examples\nTODO: find better data set\nFrom the recipes package, can we use the step_indicate_na() function to create indicator variables based on missing data.\n\nlibrary(recipes)\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nna_ind_rec &lt;- recipe(mpg ~ disp + vs + am, data = mtcars) |&gt;\n  step_indicate_na(all_predictors()) |&gt;\n  prep()\n\n\nna_ind_rec |&gt;\n  bake(new_data = mtcars)\n\n# A tibble: 32 × 7\n    disp    vs    am   mpg na_ind_disp na_ind_vs na_ind_am\n   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;       &lt;int&gt;     &lt;int&gt;     &lt;int&gt;\n 1  160      0     1  21             0         0         0\n 2  160      0     1  21             0         0         0\n 3  108      1     1  22.8           0         0         0\n 4  258      1     0  21.4           0         0         0\n 5  360      0     0  18.7           0         0         0\n 6  225      1     0  18.1           0         0         0\n 7  360      0     0  14.3           0         0         0\n 8  147.     1     0  24.4           0         0         0\n 9  141.     1     0  22.8           0         0         0\n10  168.     1     0  19.2           0         0         0\n# ℹ 22 more rows"
   },
   {
     "objectID": "missing-indicator.html#python-examples",
     "href": "missing-indicator.html#python-examples",
-    "title": "45  Remove Missing Values",
+    "title": "45  Missing Values Indicators",
     "section": "45.3 Python Examples",
     "text": "45.3 Python Examples"
   },

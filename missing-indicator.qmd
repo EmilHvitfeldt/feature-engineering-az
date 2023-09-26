@@ -1,14 +1,69 @@
-# Remove Missing Values {#sec-missing-indicator}
+# Missing Values Indicators {#sec-missing-indicator}
 
-WIP
+While imputation can be useful, as we saw in @sec-missing-simple and @sec-missing-model. That by itself isn't always enough to extract all the information. As was described in @sec-missing, missing values can come in different variants, and depending on the variant, imputation might not give enough information. Suppose you are working with non-MCAR data (non Missing Completely At Random). Then we have some mechanism that determines when missing values occur. This mechanism might be known or unknown. From a predictive standpoint whether or not is is know doesn't matter as much, what matters is if the mechanism is related to the outcome or not.
+
+This is where **missing value indicators** come in. Used in combination with imputation, missing value indicators will try to capture that signal. For each chosen variable, create another Boolean variable that is 1 when a missing value is seen, and 0 otherwise.
+
+The following sample data set
+
+```{r}
+library(tibble)
+example <- tribble(
+  ~a, ~b, ~c,
+   1,  6,  3,
+   4, NA,  3,
+   0, NA, NA,
+  NA,  3,  5,
+   5, NA,  3
+)
+example
+```
+
+Will look like the data set below, once missing value indicators have been added.
+
+```{r}
+example <- tribble(
+  ~a, ~b, ~c, ~a_na, ~b_na, ~c_na,
+   1,  6,  3,     0,     0,     0,
+   4, NA,  3,     0,     1,     0,
+   0, NA, NA,     0,     1,     1,
+  NA,  3,  5,     1,     0,     0,
+   5, NA,  3,     0,     1,     0
+)
+example
+```
+
+From here on, you are potentially add information, otherwise we are adding a lot of noise. The noise here can be filtered by other methods seen in this book. If variables with no missing data were used, then we create zero variance predictors, which we can deal with as seen in @sec-too-many-zv.
 
 ## Pros and Cons
 
 ### Pros
 
+- No performance harm when added to variables with no missing data
+- Simple and interpretable
+
 ### Cons
+
+- Will produce zero variance columns when used on data with no missing values
+- Can create a sizable increase in data set size
 
 ## R Examples
 
-## Python Examples
+TODO: find better data set
 
+From the recipes package, can we use the `step_indicate_na()` function to create indicator variables based on missing data.
+
+```{r}
+library(recipes)
+
+na_ind_rec <- recipe(mpg ~ disp + vs + am, data = mtcars) |>
+  step_indicate_na(all_predictors()) |>
+  prep()
+```
+
+```{r}
+na_ind_rec |>
+  bake(new_data = mtcars)
+```
+
+## Python Examples

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Feature Engineering A-Z - 45&nbsp; Remove Missing Values</title>
+<title>Feature Engineering A-Z - 45&nbsp; Missing Values Indicators</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -1211,7 +1245,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-missing-indicator" class="quarto-section-identifier"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Remove Missing Values</span></span></h1>
+<h1 class="title"><span id="sec-missing-indicator" class="quarto-section-identifier"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Missing Values Indicators</span></span></h1>
 </div>
 
 
@@ -1226,18 +1260,127 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>WIP</p>
+<p>While imputation can be useful, as we saw in <a href="missing-simple.html" class="quarto-xref"><span>Chapter&nbsp;43</span></a> and <a href="missing-model.html" class="quarto-xref"><span>Chapter&nbsp;44</span></a>. That by itself isn’t always enough to extract all the information. As was described in <a href="missing.html" class="quarto-xref"><span>Chapter&nbsp;42</span></a>, missing values can come in different variants, and depending on the variant, imputation might not give enough information. Suppose you are working with non-MCAR data (non Missing Completely At Random). Then we have some mechanism that determines when missing values occur. This mechanism might be known or unknown. From a predictive standpoint whether or not is is know doesn’t matter as much, what matters is if the mechanism is related to the outcome or not.</p>
+<p>This is where <strong>missing value indicators</strong> come in. Used in combination with imputation, missing value indicators will try to capture that signal. For each chosen variable, create another Boolean variable that is 1 when a missing value is seen, and 0 otherwise.</p>
+<p>The following sample data set</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>example <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>a, <span class="sc">~</span>b, <span class="sc">~</span>c,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>   <span class="dv">1</span>,  <span class="dv">6</span>,  <span class="dv">3</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>   <span class="dv">4</span>, <span class="cn">NA</span>,  <span class="dv">3</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>   <span class="dv">0</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NA</span>,  <span class="dv">3</span>,  <span class="dv">5</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>   <span class="dv">5</span>, <span class="cn">NA</span>,  <span class="dv">3</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>example</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+      a     b     c
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1     1     6     3
+2     4    NA     3
+3     0    NA    NA
+4    NA     3     5
+5     5    NA     3</code></pre>
+</div>
+</div>
+<p>Will look like the data set below, once missing value indicators have been added.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>example <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>a, <span class="sc">~</span>b, <span class="sc">~</span>c, <span class="sc">~</span>a_na, <span class="sc">~</span>b_na, <span class="sc">~</span>c_na,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>   <span class="dv">1</span>,  <span class="dv">6</span>,  <span class="dv">3</span>,     <span class="dv">0</span>,     <span class="dv">0</span>,     <span class="dv">0</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>   <span class="dv">4</span>, <span class="cn">NA</span>,  <span class="dv">3</span>,     <span class="dv">0</span>,     <span class="dv">1</span>,     <span class="dv">0</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>   <span class="dv">0</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,     <span class="dv">0</span>,     <span class="dv">1</span>,     <span class="dv">1</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NA</span>,  <span class="dv">3</span>,  <span class="dv">5</span>,     <span class="dv">1</span>,     <span class="dv">0</span>,     <span class="dv">0</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>   <span class="dv">5</span>, <span class="cn">NA</span>,  <span class="dv">3</span>,     <span class="dv">0</span>,     <span class="dv">1</span>,     <span class="dv">0</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>example</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 6
+      a     b     c  a_na  b_na  c_na
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1     1     6     3     0     0     0
+2     4    NA     3     0     1     0
+3     0    NA    NA     0     1     1
+4    NA     3     5     1     0     0
+5     5    NA     3     0     1     0</code></pre>
+</div>
+</div>
+<p>From here on, you are potentially add information, otherwise we are adding a lot of noise. The noise here can be filtered by other methods seen in this book. If variables with no missing data were used, then we create zero variance predictors, which we can deal with as seen in <a href="too-many-zv.html" class="quarto-xref"><span>Chapter&nbsp;67</span></a>.</p>
 <section id="pros-and-cons" class="level2" data-number="45.1">
 <h2 data-number="45.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">45.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="45.1.1">
 <h3 data-number="45.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">45.1.1</span> Pros</h3>
+<ul>
+<li>No performance harm when added to variables with no missing data</li>
+<li>Simple and interpretable</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="45.1.2">
 <h3 data-number="45.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">45.1.2</span> Cons</h3>
+<ul>
+<li>Will produce zero variance columns when used on data with no missing values</li>
+<li>Can create a sizable increase in data set size</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="45.2">
 <h2 data-number="45.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">45.2</span> R Examples</h2>
+<p>TODO: find better data set</p>
+<p>From the recipes package, can we use the <code>step_indicate_na()</code> function to create indicator variables based on missing data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: dplyr</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'recipes'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:stats':
+
+    step</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>na_ind_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> vs <span class="sc">+</span> am, <span class="at">data =</span> mtcars) <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_indicate_na</span>(<span class="fu">all_predictors</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>na_ind_rec <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 32 × 7
+    disp    vs    am   mpg na_ind_disp na_ind_vs na_ind_am
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;       &lt;int&gt;     &lt;int&gt;     &lt;int&gt;
+ 1  160      0     1  21             0         0         0
+ 2  160      0     1  21             0         0         0
+ 3  108      1     1  22.8           0         0         0
+ 4  258      1     0  21.4           0         0         0
+ 5  360      0     0  18.7           0         0         0
+ 6  225      1     0  18.1           0         0         0
+ 7  360      0     0  14.3           0         0         0
+ 8  147.     1     0  24.4           0         0         0
+ 9  141.     1     0  22.8           0         0         0
+10  168.     1     0  19.2           0         0         0
+# ℹ 22 more rows</code></pre>
+</div>
+</div>
 </section>
 <section id="python-examples" class="level2" data-number="45.3">
 <h2 data-number="45.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">45.3</span> Python Examples</h2>
