@@ -1,6 +1,34 @@
 # Remove Missing Values {#sec-missing-remove}
 
-WIP
+Removing observations with missing values should generally be considered the last resort. This will of cause depend on your data and practices, and there are cases where it is appropriate. 
+
+Nevertheless, removal of observations should be done with care. Especially since removal of observations means that no prediction will happen to them. This might be unacceptable, and you need to make sure proper procedure is taken to guaranteed that all observations are predicted on. Even if removed observations are given default values for predictions. 
+
+The most simple way to do missing value removal, is to remove observations that experience any number of missing values. It is straightforward to do, implemented in any modeling software you use. The downside to this, is that if you are seeing a little bit of missing data, across your predictors, you end up throwing away a lot of data once you have a lot of columns.
+
+```{r}
+library(tidyverse)
+
+expand_grid(
+  rate = c(0.00001, 0.0001, 0.001, 0.01, 0.1),
+  ncol = 5 ^ (0:4)
+) |>
+  mutate(missing = (1 - rate) ^ ncol) |>
+  ggplot(aes(factor(rate), factor(ncol), label = scales::label_percent(2)(missing))) +
+  geom_label() +
+  theme_minimal() +
+  labs(
+    title = "Remaining percentage of observations",
+    x = "Rate of missing values",
+    y = "Numer of Columns"
+  )
+```
+
+This can also happen with missingness that cluster in certain groups of variables. Remember to always look at how many observations you are losing by doing the removals.
+
+Talk aobut doing thresholding
+
+talk about removing columns with too much missing data
 
 ## Pros and Cons
 
