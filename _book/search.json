@@ -956,21 +956,33 @@
     "href": "missing-remove.html#pros-and-cons",
     "title": "46  Remove Missing Values",
     "section": "46.1 Pros and Cons",
-    "text": "46.1 Pros and Cons\n\n46.1.1 Pros\n\n\n46.1.2 Cons"
+    "text": "46.1 Pros and Cons\n\n46.1.1 Pros\n\nWill sometimes be neasesary\n\n\n\n46.1.2 Cons\n\nExtreme care has to be taken\nLoss of data",
+    "crumbs": [
+      "Missing Data",
+      "<span class='chapter-number'>46</span>  <span class='chapter-title'>Remove Missing Values</span>"
+    ]
   },
   {
     "objectID": "missing-remove.html#r-examples",
     "href": "missing-remove.html#r-examples",
     "title": "46  Remove Missing Values",
     "section": "46.2 R Examples",
-    "text": "46.2 R Examples"
+    "text": "46.2 R Examples\nTODO: find data set\nWe can use the step_naomit() function from the recipes package to remove any observation that contains missing values.\n\nlibrary(recipes)\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stringr':\n\n    fixed\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nnaomit_rec &lt;- recipe(~., data = mtcars) |&gt;\n  step_naomit(all_predictors()) |&gt;\n  prep()\n\nbake(naomit_rec, new_data = NULL)\n\n# A tibble: 32 × 11\n     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb\n   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n 1  21       6  160    110  3.9   2.62  16.5     0     1     4     4\n 2  21       6  160    110  3.9   2.88  17.0     0     1     4     4\n 3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1\n 4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1\n 5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2\n 6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1\n 7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4\n 8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2\n 9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2\n10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4\n# ℹ 22 more rows\n\n\nTODO: wait for thresholded observation removal\nThere is the step_filter_missing() function from the recipes package that removes predictors with more missing values than the specified threshold\n\nlibrary(recipes)\n\nfilter_missing_rec &lt;- recipe(~., data = mtcars) |&gt;\n  step_filter_missing(all_predictors()) |&gt;\n  prep()\n\nbake(filter_missing_rec, new_data = NULL)\n\n# A tibble: 32 × 11\n     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb\n   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n 1  21       6  160    110  3.9   2.62  16.5     0     1     4     4\n 2  21       6  160    110  3.9   2.88  17.0     0     1     4     4\n 3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1\n 4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1\n 5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2\n 6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1\n 7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4\n 8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2\n 9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2\n10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4\n# ℹ 22 more rows",
+    "crumbs": [
+      "Missing Data",
+      "<span class='chapter-number'>46</span>  <span class='chapter-title'>Remove Missing Values</span>"
+    ]
   },
   {
     "objectID": "missing-remove.html#python-examples",
     "href": "missing-remove.html#python-examples",
     "title": "46  Remove Missing Values",
     "section": "46.3 Python Examples",
-    "text": "46.3 Python Examples"
+    "text": "46.3 Python Examples",
+    "crumbs": [
+      "Missing Data",
+      "<span class='chapter-number'>46</span>  <span class='chapter-title'>Remove Missing Values</span>"
+    ]
   },
   {
     "objectID": "text.html#text-cleaning",
