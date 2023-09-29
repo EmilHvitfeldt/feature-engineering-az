@@ -8,14 +8,39 @@ You could also fit a linear regression model with the target variable as the var
 
 TODO: add diagram
 
-This idea will extend into most other types of models. K-nearest neighbors and trees are common models for this task.
+This idea will extend into most other types of models. K-nearest neighbors and trees are common models for this task. For these models, you need to make sure that the predictors can be used. So they will need to not have any missing values themselves. You could in theory use a series of models you impute variables with missing data, which then will be used as predictors to predict another variable.
+
+TODO: figure out if MICE is applicable here
+
 
 ## Pros and Cons
 
 ### Pros
 
+- Likely get better performance than simple imputation
+
 ### Cons
 
+- More complex model
+- lower interpretability
+
 ## R Examples
+
+There are a number of steps in the recipes package that fall under this category. Within that, we have `step_impute_bag()`, `step_impute_knn()`, and `step_impute_linear()`.
+
+TODO: find better data set
+
+Below we are showing how we can impute using a K-nearest neighbor model using `step_impute_knn()`. We are specifying the variable to impute on first, then with `impute_with` we specify which variables are used as predictors in the model.
+
+```{r}
+library(recipes)
+
+impute_knn_rec <- recipe(mpg ~ ., data = mtcars) |>
+  step_impute_knn(disp, neighbors = 1, impute_with = imp_vars(vs, am, hp, drat))
+
+impute_knn_rec |>
+  prep() |>
+  juice()
+```
 
 ## Python Examples
