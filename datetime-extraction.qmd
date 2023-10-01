@@ -69,6 +69,7 @@ We will be using the `hotel_bookings` data set for these examples.
 
 ```{r}
 #| echo: false 
+#| message: false
 library(tidymodels)
 
 hotel_bookings <- readr::read_csv("data/hotel_bookings.csv")

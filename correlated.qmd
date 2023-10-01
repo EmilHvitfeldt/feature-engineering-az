@@ -16,6 +16,7 @@ Correlation happens when two or more variables contain similar information. We t
 library(ggplot2)
 library(dplyr)
 library(patchwork)
+set.seed(1234)
 
 g1 <- tibble(predictor_1 = runif(200)) |>
   mutate(predictor_2 = runif(200)) |>
