@@ -1,6 +1,19 @@
 # Zero Variance Filter {#sec-too-many-zv}
 
-WIP
+**Zero-variance predictors** is a fancy way of saying that a predictor only takes 1 value. A zero variance predictor by definition contains no information as there isn't a relationship between the outcome and the predictor. These types of predictors come in many different data sets. And are sometimes created in the course of the feature engineering process, such as when we do dummy variables on categorical predictors with known possible levels in @sec-categorical-dummy.
+
+The reason why this chapter exists is two-fold. Firstly, since these predictors have zero information in them, they are safe to remove which would leave to simpler and faster models. Secondly, many model implementations will error if zero-variance predictors are present in the data. Even some methods in this book doesn't handle zero-variance predictors gracefully. Take the normalization methods in @sec-numeric-normalization, some of these requires division with the standard deviation, which is zero thus resulting in divison by 0. Other methods like PCA in @sec-too-many-pca can get in trouble as zero variance predictors can yield non-invertible matrices which they can't normally handle.
+
+The solution to this problem is very simple. For each variable in the data set, count the number of unique values. If the number is 1, then mark the variable for removal.
+
+TODO: write as an algorithm
+
+the zero-variance only matters on the training data set. So you could be in a situation where the testing data contained other values. This doesn't matter as zero-variance predictors only affect the fitting of the model, which is done on the training data set.
+
+there is a couple of variants to this problem. Some models requires multiple values for predictors across groups. And we need to handle that accordingly. Another more complicated problem is working with 
+
+near-zero variance handling
+
 
 ## Pros and Cons
 
