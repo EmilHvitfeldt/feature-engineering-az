@@ -1404,14 +1404,14 @@
     "href": "too-many-zv.html#pros-and-cons",
     "title": "67  Zero Variance Filter",
     "section": "67.1 Pros and Cons",
-    "text": "67.1 Pros and Cons\n\n67.1.1 Pros\n\n\n67.1.2 Cons"
+    "text": "67.1 Pros and Cons\n\n67.1.1 Pros\n\nRemoving zero variance predictors should provide no downside\nFaster and smaller models\nEasy to explain and execute\n\n\n\n67.1.2 Cons\n\nRemoval of near-zero predictors requires care as to avoid removing useful predictors"
   },
   {
     "objectID": "too-many-zv.html#r-examples",
     "href": "too-many-zv.html#r-examples",
     "title": "67  Zero Variance Filter",
     "section": "67.2 R Examples",
-    "text": "67.2 R Examples"
+    "text": "67.2 R Examples\nWe will use the step_zv() and step_nzv() steps which are used to remove zero variance and near-zero variance preditors respectively.\nTODO: find a good data set\n\nlibrary(recipes)\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nzv_rec &lt;- recipe(mpg ~ disp, data = mtcars) |&gt;\n    step_zv(all_predictors())"
   },
   {
     "objectID": "too-many-zv.html#python-examples",
