@@ -1226,7 +1226,10 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>WIP</p>
+<p>When talking about manual text features, we are talking about hand-crafted metrics or counts based on the text. you will be able to find some off-the-shelf features that fit into this category. But generally, this is where you can use your domain knowledge to extract useful information.</p>
+<p>Typical of-the-shelf counts are generally counted. So it will be counts of words, sentences, linebreaks, commas, hashtags, emojis, and punctuation. A lot of these will be proxies for text length so some kind of normalization will be useful here. Normalizing in this setting is typically done by dividing by the text length, which then gives different interpretations as we are no longer looking at the “number of words”, and now finding “the inverse of average word length”.</p>
+<p>The above features are easy to calculate and will therefore not be hard to include in your model. But this is where creativity and domain knowledge shine!</p>
+<p>TODO: find a good reference for “What is a word?”</p>
 <section id="pros-and-cons" class="level2" data-number="48.1">
 <h2 data-number="48.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">48.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="48.1.1">
