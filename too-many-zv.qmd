@@ -26,7 +26,7 @@ These different characteristics can be combined in different ways to suit your n
 
 ### Cons
 
-- Removal of near-zero predictors requires care as to avoid removing useful predictors
+- Removal of near-zero predictors requires care to avoid removing useful predictors
 
 ## R Examples
 
@@ -34,11 +34,34 @@ We will use the `step_zv()` and `step_nzv()` steps which are used to remove zero
 
 TODO: find a good data set
 
+Below we are using the `step_zv()` function to remove 
+
 ```{r}
 library(recipes)
 
-zv_rec <- recipe(mpg ~ disp, data = mtcars) |>
-    step_zv(all_predictors())
+data("ames", package = "modeldata")
+
+zv_rec <- recipe(Sale_Price ~ ., data = ames) |>
+  step_zv(all_predictors()) |>
+  prep()
+```
+
+We can use the `tidy()` method to find out which variables were removed
+
+```{r}
+zv_rec |>
+  tidy(1)
+```
+
+We can remove non-zero variance predictors in the same manner using `step_nzv()`
+
+```{r}
+nzv_rec <- recipe(Sale_Price ~ ., data = ames) |>
+  step_nzv(all_predictors()) |>
+  prep()
+
+nzv_rec |>
+  tidy(1)
 ```
 
 ## Python Examples

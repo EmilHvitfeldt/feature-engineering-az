@@ -1404,14 +1404,14 @@
     "href": "too-many-zv.html#pros-and-cons",
     "title": "67  Zero Variance Filter",
     "section": "67.1 Pros and Cons",
-    "text": "67.1 Pros and Cons\n\n67.1.1 Pros\n\nRemoving zero variance predictors should provide no downside\nFaster and smaller models\nEasy to explain and execute\n\n\n\n67.1.2 Cons\n\nRemoval of near-zero predictors requires care as to avoid removing useful predictors"
+    "text": "67.1 Pros and Cons\n\n67.1.1 Pros\n\nRemoving zero variance predictors should provide no downside\nFaster and smaller models\nEasy to explain and execute\n\n\n\n67.1.2 Cons\n\nRemoval of near-zero predictors requires care to avoid removing useful predictors"
   },
   {
     "objectID": "too-many-zv.html#r-examples",
     "href": "too-many-zv.html#r-examples",
     "title": "67  Zero Variance Filter",
     "section": "67.2 R Examples",
-    "text": "67.2 R Examples\nWe will use the step_zv() and step_nzv() steps which are used to remove zero variance and near-zero variance preditors respectively.\nTODO: find a good data set\n\nlibrary(recipes)\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nzv_rec &lt;- recipe(mpg ~ disp, data = mtcars) |&gt;\n    step_zv(all_predictors())"
+    "text": "67.2 R Examples\nWe will use the step_zv() and step_nzv() steps which are used to remove zero variance and near-zero variance preditors respectively.\nTODO: find a good data set\nBelow we are using the step_zv() function to remove\n\nlibrary(recipes)\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\ndata(\"ames\", package = \"modeldata\")\n\nzv_rec &lt;- recipe(Sale_Price ~ ., data = ames) |&gt;\n  step_zv(all_predictors()) |&gt;\n  prep()\n\nWe can use the tidy() method to find out which variables were removed\n\nzv_rec |&gt;\n  tidy(1)\n\n# A tibble: 0 × 2\n# ℹ 2 variables: terms &lt;chr&gt;, id &lt;chr&gt;\n\n\nWe can remove non-zero variance predictors in the same manner using step_nzv()\n\nnzv_rec &lt;- recipe(Sale_Price ~ ., data = ames) |&gt;\n  step_nzv(all_predictors()) |&gt;\n  prep()\n\nnzv_rec |&gt;\n  tidy(1)\n\n# A tibble: 21 × 2\n   terms          id       \n   &lt;chr&gt;          &lt;chr&gt;    \n 1 Street         nzv_FhCpU\n 2 Alley          nzv_FhCpU\n 3 Land_Contour   nzv_FhCpU\n 4 Utilities      nzv_FhCpU\n 5 Land_Slope     nzv_FhCpU\n 6 Condition_2    nzv_FhCpU\n 7 Roof_Matl      nzv_FhCpU\n 8 Bsmt_Cond      nzv_FhCpU\n 9 BsmtFin_Type_2 nzv_FhCpU\n10 BsmtFin_SF_2   nzv_FhCpU\n# ℹ 11 more rows"
   },
   {
     "objectID": "too-many-zv.html#python-examples",
