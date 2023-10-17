@@ -8,13 +8,37 @@ The above features are easy to calculate and will therefore not be hard to inclu
 
 TODO: find a good reference for "What is a word?"
 
+One thing you might need to do when working with these hand-crafted features is knowledge about working with *regular expressions*.
+
 ## Pros and Cons
 
 ### Pros
 
+- Clear and actionable features
+- High interpretability
+
 ### Cons
 
+- Can be time-consuming to create
+- Computational speed depends on the feature
+- Will likely need to 
+
 ## R Examples
+
+TODO: find a better data set
+
+The [textfeatures]() package is one package in R that contains a bunch of general features that may or may not be useful.
+
+```{r}
+#| message: false
+library(textfeatures)
+library(modeldata)
+
+textfeatures(modeldata::tate_text$medium, word_dims = 0) |>
+  dplyr::glimpse()
+```
+
+TODO: Come up with domain-specific examples
 
 ## Python Examples
 
