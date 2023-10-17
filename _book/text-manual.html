@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -1230,17 +1264,81 @@ ul.task-list li input[type="checkbox"] {
 <p>Typical of-the-shelf counts are generally counted. So it will be counts of words, sentences, linebreaks, commas, hashtags, emojis, and punctuation. A lot of these will be proxies for text length so some kind of normalization will be useful here. Normalizing in this setting is typically done by dividing by the text length, which then gives different interpretations as we are no longer looking at the “number of words”, and now finding “the inverse of average word length”.</p>
 <p>The above features are easy to calculate and will therefore not be hard to include in your model. But this is where creativity and domain knowledge shine!</p>
 <p>TODO: find a good reference for “What is a word?”</p>
+<p>One thing you might need to do when working with these hand-crafted features is knowledge about working with <em>regular expressions</em>.</p>
 <section id="pros-and-cons" class="level2" data-number="48.1">
 <h2 data-number="48.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">48.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="48.1.1">
 <h3 data-number="48.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">48.1.1</span> Pros</h3>
+<ul>
+<li>Clear and actionable features</li>
+<li>High interpretability</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="48.1.2">
 <h3 data-number="48.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">48.1.2</span> Cons</h3>
+<ul>
+<li>Can be time-consuming to create</li>
+<li>Computational speed depends on the feature</li>
+<li>Will likely need to</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="48.2">
 <h2 data-number="48.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">48.2</span> R Examples</h2>
+<p>TODO: find a better data set</p>
+<p>The <a href="">textfeatures</a> package is one package in R that contains a bunch of general features that may or may not be useful.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textfeatures)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modeldata)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">textfeatures</span>(modeldata<span class="sc">::</span>tate_text<span class="sc">$</span>medium, <span class="at">word_dims =</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[32m↪[39m [38;5;244mCounting features in text...[39m
+[32m↪[39m [38;5;244mSentiment analysis...[39m
+[32m↪[39m [38;5;244mParts of speech...[39m
+[32m↪[39m [38;5;244mWord dimensions started[39m
+[32m↪[39m [38;5;244mNormalizing data[39m
+[32m✔[39m Job's done!
+Rows: 4,284
+Columns: 34
+$ n_urls           &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ n_uq_urls        &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ n_hashtags       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ n_uq_hashtags    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ n_mentions       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ n_uq_mentions    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ n_chars          &lt;dbl&gt; 1.39951429, -0.91391731, -0.91391731, -0.91391731, -0…
+$ n_uq_chars       &lt;dbl&gt; 1.3463720, -0.2656168, -0.2656168, -0.2656168, -0.585…
+$ n_commas         &lt;dbl&gt; 1.2867430, -0.6470182, -0.6470182, -0.6470182, -0.647…
+$ n_digits         &lt;dbl&gt; -0.2800874, -0.2800874, -0.2800874, -0.2800874, -0.28…
+$ n_exclaims       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ n_extraspaces    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ n_lowers         &lt;dbl&gt; 1.348546506, -0.912127069, -0.912127069, -0.912127069…
+$ n_lowersp        &lt;dbl&gt; -1.0518721, 0.1014681, 0.1014681, 0.1014681, 0.352584…
+$ n_periods        &lt;dbl&gt; -0.04324894, -0.04324894, -0.04324894, -0.04324894, -…
+$ n_words          &lt;dbl&gt; 1.3593949, -0.7937823, -0.7937823, -0.7937823, -0.162…
+$ n_uq_words       &lt;dbl&gt; 1.4230658, -0.7920930, -0.7920930, -0.7920930, -0.142…
+$ n_caps           &lt;dbl&gt; -0.04050572, -0.04050572, -0.04050572, -0.04050572, -…
+$ n_nonasciis      &lt;dbl&gt; -0.02646899, -0.02646899, -0.02646899, -0.02646899, -…
+$ n_puncts         &lt;dbl&gt; 5.6233563, -0.2031327, -0.2031327, -0.2031327, -0.203…
+$ n_capsp          &lt;dbl&gt; -1.2508524, 0.8890397, 0.8890397, 0.8890397, 0.538919…
+$ n_charsperword   &lt;dbl&gt; 1.09976675, -0.87544061, -0.87544061, -0.87544061, -1…
+$ sent_afinn       &lt;dbl&gt; 0.01511448, 0.01511448, 0.01511448, 0.01511448, 0.015…
+$ sent_bing        &lt;dbl&gt; -0.07864915, -0.07864915, -0.07864915, -0.07864915, -…
+$ sent_syuzhet     &lt;dbl&gt; -0.1334035, -0.1334035, -0.1334035, -0.1334035, -0.13…
+$ sent_vader       &lt;dbl&gt; -0.06711618, -0.06711618, -0.06711618, -0.06711618, -…
+$ n_polite         &lt;dbl&gt; 0.05597655, 0.05597655, 0.05597655, 0.05597655, 0.055…
+$ n_first_person   &lt;dbl&gt; -0.01527831, -0.01527831, -0.01527831, -0.01527831, -…
+$ n_first_personp  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ n_second_person  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ n_second_personp &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ n_third_person   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ n_tobe           &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ n_prepositions   &lt;dbl&gt; -2.3324219, 0.3482094, 0.3482094, 0.3482094, 0.348209…</code></pre>
+</div>
+</div>
+<p>TODO: Come up with domain-specific examples</p>
 </section>
 <section id="python-examples" class="level2" data-number="48.3">
 <h2 data-number="48.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">48.3</span> Python Examples</h2>
