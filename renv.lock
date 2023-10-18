@@ -557,6 +557,13 @@
       ],
       "Hash": "9123f3ef96a2c1a93927d828b2fe7d4c"
     },
+    "dapr": {
+      "Package": "dapr",
+      "Version": "0.0.3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "962a635d6a6649ba48665075eae4b134"
+    },
     "data.table": {
       "Package": "data.table",
       "Version": "1.14.8",
@@ -2506,6 +2513,25 @@
       ],
       "Hash": "9d190b0838d150daba133a9963e282fd"
     },
+    "textfeatures": {
+      "Package": "textfeatures",
+      "Version": "0.3.3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "dplyr",
+        "purrr",
+        "rlang",
+        "stats",
+        "text2vec",
+        "tfse",
+        "tibble",
+        "tokenizers",
+        "utils"
+      ],
+      "Hash": "2ca25ba4b5ef5218f8e9c091638cb0c3"
+    },
     "textrecipes": {
       "Package": "textrecipes",
       "Version": "1.0.4",
@@ -2574,6 +2600,20 @@
         "yaml"
       ],
       "Hash": "8bcc55965444ca8a44bdb8ba7505be51"
+    },
+    "tfse": {
+      "Package": "tfse",
+      "Version": "0.5.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "dapr",
+        "magrittr",
+        "stats",
+        "utils"
+      ],
+      "Hash": "1b9593016f8c0f3e9cc4c45f95312ea5"
     },
     "tibble": {
       "Package": "tibble",
