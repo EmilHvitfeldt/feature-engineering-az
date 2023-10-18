@@ -6,8 +6,47 @@ Essentially what we are working on, is trying to combine many levels to get high
 
 this has two prongs
 
-- these levels are similar due to expert knowledge
 - there aren't enough observations here, let us combine them
+- these levels are similar due to expert knowledge
+
+The first issue can be quite a common one. See the below distribution as an example
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(modeldata)
+
+ames |>
+  count(Exterior_2nd) |>
+  mutate(Exterior_2nd = forcats::fct_reorder(Exterior_2nd, n)) |>
+  ggplot(aes(n, Exterior_2nd)) +
+  geom_col() +
+  theme_minimal() +
+  labs(
+    title = "Exterior covering on house",
+    x = NULL,
+    y = NULL
+  )
+```
+
+The proportion of how often each level appears is quite stark, to the point where 4 of them happen less than 10 times, which is not a lot considering the most frequent level occurs over 1000 times.
+
+For some methods such as @sec-categorical-dummy, having these infrequent levels would not do us much good, and may even make things worse. Having a level be so infrequent increases its likelihood of being uninformative. This is where collapsing can come into play. The method takes the most infrequent levels and combines them into one, typically called `"other"`.
+
+```{r}
+ames |>
+  mutate(Exterior_2nd = forcats::fct_lump_prop(Exterior_2nd, 0.025)) |>
+  count(Exterior_2nd) |>
+  mutate(Exterior_2nd = forcats::fct_reorder(Exterior_2nd, n)) |>
+  ggplot(aes(n, Exterior_2nd)) +
+  geom_col() +
+  theme_minimal() +
+  labs(
+    title = "Exterior covering on house",
+    x = NULL,
+    y = NULL
+  )
+```
 
 ## Pros and Cons
 
