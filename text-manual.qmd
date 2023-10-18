@@ -34,7 +34,8 @@ The [textfeatures]() package is one package in R that contains a bunch of genera
 library(textfeatures)
 library(modeldata)
 
-textfeatures(modeldata::tate_text$medium, word_dims = 0) |>
+textfeatures(modeldata::tate_text$medium, word_dims = 0, 
+             verbose = FALSE) |>
   dplyr::glimpse()
 ```
 
