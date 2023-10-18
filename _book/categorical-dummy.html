@@ -377,20 +377,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./categorical-multi-dummy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Multi-Dummy encoding</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./categorical-collapse.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Collapsing Categories</span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Collapsing Categories</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./categorical-combination.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Combination</span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Combination</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./categorical-multi-dummy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Multi-Dummy encoding</span></span></a>
   </div>
 </li>
       </ul>
@@ -1281,7 +1281,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [5,]   1   0     0</code></pre>
 </div>
 </div>
-<p>From this, we have a couple of observations. Firstly the length of each of these variables is equal to the length of the original categorical variable. The number of columns corresponds to the number of levels. And lastly, the sum of all the values on each row equals 1 since all the rows contain one 1 and the remaining 0s. This means that for even a small number of levels, you get <strong>sparse data</strong>. Sparse data is data where there are a lot of zeroes, meaning that it would take less space to store where the non-zero values are instead of all the values. You can read more about how and when to care about sparse data in <a href="sparse.html" class="quarto-xref"><span>Chapter&nbsp;144</span></a>. What this means for dummy variable creation, is that depending on whether your software can handle sparse data, you might need to limit the number of levels in your categorical variables. One way to do this would be to collapse levels together, which you can read about in <a href="categorical-collapse.html" class="quarto-xref"><span>Chapter&nbsp;36</span></a>.</p>
+<p>From this, we have a couple of observations. Firstly the length of each of these variables is equal to the length of the original categorical variable. The number of columns corresponds to the number of levels. And lastly, the sum of all the values on each row equals 1 since all the rows contain one 1 and the remaining 0s. This means that for even a small number of levels, you get <strong>sparse data</strong>. Sparse data is data where there are a lot of zeroes, meaning that it would take less space to store where the non-zero values are instead of all the values. You can read more about how and when to care about sparse data in <a href="sparse.html" class="quarto-xref"><span>Chapter&nbsp;144</span></a>. What this means for dummy variable creation, is that depending on whether your software can handle sparse data, you might need to limit the number of levels in your categorical variables. One way to do this would be to collapse levels together, which you can read about in <a href="categorical-collapse.html" class="quarto-xref"><span>Chapter&nbsp;35</span></a>.</p>
 <p>Dummy variable creation is a <em>trained</em> method. This means that doing the training step, the levels of each categorical variable are saved, and then these and only these values are used for dummy variable creation. If we assumed that the above example data were used to train the preprocessor, and we passed in the values <code>["dog", "cat", "cat", "dog"]</code> during future applications, we would expect the following dummy variables</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">

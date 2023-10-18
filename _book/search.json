@@ -735,65 +735,65 @@
     "text": "34.3 Python Examples"
   },
   {
-    "objectID": "categorical-multi-dummy.html#pros-and-cons",
-    "href": "categorical-multi-dummy.html#pros-and-cons",
-    "title": "35  Multi-Dummy encoding",
+    "objectID": "categorical-collapse.html#pros-and-cons",
+    "href": "categorical-collapse.html#pros-and-cons",
+    "title": "35  Collapsing Categories",
     "section": "35.1 Pros and Cons",
     "text": "35.1 Pros and Cons\n\n35.1.1 Pros\n\n\n35.1.2 Cons"
   },
   {
-    "objectID": "categorical-multi-dummy.html#r-examples",
-    "href": "categorical-multi-dummy.html#r-examples",
-    "title": "35  Multi-Dummy encoding",
+    "objectID": "categorical-collapse.html#r-examples",
+    "href": "categorical-collapse.html#r-examples",
+    "title": "35  Collapsing Categories",
     "section": "35.2 R Examples",
     "text": "35.2 R Examples"
   },
   {
-    "objectID": "categorical-multi-dummy.html#python-examples",
-    "href": "categorical-multi-dummy.html#python-examples",
-    "title": "35  Multi-Dummy encoding",
+    "objectID": "categorical-collapse.html#python-examples",
+    "href": "categorical-collapse.html#python-examples",
+    "title": "35  Collapsing Categories",
     "section": "35.3 Python Examples",
     "text": "35.3 Python Examples"
   },
   {
-    "objectID": "categorical-collapse.html#pros-and-cons",
-    "href": "categorical-collapse.html#pros-and-cons",
-    "title": "36  Collapsing Categories",
+    "objectID": "categorical-combination.html#pros-and-cons",
+    "href": "categorical-combination.html#pros-and-cons",
+    "title": "36  Combination",
     "section": "36.1 Pros and Cons",
     "text": "36.1 Pros and Cons\n\n36.1.1 Pros\n\n\n36.1.2 Cons"
   },
   {
-    "objectID": "categorical-collapse.html#r-examples",
-    "href": "categorical-collapse.html#r-examples",
-    "title": "36  Collapsing Categories",
+    "objectID": "categorical-combination.html#r-examples",
+    "href": "categorical-combination.html#r-examples",
+    "title": "36  Combination",
     "section": "36.2 R Examples",
     "text": "36.2 R Examples"
   },
   {
-    "objectID": "categorical-collapse.html#python-examples",
-    "href": "categorical-collapse.html#python-examples",
-    "title": "36  Collapsing Categories",
+    "objectID": "categorical-combination.html#python-examples",
+    "href": "categorical-combination.html#python-examples",
+    "title": "36  Combination",
     "section": "36.3 Python Examples",
     "text": "36.3 Python Examples"
   },
   {
-    "objectID": "categorical-combination.html#pros-and-cons",
-    "href": "categorical-combination.html#pros-and-cons",
-    "title": "37  Combination",
+    "objectID": "categorical-multi-dummy.html#pros-and-cons",
+    "href": "categorical-multi-dummy.html#pros-and-cons",
+    "title": "37  Multi-Dummy encoding",
     "section": "37.1 Pros and Cons",
     "text": "37.1 Pros and Cons\n\n37.1.1 Pros\n\n\n37.1.2 Cons"
   },
   {
-    "objectID": "categorical-combination.html#r-examples",
-    "href": "categorical-combination.html#r-examples",
-    "title": "37  Combination",
+    "objectID": "categorical-multi-dummy.html#r-examples",
+    "href": "categorical-multi-dummy.html#r-examples",
+    "title": "37  Multi-Dummy encoding",
     "section": "37.2 R Examples",
     "text": "37.2 R Examples"
   },
   {
-    "objectID": "categorical-combination.html#python-examples",
-    "href": "categorical-combination.html#python-examples",
-    "title": "37  Combination",
+    "objectID": "categorical-multi-dummy.html#python-examples",
+    "href": "categorical-multi-dummy.html#python-examples",
+    "title": "37  Multi-Dummy encoding",
     "section": "37.3 Python Examples",
     "text": "37.3 Python Examples"
   },
@@ -1026,7 +1026,7 @@
     "href": "text-manual.html#r-examples",
     "title": "48  Manual Text Features",
     "section": "48.2 R Examples",
-    "text": "48.2 R Examples\nTODO: find a better data set\nThe textfeatures package is one package in R that contains a bunch of general features that may or may not be useful.\n\nlibrary(textfeatures)\nlibrary(modeldata)\n\ntextfeatures(modeldata::tate_text$medium, word_dims = 0) |&gt;\n  dplyr::glimpse()\n\n\u001b[32m↪\u001b[39m \u001b[38;5;244mCounting features in text...\u001b[39m\n\u001b[32m↪\u001b[39m \u001b[38;5;244mSentiment analysis...\u001b[39m\n\u001b[32m↪\u001b[39m \u001b[38;5;244mParts of speech...\u001b[39m\n\u001b[32m↪\u001b[39m \u001b[38;5;244mWord dimensions started\u001b[39m\n\u001b[32m↪\u001b[39m \u001b[38;5;244mNormalizing data\u001b[39m\n\u001b[32m✔\u001b[39m Job's done!\nRows: 4,284\nColumns: 34\n$ n_urls           &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ n_uq_urls        &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ n_hashtags       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ n_uq_hashtags    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ n_mentions       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ n_uq_mentions    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ n_chars          &lt;dbl&gt; 1.39951429, -0.91391731, -0.91391731, -0.91391731, -0…\n$ n_uq_chars       &lt;dbl&gt; 1.3463720, -0.2656168, -0.2656168, -0.2656168, -0.585…\n$ n_commas         &lt;dbl&gt; 1.2867430, -0.6470182, -0.6470182, -0.6470182, -0.647…\n$ n_digits         &lt;dbl&gt; -0.2800874, -0.2800874, -0.2800874, -0.2800874, -0.28…\n$ n_exclaims       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ n_extraspaces    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ n_lowers         &lt;dbl&gt; 1.348546506, -0.912127069, -0.912127069, -0.912127069…\n$ n_lowersp        &lt;dbl&gt; -1.0518721, 0.1014681, 0.1014681, 0.1014681, 0.352584…\n$ n_periods        &lt;dbl&gt; -0.04324894, -0.04324894, -0.04324894, -0.04324894, -…\n$ n_words          &lt;dbl&gt; 1.3593949, -0.7937823, -0.7937823, -0.7937823, -0.162…\n$ n_uq_words       &lt;dbl&gt; 1.4230658, -0.7920930, -0.7920930, -0.7920930, -0.142…\n$ n_caps           &lt;dbl&gt; -0.04050572, -0.04050572, -0.04050572, -0.04050572, -…\n$ n_nonasciis      &lt;dbl&gt; -0.02646899, -0.02646899, -0.02646899, -0.02646899, -…\n$ n_puncts         &lt;dbl&gt; 5.6233563, -0.2031327, -0.2031327, -0.2031327, -0.203…\n$ n_capsp          &lt;dbl&gt; -1.2508524, 0.8890397, 0.8890397, 0.8890397, 0.538919…\n$ n_charsperword   &lt;dbl&gt; 1.09976675, -0.87544061, -0.87544061, -0.87544061, -1…\n$ sent_afinn       &lt;dbl&gt; 0.01511448, 0.01511448, 0.01511448, 0.01511448, 0.015…\n$ sent_bing        &lt;dbl&gt; -0.07864915, -0.07864915, -0.07864915, -0.07864915, -…\n$ sent_syuzhet     &lt;dbl&gt; -0.1334035, -0.1334035, -0.1334035, -0.1334035, -0.13…\n$ sent_vader       &lt;dbl&gt; -0.06711618, -0.06711618, -0.06711618, -0.06711618, -…\n$ n_polite         &lt;dbl&gt; 0.05597655, 0.05597655, 0.05597655, 0.05597655, 0.055…\n$ n_first_person   &lt;dbl&gt; -0.01527831, -0.01527831, -0.01527831, -0.01527831, -…\n$ n_first_personp  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ n_second_person  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ n_second_personp &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ n_third_person   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ n_tobe           &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ n_prepositions   &lt;dbl&gt; -2.3324219, 0.3482094, 0.3482094, 0.3482094, 0.348209…\n\n\nTODO: Come up with domain-specific examples"
+    "text": "48.2 R Examples\nTODO: find a better data set\nThe textfeatures package is one package in R that contains a bunch of general features that may or may not be useful.\n\nlibrary(textfeatures)\nlibrary(modeldata)\n\ntextfeatures(modeldata::tate_text$medium, word_dims = 0, \n             verbose = FALSE) |&gt;\n  dplyr::glimpse()\n\nRows: 4,284\nColumns: 34\n$ n_urls           &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ n_uq_urls        &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ n_hashtags       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ n_uq_hashtags    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ n_mentions       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ n_uq_mentions    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ n_chars          &lt;dbl&gt; 1.39951429, -0.91391731, -0.91391731, -0.91391731, -0…\n$ n_uq_chars       &lt;dbl&gt; 1.3463720, -0.2656168, -0.2656168, -0.2656168, -0.585…\n$ n_commas         &lt;dbl&gt; 1.2867430, -0.6470182, -0.6470182, -0.6470182, -0.647…\n$ n_digits         &lt;dbl&gt; -0.2800874, -0.2800874, -0.2800874, -0.2800874, -0.28…\n$ n_exclaims       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ n_extraspaces    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ n_lowers         &lt;dbl&gt; 1.348546506, -0.912127069, -0.912127069, -0.912127069…\n$ n_lowersp        &lt;dbl&gt; -1.0518721, 0.1014681, 0.1014681, 0.1014681, 0.352584…\n$ n_periods        &lt;dbl&gt; -0.04324894, -0.04324894, -0.04324894, -0.04324894, -…\n$ n_words          &lt;dbl&gt; 1.3593949, -0.7937823, -0.7937823, -0.7937823, -0.162…\n$ n_uq_words       &lt;dbl&gt; 1.4230658, -0.7920930, -0.7920930, -0.7920930, -0.142…\n$ n_caps           &lt;dbl&gt; -0.04050572, -0.04050572, -0.04050572, -0.04050572, -…\n$ n_nonasciis      &lt;dbl&gt; -0.02646899, -0.02646899, -0.02646899, -0.02646899, -…\n$ n_puncts         &lt;dbl&gt; 5.6233563, -0.2031327, -0.2031327, -0.2031327, -0.203…\n$ n_capsp          &lt;dbl&gt; -1.2508524, 0.8890397, 0.8890397, 0.8890397, 0.538919…\n$ n_charsperword   &lt;dbl&gt; 1.09976675, -0.87544061, -0.87544061, -0.87544061, -1…\n$ sent_afinn       &lt;dbl&gt; 0.01511448, 0.01511448, 0.01511448, 0.01511448, 0.015…\n$ sent_bing        &lt;dbl&gt; -0.07864915, -0.07864915, -0.07864915, -0.07864915, -…\n$ sent_syuzhet     &lt;dbl&gt; -0.1334035, -0.1334035, -0.1334035, -0.1334035, -0.13…\n$ sent_vader       &lt;dbl&gt; -0.06711618, -0.06711618, -0.06711618, -0.06711618, -…\n$ n_polite         &lt;dbl&gt; 0.05597655, 0.05597655, 0.05597655, 0.05597655, 0.055…\n$ n_first_person   &lt;dbl&gt; -0.01527831, -0.01527831, -0.01527831, -0.01527831, -…\n$ n_first_personp  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ n_second_person  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ n_second_personp &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ n_third_person   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ n_tobe           &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ n_prepositions   &lt;dbl&gt; -2.3324219, 0.3482094, 0.3482094, 0.3482094, 0.348209…\n\n\nTODO: Come up with domain-specific examples"
   },
   {
     "objectID": "text-manual.html#python-examples",
@@ -1411,7 +1411,7 @@
     "href": "too-many-zv.html#r-examples",
     "title": "67  Zero Variance Filter",
     "section": "67.2 R Examples",
-    "text": "67.2 R Examples\nWe will use the step_zv() and step_nzv() steps which are used to remove zero variance and near-zero variance preditors respectively.\nTODO: find a good data set\nBelow we are using the step_zv() function to remove\n\nlibrary(recipes)\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\ndata(\"ames\", package = \"modeldata\")\n\nzv_rec &lt;- recipe(Sale_Price ~ ., data = ames) |&gt;\n  step_zv(all_predictors()) |&gt;\n  prep()\n\nWe can use the tidy() method to find out which variables were removed\n\nzv_rec |&gt;\n  tidy(1)\n\n# A tibble: 0 × 2\n# ℹ 2 variables: terms &lt;chr&gt;, id &lt;chr&gt;\n\n\nWe can remove non-zero variance predictors in the same manner using step_nzv()\n\nnzv_rec &lt;- recipe(Sale_Price ~ ., data = ames) |&gt;\n  step_nzv(all_predictors()) |&gt;\n  prep()\n\nnzv_rec |&gt;\n  tidy(1)\n\n# A tibble: 21 × 2\n   terms          id       \n   &lt;chr&gt;          &lt;chr&gt;    \n 1 Street         nzv_ig0Gm\n 2 Alley          nzv_ig0Gm\n 3 Land_Contour   nzv_ig0Gm\n 4 Utilities      nzv_ig0Gm\n 5 Land_Slope     nzv_ig0Gm\n 6 Condition_2    nzv_ig0Gm\n 7 Roof_Matl      nzv_ig0Gm\n 8 Bsmt_Cond      nzv_ig0Gm\n 9 BsmtFin_Type_2 nzv_ig0Gm\n10 BsmtFin_SF_2   nzv_ig0Gm\n# ℹ 11 more rows"
+    "text": "67.2 R Examples\nWe will use the step_zv() and step_nzv() steps which are used to remove zero variance and near-zero variance preditors respectively.\nTODO: find a good data set\nBelow we are using the step_zv() function to remove\n\nlibrary(recipes)\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\ndata(\"ames\", package = \"modeldata\")\n\nzv_rec &lt;- recipe(Sale_Price ~ ., data = ames) |&gt;\n  step_zv(all_predictors()) |&gt;\n  prep()\n\nWe can use the tidy() method to find out which variables were removed\n\nzv_rec |&gt;\n  tidy(1)\n\n# A tibble: 0 × 2\n# ℹ 2 variables: terms &lt;chr&gt;, id &lt;chr&gt;\n\n\nWe can remove non-zero variance predictors in the same manner using step_nzv()\n\nnzv_rec &lt;- recipe(Sale_Price ~ ., data = ames) |&gt;\n  step_nzv(all_predictors()) |&gt;\n  prep()\n\nnzv_rec |&gt;\n  tidy(1)\n\n# A tibble: 21 × 2\n   terms          id       \n   &lt;chr&gt;          &lt;chr&gt;    \n 1 Street         nzv_amDxL\n 2 Alley          nzv_amDxL\n 3 Land_Contour   nzv_amDxL\n 4 Utilities      nzv_amDxL\n 5 Land_Slope     nzv_amDxL\n 6 Condition_2    nzv_amDxL\n 7 Roof_Matl      nzv_amDxL\n 8 Bsmt_Cond      nzv_amDxL\n 9 BsmtFin_Type_2 nzv_amDxL\n10 BsmtFin_SF_2   nzv_amDxL\n# ℹ 11 more rows"
   },
   {
     "objectID": "too-many-zv.html#python-examples",
