@@ -1327,7 +1327,7 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 <p>Above we see how that is done. We took all the levels that appeared less than <code>2.5%</code> of the time and combined them into a new level called <code>"other"</code>. This value threshold will off cause depend on many things and is a good candidate for tuning. And we don’t have to do it as a percentage, we might as well do it based on counts. Collapsing anything with less than 10 occurrences.</p>
 <p>This method can give pretty good results. But is by nature very crude. We are more than likely to combine levels that have nothing to do with each other than their low frequency. This will sometimes be inefficient, and while it has straightforward explainability due to its simple nature it can be hard to argue for its approach to shareholders.</p>
-<p>This is where the other type of collapsing comes in. These methods use a little more information about the data, in the hopes that the collapsing will be more sensible. We will describe two of them here. First is the model-based approach. You can image that we fit a small model, such as a decision tree on the categorical variable, using a sensible outcome. This outcome could the the real outcome of out larger modeling problem. then we let the decision tree run, and the way the tree splits the data is how we combine the levels.</p>
+<p>This is where the other type of collapsing comes in. These methods use a little more information about the data, in the hopes that the collapsing will be more sensible. We will describe two of them here. First is the model-based approach. You can imagine that we fit a small model, such as a decision tree on the categorical variable, using a sensible outcome. This outcome could the the real outcome of our larger modeling problem. then we let the decision tree run, and the way the tree splits the data is how we combine the levels.</p>
 <p>This is done below as an example:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(embed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1378,9 +1378,45 @@ $Exterior_2nd_9
 [1] "ImStucc" "Other"   "PreCast"</code></pre>
 </div>
 </div>
-<p>And it isn’t super hard to see that these make sense. “Asbestos Shingles” and “Asphalt Shingles” got paired, as did “Metal Siding” and “Wood Siding”, and “Hard Board” and “Plywood”.</p>
-<p>TODO: talk about string distance other collapse_steps</p>
-<p>TODO: talk about dirtycat</p>
+<p>And it isn’t super hard to see that these make sense. “Asbestos Shingles” and “Asphalt Shingles” got paired, as did “Metal Siding” and “Wood Siding”, and “Hard Board” and “Plywood”. These are of course only linked because they appear similar when looking at the sale price. But We are likely able to reason better about these new labels than before.</p>
+<p>TODO: add a plot of the tree</p>
+<p>When to stop growing the is still something that we can and should tune. Too small of a tree and we collapse levels that should be different, too large a tree and we don’t collapse things that should have been collapsed.</p>
+<p>Another interesting method is when we use the levels themselves to decide how to do the collapsing. Using string distances between the levels. Hence similar levels will be collapsed together.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(embed)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> Exterior_2nd, <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_collapse_stringdist</span>(Exterior_2nd, <span class="at">distance =</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="dv">1</span>) </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="fu">split</span>(res<span class="sc">$</span>from, res<span class="sc">$</span>to)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$AsbShng
+[1] "AsbShng" "AsphShn" "Wd Sdng" "Wd Shng"
+
+$`Brk Cmn`
+[1] "Brk Cmn" "BrkFace" "PreCast"
+
+$CBlock
+[1] "CBlock"  "ImStucc" "Other"   "Stone"   "Stucco" 
+
+$CmentBd
+[1] "CmentBd"
+
+$HdBoard
+[1] "HdBoard"
+
+$MetalSd
+[1] "MetalSd" "VinylSd"
+
+$Plywood
+[1] "Plywood"</code></pre>
+</div>
+</div>
+<p>TODO: add a plot of what happens here</p>
+<p>This doesn’t use the data at all, and the results reflect that. The distance will again have to be used for best results, and there are quite a few different types of ways to calculate string distance. The choices will sometimes matter a lot and should be investigated before use for best results.</p>
+<p>The string distance collapsing method does in some ways feel like a cleaning method like we saw in <a href="categorical-cleaning.html" class="quarto-xref"><span>Chapter&nbsp;16</span></a>. Having many levels in a freeform state will often lead to misspellings or other slight variations. String distances are a great way to deal with those types of problems. It is recommended that you always look at the resulting mappings to make sure they are created correctly, or good enough.</p>
 <section id="pros-and-cons" class="level2" data-number="35.1">
 <h2 data-number="35.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">35.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="35.1.1">
@@ -1395,6 +1431,7 @@ $Exterior_2nd_9
 </section>
 <section id="python-examples" class="level2" data-number="35.3">
 <h2 data-number="35.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">35.3</span> Python Examples</h2>
+<p>https://github.com/skrub-data/skrub</p>
 
 
 </section>

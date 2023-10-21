@@ -54,7 +54,7 @@ Above we see how that is done. We took all the levels that appeared less than `2
 
 This method can give pretty good results. But is by nature very crude. We are more than likely to combine levels that have nothing to do with each other than their low frequency. This will sometimes be inefficient, and while it has straightforward explainability due to its simple nature it can be hard to argue for its approach to shareholders.
 
-This is where the other type of collapsing comes in. These methods use a little more information about the data, in the hopes that the collapsing will be more sensible. We will describe two of them here. First is the model-based approach. You can image that we fit a small model, such as a decision tree on the categorical variable, using a sensible outcome. This outcome could the the real outcome of out larger modeling problem. then we let the decision tree run, and the way the tree splits the data is how we combine the levels.
+This is where the other type of collapsing comes in. These methods use a little more information about the data, in the hopes that the collapsing will be more sensible. We will describe two of them here. First is the model-based approach. You can imagine that we fit a small model, such as a decision tree on the categorical variable, using a sensible outcome. This outcome could the the real outcome of our larger modeling problem. then we let the decision tree run, and the way the tree splits the data is how we combine the levels.
 
 This is done below as an example:
 
@@ -69,14 +69,30 @@ res <- recipe(Sale_Price ~ Exterior_2nd, data = ames) |>
 split(res$old, res$new)
 ```
 
-And it isn't super hard to see that these make sense. "Asbestos Shingles" and "Asphalt Shingles" got paired, as did "Metal Siding" and "Wood Siding", and "Hard Board" and "Plywood". 
+And it isn't super hard to see that these make sense. "Asbestos Shingles" and "Asphalt Shingles" got paired, as did "Metal Siding" and "Wood Siding", and "Hard Board" and "Plywood". These are of course only linked because they appear similar when looking at the sale price. But We are likely able to reason better about these new labels than before.
 
+TODO: add a plot of the tree
 
+When to stop growing the is still something that we can and should tune. Too small of a tree and we collapse levels that should be different, too large a tree and we don't collapse things that should have been collapsed.
 
+Another interesting method is when we use the levels themselves to decide how to do the collapsing. Using string distances between the levels. Hence similar levels will be collapsed together.
 
-TODO: talk about string distance other collapse_steps
+```{r}
+library(embed)
 
-TODO: talk about dirtycat
+res <- recipe(Sale_Price ~ Exterior_2nd, data = ames) |>
+  step_collapse_stringdist(Exterior_2nd, distance = 5) |>
+  prep() |>
+  tidy(1) 
+
+split(res$from, res$to)
+```
+
+TODO: add a plot of what happens here
+
+This doesn't use the data at all, and the results reflect that. The distance will again have to be used for best results, and there are quite a few different types of ways to calculate string distance. The choices will sometimes matter a lot and should be investigated before use for best results.
+
+The string distance collapsing method does in some ways feel like a cleaning method like we saw in @sec-categorical-cleaning. Having many levels in a freeform state will often lead to misspellings or other slight variations. String distances are a great way to deal with those types of problems. It is recommended that you always look at the resulting mappings to make sure they are created correctly, or good enough.
 
 ## Pros and Cons
 
@@ -87,3 +103,5 @@ TODO: talk about dirtycat
 ## R Examples
 
 ## Python Examples
+
+https://github.com/skrub-data/skrub
