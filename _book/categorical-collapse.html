@@ -1265,7 +1265,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>this has two prongs</p>
 <ul>
 <li>there aren’t enough observations here, let us combine them</li>
-<li>these levels are similar due to expert knowledge</li>
+<li>these levels are similar
+<ul>
+<li>expert knowledge</li>
+<li>inferred from data</li>
+</ul></li>
 </ul>
 <p>The first issue can be quite a common one. See the below distribution as an example</p>
 <div class="cell">
@@ -1321,6 +1325,62 @@ Attaching package: 'dplyr'</code></pre>
 <p><img src="categorical-collapse_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>Above we see how that is done. We took all the levels that appeared less than <code>2.5%</code> of the time and combined them into a new level called <code>"other"</code>. This value threshold will off cause depend on many things and is a good candidate for tuning. And we don’t have to do it as a percentage, we might as well do it based on counts. Collapsing anything with less than 10 occurrences.</p>
+<p>This method can give pretty good results. But is by nature very crude. We are more than likely to combine levels that have nothing to do with each other than their low frequency. This will sometimes be inefficient, and while it has straightforward explainability due to its simple nature it can be hard to argue for its approach to shareholders.</p>
+<p>This is where the other type of collapsing comes in. These methods use a little more information about the data, in the hopes that the collapsing will be more sensible. We will describe two of them here. First is the model-based approach. You can image that we fit a small model, such as a decision tree on the categorical variable, using a sensible outcome. This outcome could the the real outcome of out larger modeling problem. then we let the decision tree run, and the way the tree splits the data is how we combine the levels.</p>
+<p>This is done below as an example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(embed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: recipes</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'recipes'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:stats':
+
+    step</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> Exterior_2nd, <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_collapse_cart</span>(Exterior_2nd, <span class="at">outcome =</span> <span class="fu">vars</span>(Sale_Price)) <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="dv">1</span>) </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">split</span>(res<span class="sc">$</span>old, res<span class="sc">$</span>new)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$Exterior_2nd_1
+[1] "AsbShng" "AsphShn" "CBlock" 
+
+$Exterior_2nd_2
+[1] "Brk Cmn"
+
+$Exterior_2nd_3
+[1] "Stone"   "Stucco"  "Wd Sdng"
+
+$Exterior_2nd_4
+[1] "MetalSd" "Wd Shng"
+
+$Exterior_2nd_5
+[1] "HdBoard" "Plywood"
+
+$Exterior_2nd_6
+[1] "BrkFace"
+
+$Exterior_2nd_7
+[1] "VinylSd"
+
+$Exterior_2nd_8
+[1] "CmentBd"
+
+$Exterior_2nd_9
+[1] "ImStucc" "Other"   "PreCast"</code></pre>
+</div>
+</div>
+<p>And it isn’t super hard to see that these make sense. “Asbestos Shingles” and “Asphalt Shingles” got paired, as did “Metal Siding” and “Wood Siding”, and “Hard Board” and “Plywood”.</p>
+<p>TODO: talk about string distance other collapse_steps</p>
+<p>TODO: talk about dirtycat</p>
 <section id="pros-and-cons" class="level2" data-number="35.1">
 <h2 data-number="35.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">35.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="35.1.1">
