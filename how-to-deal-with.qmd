@@ -35,3 +35,9 @@ We will sometimes bend this definition, as it is sometimes useful to pretend tha
 ### Linear models
 
 We talk about *linear models* as models that are specified as a linear combination of features. These models tend to simple, and fast to use, but having the limitation of "linear combination of features" means that struggle if the data has non-linear effects.
+
+### Embedding
+
+The word **embedding** is thrown around a lot in machine learning and artificial intelligence. but in essence, it is a simple concept. An embedding is what happens when each observation is transformed into a numerical representation. We see this often in text embeddings, where a free-from-text field is turned into a fixed-length numerical vector.
+
+Something being an embedding doesn't mean that it is useful. But with care, and signal, useful representations of the data can be created. The reason why we have embeddings in the first place is that most machine learning models require numerical features for the models to work.
