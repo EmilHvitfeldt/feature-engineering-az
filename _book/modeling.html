@@ -1192,7 +1192,13 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#why-do-we-use-thresholds" id="toc-why-do-we-use-thresholds" class="nav-link active" data-scroll-target="#why-do-we-use-thresholds">Why do we use thresholds?</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -1220,8 +1226,13 @@ ul.task-list li input[type="checkbox"] {
 <p>In practice this means that untrained methods can be applied before the data-splitting procedure, as it would give the same results regardless on when it was done. Trained methods have to be performed after the data-splitting to ensure you don’t have data leakage. The wrinkle to this is that untrained methods applied to variables that has already been transformed by a trained method will have to also be done after the data-splitting.</p>
 <p>TODO: add diagram for untrained / trained rule</p>
 <p>Some untrained methods have a high computational cost, such as BERT from <a href="text-bert.html" class="quarto-xref"><span>Chapter&nbsp;61</span></a>. A general advice that errs on the side of safety is to do as much as you can after the data-splitting if you are unsure.</p>
+<section id="why-do-we-use-thresholds" class="level3">
+<h3 class="anchored" data-anchor-id="why-do-we-use-thresholds">Why do we use thresholds?</h3>
+<p>Oftentimes, when we use a method that selects something with a quantity, we end up doing it with a threshold instead of counting directly. The answer to this is purely practical, as it leaves less ambiguity. When selecting these features to keep in a feature selection routine <a href="too-many.html" class="quarto-xref"><span>Chapter&nbsp;66</span></a> is a good example. It is easier to write the code that selects every feature that has more than X amount of variability. On the other hand, if we said “Give me the 25 most useful features”, we might have 4 variables tied for 25th place. Now we have another problem. Does it keep all of them in, leaving 27 variables? If we do that then we violated our request of 25 variables. What if we select the first? then we arbitrarily give a bias towards variables early in the data set. What if we randomly select among the ties? then we introduce randomness into the method.</p>
+<p>It is for the above reasons that many methods in feature engineering and machine learning use thresholds instead of precise numbers.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
