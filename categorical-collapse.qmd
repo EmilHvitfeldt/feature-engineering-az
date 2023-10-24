@@ -94,15 +94,27 @@ This doesn't use the data at all, and the results reflect that. The distance wil
 
 The string distance collapsing method does in some ways feel like a cleaning method like we saw in @sec-categorical-cleaning. Having many levels in a freeform state will often lead to misspellings or other slight variations. String distances are a great way to deal with those types of problems. It is recommended that you always look at the resulting mappings to make sure they are created correctly, or good enough.
 
-talk about hierarchical structures
+Some data is naturally hierarchical, and if we have this type of data and we want to collapse, we can take advantage of that and collapse according to the hierarchies.
+
+Collapsing categorical levels is not without risk, and each application should be monitored and checked to make sure we don't do anything bad. In many ways, this is quite a manual process and luckily the results are very easy to validate.
+
+Unseen levels will have to be treated on a method-to-method basis. Tree-based collapsing will not be able to handle unseen levels as they are not part of the tree at all. On the other hand, it is possible to handle unseen levels on the string distance method as you just need to calculate the distances. With the caveat that some strings could be the same distance away from multiple levels.
 
 ## Pros and Cons
 
 ### Pros
 
+- Easy to perform and verify
+- Computationally fast
+
 ### Cons
 
+- Must be tuned
+- Can produce counterintuitive results
+
 ## R Examples
+
+Methods to collapse categorical levels can be found in recipes with `step_other()` and embed in `step_collapse_cart()` and `step_collapse_stringdist()`
 
 ## Python Examples
 
