@@ -739,14 +739,14 @@
     "href": "categorical-collapse.html#pros-and-cons",
     "title": "35  Collapsing Categories",
     "section": "35.1 Pros and Cons",
-    "text": "35.1 Pros and Cons\n\n35.1.1 Pros\n\n\n35.1.2 Cons"
+    "text": "35.1 Pros and Cons\n\n35.1.1 Pros\n\nEasy to perform and verify\nComputationally fast\n\n\n\n35.1.2 Cons\n\nMust be tuned\nCan produce counterintuitive results"
   },
   {
     "objectID": "categorical-collapse.html#r-examples",
     "href": "categorical-collapse.html#r-examples",
     "title": "35  Collapsing Categories",
     "section": "35.2 R Examples",
-    "text": "35.2 R Examples"
+    "text": "35.2 R Examples\nMethods to collapse categorical levels can be found in recipes with step_other() and embed in step_collapse_cart() and step_collapse_stringdist()"
   },
   {
     "objectID": "categorical-collapse.html#python-examples",
