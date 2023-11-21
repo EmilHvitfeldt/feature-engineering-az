@@ -37,6 +37,11 @@ TODO: find a good data set
 Below we are using the `step_zv()` function to remove 
 
 ```{r}
+#| echo: false
+set.seed(1234)
+```
+
+```{r}
 library(recipes)
 
 data("ames", package = "modeldata")
