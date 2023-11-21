@@ -139,7 +139,11 @@ The exact way this is done will vary from method to method, and the strength of 
 
 We need to talk about the subtleties. There is plain mean encoding, and then there is all the variants,
 
+`step_lencode_glm()` is identical to plain mean encoding. at least for the cases I have worked on.
+
 regularization
+
+https://workshops.tidymodels.org/slides/extras-effect-encodings.html#/what-is-an-effect-encoding
 
 https://embed.tidymodels.org/reference/step_lencode_glm.html https://embed.tidymodels.org/reference/step_lencode_mixed.html https://embed.tidymodels.org/reference/step_lencode_mixed.html https://contrib.scikit-learn.org/category_encoders/targetencoder.html
 
@@ -148,6 +152,8 @@ https://dl.acm.org/doi/10.1145/507533.507538
 <https://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/target-encoding.html#:~:text=Target%20encoding%20is%20the%20process,convert%20categorical%20columns%20to%20numeric.>
 
 <https://towardsdatascience.com/dealing-with-categorical-variables-by-using-target-encoder-a0f1733a4c69>
+
+Also, talk about how we can deal with hierarchy in the data. 
 
 ## Pros and Cons
 
