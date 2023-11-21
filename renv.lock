@@ -719,7 +719,7 @@
     },
     "embed": {
       "Package": "embed",
-      "Version": "1.1.2",
+      "Version": "1.1.3",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -742,7 +742,7 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "5b8add191a6b830cf373c264b4cef551"
+      "Hash": "d8792e751c8d6be84228ed6b9f0a56b2"
     },
     "evaluate": {
       "Package": "evaluate",
@@ -763,7 +763,7 @@
       "RemoteHost": "api.github.com",
       "RemoteUsername": "emilhvitfeldt",
       "RemoteRepo": "extrasteps",
-      "RemoteRef": "HEAD",
+      "RemoteRef": "main",
       "RemoteSha": "6a7d18335a9c4515dffc12cf10eeda09198964cc",
       "Remotes": "tidymodels/recipes",
       "Requirements": [
@@ -778,7 +778,7 @@
         "tibble",
         "vctrs"
       ],
-      "Hash": "412fa4d7634dcb85404a08efb898b760"
+      "Hash": "ef3454ae6d8752b0a9da887892b3ddf8"
     },
     "fansi": {
       "Package": "fansi",
@@ -1744,9 +1744,14 @@
     },
     "parsnip": {
       "Package": "parsnip",
-      "Version": "1.1.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
+      "Version": "1.1.1.9003",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "tidymodels",
+      "RemoteRepo": "parsnip",
+      "RemoteRef": "main",
+      "RemoteSha": "e809d0fb1a2ce8197abaeef220795aa63723c828",
       "Requirements": [
         "R",
         "cli",
@@ -1769,7 +1774,7 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "cbb49c720a5e4bf1fe36a870b07d1a0c"
+      "Hash": "927d128c7d52a94b6a75416abfd76322"
     },
     "patchwork": {
       "Package": "patchwork",
@@ -2011,11 +2016,12 @@
       "Version": "1.0.8.9000",
       "Source": "GitHub",
       "RemoteType": "github",
+      "RemoteHost": "api.github.com",
       "RemoteUsername": "tidymodels",
       "RemoteRepo": "recipes",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "ece92e5e1543ac958317d5c4ccfcd87dd01931f3",
-      "RemoteHost": "api.github.com",
+      "RemoteRef": "main",
+      "RemoteSha": "ce4f505b55f4222c58f4fbadd3d4083b61efaa14",
+      "Remotes": "tidymodels/parsnip",
       "Requirements": [
         "Matrix",
         "R",
@@ -2042,7 +2048,7 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "bb9fb708d3fa830c69c2c89e86ae29a4"
+      "Hash": "85e051b3c5213f3e86915500cf3bbde0"
     },
     "registry": {
       "Package": "registry",
@@ -2131,7 +2137,7 @@
     },
     "reticulate": {
       "Package": "reticulate",
-      "Version": "1.32.0",
+      "Version": "1.34.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -2149,7 +2155,7 @@
         "utils",
         "withr"
       ],
-      "Hash": "3bcef49cfb33dcc522ab94eabd5d3714"
+      "Hash": "a69f815bcba8a055de0b08339b943f9e"
     },
     "rlang": {
       "Package": "rlang",
@@ -2495,7 +2501,7 @@
     },
     "text2vec": {
       "Package": "text2vec",
-      "Version": "0.6.3",
+      "Version": "0.6.4",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -2511,7 +2517,7 @@
         "rsparse",
         "stringi"
       ],
-      "Hash": "9d190b0838d150daba133a9963e282fd"
+      "Hash": "94a38cec24f865c5b1f4efbb85687df6"
     },
     "textfeatures": {
       "Package": "textfeatures",
@@ -2534,7 +2540,7 @@
     },
     "textrecipes": {
       "Package": "textrecipes",
-      "Version": "1.0.4",
+      "Version": "1.0.6",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -2554,7 +2560,7 @@
         "tokenizers",
         "vctrs"
       ],
-      "Hash": "f8759ddc4098c923b9761ec91b46950a"
+      "Hash": "5d20a08690201f6db91409751812f137"
     },
     "textshaping": {
       "Package": "textshaping",
