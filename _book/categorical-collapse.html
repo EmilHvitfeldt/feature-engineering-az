@@ -1439,7 +1439,141 @@ $Plywood
 </section>
 <section id="r-examples" class="level2" data-number="35.2">
 <h2 data-number="35.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">35.2</span> R Examples</h2>
-<p>Methods to collapse categorical levels can be found in recipes with <code>step_other()</code> and embed in <code>step_collapse_cart()</code> and <code>step_collapse_stringdist()</code></p>
+<p>Methods to collapse categorical levels can be found in recipes with <code>step_other()</code> and embed in <code>step_collapse_cart()</code> and <code>step_collapse_stringdist()</code>.</p>
+<p>TODO: find a better data set for examples</p>
+<p>Othering can be done using the <code>step_other()</code> function, it uses the argument <code>threshold</code> to determine the cutoff used to turn levels into <code>"other"</code> or not.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(embed)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(ames, <span class="at">package =</span> <span class="st">"modeldata"</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>rec_other <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> Exterior_2nd, <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_other</span>(Exterior_2nd, <span class="at">threshold =</span> <span class="fl">0.1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>rec_other <span class="sc">|&gt;</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,930 × 2
+   Exterior_2nd Sale_Price
+   &lt;fct&gt;             &lt;int&gt;
+ 1 other            215000
+ 2 VinylSd          105000
+ 3 Wd Sdng          172000
+ 4 other            244000
+ 5 VinylSd          189900
+ 6 VinylSd          195500
+ 7 other            213500
+ 8 HdBoard          191500
+ 9 other            236500
+10 VinylSd          189000
+# ℹ 2,920 more rows</code></pre>
+</div>
+</div>
+<p>selecting a higher threshold turns more levels into <code>"other"</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>rec_other <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> Exterior_2nd, <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_other</span>(Exterior_2nd, <span class="at">threshold =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>rec_other <span class="sc">|&gt;</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,930 × 2
+   Exterior_2nd Sale_Price
+   &lt;fct&gt;             &lt;int&gt;
+ 1 other            215000
+ 2 VinylSd          105000
+ 3 other            172000
+ 4 other            244000
+ 5 VinylSd          189900
+ 6 VinylSd          195500
+ 7 other            213500
+ 8 other            191500
+ 9 other            236500
+10 VinylSd          189000
+# ℹ 2,920 more rows</code></pre>
+</div>
+</div>
+<p>for the more advanced methods, we turn to the embed package. To collapse levels by their string distance, we use the <code>step_collapse_stringdist()</code>. By default, you control it with the <code>distance</code> argument.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>rec_stringdist <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> Exterior_2nd, <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_collapse_stringdist</span>(Exterior_2nd, <span class="at">distance =</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>rec_stringdist <span class="sc">|&gt;</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,930 × 2
+   Exterior_2nd Sale_Price
+   &lt;fct&gt;             &lt;int&gt;
+ 1 Plywood          215000
+ 2 MetalSd          105000
+ 3 AsbShng          172000
+ 4 Brk Cmn          244000
+ 5 MetalSd          189900
+ 6 MetalSd          195500
+ 7 CmentBd          213500
+ 8 HdBoard          191500
+ 9 CmentBd          236500
+10 MetalSd          189000
+# ℹ 2,920 more rows</code></pre>
+</div>
+</div>
+<p>Unsurprisingly, there are almost a dozen of different ways to calculate the distance between two strings. Most are supported and can be changed using the <code>method</code> argument, and further controlled using the <code>options</code> argument.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>rec_stringdist <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> Exterior_2nd, <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_collapse_stringdist</span>(Exterior_2nd, </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">distance =</span> <span class="fl">0.75</span>, </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">method =</span> <span class="st">"cosine"</span>, </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">options =</span> <span class="fu">list</span>(<span class="at">q =</span> <span class="dv">2</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>rec_stringdist <span class="sc">|&gt;</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,930 × 2
+   Exterior_2nd Sale_Price
+   &lt;fct&gt;             &lt;int&gt;
+ 1 Plywood          215000
+ 2 MetalSd          105000
+ 3 AsbShng          172000
+ 4 Brk Cmn          244000
+ 5 MetalSd          189900
+ 6 MetalSd          195500
+ 7 CmentBd          213500
+ 8 HdBoard          191500
+ 9 CmentBd          236500
+10 MetalSd          189000
+# ℹ 2,920 more rows</code></pre>
+</div>
+</div>
+<p>Lastly, we have the tree-based method, this is done using the <code>step_collapse_cart()</code> function. For this to work, you need to select an outcome variable using the <code>outcome</code> argument. With <code>cost_complexity</code> and <code>min_n</code> as arguments to change the shape of the tree.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>rec_cart <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> Exterior_2nd, <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_collapse_cart</span>(Exterior_2nd, <span class="at">outcome =</span> <span class="fu">vars</span>(Sale_Price)) <span class="sc">|&gt;</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>rec_cart <span class="sc">|&gt;</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,930 × 2
+   Exterior_2nd   Sale_Price
+   &lt;fct&gt;               &lt;int&gt;
+ 1 Exterior_2nd_5     215000
+ 2 Exterior_2nd_7     105000
+ 3 Exterior_2nd_3     172000
+ 4 Exterior_2nd_6     244000
+ 5 Exterior_2nd_7     189900
+ 6 Exterior_2nd_7     195500
+ 7 Exterior_2nd_8     213500
+ 8 Exterior_2nd_5     191500
+ 9 Exterior_2nd_8     236500
+10 Exterior_2nd_7     189000
+# ℹ 2,920 more rows</code></pre>
+</div>
+</div>
 </section>
 <section id="python-examples" class="level2" data-number="35.3">
 <h2 data-number="35.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">35.3</span> Python Examples</h2>
