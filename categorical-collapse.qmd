@@ -114,7 +114,77 @@ Unseen levels will have to be treated on a method-to-method basis. Tree-based co
 
 ## R Examples
 
-Methods to collapse categorical levels can be found in recipes with `step_other()` and embed in `step_collapse_cart()` and `step_collapse_stringdist()`
+Methods to collapse categorical levels can be found in recipes with `step_other()` and embed in `step_collapse_cart()` and `step_collapse_stringdist()`.
+
+TODO: find a better data set for examples
+
+Othering can be done using the `step_other()` function, it uses the argument `threshold` to determine the cutoff used to turn levels into `"other"` or not.
+
+```{r}
+#| echo: false
+set.seed(1234)
+```
+
+```{r}
+library(recipes)
+library(embed)
+
+data(ames, package = "modeldata")
+
+rec_other <- recipe(Sale_Price ~ Exterior_2nd, data = ames) |>
+  step_other(Exterior_2nd, threshold = 0.1) |>
+  prep()
+
+rec_other |>
+  bake(new_data = NULL)
+```
+
+selecting a higher threshold turns more levels into `"other"`.
+
+```{r}
+rec_other <- recipe(Sale_Price ~ Exterior_2nd, data = ames) |>
+  step_other(Exterior_2nd, threshold = 0.5) |>
+  prep()
+
+rec_other |>
+  bake(new_data = NULL)
+```
+
+
+for the more advanced methods, we turn to the embed package. To collapse levels by their string distance, we use the `step_collapse_stringdist()`. By default, you control it with the `distance` argument. 
+```{r}
+rec_stringdist <- recipe(Sale_Price ~ Exterior_2nd, data = ames) |>
+  step_collapse_stringdist(Exterior_2nd, distance = 5) |>
+  prep()
+
+rec_stringdist |>
+  bake(new_data = NULL)
+```
+
+Unsurprisingly, there are almost a dozen of different ways to calculate the distance between two strings. Most are supported and can be changed using the `method` argument, and further controlled using the `options` argument.
+
+```{r}
+rec_stringdist <- recipe(Sale_Price ~ Exterior_2nd, data = ames) |>
+  step_collapse_stringdist(Exterior_2nd, 
+                           distance = 0.75, 
+                           method = "cosine", 
+                           options = list(q = 2)) |>
+  prep()
+
+rec_stringdist |>
+  bake(new_data = NULL)
+```
+
+Lastly, we have the tree-based method, this is done using the `step_collapse_cart()` function. For this to work, you need to select an outcome variable using the `outcome` argument. With `cost_complexity` and `min_n` as arguments to change the shape of the tree.
+
+```{r}
+rec_cart <- recipe(Sale_Price ~ Exterior_2nd, data = ames) |>
+  step_collapse_cart(Exterior_2nd, outcome = vars(Sale_Price)) |>
+  prep()
+
+rec_cart |>
+  bake(new_data = NULL)
+```
 
 ## Python Examples
 
