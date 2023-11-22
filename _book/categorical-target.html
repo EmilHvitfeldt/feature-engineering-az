@@ -1261,7 +1261,7 @@ div.csl-indent {
 6        4 horse </code></pre>
 </div>
 </div>
-<p>If we were to calculate target encoding on <code>animal</code> using <code>cuteness</code> as the target, we will first need to calculate the mean of <code>cuteness</code> within each</p>
+<p>If we were to calculate target encoding on <code>animal</code> using <code>cuteness</code> as the target, we would first need to calculate the mean of <code>cuteness</code> within each</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
@@ -1272,7 +1272,7 @@ div.csl-indent {
 3 horse  4 / 1            4   </code></pre>
 </div>
 </div>
-<p>Taking these means and we can now use them as an encoding</p>
+<p>Taking these means we can now use them as an encoding</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 2
@@ -1287,7 +1287,7 @@ div.csl-indent {
 </div>
 </div>
 <p>From the above example, we notice 3 things. Firstly, once the calculations have been done, applying the encoding to new data is a fairly easy procedure as it amounts to a left join. Secondly, some classes have different numbers of observations associated with them. The <code>"horse"</code> class only has 1 observation in this data set, how confident are we that the mean calculated from this value is as valid as the mean that was calculated over the 3 values for the <code>"cat"</code> class? Lastly, how will this method handle unseen levels?</p>
-<p>Let us think about the unseen levels first. If we have no information about a given class. This could happen in two different ways. Because the level is truly unseen because the company was just started and wasn’t known in the training data set. Or because the known level wasn’t observed, e.i. no Sundays in the training data set. Regardless of the reason, we will want to give these levels a baseline number. For this, we can use the mean value of the target, across all of the training data set. So for our toy example, we have a mean cuteness of 4, which we will assign to any new animal.</p>
+<p>Let us think about the unseen levels first. If we have no information about a given class. This could happen in at least two different ways. Because the level is truly unseen because the company was just started and wasn’t known in the training data set. Or because the known level wasn’t observed, e.i. no Sundays in the training data set. Regardless of the reason, we will want to give these levels a baseline number. For this, we can use the mean value of the target, across all of the training data set. So for our toy example, we have a mean cuteness of 4, which we will assign to any new animal.</p>
 <p>This value is by no means a good value, but it is an educated guess that can be calculated with ease. This also means that regardless of the distribution of the target, these values can be calculated.</p>
 <p>The way we handle unseen levels gives us a clue as to how we can deal with low-frequency counts. Knowing that the global mean of the target is our baseline when we have no information. We can combine the level mean with the global mean, in accordance with how many observations we observe. If we have a lot of observations in a level, we will let the global mean have little influence, and if there are fewer observations we will let the global mean have a higher influence.</p>
 <p>We can visualize this effect in the following charts. First, we have an example of what happens with a smaller amount of smoothing. The points are mostly along the diagonal. Remember that if we didn’t do this, all the points would be along the diagonal regardless of their size.</p>
@@ -1306,36 +1306,44 @@ div.csl-indent {
 <div class="cell-output-display">
 <div id="fig-target-smoothness-5" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="categorical-target_files/figure-html/fig-target-smoothness-5-1.png" class="img-fluid figure-img" alt="Scatter chart. A green line with slope 1 and intercept, and a blue line with slope 0 and an intercept equal to the global mean. The points are sized according to the number of observations that were used to calculate the value. The points lie between the green and blue lines, with the smaller points being close to the blue line than the larger points." width="672"></p>
+<p><img src="categorical-target_files/figure-html/fig-target-smoothness-5-1.png" class="img-fluid figure-img" alt="Scatter chart. A green line with slope 1 and intercept, and a blue line with slope 0 and an intercept equal to the global mean. The points are sized according to the number of observations that were used to calculate the value. The points lie between the green and blue lines, with the smaller points being closer to the blue line than the larger points." width="672"></p>
 <figcaption class="figure-caption">Figure&nbsp;23.2: With a large amount of smoothing, the adjusted means are not as close to the original means, with smaller points getting quite close to the global mean.</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>The exact way this is done will vary from method to method, and the strength of this smoothing can and should be tuned as there isn’t an empirical best way to choose it.</p>
-<p>We need to talk about the subtleties. There is plain mean encoding, and then there is all the variants,</p>
-<p><code>step_lencode_glm()</code> is identical to plain mean encoding. at least for the cases I have worked on.</p>
-<p>regularization</p>
-<p>https://workshops.tidymodels.org/slides/extras-effect-encodings.html#/what-is-an-effect-encoding</p>
-<p>https://embed.tidymodels.org/reference/step_lencode_glm.html https://embed.tidymodels.org/reference/step_lencode_mixed.html https://embed.tidymodels.org/reference/step_lencode_mixed.html https://contrib.scikit-learn.org/category_encoders/targetencoder.html</p>
-<p>https://dl.acm.org/doi/10.1145/507533.507538</p>
-<p><a href="https://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/target-encoding.html#:~:text=Target%20encoding%20is%20the%20process,convert%20categorical%20columns%20to%20numeric." class="uri">https://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/target-encoding.html#:~:text=Target%20encoding%20is%20the%20process,convert%20categorical%20columns%20to%20numeric.</a></p>
-<p><a href="https://towardsdatascience.com/dealing-with-categorical-variables-by-using-target-encoder-a0f1733a4c69" class="uri">https://towardsdatascience.com/dealing-with-categorical-variables-by-using-target-encoder-a0f1733a4c69</a></p>
-<p>Also, talk about how we can deal with hierarchy in the data.</p>
+<p>The exact way this is done will vary from method to method, and the strength of this smoothing can and should properly be tuned as there isn’t an empirical best way to choose it.</p>
+<p>This smoothing isn’t required but it is often beneficial to include if you are dealing with low count levels. It is also recommended because if omitted, it would lead to overfitting since we are essentially using the outcome to guide the predictors.</p>
+<p>We have so far talked about target encoding, from the perspective of a regression task. But target encoding is not limited to numeric outcomes, but can be used in classification settings as well. In the classification setting, where we have a categorical outcome, instead of calculating the mean of the target variable, we need to figure something else out. It could be calculating the probability of the first level, or we could try to go more linear by converting them to log-odds. Now everything works as before.</p>
+<p>TODO: find good example</p>
+<p>A type of data that is sometimes seen is hierarchical categorical variables. Typical examples are city-state, region-subregion. With hierarchical categorical variables you often end up with many levels, and target encoding can be used on such data, and can even use the hierarchical structure.</p>
+<p>The encoding is calculation like normal, but the smoothing is done on a lower level than at the top. So instead of adjusting by the global mean, you smooth by the level below it.</p>
 <section id="pros-and-cons" class="level2" data-number="23.1">
 <h2 data-number="23.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">23.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="23.1.1">
 <h3 data-number="23.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">23.1.1</span> Pros</h3>
+<ul>
+<li>Can deal with categorical variables with many levels</li>
+<li>Can deal with unseen levels in a sensible way</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="23.1.2">
 <h3 data-number="23.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">23.1.2</span> Cons</h3>
+<ul>
+<li>Can be prone to overfitting</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="23.2">
 <h2 data-number="23.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">23.2</span> R Examples</h2>
+<p>The embed package comes with a couple of functions to do target encoding. <code>step_lencode_glm()</code>, <code>step_lencode_bayes()</code> and <code>step_lencode_mixed()</code>. These functions are named such because they <strong>l</strong>ikelihood <strong>encode</strong> variables, and because the encodings can be calculated using no intercept models.</p>
+<p><code>step_lencode_glm()</code> implements the no-smoothing method.</p>
+<p><code>step_lencode_glm()</code> is identical to plain mean encoding. at least for the cases I have worked on.</p>
+<p>https://embed.tidymodels.org/reference/step_lencode_glm.html https://embed.tidymodels.org/reference/step_lencode_mixed.html https://embed.tidymodels.org/reference/step_lencode_mixed.html</p>
 </section>
 <section id="python-examples" class="level2" data-number="23.3">
 <h2 data-number="23.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">23.3</span> Python Examples</h2>
+<p>https://contrib.scikit-learn.org/category_encoders/targetencoder.html</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">

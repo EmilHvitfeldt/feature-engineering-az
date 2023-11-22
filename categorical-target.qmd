@@ -16,7 +16,7 @@ animals <- tibble::tibble(
 animals
 ```
 
-If we were to calculate target encoding on `animal` using `cuteness` as the target, we will first need to calculate the mean of `cuteness` within each
+If we were to calculate target encoding on `animal` using `cuteness` as the target, we would first need to calculate the mean of `cuteness` within each
 
 ```{r}
 #| echo: false
@@ -35,7 +35,7 @@ animals_means <- animals |>
 animals_means
 ```
 
-Taking these means and we can now use them as an encoding
+Taking these means we can now use them as an encoding
 
 ```{r}
 #| echo: false
@@ -47,7 +47,7 @@ animals |>
 
 From the above example, we notice 3 things. Firstly, once the calculations have been done, applying the encoding to new data is a fairly easy procedure as it amounts to a left join. Secondly, some classes have different numbers of observations associated with them. The `"horse"` class only has 1 observation in this data set, how confident are we that the mean calculated from this value is as valid as the mean that was calculated over the 3 values for the `"cat"` class? Lastly, how will this method handle unseen levels?
 
-Let us think about the unseen levels first. If we have no information about a given class. This could happen in two different ways. Because the level is truly unseen because the company was just started and wasn't known in the training data set. Or because the known level wasn't observed, e.i. no Sundays in the training data set. Regardless of the reason, we will want to give these levels a baseline number. For this, we can use the mean value of the target, across all of the training data set. So for our toy example, we have a mean cuteness of `r mean(animals$cuteness)`, which we will assign to any new animal.
+Let us think about the unseen levels first. If we have no information about a given class. This could happen in at least two different ways. Because the level is truly unseen because the company was just started and wasn't known in the training data set. Or because the known level wasn't observed, e.i. no Sundays in the training data set. Regardless of the reason, we will want to give these levels a baseline number. For this, we can use the mean value of the target, across all of the training data set. So for our toy example, we have a mean cuteness of `r mean(animals$cuteness)`, which we will assign to any new animal.
 
 This value is by no means a good value, but it is an educated guess that can be calculated with ease. This also means that regardless of the distribution of the target, these values can be calculated.
 
@@ -117,7 +117,7 @@ In this next chart, we see the effect of a higher amount of smoothing, now the l
 #|   with slope 0 and an intercept equal to the global mean. The points are sized
 #|   according to the number of observations that were used to calculate the 
 #|   value. The points lie between the green and blue lines, with the smaller
-#|   points being close to the blue line than the larger points.
+#|   points being closer to the blue line than the larger points.
 smoothness <- 5
 
 data |>
@@ -135,32 +135,45 @@ data |>
        title = "Large amount of smoothing")
 ```
 
-The exact way this is done will vary from method to method, and the strength of this smoothing can and should be tuned as there isn't an empirical best way to choose it.
+The exact way this is done will vary from method to method, and the strength of this smoothing can and should properly be tuned as there isn't an empirical best way to choose it.
 
-We need to talk about the subtleties. There is plain mean encoding, and then there is all the variants,
+This smoothing isn't required but it is often beneficial to include if you are dealing with low count levels. It is also recommended because if omitted, it would lead to overfitting since we are essentially using the outcome to guide the predictors.
 
-`step_lencode_glm()` is identical to plain mean encoding. at least for the cases I have worked on.
+We have so far talked about target encoding, from the perspective of a regression task. But target encoding is not limited to numeric outcomes, but can be used in classification settings as well. In the classification setting, where we have a categorical outcome, instead of calculating the mean of the target variable, we need to figure something else out. It could be calculating the probability of the first level, or we could try to go more linear by converting them to log-odds. Now everything works as before.
 
-regularization
+TODO: find good example
 
-https://workshops.tidymodels.org/slides/extras-effect-encodings.html#/what-is-an-effect-encoding
+A type of data that is sometimes seen is hierarchical categorical variables. Typical examples are city-state, region-subregion. With hierarchical categorical variables you often end up with many levels, and target encoding can be used on such data, and can even use the hierarchical structure. 
 
-https://embed.tidymodels.org/reference/step_lencode_glm.html https://embed.tidymodels.org/reference/step_lencode_mixed.html https://embed.tidymodels.org/reference/step_lencode_mixed.html https://contrib.scikit-learn.org/category_encoders/targetencoder.html
-
-https://dl.acm.org/doi/10.1145/507533.507538
-
-<https://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/target-encoding.html#:~:text=Target%20encoding%20is%20the%20process,convert%20categorical%20columns%20to%20numeric.>
-
-<https://towardsdatascience.com/dealing-with-categorical-variables-by-using-target-encoder-a0f1733a4c69>
-
-Also, talk about how we can deal with hierarchy in the data. 
+The encoding is calculation like normal, but the smoothing is done on a lower level than at the top. So instead of adjusting by the global mean, you smooth by the level below it.
 
 ## Pros and Cons
 
 ### Pros
 
+- Can deal with categorical variables with many levels
+- Can deal with unseen levels in a sensible way
+
 ### Cons
+
+- Can be prone to overfitting
 
 ## R Examples
 
+The embed package comes with a couple of functions to do target encoding. `step_lencode_glm()`, `step_lencode_bayes()` and `step_lencode_mixed()`. These functions are named such because they **l**ikelihood **encode** variables, and because the encodings can be calculated using no intercept models.
+
+
+`step_lencode_glm()` implements the no-smoothing method.
+
+```{r}
+```
+
+`step_lencode_glm()` is identical to plain mean encoding. at least for the cases I have worked on.
+
+https://embed.tidymodels.org/reference/step_lencode_glm.html
+https://embed.tidymodels.org/reference/step_lencode_mixed.html
+https://embed.tidymodels.org/reference/step_lencode_mixed.html 
+
 ## Python Examples
+
+https://contrib.scikit-learn.org/category_encoders/targetencoder.html
