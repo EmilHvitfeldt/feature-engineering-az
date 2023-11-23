@@ -1260,16 +1260,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>Removing observations with missing values should generally be considered the last resort. This will of cause depend on your data and practices, and there are cases where it is appropriate.</p>
-<p>Nevertheless, removal of observations should be done with care. Especially since removal of observations means that no prediction will happen to them. This might be unacceptable, and you need to make sure proper procedure is taken to guaranteed that all observations are predicted on. Even if removed observations are given default values for predictions.</p>
-<p>The most simple way to do missing value removal, is to remove observations that experience any number of missing values. It is straightforward to do, implemented in any modeling software you use. The downside to this, is that if you are seeing a little bit of missing data, across your predictors, you end up throwing away a lot of data once you have a lot of columns.</p>
+<p>Removing observations with missing values should generally be considered the last resort. This will of course depend on your data and practices, and there are cases where it is appropriate.</p>
+<p>Nevertheless, the removal of observations should be done with care. Especially since the removal of observations means that no prediction will happen to them. This might be unacceptable, and you need to make sure proper procedure is taken to guarantee that all observations are predicted. Even if removed observations are given default values for predictions.</p>
+<p>The most simple way to do missing value removal is to remove observations that experience any number of missing values. It is straightforward to do and implemented in any modeling software you use. The downside to this is that if you are seeing a little bit of missing data, across your predictors, you end up throwing away a lot of data once you have a lot of columns.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.3     ✔ readr     2.1.4
-✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ ggplot2   3.4.3     ✔ tibble    3.2.1
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.4.4     ✔ tibble    3.2.1
 ✔ lubridate 1.9.3     ✔ tidyr     1.3.0
 ✔ purrr     1.0.2     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
@@ -1294,16 +1294,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="missing-remove_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>This can also happen with missingness that cluster in certain groups of variables. Remember to always look at how many observations you are losing by doing the removals.</p>
-<p>We are removing observations for one fo two reasons. The first reason is that it messes with our models ability to fit correctly. If this is the issue we should think about other methods in <a href="missing.html" class="quarto-xref"><span>Chapter&nbsp;42</span></a> than removal. Another reason why we want to remove observations is because the don’t have enough information in them because of their missingness.</p>
-<p>Imagine an observation where every single field is missing. There is no information about the observation other than the fact that it is fully missing. On the other end of the spectrum we have observations with no missing values at all. Somewhere between these two extremes is a threshold that we imagine defines “too much missing”. This is the basis behind <strong>threshold-based missing value removal</strong> we define an threshold and then remove observations once they have more than, say 50% missing values. This method by itself doesn’t deal with all the missing values, and would need to be accompanied with other methods as described in <a href="missing.html" class="quarto-xref"><span>Chapter&nbsp;42</span></a>. This threshold will need to be carefully selected, as you are still removing observations.</p>
-<p>In the same vain as above, we can look at removing predictors that has too many missing values. This is a less controversial option that you can explore. As for its use. It is still recommended that you do it in a thresholded fashion. So you can set up your preprocessing to remove predictors that have more than 30% or 50% missing values. Again this value will likely have to be tuned. The reason why this method isn’t as bad, is that we aren’t removing observations, we are instead trying to remove low information predictors. This is not a foolproof method, as the missingness could be non-MCAR and be informative.</p>
+<p>This can also happen with missingness that clusters in certain groups of variables. Remember to always look at how many observations you are losing by doing the removals.</p>
+<p>We are removing observations for one of two reasons. The first reason is that it messes with our model’s ability to fit correctly. If this is the issue we should think about other methods in <a href="missing.html" class="quarto-xref"><span>Chapter&nbsp;42</span></a> than removal. Another reason why we want to remove observations is because they don’t have enough information in them because of their missingness.</p>
+<p>Imagine an observation where every single field is missing. There is no information about the observation other than the fact that it is fully missing. On the other end of the spectrum, we have observations with no missing values at all. Somewhere between these two extremes is a threshold that we imagine defines “too much missing”. This is the basis behind <strong>threshold-based missing value removal</strong> we define a threshold and then remove observations once they have more than, say 50% missing values. This method by itself doesn’t deal with all the missing values and would need to be accompanied by other methods as described in <a href="missing.html" class="quarto-xref"><span>Chapter&nbsp;42</span></a>. This threshold will need to be carefully selected, as you are still removing observations.</p>
+<p>In the same vein as above, we can look at removing predictors that have too many missing values. This is a less controversial option that you can explore. As for its use. It is still recommended that you do it in a thresholded fashion. So you can set up your preprocessing to remove predictors that have more than 30% or 50% missing values. Again this value will likely have to be tuned. The reason why this method isn’t as bad, is that we aren’t removing observations, we are instead trying to remove low information predictors. This is not a foolproof method, as the missingness could be non-MCAR and be informative.</p>
 <section id="pros-and-cons" class="level2" data-number="46.1">
 <h2 data-number="46.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">46.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="46.1.1">
 <h3 data-number="46.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">46.1.1</span> Pros</h3>
 <ul>
-<li>Will sometimes be neasesary</li>
+<li>Will sometimes be necessary</li>
 </ul>
 </section>
 <section id="cons" class="level3" data-number="46.1.2">

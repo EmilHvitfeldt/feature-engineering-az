@@ -1289,7 +1289,7 @@ TODO
 <pre><code>[1] "st albans"  "st. albans" "st  alban"  "st. alban"  "st albans "</code></pre>
 </div>
 </div>
-<p>By turning everything into lower-case, we were able to remove 2 of the errors. Next, we see that some of these spellings include periods. For this example, I’m going to make the decision that they are safe to remove as well.</p>
+<p>By turning everything into lower-case, we were able to remove 2 of the errors. Next, we see that some of these spellings include periods. For this example, I’m going to decide that they are safe to remove as well.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>st_albans <span class="ot">&lt;-</span> st_albans <span class="sc">|&gt;</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  stringr<span class="sc">::</span><span class="fu">str_remove</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">."</span>) <span class="sc">|&gt;</span></span>
@@ -1299,7 +1299,7 @@ TODO
 <pre><code>[1] "st albans"  "st  alban"  "st alban"   "st albans "</code></pre>
 </div>
 </div>
-<p>This removes yet another of our problems. This next problem is absolutely horrible and is so easy to overlook. Notice how the second spelling has a double space between <code>st</code> and <code>alban</code>? At a glance that can be hard to see. Likewise, the last spelling has a trailing space. Let us fix this as well.</p>
+<p>This removes yet another of our problems. This next problem is horrible and is so easy to overlook. Notice how the second spelling has a double space between <code>st</code> and <code>alban</code>? At a glance that can be hard to see. Likewise, the last spelling has a trailing space. Let us fix this as well.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>st_albans <span class="ot">&lt;-</span> st_albans <span class="sc">|&gt;</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  stringr<span class="sc">::</span><span class="fu">str_squish</span>() <span class="sc">|&gt;</span></span>
@@ -1312,7 +1312,7 @@ TODO
 </div>
 <p>Now we are left with two values, which we manually would have to deal with. But even if we had to manually write out the mapping, it is a lot easier to write it for 2 different spellings than 7.</p>
 <p>Another problem that you may or may not run into, depends on the resilience of your modeling package. Some implementations are rather fragile when it comes to the column names of your data, Non-ASCII characters, punctuation and even spaces can cause errors. At this point in our journey, we are almost there, and we can replace the spaces with underscores to be left with <code>st_albans</code>.</p>
-<p>One problem we didn’t see in the above example is what happens you are working with accented characters. Consider the German word “schön.” The o with an umlaut (two dots over it) is a fairly simple character, but it can be represented in a couple of different ways. We can either use a single character <a href="https://www.fileformat.info/info/unicode/char/00f6/index.htm">\U00f6</a> to represent the letter with an umlaut. Alternatively, we can use two characters, one for the o and one character to denote the presence of two dots over the previous character <a href="https://www.fileformat.info/info/unicode/char/0308/index.htm">\U0308</a>. As you can imagine this can happen with many words if you have free-form data from a wide array of backgrounds. The method needed to fix this problem is called <a href="https://unicode.org/reports/tr15/">Unicode Normalization</a>.</p>
+<p>One problem we didn’t see in the above example is what happens when you are working with accented characters. Consider the German word “schön.” The o with an umlaut (two dots over it) is a fairly simple character, but it can be represented in a couple of different ways. We can either use a single character <a href="https://www.fileformat.info/info/unicode/char/00f6/index.htm">\U00f6</a> to represent the letter with an umlaut. Alternatively, we can use two characters, one for the o and one character to denote the presence of two dots over the previous character <a href="https://www.fileformat.info/info/unicode/char/0308/index.htm">\U0308</a>. As you can imagine this can happen with many words if you have free-form data from a wide array of backgrounds. The method needed to fix this problem is called <a href="https://unicode.org/reports/tr15/">Unicode Normalization</a>.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">

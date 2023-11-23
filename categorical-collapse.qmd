@@ -122,7 +122,7 @@ Unseen levels will have to be treated on a method-to-method basis. Tree-based co
 
 ## R Examples
 
-Methods to collapse categorical levels can be found in recipes with `step_other()` and embed in `step_collapse_cart()` and `step_collapse_stringdist()`.
+Methods to collapse categorical levels can be found in the recipes package with `step_other()` and the embed package in `step_collapse_cart()` and `step_collapse_stringdist()`.
 
 ::: {.callout-caution}
 # TODO
@@ -173,7 +173,7 @@ rec_stringdist |>
   bake(new_data = NULL)
 ```
 
-Unsurprisingly, there are almost a dozen of different ways to calculate the distance between two strings. Most are supported and can be changed using the `method` argument, and further controlled using the `options` argument.
+Unsurprisingly, there are almost a dozen different ways to calculate the distance between two strings. Most are supported and can be changed using the `method` argument, and further controlled using the `options` argument.
 
 ```{r}
 rec_stringdist <- recipe(Sale_Price ~ Exterior_2nd, data = ames) |>

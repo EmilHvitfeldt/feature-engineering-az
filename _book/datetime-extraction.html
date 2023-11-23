@@ -1261,8 +1261,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <p>Sometimes date variables come in many data sets and problems. The presence of a date time variable doesn’t mean that we are working with a time series data set. If you are, then read more about how to handle that in <a href="time-series.html" class="quarto-xref"><span>Chapter&nbsp;112</span></a>. All the extract methods are not learned, as there isn’t anything to estimate.</p>
-<p>Dates and date times are typically stores as integers. With dates represented as the number of days since 1970-01-01, with negative values for earlier dates. with date times representing the number of seconds since 1970-01-01.</p>
-<p>This means that if your are lucky and the model you were trying to fit knew to convert dates and date times into integers, and that “time since 1970-01-01” would be a helpful predictor. If not then we need to do some more advanced work.</p>
+<p>Dates and date times are typically stored as integers. With dates represented as the number of days since 1970-01-01, with negative values for earlier dates. with date times representing the number of seconds since 1970-01-01.</p>
+<p>This means that if you are lucky and the model you were trying to fit knew to convert dates and date times into integers, that “time since 1970-01-01” would be a helpful predictor. If not then we need to do some more advanced work.</p>
 <p>We have assumed for this chapter that we already have the date variables in the right format. This would typically be</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>YYYY‐MM‐DD</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>for dates, and</p>
@@ -1278,10 +1278,10 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>There are other format, and it isn’t too big of a deal, as long as the libraries you are using can handle them.</p>
+<p>There are other formats, and it isn’t too big of a deal, as long as the libraries you are using can handle them.</p>
 </div>
 </div>
-<p>There is also the wrinkle with regards to time zones, leap years and leap seconds. There are many rules that can miss you up. It is for this reason that we recommend that you use a trusted date time library to do the following calculations.</p>
+<p>There is also the wrinkle concerning time zones, leap years and leap seconds. Many rules can mess you up. It is for this reason that we recommend that you use a trusted datetime library to do the following calculations.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1292,10 +1292,10 @@ TODO
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>find good reference to messed up time, for above paragraph</p>
+<p>find a good reference to messed up time, for the above paragraph</p>
 </div>
 </div>
-<p>Most libraries allows us to pull out standard measurements like</p>
+<p>Most libraries allow us to pull out standard measurements like</p>
 <ul>
 <li>year</li>
 <li>month</li>
@@ -1304,10 +1304,10 @@ TODO
 <li>minute</li>
 <li>second</li>
 </ul>
-<p>but we can include a couple more. <code>quarter</code>, <code>semester</code>, <code>week</code>. These are highly related to the above list, they are just on a different format. <code>season</code> is another possibly nice feature, but we have to be careful as the seasons flip depending on where on the globe we are at.</p>
-<p>In our above list of features, each of them counts up from 1, until we reach the level level. So minutes stops at 60 and starts over. This might not be what we want, so we can include finer detail by extracting <code>seconds in day</code>, <code>days in week</code>, and <code>days in year</code>. If will be up to you to figure out if these are useful for you. Generally these become useful in the broader sense. <code>seconds in day</code> is more finely grained than <code>hour</code>, so if you want to figure out time of day, then the smaller measurements are helpful. Likewise, some of these methods are better expressed as decimals, as periods such as <code>month</code> have different lengths, and will thus be different. Talking about being <code>0.9</code> through the month will be more precise.</p>
+<p>but we can include a couple more. <code>quarter</code>, <code>semester</code>, <code>week</code>. These are highly related to the above list, they are just in a different format. <code>season</code> is another possibly nice feature, but we have to be careful as the seasons flip depending on where on the globe we are.</p>
+<p>In our above list of features, each of them counts up from 1, until we reach the level level. So minutes stop at 60 and start over. This might not be what we want, so we can include finer detail by extracting <code>seconds in day</code>, <code>days in week</code>, and <code>days in year</code>. It will be up to you to figure out if these are useful for you. Generally, these become useful in the broader sense. <code>seconds in day</code> is more finely grained than <code>hour</code>, so if you want to figure out the time of day, then the smaller measurements are helpful. Likewise, some of these methods are better expressed as decimals, as periods such as <code>month</code> have different lengths, and will thus be different. Talking about being <code>0.9</code> through the month will be more precise.</p>
 <p>From these we can also do things like <code>weekends</code>, <code>weekdays</code>, <code>morning</code> and holidays such as Christmas and Easter. Remember that there are libraries to extract these for you.</p>
-<p>Some of the measurements here can be extracted as categorical rather than numeric, things like <code>day of week</code> can either be extracted as <code>1, 2, 3</code> or <code>Monday, Tuesday, Wednesday</code> or <code>month</code> that can be extracted . We can think of the numeric extract as being a automatic label encoding <a href="categorical-label.html" class="quarto-xref"><span>Chapter&nbsp;19</span></a> of the categorical version. Some times it will be worth extracting the categorical version and use it directly or embed it with other methods in <a href="categorical.html" class="quarto-xref"><span>Chapter&nbsp;15</span></a>. It is worth noting that the categorical version of these variables are ordinal in nature.</p>
+<p>Some of the measurements here can be extracted as categorical rather than numeric, things like <code>day of week</code> can either be extracted as <code>1, 2, 3</code> or <code>Monday, Tuesday, Wednesday</code> or <code>month</code> that can be extracted. We can think of the numeric extract as being an automatic label encoding <a href="categorical-label.html" class="quarto-xref"><span>Chapter&nbsp;19</span></a> of the categorical version. Sometimes it will be worth extracting the categorical version and using it directly or embedding it with other methods in <a href="categorical.html" class="quarto-xref"><span>Chapter&nbsp;15</span></a>. It is worth noting that the categorical version of these variables is ordinal.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1318,10 +1318,10 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Most of the advise here tracks to sub-second measurements too if that is applicable to your problem.</p>
+<p>Most of the advice here tracks to sub-second measurements too if that applies to your problem.</p>
 </div>
 </div>
-<p>The talk in this chapter is very Euro and US focused. Many cultures around the world divide the “year” and “day” up differently. Always use the conventions that are most appropriate with the culture you are working with.</p>
+<p>The talk in this chapter is very Euro and US-focused. Many cultures around the world divide the “year” and “day” up differently. Always use the conventions that are most appropriate to the culture you are working with.</p>
 <section id="pros-and-cons" class="level2" data-number="39.1">
 <h2 data-number="39.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">39.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="39.1.1">
@@ -1436,7 +1436,7 @@ $ reservation_status_date_dow      &lt;int&gt; 4, 4, 5, 5, 6, 6, 6, 6, 4, 4, 3, 
 $ reservation_status_date_month    &lt;int&gt; 7, 7, 7, 7, 7, 7, 7, 7, 5, 4, 6, 7, 7…</code></pre>
 </div>
 </div>
-<p>If we want to extract holiday features, we can use the <code>step_holiday()</code> function, that uses the {timeDate} library. With known holiday listed in <code>timeDate::listHolidays()</code>.</p>
+<p>If we want to extract holiday features, we can use the <code>step_holiday()</code> function, which uses the {timeDate} library. With known holidays listed in <code>timeDate::listHolidays()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>date_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(is_canceled <span class="sc">~</span> reservation_status_date, </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> hotel_bookings) <span class="sc">|&gt;</span></span>

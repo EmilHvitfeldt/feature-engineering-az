@@ -1223,8 +1223,8 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Image data is quite dissimilar to anything we have seen so far in this book. And will be need a whole different set of techniques to deal with them. For Most of this book, the unit of data was 1 value, such as 4, 7, or 0.3562 for numeric, and “cat” and “dog” for categorical. Text data as seen in <a href="text.html" class="quarto-xref"><span>Chapter&nbsp;47</span></a>, is being treated as a series of tokens.</p>
-<p>Image data on the other hand is represented as an array of numbers, typically integers with varying dimensions. Each image is comprised of pixels, these pixels are laid out in a rectangular grid. For each pixel value you typically have between 1 and 4 values. These are called channels. 1 channel is used for gray-scale images. 3 channels are used for color images as they have a red channel, green channel and blue channel. Lastly sometimes there are also a forth channel for opacity.</p>
+<p>Image data is quite dissimilar to anything we have seen so far in this book. And will need a whole different set of techniques to deal with them. For Most of this book, the unit of data was 1 value, such as 4, 7, or 0.3562 for numeric, and “cat” and “dog” for categorical. Text data as seen in <a href="text.html" class="quarto-xref"><span>Chapter&nbsp;47</span></a>, is being treated as a series of tokens.</p>
+<p>Image data on the other hand is represented as an array of numbers, typically integers with varying dimensions. Each image is comprised of pixels, these pixels are laid out in a rectangular grid. For each pixel value, you typically have between 1 and 4 values. These are called channels. 1 channel is used for gray-scale images. 3 channels are used for color images as they have a red channel, a green channel and a blue channel. Lastly, sometimes there is also a fourth channel for opacity.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1238,11 +1238,11 @@ TODO
 <p>Add diagrams</p>
 </div>
 </div>
-<p>This means that for a 500 pixel by 1000 pixel color image, we have <code>500 * 1000 * 3 = 1500000</code> values. This is quite a lot of data, and hopefully we will be able to squeeze some out if it.</p>
+<p>This means that for a 500-pixel by 1000-pixel color image, we have <code>500 * 1000 * 3 = 1500000</code> values. This is quite a lot of data, and hopefully, we will be able to squeeze some out of it.</p>
 <p>The preprocessing techniques for images can be split into a couple of categories. All of which will be covered.</p>
 <section id="feature-extraction" class="level2" data-number="124.1">
 <h2 data-number="124.1" class="anchored" data-anchor-id="feature-extraction"><span class="header-section-number">124.1</span> Feature Extraction</h2>
-<p>In the extraction setting, we take the images and try to extract smaller, hopefully smaller vectors of information. These could be simple statistics or larger and more complicated methods. One does not need to do this right away, and sometimes it is beneficent to apply some of the image modifications methods below before doing the extraction.</p>
+<p>In the extraction setting, we take the images and try to extract smaller, hopefully smaller vectors of information. These could be simple statistics or larger and more complicated methods. One does not need to do this right away, and sometimes it is beneficial to apply some of the image modification methods below before doing the extraction.</p>
 <ul>
 <li>Edge detection and corner detection in <a href="image-edge-corner.html" class="quarto-xref"><span>Chapter&nbsp;125</span></a></li>
 <li>texture analysis in <a href="image-texture.html" class="quarto-xref"><span>Chapter&nbsp;126</span></a></li>
@@ -1250,7 +1250,7 @@ TODO
 </section>
 <section id="image-modification" class="level2" data-number="124.2">
 <h2 data-number="124.2" class="anchored" data-anchor-id="image-modification"><span class="header-section-number">124.2</span> Image Modification</h2>
-<p>Sometimes the images you get in will not be in the best shape for your task at hand. This could be for various reasons. Applying color changes of different kinds can help highlight the important parts of the image, such that later preprocessing steps or models have a easier time picking up on it. Likewise you might need to scale the data to help the model and well as reduce noise. Lastly you will properly need to resize your images as many deep learning image modes works on fixed input sizes.</p>
+<p>Sometimes the images you get will not be in the best shape for your task at hand. This could be for various reasons. Applying color changes of different kinds can help highlight the important parts of the image, such that later preprocessing steps or models have an easier time picking up on it. Likewise, you might need to scale the data to help the model and well as reduce noise. Lastly, you will most likely need to resize your images as many deep-learning image modes work on fixed input sizes.</p>
 <ul>
 <li>Grayscale conversion in <a href="image-grayscale.html" class="quarto-xref"><span>Chapter&nbsp;127</span></a></li>
 <li>color modifications in <a href="image-colors.html" class="quarto-xref"><span>Chapter&nbsp;128</span></a></li>
@@ -1261,11 +1261,11 @@ TODO
 </section>
 <section id="augmentation" class="level2" data-number="124.3">
 <h2 data-number="124.3" class="anchored" data-anchor-id="augmentation"><span class="header-section-number">124.3</span> Augmentation</h2>
-<p>A common trick in when working with image data is to do augmentation. What we mean with that, is that we do different kinds of transformations to generate new images that contain the same information but in different ways. It creates a larger data set. With with the hopes of increasing the performance and generalization. Being able to detect cat pictures regardless if they are center in the image or not.</p>
+<p>A common trick when working with image data is to do augmentation. What we mean by that, is that we do different kinds of transformations to generate new images that contain the same information but in different ways. It creates a larger data set. With the hopes of increasing the performance and generalization. Being able to detect cat pictures regardless if they are centered in the image or not.</p>
 <ul>
 <li>Changing brightness in <a href="image-brightness.html" class="quarto-xref"><span>Chapter&nbsp;132</span></a></li>
 <li>Shifting, Flipping, Rotation in <a href="image-shift-flip-rotate.html" class="quarto-xref"><span>Chapter&nbsp;133</span></a></li>
-<li>Cropping, Scaling in <a href="image-crop-scale.html" class="quarto-xref"><span>Chapter&nbsp;134</span></a></li>
+<li>Cropping and scaling in <a href="image-crop-scale.html" class="quarto-xref"><span>Chapter&nbsp;134</span></a></li>
 </ul>
 </section>
 <section id="embeddings" class="level2" data-number="124.4">

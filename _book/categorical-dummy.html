@@ -1263,14 +1263,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>We have some categorical variables and we want to turn them into numerical values, one of the most common ways of going about it it so create <strong>dummy variables</strong>. Dummy variables are variables that only take the values 0 and 1 to indicate the absence or presence of the levels in a categorical variable. This is nicely shown with an example.</p>
+<p>We have some categorical variables and we want to turn them into numerical values, one of the most common ways of going about it is to create <strong>dummy variables</strong>. Dummy variables are variables that only take the values 0 and 1 to indicate the absence or presence of the levels in a categorical variable. This is nicely shown with an example.</p>
 <p>Considering this short categorical variable of animals, we observe there are 3 unique values “cat”, “dog”, and “horse”.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "dog"   "cat"   "horse" "dog"   "cat"  </code></pre>
 </div>
 </div>
-<p>Which just this knowledge we can create the corresponding dummy variables. There should be 3 columns one for each of the levels</p>
+<p>With just this knowledge we can create the corresponding dummy variables. There should be 3 columns one for each of the levels</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>     cat dog horse
@@ -1281,8 +1281,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [5,]   1   0     0</code></pre>
 </div>
 </div>
-<p>From this, we have a couple of observations. Firstly the length of each of these variables is equal to the length of the original categorical variable. The number of columns corresponds to the number of levels. And lastly, the sum of all the values on each row equals 1 since all the rows contain one 1 and the remaining 0s. This means that for even a small number of levels, you get <strong>sparse data</strong>. Sparse data is data where there are a lot of zeroes, meaning that it would take less space to store where the non-zero values are instead of all the values. You can read more about how and when to care about sparse data in <a href="sparse.html" class="quarto-xref"><span>Chapter&nbsp;144</span></a>. What this means for dummy variable creation, is that depending on whether your software can handle sparse data, you might need to limit the number of levels in your categorical variables. One way to do this would be to collapse levels together, which you can read about in <a href="categorical-collapse.html" class="quarto-xref"><span>Chapter&nbsp;35</span></a>.</p>
-<p>Dummy variable creation is a <em>trained</em> method. This means that doing the training step, the levels of each categorical variable are saved, and then these and only these values are used for dummy variable creation. If we assumed that the above example data were used to train the preprocessor, and we passed in the values <code>["dog", "cat", "cat", "dog"]</code> during future applications, we would expect the following dummy variables</p>
+<p>From this, we have a couple of observations. Firstly the length of each of these variables is equal to the length of the original categorical variable. The number of columns corresponds to the number of levels. Lastly, the sum of all the values on each row equals 1 since all the rows contain one 1 and the remaining 0s. This means that for even a small number of levels, you get <strong>sparse data</strong>. Sparse data is data where there are a lot of zeroes, meaning that it would take less space to store where the non-zero values are instead of all the values. You can read more about how and when to care about sparse data in <a href="sparse.html" class="quarto-xref"><span>Chapter&nbsp;144</span></a>. What this means for dummy variable creation, is that depending on whether your software can handle sparse data, you might need to limit the number of levels in your categorical variables. One way to do this would be to collapse levels together, which you can read about in <a href="categorical-collapse.html" class="quarto-xref"><span>Chapter&nbsp;35</span></a>.</p>
+<p>Dummy variable creation is a <em>trained</em> method. This means that during the training step, the levels of each categorical variable are saved, and then these and only these values are used for dummy variable creation. If we assumed that the above example data were used to train the preprocessor, and we passed in the values <code>["dog", "cat", "cat", "dog"]</code> during future applications, we would expect the following dummy variables</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>     cat dog horse
@@ -1292,7 +1292,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [4,]   0   1     0</code></pre>
 </div>
 </div>
-<p>it is important that the <code>horse</code> variable is here too, even if it is empty as the subsequent preprocessing steps and model expect the horse variable to be present. Likewise, you can run into problems if the value <code>"duck"</code> was used as the preprocessor wouldn’t know what to do. These cases are talked about in <a href="categorical-unseen.html" class="quarto-xref"><span>Chapter&nbsp;17</span></a>.</p>
+<p>the <code>horse</code> variable must be here too, even if it is empty as the subsequent preprocessing steps and model expect the horse variable to be present. Likewise, you can run into problems if the value <code>"duck"</code> was used as the preprocessor wouldn’t know what to do. These cases are talked about in <a href="categorical-unseen.html" class="quarto-xref"><span>Chapter&nbsp;17</span></a>.</p>
 <section id="dummy-or-one-hot-encoding" class="level2" data-number="18.1">
 <h2 data-number="18.1" class="anchored" data-anchor-id="dummy-or-one-hot-encoding"><span class="header-section-number">18.1</span> Dummy or one-hot encoding</h2>
 <div class="callout callout-style-default callout-caution callout-titled">
@@ -1330,7 +1330,7 @@ TODO
 [5,]   0     0</code></pre>
 </div>
 </div>
-<p>These two encodings store the exact same information, even though the dummy encoding has 1 less column. Because we are able to deduce which observations are <code>cat</code> by finding the rows with all zeros. The main reason why one would use dummy variables is because of what some people call <a href="https://www.algosome.com/articles/dummy-variable-trap-regression.html">the dummy variable trap</a>. When you use one-hot encoding, you are increasing the likelihood that you run into a collinearity problem. With the above example, if you included an intercept in your model you have that <code>intercept = cat + dog + horse</code> which gives perfect collinearity and would cause some models to error as they aren’t able to handle that.</p>
+<p>These two encodings store the same information, even though the dummy encoding has 1 less column. Because we can deduce which observations are <code>cat</code> by finding the rows with all zeros. The main reason why one would use dummy variables is because of what some people call <a href="https://www.algosome.com/articles/dummy-variable-trap-regression.html">the dummy variable trap</a>. When you use one-hot encoding, you are increasing the likelihood that you run into a collinearity problem. With the above example, if you included an intercept in your model you have that <code>intercept = cat + dog + horse</code> which gives perfect collinearity and would cause some models to error as they aren’t able to handle that.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1355,7 +1355,7 @@ Note
 [5,]   1   0     0     1         0</code></pre>
 </div>
 </div>
-<p>And in this case, we have that <code>house = cat + dog + horse - apartment</code> which again is an example of perfect collinearity. Unless you have a reason to do otherwise I would suggest that you use dummy encoding in your models. Additionally, this leads to slightly smaller models as each categorical variable produces 1 less variable. It is worth noting that the choice between dummy encoding and one-hot encoding does matter for some models such as decision trees. Depending on what types of rules they are able to use. Being able to write <code>animal == "cat"</code> is easier then saying <code>animal != "dog" &amp; animal != "horse"</code>. This is unlikely to be an issue as many tree-based models can work with categorical variables directly without the need for encoding.</p>
+<p>And in this case, we have that <code>house = cat + dog + horse - apartment</code> which again is an example of perfect collinearity. Unless you have a reason to do otherwise I would suggest that you use dummy encoding in your models. Additionally, this leads to slightly smaller models as each categorical variable produces 1 less variable. It is worth noting that the choice between dummy encoding and one-hot encoding does matter for some models such as decision trees. Depending on what types of rules they can use. Being able to write <code>animal == "cat"</code> is easier then saying <code>animal != "dog" &amp; animal != "horse"</code>. This is unlikely to be an issue as many tree-based models can work with categorical variables directly without the need for encoding.</p>
 </section>
 <section id="ordered-factors" class="level2" data-number="18.2">
 <h2 data-number="18.2" class="anchored" data-anchor-id="ordered-factors"><span class="header-section-number">18.2</span> Ordered factors</h2>

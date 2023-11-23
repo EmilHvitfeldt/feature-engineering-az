@@ -51,7 +51,7 @@ Let us think about the unseen levels first. If we have no information about a gi
 
 This value is by no means a good value, but it is an educated guess that can be calculated with ease. This also means that regardless of the distribution of the target, these values can be calculated.
 
-The way we handle unseen levels gives us a clue as to how we can deal with low-frequency counts. Knowing that the global mean of the target is our baseline when we have no information. We can combine the level mean with the global mean, in accordance with how many observations we observe. If we have a lot of observations in a level, we will let the global mean have little influence, and if there are fewer observations we will let the global mean have a higher influence.
+The way we handle unseen levels gives us a clue as to how we can deal with low-frequency counts. Knowing that the global mean of the target is our baseline when we have no information. We can combine the level mean with the global mean, in accordance with how many observations we observe. If we have a lot of observations at a level, we will let the global mean have little influence, and if there are fewer observations we will let the global mean have a higher influence.
 
 ```{r}
 #| echo: false
@@ -139,7 +139,7 @@ The exact way this is done will vary from method to method, and the strength of 
 
 This smoothing isn't required but it is often beneficial to include if you are dealing with low count levels. It is also recommended because if omitted, it would lead to overfitting since we are essentially using the outcome to guide the predictors.
 
-We have so far talked about target encoding, from the perspective of a regression task. But target encoding is not limited to numeric outcomes, but can be used in classification settings as well. In the classification setting, where we have a categorical outcome, instead of calculating the mean of the target variable, we need to figure something else out. It could be calculating the probability of the first level, or we could try to go more linear by converting them to log-odds. Now everything works as before.
+We have so far talked about target encoding, from the perspective of a regression task. But target encoding is not limited to numeric outcomes, but can be used in classification settings as well. In the classification setting, where we have a categorical outcome, instead of calculating the mean of the target variable, we need to figure something else out. It could be calculating the probability of the first level, or we could try to go more linear by converting them to log odds. Now everything works as before.
 
 ::: {.callout-caution}
 # TODO
@@ -147,7 +147,7 @@ We have so far talked about target encoding, from the perspective of a regressio
 find good example
 :::
 
-A type of data that is sometimes seen is hierarchical categorical variables. Typical examples are city-state, region-subregion. With hierarchical categorical variables you often end up with many levels, and target encoding can be used on such data, and can even use the hierarchical structure. 
+A type of data that is sometimes seen is hierarchical categorical variables. Typical examples are city-state and region-subregion. With hierarchical categorical variables you often end up with many levels, and target encoding can be used on such data, and can even use the hierarchical structure. 
 
 The encoding is calculated like normal, but the smoothing is done on a lower level than at the top. So instead of adjusting by the global mean, you smooth by the level below it.
 
@@ -211,7 +211,7 @@ rec_target_smooth |>
   bake(new_data = NULL)
 ```
 
-And we see that these values are slightly different than the values we was earlier
+We see that these values are slightly different than the values we had earlier
 
 ```{r}
 rec_target_smooth |>

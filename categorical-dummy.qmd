@@ -1,6 +1,6 @@
 # Dummy Encoding {#sec-categorical-dummy}
 
-We have some categorical variables and we want to turn them into numerical values, one of the most common ways of going about it it so create **dummy variables**. Dummy variables are variables that only take the values 0 and 1 to indicate the absence or presence of the levels in a categorical variable. This is nicely shown with an example.
+We have some categorical variables and we want to turn them into numerical values, one of the most common ways of going about it is to create **dummy variables**. Dummy variables are variables that only take the values 0 and 1 to indicate the absence or presence of the levels in a categorical variable. This is nicely shown with an example.
 
 Considering this short categorical variable of animals, we observe there are 3 unique values "cat", "dog", and "horse".
 
@@ -9,7 +9,7 @@ Considering this short categorical variable of animals, we observe there are 3 u
 c("dog", "cat", "horse", "dog", "cat")
 ```
 
-Which just this knowledge we can create the corresponding dummy variables. There should be 3 columns one for each of the levels
+With just this knowledge we can create the corresponding dummy variables. There should be 3 columns one for each of the levels
 
 ```{r}
 #| echo: false
@@ -23,9 +23,9 @@ dummy[5, 1] <- 1L
 dummy
 ```
 
-From this, we have a couple of observations. Firstly the length of each of these variables is equal to the length of the original categorical variable. The number of columns corresponds to the number of levels. And lastly, the sum of all the values on each row equals 1 since all the rows contain one 1 and the remaining 0s. This means that for even a small number of levels, you get **sparse data**. Sparse data is data where there are a lot of zeroes, meaning that it would take less space to store where the non-zero values are instead of all the values. You can read more about how and when to care about sparse data in @sec-sparse. What this means for dummy variable creation, is that depending on whether your software can handle sparse data, you might need to limit the number of levels in your categorical variables. One way to do this would be to collapse levels together, which you can read about in @sec-categorical-collapse.
+From this, we have a couple of observations. Firstly the length of each of these variables is equal to the length of the original categorical variable. The number of columns corresponds to the number of levels. Lastly, the sum of all the values on each row equals 1 since all the rows contain one 1 and the remaining 0s. This means that for even a small number of levels, you get **sparse data**. Sparse data is data where there are a lot of zeroes, meaning that it would take less space to store where the non-zero values are instead of all the values. You can read more about how and when to care about sparse data in @sec-sparse. What this means for dummy variable creation, is that depending on whether your software can handle sparse data, you might need to limit the number of levels in your categorical variables. One way to do this would be to collapse levels together, which you can read about in @sec-categorical-collapse.
 
-Dummy variable creation is a *trained* method. This means that doing the training step, the levels of each categorical variable are saved, and then these and only these values are used for dummy variable creation. If we assumed that the above example data were used to train the preprocessor, and we passed in the values `["dog", "cat", "cat", "dog"]` during future applications, we would expect the following dummy variables
+Dummy variable creation is a *trained* method. This means that during the training step, the levels of each categorical variable are saved, and then these and only these values are used for dummy variable creation. If we assumed that the above example data were used to train the preprocessor, and we passed in the values `["dog", "cat", "cat", "dog"]` during future applications, we would expect the following dummy variables
 
 ```{r}
 #| echo: false
@@ -38,7 +38,7 @@ dummy[4, 2] <- 1L
 dummy
 ```
 
-it is important that the `horse` variable is here too, even if it is empty as the subsequent preprocessing steps and model expect the horse variable to be present. Likewise, you can run into problems if the value `"duck"` was used as the preprocessor wouldn't know what to do. These cases are talked about in @sec-categorical-unseen.
+the `horse` variable must be here too, even if it is empty as the subsequent preprocessing steps and model expect the horse variable to be present. Likewise, you can run into problems if the value `"duck"` was used as the preprocessor wouldn't know what to do. These cases are talked about in @sec-categorical-unseen.
 
 ## Dummy or one-hot encoding
 
@@ -74,7 +74,7 @@ dummy[4, 1] <- 1L
 dummy
 ```
 
-These two encodings store the exact same information, even though the dummy encoding has 1 less column. Because we are able to deduce which observations are `cat` by finding the rows with all zeros. The main reason why one would use dummy variables is because of what some people call [the dummy variable trap](https://www.algosome.com/articles/dummy-variable-trap-regression.html). When you use one-hot encoding, you are increasing the likelihood that you run into a collinearity problem. With the above example, if you included an intercept in your model you have that `intercept = cat + dog + horse` which gives perfect collinearity and would cause some models to error as they aren't able to handle that.
+These two encodings store the same information, even though the dummy encoding has 1 less column. Because we can deduce which observations are `cat` by finding the rows with all zeros. The main reason why one would use dummy variables is because of what some people call [the dummy variable trap](https://www.algosome.com/articles/dummy-variable-trap-regression.html). When you use one-hot encoding, you are increasing the likelihood that you run into a collinearity problem. With the above example, if you included an intercept in your model you have that `intercept = cat + dog + horse` which gives perfect collinearity and would cause some models to error as they aren't able to handle that.
 
 ::: callout-note
 An **intercept** is a variable that takes the value 1 for all entries.
@@ -103,7 +103,7 @@ home[5, 1] <- 1L
 cbind(animal, home)
 ```
 
-And in this case, we have that `house = cat + dog + horse - apartment` which again is an example of perfect collinearity. Unless you have a reason to do otherwise I would suggest that you use dummy encoding in your models. Additionally, this leads to slightly smaller models as each categorical variable produces 1 less variable. It is worth noting that the choice between dummy encoding and one-hot encoding does matter for some models such as decision trees. Depending on what types of rules they are able to use. Being able to write `animal == "cat"` is easier then saying `animal != "dog" & animal != "horse"`. This is unlikely to be an issue as many tree-based models can work with categorical variables directly without the need for encoding.
+And in this case, we have that `house = cat + dog + horse - apartment` which again is an example of perfect collinearity. Unless you have a reason to do otherwise I would suggest that you use dummy encoding in your models. Additionally, this leads to slightly smaller models as each categorical variable produces 1 less variable. It is worth noting that the choice between dummy encoding and one-hot encoding does matter for some models such as decision trees. Depending on what types of rules they can use. Being able to write `animal == "cat"` is easier then saying `animal != "dog" & animal != "horse"`. This is unlikely to be an issue as many tree-based models can work with categorical variables directly without the need for encoding.
 
 ## Ordered factors
 

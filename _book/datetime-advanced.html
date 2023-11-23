@@ -1226,14 +1226,14 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>All the features we were able to extract were related to what day or time it was for an given observation. Or numbers on the form “how many since start of month” or “how many days since start of week”. And while this information can be useful, there will often be times where we want to do slight modifications that can result in huge payoff.</p>
-<p>Consider merchandise sale related data. The mere indication of a specific dates might become useful, but the sale amount is not likely to be affected just on the sale days, but on the surrounding days as well. Consider the American Black Friday. This day is predetermined to come every year at a easily recognized day, namely the last Friday of November. Considering its close time to Christmas other gift-giving holidays, it is a common day for thrifty people to start buying presents.</p>
-<p>In the extraction sense we have a single indicator for the day of Black Friday</p>
+<p>All the features we were able to extract were related to what day or time it was for a given observation. Or numbers on the form “how many since the start of the month” or “how many days since the start of the week”. And while this information can be useful, there will often be times when we want to do slight modifications that can result in huge payoffs.</p>
+<p>Consider merchandise sale-related data. The mere indication of specific dates might become useful, but the sale amount is not likely to be affected just on the sale days, but on the surrounding days as well. Consider the American Black Friday. This day is predetermined to come every year at an easily recognized day, namely the last Friday of November. Considering its close time to Christmas and other gift-giving holidays, it is a common day for thrifty people to start buying presents.</p>
+<p>In the extraction since we have a single indicator for the day of Black Friday</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-datetime-advanced-indicator" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="datetime-advanced_files/figure-html/fig-datetime-advanced-indicator-1.png" class="img-fluid figure-img" alt="Bar chart. Dates along the x-axis, numeric effect along the y-axis. A Single bar at Nov 24 with a value of 1 is shown." width="672"></p>
+<p><img src="datetime-advanced_files/figure-html/fig-datetime-advanced-indicator-1.png" class="img-fluid figure-img" alt="Bar chart. Dates along the x-axis, numeric effect along the y-axis. A Single bar on Nov 24 with a value of 1 is shown." width="672"></p>
 <figcaption class="figure-caption">Figure&nbsp;40.1: We only see the effect of a single Day</figcaption>
 </figure>
 </div>
@@ -1244,25 +1244,25 @@ ul.task-list li input[type="checkbox"] {
 <div class="cell-output-display">
 <div id="fig-datetime-advanced-indicator-before" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="datetime-advanced_files/figure-html/fig-datetime-advanced-indicator-before-1.png" class="img-fluid figure-img" alt="Bar chart. Dates along the x-axis, numeric effect along the y-axis. A Single bar at Nov 24 with a value of 1 is shown, the columns before the 24ths takes negative values, with the 23 having the highest value, 22 less and so on." width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;40.2: Negative before effects can capture hesitancy to buy before big sale.</figcaption>
+<p><img src="datetime-advanced_files/figure-html/fig-datetime-advanced-indicator-before-1.png" class="img-fluid figure-img" alt="Bar chart. Dates along the x-axis, numeric effect along the y-axis. A single bar on Nov 24 with a value of 1 is shown, the columns before the 24ths takes negative values, with the 23 having the highest value, 22 less and so on." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;40.2: Negative before effects can capture hesitancy to buy before a big sale.</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>On the other hand, once the sale has started happening for the sales to pick up again. Since this is the last big sale before the Holidays, shoppers are free to buy their remaining presents as they don’t have to fear of the item going on sale.</p>
+<p>On the other hand, once the sale has started happening the sales to pick up again. Since this is the last big sale before the Holidays, shoppers are free to buy their remaining presents as they don’t have to fear the item going on sale.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-datetime-advanced-indicator-before-after" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="datetime-advanced_files/figure-html/fig-datetime-advanced-indicator-before-after-1.png" class="img-fluid figure-img" alt="Bar chart. Dates along the x-axis, numeric effect along the y-axis. A Single bar at Nov 24 with a value of 1 is shown, the columns before the 24ths takes negative values, with the 23 having the highest value, 22 less and so on. The values after the Nov 24 have decreasing values." width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;40.3: Positive affects effects can capture ease of mind that no other sale will come.</figcaption>
+<p><img src="datetime-advanced_files/figure-html/fig-datetime-advanced-indicator-before-after-1.png" class="img-fluid figure-img" alt="Bar chart. Dates along the x-axis, numeric effect along the y-axis. A single bar on Nov 24 with a value of 1 is shown, the columns before the 24ths takes negative values, with the 23 having the highest value, 22 less and so on. The values after Nov 24 have decreasing values." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;40.3: Positive affects effects can capture the ease of mind that no other sale will come.</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>The exact effects shown here are just approximate to our story at hand. But they provide a useful illustration. There are a lot of bandwidth to be given if we look at date times from a distance perspective. We can play around with “distance from” and “distance to”, different numerical transformations we saw in <a href="numeric.html" class="quarto-xref"><span>Chapter&nbsp;2</span></a>, signs and indicators we talked about in <a href="datetime-extraction.html" class="quarto-xref"><span>Chapter&nbsp;39</span></a> to tailor our feature engineering to our problem.</p>
-<p>What all these methods have in common is a reference point. For an extracted <code>day</code> feature, the reference point is “first of month” and the <strong>after</strong>-function is <code>x</code>, or in other words “days since time of day”. We see this in the following chart. Almost all extracted functions follow this formula</p>
+<p>The exact effects shown here are just approximate to our story at hand. But they provide a useful illustration. There is a lot of bandwidth to be given if we look at date times from a distance perspective. We can play around with “distance from” and “distance to”, different numerical transformations we saw in <a href="numeric.html" class="quarto-xref"><span>Chapter&nbsp;2</span></a>, and signs and indicators we talked about in <a href="datetime-extraction.html" class="quarto-xref"><span>Chapter&nbsp;39</span></a> to tailor our feature engineering to our problem.</p>
+<p>What all these methods have in common is a reference point. For an extracted <code>day</code> feature, the reference point is “first of the month” and the <strong>after</strong>-function is <code>x</code>, or in other words “days since the time of day”. We see this in the following chart. Almost all extracted functions follow this formula</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-datetime-advanced-increasing-1" class="quarto-figure quarto-figure-center anchored">
@@ -1297,7 +1297,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="cell-output-display">
 <div id="fig-datetime-advanced-weekend" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="datetime-advanced_files/figure-html/fig-datetime-advanced-weekend-1.png" class="img-fluid figure-img" alt="Bar chart. Dates along the x-axis, numeric effect along the y-axis. Values are zero for both Saturdays and Sundays. 1 for Mondays and Fridays, 2 for Tuesdays and Thursdays, and 3 for Wednesday." width="672"></p>
+<p><img src="datetime-advanced_files/figure-html/fig-datetime-advanced-weekend-1.png" class="img-fluid figure-img" alt="Bar chart. Dates along the x-axis, numeric effect along the y-axis. Values are zero for both Saturdays and Sundays. 1 for Mondays and Fridays, 2 for Tuesdays and Thursdays, and 3 for Wednesdays." width="672"></p>
 <figcaption class="figure-caption">Figure&nbsp;40.7: Repeated</figcaption>
 </figure>
 </div>
@@ -1308,13 +1308,13 @@ ul.task-list li input[type="checkbox"] {
 <div class="cell-output-display">
 <div id="fig-datetime-advanced-functions" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="datetime-advanced_files/figure-html/fig-datetime-advanced-functions-1.png" class="img-fluid figure-img" alt="Faceted bar chart. Dates along the x-axis, numeric effect along the y-axis. Each of the charts represents the day of the month for a couple of months. One shows the logarithmic transformation, one shows the untransformed data one looks at the square transformation, and one looks at the untransformed data which has been rounded down to 10, creating a plateau." width="672"></p>
+<p><img src="datetime-advanced_files/figure-html/fig-datetime-advanced-functions-1.png" class="img-fluid figure-img" alt="Faceted bar chart. Dates along the x-axis, numeric effect along the y-axis. Each of the charts represents the day of the month for a couple of months. One shows the logarithmic transformation, one shows the untransformed data one looks at the square transformation, and one looks at the untransformed data that has been rounded down to 10, creating a plateau." width="672"></p>
 <figcaption class="figure-caption">Figure&nbsp;40.8: Repeated</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>What makes these calculations so neat is that they can be tailored to our task at hand, and that they work with irregular events such as holidays and signup dates. These methods are not circular by definition, but they will work in many ways like it. We will cover explicit circular methods in <a href="datetime-circular.html" class="quarto-xref"><span>Chapter&nbsp;41</span></a>.</p>
+<p>What makes these calculations so neat is that they can be tailored to our task at hand and that they work with irregular events such as holidays and signup dates. These methods are not circular by definition, but they will work in many ways it. We will cover explicit circular methods in <a href="datetime-circular.html" class="quarto-xref"><span>Chapter&nbsp;41</span></a>.</p>
 <section id="pros-and-cons" class="level2" data-number="40.1">
 <h2 data-number="40.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">40.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="40.1.1">

@@ -1215,8 +1215,8 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <p>Whether to keep this chapter in this book or not was considered, as the methods in this section are borderline feature engineering methods.</p>
-<p>The potential problem with imbalanced data can most easily be seen in a classification setting. Propose we want to predict if an incoming email is spam or not. Furthermore, we assume that the spam-rate is low and around 1% of the incoming emails. If you are not careful, you can easily end up with a model that predicts “not spam” all the time, since it will be correct 100% of the times. This is a common scenario, and it happens all the time. One culprit could be that there isn’t enough information in the minority class to be able to distinguish it from the majority class. And that is okay, not all modeling problems are easy. But your model will do its best anyways.</p>
-<p>There are a number of different ways to handle imbalanced data, we will list all the ways in broad strokes, and then cover the methods that we could count as feature engineering.</p>
+<p>The potential problem with imbalanced data can most easily be seen in a classification setting. Propose we want to predict if an incoming email is spam or not. Furthermore, we assume that the spam rate is low and around 1% of the incoming emails. If you are not careful, you can easily end up with a model that predicts “not spam” all the time, since it will be correct 100% of the time. This is a common scenario, and it happens all the time. One culprit could be that there isn’t enough information in the minority class to be able to distinguish it from the majority class. And that is okay, not all modeling problems are easy. But your model will do its best anyway.</p>
+<p>There are several different ways to handle imbalanced data, we will list all the ways in broad strokes, and then cover the methods that we could count as feature engineering.</p>
 <ul>
 <li>using the right performance metrics</li>
 <li>weights</li>
@@ -1225,11 +1225,11 @@ ul.task-list li input[type="checkbox"] {
 <li>Sampling the data, can be done naively and with more advanced methods</li>
 </ul>
 <p>The example above showcases why accuracy as a metric isn’t a good choice when the classes are not uniformly represented. So you can look at other metrics, such as precision, recall, ROC-AUC, or Brier score. You will need to know what metric works best for your project.</p>
-<p>Another way we can handle this is by adding weights, either to the observations directly, or in the modeling framework as class weights. By giving your minority class high enough a weight forces your model to take them into consideration.</p>
+<p>Another way we can handle this is by adding weights, either to the observations directly, or in the modeling framework as class weights. Giving your minority class high enough weight forces your model to consider them.</p>
 <p>Related to the last point, some methods allow you the user to pass in custom objective functions, this can also be beneficial.</p>
-<p>Even if your model performs badly by default, your classification model might still have good separation, just not around the 50% cut-off point. Changing the threshold is another way you can overcome imbalanced data set.</p>
-<p>Lastly, and the ways will be cover in this book is sampling of the data. There are a number of different methods that we will cover in this book. These methods cluster somehow, so for some groups we only explain the general idea.</p>
-<p>We can split these methods into two groups, <strong>under-sampling methods</strong> and <strong>over-sampling methods</strong>. In the under-sampling methods, we are removing observations and in over-sampling we are adding observations. Adding observations are usually done by basing the new observations on the existing observations, exactly or by interpolation.</p>
+<p>Even if your model performs badly by default, your classification model might still have good separation, just not around the 50% cut-off point. Changing the threshold is another way you can overcome an imbalanced data set.</p>
+<p>Lastly, and the ways that will be covered in this book is a sampling of the data. There are several different methods that we will cover in this book. These methods cluster somehow, so for some groups we only explain the general idea.</p>
+<p>We can split these methods into two groups, <strong>under-sampling methods</strong> and <strong>over-sampling methods</strong>. In the under-sampling method, we are removing observations and in the over-sampling we are adding observations. Adding observations is usually done by basing the new observations on the existing observations, exactly or by interpolation.</p>
 <p>Over-sampling methods we will cover are:</p>
 <ul>
 <li>Up-sampling in <a href="imbalenced-upsample.html" class="quarto-xref"><span>Chapter&nbsp;87</span></a></li>
@@ -1247,9 +1247,9 @@ ul.task-list li input[type="checkbox"] {
 <li>Condensed Nearest Neighbor in <a href="imbalenced-cnn.html" class="quarto-xref"><span>Chapter&nbsp;96</span></a></li>
 <li>Edited Nearest Neighbor in <a href="imbalenced-enn.html" class="quarto-xref"><span>Chapter&nbsp;97</span></a></li>
 <li>Instance Hardness Threshold in <a href="imbalenced-hardness-threshold.html" class="quarto-xref"><span>Chapter&nbsp;98</span></a></li>
-<li>One Sided Selection <a href="imbalenced-one-sided.html" class="quarto-xref"><span>Chapter&nbsp;99</span></a></li>
+<li>One-Sided Selection <a href="imbalenced-one-sided.html" class="quarto-xref"><span>Chapter&nbsp;99</span></a></li>
 </ul>
-<p>There are also some methods that do these methods together. We won’t consider those methods by themselves and instead let you know that you can do over-sampling followed by under-sampling if you choose.</p>
+<p>Some methods do these methods together. We won’t consider those methods by themselves and instead let you know that you can do over-sampling followed by under-sampling if you choose.</p>
 
 
 

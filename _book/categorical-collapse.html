@@ -1463,7 +1463,7 @@ TODO
 </section>
 <section id="r-examples" class="level2" data-number="35.2">
 <h2 data-number="35.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">35.2</span> R Examples</h2>
-<p>Methods to collapse categorical levels can be found in recipes with <code>step_other()</code> and embed in <code>step_collapse_cart()</code> and <code>step_collapse_stringdist()</code>.</p>
+<p>Methods to collapse categorical levels can be found in the recipes package with <code>step_other()</code> and the embed package in <code>step_collapse_cart()</code> and <code>step_collapse_stringdist()</code>.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1557,7 +1557,7 @@ TODO
 # ℹ 2,920 more rows</code></pre>
 </div>
 </div>
-<p>Unsurprisingly, there are almost a dozen of different ways to calculate the distance between two strings. Most are supported and can be changed using the <code>method</code> argument, and further controlled using the <code>options</code> argument.</p>
+<p>Unsurprisingly, there are almost a dozen different ways to calculate the distance between two strings. Most are supported and can be changed using the <code>method</code> argument, and further controlled using the <code>options</code> argument.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>rec_stringdist <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> Exterior_2nd, <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_collapse_stringdist</span>(Exterior_2nd, </span>

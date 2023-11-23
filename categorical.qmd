@@ -6,7 +6,7 @@ The above description is a small but useful simplification. A categorical variab
 
 Another nuance is some categorical variables have an inherent order to them. So the variables `size` with the values `"small"`, `"medium"`, and `"large"`, clearly have an ordering to then `"small" < "medium" < "large"`. This is unlike the theoretical `car_color` with the values "blue"`, `"red"`, and `"black"`, which doesn't have a natural ordering. Depending on whether a variable has an ordering, we can use that information. This is something that doesn't have to be dealt with, but the added information can be useful.
 
-Lastly, we have the encoding these categorical variables have. The same variable `household_pet` can be encoded as `["cat", "cat", "dog", "cat", "hamster"]` or as `[1, 1, 2, 1, 3]`. The latter (hopefully) is accompanied by a data dictionary saying `[1 = "cat", 2 = "dog", 3 = "hamster"]`. These variables contain the exact same information, but the encoding is vastly different, and if you are not careful to treat `household_pet` as a categorical variable the model with believing that `"hamster" - "cat" = "dog"`.
+Lastly, we have the encoding these categorical variables have. The same variable `household_pet` can be encoded as `["cat", "cat", "dog", "cat", "hamster"]` or as `[1, 1, 2, 1, 3]`. The latter (hopefully) is accompanied by a data dictionary saying `[1 = "cat", 2 = "dog", 3 = "hamster"]`. These variables contain the exact same information, but the encoding is vastly different, and if you are not careful to treat `household_pet` as a categorical variable the model believes that `"hamster" - "cat" = "dog"`.
 
 ::: {.callout-caution}
 # TODO

@@ -1260,7 +1260,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>While imputation can be useful, as we saw in <a href="missing-simple.html" class="quarto-xref"><span>Chapter&nbsp;43</span></a> and <a href="missing-model.html" class="quarto-xref"><span>Chapter&nbsp;44</span></a>. That by itself isn’t always enough to extract all the information. As was described in <a href="missing.html" class="quarto-xref"><span>Chapter&nbsp;42</span></a>, missing values can come in different variants, and depending on the variant, imputation might not give enough information. Suppose you are working with non-MCAR data (non Missing Completely At Random). Then we have some mechanism that determines when missing values occur. This mechanism might be known or unknown. From a predictive standpoint whether or not is is know doesn’t matter as much, what matters is if the mechanism is related to the outcome or not.</p>
+<p>While imputation can be useful, as we saw in <a href="missing-simple.html" class="quarto-xref"><span>Chapter&nbsp;43</span></a> and <a href="missing-model.html" class="quarto-xref"><span>Chapter&nbsp;44</span></a>. That by itself isn’t always enough to extract all the information. As was described in <a href="missing.html" class="quarto-xref"><span>Chapter&nbsp;42</span></a>, missing values can come in different variants, and depending on the variant, imputation might not give enough information. Suppose you are working with non-MCAR data (non Missing Completely At Random). Then we have some mechanism that determines when missing values occur. This mechanism might be known or unknown. From a predictive standpoint whether or not it is known doesn’t matter as much, what matters is whether the mechanism is related to the outcome or not.</p>
 <p>This is where <strong>missing value indicators</strong> come in. Used in combination with imputation, missing value indicators will try to capture that signal. For each chosen variable, create another Boolean variable that is 1 when a missing value is seen, and 0 otherwise.</p>
 <p>The following sample data set</p>
 <div class="cell">
@@ -1307,7 +1307,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 5     5    NA     3     0     1     0</code></pre>
 </div>
 </div>
-<p>From here on, you are potentially add information, otherwise we are adding a lot of noise. The noise here can be filtered by other methods seen in this book. If variables with no missing data were used, then we create zero variance predictors, which we can deal with as seen in <a href="too-many-zv.html" class="quarto-xref"><span>Chapter&nbsp;67</span></a>.</p>
+<p>From here on, you are potentially adding information, otherwise we are adding a lot of noise. The noise here can be filtered by other methods seen in this book. If variables with no missing data were used, then we create zero variance predictors, which we can deal with as seen in <a href="too-many-zv.html" class="quarto-xref"><span>Chapter&nbsp;67</span></a>.</p>
 <section id="pros-and-cons" class="level2" data-number="45.1">
 <h2 data-number="45.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">45.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="45.1.1">
@@ -1337,10 +1337,10 @@ TODO
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>find better data set</p>
+<p>find a better data set</p>
 </div>
 </div>
-<p>From the recipes package, can we use the <code>step_indicate_na()</code> function to create indicator variables based on missing data.</p>
+<p>From the recipes package, can we use the <code>step_indicate_na()</code> function to create indicator variables based on missing data</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
