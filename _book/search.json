@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Feature Engineering A-Z",
     "section": "",
-    "text": "Preface\nWelcome to “Feature Engineering A-Z”! This book is written to be used as a reference guide to the different techniques. This is reflected in the chapter structure. Any question a practitioner is having should be answered by looking at the index and finding the right chapter.\nEach section tries to be as comprehensive as possible with the number of different methods/solutions that are presented. A section on dimensionality reduction should list all the practical methods that could be used, as well as a comparison between the methods to help the reader decide what would be most appropriate. This does not mean that all methods are recommended to use. A number of these methods have little and narrow use cases.\nWhenever possible each method will be accompanied by simple mathematical formulas and visualizations to illustrate the mechanics of the method.\nLastly, each section will include code snippets in showcasing how to implement the methods. Preferable in R and Python, Keras/PyTorch. This book is a methods book first, a coding book second."
+    "text": "Preface\nWelcome to “Feature Engineering A-Z”! This book is written to be used as a reference guide to the different techniques. This is reflected in the chapter structure. Any question a practitioner is having should be answered by looking at the index and finding the right chapter.\nEach section tries to be as comprehensive as possible with the number of different methods/solutions that are presented. A section on dimensionality reduction should list all the practical methods that could be used, as well as a comparison between the methods to help the reader decide what would be most appropriate. This does not mean that all methods are recommended to use. A number of these methods have little and narrow use cases.\nWhenever possible each method will be accompanied by simple mathematical formulas and visualizations to illustrate the mechanics of the method.\nLastly, each section will include code snippets in showcasing how to implement the methods. Preferable in R and Python, Keras/PyTorch. This book is a methods book first, a coding book second.\n\n\n\n\n\n\nEmpty chapters\n\n\n\nA chapter is prefixed with the emoji 🏗️ to indicate that it hasn’t been fully written yet."
   },
   {
     "objectID": "introduction.html",
@@ -527,210 +527,210 @@
   {
     "objectID": "categorical-leaveoneout.html#pros-and-cons",
     "href": "categorical-leaveoneout.html#pros-and-cons",
-    "title": "25  Leave One Out Encoding",
+    "title": "25  🏗️ Leave One Out Encoding",
     "section": "25.1 Pros and Cons",
     "text": "25.1 Pros and Cons\n\n25.1.1 Pros\n\n\n25.1.2 Cons"
   },
   {
     "objectID": "categorical-leaveoneout.html#r-examples",
     "href": "categorical-leaveoneout.html#r-examples",
-    "title": "25  Leave One Out Encoding",
+    "title": "25  🏗️ Leave One Out Encoding",
     "section": "25.2 R Examples",
     "text": "25.2 R Examples"
   },
   {
     "objectID": "categorical-leaveoneout.html#python-examples",
     "href": "categorical-leaveoneout.html#python-examples",
-    "title": "25  Leave One Out Encoding",
+    "title": "25  🏗️ Leave One Out Encoding",
     "section": "25.3 Python Examples",
     "text": "25.3 Python Examples"
   },
   {
     "objectID": "categorical-leaf.html#pros-and-cons",
     "href": "categorical-leaf.html#pros-and-cons",
-    "title": "26  Leaf Encoding",
+    "title": "26  🏗️ Leaf Encoding",
     "section": "26.1 Pros and Cons",
     "text": "26.1 Pros and Cons\n\n26.1.1 Pros\n\n\n26.1.2 Cons"
   },
   {
     "objectID": "categorical-leaf.html#r-examples",
     "href": "categorical-leaf.html#r-examples",
-    "title": "26  Leaf Encoding",
+    "title": "26  🏗️ Leaf Encoding",
     "section": "26.2 R Examples",
     "text": "26.2 R Examples"
   },
   {
     "objectID": "categorical-leaf.html#python-examples",
     "href": "categorical-leaf.html#python-examples",
-    "title": "26  Leaf Encoding",
+    "title": "26  🏗️ Leaf Encoding",
     "section": "26.3 Python Examples",
     "text": "26.3 Python Examples"
   },
   {
     "objectID": "categorical-glmm.html#pros-and-cons",
     "href": "categorical-glmm.html#pros-and-cons",
-    "title": "27  GLMM Encoding",
+    "title": "27  🏗️ GLMM Encoding",
     "section": "27.1 Pros and Cons",
     "text": "27.1 Pros and Cons\n\n27.1.1 Pros\n\n\n27.1.2 Cons"
   },
   {
     "objectID": "categorical-glmm.html#r-examples",
     "href": "categorical-glmm.html#r-examples",
-    "title": "27  GLMM Encoding",
+    "title": "27  🏗️ GLMM Encoding",
     "section": "27.2 R Examples",
     "text": "27.2 R Examples"
   },
   {
     "objectID": "categorical-glmm.html#python-examples",
     "href": "categorical-glmm.html#python-examples",
-    "title": "27  GLMM Encoding",
+    "title": "27  🏗️ GLMM Encoding",
     "section": "27.3 Python Examples",
     "text": "27.3 Python Examples"
   },
   {
     "objectID": "categorical-catboost.html#pros-and-cons",
     "href": "categorical-catboost.html#pros-and-cons",
-    "title": "28  Catboost Encoding",
+    "title": "28  🏗️ Catboost Encoding",
     "section": "28.1 Pros and Cons",
     "text": "28.1 Pros and Cons\n\n28.1.1 Pros\n\n\n28.1.2 Cons"
   },
   {
     "objectID": "categorical-catboost.html#r-examples",
     "href": "categorical-catboost.html#r-examples",
-    "title": "28  Catboost Encoding",
+    "title": "28  🏗️ Catboost Encoding",
     "section": "28.2 R Examples",
     "text": "28.2 R Examples"
   },
   {
     "objectID": "categorical-catboost.html#python-examples",
     "href": "categorical-catboost.html#python-examples",
-    "title": "28  Catboost Encoding",
+    "title": "28  🏗️ Catboost Encoding",
     "section": "28.3 Python Examples",
     "text": "28.3 Python Examples"
   },
   {
     "objectID": "categorical-woe.html#pros-and-cons",
     "href": "categorical-woe.html#pros-and-cons",
-    "title": "29  Weight of Evidence Encoding",
+    "title": "29  🏗️ Weight of Evidence Encoding",
     "section": "29.1 Pros and Cons",
     "text": "29.1 Pros and Cons\n\n29.1.1 Pros\n\n\n29.1.2 Cons"
   },
   {
     "objectID": "categorical-woe.html#r-examples",
     "href": "categorical-woe.html#r-examples",
-    "title": "29  Weight of Evidence Encoding",
+    "title": "29  🏗️ Weight of Evidence Encoding",
     "section": "29.2 R Examples",
     "text": "29.2 R Examples"
   },
   {
     "objectID": "categorical-woe.html#python-examples",
     "href": "categorical-woe.html#python-examples",
-    "title": "29  Weight of Evidence Encoding",
+    "title": "29  🏗️ Weight of Evidence Encoding",
     "section": "29.3 Python Examples",
     "text": "29.3 Python Examples"
   },
   {
     "objectID": "categorical-jamesstein.html#pros-and-cons",
     "href": "categorical-jamesstein.html#pros-and-cons",
-    "title": "30  James-Stein Encoding",
+    "title": "30  🏗️ James-Stein Encoding",
     "section": "30.1 Pros and Cons",
     "text": "30.1 Pros and Cons\n\n30.1.1 Pros\n\n\n30.1.2 Cons"
   },
   {
     "objectID": "categorical-jamesstein.html#r-examples",
     "href": "categorical-jamesstein.html#r-examples",
-    "title": "30  James-Stein Encoding",
+    "title": "30  🏗️ James-Stein Encoding",
     "section": "30.2 R Examples",
     "text": "30.2 R Examples"
   },
   {
     "objectID": "categorical-jamesstein.html#python-examples",
     "href": "categorical-jamesstein.html#python-examples",
-    "title": "30  James-Stein Encoding",
+    "title": "30  🏗️ James-Stein Encoding",
     "section": "30.3 Python Examples",
     "text": "30.3 Python Examples"
   },
   {
     "objectID": "categorical-mestimator.html#pros-and-cons",
     "href": "categorical-mestimator.html#pros-and-cons",
-    "title": "31  M-Estimator Encoding",
+    "title": "31  🏗️ M-Estimator Encoding",
     "section": "31.1 Pros and Cons",
     "text": "31.1 Pros and Cons\n\n31.1.1 Pros\n\n\n31.1.2 Cons"
   },
   {
     "objectID": "categorical-mestimator.html#r-examples",
     "href": "categorical-mestimator.html#r-examples",
-    "title": "31  M-Estimator Encoding",
+    "title": "31  🏗️ M-Estimator Encoding",
     "section": "31.2 R Examples",
     "text": "31.2 R Examples"
   },
   {
     "objectID": "categorical-mestimator.html#python-examples",
     "href": "categorical-mestimator.html#python-examples",
-    "title": "31  M-Estimator Encoding",
+    "title": "31  🏗️ M-Estimator Encoding",
     "section": "31.3 Python Examples",
     "text": "31.3 Python Examples"
   },
   {
     "objectID": "categorical-thermometer.html#pros-and-cons",
     "href": "categorical-thermometer.html#pros-and-cons",
-    "title": "32  Thermometer Encoding",
+    "title": "32  🏗️ Thermometer Encoding",
     "section": "32.1 Pros and Cons",
     "text": "32.1 Pros and Cons\n\n32.1.1 Pros\n\n\n32.1.2 Cons"
   },
   {
     "objectID": "categorical-thermometer.html#r-examples",
     "href": "categorical-thermometer.html#r-examples",
-    "title": "32  Thermometer Encoding",
+    "title": "32  🏗️ Thermometer Encoding",
     "section": "32.2 R Examples",
     "text": "32.2 R Examples"
   },
   {
     "objectID": "categorical-thermometer.html#python-examples",
     "href": "categorical-thermometer.html#python-examples",
-    "title": "32  Thermometer Encoding",
+    "title": "32  🏗️ Thermometer Encoding",
     "section": "32.3 Python Examples",
     "text": "32.3 Python Examples"
   },
   {
     "objectID": "categorical-quantile.html#pros-and-cons",
     "href": "categorical-quantile.html#pros-and-cons",
-    "title": "33  Quantile Encoding",
+    "title": "33  🏗️ Quantile Encoding",
     "section": "33.1 Pros and Cons",
     "text": "33.1 Pros and Cons\n\n33.1.1 Pros\n\n\n33.1.2 Cons"
   },
   {
     "objectID": "categorical-quantile.html#r-examples",
     "href": "categorical-quantile.html#r-examples",
-    "title": "33  Quantile Encoding",
+    "title": "33  🏗️ Quantile Encoding",
     "section": "33.2 R Examples",
     "text": "33.2 R Examples"
   },
   {
     "objectID": "categorical-quantile.html#python-examples",
     "href": "categorical-quantile.html#python-examples",
-    "title": "33  Quantile Encoding",
+    "title": "33  🏗️ Quantile Encoding",
     "section": "33.3 Python Examples",
     "text": "33.3 Python Examples"
   },
   {
     "objectID": "categorical-summary.html#pros-and-cons",
     "href": "categorical-summary.html#pros-and-cons",
-    "title": "34  Summary Encoding",
+    "title": "34  🏗️ Summary Encoding",
     "section": "34.1 Pros and Cons",
     "text": "34.1 Pros and Cons\n\n34.1.1 Pros\n\n\n34.1.2 Cons"
   },
   {
     "objectID": "categorical-summary.html#r-examples",
     "href": "categorical-summary.html#r-examples",
-    "title": "34  Summary Encoding",
+    "title": "34  🏗️ Summary Encoding",
     "section": "34.2 R Examples",
     "text": "34.2 R Examples"
   },
   {
     "objectID": "categorical-summary.html#python-examples",
     "href": "categorical-summary.html#python-examples",
-    "title": "34  Summary Encoding",
+    "title": "34  🏗️ Summary Encoding",
     "section": "34.3 Python Examples",
     "text": "34.3 Python Examples"
   },
@@ -758,42 +758,42 @@
   {
     "objectID": "categorical-combination.html#pros-and-cons",
     "href": "categorical-combination.html#pros-and-cons",
-    "title": "36  Combination",
+    "title": "36  🏗️ Combination",
     "section": "36.1 Pros and Cons",
     "text": "36.1 Pros and Cons\n\n36.1.1 Pros\n\n\n36.1.2 Cons"
   },
   {
     "objectID": "categorical-combination.html#r-examples",
     "href": "categorical-combination.html#r-examples",
-    "title": "36  Combination",
+    "title": "36  🏗️ Combination",
     "section": "36.2 R Examples",
     "text": "36.2 R Examples"
   },
   {
     "objectID": "categorical-combination.html#python-examples",
     "href": "categorical-combination.html#python-examples",
-    "title": "36  Combination",
+    "title": "36  🏗️ Combination",
     "section": "36.3 Python Examples",
     "text": "36.3 Python Examples"
   },
   {
     "objectID": "categorical-multi-dummy.html#pros-and-cons",
     "href": "categorical-multi-dummy.html#pros-and-cons",
-    "title": "37  Multi-Dummy encoding",
+    "title": "37  🏗️ Multi-Dummy encoding",
     "section": "37.1 Pros and Cons",
     "text": "37.1 Pros and Cons\n\n37.1.1 Pros\n\n\n37.1.2 Cons"
   },
   {
     "objectID": "categorical-multi-dummy.html#r-examples",
     "href": "categorical-multi-dummy.html#r-examples",
-    "title": "37  Multi-Dummy encoding",
+    "title": "37  🏗️ Multi-Dummy encoding",
     "section": "37.2 R Examples",
     "text": "37.2 R Examples"
   },
   {
     "objectID": "categorical-multi-dummy.html#python-examples",
     "href": "categorical-multi-dummy.html#python-examples",
-    "title": "37  Multi-Dummy encoding",
+    "title": "37  🏗️ Multi-Dummy encoding",
     "section": "37.3 Python Examples",
     "text": "37.3 Python Examples"
   },
@@ -1038,273 +1038,273 @@
   {
     "objectID": "text-cleaning.html#pros-and-cons",
     "href": "text-cleaning.html#pros-and-cons",
-    "title": "49  Text cleaning",
+    "title": "49  🏗️ Text cleaning",
     "section": "49.1 Pros and Cons",
     "text": "49.1 Pros and Cons\n\n49.1.1 Pros\n\n\n49.1.2 Cons"
   },
   {
     "objectID": "text-cleaning.html#r-examples",
     "href": "text-cleaning.html#r-examples",
-    "title": "49  Text cleaning",
+    "title": "49  🏗️ Text cleaning",
     "section": "49.2 R Examples",
     "text": "49.2 R Examples"
   },
   {
     "objectID": "text-cleaning.html#python-examples",
     "href": "text-cleaning.html#python-examples",
-    "title": "49  Text cleaning",
+    "title": "49  🏗️ Text cleaning",
     "section": "49.3 Python Examples",
     "text": "49.3 Python Examples"
   },
   {
     "objectID": "text-tokenization.html#pros-and-cons",
     "href": "text-tokenization.html#pros-and-cons",
-    "title": "50  Tokenization",
+    "title": "50  🏗️ Tokenization",
     "section": "50.1 Pros and Cons",
     "text": "50.1 Pros and Cons\n\n50.1.1 Pros\n\n\n50.1.2 Cons"
   },
   {
     "objectID": "text-tokenization.html#r-examples",
     "href": "text-tokenization.html#r-examples",
-    "title": "50  Tokenization",
+    "title": "50  🏗️ Tokenization",
     "section": "50.2 R Examples",
     "text": "50.2 R Examples"
   },
   {
     "objectID": "text-tokenization.html#python-examples",
     "href": "text-tokenization.html#python-examples",
-    "title": "50  Tokenization",
+    "title": "50  🏗️ Tokenization",
     "section": "50.3 Python Examples",
     "text": "50.3 Python Examples"
   },
   {
     "objectID": "text-stemming.html#pros-and-cons",
     "href": "text-stemming.html#pros-and-cons",
-    "title": "51  Stemming",
+    "title": "51  🏗️ Stemming",
     "section": "51.1 Pros and Cons",
     "text": "51.1 Pros and Cons\n\n51.1.1 Pros\n\n\n51.1.2 Cons"
   },
   {
     "objectID": "text-stemming.html#r-examples",
     "href": "text-stemming.html#r-examples",
-    "title": "51  Stemming",
+    "title": "51  🏗️ Stemming",
     "section": "51.2 R Examples",
     "text": "51.2 R Examples"
   },
   {
     "objectID": "text-stemming.html#python-examples",
     "href": "text-stemming.html#python-examples",
-    "title": "51  Stemming",
+    "title": "51  🏗️ Stemming",
     "section": "51.3 Python Examples",
     "text": "51.3 Python Examples"
   },
   {
     "objectID": "text-ngrams.html#pros-and-cons",
     "href": "text-ngrams.html#pros-and-cons",
-    "title": "52  N-grams",
+    "title": "52  🏗️ N-grams",
     "section": "52.1 Pros and Cons",
     "text": "52.1 Pros and Cons\n\n52.1.1 Pros\n\n\n52.1.2 Cons"
   },
   {
     "objectID": "text-ngrams.html#r-examples",
     "href": "text-ngrams.html#r-examples",
-    "title": "52  N-grams",
+    "title": "52  🏗️ N-grams",
     "section": "52.2 R Examples",
     "text": "52.2 R Examples"
   },
   {
     "objectID": "text-ngrams.html#python-examples",
     "href": "text-ngrams.html#python-examples",
-    "title": "52  N-grams",
+    "title": "52  🏗️ N-grams",
     "section": "52.3 Python Examples",
     "text": "52.3 Python Examples"
   },
   {
     "objectID": "text-stopwords.html#pros-and-cons",
     "href": "text-stopwords.html#pros-and-cons",
-    "title": "53  Stop words",
+    "title": "53  🏗️ Stop words",
     "section": "53.1 Pros and Cons",
     "text": "53.1 Pros and Cons\n\n53.1.1 Pros\n\n\n53.1.2 Cons"
   },
   {
     "objectID": "text-stopwords.html#r-examples",
     "href": "text-stopwords.html#r-examples",
-    "title": "53  Stop words",
+    "title": "53  🏗️ Stop words",
     "section": "53.2 R Examples",
     "text": "53.2 R Examples"
   },
   {
     "objectID": "text-stopwords.html#python-examples",
     "href": "text-stopwords.html#python-examples",
-    "title": "53  Stop words",
+    "title": "53  🏗️ Stop words",
     "section": "53.3 Python Examples",
     "text": "53.3 Python Examples"
   },
   {
     "objectID": "text-filter.html#pros-and-cons",
     "href": "text-filter.html#pros-and-cons",
-    "title": "54  Token filter",
+    "title": "54  🏗️ Token filter",
     "section": "54.1 Pros and Cons",
     "text": "54.1 Pros and Cons\n\n54.1.1 Pros\n\n\n54.1.2 Cons"
   },
   {
     "objectID": "text-filter.html#r-examples",
     "href": "text-filter.html#r-examples",
-    "title": "54  Token filter",
+    "title": "54  🏗️ Token filter",
     "section": "54.2 R Examples",
     "text": "54.2 R Examples"
   },
   {
     "objectID": "text-filter.html#python-examples",
     "href": "text-filter.html#python-examples",
-    "title": "54  Token filter",
+    "title": "54  🏗️ Token filter",
     "section": "54.3 Python Examples",
     "text": "54.3 Python Examples"
   },
   {
     "objectID": "text-tf.html#pros-and-cons",
     "href": "text-tf.html#pros-and-cons",
-    "title": "55  Term Frequency",
+    "title": "55  🏗️ Term Frequency",
     "section": "55.1 Pros and Cons",
     "text": "55.1 Pros and Cons\n\n55.1.1 Pros\n\n\n55.1.2 Cons"
   },
   {
     "objectID": "text-tf.html#r-examples",
     "href": "text-tf.html#r-examples",
-    "title": "55  Term Frequency",
+    "title": "55  🏗️ Term Frequency",
     "section": "55.2 R Examples",
     "text": "55.2 R Examples"
   },
   {
     "objectID": "text-tf.html#python-examples",
     "href": "text-tf.html#python-examples",
-    "title": "55  Term Frequency",
+    "title": "55  🏗️ Term Frequency",
     "section": "55.3 Python Examples",
     "text": "55.3 Python Examples"
   },
   {
     "objectID": "text-tfidf.html#pros-and-cons",
     "href": "text-tfidf.html#pros-and-cons",
-    "title": "56  TF-IDF",
+    "title": "56  🏗️ TF-IDF",
     "section": "56.1 Pros and Cons",
     "text": "56.1 Pros and Cons\n\n56.1.1 Pros\n\n\n56.1.2 Cons"
   },
   {
     "objectID": "text-tfidf.html#r-examples",
     "href": "text-tfidf.html#r-examples",
-    "title": "56  TF-IDF",
+    "title": "56  🏗️ TF-IDF",
     "section": "56.2 R Examples",
     "text": "56.2 R Examples"
   },
   {
     "objectID": "text-tfidf.html#python-examples",
     "href": "text-tfidf.html#python-examples",
-    "title": "56  TF-IDF",
+    "title": "56  🏗️ TF-IDF",
     "section": "56.3 Python Examples",
     "text": "56.3 Python Examples"
   },
   {
     "objectID": "text-hashing.html#pros-and-cons",
     "href": "text-hashing.html#pros-and-cons",
-    "title": "57  Token Hashing",
+    "title": "57  🏗️ Token Hashing",
     "section": "57.1 Pros and Cons",
     "text": "57.1 Pros and Cons\n\n57.1.1 Pros\n\n\n57.1.2 Cons"
   },
   {
     "objectID": "text-hashing.html#r-examples",
     "href": "text-hashing.html#r-examples",
-    "title": "57  Token Hashing",
+    "title": "57  🏗️ Token Hashing",
     "section": "57.2 R Examples",
     "text": "57.2 R Examples"
   },
   {
     "objectID": "text-hashing.html#python-examples",
     "href": "text-hashing.html#python-examples",
-    "title": "57  Token Hashing",
+    "title": "57  🏗️ Token Hashing",
     "section": "57.3 Python Examples",
     "text": "57.3 Python Examples"
   },
   {
     "objectID": "text-onehot.html#pros-and-cons",
     "href": "text-onehot.html#pros-and-cons",
-    "title": "58  Sequence Encoding",
+    "title": "58  🏗️ Sequence Encoding",
     "section": "58.1 Pros and Cons",
     "text": "58.1 Pros and Cons\n\n58.1.1 Pros\n\n\n58.1.2 Cons"
   },
   {
     "objectID": "text-onehot.html#r-examples",
     "href": "text-onehot.html#r-examples",
-    "title": "58  Sequence Encoding",
+    "title": "58  🏗️ Sequence Encoding",
     "section": "58.2 R Examples",
     "text": "58.2 R Examples"
   },
   {
     "objectID": "text-onehot.html#python-examples",
     "href": "text-onehot.html#python-examples",
-    "title": "58  Sequence Encoding",
+    "title": "58  🏗️ Sequence Encoding",
     "section": "58.3 Python Examples",
     "text": "58.3 Python Examples"
   },
   {
     "objectID": "text-lda.html#pros-and-cons",
     "href": "text-lda.html#pros-and-cons",
-    "title": "59  LDA",
+    "title": "59  🏗️ LDA",
     "section": "59.1 Pros and Cons",
     "text": "59.1 Pros and Cons\n\n59.1.1 Pros\n\n\n59.1.2 Cons"
   },
   {
     "objectID": "text-lda.html#r-examples",
     "href": "text-lda.html#r-examples",
-    "title": "59  LDA",
+    "title": "59  🏗️ LDA",
     "section": "59.2 R Examples",
     "text": "59.2 R Examples"
   },
   {
     "objectID": "text-lda.html#python-examples",
     "href": "text-lda.html#python-examples",
-    "title": "59  LDA",
+    "title": "59  🏗️ LDA",
     "section": "59.3 Python Examples",
     "text": "59.3 Python Examples"
   },
   {
     "objectID": "text-word2vec.html#pros-and-cons",
     "href": "text-word2vec.html#pros-and-cons",
-    "title": "60  word2vec",
+    "title": "60  🏗️ word2vec",
     "section": "60.1 Pros and Cons",
     "text": "60.1 Pros and Cons\n\n60.1.1 Pros\n\n\n60.1.2 Cons"
   },
   {
     "objectID": "text-word2vec.html#r-examples",
     "href": "text-word2vec.html#r-examples",
-    "title": "60  word2vec",
+    "title": "60  🏗️ word2vec",
     "section": "60.2 R Examples",
     "text": "60.2 R Examples"
   },
   {
     "objectID": "text-word2vec.html#python-examples",
     "href": "text-word2vec.html#python-examples",
-    "title": "60  word2vec",
+    "title": "60  🏗️ word2vec",
     "section": "60.3 Python Examples",
     "text": "60.3 Python Examples"
   },
   {
     "objectID": "text-bert.html#pros-and-cons",
     "href": "text-bert.html#pros-and-cons",
-    "title": "61  BERT",
+    "title": "61  🏗️ BERT",
     "section": "61.1 Pros and Cons",
     "text": "61.1 Pros and Cons\n\n61.1.1 Pros\n\n\n61.1.2 Cons"
   },
   {
     "objectID": "text-bert.html#r-examples",
     "href": "text-bert.html#r-examples",
-    "title": "61  BERT",
+    "title": "61  🏗️ BERT",
     "section": "61.2 R Examples",
     "text": "61.2 R Examples"
   },
   {
     "objectID": "text-bert.html#python-examples",
     "href": "text-bert.html#python-examples",
-    "title": "61  BERT",
+    "title": "61  🏗️ BERT",
     "section": "61.3 Python Examples",
     "text": "61.3 Python Examples"
   },
@@ -1318,63 +1318,63 @@
   {
     "objectID": "circular-trig.html#pros-and-cons",
     "href": "circular-trig.html#pros-and-cons",
-    "title": "63  Trigonometric",
+    "title": "63  🏗️ Trigonometric",
     "section": "63.1 Pros and Cons",
     "text": "63.1 Pros and Cons\n\n63.1.1 Pros\n\n\n63.1.2 Cons"
   },
   {
     "objectID": "circular-trig.html#r-examples",
     "href": "circular-trig.html#r-examples",
-    "title": "63  Trigonometric",
+    "title": "63  🏗️ Trigonometric",
     "section": "63.2 R Examples",
     "text": "63.2 R Examples"
   },
   {
     "objectID": "circular-trig.html#python-examples",
     "href": "circular-trig.html#python-examples",
-    "title": "63  Trigonometric",
+    "title": "63  🏗️ Trigonometric",
     "section": "63.3 Python Examples",
     "text": "63.3 Python Examples"
   },
   {
     "objectID": "circular-splines.html#pros-and-cons",
     "href": "circular-splines.html#pros-and-cons",
-    "title": "64  Period Splines",
+    "title": "64  🏗️ Period Splines",
     "section": "64.1 Pros and Cons",
     "text": "64.1 Pros and Cons\n\n64.1.1 Pros\n\n\n64.1.2 Cons"
   },
   {
     "objectID": "circular-splines.html#r-examples",
     "href": "circular-splines.html#r-examples",
-    "title": "64  Period Splines",
+    "title": "64  🏗️ Period Splines",
     "section": "64.2 R Examples",
     "text": "64.2 R Examples"
   },
   {
     "objectID": "circular-splines.html#python-examples",
     "href": "circular-splines.html#python-examples",
-    "title": "64  Period Splines",
+    "title": "64  🏗️ Period Splines",
     "section": "64.3 Python Examples",
     "text": "64.3 Python Examples"
   },
   {
     "objectID": "circular-indicators.html#pros-and-cons",
     "href": "circular-indicators.html#pros-and-cons",
-    "title": "65  Periodic Indicators",
+    "title": "65  🏗️ Periodic Indicators",
     "section": "65.1 Pros and Cons",
     "text": "65.1 Pros and Cons\n\n65.1.1 Pros\n\n\n65.1.2 Cons"
   },
   {
     "objectID": "circular-indicators.html#r-examples",
     "href": "circular-indicators.html#r-examples",
-    "title": "65  Periodic Indicators",
+    "title": "65  🏗️ Periodic Indicators",
     "section": "65.2 R Examples",
     "text": "65.2 R Examples"
   },
   {
     "objectID": "circular-indicators.html#python-examples",
     "href": "circular-indicators.html#python-examples",
-    "title": "65  Periodic Indicators",
+    "title": "65  🏗️ Periodic Indicators",
     "section": "65.3 Python Examples",
     "text": "65.3 Python Examples"
   },
@@ -1423,252 +1423,252 @@
   {
     "objectID": "too-many-pca.html#pros-and-cons",
     "href": "too-many-pca.html#pros-and-cons",
-    "title": "68  Principal Component Analysis",
+    "title": "68  🏗️ Principal Component Analysis",
     "section": "68.1 Pros and Cons",
     "text": "68.1 Pros and Cons\n\n68.1.1 Pros\n\n\n68.1.2 Cons"
   },
   {
     "objectID": "too-many-pca.html#r-examples",
     "href": "too-many-pca.html#r-examples",
-    "title": "68  Principal Component Analysis",
+    "title": "68  🏗️ Principal Component Analysis",
     "section": "68.2 R Examples",
     "text": "68.2 R Examples"
   },
   {
     "objectID": "too-many-pca.html#python-examples",
     "href": "too-many-pca.html#python-examples",
-    "title": "68  Principal Component Analysis",
+    "title": "68  🏗️ Principal Component Analysis",
     "section": "68.3 Python Examples",
     "text": "68.3 Python Examples"
   },
   {
     "objectID": "too-many-pca-variants.html#pros-and-cons",
     "href": "too-many-pca-variants.html#pros-and-cons",
-    "title": "69  Principal Component Analysis Variants",
+    "title": "69  🏗️ Principal Component Analysis Variants",
     "section": "69.1 Pros and Cons",
     "text": "69.1 Pros and Cons\n\n69.1.1 Pros\n\n\n69.1.2 Cons"
   },
   {
     "objectID": "too-many-pca-variants.html#r-examples",
     "href": "too-many-pca-variants.html#r-examples",
-    "title": "69  Principal Component Analysis Variants",
+    "title": "69  🏗️ Principal Component Analysis Variants",
     "section": "69.2 R Examples",
     "text": "69.2 R Examples"
   },
   {
     "objectID": "too-many-pca-variants.html#python-examples",
     "href": "too-many-pca-variants.html#python-examples",
-    "title": "69  Principal Component Analysis Variants",
+    "title": "69  🏗️ Principal Component Analysis Variants",
     "section": "69.3 Python Examples",
     "text": "69.3 Python Examples"
   },
   {
     "objectID": "too-many-ica.html#pros-and-cons",
     "href": "too-many-ica.html#pros-and-cons",
-    "title": "70  Independent Component Analysis",
+    "title": "70  🏗️ Independent Component Analysis",
     "section": "70.1 Pros and Cons",
     "text": "70.1 Pros and Cons\n\n70.1.1 Pros\n\n\n70.1.2 Cons"
   },
   {
     "objectID": "too-many-ica.html#r-examples",
     "href": "too-many-ica.html#r-examples",
-    "title": "70  Independent Component Analysis",
+    "title": "70  🏗️ Independent Component Analysis",
     "section": "70.2 R Examples",
     "text": "70.2 R Examples"
   },
   {
     "objectID": "too-many-ica.html#python-examples",
     "href": "too-many-ica.html#python-examples",
-    "title": "70  Independent Component Analysis",
+    "title": "70  🏗️ Independent Component Analysis",
     "section": "70.3 Python Examples",
     "text": "70.3 Python Examples"
   },
   {
     "objectID": "too-many-nmf.html#pros-and-cons",
     "href": "too-many-nmf.html#pros-and-cons",
-    "title": "71  Non-negative matrix factorization",
+    "title": "71  🏗️ Non-negative matrix factorization",
     "section": "71.1 Pros and Cons",
     "text": "71.1 Pros and Cons\n\n71.1.1 Pros\n\n\n71.1.2 Cons"
   },
   {
     "objectID": "too-many-nmf.html#r-examples",
     "href": "too-many-nmf.html#r-examples",
-    "title": "71  Non-negative matrix factorization",
+    "title": "71  🏗️ Non-negative matrix factorization",
     "section": "71.2 R Examples",
     "text": "71.2 R Examples"
   },
   {
     "objectID": "too-many-nmf.html#python-examples",
     "href": "too-many-nmf.html#python-examples",
-    "title": "71  Non-negative matrix factorization",
+    "title": "71  🏗️ Non-negative matrix factorization",
     "section": "71.3 Python Examples",
     "text": "71.3 Python Examples"
   },
   {
     "objectID": "too-many-lda.html#pros-and-cons",
     "href": "too-many-lda.html#pros-and-cons",
-    "title": "72  Linear discriminant analysis",
+    "title": "72  🏗️ Linear discriminant analysis",
     "section": "72.1 Pros and Cons",
     "text": "72.1 Pros and Cons\n\n72.1.1 Pros\n\n\n72.1.2 Cons"
   },
   {
     "objectID": "too-many-lda.html#r-examples",
     "href": "too-many-lda.html#r-examples",
-    "title": "72  Linear discriminant analysis",
+    "title": "72  🏗️ Linear discriminant analysis",
     "section": "72.2 R Examples",
     "text": "72.2 R Examples"
   },
   {
     "objectID": "too-many-lda.html#python-examples",
     "href": "too-many-lda.html#python-examples",
-    "title": "72  Linear discriminant analysis",
+    "title": "72  🏗️ Linear discriminant analysis",
     "section": "72.3 Python Examples",
     "text": "72.3 Python Examples"
   },
   {
     "objectID": "too-many-gda.html#pros-and-cons",
     "href": "too-many-gda.html#pros-and-cons",
-    "title": "73  Generalized discriminant analysis",
+    "title": "73  🏗️ Generalized discriminant analysis",
     "section": "73.1 Pros and Cons",
     "text": "73.1 Pros and Cons\n\n73.1.1 Pros\n\n\n73.1.2 Cons"
   },
   {
     "objectID": "too-many-gda.html#r-examples",
     "href": "too-many-gda.html#r-examples",
-    "title": "73  Generalized discriminant analysis",
+    "title": "73  🏗️ Generalized discriminant analysis",
     "section": "73.2 R Examples",
     "text": "73.2 R Examples"
   },
   {
     "objectID": "too-many-gda.html#python-examples",
     "href": "too-many-gda.html#python-examples",
-    "title": "73  Generalized discriminant analysis",
+    "title": "73  🏗️ Generalized discriminant analysis",
     "section": "73.3 Python Examples",
     "text": "73.3 Python Examples"
   },
   {
     "objectID": "too-many-autoencoder.html#pros-and-cons",
     "href": "too-many-autoencoder.html#pros-and-cons",
-    "title": "74  Autoencoders",
+    "title": "74  🏗️ Autoencoders",
     "section": "74.1 Pros and Cons",
     "text": "74.1 Pros and Cons\n\n74.1.1 Pros\n\n\n74.1.2 Cons"
   },
   {
     "objectID": "too-many-autoencoder.html#r-examples",
     "href": "too-many-autoencoder.html#r-examples",
-    "title": "74  Autoencoders",
+    "title": "74  🏗️ Autoencoders",
     "section": "74.2 R Examples",
     "text": "74.2 R Examples"
   },
   {
     "objectID": "too-many-autoencoder.html#python-examples",
     "href": "too-many-autoencoder.html#python-examples",
-    "title": "74  Autoencoders",
+    "title": "74  🏗️ Autoencoders",
     "section": "74.3 Python Examples",
     "text": "74.3 Python Examples"
   },
   {
     "objectID": "too-many-umap.html#pros-and-cons",
     "href": "too-many-umap.html#pros-and-cons",
-    "title": "75  Uniform Manifold Approximation and Projection",
+    "title": "75  🏗️ Uniform Manifold Approximation and Projection",
     "section": "75.1 Pros and Cons",
     "text": "75.1 Pros and Cons\n\n75.1.1 Pros\n\n\n75.1.2 Cons"
   },
   {
     "objectID": "too-many-umap.html#r-examples",
     "href": "too-many-umap.html#r-examples",
-    "title": "75  Uniform Manifold Approximation and Projection",
+    "title": "75  🏗️ Uniform Manifold Approximation and Projection",
     "section": "75.2 R Examples",
     "text": "75.2 R Examples"
   },
   {
     "objectID": "too-many-umap.html#python-examples",
     "href": "too-many-umap.html#python-examples",
-    "title": "75  Uniform Manifold Approximation and Projection",
+    "title": "75  🏗️ Uniform Manifold Approximation and Projection",
     "section": "75.3 Python Examples",
     "text": "75.3 Python Examples"
   },
   {
     "objectID": "too-many-isomap.html#pros-and-cons",
     "href": "too-many-isomap.html#pros-and-cons",
-    "title": "76  ISOMAP",
+    "title": "76  🏗️ ISOMAP",
     "section": "76.1 Pros and Cons",
     "text": "76.1 Pros and Cons\n\n76.1.1 Pros\n\n\n76.1.2 Cons"
   },
   {
     "objectID": "too-many-isomap.html#r-examples",
     "href": "too-many-isomap.html#r-examples",
-    "title": "76  ISOMAP",
+    "title": "76  🏗️ ISOMAP",
     "section": "76.2 R Examples",
     "text": "76.2 R Examples"
   },
   {
     "objectID": "too-many-isomap.html#python-examples",
     "href": "too-many-isomap.html#python-examples",
-    "title": "76  ISOMAP",
+    "title": "76  🏗️ ISOMAP",
     "section": "76.3 Python Examples",
     "text": "76.3 Python Examples"
   },
   {
     "objectID": "too-many-filter.html#pros-and-cons",
     "href": "too-many-filter.html#pros-and-cons",
-    "title": "77  Filter based feature selection",
+    "title": "77  🏗️ Filter based feature selection",
     "section": "77.1 Pros and Cons",
     "text": "77.1 Pros and Cons\n\n77.1.1 Pros\n\n\n77.1.2 Cons"
   },
   {
     "objectID": "too-many-filter.html#r-examples",
     "href": "too-many-filter.html#r-examples",
-    "title": "77  Filter based feature selection",
+    "title": "77  🏗️ Filter based feature selection",
     "section": "77.2 R Examples",
     "text": "77.2 R Examples"
   },
   {
     "objectID": "too-many-filter.html#python-examples",
     "href": "too-many-filter.html#python-examples",
-    "title": "77  Filter based feature selection",
+    "title": "77  🏗️ Filter based feature selection",
     "section": "77.3 Python Examples",
     "text": "77.3 Python Examples"
   },
   {
     "objectID": "too-many-wrapper.html#pros-and-cons",
     "href": "too-many-wrapper.html#pros-and-cons",
-    "title": "78  Wrapper based feature selection",
+    "title": "78  🏗️ Wrapper based feature selection",
     "section": "78.1 Pros and Cons",
     "text": "78.1 Pros and Cons\n\n78.1.1 Pros\n\n\n78.1.2 Cons"
   },
   {
     "objectID": "too-many-wrapper.html#r-examples",
     "href": "too-many-wrapper.html#r-examples",
-    "title": "78  Wrapper based feature selection",
+    "title": "78  🏗️ Wrapper based feature selection",
     "section": "78.2 R Examples",
     "text": "78.2 R Examples"
   },
   {
     "objectID": "too-many-wrapper.html#python-examples",
     "href": "too-many-wrapper.html#python-examples",
-    "title": "78  Wrapper based feature selection",
+    "title": "78  🏗️ Wrapper based feature selection",
     "section": "78.3 Python Examples",
     "text": "78.3 Python Examples"
   },
   {
     "objectID": "too-many-embedded.html#pros-and-cons",
     "href": "too-many-embedded.html#pros-and-cons",
-    "title": "79  embedded based feature selection",
+    "title": "79  🏗️ embedded based feature selection",
     "section": "79.1 Pros and Cons",
     "text": "79.1 Pros and Cons\n\n79.1.1 Pros\n\n\n79.1.2 Cons"
   },
   {
     "objectID": "too-many-embedded.html#r-examples",
     "href": "too-many-embedded.html#r-examples",
-    "title": "79  embedded based feature selection",
+    "title": "79  🏗️ embedded based feature selection",
     "section": "79.2 R Examples",
     "text": "79.2 R Examples"
   },
   {
     "objectID": "too-many-embedded.html#python-examples",
     "href": "too-many-embedded.html#python-examples",
-    "title": "79  embedded based feature selection",
+    "title": "79  🏗️ embedded based feature selection",
     "section": "79.3 Python Examples",
     "text": "79.3 Python Examples"
   },
@@ -1710,63 +1710,63 @@
   {
     "objectID": "outliers-remove.html#pros-and-cons",
     "href": "outliers-remove.html#pros-and-cons",
-    "title": "83  Removal",
+    "title": "83  🏗️ Removal",
     "section": "83.1 Pros and Cons",
     "text": "83.1 Pros and Cons\n\n83.1.1 Pros\n\n\n83.1.2 Cons"
   },
   {
     "objectID": "outliers-remove.html#r-examples",
     "href": "outliers-remove.html#r-examples",
-    "title": "83  Removal",
+    "title": "83  🏗️ Removal",
     "section": "83.2 R Examples",
     "text": "83.2 R Examples"
   },
   {
     "objectID": "outliers-remove.html#python-examples",
     "href": "outliers-remove.html#python-examples",
-    "title": "83  Removal",
+    "title": "83  🏗️ Removal",
     "section": "83.3 Python Examples",
     "text": "83.3 Python Examples"
   },
   {
     "objectID": "outliers-imputation.html#pros-and-cons",
     "href": "outliers-imputation.html#pros-and-cons",
-    "title": "84  Imputation",
+    "title": "84  🏗️ Imputation",
     "section": "84.1 Pros and Cons",
     "text": "84.1 Pros and Cons\n\n84.1.1 Pros\n\n\n84.1.2 Cons"
   },
   {
     "objectID": "outliers-imputation.html#r-examples",
     "href": "outliers-imputation.html#r-examples",
-    "title": "84  Imputation",
+    "title": "84  🏗️ Imputation",
     "section": "84.2 R Examples",
     "text": "84.2 R Examples"
   },
   {
     "objectID": "outliers-imputation.html#python-examples",
     "href": "outliers-imputation.html#python-examples",
-    "title": "84  Imputation",
+    "title": "84  🏗️ Imputation",
     "section": "84.3 Python Examples",
     "text": "84.3 Python Examples"
   },
   {
     "objectID": "outliers-indicate.html#pros-and-cons",
     "href": "outliers-indicate.html#pros-and-cons",
-    "title": "85  Indicate",
+    "title": "85  🏗️ Indicate",
     "section": "85.1 Pros and Cons",
     "text": "85.1 Pros and Cons\n\n85.1.1 Pros\n\n\n85.1.2 Cons"
   },
   {
     "objectID": "outliers-indicate.html#r-examples",
     "href": "outliers-indicate.html#r-examples",
-    "title": "85  Indicate",
+    "title": "85  🏗️ Indicate",
     "section": "85.2 R Examples",
     "text": "85.2 R Examples"
   },
   {
     "objectID": "outliers-indicate.html#python-examples",
     "href": "outliers-indicate.html#python-examples",
-    "title": "85  Indicate",
+    "title": "85  🏗️ Indicate",
     "section": "85.3 Python Examples",
     "text": "85.3 Python Examples"
   },
@@ -1780,273 +1780,273 @@
   {
     "objectID": "imbalenced-upsample.html#pros-and-cons",
     "href": "imbalenced-upsample.html#pros-and-cons",
-    "title": "87  Up-sampling",
+    "title": "87  🏗️ Up-sampling",
     "section": "87.1 Pros and Cons",
     "text": "87.1 Pros and Cons\n\n87.1.1 Pros\n\n\n87.1.2 Cons"
   },
   {
     "objectID": "imbalenced-upsample.html#r-examples",
     "href": "imbalenced-upsample.html#r-examples",
-    "title": "87  Up-sampling",
+    "title": "87  🏗️ Up-sampling",
     "section": "87.2 R Examples",
     "text": "87.2 R Examples"
   },
   {
     "objectID": "imbalenced-upsample.html#python-examples",
     "href": "imbalenced-upsample.html#python-examples",
-    "title": "87  Up-sampling",
+    "title": "87  🏗️ Up-sampling",
     "section": "87.3 Python Examples",
     "text": "87.3 Python Examples"
   },
   {
     "objectID": "imbalenced-rose.html#pros-and-cons",
     "href": "imbalenced-rose.html#pros-and-cons",
-    "title": "88  ROSE",
+    "title": "88  🏗️ ROSE",
     "section": "88.1 Pros and Cons",
     "text": "88.1 Pros and Cons\n\n88.1.1 Pros\n\n\n88.1.2 Cons"
   },
   {
     "objectID": "imbalenced-rose.html#r-examples",
     "href": "imbalenced-rose.html#r-examples",
-    "title": "88  ROSE",
+    "title": "88  🏗️ ROSE",
     "section": "88.2 R Examples",
     "text": "88.2 R Examples"
   },
   {
     "objectID": "imbalenced-rose.html#python-examples",
     "href": "imbalenced-rose.html#python-examples",
-    "title": "88  ROSE",
+    "title": "88  🏗️ ROSE",
     "section": "88.3 Python Examples",
     "text": "88.3 Python Examples"
   },
   {
     "objectID": "imbalenced-smote.html#pros-and-cons",
     "href": "imbalenced-smote.html#pros-and-cons",
-    "title": "89  SMOTE",
+    "title": "89  🏗️ SMOTE",
     "section": "89.1 Pros and Cons",
     "text": "89.1 Pros and Cons\n\n89.1.1 Pros\n\n\n89.1.2 Cons"
   },
   {
     "objectID": "imbalenced-smote.html#r-examples",
     "href": "imbalenced-smote.html#r-examples",
-    "title": "89  SMOTE",
+    "title": "89  🏗️ SMOTE",
     "section": "89.2 R Examples",
     "text": "89.2 R Examples"
   },
   {
     "objectID": "imbalenced-smote.html#python-examples",
     "href": "imbalenced-smote.html#python-examples",
-    "title": "89  SMOTE",
+    "title": "89  🏗️ SMOTE",
     "section": "89.3 Python Examples",
     "text": "89.3 Python Examples"
   },
   {
     "objectID": "imbalenced-smote-variants.html#pros-and-cons",
     "href": "imbalenced-smote-variants.html#pros-and-cons",
-    "title": "90  SMOTE Variants",
+    "title": "90  🏗️ SMOTE Variants",
     "section": "90.1 Pros and Cons",
     "text": "90.1 Pros and Cons\n\n90.1.1 Pros\n\n\n90.1.2 Cons"
   },
   {
     "objectID": "imbalenced-smote-variants.html#r-examples",
     "href": "imbalenced-smote-variants.html#r-examples",
-    "title": "90  SMOTE Variants",
+    "title": "90  🏗️ SMOTE Variants",
     "section": "90.2 R Examples",
     "text": "90.2 R Examples"
   },
   {
     "objectID": "imbalenced-smote-variants.html#python-examples",
     "href": "imbalenced-smote-variants.html#python-examples",
-    "title": "90  SMOTE Variants",
+    "title": "90  🏗️ SMOTE Variants",
     "section": "90.3 Python Examples",
     "text": "90.3 Python Examples"
   },
   {
     "objectID": "imbalenced-borderline-smote.html#pros-and-cons",
     "href": "imbalenced-borderline-smote.html#pros-and-cons",
-    "title": "91  Borderline SMOTE",
+    "title": "91  🏗️ Borderline SMOTE",
     "section": "91.1 Pros and Cons",
     "text": "91.1 Pros and Cons\n\n91.1.1 Pros\n\n\n91.1.2 Cons"
   },
   {
     "objectID": "imbalenced-borderline-smote.html#r-examples",
     "href": "imbalenced-borderline-smote.html#r-examples",
-    "title": "91  Borderline SMOTE",
+    "title": "91  🏗️ Borderline SMOTE",
     "section": "91.2 R Examples",
     "text": "91.2 R Examples"
   },
   {
     "objectID": "imbalenced-borderline-smote.html#python-examples",
     "href": "imbalenced-borderline-smote.html#python-examples",
-    "title": "91  Borderline SMOTE",
+    "title": "91  🏗️ Borderline SMOTE",
     "section": "91.3 Python Examples",
     "text": "91.3 Python Examples"
   },
   {
     "objectID": "imbalenced-adasyn.html#pros-and-cons",
     "href": "imbalenced-adasyn.html#pros-and-cons",
-    "title": "92  Adaptive Synthetic Algorithm",
+    "title": "92  🏗️ Adaptive Synthetic Algorithm",
     "section": "92.1 Pros and Cons",
     "text": "92.1 Pros and Cons\n\n92.1.1 Pros\n\n\n92.1.2 Cons"
   },
   {
     "objectID": "imbalenced-adasyn.html#r-examples",
     "href": "imbalenced-adasyn.html#r-examples",
-    "title": "92  Adaptive Synthetic Algorithm",
+    "title": "92  🏗️ Adaptive Synthetic Algorithm",
     "section": "92.2 R Examples",
     "text": "92.2 R Examples"
   },
   {
     "objectID": "imbalenced-adasyn.html#python-examples",
     "href": "imbalenced-adasyn.html#python-examples",
-    "title": "92  Adaptive Synthetic Algorithm",
+    "title": "92  🏗️ Adaptive Synthetic Algorithm",
     "section": "92.3 Python Examples",
     "text": "92.3 Python Examples"
   },
   {
     "objectID": "imbalenced-downsample.html#pros-and-cons",
     "href": "imbalenced-downsample.html#pros-and-cons",
-    "title": "93  Down-Sampling",
+    "title": "93  🏗️ Down-Sampling",
     "section": "93.1 Pros and Cons",
     "text": "93.1 Pros and Cons\n\n93.1.1 Pros\n\n\n93.1.2 Cons"
   },
   {
     "objectID": "imbalenced-downsample.html#r-examples",
     "href": "imbalenced-downsample.html#r-examples",
-    "title": "93  Down-Sampling",
+    "title": "93  🏗️ Down-Sampling",
     "section": "93.2 R Examples",
     "text": "93.2 R Examples"
   },
   {
     "objectID": "imbalenced-downsample.html#python-examples",
     "href": "imbalenced-downsample.html#python-examples",
-    "title": "93  Down-Sampling",
+    "title": "93  🏗️ Down-Sampling",
     "section": "93.3 Python Examples",
     "text": "93.3 Python Examples"
   },
   {
     "objectID": "imbalenced-nearmiss.html#pros-and-cons",
     "href": "imbalenced-nearmiss.html#pros-and-cons",
-    "title": "94  Near-Miss",
+    "title": "94  🏗️ Near-Miss",
     "section": "94.1 Pros and Cons",
     "text": "94.1 Pros and Cons\n\n94.1.1 Pros\n\n\n94.1.2 Cons"
   },
   {
     "objectID": "imbalenced-nearmiss.html#r-examples",
     "href": "imbalenced-nearmiss.html#r-examples",
-    "title": "94  Near-Miss",
+    "title": "94  🏗️ Near-Miss",
     "section": "94.2 R Examples",
     "text": "94.2 R Examples"
   },
   {
     "objectID": "imbalenced-nearmiss.html#python-examples",
     "href": "imbalenced-nearmiss.html#python-examples",
-    "title": "94  Near-Miss",
+    "title": "94  🏗️ Near-Miss",
     "section": "94.3 Python Examples",
     "text": "94.3 Python Examples"
   },
   {
     "objectID": "imbalenced-tomek.html#pros-and-cons",
     "href": "imbalenced-tomek.html#pros-and-cons",
-    "title": "95  Tomek Links",
+    "title": "95  🏗️ Tomek Links",
     "section": "95.1 Pros and Cons",
     "text": "95.1 Pros and Cons\n\n95.1.1 Pros\n\n\n95.1.2 Cons"
   },
   {
     "objectID": "imbalenced-tomek.html#r-examples",
     "href": "imbalenced-tomek.html#r-examples",
-    "title": "95  Tomek Links",
+    "title": "95  🏗️ Tomek Links",
     "section": "95.2 R Examples",
     "text": "95.2 R Examples"
   },
   {
     "objectID": "imbalenced-tomek.html#python-examples",
     "href": "imbalenced-tomek.html#python-examples",
-    "title": "95  Tomek Links",
+    "title": "95  🏗️ Tomek Links",
     "section": "95.3 Python Examples",
     "text": "95.3 Python Examples"
   },
   {
     "objectID": "imbalenced-cnn.html#pros-and-cons",
     "href": "imbalenced-cnn.html#pros-and-cons",
-    "title": "96  Condensed Nearest Neighbor",
+    "title": "96  🏗️ Condensed Nearest Neighbor",
     "section": "96.1 Pros and Cons",
     "text": "96.1 Pros and Cons\n\n96.1.1 Pros\n\n\n96.1.2 Cons"
   },
   {
     "objectID": "imbalenced-cnn.html#r-examples",
     "href": "imbalenced-cnn.html#r-examples",
-    "title": "96  Condensed Nearest Neighbor",
+    "title": "96  🏗️ Condensed Nearest Neighbor",
     "section": "96.2 R Examples",
     "text": "96.2 R Examples"
   },
   {
     "objectID": "imbalenced-cnn.html#python-examples",
     "href": "imbalenced-cnn.html#python-examples",
-    "title": "96  Condensed Nearest Neighbor",
+    "title": "96  🏗️ Condensed Nearest Neighbor",
     "section": "96.3 Python Examples",
     "text": "96.3 Python Examples"
   },
   {
     "objectID": "imbalenced-enn.html#pros-and-cons",
     "href": "imbalenced-enn.html#pros-and-cons",
-    "title": "97  Edited Nearest Neighbor",
+    "title": "97  🏗️ Edited Nearest Neighbor",
     "section": "97.1 Pros and Cons",
     "text": "97.1 Pros and Cons\n\n97.1.1 Pros\n\n\n97.1.2 Cons"
   },
   {
     "objectID": "imbalenced-enn.html#r-examples",
     "href": "imbalenced-enn.html#r-examples",
-    "title": "97  Edited Nearest Neighbor",
+    "title": "97  🏗️ Edited Nearest Neighbor",
     "section": "97.2 R Examples",
     "text": "97.2 R Examples"
   },
   {
     "objectID": "imbalenced-enn.html#python-examples",
     "href": "imbalenced-enn.html#python-examples",
-    "title": "97  Edited Nearest Neighbor",
+    "title": "97  🏗️ Edited Nearest Neighbor",
     "section": "97.3 Python Examples",
     "text": "97.3 Python Examples"
   },
   {
     "objectID": "imbalenced-hardness-threshold.html#pros-and-cons",
     "href": "imbalenced-hardness-threshold.html#pros-and-cons",
-    "title": "98  Instance Hardness Threshold",
+    "title": "98  🏗️ Instance Hardness Threshold",
     "section": "98.1 Pros and Cons",
     "text": "98.1 Pros and Cons\n\n98.1.1 Pros\n\n\n98.1.2 Cons"
   },
   {
     "objectID": "imbalenced-hardness-threshold.html#r-examples",
     "href": "imbalenced-hardness-threshold.html#r-examples",
-    "title": "98  Instance Hardness Threshold",
+    "title": "98  🏗️ Instance Hardness Threshold",
     "section": "98.2 R Examples",
     "text": "98.2 R Examples"
   },
   {
     "objectID": "imbalenced-hardness-threshold.html#python-examples",
     "href": "imbalenced-hardness-threshold.html#python-examples",
-    "title": "98  Instance Hardness Threshold",
+    "title": "98  🏗️ Instance Hardness Threshold",
     "section": "98.3 Python Examples",
     "text": "98.3 Python Examples"
   },
   {
     "objectID": "imbalenced-one-sided.html#pros-and-cons",
     "href": "imbalenced-one-sided.html#pros-and-cons",
-    "title": "99  One Sided Selection",
+    "title": "99  🏗️ One Sided Selection",
     "section": "99.1 Pros and Cons",
     "text": "99.1 Pros and Cons\n\n99.1.1 Pros\n\n\n99.1.2 Cons"
   },
   {
     "objectID": "imbalenced-one-sided.html#r-examples",
     "href": "imbalenced-one-sided.html#r-examples",
-    "title": "99  One Sided Selection",
+    "title": "99  🏗️ One Sided Selection",
     "section": "99.2 R Examples",
     "text": "99.2 R Examples"
   },
   {
     "objectID": "imbalenced-one-sided.html#python-examples",
     "href": "imbalenced-one-sided.html#python-examples",
-    "title": "99  One Sided Selection",
+    "title": "99  🏗️ One Sided Selection",
     "section": "99.3 Python Examples",
     "text": "99.3 Python Examples"
   },
@@ -2060,84 +2060,84 @@
   {
     "objectID": "miscellaneous-id.html#pros-and-cons",
     "href": "miscellaneous-id.html#pros-and-cons",
-    "title": "101  IDs",
+    "title": "101  🏗️ IDs",
     "section": "101.1 Pros and Cons",
     "text": "101.1 Pros and Cons\n\n101.1.1 Pros\n\n\n101.1.2 Cons"
   },
   {
     "objectID": "miscellaneous-id.html#r-examples",
     "href": "miscellaneous-id.html#r-examples",
-    "title": "101  IDs",
+    "title": "101  🏗️ IDs",
     "section": "101.2 R Examples",
     "text": "101.2 R Examples"
   },
   {
     "objectID": "miscellaneous-id.html#python-examples",
     "href": "miscellaneous-id.html#python-examples",
-    "title": "101  IDs",
+    "title": "101  🏗️ IDs",
     "section": "101.3 Python Examples",
     "text": "101.3 Python Examples"
   },
   {
     "objectID": "miscellaneous-color.html#pros-and-cons",
     "href": "miscellaneous-color.html#pros-and-cons",
-    "title": "102  Colors",
+    "title": "102  🏗️ Colors",
     "section": "102.1 Pros and Cons",
     "text": "102.1 Pros and Cons\n\n102.1.1 Pros\n\n\n102.1.2 Cons"
   },
   {
     "objectID": "miscellaneous-color.html#r-examples",
     "href": "miscellaneous-color.html#r-examples",
-    "title": "102  Colors",
+    "title": "102  🏗️ Colors",
     "section": "102.2 R Examples",
     "text": "102.2 R Examples"
   },
   {
     "objectID": "miscellaneous-color.html#python-examples",
     "href": "miscellaneous-color.html#python-examples",
-    "title": "102  Colors",
+    "title": "102  🏗️ Colors",
     "section": "102.3 Python Examples",
     "text": "102.3 Python Examples"
   },
   {
     "objectID": "miscellaneous-zipcodes.html#pros-and-cons",
     "href": "miscellaneous-zipcodes.html#pros-and-cons",
-    "title": "103  Zip Codes",
+    "title": "103  🏗️ Zip Codes",
     "section": "103.1 Pros and Cons",
     "text": "103.1 Pros and Cons\n\n103.1.1 Pros\n\n\n103.1.2 Cons"
   },
   {
     "objectID": "miscellaneous-zipcodes.html#r-examples",
     "href": "miscellaneous-zipcodes.html#r-examples",
-    "title": "103  Zip Codes",
+    "title": "103  🏗️ Zip Codes",
     "section": "103.2 R Examples",
     "text": "103.2 R Examples"
   },
   {
     "objectID": "miscellaneous-zipcodes.html#python-examples",
     "href": "miscellaneous-zipcodes.html#python-examples",
-    "title": "103  Zip Codes",
+    "title": "103  🏗️ Zip Codes",
     "section": "103.3 Python Examples",
     "text": "103.3 Python Examples"
   },
   {
     "objectID": "miscellaneous-email.html#pros-and-cons",
     "href": "miscellaneous-email.html#pros-and-cons",
-    "title": "104  Emails",
+    "title": "104  🏗️ Emails",
     "section": "104.1 Pros and Cons",
     "text": "104.1 Pros and Cons\n\n104.1.1 Pros\n\n\n104.1.2 Cons"
   },
   {
     "objectID": "miscellaneous-email.html#r-examples",
     "href": "miscellaneous-email.html#r-examples",
-    "title": "104  Emails",
+    "title": "104  🏗️ Emails",
     "section": "104.2 R Examples",
     "text": "104.2 R Examples"
   },
   {
     "objectID": "miscellaneous-email.html#python-examples",
     "href": "miscellaneous-email.html#python-examples",
-    "title": "104  Emails",
+    "title": "104  🏗️ Emails",
     "section": "104.3 Python Examples",
     "text": "104.3 Python Examples"
   },
@@ -2151,126 +2151,126 @@
   {
     "objectID": "spatial-distance.html#pros-and-cons",
     "href": "spatial-distance.html#pros-and-cons",
-    "title": "106  Spatial Distance",
+    "title": "106  🏗️ Spatial Distance",
     "section": "106.1 Pros and Cons",
     "text": "106.1 Pros and Cons\n\n106.1.1 Pros\n\n\n106.1.2 Cons"
   },
   {
     "objectID": "spatial-distance.html#r-examples",
     "href": "spatial-distance.html#r-examples",
-    "title": "106  Spatial Distance",
+    "title": "106  🏗️ Spatial Distance",
     "section": "106.2 R Examples",
     "text": "106.2 R Examples"
   },
   {
     "objectID": "spatial-distance.html#python-examples",
     "href": "spatial-distance.html#python-examples",
-    "title": "106  Spatial Distance",
+    "title": "106  🏗️ Spatial Distance",
     "section": "106.3 Python Examples",
     "text": "106.3 Python Examples"
   },
   {
     "objectID": "spatial-nearest.html#pros-and-cons",
     "href": "spatial-nearest.html#pros-and-cons",
-    "title": "107  Spatial Nearest",
+    "title": "107  🏗️ Spatial Nearest",
     "section": "107.1 Pros and Cons",
     "text": "107.1 Pros and Cons\n\n107.1.1 Pros\n\n\n107.1.2 Cons"
   },
   {
     "objectID": "spatial-nearest.html#r-examples",
     "href": "spatial-nearest.html#r-examples",
-    "title": "107  Spatial Nearest",
+    "title": "107  🏗️ Spatial Nearest",
     "section": "107.2 R Examples",
     "text": "107.2 R Examples"
   },
   {
     "objectID": "spatial-nearest.html#python-examples",
     "href": "spatial-nearest.html#python-examples",
-    "title": "107  Spatial Nearest",
+    "title": "107  🏗️ Spatial Nearest",
     "section": "107.3 Python Examples",
     "text": "107.3 Python Examples"
   },
   {
     "objectID": "spatial-count.html#pros-and-cons",
     "href": "spatial-count.html#pros-and-cons",
-    "title": "108  Spatial Count",
+    "title": "108  🏗️ Spatial Count",
     "section": "108.1 Pros and Cons",
     "text": "108.1 Pros and Cons\n\n108.1.1 Pros\n\n\n108.1.2 Cons"
   },
   {
     "objectID": "spatial-count.html#r-examples",
     "href": "spatial-count.html#r-examples",
-    "title": "108  Spatial Count",
+    "title": "108  🏗️ Spatial Count",
     "section": "108.2 R Examples",
     "text": "108.2 R Examples"
   },
   {
     "objectID": "spatial-count.html#python-examples",
     "href": "spatial-count.html#python-examples",
-    "title": "108  Spatial Count",
+    "title": "108  🏗️ Spatial Count",
     "section": "108.3 Python Examples",
     "text": "108.3 Python Examples"
   },
   {
     "objectID": "spatial-query.html#pros-and-cons",
     "href": "spatial-query.html#pros-and-cons",
-    "title": "109  Spatial Query",
+    "title": "109  🏗️ Spatial Query",
     "section": "109.1 Pros and Cons",
     "text": "109.1 Pros and Cons\n\n109.1.1 Pros\n\n\n109.1.2 Cons"
   },
   {
     "objectID": "spatial-query.html#r-examples",
     "href": "spatial-query.html#r-examples",
-    "title": "109  Spatial Query",
+    "title": "109  🏗️ Spatial Query",
     "section": "109.2 R Examples",
     "text": "109.2 R Examples"
   },
   {
     "objectID": "spatial-query.html#python-examples",
     "href": "spatial-query.html#python-examples",
-    "title": "109  Spatial Query",
+    "title": "109  🏗️ Spatial Query",
     "section": "109.3 Python Examples",
     "text": "109.3 Python Examples"
   },
   {
     "objectID": "spatial-embedding.html#pros-and-cons",
     "href": "spatial-embedding.html#pros-and-cons",
-    "title": "110  Spatial Embedding",
+    "title": "110  🏗️ Spatial Embedding",
     "section": "110.1 Pros and Cons",
     "text": "110.1 Pros and Cons\n\n110.1.1 Pros\n\n\n110.1.2 Cons"
   },
   {
     "objectID": "spatial-embedding.html#r-examples",
     "href": "spatial-embedding.html#r-examples",
-    "title": "110  Spatial Embedding",
+    "title": "110  🏗️ Spatial Embedding",
     "section": "110.2 R Examples",
     "text": "110.2 R Examples"
   },
   {
     "objectID": "spatial-embedding.html#python-examples",
     "href": "spatial-embedding.html#python-examples",
-    "title": "110  Spatial Embedding",
+    "title": "110  🏗️ Spatial Embedding",
     "section": "110.3 Python Examples",
     "text": "110.3 Python Examples"
   },
   {
     "objectID": "spatial-characteristics.html#pros-and-cons",
     "href": "spatial-characteristics.html#pros-and-cons",
-    "title": "111  Spatial Characteristics",
+    "title": "111  🏗️ Spatial Characteristics",
     "section": "111.1 Pros and Cons",
     "text": "111.1 Pros and Cons\n\n111.1.1 Pros\n\n\n111.1.2 Cons"
   },
   {
     "objectID": "spatial-characteristics.html#r-examples",
     "href": "spatial-characteristics.html#r-examples",
-    "title": "111  Spatial Characteristics",
+    "title": "111  🏗️ Spatial Characteristics",
     "section": "111.2 R Examples",
     "text": "111.2 R Examples"
   },
   {
     "objectID": "spatial-characteristics.html#python-examples",
     "href": "spatial-characteristics.html#python-examples",
-    "title": "111  Spatial Characteristics",
+    "title": "111  🏗️ Spatial Characteristics",
     "section": "111.3 Python Examples",
     "text": "111.3 Python Examples"
   },
@@ -2284,231 +2284,231 @@
   {
     "objectID": "time-series-smooth.html#pros-and-cons",
     "href": "time-series-smooth.html#pros-and-cons",
-    "title": "113  Smoothing",
+    "title": "113  🏗️ Smoothing",
     "section": "113.1 Pros and Cons",
     "text": "113.1 Pros and Cons\n\n113.1.1 Pros\n\n\n113.1.2 Cons"
   },
   {
     "objectID": "time-series-smooth.html#r-examples",
     "href": "time-series-smooth.html#r-examples",
-    "title": "113  Smoothing",
+    "title": "113  🏗️ Smoothing",
     "section": "113.2 R Examples",
     "text": "113.2 R Examples"
   },
   {
     "objectID": "time-series-smooth.html#python-examples",
     "href": "time-series-smooth.html#python-examples",
-    "title": "113  Smoothing",
+    "title": "113  🏗️ Smoothing",
     "section": "113.3 Python Examples",
     "text": "113.3 Python Examples"
   },
   {
     "objectID": "time-series-sliding.html#pros-and-cons",
     "href": "time-series-sliding.html#pros-and-cons",
-    "title": "114  Sliding",
+    "title": "114  🏗️ Sliding",
     "section": "114.1 Pros and Cons",
     "text": "114.1 Pros and Cons\n\n114.1.1 Pros\n\n\n114.1.2 Cons"
   },
   {
     "objectID": "time-series-sliding.html#r-examples",
     "href": "time-series-sliding.html#r-examples",
-    "title": "114  Sliding",
+    "title": "114  🏗️ Sliding",
     "section": "114.2 R Examples",
     "text": "114.2 R Examples"
   },
   {
     "objectID": "time-series-sliding.html#python-examples",
     "href": "time-series-sliding.html#python-examples",
-    "title": "114  Sliding",
+    "title": "114  🏗️ Sliding",
     "section": "114.3 Python Examples",
     "text": "114.3 Python Examples"
   },
   {
     "objectID": "time-series-log-interval.html#pros-and-cons",
     "href": "time-series-log-interval.html#pros-and-cons",
-    "title": "115  Log Interval",
+    "title": "115  🏗️ Log Interval",
     "section": "115.1 Pros and Cons",
     "text": "115.1 Pros and Cons\n\n115.1.1 Pros\n\n\n115.1.2 Cons"
   },
   {
     "objectID": "time-series-log-interval.html#r-examples",
     "href": "time-series-log-interval.html#r-examples",
-    "title": "115  Log Interval",
+    "title": "115  🏗️ Log Interval",
     "section": "115.2 R Examples",
     "text": "115.2 R Examples"
   },
   {
     "objectID": "time-series-log-interval.html#python-examples",
     "href": "time-series-log-interval.html#python-examples",
-    "title": "115  Log Interval",
+    "title": "115  🏗️ Log Interval",
     "section": "115.3 Python Examples",
     "text": "115.3 Python Examples"
   },
   {
     "objectID": "time-series-missing.html#pros-and-cons",
     "href": "time-series-missing.html#pros-and-cons",
-    "title": "116  Time series Missing values",
+    "title": "116  🏗️ Time series Missing values",
     "section": "116.1 Pros and Cons",
     "text": "116.1 Pros and Cons\n\n116.1.1 Pros\n\n\n116.1.2 Cons"
   },
   {
     "objectID": "time-series-missing.html#r-examples",
     "href": "time-series-missing.html#r-examples",
-    "title": "116  Time series Missing values",
+    "title": "116  🏗️ Time series Missing values",
     "section": "116.2 R Examples",
     "text": "116.2 R Examples"
   },
   {
     "objectID": "time-series-missing.html#python-examples",
     "href": "time-series-missing.html#python-examples",
-    "title": "116  Time series Missing values",
+    "title": "116  🏗️ Time series Missing values",
     "section": "116.3 Python Examples",
     "text": "116.3 Python Examples"
   },
   {
     "objectID": "time-series-outliers.html#pros-and-cons",
     "href": "time-series-outliers.html#pros-and-cons",
-    "title": "117  Time Series outliers",
+    "title": "117  🏗️ Time Series outliers",
     "section": "117.1 Pros and Cons",
     "text": "117.1 Pros and Cons\n\n117.1.1 Pros\n\n\n117.1.2 Cons"
   },
   {
     "objectID": "time-series-outliers.html#r-examples",
     "href": "time-series-outliers.html#r-examples",
-    "title": "117  Time Series outliers",
+    "title": "117  🏗️ Time Series outliers",
     "section": "117.2 R Examples",
     "text": "117.2 R Examples"
   },
   {
     "objectID": "time-series-outliers.html#python-examples",
     "href": "time-series-outliers.html#python-examples",
-    "title": "117  Time Series outliers",
+    "title": "117  🏗️ Time Series outliers",
     "section": "117.3 Python Examples",
     "text": "117.3 Python Examples"
   },
   {
     "objectID": "time-series-diff.html#pros-and-cons",
     "href": "time-series-diff.html#pros-and-cons",
-    "title": "118  Differences",
+    "title": "118  🏗️ Differences",
     "section": "118.1 Pros and Cons",
     "text": "118.1 Pros and Cons\n\n118.1.1 Pros\n\n\n118.1.2 Cons"
   },
   {
     "objectID": "time-series-diff.html#r-examples",
     "href": "time-series-diff.html#r-examples",
-    "title": "118  Differences",
+    "title": "118  🏗️ Differences",
     "section": "118.2 R Examples",
     "text": "118.2 R Examples"
   },
   {
     "objectID": "time-series-diff.html#python-examples",
     "href": "time-series-diff.html#python-examples",
-    "title": "118  Differences",
+    "title": "118  🏗️ Differences",
     "section": "118.3 Python Examples",
     "text": "118.3 Python Examples"
   },
   {
     "objectID": "time-series-lag.html#pros-and-cons",
     "href": "time-series-lag.html#pros-and-cons",
-    "title": "119  Lagging features",
+    "title": "119  🏗️ Lagging features",
     "section": "119.1 Pros and Cons",
     "text": "119.1 Pros and Cons\n\n119.1.1 Pros\n\n\n119.1.2 Cons"
   },
   {
     "objectID": "time-series-lag.html#r-examples",
     "href": "time-series-lag.html#r-examples",
-    "title": "119  Lagging features",
+    "title": "119  🏗️ Lagging features",
     "section": "119.2 R Examples",
     "text": "119.2 R Examples"
   },
   {
     "objectID": "time-series-lag.html#python-examples",
     "href": "time-series-lag.html#python-examples",
-    "title": "119  Lagging features",
+    "title": "119  🏗️ Lagging features",
     "section": "119.3 Python Examples",
     "text": "119.3 Python Examples"
   },
   {
     "objectID": "time-series-rolling-window.html#pros-and-cons",
     "href": "time-series-rolling-window.html#pros-and-cons",
-    "title": "120  Rolling Window",
+    "title": "120  🏗️ Rolling Window",
     "section": "120.1 Pros and Cons",
     "text": "120.1 Pros and Cons\n\n120.1.1 Pros\n\n\n120.1.2 Cons"
   },
   {
     "objectID": "time-series-rolling-window.html#r-examples",
     "href": "time-series-rolling-window.html#r-examples",
-    "title": "120  Rolling Window",
+    "title": "120  🏗️ Rolling Window",
     "section": "120.2 R Examples",
     "text": "120.2 R Examples"
   },
   {
     "objectID": "time-series-rolling-window.html#python-examples",
     "href": "time-series-rolling-window.html#python-examples",
-    "title": "120  Rolling Window",
+    "title": "120  🏗️ Rolling Window",
     "section": "120.3 Python Examples",
     "text": "120.3 Python Examples"
   },
   {
     "objectID": "time-series-expanding-window.html#pros-and-cons",
     "href": "time-series-expanding-window.html#pros-and-cons",
-    "title": "121  Expanding Window",
+    "title": "121  🏗️ Expanding Window",
     "section": "121.1 Pros and Cons",
     "text": "121.1 Pros and Cons\n\n121.1.1 Pros\n\n\n121.1.2 Cons"
   },
   {
     "objectID": "time-series-expanding-window.html#r-examples",
     "href": "time-series-expanding-window.html#r-examples",
-    "title": "121  Expanding Window",
+    "title": "121  🏗️ Expanding Window",
     "section": "121.2 R Examples",
     "text": "121.2 R Examples"
   },
   {
     "objectID": "time-series-expanding-window.html#python-examples",
     "href": "time-series-expanding-window.html#python-examples",
-    "title": "121  Expanding Window",
+    "title": "121  🏗️ Expanding Window",
     "section": "121.3 Python Examples",
     "text": "121.3 Python Examples"
   },
   {
     "objectID": "time-series-fourier.html#pros-and-cons",
     "href": "time-series-fourier.html#pros-and-cons",
-    "title": "122  Fourier Features",
+    "title": "122  🏗️ Fourier Features",
     "section": "122.1 Pros and Cons",
     "text": "122.1 Pros and Cons\n\n122.1.1 Pros\n\n\n122.1.2 Cons"
   },
   {
     "objectID": "time-series-fourier.html#r-examples",
     "href": "time-series-fourier.html#r-examples",
-    "title": "122  Fourier Features",
+    "title": "122  🏗️ Fourier Features",
     "section": "122.2 R Examples",
     "text": "122.2 R Examples"
   },
   {
     "objectID": "time-series-fourier.html#python-examples",
     "href": "time-series-fourier.html#python-examples",
-    "title": "122  Fourier Features",
+    "title": "122  🏗️ Fourier Features",
     "section": "122.3 Python Examples",
     "text": "122.3 Python Examples"
   },
   {
     "objectID": "time-series-wavelet.html#pros-and-cons",
     "href": "time-series-wavelet.html#pros-and-cons",
-    "title": "123  Wavelet",
+    "title": "123  🏗️ Wavelet",
     "section": "123.1 Pros and Cons",
     "text": "123.1 Pros and Cons\n\n123.1.1 Pros\n\n\n123.1.2 Cons"
   },
   {
     "objectID": "time-series-wavelet.html#r-examples",
     "href": "time-series-wavelet.html#r-examples",
-    "title": "123  Wavelet",
+    "title": "123  🏗️ Wavelet",
     "section": "123.2 R Examples",
     "text": "123.2 R Examples"
   },
   {
     "objectID": "time-series-wavelet.html#python-examples",
     "href": "time-series-wavelet.html#python-examples",
-    "title": "123  Wavelet",
+    "title": "123  🏗️ Wavelet",
     "section": "123.3 Python Examples",
     "text": "123.3 Python Examples"
   },
@@ -2543,231 +2543,231 @@
   {
     "objectID": "image-edge-corner.html#pros-and-cons",
     "href": "image-edge-corner.html#pros-and-cons",
-    "title": "125  Edge and corner detection",
+    "title": "125  🏗️ Edge and corner detection",
     "section": "125.1 Pros and Cons",
     "text": "125.1 Pros and Cons\n\n125.1.1 Pros\n\n\n125.1.2 Cons"
   },
   {
     "objectID": "image-edge-corner.html#r-examples",
     "href": "image-edge-corner.html#r-examples",
-    "title": "125  Edge and corner detection",
+    "title": "125  🏗️ Edge and corner detection",
     "section": "125.2 R Examples",
     "text": "125.2 R Examples"
   },
   {
     "objectID": "image-edge-corner.html#python-examples",
     "href": "image-edge-corner.html#python-examples",
-    "title": "125  Edge and corner detection",
+    "title": "125  🏗️ Edge and corner detection",
     "section": "125.3 Python Examples",
     "text": "125.3 Python Examples"
   },
   {
     "objectID": "image-texture.html#pros-and-cons",
     "href": "image-texture.html#pros-and-cons",
-    "title": "126  Texture Analysis",
+    "title": "126  🏗️ Texture Analysis",
     "section": "126.1 Pros and Cons",
     "text": "126.1 Pros and Cons\n\n126.1.1 Pros\n\n\n126.1.2 Cons"
   },
   {
     "objectID": "image-texture.html#r-examples",
     "href": "image-texture.html#r-examples",
-    "title": "126  Texture Analysis",
+    "title": "126  🏗️ Texture Analysis",
     "section": "126.2 R Examples",
     "text": "126.2 R Examples"
   },
   {
     "objectID": "image-texture.html#python-examples",
     "href": "image-texture.html#python-examples",
-    "title": "126  Texture Analysis",
+    "title": "126  🏗️ Texture Analysis",
     "section": "126.3 Python Examples",
     "text": "126.3 Python Examples"
   },
   {
     "objectID": "image-grayscale.html#pros-and-cons",
     "href": "image-grayscale.html#pros-and-cons",
-    "title": "127  Greyscale conversion",
+    "title": "127  🏗️ Greyscale conversion",
     "section": "127.1 Pros and Cons",
     "text": "127.1 Pros and Cons\n\n127.1.1 Pros\n\n\n127.1.2 Cons"
   },
   {
     "objectID": "image-grayscale.html#r-examples",
     "href": "image-grayscale.html#r-examples",
-    "title": "127  Greyscale conversion",
+    "title": "127  🏗️ Greyscale conversion",
     "section": "127.2 R Examples",
     "text": "127.2 R Examples"
   },
   {
     "objectID": "image-grayscale.html#python-examples",
     "href": "image-grayscale.html#python-examples",
-    "title": "127  Greyscale conversion",
+    "title": "127  🏗️ Greyscale conversion",
     "section": "127.3 Python Examples",
     "text": "127.3 Python Examples"
   },
   {
     "objectID": "image-colors.html#pros-and-cons",
     "href": "image-colors.html#pros-and-cons",
-    "title": "128  Color Modifications",
+    "title": "128  🏗️ Color Modifications",
     "section": "128.1 Pros and Cons",
     "text": "128.1 Pros and Cons\n\n128.1.1 Pros\n\n\n128.1.2 Cons"
   },
   {
     "objectID": "image-colors.html#r-examples",
     "href": "image-colors.html#r-examples",
-    "title": "128  Color Modifications",
+    "title": "128  🏗️ Color Modifications",
     "section": "128.2 R Examples",
     "text": "128.2 R Examples"
   },
   {
     "objectID": "image-colors.html#python-examples",
     "href": "image-colors.html#python-examples",
-    "title": "128  Color Modifications",
+    "title": "128  🏗️ Color Modifications",
     "section": "128.3 Python Examples",
     "text": "128.3 Python Examples"
   },
   {
     "objectID": "image-noise.html#pros-and-cons",
     "href": "image-noise.html#pros-and-cons",
-    "title": "129  Noise Reduction",
+    "title": "129  🏗️ Noise Reduction",
     "section": "129.1 Pros and Cons",
     "text": "129.1 Pros and Cons\n\n129.1.1 Pros\n\n\n129.1.2 Cons"
   },
   {
     "objectID": "image-noise.html#r-examples",
     "href": "image-noise.html#r-examples",
-    "title": "129  Noise Reduction",
+    "title": "129  🏗️ Noise Reduction",
     "section": "129.2 R Examples",
     "text": "129.2 R Examples"
   },
   {
     "objectID": "image-noise.html#python-examples",
     "href": "image-noise.html#python-examples",
-    "title": "129  Noise Reduction",
+    "title": "129  🏗️ Noise Reduction",
     "section": "129.3 Python Examples",
     "text": "129.3 Python Examples"
   },
   {
     "objectID": "image-normalization.html#pros-and-cons",
     "href": "image-normalization.html#pros-and-cons",
-    "title": "130  Value Normalization",
+    "title": "130  🏗️ Value Normalization",
     "section": "130.1 Pros and Cons",
     "text": "130.1 Pros and Cons\n\n130.1.1 Pros\n\n\n130.1.2 Cons"
   },
   {
     "objectID": "image-normalization.html#r-examples",
     "href": "image-normalization.html#r-examples",
-    "title": "130  Value Normalization",
+    "title": "130  🏗️ Value Normalization",
     "section": "130.2 R Examples",
     "text": "130.2 R Examples"
   },
   {
     "objectID": "image-normalization.html#python-examples",
     "href": "image-normalization.html#python-examples",
-    "title": "130  Value Normalization",
+    "title": "130  🏗️ Value Normalization",
     "section": "130.3 Python Examples",
     "text": "130.3 Python Examples"
   },
   {
     "objectID": "image-resize.html#pros-and-cons",
     "href": "image-resize.html#pros-and-cons",
-    "title": "131  Resizing",
+    "title": "131  🏗️ Resizing",
     "section": "131.1 Pros and Cons",
     "text": "131.1 Pros and Cons\n\n131.1.1 Pros\n\n\n131.1.2 Cons"
   },
   {
     "objectID": "image-resize.html#r-examples",
     "href": "image-resize.html#r-examples",
-    "title": "131  Resizing",
+    "title": "131  🏗️ Resizing",
     "section": "131.2 R Examples",
     "text": "131.2 R Examples"
   },
   {
     "objectID": "image-resize.html#python-examples",
     "href": "image-resize.html#python-examples",
-    "title": "131  Resizing",
+    "title": "131  🏗️ Resizing",
     "section": "131.3 Python Examples",
     "text": "131.3 Python Examples"
   },
   {
     "objectID": "image-brightness.html#pros-and-cons",
     "href": "image-brightness.html#pros-and-cons",
-    "title": "132  Changing Brightness",
+    "title": "132  🏗️ Changing Brightness",
     "section": "132.1 Pros and Cons",
     "text": "132.1 Pros and Cons\n\n132.1.1 Pros\n\n\n132.1.2 Cons"
   },
   {
     "objectID": "image-brightness.html#r-examples",
     "href": "image-brightness.html#r-examples",
-    "title": "132  Changing Brightness",
+    "title": "132  🏗️ Changing Brightness",
     "section": "132.2 R Examples",
     "text": "132.2 R Examples"
   },
   {
     "objectID": "image-brightness.html#python-examples",
     "href": "image-brightness.html#python-examples",
-    "title": "132  Changing Brightness",
+    "title": "132  🏗️ Changing Brightness",
     "section": "132.3 Python Examples",
     "text": "132.3 Python Examples"
   },
   {
     "objectID": "image-shift-flip-rotate.html#pros-and-cons",
     "href": "image-shift-flip-rotate.html#pros-and-cons",
-    "title": "133  Shifting, Flipping, and Rotation",
+    "title": "133  🏗️ Shifting, Flipping, and Rotation",
     "section": "133.1 Pros and Cons",
     "text": "133.1 Pros and Cons\n\n133.1.1 Pros\n\n\n133.1.2 Cons"
   },
   {
     "objectID": "image-shift-flip-rotate.html#r-examples",
     "href": "image-shift-flip-rotate.html#r-examples",
-    "title": "133  Shifting, Flipping, and Rotation",
+    "title": "133  🏗️ Shifting, Flipping, and Rotation",
     "section": "133.2 R Examples",
     "text": "133.2 R Examples"
   },
   {
     "objectID": "image-shift-flip-rotate.html#python-examples",
     "href": "image-shift-flip-rotate.html#python-examples",
-    "title": "133  Shifting, Flipping, and Rotation",
+    "title": "133  🏗️ Shifting, Flipping, and Rotation",
     "section": "133.3 Python Examples",
     "text": "133.3 Python Examples"
   },
   {
     "objectID": "image-crop-scale.html#pros-and-cons",
     "href": "image-crop-scale.html#pros-and-cons",
-    "title": "134  Cropping and Scaling",
+    "title": "134  🏗️ Cropping and Scaling",
     "section": "134.1 Pros and Cons",
     "text": "134.1 Pros and Cons\n\n134.1.1 Pros\n\n\n134.1.2 Cons"
   },
   {
     "objectID": "image-crop-scale.html#r-examples",
     "href": "image-crop-scale.html#r-examples",
-    "title": "134  Cropping and Scaling",
+    "title": "134  🏗️ Cropping and Scaling",
     "section": "134.2 R Examples",
     "text": "134.2 R Examples"
   },
   {
     "objectID": "image-crop-scale.html#python-examples",
     "href": "image-crop-scale.html#python-examples",
-    "title": "134  Cropping and Scaling",
+    "title": "134  🏗️ Cropping and Scaling",
     "section": "134.3 Python Examples",
     "text": "134.3 Python Examples"
   },
   {
     "objectID": "image-embeddings.html#pros-and-cons",
     "href": "image-embeddings.html#pros-and-cons",
-    "title": "135  Image embeddings",
+    "title": "135  🏗️ Image embeddings",
     "section": "135.1 Pros and Cons",
     "text": "135.1 Pros and Cons\n\n135.1.1 Pros\n\n\n135.1.2 Cons"
   },
   {
     "objectID": "image-embeddings.html#r-examples",
     "href": "image-embeddings.html#r-examples",
-    "title": "135  Image embeddings",
+    "title": "135  🏗️ Image embeddings",
     "section": "135.2 R Examples",
     "text": "135.2 R Examples"
   },
   {
     "objectID": "image-embeddings.html#python-examples",
     "href": "image-embeddings.html#python-examples",
-    "title": "135  Image embeddings",
+    "title": "135  🏗️ Image embeddings",
     "section": "135.3 Python Examples",
     "text": "135.3 Python Examples"
   },
@@ -2781,42 +2781,42 @@
   {
     "objectID": "relational-manual.html#pros-and-cons",
     "href": "relational-manual.html#pros-and-cons",
-    "title": "137  Manual",
+    "title": "137  🏗️ Manual",
     "section": "137.1 Pros and Cons",
     "text": "137.1 Pros and Cons\n\n137.1.1 Pros\n\n\n137.1.2 Cons"
   },
   {
     "objectID": "relational-manual.html#r-examples",
     "href": "relational-manual.html#r-examples",
-    "title": "137  Manual",
+    "title": "137  🏗️ Manual",
     "section": "137.2 R Examples",
     "text": "137.2 R Examples"
   },
   {
     "objectID": "relational-manual.html#python-examples",
     "href": "relational-manual.html#python-examples",
-    "title": "137  Manual",
+    "title": "137  🏗️ Manual",
     "section": "137.3 Python Examples",
     "text": "137.3 Python Examples"
   },
   {
     "objectID": "relational-auto.html#pros-and-cons",
     "href": "relational-auto.html#pros-and-cons",
-    "title": "138  Automatic",
+    "title": "138  🏗️ Automatic",
     "section": "138.1 Pros and Cons",
     "text": "138.1 Pros and Cons\n\n138.1.1 Pros\n\n\n138.1.2 Cons"
   },
   {
     "objectID": "relational-auto.html#r-examples",
     "href": "relational-auto.html#r-examples",
-    "title": "138  Automatic",
+    "title": "138  🏗️ Automatic",
     "section": "138.2 R Examples",
     "text": "138.2 R Examples"
   },
   {
     "objectID": "relational-auto.html#python-examples",
     "href": "relational-auto.html#python-examples",
-    "title": "138  Automatic",
+    "title": "138  🏗️ Automatic",
     "section": "138.3 Python Examples",
     "text": "138.3 Python Examples"
   },
@@ -2830,21 +2830,21 @@
   {
     "objectID": "video-tmp.html#pros-and-cons",
     "href": "video-tmp.html#pros-and-cons",
-    "title": "140  Temporary",
+    "title": "140  🏗️ Temporary",
     "section": "140.1 Pros and Cons",
     "text": "140.1 Pros and Cons\n\n140.1.1 Pros\n\n\n140.1.2 Cons"
   },
   {
     "objectID": "video-tmp.html#r-examples",
     "href": "video-tmp.html#r-examples",
-    "title": "140  Temporary",
+    "title": "140  🏗️ Temporary",
     "section": "140.2 R Examples",
     "text": "140.2 R Examples"
   },
   {
     "objectID": "video-tmp.html#python-examples",
     "href": "video-tmp.html#python-examples",
-    "title": "140  Temporary",
+    "title": "140  🏗️ Temporary",
     "section": "140.3 Python Examples",
     "text": "140.3 Python Examples"
   },
@@ -2858,49 +2858,49 @@
   {
     "objectID": "sound-tmp.html#pros-and-cons",
     "href": "sound-tmp.html#pros-and-cons",
-    "title": "142  Temporary",
+    "title": "142  🏗️ Temporary",
     "section": "142.1 Pros and Cons",
     "text": "142.1 Pros and Cons\n\n142.1.1 Pros\n\n\n142.1.2 Cons"
   },
   {
     "objectID": "sound-tmp.html#r-examples",
     "href": "sound-tmp.html#r-examples",
-    "title": "142  Temporary",
+    "title": "142  🏗️ Temporary",
     "section": "142.2 R Examples",
     "text": "142.2 R Examples"
   },
   {
     "objectID": "sound-tmp.html#python-examples",
     "href": "sound-tmp.html#python-examples",
-    "title": "142  Temporary",
+    "title": "142  🏗️ Temporary",
     "section": "142.3 Python Examples",
     "text": "142.3 Python Examples"
   },
   {
     "objectID": "order.html",
     "href": "order.html",
-    "title": "143  Order of transformations",
+    "title": "143  🏗️ Order of transformations",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "sparse.html",
     "href": "sparse.html",
-    "title": "144  What should you do if you have sparse data?",
+    "title": "144  🏗️ What should you do if you have sparse data?",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "models.html",
     "href": "models.html",
-    "title": "145  How Different Models Deal With Input",
+    "title": "145  🏗️ How Different Models Deal With Input",
     "section": "",
     "text": "WIP"
   },
   {
     "objectID": "summary.html",
     "href": "summary.html",
-    "title": "146  Summary",
+    "title": "146  🏗️ Summary",
     "section": "",
     "text": "WIP"
   },
