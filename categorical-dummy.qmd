@@ -42,7 +42,11 @@ it is important that the `horse` variable is here too, even if it is empty as th
 
 ## Dummy or one-hot encoding
 
-TODO add diagram
+::: {.callout-caution}
+# TODO
+
+add diagram
+:::
 
 The terms **dummy encoding** and **one-hot encoding** get thrown around interchangeably, but they do have different and distinct meanings. One-hot encoding is when you return `k` variables when you have `k` different levels. Like we have shown above
 
@@ -103,11 +107,19 @@ And in this case, we have that `house = cat + dog + horse - apartment` which aga
 
 ## Ordered factors
 
-TODO
+::: {.callout-caution}
+# TODO
+
+finish section
+:::
 
 ## Contrasts
 
-TODO
+::: {.callout-caution}
+# TODO
+
+finish section
+:::
 
 ## Pros and Cons
 
@@ -187,6 +199,3 @@ onehot_rec |>
 ```
 
 ## Python Examples
-
-TODO
-

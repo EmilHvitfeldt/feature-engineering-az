@@ -8,9 +8,17 @@ Another nuance is some categorical variables have an inherent order to them. So 
 
 Lastly, we have the encoding these categorical variables have. The same variable `household_pet` can be encoded as `["cat", "cat", "dog", "cat", "hamster"]` or as `[1, 1, 2, 1, 3]`. The latter (hopefully) is accompanied by a data dictionary saying `[1 = "cat", 2 = "dog", 3 = "hamster"]`. These variables contain the exact same information, but the encoding is vastly different, and if you are not careful to treat `household_pet` as a categorical variable the model with believing that `"hamster" - "cat" = "dog"`.
 
-TODO find an example of the above data encoding in the wild
+::: {.callout-caution}
+# TODO
 
-TODO add a section about data formats that preserve levels
+find an example of the above data encoding in the wild
+:::
+
+::: {.callout-caution}
+# TODO
+
+add a section about data formats that preserve levels
+:::
 
 The chapters in this section can be put into 2 categories:
 

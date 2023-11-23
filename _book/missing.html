@@ -1223,9 +1223,33 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <p>Missing data is sometimes hard to avoid. So we will have to work to deal with them. This is something we can’t avoid since many implemented models are not set up to work with missing data, and will error if it encounters them.</p>
-<p>TODO add paragraphs about MCAR, MAR and MNAR</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>add paragraphs about MCAR, MAR and MNAR</p>
+</div>
+</div>
 <p>How and why the data might be missing will require investigation and domain knowledge, both of which this book won’t be able to give you. What the following chapters will show you, is the ways to deal with the missingness, once you find out what measure is appropriate.</p>
-<p>TODO: Add diagrams to show different types of missingness</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Add diagrams to show different types of missingness</p>
+</div>
+</div>
 <p>The following chapters assume that the reader has identified missing values. Sometimes they are easily labeled as <code>NA</code> in your code and database. but creativity knows no bounds, which sadly has influenced some users in their way of identifying missing values. Common values are <code>-9</code>, <code>9999</code>, <code>9000</code>. If you are lucky, then you can find this information in the data dictionary, but sometimes you need to be in contact with the people in charge of data collection. To make matters more complicated, there will also be times where different types of missingness will be encoded differently, such as <code>9000</code> for machine failure, and <code>9001</code> for missing sheet.</p>
 <section id="imputation" class="level2" data-number="42.1">
 <h2 data-number="42.1" class="anchored" data-anchor-id="imputation"><span class="header-section-number">42.1</span> Imputation</h2>

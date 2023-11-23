@@ -2,7 +2,11 @@
 
 **Percentile scaling** (also sometimes called **Rank Scaling**) is a method where we apply a non-linear transformation to to our data where each value is the percentile of the training data.
 
-TODO: Add equation
+::: {.callout-caution}
+# TODO
+
+Add equation
+:::
 
 This does a couple of things for us. It naturally constraints the transformed data into the range $[0, 1]$, and it deals with outlier values nicely in the sense that they don't change the transformation that much. Moreover if the testing distribution is close to the training distribution then the transformed distribution would be approximately uniformly distributed between 0 and 1.
 

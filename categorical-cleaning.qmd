@@ -2,7 +2,11 @@
 
 For cleaning categorical data, there is a whole host of problems you can have in your data. We won't be able to describe how to deal with every single type of problem. Instead, we will go over a class of common problems. In an ideal world, you wouldn't have these problems, but that isn't one we are living in right now. Mistakes are happening for a multitude of reasons and it is your job to deal with them.
 
-TODO: Figure out how to properly reference https://twitter.com/camfassett/status/1575578362927452160
+::: {.callout-caution}
+# TODO
+
+Figure out how to properly reference https://twitter.com/camfassett/status/1575578362927452160
+:::
 
 Look at the following vector of spellings of St Albans, the city in England.
 
@@ -52,13 +56,21 @@ Another problem that you may or may not run into, depends on the resilience of y
 
 One problem we didn't see in the above example is what happens you are working with accented characters. Consider the German word “schön.” The o with an umlaut (two dots over it) is a fairly simple character, but it can be represented in a couple of different ways. We can either use a single character [\\U00f6](https://www.fileformat.info/info/unicode/char/00f6/index.htm) to represent the letter with an umlaut. Alternatively, we can use two characters, one for the o and one character to denote the presence of two dots over the previous character [\\U0308](https://www.fileformat.info/info/unicode/char/0308/index.htm). As you can imagine this can happen with many words if you have free-form data from a wide array of backgrounds. The method needed to fix this problem is called [Unicode Normalization](https://unicode.org/reports/tr15/).
 
-TODO Pull nuggets from https://twitter.com/Emil_Hvitfeldt/status/1583466133977382912
+::: {.callout-caution}
+# TODO
+
+Pull nuggets from https://twitter.com/Emil_Hvitfeldt/status/1583466133977382912
+:::
 
 This chapter was not meant to scare you, what I hope you get away from this chapter is that it is very important that you look at your data carefully, especially categorical variables that can be varied in so many unexpected ways. Nevertheless, using the above-described techniques, combined with some subject matter expertise should get you quite a long way.
 
 ## R examples
 
-TODO find good data set for these examples
+::: {.callout-caution}
+# TODO
+
+find a good data set for these examples
+:::
 
 Use janitor
 

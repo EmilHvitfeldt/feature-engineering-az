@@ -1379,7 +1379,19 @@ $Exterior_2nd_9
 </div>
 </div>
 <p>And it isn’t super hard to see that these make sense. “Asbestos Shingles” and “Asphalt Shingles” got paired, as did “Metal Siding” and “Wood Siding”, and “Hard Board” and “Plywood”. These are of course only linked because they appear similar when looking at the sale price. But We are likely able to reason better about these new labels than before.</p>
-<p>TODO: add a plot of the tree</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>add a plot of the tree</p>
+</div>
+</div>
 <p>When to stop growing the is still something that we can and should tune. Too small of a tree and we collapse levels that should be different, too large a tree and we don’t collapse things that should have been collapsed.</p>
 <p>Another interesting method is when we use the levels themselves to decide how to do the collapsing. Using string distances between the levels. Hence similar levels will be collapsed together.</p>
 <div class="cell">
@@ -1414,7 +1426,19 @@ $Plywood
 [1] "Plywood"</code></pre>
 </div>
 </div>
-<p>TODO: add a plot of what happens here</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>add a plot of what happens here</p>
+</div>
+</div>
 <p>This doesn’t use the data at all, and the results reflect that. The distance will again have to be used for best results, and there are quite a few different types of ways to calculate string distance. The choices will sometimes matter a lot and should be investigated before use for best results.</p>
 <p>The string distance collapsing method does in some ways feel like a cleaning method like we saw in <a href="categorical-cleaning.html" class="quarto-xref"><span>Chapter&nbsp;16</span></a>. Having many levels in a freeform state will often lead to misspellings or other slight variations. String distances are a great way to deal with those types of problems. It is recommended that you always look at the resulting mappings to make sure they are created correctly, or good enough.</p>
 <p>Some data is naturally hierarchical, and if we have this type of data and we want to collapse, we can take advantage of that and collapse according to the hierarchies.</p>
@@ -1440,7 +1464,19 @@ $Plywood
 <section id="r-examples" class="level2" data-number="35.2">
 <h2 data-number="35.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">35.2</span> R Examples</h2>
 <p>Methods to collapse categorical levels can be found in recipes with <code>step_other()</code> and embed in <code>step_collapse_cart()</code> and <code>step_collapse_stringdist()</code>.</p>
-<p>TODO: find a better data set for examples</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>find a better data set for examples</p>
+</div>
+</div>
 <p>Othering can be done using the <code>step_other()</code> function, it uses the argument <code>threshold</code> to determine the cutoff used to turn levels into <code>"other"</code> or not.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>

@@ -1263,9 +1263,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In model based imputation, this is where we get the remaining types of imputation that we can use. It is quite a big and broad topic. This chapter will try to do it justice.</p>
 <p>We start with simpler methods. Remember, this chapter specifically refers to methods where more than one variable is being used for the imputation. So we could do grouped versions of the simple imputation methods seen in <a href="missing-simple.html" class="quarto-xref"><span>Chapter&nbsp;43</span></a>. Instead of of imputing with the mean, you impute with the mean within a given group as defined by another categorical variable.</p>
 <p>You could also fit a linear regression model with the target variable as the variable you intend to impute, and other complete variables as predictors.</p>
-<p>TODO: add diagram</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>add diagram</p>
+</div>
+</div>
 <p>This idea will extend into most other types of models. K-nearest neighbors and trees are common models for this task. For these models, you need to make sure that the predictors can be used. So they will need to not have any missing values themselves. You could in theory use a series of models you impute variables with missing data, which then will be used as predictors to predict another variable.</p>
-<p>TODO: figure out if MICE is applicable here</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>figure out if MICE is applicable here</p>
+</div>
+</div>
 <section id="pros-and-cons" class="level2" data-number="44.1">
 <h2 data-number="44.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">44.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="44.1.1">
@@ -1285,7 +1309,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="r-examples" class="level2" data-number="44.2">
 <h2 data-number="44.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">44.2</span> R Examples</h2>
 <p>There are a number of steps in the recipes package that fall under this category. Within that, we have <code>step_impute_bag()</code>, <code>step_impute_knn()</code>, and <code>step_impute_linear()</code>.</p>
-<p>TODO: find better data set</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>find better data set</p>
+</div>
+</div>
 <p>Below we are showing how we can impute using a K-nearest neighbor model using <code>step_impute_knn()</code>. We are specifying the variable to impute on first, then with <code>impute_with</code> we specify which variables are used as predictors in the model.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

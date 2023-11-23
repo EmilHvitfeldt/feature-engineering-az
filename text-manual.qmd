@@ -6,7 +6,11 @@ Typical of-the-shelf counts are generally counted. So it will be counts of words
 
 The above features are easy to calculate and will therefore not be hard to include in your model. But this is where creativity and domain knowledge shine!
 
-TODO: find a good reference for "What is a word?"
+::: {.callout-caution}
+# TODO
+
+find a good reference for "What is a word?"
+:::
 
 One thing you might need to do when working with these hand-crafted features is knowledge about working with *regular expressions*.
 
@@ -25,7 +29,11 @@ One thing you might need to do when working with these hand-crafted features is 
 
 ## R Examples
 
-TODO: find a better data set
+::: {.callout-caution}
+# TODO
+
+find a better data set
+:::
 
 The [textfeatures]() package is one package in R that contains a bunch of general features that may or may not be useful.
 
@@ -39,7 +47,11 @@ textfeatures(modeldata::tate_text$medium, word_dims = 0,
   dplyr::glimpse()
 ```
 
-TODO: Come up with domain-specific examples
+::: {.callout-caution}
+# TODO
+
+Come up with domain-specific examples
+:::
 
 ## Python Examples
 

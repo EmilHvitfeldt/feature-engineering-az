@@ -45,7 +45,11 @@ In the same vain as above, we can look at removing predictors that has too many 
 
 ## R Examples
 
-TODO: find data set
+::: {.callout-caution}
+# TODO
+
+find data set
+:::
 
 We can use the `step_naomit()` function from the recipes package to remove any observation that contains missing values.
 
@@ -59,7 +63,11 @@ naomit_rec <- recipe(~., data = mtcars) |>
 bake(naomit_rec, new_data = NULL)
 ```
 
-TODO: wait for thresholded observation removal
+::: {.callout-caution}
+# TODO
+
+wait for thresholded observation removal
+:::
 
 There is the `step_filter_missing()` function from the recipes package that removes predictors with more missing values than the specified `threshold`
 

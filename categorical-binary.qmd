@@ -38,9 +38,17 @@ This style of encoding is generalized to other bases. Binary encoding is a base-
 
 This method isn't widely used. It does a good job of showing the midpoint between dummy encoding and label encoding in terms of how sparse we want to store our data. Its limitations come in terms of how interpretable the final model ends up being. Further, if you want to encode your data more compactly than dummy encoding, you will find better luck using some of the later described methods.
 
-TODO link to actual methods
+::: {.callout-caution}
+# TODO
 
-TODO talk about grey encoding
+link to actual methods
+:::
+
+::: {.callout-caution}
+# TODO
+
+talk about grey encoding
+:::
 
 ## Pros and Cons
 

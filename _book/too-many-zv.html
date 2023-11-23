@@ -1263,7 +1263,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Zero-variance predictors</strong> is a fancy way of saying that a predictor only takes 1 value. Another word for this is <strong>constant</strong> predictors. A zero variance predictor by definition contains no information as there isn’t a relationship between the outcome and the predictor. These types of predictors come in many different data sets. And are sometimes created in the course of the feature engineering process, such as when we do dummy variables on categorical predictors with known possible levels in <a href="categorical-dummy.html" class="quarto-xref"><span>Chapter&nbsp;18</span></a>.</p>
 <p>The reason why this chapter exists is two-fold. Firstly, since these predictors have zero information in them, they are safe to remove which would lead to simpler and faster models. Secondly, many model implementations will error if zero-variance predictors are present in the data. Even some methods in this book don’t handle zero-variance predictors gracefully. Take the normalization methods in <a href="numeric-normalization.html" class="quarto-xref"><span>Chapter&nbsp;8</span></a>, some of these require division with the standard deviation, which is zero thus resulting in division by 0. Other methods like PCA in <a href="too-many-pca.html" class="quarto-xref"><span>Chapter&nbsp;68</span></a> can get in trouble as zero variance predictors can yield non-invertible matrices that they can’t normally handle.</p>
 <p>The solution to this problem is very simple. For each variable in the data set, count the number of unique values. If the number is 1, then mark the variable for removal.</p>
-<p>TODO: write as an algorithm</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>write as an algorithm</p>
+</div>
+</div>
 <p>the zero-variance only matters on the training data set. So you could be in a situation where the testing data contained other values. This doesn’t matter as zero-variance predictors only affect the fitting of the model, which is done on the training data set.</p>
 <p>There are a couple of variants to this problem. Some models require multiple values for predictors across groups. And we need to handle that accordingly. Another more complicated problem is working with predictors that have almost zero variance but not quite. Say a predictor has 999 instances of 10 and 1 instance of 15. According to the above definition, it doesn’t have zero variance. But it feels very close to it. These might be considered so low in information that they would be worth removing as well.</p>
 <p>More care has to be taken as these predictors could have information in them, but they have low evidence. The way we flag near-zero variance predictors isn’t going to be as straightforward as how we did it above. We can’t just look at the number of unique values, as having 2 unique values by itself isn’t bad, as a 50/50 split of a variable is far from constant. We need to find a way to indicate that the variable takes few values. One metric could be looking at the percentage that the most common value is taken, if this is high it would be a prime candidate for near-zero variance. One could calculate the variance and pick a threshold. This would be harder to do since the calculated variance depends on scale. We could look at the ratio of the frequency of the most common value to the frequency of the second most common value. If this value is large then we have another contender for near-zero variance.</p>
@@ -1288,7 +1300,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="r-examples" class="level2" data-number="67.2">
 <h2 data-number="67.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">67.2</span> R Examples</h2>
 <p>We will use the <code>step_zv()</code> and <code>step_nzv()</code> steps which are used to remove zero variance and near-zero variance preditors respectively.</p>
-<p>TODO: find a good data set</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>find a good data set</p>
+</div>
+</div>
 <p>Below we are using the <code>step_zv()</code> function to remove</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

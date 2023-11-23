@@ -1310,7 +1310,19 @@ X_{scaled} = \dfrac{X - a}{b}
 </div>
 <p>We see here that all the methods in <a href="#tbl-feature-scaling" class="quarto-xref">Table&nbsp;<span>2.1</span></a> follows the equation <a href="#eq-feature-scaling" class="quarto-xref">Equation&nbsp;<span>2.1</span></a>. Sometimes <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> takes a value of 0, which is perfectly fine. Centering and scaling when used together is equal to normalization. They are kept separate in the table since they are sometimes used independently. Centering, scaling, and normalization will all be discussed in <a href="numeric-normalization.html" class="quarto-xref"><span>Chapter&nbsp;8</span></a>.</p>
 <p>There are 2 main reasons why we want to perform feature scaling. Firstly, many different types of models take the magnitude of the variables into account when fitting the models, so having variables on different scales can be disadvantageous because some variables have high priorities. In turn, we get that the other variables have low priority. Models that work using Euclidean distances like KNN models are affected by this change. Regularized models such as lasso and ridge regression also need to be scaled since the regularization depends on the magnitude of the estimates. Secondly, some algorithms simply converge much faster when all the variables are on the same scale. These types of models produce the same fit, just at a slower pace than if you don’t scale the variables. Any algorithms using Gradient Descent fits into this category.</p>
-<p>TODO: Have KNN diagram show why this is important</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Have KNN diagram show why this is important</p>
+</div>
+</div>
 <p>List which types of models need feature scaling. Should be a 2 column list. Left=name, right=comment %in% c(no effect, different fit, slow down)</p>
 </section>
 <section id="non-linear-effect" class="level2" data-number="2.3">
@@ -1320,7 +1332,19 @@ X_{scaled} = \dfrac{X - a}{b}
 <li>splines</li>
 <li>polynomial</li>
 </ul>
-<p>TODO: Show different distributions, and how well the different methods does at dealing with them</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Show different distributions, and how well the different methods does at dealing with them</p>
+</div>
+</div>
 </section>
 <section id="sec-numeric-outliers-issues" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="sec-numeric-outliers-issues"><span class="header-section-number">2.4</span> Outliers</h2>

@@ -4,7 +4,11 @@ Hashing encoding, also known as the **hashing trick** and **feature hashing**, i
 
 There are a couple of things to unpack here. Hashing functions being one of them. But the first thing we will deal with is the motivation. Some categorical variables contain many unique levels, enough to make dummy encoding @sec-categorical-dummy unfeasible. This happens for a couple of reasons. Firstly, we are creating many columns and thus high sparsity. Secondly, high cardinality often comes with many new unseen levels. Feature hashing can be used to deal with both.
 
-TODO: Add code to showcase what happens
+::: {.callout-caution}
+# TODO
+
+Add code to showcase what happens
+:::
 
 One mental model, is that we are constructing a dummy encoding, and then combining the columns in a deterministically random way. And for this we are using a hashing function. A **hashing function** is a function that takes an input, and returns a integer. The same value will always return the same output. It is computationally easy to perform this transformation, but it is hard to reverse it. This is not a downside as we don't need to perform the reverse transformation. Furthermore a good hashing function output values evenly across their supported range, and similar values such as `cat` and `cats` will produce vastly different hashes, `1751422759` and `2517493566` respective for the MurmurHash3 hashing function. 
 
@@ -12,15 +16,27 @@ The MurmurHash3, which is commonly used for its speed, produces values 32-but ha
 
 One thing that will happen when you use these hashing functions is that different levels hash to the same value. This is called a **collision**. And are technically a bad thing, as the model will be unable to distinguish between the influence of those two levels. However it is not something to avoid at all costs. One of the main tenets of hashing encoding, is that we are getting a trade-off between storage size and information. (TODO find better thing to say here). 
 
-TODO: find examples of this happening
+::: {.callout-caution}
+# TODO
+
+find examples of this happening
+:::
 
 With this in mind, the optional number of features produces by hashing encoding cannot be inferred directly, and we will need to try different values. Too few columns and we have too many collisions and the performance drops, too many columns and we run into a memory and speed issue. 
 
-TODO: Add diagram with trade-off here
+::: {.callout-caution}
+# TODO
+
+Add diagram with trade-off here
+:::
 
 One thing that is used to combat collisions is the use of a hashed sign function. Much like we are using a hashing function to generate integers, we will use a different hashing function to give us one of two values `-1` and `1`. This will determine the sign of each hashed word. This is done to lessen the negative effects of collisions as there is a 50% chance that a pair of strings that hash to the same values will have different signs and thus cancel each other out.
 
-TODO: show diagram of this happening
+::: {.callout-caution}
+# TODO
+
+show diagram of this happening
+:::
 
 The main downside to this method is the lack of explainability, as the collisions makes we so we can't know for sure which level contributed to the effect of that variable. On the other hand, we get the added benefit of being able to handle unseen labels directly. These will not be of use directly, but they are handled in the sense that we don't have to keep track of levels, as the hashing function just does its job.
 
@@ -39,7 +55,11 @@ The main downside to this method is the lack of explainability, as the collision
 
 ## R Examples
 
-TODO: find higher cardionality data set for this
+::: {.callout-caution}
+# TODO
+
+find higher cardionality data set for this
+:::
 
 We will be using the `ames` data set for these examples. The `step_dummy_hash()` function from the [textrecipes](textrecipes.tidymodels.org) package allows us to perform hashing encoding.
 

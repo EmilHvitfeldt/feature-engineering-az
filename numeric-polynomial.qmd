@@ -111,7 +111,11 @@ recipe(outcome ~ predictor, data = data_toy) |>
 
 This is a problem that needs to be dealt with. The way we can deal with this is by calculation **orthogonal polynomials** instead. We have that any set polynomial function can be rewritten as a set of orthogonal polynomial functions.
 
-TODO Add more bath background here
+::: {.callout-caution}
+# TODO
+
+Add more bath background here
+:::
 
 With this, we deal with the two problems we had before. As seen in the figure below, the functions takes smaller values within their ranges
 

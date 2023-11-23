@@ -71,7 +71,11 @@ split(res$old, res$new)
 
 And it isn't super hard to see that these make sense. "Asbestos Shingles" and "Asphalt Shingles" got paired, as did "Metal Siding" and "Wood Siding", and "Hard Board" and "Plywood". These are of course only linked because they appear similar when looking at the sale price. But We are likely able to reason better about these new labels than before.
 
-TODO: add a plot of the tree
+::: {.callout-caution}
+# TODO
+
+add a plot of the tree
+:::
 
 When to stop growing the is still something that we can and should tune. Too small of a tree and we collapse levels that should be different, too large a tree and we don't collapse things that should have been collapsed.
 
@@ -88,7 +92,11 @@ res <- recipe(Sale_Price ~ Exterior_2nd, data = ames) |>
 split(res$from, res$to)
 ```
 
-TODO: add a plot of what happens here
+::: {.callout-caution}
+# TODO
+
+add a plot of what happens here
+:::
 
 This doesn't use the data at all, and the results reflect that. The distance will again have to be used for best results, and there are quite a few different types of ways to calculate string distance. The choices will sometimes matter a lot and should be investigated before use for best results.
 
@@ -116,7 +124,11 @@ Unseen levels will have to be treated on a method-to-method basis. Tree-based co
 
 Methods to collapse categorical levels can be found in recipes with `step_other()` and embed in `step_collapse_cart()` and `step_collapse_stringdist()`.
 
-TODO: find a better data set for examples
+::: {.callout-caution}
+# TODO
+
+find a better data set for examples
+:::
 
 Othering can be done using the `step_other()` function, it uses the argument `threshold` to determine the cutoff used to turn levels into `"other"` or not.
 

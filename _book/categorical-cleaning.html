@@ -1256,7 +1256,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <p>For cleaning categorical data, there is a whole host of problems you can have in your data. We won’t be able to describe how to deal with every single type of problem. Instead, we will go over a class of common problems. In an ideal world, you wouldn’t have these problems, but that isn’t one we are living in right now. Mistakes are happening for a multitude of reasons and it is your job to deal with them.</p>
-<p>TODO: Figure out how to properly reference https://twitter.com/camfassett/status/1575578362927452160</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Figure out how to properly reference https://twitter.com/camfassett/status/1575578362927452160</p>
+</div>
+</div>
 <p>Look at the following vector of spellings of St Albans, the city in England.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -1301,11 +1313,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Now we are left with two values, which we manually would have to deal with. But even if we had to manually write out the mapping, it is a lot easier to write it for 2 different spellings than 7.</p>
 <p>Another problem that you may or may not run into, depends on the resilience of your modeling package. Some implementations are rather fragile when it comes to the column names of your data, Non-ASCII characters, punctuation and even spaces can cause errors. At this point in our journey, we are almost there, and we can replace the spaces with underscores to be left with <code>st_albans</code>.</p>
 <p>One problem we didn’t see in the above example is what happens you are working with accented characters. Consider the German word “schön.” The o with an umlaut (two dots over it) is a fairly simple character, but it can be represented in a couple of different ways. We can either use a single character <a href="https://www.fileformat.info/info/unicode/char/00f6/index.htm">\U00f6</a> to represent the letter with an umlaut. Alternatively, we can use two characters, one for the o and one character to denote the presence of two dots over the previous character <a href="https://www.fileformat.info/info/unicode/char/0308/index.htm">\U0308</a>. As you can imagine this can happen with many words if you have free-form data from a wide array of backgrounds. The method needed to fix this problem is called <a href="https://unicode.org/reports/tr15/">Unicode Normalization</a>.</p>
-<p>TODO Pull nuggets from https://twitter.com/Emil_Hvitfeldt/status/1583466133977382912</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Pull nuggets from https://twitter.com/Emil_Hvitfeldt/status/1583466133977382912</p>
+</div>
+</div>
 <p>This chapter was not meant to scare you, what I hope you get away from this chapter is that it is very important that you look at your data carefully, especially categorical variables that can be varied in so many unexpected ways. Nevertheless, using the above-described techniques, combined with some subject matter expertise should get you quite a long way.</p>
 <section id="r-examples" class="level2" data-number="16.1">
 <h2 data-number="16.1" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">16.1</span> R examples</h2>
-<p>TODO find good data set for these examples</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>find a good data set for these examples</p>
+</div>
+</div>
 <p>Use janitor</p>
 <p><code>textrecipes::step_clean_levels()</code></p>
 </section>
