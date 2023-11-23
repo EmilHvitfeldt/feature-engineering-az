@@ -1261,37 +1261,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <p>When dealing with missing data, the first suggestion is often imputation. <strong>Simple imputation</strong> as covered in this chapter refers to the method where for each variable a single value is selected, and all missing values will be replaced by that value. It is important to remind ourselves why we impute missing values. Because the model we are using isn’t able to handle missing values natively. Simple imputation is the simplest way to handle missing values.</p>
-<p>The way we find this value will depend on the variable type, and within each type of variable we find multiple ways to decide on a value. The main categories are categorical and numeric variables.</p>
-<p>For categorical we have 2 main options. We can add replace the value of <code>NA</code> with <code>"missing"</code> or some other unused value. This would denote that the value was missing, without trying to pick a value. It would change the cardinality of the predictors as a variables with levels “new”, “used”, and “old” would go from 3 levels to 4. Which may be undesirable. Especially with ordinal variables as it is unclear where the <code>"missing"</code> should go in the ordering.</p>
-<p>The simple imputation way to deal with categorical is to find the a value with want to impute with. Typically this will be calculated with the mode, e.i. the most frequent value. It doesn’t have to be the most frequent value, you could set up the imputation to pick the 5th most common value, or the least common value. But this is quite uncommon, and the mode is used by far the most. These methods also work for low cardinality integers.</p>
-<p>For numeric values we don’t have the option to add a new type of value. One option is to manually select the imputed value. If this approach is taken, then it should be done with utmost caution! It would also make it a unlearned imputation method. What is typically done is that some value is picked as the replacement. Be it the median, mean or even mode.</p>
-<p>Datetime variables will be a different story. One could use the mode, or an adjusted mean or median. Another way is to let the value extraction work first, and then apply imputation to the extracted variables. Time series data is different enough that it has its own chapter in <a href="time-series-missing.html" class="quarto-xref"><span>Chapter&nbsp;116</span></a>.</p>
-<p>One of the main downsides to simple imputation is that it can lead to impossible configurations in the data. Imagine that total square area is missing, but we knows the number of rooms and number of bedrooms. Certain combinations are more likely than others. Below is the classic ames data set</p>
+<p>The way we find this value will depend on the variable type, and within each type of variable, we find multiple ways to decide on a value. The main categories are categorical and numeric variables.</p>
+<p>For categorical we have 2 main options. We can replace the value of <code>NA</code> with <code>"missing"</code> or some other unused value. This would denote that the value was missing, without trying to pick a value. It would change the cardinality of the predictors as variables with levels “new”, “used”, and “old” would go from 3 levels to 4. Which may be undesirable. Especially with ordinal variables as it is unclear where the <code>"missing"</code> should go in the ordering.</p>
+<p>The simple imputation way to deal with categorization is to find the value that we want to impute with. Typically this will be calculated with the mode, e.i. the most frequent value. It doesn’t have to be the most frequent value, you could set up the imputation to pick the 5th most common value or the least common value. But this is quite uncommon, and the mode is used by far the most. These methods also work for low cardinality integers.</p>
+<p>For numeric values we don’t have the option to add a new type of value. One option is to manually select the imputed value. If this approach is taken, then it should be done with utmost caution! It would also make it an unlearned imputation method. What is typically done is that some value is picked as the replacement. Be it the median, mean or even mode.</p>
+<p>Datetime variables will be a different story. One could use the mode, or an adjusted mean or median. Another way is to let the value extraction work first, and then apply imputation to the extracted variables. Time series data is different enough that it has its chapter in <a href="time-series-missing.html" class="quarto-xref"><span>Chapter&nbsp;116</span></a>.</p>
+<p>One of the main downsides to simple imputation is that it can lead to impossible configurations in the data. Imagine that the total square area is missing, but we know the number of rooms and number of bedrooms. Certain combinations are more likely than others. Below is the classic ames data set</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-missing-simple-heatmap" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="missing-simple_files/figure-html/fig-missing-simple-heatmap-1.png" class="img-fluid figure-img" alt="Tile chart. Total number of rooms a long the x-axis, number of bedrooms along the y-axis. All of the observations have more rooms than bedrooms with most of the observations having around 3 bedrooms and 6 rooms in total." width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;43.1: All houses has fewer bedrooms than rooms itself.</figcaption>
+<p><img src="missing-simple_files/figure-html/fig-missing-simple-heatmap-1.png" class="img-fluid figure-img" alt="Tile chart. Total number of rooms along the x-axis, number of bedrooms along the y-axis. All of the observations have more rooms than bedrooms with most of the observations having around 3 bedrooms and 6 rooms in total." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;43.1: All houses have fewer bedrooms than rooms themselves.</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>It is not possible for there to be more bedrooms than total number of rooms. And we see that in the data. The average number of bedrooms is <code>r</code>round(mean(ames$Bedroom_AbvGr), 2)`, and if we round, then it will be 3. That is perfectly fine for a house with an average number of rooms, but it will be impossible for small houses and quite inadequate for large houses. This is obviously bad, but can be seen as an improvement to the situation where the model didn’t fit because a missing value was present. This scenario is part of the motivation to <a href="missing-model.html" class="quarto-xref"><span>Chapter&nbsp;44</span></a>.</p>
-<p>Other drawbacks of simple include; reducing the variance and standard deviation of the data. This happens because we are adding zero-variance information to the variables. In the same vain, we are changing the distribution of our variables, which can also affect downstream modeling and feature engineering.</p>
+<p>There can’t be more bedrooms than the total number of rooms. And we see that in the data. The average number of bedrooms is <code>r</code>round(mean(ames$Bedroom_AbvGr), 2)`, and if we round, then it will be 3. That is perfectly fine for a house with an average number of rooms, but it will be impossible for small houses and quite inadequate for large houses. This is obviously bad but can be seen as an improvement to the situation where the model didn’t fit because a missing value was present. This scenario is part of the motivation for <a href="missing-model.html" class="quarto-xref"><span>Chapter&nbsp;44</span></a>.</p>
+<p>Other drawbacks of simple include; reducing the variance and standard deviation of the data. This happens because we are adding zero-variance information to the variables. In the same vein, we are changing the distribution of our variables, which can also affect downstream modeling and feature engineering.</p>
 <p>Below we see this in effect, as more and more missing data, leads to a larger peak of the mean of the distribution.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-missing-simple-mean" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="missing-simple_files/figure-html/fig-missing-simple-mean-1.png" class="img-fluid figure-img" alt="Facetted histogram chart. Predictor along the x-axis, count along the y-axis. facetted along 0%, 5%, 10%, and 15%. All of the distributions appear identical, with the the 5%, 10%, and 15% having a simple spike at the mean value, each being higher than the previous." width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;43.2: Same distribution with longer and longer spike at mean.</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;43.2: Same distribution with a longer and longer spike at the mean.</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>Another thing we can do, while we stay in this domain of only using a single variable to impute itself, is to impute using the original distribution. So instead of imputing by the mode, a sample is drawn from the non-missing values, and that value is used. This is then done for each observation. Each observation won’t get the same values, but it will preserve the distribution, variance and standard deviation. It won’t help with the relationship between variables and as an added downside, it adds noise into imputation, making it a seeded feature engineering method.</p>
-<p>On the implementation side we need to be careful about how we extract the original distribution. This distribution needs to be saved for later reapply. Imagine a numeric predictor, if it is a non-integer, it will likely take many unique values, if not all unique values. We might want to bin the data to create a distribution that way to same memory.</p>
+<p>On the implementation side, we need to be careful about how we extract the original distribution. This distribution needs to be saved for later reapply. Imagine a numeric predictor, if it is a non-integer, it will likely take many unique values, if not all unique values. We might want to bin the data to create a distribution that way to the same memory.</p>
 <section id="pros-and-cons" class="level2" data-number="43.1">
 <h2 data-number="43.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">43.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="43.1.1">
@@ -1312,7 +1312,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="r-examples" class="level2" data-number="43.2">
 <h2 data-number="43.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">43.2</span> R Examples</h2>
-<p>The recipes package contain a number of steps. It includes the steps <code>step_impute_mean()</code>, <code>step_impute_median()</code> and <code>step_impute_mode()</code> which imputes by the mean, median and mode respectively.</p>
+<p>The recipes package contains a number of steps. It includes the steps <code>step_impute_mean()</code>, <code>step_impute_median()</code> and <code>step_impute_mode()</code> which imputes by the mean, median and mode respectively.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1323,7 +1323,7 @@ TODO
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>find good data set with missing values</p>
+<p>find a good data set with missing values</p>
 </div>
 </div>
 <div class="cell">
@@ -1400,7 +1400,7 @@ TODO
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>wait for distribution step</p>
+<p>wait for the distribution step</p>
 </div>
 </div>
 </section>

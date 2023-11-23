@@ -31,7 +31,7 @@ st_albans <- st_albans |>
 st_albans
 ```
 
-By turning everything into lower-case, we were able to remove 2 of the errors. Next, we see that some of these spellings include periods. For this example, I'm going to make the decision that they are safe to remove as well.
+By turning everything into lower-case, we were able to remove 2 of the errors. Next, we see that some of these spellings include periods. For this example, I'm going to decide that they are safe to remove as well.
 
 ```{r}
 st_albans <- st_albans |>
@@ -40,7 +40,7 @@ st_albans <- st_albans |>
 st_albans 
 ```
 
-This removes yet another of our problems. This next problem is absolutely horrible and is so easy to overlook. Notice how the second spelling has a double space between `st` and `alban`? At a glance that can be hard to see. Likewise, the last spelling has a trailing space. Let us fix this as well.
+This removes yet another of our problems. This next problem is horrible and is so easy to overlook. Notice how the second spelling has a double space between `st` and `alban`? At a glance that can be hard to see. Likewise, the last spelling has a trailing space. Let us fix this as well.
 
 ```{r}
 st_albans <- st_albans |>
@@ -54,7 +54,7 @@ Now we are left with two values, which we manually would have to deal with. But 
 
 Another problem that you may or may not run into, depends on the resilience of your modeling package. Some implementations are rather fragile when it comes to the column names of your data, Non-ASCII characters, punctuation and even spaces can cause errors. At this point in our journey, we are almost there, and we can replace the spaces with underscores to be left with `st_albans`.
 
-One problem we didn't see in the above example is what happens you are working with accented characters. Consider the German word “schön.” The o with an umlaut (two dots over it) is a fairly simple character, but it can be represented in a couple of different ways. We can either use a single character [\\U00f6](https://www.fileformat.info/info/unicode/char/00f6/index.htm) to represent the letter with an umlaut. Alternatively, we can use two characters, one for the o and one character to denote the presence of two dots over the previous character [\\U0308](https://www.fileformat.info/info/unicode/char/0308/index.htm). As you can imagine this can happen with many words if you have free-form data from a wide array of backgrounds. The method needed to fix this problem is called [Unicode Normalization](https://unicode.org/reports/tr15/).
+One problem we didn't see in the above example is what happens when you are working with accented characters. Consider the German word “schön.” The o with an umlaut (two dots over it) is a fairly simple character, but it can be represented in a couple of different ways. We can either use a single character [\\U00f6](https://www.fileformat.info/info/unicode/char/00f6/index.htm) to represent the letter with an umlaut. Alternatively, we can use two characters, one for the o and one character to denote the presence of two dots over the previous character [\\U0308](https://www.fileformat.info/info/unicode/char/0308/index.htm). As you can imagine this can happen with many words if you have free-form data from a wide array of backgrounds. The method needed to fix this problem is called [Unicode Normalization](https://unicode.org/reports/tr15/).
 
 ::: {.callout-caution}
 # TODO

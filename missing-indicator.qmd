@@ -1,6 +1,6 @@
 # Missing Values Indicators {#sec-missing-indicator}
 
-While imputation can be useful, as we saw in @sec-missing-simple and @sec-missing-model. That by itself isn't always enough to extract all the information. As was described in @sec-missing, missing values can come in different variants, and depending on the variant, imputation might not give enough information. Suppose you are working with non-MCAR data (non Missing Completely At Random). Then we have some mechanism that determines when missing values occur. This mechanism might be known or unknown. From a predictive standpoint whether or not is is know doesn't matter as much, what matters is if the mechanism is related to the outcome or not.
+While imputation can be useful, as we saw in @sec-missing-simple and @sec-missing-model. That by itself isn't always enough to extract all the information. As was described in @sec-missing, missing values can come in different variants, and depending on the variant, imputation might not give enough information. Suppose you are working with non-MCAR data (non Missing Completely At Random). Then we have some mechanism that determines when missing values occur. This mechanism might be known or unknown. From a predictive standpoint whether or not it is known doesn't matter as much, what matters is whether the mechanism is related to the outcome or not.
 
 This is where **missing value indicators** come in. Used in combination with imputation, missing value indicators will try to capture that signal. For each chosen variable, create another Boolean variable that is 1 when a missing value is seen, and 0 otherwise.
 
@@ -33,7 +33,7 @@ example <- tribble(
 example
 ```
 
-From here on, you are potentially add information, otherwise we are adding a lot of noise. The noise here can be filtered by other methods seen in this book. If variables with no missing data were used, then we create zero variance predictors, which we can deal with as seen in @sec-too-many-zv.
+From here on, you are potentially adding information, otherwise we are adding a lot of noise. The noise here can be filtered by other methods seen in this book. If variables with no missing data were used, then we create zero variance predictors, which we can deal with as seen in @sec-too-many-zv.
 
 ## Pros and Cons
 
@@ -52,10 +52,10 @@ From here on, you are potentially add information, otherwise we are adding a lot
 ::: {.callout-caution}
 # TODO
 
-find better data set
+find a better data set
 :::
 
-From the recipes package, can we use the `step_indicate_na()` function to create indicator variables based on missing data.
+From the recipes package, can we use the `step_indicate_na()` function to create indicator variables based on missing data
 
 ```{r}
 library(recipes)

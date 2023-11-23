@@ -1260,8 +1260,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>In model based imputation, this is where we get the remaining types of imputation that we can use. It is quite a big and broad topic. This chapter will try to do it justice.</p>
-<p>We start with simpler methods. Remember, this chapter specifically refers to methods where more than one variable is being used for the imputation. So we could do grouped versions of the simple imputation methods seen in <a href="missing-simple.html" class="quarto-xref"><span>Chapter&nbsp;43</span></a>. Instead of of imputing with the mean, you impute with the mean within a given group as defined by another categorical variable.</p>
+<p>In model-based imputation, this is where we get the remaining types of imputation that we can use. It is quite a big and broad topic. This chapter will try to do it justice.</p>
+<p>We start with simpler methods. Remember, this chapter specifically refers to methods where more than one variable is being used for the imputation. So we could do grouped versions of the simple imputation methods seen in <a href="missing-simple.html" class="quarto-xref"><span>Chapter&nbsp;43</span></a>. Instead of imputing with the mean, you impute with the mean within a given group as defined by another categorical variable.</p>
 <p>You could also fit a linear regression model with the target variable as the variable you intend to impute, and other complete variables as predictors.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1319,10 +1319,10 @@ TODO
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>find better data set</p>
+<p>find a better data set</p>
 </div>
 </div>
-<p>Below we are showing how we can impute using a K-nearest neighbor model using <code>step_impute_knn()</code>. We are specifying the variable to impute on first, then with <code>impute_with</code> we specify which variables are used as predictors in the model.</p>
+<p>Below we are showing how we can impute using a K-nearest neighbor model using <code>step_impute_knn()</code>. We specify the variable to impute on first, and then with <code>impute_with</code> we specify which variables are used as predictors in the model.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">

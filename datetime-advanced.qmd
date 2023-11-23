@@ -6,11 +6,11 @@
 library(tidyverse)
 ```
 
-All the features we were able to extract were related to what day or time it was for an given observation. Or numbers on the form "how many since start of month" or "how many days since start of week". And while this information can be useful, there will often be times where we want to do slight modifications that can result in huge payoff.
+All the features we were able to extract were related to what day or time it was for a given observation. Or numbers on the form "how many since the start of the month" or "how many days since the start of the week". And while this information can be useful, there will often be times when we want to do slight modifications that can result in huge payoffs.
 
-Consider merchandise sale related data. The mere indication of a specific dates might become useful, but the sale amount is not likely to be affected just on the sale days, but on the surrounding days as well. Consider the American Black Friday. This day is predetermined to come every year at a easily recognized day, namely the last Friday of November. Considering its close time to Christmas other gift-giving holidays, it is a common day for thrifty people to start buying presents.
+Consider merchandise sale-related data. The mere indication of specific dates might become useful, but the sale amount is not likely to be affected just on the sale days, but on the surrounding days as well. Consider the American Black Friday. This day is predetermined to come every year at an easily recognized day, namely the last Friday of November. Considering its close time to Christmas and other gift-giving holidays, it is a common day for thrifty people to start buying presents.
 
-In the extraction sense we have a single indicator for the day of Black Friday
+In the extraction since we have a single indicator for the day of Black Friday
 
 ```{r}
 #| label: fig-datetime-advanced-indicator
@@ -20,7 +20,7 @@ In the extraction sense we have a single indicator for the day of Black Friday
 #|   We only see the effect of a single Day
 #| fig-alt: |
 #|   Bar chart. Dates along the x-axis, numeric effect along the y-axis. A
-#|   Single bar at Nov 24 with a value of 1 is shown.
+#|   Single bar on Nov 24 with a value of 1 is shown.
 tibble(
   day = as_date("2023-11-24") + c(-5:5),
   black_friday = c(rep(0, 5), 1, rep(0, 5))
@@ -37,10 +37,10 @@ But it would make sense that since we know the day of Black Friday, that the sal
 #| echo: false
 #| message: false
 #| fig-cap: |
-#|   Negative before effects can capture hesitancy to buy before big sale.
+#|   Negative before effects can capture hesitancy to buy before a big sale.
 #| fig-alt: |
 #|   Bar chart. Dates along the x-axis, numeric effect along the y-axis. A
-#|   Single bar at Nov 24 with a value of 1 is shown, the columns before the 
+#|   single bar on Nov 24 with a value of 1 is shown, the columns before the 
 #|   24ths takes negative values, with the 23 having the highest value, 22 less
 #|   and so on.
 tibble(
@@ -52,20 +52,20 @@ tibble(
   theme_minimal()
 ```
 
-On the other hand, once the sale has started happening for the sales to pick up again. Since this is the last big sale before the Holidays, shoppers are free to buy their remaining presents as they don't have to fear of the item going on sale.
+On the other hand, once the sale has started happening the sales to pick up again. Since this is the last big sale before the Holidays, shoppers are free to buy their remaining presents as they don't have to fear the item going on sale.
 
 ```{r}
 #| label: fig-datetime-advanced-indicator-before-after
 #| echo: false
 #| message: false
 #| fig-cap: |
-#|   Positive affects effects can capture ease of mind that no other sale will
+#|   Positive affects effects can capture the ease of mind that no other sale will
 #|   come.
 #| fig-alt: |
 #|   Bar chart. Dates along the x-axis, numeric effect along the y-axis. A
-#|   Single bar at Nov 24 with a value of 1 is shown, the columns before the 
+#|   single bar on Nov 24 with a value of 1 is shown, the columns before the 
 #|   24ths takes negative values, with the 23 having the highest value, 22 less
-#|   and so on. The values after the Nov 24 have decreasing values. 
+#|   and so on. The values after Nov 24 have decreasing values. 
 tibble(
   day = as_date("2023-11-24") + c(-5:5),
   black_friday = c(-0.5 ^ (5:1), 1, 0.25 ^ (1:5/2))
@@ -75,10 +75,10 @@ tibble(
   theme_minimal()
 ```
 
-The exact effects shown here are just approximate to our story at hand. But they provide a useful illustration. There are a lot of bandwidth to be given if we look at date times from a distance perspective. 
-We can play around with "distance from" and "distance to", different numerical transformations we saw in @sec-numeric, signs and indicators we talked about in @sec-datetime-extraction to tailor our feature engineering to our problem.
+The exact effects shown here are just approximate to our story at hand. But they provide a useful illustration. There is a lot of bandwidth to be given if we look at date times from a distance perspective. 
+We can play around with "distance from" and "distance to", different numerical transformations we saw in @sec-numeric, and signs and indicators we talked about in @sec-datetime-extraction to tailor our feature engineering to our problem.
 
-What all these methods have in common is a reference point. For an extracted `day` feature, the reference point is "first of month" and the **after**-function is `x`, or in other words "days since time of day". We see this in the following chart. Almost all extracted functions follow this formula
+What all these methods have in common is a reference point. For an extracted `day` feature, the reference point is "first of the month" and the **after**-function is `x`, or in other words "days since the time of day". We see this in the following chart. Almost all extracted functions follow this formula
 
 ```{r}
 #| label: fig-datetime-advanced-increasing
@@ -141,7 +141,7 @@ We can do a both-sided formula by looking at "how many days are we away from a w
 #| fig-alt: |
 #|   Bar chart. Dates along the x-axis, numeric effect along the y-axis. Values
 #|   are zero for both Saturdays and Sundays. 1 for Mondays and Fridays, 2 for
-#|   Tuesdays and Thursdays, and 3 for Wednesday.
+#|   Tuesdays and Thursdays, and 3 for Wednesdays.
 tibble(
   date = as_date("2023-11-24") + seq(-30, 0)
 ) |>
@@ -164,7 +164,7 @@ There are many other functions you can use, they will depend entirely on your ta
 #|   Each of the charts represents the day of the month for a couple of months.
 #|   One shows the logarithmic transformation, one shows the untransformed data
 #|   one looks at the square transformation, and one looks at the untransformed
-#|   data which has been rounded down to 10, creating a plateau.
+#|   data that has been rounded down to 10, creating a plateau.
 tibble(
   date = as_date("2023-11-24") + seq(-90, 0)
 ) |>
@@ -180,7 +180,7 @@ tibble(
   theme_minimal() 
 ```
 
-What makes these calculations so neat is that they can be tailored to our task at hand, and that they work with irregular events such as holidays and signup dates. These methods are not circular by definition, but they will work in many ways like it. We will cover explicit circular methods in @sec-datetime-circular.
+What makes these calculations so neat is that they can be tailored to our task at hand and that they work with irregular events such as holidays and signup dates. These methods are not circular by definition, but they will work in many ways it. We will cover explicit circular methods in @sec-datetime-circular.
 
 ## Pros and Cons
 
