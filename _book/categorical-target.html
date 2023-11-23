@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -1337,9 +1371,113 @@ div.csl-indent {
 <section id="r-examples" class="level2" data-number="23.2">
 <h2 data-number="23.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">23.2</span> R Examples</h2>
 <p>The embed package comes with a couple of functions to do target encoding. <code>step_lencode_glm()</code>, <code>step_lencode_bayes()</code> and <code>step_lencode_mixed()</code>. These functions are named such because they <strong>l</strong>ikelihood <strong>encode</strong> variables, and because the encodings can be calculated using no intercept models.</p>
-<p><code>step_lencode_glm()</code> implements the no-smoothing method.</p>
-<p><code>step_lencode_glm()</code> is identical to plain mean encoding. at least for the cases I have worked on.</p>
-<p>https://embed.tidymodels.org/reference/step_lencode_glm.html https://embed.tidymodels.org/reference/step_lencode_mixed.html https://embed.tidymodels.org/reference/step_lencode_mixed.html</p>
+<p><code>step_lencode_glm()</code> implements the no-smoothing method, so we will look at that one first using the ames data set.</p>
+<p>TODO: find a better data set</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'recipes'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:stats':
+
+    step</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(embed)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(ames, <span class="at">package =</span> <span class="st">"modeldata"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>rec_target <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> Neighborhood, <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_lencode_glm</span>(Neighborhood, <span class="at">outcome =</span> <span class="fu">vars</span>(Sale_Price)) <span class="sc">|&gt;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>rec_target <span class="sc">|&gt;</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,930 × 2
+   Neighborhood Sale_Price
+          &lt;dbl&gt;      &lt;int&gt;
+ 1      145097.     215000
+ 2      145097.     105000
+ 3      145097.     172000
+ 4      145097.     244000
+ 5      190647.     189900
+ 6      190647.     195500
+ 7      324229.     213500
+ 8      324229.     191500
+ 9      324229.     236500
+10      190647.     189000
+# ℹ 2,920 more rows</code></pre>
+</div>
+</div>
+<p>And we see that it works as intended, we can pull out the exact levels using the <code>tidy()</code> method</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>rec_target <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 29 × 4
+   level                value terms        id               
+   &lt;chr&gt;                &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;            
+ 1 North_Ames         145097. Neighborhood lencode_glm_Bp5vK
+ 2 College_Creek      201803. Neighborhood lencode_glm_Bp5vK
+ 3 Old_Town           123992. Neighborhood lencode_glm_Bp5vK
+ 4 Edwards            130843. Neighborhood lencode_glm_Bp5vK
+ 5 Somerset           229707. Neighborhood lencode_glm_Bp5vK
+ 6 Northridge_Heights 322018. Neighborhood lencode_glm_Bp5vK
+ 7 Gilbert            190647. Neighborhood lencode_glm_Bp5vK
+ 8 Sawyer             136751. Neighborhood lencode_glm_Bp5vK
+ 9 Northwest_Ames     188407. Neighborhood lencode_glm_Bp5vK
+10 Sawyer_West        184070. Neighborhood lencode_glm_Bp5vK
+# ℹ 19 more rows</code></pre>
+</div>
+</div>
+<p>to apply smoothing we can use the <code>step_lencode_mixed()</code> step in the same way</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>rec_target_smooth <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> Neighborhood, <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_lencode_mixed</span>(Neighborhood, <span class="at">outcome =</span> <span class="fu">vars</span>(Sale_Price)) <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>rec_target_smooth <span class="sc">|&gt;</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,930 × 2
+   Neighborhood Sale_Price
+          &lt;dbl&gt;      &lt;int&gt;
+ 1      145156.     215000
+ 2      145156.     105000
+ 3      145156.     172000
+ 4      145156.     244000
+ 5      190633.     189900
+ 6      190633.     195500
+ 7      322591.     213500
+ 8      322591.     191500
+ 9      322591.     236500
+10      190633.     189000
+# ℹ 2,920 more rows</code></pre>
+</div>
+</div>
+<p>And we see that these values are slightly different than the values we was earlier</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>rec_target_smooth <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 29 × 4
+   level                value terms        id                 
+   &lt;chr&gt;                &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;              
+ 1 North_Ames         145156. Neighborhood lencode_mixed_RUieL
+ 2 College_Creek      201769. Neighborhood lencode_mixed_RUieL
+ 3 Old_Town           124154. Neighborhood lencode_mixed_RUieL
+ 4 Edwards            131021. Neighborhood lencode_mixed_RUieL
+ 5 Somerset           229563. Neighborhood lencode_mixed_RUieL
+ 6 Northridge_Heights 321519. Neighborhood lencode_mixed_RUieL
+ 7 Gilbert            190633. Neighborhood lencode_mixed_RUieL
+ 8 Sawyer             136956. Neighborhood lencode_mixed_RUieL
+ 9 Northwest_Ames     188401. Neighborhood lencode_mixed_RUieL
+10 Sawyer_West        184085. Neighborhood lencode_mixed_RUieL
+# ℹ 19 more rows</code></pre>
+</div>
+</div>
 </section>
 <section id="python-examples" class="level2" data-number="23.3">
 <h2 data-number="23.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">23.3</span> Python Examples</h2>

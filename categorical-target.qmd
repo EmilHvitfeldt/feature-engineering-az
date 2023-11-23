@@ -145,7 +145,7 @@ TODO: find good example
 
 A type of data that is sometimes seen is hierarchical categorical variables. Typical examples are city-state, region-subregion. With hierarchical categorical variables you often end up with many levels, and target encoding can be used on such data, and can even use the hierarchical structure. 
 
-The encoding is calculation like normal, but the smoothing is done on a lower level than at the top. So instead of adjusting by the global mean, you smooth by the level below it.
+The encoding is calculated like normal, but the smoothing is done on a lower level than at the top. So instead of adjusting by the global mean, you smooth by the level below it.
 
 ## Pros and Cons
 
@@ -162,17 +162,53 @@ The encoding is calculation like normal, but the smoothing is done on a lower le
 
 The embed package comes with a couple of functions to do target encoding. `step_lencode_glm()`, `step_lencode_bayes()` and `step_lencode_mixed()`. These functions are named such because they **l**ikelihood **encode** variables, and because the encodings can be calculated using no intercept models.
 
+`step_lencode_glm()` implements the no-smoothing method, so we will look at that one first using the ames data set.
 
-`step_lencode_glm()` implements the no-smoothing method.
+TODO: find a better data set
 
 ```{r}
+#| echo: false
+set.seed(1234)
 ```
 
-`step_lencode_glm()` is identical to plain mean encoding. at least for the cases I have worked on.
+```{r}
+library(recipes)
+library(embed)
 
-https://embed.tidymodels.org/reference/step_lencode_glm.html
-https://embed.tidymodels.org/reference/step_lencode_mixed.html
-https://embed.tidymodels.org/reference/step_lencode_mixed.html 
+data(ames, package = "modeldata")
+
+rec_target <- recipe(Sale_Price ~ Neighborhood, data = ames) |>
+  step_lencode_glm(Neighborhood, outcome = vars(Sale_Price)) |>
+  prep()
+
+rec_target |>
+  bake(new_data = NULL)
+```
+
+And we see that it works as intended, we can pull out the exact levels using the `tidy()` method
+
+```{r}
+rec_target |>
+  tidy(1)
+```
+
+to apply smoothing we can use the `step_lencode_mixed()` step in the same way
+
+```{r}
+rec_target_smooth <- recipe(Sale_Price ~ Neighborhood, data = ames) |>
+  step_lencode_mixed(Neighborhood, outcome = vars(Sale_Price)) |>
+  prep()
+
+rec_target_smooth |>
+  bake(new_data = NULL)
+```
+
+And we see that these values are slightly different than the values we was earlier
+
+```{r}
+rec_target_smooth |>
+  tidy(1)
+```
 
 ## Python Examples
 
