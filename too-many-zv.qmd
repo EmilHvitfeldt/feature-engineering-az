@@ -6,7 +6,11 @@ The reason why this chapter exists is two-fold. Firstly, since these predictors 
 
 The solution to this problem is very simple. For each variable in the data set, count the number of unique values. If the number is 1, then mark the variable for removal.
 
-TODO: write as an algorithm
+::: {.callout-caution}
+# TODO
+
+write as an algorithm
+:::
 
 the zero-variance only matters on the training data set. So you could be in a situation where the testing data contained other values. This doesn't matter as zero-variance predictors only affect the fitting of the model, which is done on the training data set.
 
@@ -32,7 +36,11 @@ These different characteristics can be combined in different ways to suit your n
 
 We will use the `step_zv()` and `step_nzv()` steps which are used to remove zero variance and near-zero variance preditors respectively.
 
-TODO: find a good data set
+::: {.callout-caution}
+# TODO
+
+find a good data set
+:::
 
 Below we are using the `step_zv()` function to remove 
 

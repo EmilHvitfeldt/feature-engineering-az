@@ -96,7 +96,11 @@ On the implementation side we need to be careful about how we extract the origin
 
 The recipes package contain a number of steps. It includes the steps `step_impute_mean()`, `step_impute_median()` and `step_impute_mode()` which imputes by the mean, median and mode respectively.
 
-TODO: find good data set with missing values
+::: {.callout-caution}
+# TODO
+
+find good data set with missing values
+:::
 
 ```{r}
 library(recipes)
@@ -130,7 +134,11 @@ impute_rec |>
   tidy(3)
 ```
 
-TODO: wait for distribution step
+::: {.callout-caution}
+# TODO
+
+wait for distribution step
+:::
 
 ## Python Examples
 

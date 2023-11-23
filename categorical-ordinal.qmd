@@ -8,7 +8,11 @@ This books framing of ordinal encoding is more general than other sources, in so
 
 This method feels like it but isn't a trained method. This is because we are providing the record of the possible values and their corresponding integer value. Unseen levels can be manually specified, but it isn't entirely obvious what their value should be.
 
-TODO add diagram
+::: {.callout-caution}
+# TODO
+
+add diagram
+:::
 
 Manually setting values for your levels comes with some upsides and downsides. Assuming that you have the domain expertise to apply numeric values for the levels, removes a lot of the guesswork. This can be very effective if the numeric values selected for the levels have some intrinsic meaning. It can remove a lot of the guesswork and trial and error that we see in integer encoding. The downside is the other side of the coin. We need to have the domain expertise to be able to give the levels meaningful values, otherwise, we are doing no better than integer encoding.
 

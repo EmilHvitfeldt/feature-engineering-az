@@ -2,7 +2,11 @@
 
 When you are dealing with categorical variables, it is understood that they can take many values. And we have various methods about how to deal with these categorical values, regardless of what values they take. One problem that eventually will happen for you is that you try to apply a trained preprocessor on data that has levels in your categorical variable that you haven't seen before. This can happen when you are fitting your model using resampled data, when you are applying your model on the testing data set, or, if you are unlucky, at some future time in production. 
 
-TODO add diagram here
+::: {.callout-caution}
+# TODO
+
+add diagram here
+:::
 
 The reason why you need to think about this problem is that some methods and/or models will complain and even error if you are providing unseen levels. Some implementations will allow you to deal with this at the method level. Other methods such as @sec-categorical-hashing don't care at all that you have unseen levels in your data.
 
@@ -12,7 +16,11 @@ One surefire way to deal with this issue is to add a step in your data preproces
 The above method will only work if the programming language you are modeling with has a factor like data class.
 :::
 
-TODO add diagram here
+::: {.callout-caution}
+# TODO
+
+add diagram here
+:::
 
 ## R Examples
 
@@ -65,5 +73,3 @@ bake(novel_spec_prepped, new_data = flights_test)
 And we see that we get no error or anything.
 
 ## Python Examples
-
-TODO

@@ -45,13 +45,25 @@ ames |>
 
 One way to do filtering is to pink a threshold and repeatably remove one of the variables of the most correlated pair, until there are no pairs left with an correlation over the threshold. This method has a minimal computational footprint as it just needs to calculate the correlations once at the beginning. The threshold is likely to be needed to be tuned as we can't say for sure what a good threshold is. With removal of variables there is always a chance that we are removing signal rather than noise, this is increasingly true as we remove more and more predictors.
 
-TODO: rewrite this as an algorithm
+::: {.callout-caution}
+# TODO
+
+rewrite this as an algorithm
+:::
 
 If we look at the above table, we notice that some of the variables occur together. One such example is `Garage_Cars`, `Garage_Area` and `Sale_Price`. These 3 variables are highly co-correlated and it would be neat if we could deal with these variables at the same time.
 
-TODO: find different example so `Sale_Price` isn't part of this as it is usually the outcome.
+::: {.callout-caution}
+# TODO
 
-TODO: Add good graph showing this effect.
+find different example so `Sale_Price` isn't part of this as it is usually the outcome.
+:::
+
+::: {.callout-caution}
+# TODO
+
+Add good graph showing this effect.
+:::
 
 What we could do, is take the correlation matrix and apply a clustering model on it. Them we use the clustering model to lump together the groups of highly correlated predictors. Then within each cluster one predictor is chosen to be kept. The clusters should ideally be chosen such that uncorrelated predictors are alone in their cluster. This method is able to work better with the global structure of the data, but requires fitting and tuning another model.
 

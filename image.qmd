@@ -4,7 +4,11 @@ Image data is quite dissimilar to anything we have seen so far in this book. And
 
 Image data on the other hand is represented as an array of numbers, typically integers with varying dimensions. Each image is comprised of pixels, these pixels are laid out in a rectangular grid. For each pixel value you typically have between 1 and 4 values. These are called channels. 1 channel is used for gray-scale images. 3 channels are used for color images as they have a red channel, green channel and blue channel. Lastly sometimes there are also a forth channel for opacity.
 
-TODO: Add diagrams
+::: {.callout-caution}
+# TODO
+
+Add diagrams
+:::
 
 This means that for a 500 pixel by 1000 pixel color image, we have `500 * 1000 * 3 = 1500000` values. This is quite a lot of data, and hopefully we will be able to squeeze some out if it.
 

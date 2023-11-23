@@ -1262,15 +1262,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>Hashing encoding, also known as the <strong>hashing trick</strong> and <strong>feature hashing</strong>, is an method where we take in the categorical values, run those values through a fast hashing function and let the resulting value determine how the encoding is done.</p>
 <p>There are a couple of things to unpack here. Hashing functions being one of them. But the first thing we will deal with is the motivation. Some categorical variables contain many unique levels, enough to make dummy encoding <a href="categorical-dummy.html" class="quarto-xref"><span>Chapter&nbsp;18</span></a> unfeasible. This happens for a couple of reasons. Firstly, we are creating many columns and thus high sparsity. Secondly, high cardinality often comes with many new unseen levels. Feature hashing can be used to deal with both.</p>
-<p>TODO: Add code to showcase what happens</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Add code to showcase what happens</p>
+</div>
+</div>
 <p>One mental model, is that we are constructing a dummy encoding, and then combining the columns in a deterministically random way. And for this we are using a hashing function. A <strong>hashing function</strong> is a function that takes an input, and returns a integer. The same value will always return the same output. It is computationally easy to perform this transformation, but it is hard to reverse it. This is not a downside as we don’t need to perform the reverse transformation. Furthermore a good hashing function output values evenly across their supported range, and similar values such as <code>cat</code> and <code>cats</code> will produce vastly different hashes, <code>1751422759</code> and <code>2517493566</code> respective for the MurmurHash3 hashing function.</p>
 <p>The MurmurHash3, which is commonly used for its speed, produces values 32-but hash values, which gives us integers between <code>1</code> and <code>2^32 = 4294967296</code>. Producing <code>4294967296</code> columns would not help us, so what is typically done is to round these values down to a more manageable range. Specifically rounding by a power of 2 is common since that can be archived by bit manipulation. Propose we round such that we only keep the 6 significant digets, then we are left with <code>2^6 = 64</code> values. And the hashes for <code>cat</code> is now <code>39</code> and <code>cats</code> is <code>62</code>. They are still different, but now they take up a smaller space of possible values.</p>
 <p>One thing that will happen when you use these hashing functions is that different levels hash to the same value. This is called a <strong>collision</strong>. And are technically a bad thing, as the model will be unable to distinguish between the influence of those two levels. However it is not something to avoid at all costs. One of the main tenets of hashing encoding, is that we are getting a trade-off between storage size and information. (TODO find better thing to say here).</p>
-<p>TODO: find examples of this happening</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>find examples of this happening</p>
+</div>
+</div>
 <p>With this in mind, the optional number of features produces by hashing encoding cannot be inferred directly, and we will need to try different values. Too few columns and we have too many collisions and the performance drops, too many columns and we run into a memory and speed issue.</p>
-<p>TODO: Add diagram with trade-off here</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Add diagram with trade-off here</p>
+</div>
+</div>
 <p>One thing that is used to combat collisions is the use of a hashed sign function. Much like we are using a hashing function to generate integers, we will use a different hashing function to give us one of two values <code>-1</code> and <code>1</code>. This will determine the sign of each hashed word. This is done to lessen the negative effects of collisions as there is a 50% chance that a pair of strings that hash to the same values will have different signs and thus cancel each other out.</p>
-<p>TODO: show diagram of this happening</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>show diagram of this happening</p>
+</div>
+</div>
 <p>The main downside to this method is the lack of explainability, as the collisions makes we so we can’t know for sure which level contributed to the effect of that variable. On the other hand, we get the added benefit of being able to handle unseen labels directly. These will not be of use directly, but they are handled in the sense that we don’t have to keep track of levels, as the hashing function just does its job.</p>
 <section id="pros-and-cons" class="level2" data-number="24.1">
 <h2 data-number="24.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">24.1</span> Pros and Cons</h2>
@@ -1292,7 +1340,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="r-examples" class="level2" data-number="24.2">
 <h2 data-number="24.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">24.2</span> R Examples</h2>
-<p>TODO: find higher cardionality data set for this</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>find higher cardionality data set for this</p>
+</div>
+</div>
 <p>We will be using the <code>ames</code> data set for these examples. The <code>step_dummy_hash()</code> function from the <a href="textrecipes.tidymodels.org">textrecipes</a> package allows us to perform hashing encoding.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

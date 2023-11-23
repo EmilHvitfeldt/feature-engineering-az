@@ -26,7 +26,11 @@ There are other format, and it isn't too big of a deal, as long as the libraries
 
 There is also the wrinkle with regards to time zones, leap years and leap seconds. There are many rules that can miss you up. It is for this reason that we recommend that you use a trusted date time library to do the following calculations.
 
-TODO: find good reference to messed up time, for above paragraph
+::: {.callout-caution}
+# TODO
+
+find good reference to messed up time, for above paragraph
+:::
 
 Most libraries allows us to pull out standard measurements like
 
