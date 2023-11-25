@@ -27,6 +27,7 @@ add diagram here
 We will be using the [nycflights13](https://github.com/tidyverse/nycflights13) data set. We are downsampling just a bit to only work on the first day and doing a test-train split.
 
 ```{r}
+#| message: false
 library(recipes)
 library(rsample)
 library(nycflights13)

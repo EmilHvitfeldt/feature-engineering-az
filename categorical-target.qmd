@@ -180,6 +180,7 @@ set.seed(1234)
 ```
 
 ```{r}
+#| message: false
 library(recipes)
 library(embed)
 
@@ -220,4 +221,4 @@ rec_target_smooth |>
 
 ## Python Examples
 
-https://contrib.scikit-learn.org/category_encoders/targetencoder.html
+<https://contrib.scikit-learn.org/category_encoders/targetencoder.html>

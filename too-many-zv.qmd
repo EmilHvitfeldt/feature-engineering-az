@@ -50,6 +50,7 @@ set.seed(1234)
 ```
 
 ```{r}
+#| message: false
 library(recipes)
 
 data("ames", package = "modeldata")

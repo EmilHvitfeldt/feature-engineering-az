@@ -254,6 +254,10 @@ data("ames")
 We will be using the `ames` data set for these examples.
 
 ```{r}
+#| message: false
+library(recipes)
+library(modeldata)
+
 ames |>
   select(Lot_Area, Year_Built)
 ```
@@ -261,6 +265,7 @@ ames |>
 {recipes} has the function `step_discretize()` for just this occasion.
 
 ```{r}
+#| warning: false
 bin_rec <- recipe(~ Lot_Area + Year_Built, data = ames) |>
   step_discretize(Lot_Area, Year_Built)
 
@@ -273,6 +278,7 @@ bin_rec |>
 If you don't like the default number of breaks created, you can use the `num_breaks = 6` argument to change it.
 
 ```{r}
+#| warning: false
 bin_rec <- recipe(~ Lot_Area + Year_Built, data = ames) |>
   step_discretize(Lot_Area, Year_Built, num_breaks = 6)
 
@@ -285,6 +291,7 @@ bin_rec |>
 This step technically creates a factor variable, but we can turn it into a series of indicator functions with `step_dummy()`
 
 ```{r}
+#| warning: false
 bin_rec <- recipe(~ Lot_Area + Year_Built, data = ames) |>
   step_discretize(Lot_Area, Year_Built, num_breaks = 6) |>
   step_dummy(Lot_Area, Year_Built, one_hot = TRUE)

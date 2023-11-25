@@ -7,6 +7,7 @@ This is where **missing value indicators** come in. Used in combination with imp
 The following sample data set
 
 ```{r}
+#| echo: false
 library(tibble)
 example <- tribble(
   ~a, ~b, ~c,
@@ -22,6 +23,7 @@ example
 Will look like the data set below, once missing value indicators have been added.
 
 ```{r}
+#| echo: false
 example <- tribble(
   ~a, ~b, ~c, ~a_na, ~b_na, ~c_na,
    1,  6,  3,     0,     0,     0,
@@ -58,6 +60,7 @@ find a better data set
 From the recipes package, can we use the `step_indicate_na()` function to create indicator variables based on missing data
 
 ```{r}
+#| message: false
 library(recipes)
 
 na_ind_rec <- recipe(mpg ~ disp + vs + am, data = mtcars) |>

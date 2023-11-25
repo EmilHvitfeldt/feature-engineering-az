@@ -39,6 +39,7 @@ set.seed(1234)
 ```
 
 ```{r}
+#| message: false
 library(recipes)
 library(modeldata)
 data("ames")

@@ -67,14 +67,21 @@ It doesn't have the same power to shrink large values as logarithms do, but it w
 We will be using the `hotel_bookings` data set for these examples.
 
 ```{r}
+library(recipes)
+
 hotel_bookings |>
   select(lead_time, adr)
 ```
 
 {recipes} provides a step to perform logarithms, which out of the box uses $e$ as the base with an offset of 0.
 
+::: {.callout-caution}
+# TODO
+
+use signed sqrt
+:::
+
 ```{r}
-# TODO use signed sqrt
 sqrt_rec <- recipe(lead_time ~ adr, data = hotel_bookings) |>
   step_sqrt(adr)
 

@@ -7,6 +7,8 @@ Nevertheless, the removal of observations should be done with care. Especially s
 The most simple way to do missing value removal is to remove observations that experience any number of missing values. It is straightforward to do and implemented in any modeling software you use. The downside to this is that if you are seeing a little bit of missing data, across your predictors, you end up throwing away a lot of data once you have a lot of columns.
 
 ```{r}
+#| message: false
+#| echo: false
 library(tidyverse)
 
 expand_grid(
@@ -54,6 +56,7 @@ find data set
 We can use the `step_naomit()` function from the recipes package to remove any observation that contains missing values.
 
 ```{r}
+#| message: false
 library(recipes)
 
 naomit_rec <- recipe(~., data = mtcars) |>
