@@ -1255,7 +1255,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>When you are dealing with categorical variables, it is understood that they can take many values. And we have various methods about how to deal with these categorical values, regardless of what values they take. One problem that eventually will happen for you is that you try to apply a trained preprocessor on data that has levels in your categorical variable that you haven’t seen before. This can happen when you are fitting your model using resampled data, when you are applying your model on the testing data set, or, if you are unlucky, at some future time in production.</p>
+<p>When you are dealing with categorical variables, it is understood that they can take many values. And we have various methods about how to deal with these categorical values, regardless of what values they take. One problem that eventually will happen for you is that you try to apply a trained preprocessor on data that has levels in your categorical variable that you haven’t seen before. This can happen when you are fitting your model using resampled data when you are applying your model on the testing data set, or, if you are unlucky, at some future time in production.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1359,7 +1359,7 @@ Attaching package: 'recipes'</code></pre>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">bake</span>(dummy_spec_prepped, <span class="at">new_data =</span> flights_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: There are new levels in a factor: AS, HA</code></pre>
+<pre><code>Warning: ! There are new levels in a factor: `AS` and `HA`.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 211 × 12

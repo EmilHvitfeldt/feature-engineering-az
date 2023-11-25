@@ -1262,7 +1262,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p><strong>Percentile scaling</strong> (also sometimes called <strong>Rank Scaling</strong>) is a method where we apply a non-linear transformation to to our data where each value is the percentile of the training data.</p>
+<p><strong>Percentile scaling</strong> (also sometimes called <strong>Rank Scaling</strong>) is a method where we apply a non-linear transformation to our data where each value is the percentile of the training data.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1276,7 +1276,7 @@ TODO
 <p>Add equation</p>
 </div>
 </div>
-<p>This does a couple of things for us. It naturally constraints the transformed data into the range <span class="math inline">\([0, 1]\)</span>, and it deals with outlier values nicely in the sense that they don’t change the transformation that much. Moreover if the testing distribution is close to the training distribution then the transformed distribution would be approximately uniformly distributed between 0 and 1.</p>
+<p>This does a couple of things for us. It naturally constrains the transformed data into the range <span class="math inline">\([0, 1]\)</span>, and it deals with outlier values nicely in the sense that they don’t change the transformation that much. Moreover, if the testing distribution is close to the training distribution then the transformed distribution would be approximately uniformly distributed between 0 and 1.</p>
 <section id="pros-and-cons" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">7.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="7.1.1">
@@ -1346,7 +1346,7 @@ Attaching package: 'recipes'</code></pre>
 # ℹ 2,920 more rows</code></pre>
 </div>
 </div>
-<p>The {recipes} step to do this transformation is <code>step_percentile()</code>. It defaults to calculation 100 percentiles and using those to transform the data</p>
+<p>The {recipes} step to do this transformation is <code>step_percentile()</code>. It defaults to the calculation of 100 percentiles and uses those to transform the data</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>percentile_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> Lot_Area, <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_percentile</span>(Lot_Area) <span class="sc">|&gt;</span></span>
@@ -1371,7 +1371,7 @@ Attaching package: 'recipes'</code></pre>
 # ℹ 2,920 more rows</code></pre>
 </div>
 </div>
-<p>We cna use the <code>tidy()</code> method to pull out what the specific values are for each percentile</p>
+<p>We can use the <code>tidy()</code> method to pull out what the specific values are for each percentile</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>percentile_rec <span class="sc">|&gt;</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1392,7 +1392,7 @@ Attaching package: 'recipes'</code></pre>
 # ℹ 89 more rows</code></pre>
 </div>
 </div>
-<p>You are able to change the granularity by using the <code>options</code> argument. In this example we are calculation 500 points evenly spaced between 0 and 1, both inclusive.</p>
+<p>You can change the granularity by using the <code>options</code> argument. In this example, we are calculating 500 points evenly spaced between 0 and 1, both inclusive.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>percentile500_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> Lot_Area, <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_percentile</span>(Lot_Area, <span class="at">options =</span> <span class="fu">list</span>(<span class="at">probs =</span> (<span class="dv">0</span><span class="sc">:</span><span class="dv">500</span>)<span class="sc">/</span><span class="dv">500</span>)) <span class="sc">|&gt;</span></span>
@@ -1438,7 +1438,7 @@ Attaching package: 'recipes'</code></pre>
 # ℹ 447 more rows</code></pre>
 </div>
 </div>
-<p>Notice how there are only 457 values in this output. This is happening because some percentile have been collapsed to save space since if the value for the 10.4 and 10.6 percentile is the same, we just store the 10.6 value.</p>
+<p>Notice how there are only 457 values in this output. This is happening because some percentile has been collapsed to save space since if the value for the 10.4 and 10.6 percentile is the same, we just store the 10.6 value.</p>
 </section>
 <section id="python-examples" class="level2" data-number="7.3">
 <h2 data-number="7.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">7.3</span> Python Examples</h2>

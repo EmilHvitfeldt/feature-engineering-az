@@ -1,6 +1,6 @@
 # Unseen Levels {#sec-categorical-unseen}
 
-When you are dealing with categorical variables, it is understood that they can take many values. And we have various methods about how to deal with these categorical values, regardless of what values they take. One problem that eventually will happen for you is that you try to apply a trained preprocessor on data that has levels in your categorical variable that you haven't seen before. This can happen when you are fitting your model using resampled data, when you are applying your model on the testing data set, or, if you are unlucky, at some future time in production. 
+When you are dealing with categorical variables, it is understood that they can take many values. And we have various methods about how to deal with these categorical values, regardless of what values they take. One problem that eventually will happen for you is that you try to apply a trained preprocessor on data that has levels in your categorical variable that you haven't seen before. This can happen when you are fitting your model using resampled data when you are applying your model on the testing data set, or, if you are unlucky, at some future time in production. 
 
 ::: {.callout-caution}
 # TODO

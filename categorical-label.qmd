@@ -1,6 +1,6 @@
 # Label Encoding {#sec-categorical-label}
 
-**Label encoding** (also called **integer encoding**) is a method that map the categorical levels into the integers `1` through `n` where `n` is the number of levels.
+**Label encoding** (also called **integer encoding**) is a method that maps the categorical levels into the integers `1` through `n` where `n` is the number of levels.
 
 ::: callout-note
 Some implementations map to the values `0` through `n - 1`. This chapter will talk about this method as if it were mapped to `1` through `n`.

@@ -1262,20 +1262,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>The <strong>Max-Abs</strong> scaling method works by making sure that the training data lies with the range <span class="math inline">\([-1, 1]\)</span> by applying the following formula</p>
+<p>The <strong>Max-Abs</strong> scaling method works by making sure that the training data lies within the range <span class="math inline">\([-1, 1]\)</span> by applying the following formula</p>
 <p><span id="eq-maxabs-minimal"><span class="math display">\[
 X_{scaled} = \dfrac{X}{\text{max}(\text{abs}(X))}
 \tag{10.1}\]</span></span></p>
-<p>This is similar to the scaling we saw in <a href="numeric-normalization.html" class="quarto-xref"><span>Chapter&nbsp;8</span></a>. And we see that the only difference is whether we are aiming for the statistical properly (standard deviation of 1) or a specific decision (dividing by largest quantity seen). This method is a learned transformation. So we use the training data to derive the right value of <span class="math inline">\(\text{max}(\text{abs}(X))\)</span> and then this value is used to perform the transformations when applied to new data. For this there is no specific guidance as to which method you want to use and you need to look at your data and see what works best.</p>
+<p>This is similar to the scaling we saw in <a href="numeric-normalization.html" class="quarto-xref"><span>Chapter&nbsp;8</span></a>. And we see that the only difference is whether we are aiming for the statistical properly (standard deviation of 1) or a specific decision (dividing by the largest quantity seen). This method is a learned transformation. So we use the training data to derive the right value of <span class="math inline">\(\text{max}(\text{abs}(X))\)</span> and then this value is used to perform the transformations when applied to new data. For this, there is no specific guidance as to which method you want to use and you need to look at your data and see what works best.</p>
 <section id="pros-and-cons" class="level2" data-number="10.1">
 <h2 data-number="10.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">10.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="10.1.1">
 <h3 data-number="10.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">10.1.1</span> Pros</h3>
 <ul>
-<li><p>Fast calculations</p></li>
-<li><p>Transformation can easily be reversed, making its interpretations easier on the original scale</p></li>
-<li><p>Doesn’t affect sparsity</p></li>
-<li><p>Can be used on a zero variance variable. Doesn’t matter such since you likely should get rid of it</p></li>
+<li>Fast calculations</li>
+<li>Transformation can easily be reversed, making its interpretations easier on the original scale</li>
+<li>Doesn’t affect sparsity</li>
+<li>Can be used on a zero variance variable. Doesn’t matter much since you likely should get rid of it</li>
 </ul>
 </section>
 <section id="cons" class="level3" data-number="10.1.2">

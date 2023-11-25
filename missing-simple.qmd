@@ -8,7 +8,7 @@ For categorical we have 2 main options. We can replace the value of `NA`  with `
 
 The simple imputation way to deal with categorization is to find the value that we want to impute with. Typically this will be calculated with the mode, e.i. the most frequent value. It doesn't have to be the most frequent value, you could set up the imputation to pick the 5th most common value or the least common value. But this is quite uncommon, and the mode is used by far the most. These methods also work for low cardinality integers.
 
-For numeric values we don't have the option to add a new type of value. One option is to manually select the imputed value. If this approach is taken, then it should be done with utmost caution! It would also make it an unlearned imputation method. What is typically done is that some value is picked as the replacement. Be it the median, mean or even mode. 
+For numeric values, we don't have the option to add a new type of value. One option is to manually select the imputed value. If this approach is taken, then it should be done with utmost caution! It would also make it an unlearned imputation method. What is typically done is that some value is picked as the replacement. Be it the median, mean or even mode. 
 
 Datetime variables will be a different story. One could use the mode, or an adjusted mean or median. Another way is to let the value extraction work first, and then apply imputation to the extracted variables. Time series data is different enough that it has its chapter in @sec-time-series-missing.
 
@@ -36,7 +36,7 @@ ames |>
   scale_fill_viridis_c()
 ```
 
-There can't be more bedrooms than the total number of rooms. And we see that in the data. The average number of bedrooms is `r `round(mean(ames$Bedroom_AbvGr), 2)`, and if we round, then it will be `r round(mean(ames$Bedroom_AbvGr), 0)`. That is perfectly fine for a house with an average number of rooms, but it will be impossible for small houses and quite inadequate for large houses. This is obviously bad but can be seen as an improvement to the situation where the model didn't fit because a missing value was present. This scenario is part of the motivation for @sec-missing-model.
+There can't be more bedrooms than the total number of rooms. And we see that in the data. The average number of bedrooms is `r `round(mean(ames$Bedroom_AbvGr), 2)`, and if we round, then it will be `r round(mean(ames$Bedroom_AbvGr), 0)`. That is perfectly fine for a house with an average number of rooms, but it will be impossible for small houses and quite inadequate for large houses. This is bad but can be seen as an improvement to the situation where the model didn't fit because a missing value was present. This scenario is part of the motivation for @sec-missing-model.
 
 Other drawbacks of simple include; reducing the variance and standard deviation of the data. This happens because we are adding zero-variance information to the variables. In the same vein, we are changing the distribution of our variables, which can also affect downstream modeling and feature engineering.
 
@@ -94,7 +94,7 @@ On the implementation side, we need to be careful about how we extract the origi
 
 ## R Examples
 
-The recipes package contains a number of steps. It includes the steps `step_impute_mean()`, `step_impute_median()` and `step_impute_mode()` which imputes by the mean, median and mode respectively.
+The recipes package contains several steps. It includes the steps `step_impute_mean()`, `step_impute_median()` and `step_impute_mode()` which imputes by the mean, median and mode respectively.
 
 ::: {.callout-caution}
 # TODO

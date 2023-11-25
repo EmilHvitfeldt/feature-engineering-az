@@ -11,7 +11,7 @@ Performing this transformation means that the resulting variable will have a mea
 #| echo: false
 #| message: false
 #| fig-cap: |
-#|   Normalization doesn't make data more normal. The green curve indicates the density of unit normal
+#|   Normalization doesn't make data more normal. The green curve indicates the density of the unit normal
 #|   distribution. 
 #| fig-alt: |
 #|   2 histograms of distribution one above the other. The top distribution shows a bimodal
@@ -42,16 +42,14 @@ plotting_data |>
   geom_line(aes(x, y), data = norm_curve, color = "green4")
 ```
 
-In @fig-normalization-not-normal we see some distribution, before and after applying normalization to it. Both the original and transformed distribution are bimodal, and the transformed distribution is no more normal than the original. And that is fine because the transformation did its job by moving the values close to 0 and a specific spread, which in this case is a variance of 1.
+In @fig-normalization-not-normal we see some distribution, before and after applying normalization to it. Both the original and transformed distribution are bimodal, and the transformed distribution is no more normal than the original. That is fine because the transformation did its job by moving the values close to 0 and a specific spread, which in this case is a variance of 1.
 
 ## Pros and Cons
 
 ### Pros
 
 -   If you don't have any severe outliers then you will rarely see any downsides to applying normalization
-
 -   Fast calculations
-
 -   Transformation can easily be reversed, making its interpretations easier on the original scale
 
 ### Cons
@@ -60,7 +58,7 @@ In @fig-normalization-not-normal we see some distribution, before and after appl
 -   Cannot be used with sparse data as it isn't preserved because of the centering that is happening. If you only scale the data you don't have a problem
 -   This transformation is highly affected by outliers, as they affect the mean and standard deviation quite a lot
 
-Below is the figure @fig-normalization-outlier is an illustration of the effect by having a single high value. In this case, a single observation with the value `10000` moved the transformed distribution much tighter around zero. And all but removed the variance of the non-outliers.
+Below is the figure @fig-normalization-outlier is an illustration of the effect of having a single high value. In this case, a single observation with the value `10000` moved the transformed distribution much tighter around zero. And all but removed the variance of the non-outliers.
 
 ```{r}
 #| label: fig-normalization-outlier

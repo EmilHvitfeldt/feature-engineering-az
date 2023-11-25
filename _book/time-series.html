@@ -1214,9 +1214,9 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>A very common type of data is <strong>time-series data</strong>. This is data where the observations is taken across time with time stamps. This data will inherently be correlated with with itself as the same measurement for the same unit likely isn’t going to change too much. Time series data is typically modeling using different methods than for other predictive modeling for this reason.</p>
-<p>Nevertheless there are still some methods that will provide useful for us. It is important to note that there is a time component to this data, which is what we are trying to predict. The observations can happen at regular intervals, once a day, or irregular intervals, each time the engine errors. Different types of data uses different types of models, and makes the feature engineering a little different depending on what you are trying to do.</p>
-<p>This chapter assumes the user knows how to use time series data and the precautions that are need when working with data of this type.</p>
+<p>A very common type of data is <strong>time-series data</strong>. This is data where the observations are taken across time with time stamps. This data will inherently be correlated with itself as the same measurement for the same unit likely isn’t going to change too much. Time series data is typically modeled using different methods than other predictive modeling for this reason.</p>
+<p>Nevertheless, there are still some methods that will be useful for us. It is important to note that there is a time component to this data, which is what we are trying to predict. The observations can happen at regular intervals, once a day, or irregular intervals, each time the engine errors. Different types of data use different types of models and make the feature engineering a little different depending on what you are trying to do.</p>
+<p>This chapter assumes the user knows how to use time series data and the precautions that are needed when working with data of this type.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1227,18 +1227,18 @@ TODO
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>add link to appropriate resources</p>
+<p>add a link to appropriate resources</p>
 </div>
 </div>
-<p>One area of work is modifying the sequence itself. Some of these transformations can be taken from <a href="numeric.html" class="quarto-xref"><span>Chapter&nbsp;2</span></a>. But there are some metrics that are specific to time series data. Likewise some metrics ar similar to what we do in <a href="missing.html" class="quarto-xref"><span>Chapter&nbsp;42</span></a> and <a href="outliers.html" class="quarto-xref"><span>Chapter&nbsp;82</span></a>, but special care needs to be taken with time series data.</p>
+<p>One area of work is modifying the sequence itself. Some of these transformations can be taken from <a href="numeric.html" class="quarto-xref"><span>Chapter&nbsp;2</span></a>. However, some metrics are specific to time series data. Likewise, some metrics are similar to what we do in <a href="missing.html" class="quarto-xref"><span>Chapter&nbsp;42</span></a> and <a href="outliers.html" class="quarto-xref"><span>Chapter&nbsp;82</span></a>, but special care needs to be taken with time series data.</p>
 <ul>
 <li>Smoothing in <a href="time-series-smooth.html" class="quarto-xref"><span>Chapter&nbsp;113</span></a></li>
 <li>Sliding window transformations in <a href="time-series-sliding.html" class="quarto-xref"><span>Chapter&nbsp;114</span></a></li>
 <li>Log Interval Transformation in <a href="time-series-log-interval.html" class="quarto-xref"><span>Chapter&nbsp;115</span></a></li>
-<li>Time series specific handling of missing values in <a href="time-series-missing.html" class="quarto-xref"><span>Chapter&nbsp;116</span></a></li>
-<li>Time series specific handling of outliers in <a href="time-series-outliers.html" class="quarto-xref"><span>Chapter&nbsp;117</span></a></li>
+<li>Time series-specific handling of missing values in <a href="time-series-missing.html" class="quarto-xref"><span>Chapter&nbsp;116</span></a></li>
+<li>Time series-specific handling of outliers in <a href="time-series-outliers.html" class="quarto-xref"><span>Chapter&nbsp;117</span></a></li>
 </ul>
-<p>Another area of methods is where we extract or modify the sequence or its data to create new variables, this is done with taking the time component into consideration. This will result in breaking about the time component in a decomposition kind of way, or by getting information out of the values themselves. One such example of the latter is found in the datetime section <a href="datetime.html" class="quarto-xref"><span>Chapter&nbsp;38</span></a>. Particularly like holiday extraction as seen in <a href="datetime-extraction.html" class="quarto-xref"><span>Chapter&nbsp;39</span></a>.</p>
+<p>Another area of methods is where we extract or modify the sequence or its data to create new variables, this is done by considering the time component. This will result in breaking about the time component in a decomposition kind of way, or by getting information out of the values themselves. One such example of the latter is found in the datetime section <a href="datetime.html" class="quarto-xref"><span>Chapter&nbsp;38</span></a>. Particularly holiday extraction as seen in <a href="datetime-extraction.html" class="quarto-xref"><span>Chapter&nbsp;39</span></a>.</p>
 <ul>
 <li>Differences in <a href="time-series-diff.html" class="quarto-xref"><span>Chapter&nbsp;118</span></a></li>
 <li>Lagging features in <a href="time-series-lag.html" class="quarto-xref"><span>Chapter&nbsp;119</span></a></li>
