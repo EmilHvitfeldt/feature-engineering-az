@@ -1,6 +1,18 @@
 # 🏗️ Text cleaning {#sec-text-cleaning}
 
-WIP
+When working with unstructured data such as free-form text. You likely will need to do some cleaning. As with basically every method in this book, not all the steps in this chapter should be applied, and it will be up to you the practitioner to evaluate what is best for your data. It is also important that you formalize what these steps should be such that you can apply them consistently to new data that comes in.
+
+removing stuff
+- html tags,
+- malformed text
+- non-text such as punctuation
+
+converting stuff
+- lower-casing
+- keyword replacing `IT -> information technology`. should happen before lower-casing
+- replace emojis, hashtags, links to indicators
+
+text normalization, encodings
 
 ## Pros and Cons
 
