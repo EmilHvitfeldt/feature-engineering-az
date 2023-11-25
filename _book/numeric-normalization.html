@@ -1270,20 +1270,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="fig-normalization-not-normal" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="numeric-normalization_files/figure-html/fig-normalization-not-normal-1.png" class="img-fluid figure-img" alt="2 histograms of distribution one above the other. The top distribution shows a bimodal distribution. Below is the same distribution after being normalized. Both appear clearly non-normally distributed. The green curve is overlaid lower histogram. It doesn't follow." width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;8.1: Normalization doesn’t make data more normal. The green curve indicates the density of unit normal distribution.</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;8.1: Normalization doesn’t make data more normal. The green curve indicates the density of the unit normal distribution.</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>In <a href="#fig-normalization-not-normal" class="quarto-xref">Figure&nbsp;<span>8.1</span></a> we see some distribution, before and after applying normalization to it. Both the original and transformed distribution are bimodal, and the transformed distribution is no more normal than the original. And that is fine because the transformation did its job by moving the values close to 0 and a specific spread, which in this case is a variance of 1.</p>
+<p>In <a href="#fig-normalization-not-normal" class="quarto-xref">Figure&nbsp;<span>8.1</span></a> we see some distribution, before and after applying normalization to it. Both the original and transformed distribution are bimodal, and the transformed distribution is no more normal than the original. That is fine because the transformation did its job by moving the values close to 0 and a specific spread, which in this case is a variance of 1.</p>
 <section id="pros-and-cons" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">8.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="8.1.1">
 <h3 data-number="8.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">8.1.1</span> Pros</h3>
 <ul>
-<li><p>If you don’t have any severe outliers then you will rarely see any downsides to applying normalization</p></li>
-<li><p>Fast calculations</p></li>
-<li><p>Transformation can easily be reversed, making its interpretations easier on the original scale</p></li>
+<li>If you don’t have any severe outliers then you will rarely see any downsides to applying normalization</li>
+<li>Fast calculations</li>
+<li>Transformation can easily be reversed, making its interpretations easier on the original scale</li>
 </ul>
 </section>
 <section id="cons" class="level3" data-number="8.1.2">
@@ -1293,7 +1293,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Cannot be used with sparse data as it isn’t preserved because of the centering that is happening. If you only scale the data you don’t have a problem</li>
 <li>This transformation is highly affected by outliers, as they affect the mean and standard deviation quite a lot</li>
 </ul>
-<p>Below is the figure <a href="#fig-normalization-outlier" class="quarto-xref">Figure&nbsp;<span>8.2</span></a> is an illustration of the effect by having a single high value. In this case, a single observation with the value <code>10000</code> moved the transformed distribution much tighter around zero. And all but removed the variance of the non-outliers.</p>
+<p>Below is the figure <a href="#fig-normalization-outlier" class="quarto-xref">Figure&nbsp;<span>8.2</span></a> is an illustration of the effect of having a single high value. In this case, a single observation with the value <code>10000</code> moved the transformed distribution much tighter around zero. And all but removed the variance of the non-outliers.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-normalization-outlier" class="quarto-figure quarto-figure-center anchored">

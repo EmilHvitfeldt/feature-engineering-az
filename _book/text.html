@@ -1225,23 +1225,23 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Sometimes you have fields that are free long form text. This cannot be dealt with using the methods we saw in <a href="categorical.html" class="quarto-xref"><span>Chapter&nbsp;15</span></a>, as the natural text will have enough variation that counting the full text fields is not going to be fruitful. Imagine this fictitious short book reviews</p>
+<p>Sometimes you have fields that are free long-form text. This cannot be dealt with using the methods we saw in <a href="categorical.html" class="quarto-xref"><span>Chapter&nbsp;15</span></a>, as the natural text will have enough variation that counting the full-text fields is not going to be fruitful. Imagine this fictitious short book reviews</p>
 <ul>
 <li>This book is excellent</li>
 <li>Best book I have read all year</li>
 <li>This book is absolutely excellent</li>
-<li>This book is far form excellent</li>
+<li>This book is far from excellent</li>
 <li>Not worth your time</li>
 </ul>
-<p>On a character-level, these are all uniquely different. But to us English speakers, the first 3 are positive, and the last 2 are negative. We will in the upcoming chapters look at all the methods and their details, to see how we can modify and extract as much information out of this as we can.</p>
-<p>We will adhere to the #BenderRule<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and make it clear that while the examples you will see in this book are going to be in English, it doesn’t mean that the results you see can be replicated in other languages. All languages have unique things about them that makes these types calculations harder or easier to use.</p>
-<p>In these chapters, we will be studying methods to work with text. Notably, text and language are different things, with many languages starting as spoken words, and smaller number of these develop a writing system. This is important to remember, as written text will almost always has lower information than the language it is transcribing. You have seen examples of this when you send a text message that wasn’t received correctly, because of the missing non-verbal information.</p>
-<p>Text data, like all other types of data, isn’t guaranteed to contain information that help your modeling data at hand. This is especially true with shorter text fields, but can be true with just about anything.</p>
-<p>The types of operations you do to get text data into numeric data is various, but they can usually be split into a number of different tasks. You don’t have to do everything in this list to get good results, and some off-the-shelf methods will sometimes combine 2 or more of these steps into one. This is another reason why it is important to read the documentation of the implementation you are using.</p>
-<p>There is also the possibility that you know exactly what type of information is important in your text field. In that case you will be better served by manually extract the information with regular expression or related text processing tools, we look at examples of that in <a href="text-manual.html" class="quarto-xref"><span>Chapter&nbsp;48</span></a>.</p>
+<p>On a character level, these are all uniquely different. But to us English speakers, the first 3 are positive, and the last 2 are negative. We will in the upcoming chapters look at all the methods and their details, to see how we can modify and extract as much information out of this as we can.</p>
+<p>We will adhere to the #BenderRule<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and make it clear that while the examples you will see in this book are going to be in English, it doesn’t mean that the results you see can be replicated in other languages. All languages have unique things about them that make these types of calculations harder or easier to use.</p>
+<p>In these chapters, we will be studying methods to work with text. Notably, text and language are different things, with many languages starting as spoken words, and a smaller number of these develop a writing system. This is important to remember, as the written text will almost always have less information than the language it is transcribing. You have seen examples of this when you send a text message that wasn’t received correctly, because of the missing non-verbal information.</p>
+<p>Text data, like all other types of data, isn’t guaranteed to contain information that helps your modeling data at hand. This is especially true with shorter text fields but can be true with just about anything.</p>
+<p>The types of operations you do to get text data into numeric data are various, but they can usually be split into several different tasks. You don’t have to do everything in this list to get good results, and some off-the-shelf methods will sometimes combine 2 or more of these steps into one. This is another reason why it is important to read the documentation of the implementation you are using.</p>
+<p>There is also the possibility that you know exactly what type of information is important in your text field. In that case, you will be better served by manually extracting the information with regular expression or related text processing tools, we look at examples of that in <a href="text-manual.html" class="quarto-xref"><span>Chapter&nbsp;48</span></a>.</p>
 <section id="text-cleaning" class="level2" data-number="47.1">
 <h2 data-number="47.1" class="anchored" data-anchor-id="text-cleaning"><span class="header-section-number">47.1</span> Text cleaning</h2>
-<p>In <a href="text-cleaning.html" class="quarto-xref"><span>Chapter&nbsp;49</span></a>, we will look over the ways we take raw text and get it ready for later tasks. This work deals with encoding issues, standardization, cases and sometimes you need to get rid of a lot of unwanted chunks.</p>
+<p>In <a href="text-cleaning.html" class="quarto-xref"><span>Chapter&nbsp;49</span></a>, we will look over the ways we take raw text and get it ready for later tasks. This work deals with encoding issues, standardization, and cases and sometimes you need to get rid of a lot of unwanted chunks.</p>
 </section>
 <section id="tokenization" class="level2" data-number="47.2">
 <h2 data-number="47.2" class="anchored" data-anchor-id="tokenization"><span class="header-section-number">47.2</span> Tokenization</h2>
@@ -1249,15 +1249,15 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="modifying-tokens" class="level2" data-number="47.3">
 <h2 data-number="47.3" class="anchored" data-anchor-id="modifying-tokens"><span class="header-section-number">47.3</span> Modifying tokens</h2>
-<p>Once you have the data as tokens, once of the things you might want to do is modifying them in various ways. This could things like changing the endings to words or changing the words entirely. We see examples of this in <a href="text-stemming.html" class="quarto-xref"><span>Chapter&nbsp;51</span></a>, and <a href="text-ngrams.html" class="quarto-xref"><span>Chapter&nbsp;52</span></a>.</p>
+<p>Once you have the data as tokens, one of the things you might want to do is modify them in various ways. This could be things like changing the endings to words or changing the words entirely. We see examples of this in <a href="text-stemming.html" class="quarto-xref"><span>Chapter&nbsp;51</span></a> and <a href="text-ngrams.html" class="quarto-xref"><span>Chapter&nbsp;52</span></a>.</p>
 </section>
 <section id="filtering-tokens" class="level2" data-number="47.4">
 <h2 data-number="47.4" class="anchored" data-anchor-id="filtering-tokens"><span class="header-section-number">47.4</span> Filtering tokens</h2>
-<p>The tokens you are created might not all be of the same quality. Depending on your choice of tokenizer, there will be reasons for you to remove some of the tokens you have created. We see examples of this in <a href="text-stopwords.html" class="quarto-xref"><span>Chapter&nbsp;53</span></a> and <a href="text-filter.html" class="quarto-xref"><span>Chapter&nbsp;54</span></a>.</p>
+<p>The tokens you create might not all be of the same quality. Depending on your choice of tokenizer, there will be reasons for you to remove some of the tokens you have created. We see examples of this in <a href="text-stopwords.html" class="quarto-xref"><span>Chapter&nbsp;53</span></a> and <a href="text-filter.html" class="quarto-xref"><span>Chapter&nbsp;54</span></a>.</p>
 </section>
 <section id="counting-tokens" class="level2" data-number="47.5">
 <h2 data-number="47.5" class="anchored" data-anchor-id="counting-tokens"><span class="header-section-number">47.5</span> Counting tokens</h2>
-<p>We have gotten to the end of the line and we are ready to turn the tokens into numeric variables we can use. There are many different ways are we look at them in <a href="text-tf.html" class="quarto-xref"><span>Chapter&nbsp;55</span></a>, <a href="text-tfidf.html" class="quarto-xref"><span>Chapter&nbsp;56</span></a>, <a href="text-hashing.html" class="quarto-xref"><span>Chapter&nbsp;57</span></a>, <a href="text-onehot.html" class="quarto-xref"><span>Chapter&nbsp;58</span></a>, and <a href="text-lda.html" class="quarto-xref"><span>Chapter&nbsp;59</span></a>.</p>
+<p>We have gotten to the end of the line and we are ready to turn the tokens into numeric variables we can use. There are many different ways we look at them in <a href="text-tf.html" class="quarto-xref"><span>Chapter&nbsp;55</span></a>, <a href="text-tfidf.html" class="quarto-xref"><span>Chapter&nbsp;56</span></a>, <a href="text-hashing.html" class="quarto-xref"><span>Chapter&nbsp;57</span></a>, <a href="text-onehot.html" class="quarto-xref"><span>Chapter&nbsp;58</span></a>, and <a href="text-lda.html" class="quarto-xref"><span>Chapter&nbsp;59</span></a>.</p>
 </section>
 <section id="embeddings" class="level2" data-number="47.6">
 <h2 data-number="47.6" class="anchored" data-anchor-id="embeddings"><span class="header-section-number">47.6</span> Embeddings</h2>

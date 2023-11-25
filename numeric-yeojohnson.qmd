@@ -49,14 +49,14 @@ visualize_yeojohnson <- function(x) {
 #| echo: false
 #| message: false
 #| fig-cap: "Before and After Yeo-Johnson"
-#| fig-alt: "6 histograms of distribution, in 2 columns. Left column shows unaltered distributions. Right column shows distribution of the Yeo-Johnson transformation of the left column. Right column are mostly normally distributed."
+#| fig-alt: "6 histograms of distribution, in 2 columns. The left column shows unaltered distributions. The right column shows the distribution of the Yeo-Johnson transformation of the left column. The right column is mostly normally distributed."
 set.seed(1234)
 visualize_yeojohnson(rchisq(10000, 1)/2 + rnorm(10000, sd = 0.2)) /
 visualize_yeojohnson(c(rnorm(6000, 0), rnorm(3000, 2), rnorm(1000, 4))) /
 visualize_yeojohnson(5 - abs(rt(10000, 205)) + rnorm(10000, sd = 0.1))
 ```
 
-We have the original distributions have some left or right skewed-ness. And the transformed columns look better, in the sense that they are less skewed and they are fairly symmetric around the center. Are they perfectly normal? No! but these transformations might be beneficial. We also notice how these methods work, even when there are negative values.
+We have the original distributions that have some left or right skewness. And the transformed columns look better, in the sense that they are less skewed and they are fairly symmetric around the center. Are they perfectly normal? No! but these transformations might be beneficial. We also notice how these methods work, even when there are negative values.
 
 The Yeo-Johnson method isn't magic and will only give you something more normally distributed if the distribution can be made more normally distributed by applying the above formula would give you some more normally distributed values.
 
@@ -64,7 +64,7 @@ The Yeo-Johnson method isn't magic and will only give you something more normall
 #| echo: false
 #| message: false
 #| fig-cap: "Before and After Box-Cox"
-#| fig-alt: "6 histograms of distribution, in 2 columns. Left column shows unaltered distributions. Right column shows distribution of the Box-Cox transoformation of the left column. Right column have not benefitted from the Box-Cox transformation"
+#| fig-alt: "6 histograms of distribution, in 2 columns. The left column shows unaltered distributions. The right column shows the distribution of the Box-Cox transformation of the left column. The right column has not benefitted from the Box-Cox transformation"
 set.seed(1234)
 visualize_yeojohnson(runif(10000)) /
 visualize_yeojohnson(c(rnorm(7000, 10), rnorm(13000, 14))) /

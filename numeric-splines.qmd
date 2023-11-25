@@ -1,8 +1,8 @@
 # Splines {#sec-numeric-splines}
 
-**Splines**, is one way to represent a curve that makes it useful in a modeling content, since it allows us to model non-linear relationships between predictors and outcomes. This is a trained method.
+**Splines**, is one way to represent a curve that makes it useful in modeling content, since it allows us to model non-linear relationships between predictors and outcomes. This is a trained method.
 
-Being able to transform a numeric variable that has a non-linear relationship with the outcome into one or more variables that does have linear relationships with the outcome is of great importance, as many models wouldn't be able to work with these types of variables effectively themselves. Below is a toy example of one such variable
+Being able to transform a numeric variable that has a non-linear relationship with the outcome into one or more variables that do have linear relationships with the outcome is of great importance, as many models wouldn't be able to work with these types of variables effectively themselves. Below is a toy example of one such variable
 
 ```{r}
 #| echo: false
@@ -31,9 +31,9 @@ data_toy |>
   theme_minimal()
 ```
 
-Here we have a non-linear relationship. It is a fairly simple one, the outcome is high when the predictor takes values between 25 and 50, and the outside the ranges it takes over values. Given that this is a toy example, we do not have any expert knowledge regarding what we expect the relationship to be outside this range. The trend could go back up, it could go down or flatten out. We don't know.
+Here we have a non-linear relationship. It is a fairly simple one, the outcome is high when the predictor takes values between 25 and 50, and outside the ranges, it takes over values. Given that this is a toy example, we do not have any expert knowledge regarding what we expect the relationship to be outside this range. The trend could go back up, it could go down or flatten out. We don't know.
 
-As we saw in @sec-numeric-binning, one way to deal with this non-linearity is to chop up the predictor and emit indicators for which region the values take. While this works, we are losing quite a lot by detail by the rounding that occurs. This is where splines comes in. Imagine that instead of indicators for whether a value is within a range, we have a set of functions that gives each predictor value a set of values, related to its location in the distribution.
+As we saw in @sec-numeric-binning, one way to deal with this non-linearity is to chop up the predictor and emit indicators for which region the values take. While this works, we are losing quite a lot of detail by the rounding that occurs. This is where splines come in. Imagine that instead of indicators for whether a value is within a range, we have a set of functions that gives each predictor value a set of values, related to its location in the distribution.
 
 ```{r}
 #| echo: false
@@ -58,7 +58,7 @@ data_splines <- rec_splines |>
 #|   Each part of the spline detects a part of the data set.
 #| fig-alt: |
 #|   Facetted line chart. Predictor along the x-axis, value along the y-axis.
-#|   Each of the curves start at 0, goes to smoothly, and then down to zero.
+#|   Each of the curves starts at 0, goes smoothly, and then down to zero.
 #|   The highpoint for each curve goes further to the right for each curve 
 #|   shown.
 data_splines |>
@@ -81,9 +81,9 @@ spline_rounder <- function(value, name) {
 
 Above we see an example of a Basis function that creates 6 features. The curves represent the area where they are "activated". So if the predictor has a value of 15 then the first basis function returns `r spline_rounder(15, 1)`, the second basis function returns `r spline_rounder(15, 2)` and so one, with the last basis function returning `r spline_rounder(15, 6)` since it is all flat over there.
 
-This is a trained method as the location and shape of these functions is determined by the distribution of the variables we are trying to apply the spline to.
+This is a trained method as the location and shape of these functions are determined by the distribution of the variables we are trying to apply the spline to.
 
-So in this example we are taking 1 numeric variable and turning it into 6 numeric variables.
+So in this example, we are taking 1 numeric variable and turning it into 6 numeric variables.
 
 ```{r}
 #| label: tbl-splines-values
@@ -121,16 +121,16 @@ data_splines |>
   theme_minimal()
 ```
 
-and we have that since the different spline features highlights different parts of the predictor, we have that at least some of them are useful when we look at the relationship between the predictor and the outcome.
+and we have that since the different spline features highlight different parts of the predictor, we have that at least some of them are useful when we look at the relationship between the predictor and the outcome.
 
-It it important to point out that this transformation only uses the predictor variable to do its calculations. And the fact that it works in a modeling sense it that the outcome predictor relationship in this case, and in many real life cases, can helpfully be explained by "the predictor value has these values". 
+It is important to point out that this transformation only uses the predictor variable to do its calculations. And the fact that it works in a modeling sense is that the outcome predictor relationship in this case, and many real-life cases, can helpfully be explained by "the predictor value has these values". 
 
 ```{r}
 #| label: fig-splines-spline-outcome
 #| echo: false
 #| message: false
 #| fig-cap: |
-#|   Some spline terms have better relationship to the outcome than others.
+#|   Some spline terms have a better relationship to the outcome than others.
 #| fig-alt: |
 #|   Facetted scatter chart. Spline value along the x-axis, outcome along the 
 #|   y-axis. Each facet shows the relationship between one of the spline terms
@@ -146,21 +146,21 @@ data_splines |>
   theme_minimal()
 ```
 
-As we see in the above visualization, some of these new predictors are not much better than the original. But a couple of them do appear to work pretty well, especially the 3rd one. Depending on which model we use, having these 6 variables are gonna give us higher performance than using the original variable alone.
+As we see in the above visualization, some of these new predictors are not much better than the original. But a couple of them do appear to work pretty well, especially the 3rd one. Depending on which model we use, having these 6 variables is gonna give us higher performance than using the original variable alone.
 
-One thing to note, is that you will get back correlated features when using splines. Some values of the predictor will influence  multiple of the spline features as the spline functions overlap. This is expected, but is worth noting. If you are using a model type that doesn't handle correlated features well, then you should take a look at the methods outlined in @sec-correlated for ways to deal with correlated features.
+One thing to note is that you will get back correlated features when using splines. Some values of the predictor will influence multiple of the spline features as the spline functions overlap. This is expected but is worth noting. If you are using a model type that doesn't handle correlated features well, then you should take a look at the methods outlined in @sec-correlated for ways to deal with correlated features.
 
 ```{r}
 #| label: fig-splines-correlation
 #| echo: false
 #| message: false
 #| fig-cap: |
-#|   Neightboring features are highly correlated, and anti correlated with 
+#|   Neighboring features are highly correlated and anti-correlated with 
 #|   far away features.
 #| fig-alt: |
 #|   Correlation chart. The spline basis features are lined up one after
-#|   another. Neightboring features show high correlation, features 2 apart are
-#|   slightly correlated, and other features are anti correlated.
+#|   another. Neighboring features show high correlation, features 2 apart are
+#|   slightly correlated, and other features are anti-correlated.
 data_splines |>
   dplyr::select(-predictor, -outcome) |>
   corrr::correlate(quiet = TRUE) |>
@@ -225,21 +225,21 @@ plot_b <- recipe(~ x, data = data_example) |>
 #| echo: false
 #| message: false
 #| fig-cap: |
-#|   Neightboring features are highly correlated, and anti correlated with 
+#|   Neighboring features are highly correlated and anti-correlated with 
 #|   far away features.
 #| fig-alt: |
-#|   4 charts in a grid. Each representing a different type of spline. The 
+#|   4 charts in a grid. Each represents a different type of spline. The 
 #|   C-splines here are all increasing at different rates of change. The 
-#|   M-splines are appear to have a sigmoidal shape, starting at 0 and ending 
-#|   at 1. The natural splines looks very similar to the basis splines we saw
-#|   earlier. And the last chart, shows a pariodic b-spline. These splines are
+#|   M-splines appear to have a sigmoidal shape, starting at 0 and ending 
+#|   at 1. The natural splines look very similar to the basic splines we saw
+#|   earlier. And the last chart shows a periodic b-spline. These splines are
 #|   the same kind as earlier, but they have been modified to repeat at a
 #|   specific interval.
 library(patchwork)
 (plot_convex + plot_monotone) / (plot_natural + plot_b)
 ```
 
-Above we see a number of different kinds of splines. As we can see they are all trying to do different things. You generally can't go too wrong by picking any of them, but knowing the data can help guide which of them you should use. The M-splines intuitively can be seen as a threshold features. The periodic example is also interesting. Many of the types of splines can be formulated to work periodically. This can be really handy for data that has a naturally periodic nature to them.
+Above we see several different kinds of splines. As we can see they are all trying to do different things. You generally can't go too wrong by picking any of them, but knowing the data can help guide which of them you should use. The M-splines intuitively can be seen as threshold features. The periodic example is also interesting. Many of the types of splines can be formulated to work periodically. This can be handy for data that has a naturally periodic nature to them.
 
 Below is a chart of how well using splines works when using it on our toy example. Since the data isn't that complicated, a small `deg_free` is sufficient to fit the data well.
 
@@ -248,7 +248,7 @@ Below is a chart of how well using splines works when using it on our toy exampl
 #| echo: false
 #| message: false
 #| fig-cap: |
-#|   All the splines follow the data well, the higher degrees appears to 
+#|   All the splines follow the data well, the higher degrees appear to 
 #|   overfit quite a bit.
 #| fig-alt: |
 #|   Scatter chart. Predictor along the x-axis and outcome along the y-axis.
@@ -313,7 +313,7 @@ ames |>
   select(Lot_Area, Year_Built)
 ```
 
-{recipes} provides a number of steps to perform spline operations, each of them starts with `step_spline_`. Let us use a B-spline and a M-spline as examples here:
+{recipes} provides a number of steps to perform spline operations, each of them starting with `step_spline_`. Let us use a B-spline and a M-spline as examples here:
 
 ```{r}
 log_rec <- recipe(~ Lot_Area + Year_Built, data = ames) |>
@@ -339,7 +339,7 @@ log_rec |>
   glimpse()
 ```
 
-These steps have more arguments, so we can change other things. The B-splines created by `step_spline_b()` defaults to cubic splines, but we can change that by specifying which polynomial degree with want with the `degree` argument.
+These steps have more arguments, so we can change other things. The B-splines created by `step_spline_b()` default to cubic splines, but we can change that by specifying which polynomial degree with want with the `degree` argument.
 
 ```{r}
 log_rec <- recipe(~ Lot_Area + Year_Built, data = ames) |>

@@ -1,12 +1,12 @@
 # Range {#sec-numeric-range}
 
-**Range scaling,** also known as **Min-Max scaling,** is a method where to make the data fit into a pre-defined interval. Typically the equation used to illustrate this method is show like so
+**Range scaling,** also known as **Min-Max scaling,** is a method to make the data fit into a pre-defined interval. Typically the equation used to illustrate this method is shown so
 
 $$
 X_{scaled} = \dfrac{X - \text{min}(X)}{\text{max}(X) - \text{min}(X)}
 $$ {#eq-range-minimal}
 
-This equations only shows what happens if you use the software with defaults. This will scale your variable to be in the range $[0, 1]$. It is important to treat this as a learned method, and we will thus calculate $\text{min}(X)$ and $\text{max}(X)$ on the training data set, and use those to apply the transformation on new data. One of the benefits of this method is that it transforms any variable into a predefined range of 0 and 1. Unless of cause a new data point is outside the range. Suppose that the original data was on the range $\text{min}(X) = 5$ and $\text{max}(X) = 100$, and we encounter a new data point with the value 200. Then according to @eq-range-clip we would get a transformed value of (200-5)/(100-5) = 2.0526 which is very much not between 0 and 1. We thus have a violation of our original goal. One way to get around this is to use clipping. Clipping is a technique when using this method where any values less then $\text{min}(X)$ will be noted as 0 and any values larger than $\text{max}(X)$ will be noted as 1. This little tick ensures that any new data points stays within the range. Expending our equation to the following
+This equation only shows what happens if you use the software with defaults. This will scale your variable to be in the range $[0, 1]$. It is important to treat this as a learned method, and we will thus calculate $\text{min}(X)$ and $\text{max}(X)$ on the training data set, and use those to apply the transformation on new data. One of the benefits of this method is that it transforms any variable into a predefined range of 0 and 1. Unless of cause, a new data point is outside the range. Suppose that the original data was in the range $\text{min}(X) = 5$ and $\text{max}(X) = 100$, and we encounter a new data point with the value 200. Then according to @eq-range-clip, we would get a transformed value of (200-5)/(100-5) = 2.0526 which is very much not between 0 and 1. We thus have a violation of our original goal. One way to get around this is to use clipping. Clipping is a technique when using this method where any values less than $\text{min}(X)$ will be noted as 0 and any values larger than $\text{max}(X)$ will be noted as 1. This little tick ensures that any new data points stay within the range. Expanding our equation to the following
 
 $$
 X_{scaled}=    
@@ -17,17 +17,17 @@ X_{scaled}=
 \end{cases}
 $$ {#eq-range-clip}
 
-The equation is a lot bigger, but was it different is that we are specify that the transformation should be done using training data, and by adding a couple of branches to reflect the clipping. In practice it will look something like @fig-range-clipping where the original data had a range of $[10, 32]$.
+The equation is a lot bigger, but what is different is that we specify that the transformation should be done using training data, and by adding a couple of branches to reflect the clipping. In practice, it will look something like @fig-range-clipping where the original data had a range of $[10, 32]$.
 
 ```{r}
 #| label: fig-range-clipping
 #| echo: false
 #| message: false
 #| fig-cap: |
-#|   Using clipping in range scaling results in a peice-wise linear transformation of our original data.
+#|   Using clipping in range scaling results in a piece-wise linear transformation of our original data.
 #| fig-alt: |
 #|   Scatter chart with "original" on the x-axis and "transformed" on the y-axis. The Scale of the 
-#|   x-axis is 0 to 50, and the scale of the y-axis is 0 to 1. A series of points are plotting along a
+#|   x-axis is 0 to 50, and the scale of the y-axis is 0 to 1. A series of points are plotted along a
 #|   line, starting at the value 0 for values x values less than 10, between 10 and 32 there is a linear
 #|   line of point resulting in the point at (x = 32, y = 1), all remaining larger values of x has a y
 #|   value of 1.
@@ -45,7 +45,7 @@ recipe(~mpg, data = mtcars) |>
   theme_minimal()
 ```
 
-Sadly we are not done quite yet. One last thing that @eq-range-clip doesn't take into account is that sometimes people don't want to transformation to be into any range, not just $[0, 1]$ . This gives us the final equation
+Sadly we are not done quite yet. One last thing that @eq-range-clip doesn't take into account is that sometimes people don't want to transform to be into any range, not just $[0, 1]$. This gives us the final equation
 
 $$
 X_{scaled}=    
@@ -56,11 +56,11 @@ R_{upper} & X_{new} > \text{max}(X_{train})\\
 \end{cases}
 $$ {#eq-range-custom}
 
-Where @eq-range-custom now have $R_{lower}$ to represent a user defined lower bound, and $R_{upper}$ representing the corresponding user defined upper bound. I would recommend that you keep @eq-range-minimal in your mind when thinking about this method, but also include a little footnote that it doesn't include all the little options.
+Where @eq-range-custom now has $R_{lower}$ to represent a user-defined lower bound, and $R_{upper}$ representing the corresponding user-defined upper bound. I would recommend that you keep @eq-range-minimal in mind when thinking about this method but also include a little footnote that doesn't include all the little options.
 
 One thing you should know is how this transformation is affected by outliers. Clipping essentially ignores the magnitude of how much an outlier is. There is no difference between a new value of 100 and 100000 to a variable that had a range of $[0, 90]$ on the training data set. This might be a problem, and it is up to you as the practitioner to decide. One option would be to turn off clipping, but it would violate the assumption that all future transformed observations will be within a specific range.
 
-Below is the figure @fig-range-outlier is an illustration of the effect by having a single high value. In this case, a single observation with the value \`10000\` moved the transformed distribution much tighter around zero. And all but removed the variance of the non-outliers.
+Below is the figure @fig-range-outlier is an illustration of the effect of having a single high value. In this case, a single observation with the value \`10000\` moved the transformed distribution much tighter around zero. And all but removed the variance of the non-outliers.
 
 ```{r}
 #| label: fig-range-outlier
@@ -70,9 +70,9 @@ Below is the figure @fig-range-outlier is an illustration of the effect by havin
 #|   Outliers can have a big effect on the resulting distribution when applying range scaling
 #| fig-alt: |
 #|   4 histograms of distribution in 2 columns. The left distribution shows the same bimodal
-#|   distribution. To the left are the same distributions after being normalized. The buttom row
+#|   distribution. To the left are the same distributions after being normalized. The bottom row
 #|   shows the effect of having one outlier at 10000, which in this case made the transformed
-#|   distribution have almost no width.
+#|   distribution has almost no width.
 library(ggplot2)
 library(dplyr)
 library(tidyr)
@@ -120,7 +120,7 @@ plotting_data |>
 
 ## R Examples
 
-`step_range()` clips. Does allow user to specify range `step_minmax()` doesn't clip. doens't allow user to specify range. A PR is planned to allow users to turn off clipping in `step_range()`
+`step_range()` clips. Does allow the user to specify range `step_minmax()` doesn't clip. Doesn't allow users to specify a range. A PR is planned to allow users to turn off clipping in `step_range()`
 
 We will be using the `ames` data set for these examples.
 
@@ -144,14 +144,14 @@ range_rec |>
   bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)
 ```
 
-We can also pull out what the min and max value were for each variable using `tidy()`
+We can also pull out what the min and max values were for each variable using `tidy()`
 
 ```{r}
 range_rec |>
   tidy(1)
 ```
 
-using the `min` and `max` argument we can set different ranges
+using the `min` and `max` arguments we can set different ranges
 
 ```{r}
 range_rec <- recipe(Sale_Price ~ ., data = ames) |>
@@ -164,4 +164,4 @@ range_rec |>
 
 ## Python Examples
 
-`MinMaxScaler()` doesn't clip by default. Allows user to specify range.
+`MinMaxScaler()` doesn't clip by default. Allows the user to specify a range.

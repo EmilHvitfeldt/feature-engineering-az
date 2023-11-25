@@ -1262,8 +1262,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p><strong>Polynomial expansion</strong>, is one way to turn a numeric variable into something that can represent a non-linear relationship between two variables. This it useful in a modeling content, since it allows us to model non-linear relationships between predictors and outcomes. This is a trained method.</p>
-<p>Being able to transform a numeric variable that has a non-linear relationship with the outcome into one or more variables that does have linear relationships with the outcome is of great importance, as many models wouldn’t be able to work with these types of variables effectively themselves. Below is a toy example of one such variable</p>
+<p><strong>Polynomial expansion</strong>, is one way to turn a numeric variable into something that can represent a non-linear relationship between two variables. This is useful in modeling content since it allows us to model non-linear relationships between predictors and outcomes. This is a trained method.</p>
+<p>Being able to transform a numeric variable that has a non-linear relationship with the outcome into one or more variables that do have linear relationships with the outcome is of great importance, as many models wouldn’t be able to work with these types of variables effectively themselves. Below is a toy example of one such variable</p>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: dplyr</code></pre>
@@ -1302,13 +1302,13 @@ Attaching package: 'recipes'</code></pre>
 </div>
 </div>
 </div>
-<p>Here we have a non-linear relationship. It is a fairly simple one, the outcome is high when the predictor takes values between 25 and 50, and the outside the ranges it takes over values. Given that this is a toy example, we do not have any expert knowledge regarding what we expect the relationship to be outside this range. The trend could go back up, it could go down or flatten out. We don’t know.</p>
-<p>As we saw in <a href="numeric-binning.html" class="quarto-xref"><span>Chapter&nbsp;12</span></a>, one way to deal with this non-linearity is to chop up the predictor and emit indicators for which region the values take. While this works, we are losing quite a lot by detail by the rounding that occurs.</p>
+<p>Here we have a non-linear relationship. It is a fairly simple one, the outcome is high when the predictor takes values between 25 and 50, and outside the ranges, it takes over values. Given that this is a toy example, we do not have any expert knowledge regarding what we expect the relationship to be outside this range. The trend could go back up, it could go down or flatten out. We don’t know.</p>
+<p>As we saw in <a href="numeric-binning.html" class="quarto-xref"><span>Chapter&nbsp;12</span></a>, one way to deal with this non-linearity is to chop up the predictor and emit indicators for which region the values take. While this works, we are losing quite a lot of detail by the rounding that occurs.</p>
 <p>We know that we can fit a polynomial function to some data set. And it would take the following format</p>
 <p><span class="math display">\[
 \text{poly}(x,\ \text{degree} = n) = a_0 + a_1 x + a_2 x ^ 2 + \cdots + a_n x ^ n
 \]</span></p>
-<p>This can then be used to to generate features. Such that each feature is done taking the value to a given degree and multiplying according with the corresponding coefficient.</p>
+<p>This can then be used to generate features. Each feature is done by taking the value to a given degree and multiplying it according to the corresponding coefficient.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">tibble</span>(</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,</span>
@@ -1365,30 +1365,30 @@ Attaching package: 'recipes'</code></pre>
 </div>
 </div>
 </div>
-<p>In the above table we are seeing a small example of how this could be done, using a 4th degree polynomial with coefficients of 1. If we were to look at the individual functions over the domain of our data we are seing the following</p>
+<p>In the above table, we see a small example of how this could be done, using a 4th-degree polynomial with coefficients of 1. If we were to look at the individual functions over the domain of our data we see the following</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-poly-poly-raw-curves" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="numeric-polynomial_files/figure-html/fig-poly-poly-raw-curves-1.png" class="img-fluid figure-img" alt="Facetted line chart. Predictor along the x-axis, value along the y-axis. Each of the curves start at 0, goes to smoothly, and then down to zero. The highpoint for each curve goes further to the right for each curve shown." width="672"></p>
+<p><img src="numeric-polynomial_files/figure-html/fig-poly-poly-raw-curves-1.png" class="img-fluid figure-img" alt="Facetted line chart. Predictor along the x-axis, value along the y-axis. Each of the curves starts at 0, goes smoothly, and then down to zero. The highpoint for each curve goes further to the right for each curve shown." width="672"></p>
 <figcaption class="figure-caption">Figure&nbsp;14.2: Each part of the spline detects a part of the data set.</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>This is to be expected, but we are noticing that these curve look quite similar, and the values these functions are taking very quickly escalate. And this is for predictor values between 0 and 100, higher values will get even higher, possibly causing overflow issues.</p>
-<p>We also have an issue where the values appear quite correlated, since the functions are all increasing. As we see below, the correlation between the variables are close to 1 for all pairs.</p>
+<p>This is to be expected, but we are noticing that these curves look quite similar, and the values these functions are taking very quickly escalate. And this is for predictor values between 0 and 100, higher values will get even higher, possibly causing overflow issues.</p>
+<p>We also have an issue where the values appear quite correlated since the functions are all increasing. As we see below, the correlation between the variables is close to 1 for all pairs.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-poly-raw-correlation" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="numeric-polynomial_files/figure-html/fig-poly-raw-correlation-1.png" class="img-fluid figure-img" alt="Correlation chart. The polynomial features are lined up one after another. almost all the correlation between the pairs are close to 1." width="672"></p>
+<p><img src="numeric-polynomial_files/figure-html/fig-poly-raw-correlation-1.png" class="img-fluid figure-img" alt="Correlation chart. The polynomial features are lined up one after another. almost all the correlations between the pairs are close to 1." width="672"></p>
 <figcaption class="figure-caption">Figure&nbsp;14.3: Almost complete correlation is found between variables</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>This is a problem that needs to be dealt with. The way we can deal with this is by calculation <strong>orthogonal polynomials</strong> instead. We have that any set polynomial function can be rewritten as a set of orthogonal polynomial functions.</p>
+<p>This is a problem that needs to be dealt with. The way we can deal with this is by calculating <strong>orthogonal polynomials</strong> instead. We have that any set polynomial function can be rewritten as a set of orthogonal polynomial functions.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1402,12 +1402,12 @@ TODO
 <p>Add more bath background here</p>
 </div>
 </div>
-<p>With this, we deal with the two problems we had before. As seen in the figure below, the functions takes smaller values within their ranges</p>
+<p>With this, we deal with the two problems we had before. As seen in the figure below, the functions take smaller values within their ranges</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-poly-poly-curves" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="numeric-polynomial_files/figure-html/fig-poly-poly-curves-1.png" class="img-fluid figure-img" alt="Facetted line chart. Predictor along the x-axis, value along the y-axis. All the curves are betwwen the ranges of -4 and 4." width="672"></p>
+<p><img src="numeric-polynomial_files/figure-html/fig-poly-poly-curves-1.png" class="img-fluid figure-img" alt="Facetted line chart. Predictor along the x-axis, value along the y-axis. All the curves are between the ranges of -4 and 4." width="672"></p>
 <figcaption class="figure-caption">Figure&nbsp;14.4: Each part of the spline detects a part of the data set.</figcaption>
 </figure>
 </div>
@@ -1424,18 +1424,18 @@ TODO
 </div>
 </div>
 </div>
-<p>The interpretation of these polynomial features are not as easy as with binning in <a href="numeric-binning.html" class="quarto-xref"><span>Chapter&nbsp;12</span></a> or splines <a href="numeric-splines.html" class="quarto-xref"><span>Chapter&nbsp;13</span></a>, but the calculations are quite fast and versatile.</p>
+<p>The interpretation of these polynomial features is not as easy as with binning in <a href="numeric-binning.html" class="quarto-xref"><span>Chapter&nbsp;12</span></a> or splines <a href="numeric-splines.html" class="quarto-xref"><span>Chapter&nbsp;13</span></a>, but the calculations are quite fast and versatile.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-poly-poly-curves-extrapolate" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="numeric-polynomial_files/figure-html/fig-poly-poly-curves-extrapolate-1.png" class="img-fluid figure-img" alt="Facetted line chart. Predictor along the x-axis, value along the y-axis. Each of the curves have their endpoints go towards infinite or minus infinite depending on their degree." width="672"></p>
+<p><img src="numeric-polynomial_files/figure-html/fig-poly-poly-curves-extrapolate-1.png" class="img-fluid figure-img" alt="Facetted line chart. Predictor along the x-axis, value along the y-axis. Each of the curves has their endpoints go towards infinite or minus infinite depending on their degree." width="672"></p>
 <figcaption class="figure-caption">Figure&nbsp;14.6: Polynomial features don’t handle extrapolation well and values outside the normal ranges can explode quite fast for higher degree polynomials.</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Below is a chart of how well using polynomial expansion works when using it on our toy example. Since the data isn’t that complicated, having <code>degree</code> larger than 1 will do the trick.</p>
+<p>Below is a chart of how well using polynomial expansion works when using it on our toy example. Since the data isn’t that complicated, having a <code>degree</code> larger than 1 will do the trick.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-poly-different-degrees" class="quarto-figure quarto-figure-center anchored">

@@ -1,8 +1,8 @@
 # Polynomial {#sec-numeric-polynomial}
 
-**Polynomial expansion**, is one way to turn a numeric variable into something that can represent a non-linear relationship between two variables. This it useful in a modeling content, since it allows us to model non-linear relationships between predictors and outcomes. This is a trained method.
+**Polynomial expansion**, is one way to turn a numeric variable into something that can represent a non-linear relationship between two variables. This is useful in modeling content since it allows us to model non-linear relationships between predictors and outcomes. This is a trained method.
 
-Being able to transform a numeric variable that has a non-linear relationship with the outcome into one or more variables that does have linear relationships with the outcome is of great importance, as many models wouldn't be able to work with these types of variables effectively themselves. Below is a toy example of one such variable
+Being able to transform a numeric variable that has a non-linear relationship with the outcome into one or more variables that do have linear relationships with the outcome is of great importance, as many models wouldn't be able to work with these types of variables effectively themselves. Below is a toy example of one such variable
 
 ```{r}
 #| echo: false
@@ -32,9 +32,9 @@ data_toy |>
   theme_minimal()
 ```
 
-Here we have a non-linear relationship. It is a fairly simple one, the outcome is high when the predictor takes values between 25 and 50, and the outside the ranges it takes over values. Given that this is a toy example, we do not have any expert knowledge regarding what we expect the relationship to be outside this range. The trend could go back up, it could go down or flatten out. We don't know.
+Here we have a non-linear relationship. It is a fairly simple one, the outcome is high when the predictor takes values between 25 and 50, and outside the ranges, it takes over values. Given that this is a toy example, we do not have any expert knowledge regarding what we expect the relationship to be outside this range. The trend could go back up, it could go down or flatten out. We don't know.
 
-As we saw in @sec-numeric-binning, one way to deal with this non-linearity is to chop up the predictor and emit indicators for which region the values take. While this works, we are losing quite a lot by detail by the rounding that occurs.
+As we saw in @sec-numeric-binning, one way to deal with this non-linearity is to chop up the predictor and emit indicators for which region the values take. While this works, we are losing quite a lot of detail by the rounding that occurs.
 
 We know that we can fit a polynomial function to some data set. And it would take the following format
 
@@ -42,7 +42,7 @@ $$
 \text{poly}(x,\ \text{degree} = n) = a_0 + a_1 x + a_2 x ^ 2 + \cdots + a_n x ^ n
 $$
 
-This can then be used to to generate features. Such that each feature is done taking the value to a given degree and multiplying according with the corresponding coefficient.
+This can then be used to generate features. Each feature is done by taking the value to a given degree and multiplying it according to the corresponding coefficient.
 
 ```{r}
 #| label: tbl-poly-raw-values
@@ -58,7 +58,7 @@ tibble::tibble(
   knitr::kable()
 ```
 
-In the above table we are seeing a small example of how this could be done, using a 4th degree polynomial with coefficients of 1. If we were to look at the individual functions over the domain of our data we are seing the following
+In the above table, we see a small example of how this could be done, using a 4th-degree polynomial with coefficients of 1. If we were to look at the individual functions over the domain of our data we see the following
 
 ```{r}
 #| label: fig-poly-poly-raw-curves
@@ -68,7 +68,7 @@ In the above table we are seeing a small example of how this could be done, usin
 #|   Each part of the spline detects a part of the data set.
 #| fig-alt: |
 #|   Facetted line chart. Predictor along the x-axis, value along the y-axis.
-#|   Each of the curves start at 0, goes to smoothly, and then down to zero.
+#|   Each of the curves starts at 0, goes smoothly, and then down to zero.
 #|   The highpoint for each curve goes further to the right for each curve 
 #|   shown.
 recipe(outcome ~ predictor, data = data_toy) |>
@@ -85,9 +85,9 @@ recipe(outcome ~ predictor, data = data_toy) |>
   theme_minimal()
 ```
 
-This is to be expected, but we are noticing that these curve look quite similar, and the values these functions are taking very quickly escalate. And this is for predictor values between 0 and 100, higher values will get even higher, possibly causing overflow issues.
+This is to be expected, but we are noticing that these curves look quite similar, and the values these functions are taking very quickly escalate. And this is for predictor values between 0 and 100, higher values will get even higher, possibly causing overflow issues.
 
-We also have an issue where the values appear quite correlated, since the functions are all increasing. As we see below, the correlation between the variables are close to 1 for all pairs.
+We also have an issue where the values appear quite correlated since the functions are all increasing. As we see below, the correlation between the variables is close to 1 for all pairs.
 
 ```{r}
 #| label: fig-poly-raw-correlation
@@ -97,7 +97,7 @@ We also have an issue where the values appear quite correlated, since the functi
 #|   Almost complete correlation is found between variables
 #| fig-alt: |
 #|   Correlation chart. The polynomial features are lined up one after
-#|   another. almost all the correlation between the pairs are close to 1.
+#|   another. almost all the correlations between the pairs are close to 1.
 recipe(outcome ~ predictor, data = data_toy) |>
   step_poly(predictor, keep_original_cols = FALSE, degree = 6, 
             options = list(raw = TRUE)) |>
@@ -109,7 +109,7 @@ recipe(outcome ~ predictor, data = data_toy) |>
   autoplot(method = "identity")
 ```
 
-This is a problem that needs to be dealt with. The way we can deal with this is by calculation **orthogonal polynomials** instead. We have that any set polynomial function can be rewritten as a set of orthogonal polynomial functions.
+This is a problem that needs to be dealt with. The way we can deal with this is by calculating **orthogonal polynomials** instead. We have that any set polynomial function can be rewritten as a set of orthogonal polynomial functions.
 
 ::: {.callout-caution}
 # TODO
@@ -117,7 +117,7 @@ This is a problem that needs to be dealt with. The way we can deal with this is 
 Add more bath background here
 :::
 
-With this, we deal with the two problems we had before. As seen in the figure below, the functions takes smaller values within their ranges
+With this, we deal with the two problems we had before. As seen in the figure below, the functions take smaller values within their ranges
 
 ```{r}
 #| echo: false
@@ -141,7 +141,7 @@ data_poly <- rec_poly |>
 #|   Each part of the spline detects a part of the data set.
 #| fig-alt: |
 #|   Facetted line chart. Predictor along the x-axis, value along the y-axis.
-#|   All the curves are betwwen the ranges of -4 and 4.
+#|   All the curves are between the ranges of -4 and 4.
 data_poly |>
   select(-outcome) |>
   tidyr::pivot_longer(cols = -predictor) |>
@@ -173,7 +173,7 @@ recipe(outcome ~ predictor, data = data_toy) |>
   autoplot(method = "identity")
 ```
 
-The interpretation of these polynomial features are not as easy as with binning in @sec-numeric-binning or splines @sec-numeric-splines, but the calculations are quite fast and versatile.
+The interpretation of these polynomial features is not as easy as with binning in @sec-numeric-binning or splines @sec-numeric-splines, but the calculations are quite fast and versatile.
 
 ```{r}
 #| label: fig-poly-poly-curves-extrapolate
@@ -184,7 +184,7 @@ The interpretation of these polynomial features are not as easy as with binning 
 #|   the normal ranges can explode quite fast for higher degree polynomials.
 #| fig-alt: |
 #|   Facetted line chart. Predictor along the x-axis, value along the y-axis.
-#|   Each of the curves have their endpoints go towards infinite or minus 
+#|   Each of the curves has their endpoints go towards infinite or minus 
 #|   infinite depending on their degree.
 rec_poly |>
   bake(new_data = tibble::tibble(predictor = seq(-500, 500))) |>
@@ -196,7 +196,7 @@ rec_poly |>
   theme_minimal()
 ```
 
-Below is a chart of how well using polynomial expansion works when using it on our toy example. Since the data isn't that complicated, having `degree` larger than 1 will do the trick.
+Below is a chart of how well using polynomial expansion works when using it on our toy example. Since the data isn't that complicated, having a `degree` larger than 1 will do the trick.
 
 ```{r}
 #| label: fig-poly-different-degrees

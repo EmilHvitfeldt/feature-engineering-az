@@ -1227,7 +1227,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <p>Data can come in all shapes and sizes, but the most common one is the numeric variable. These are values such as <code>age</code>, <code>height</code>, <code>deficit</code>, <code>price</code>, and <code>quantity</code>. We call these <em>quantitative</em> variables and they are plentiful in most data sets and immediately usable in all statistical and machine learning models. That being said, it doesn’t mean that there are things that wouldn’t help to be done.</p>
-<p>The following chapters will focus on different methods that follow 1-to-1 or 1-to-more transformations. These methods will mostly be applied one at a time to each variable. Methods that take many variables and return fewer variables such as dimensionality reduction methods which will be covered in <a href="too-many.html" class="quarto-xref"><span>Chapter&nbsp;66</span></a>.</p>
+<p>The following chapters will focus on different methods that follow 1-to-1 or 1-to-more transformations. These methods will mostly be applied one at a time to each variable. Methods that take many variables and return fewer variables such as dimensionality reduction methods will be covered in <a href="too-many.html" class="quarto-xref"><span>Chapter&nbsp;66</span></a>.</p>
 <p>When we are working with a single variable at a time, there is a handful of problems we can run into. Identifying the problem and how each of the following methods tries to remedy the said problem is key to getting the most out of numeric variables.</p>
 <p>The 4 main types of problems we deal with when working with individual numeric variables are:</p>
 <ul>
@@ -1248,7 +1248,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="sec-numeric-scaling-issues" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="sec-numeric-scaling-issues"><span class="header-section-number">2.2</span> Scaling issues</h2>
-<p>The topic of feature scaling is used important and used widely in all of machine learning. This chapter will go over what feature scaling is and why we want to use it. The following chapters will each go over a different method of feature scaling.</p>
+<p>The topic of feature scaling is important and used widely in all of machine learning. This chapter will go over what feature scaling is and why we want to use it. The following chapters will each go over a different method of feature scaling.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1262,7 +1262,7 @@ Note
 <p>There is some disagreement about the naming of these topics. These types of methods are called feature scaling and scaling in different fields. This book will call this general class of methods <strong>feature scaling</strong> and will make notes for each specific method and what other names they go by.</p>
 </div>
 </div>
-<p>In this book, we will define feature scaling as an operation that modified variables using multiplication and addition. While broadly defined, the methods typically reduce to the following form:</p>
+<p>In this book, we will define feature scaling as an operation that modifies variables using multiplication and addition. While broadly defined, the methods typically reduce to the following form:</p>
 <p><span id="eq-feature-scaling"><span class="math display">\[
 X_{scaled} = \dfrac{X - a}{b}
 \tag{2.1}\]</span></span></p>
@@ -1308,8 +1308,8 @@ X_{scaled} = \dfrac{X - a}{b}
 </tbody>
 </table>
 </div>
-<p>We see here that all the methods in <a href="#tbl-feature-scaling" class="quarto-xref">Table&nbsp;<span>2.1</span></a> follows the equation <a href="#eq-feature-scaling" class="quarto-xref">Equation&nbsp;<span>2.1</span></a>. Sometimes <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> takes a value of 0, which is perfectly fine. Centering and scaling when used together is equal to normalization. They are kept separate in the table since they are sometimes used independently. Centering, scaling, and normalization will all be discussed in <a href="numeric-normalization.html" class="quarto-xref"><span>Chapter&nbsp;8</span></a>.</p>
-<p>There are 2 main reasons why we want to perform feature scaling. Firstly, many different types of models take the magnitude of the variables into account when fitting the models, so having variables on different scales can be disadvantageous because some variables have high priorities. In turn, we get that the other variables have low priority. Models that work using Euclidean distances like KNN models are affected by this change. Regularized models such as lasso and ridge regression also need to be scaled since the regularization depends on the magnitude of the estimates. Secondly, some algorithms simply converge much faster when all the variables are on the same scale. These types of models produce the same fit, just at a slower pace than if you don’t scale the variables. Any algorithms using Gradient Descent fits into this category.</p>
+<p>We see here that all the methods in <a href="#tbl-feature-scaling" class="quarto-xref">Table&nbsp;<span>2.1</span></a> follow the equation <a href="#eq-feature-scaling" class="quarto-xref">Equation&nbsp;<span>2.1</span></a>. Sometimes <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> take a value of 0, which is perfectly fine. Centering and scaling when used together is equal to normalization. They are kept separate in the table since they are sometimes used independently. Centering, scaling, and normalization will all be discussed in <a href="numeric-normalization.html" class="quarto-xref"><span>Chapter&nbsp;8</span></a>.</p>
+<p>There are 2 main reasons why we want to perform feature scaling. Firstly, many different types of models take the magnitude of the variables into account when fitting the models, so having variables on different scales can be disadvantageous because some variables have high priorities. In turn, we get that the other variables have low priority. Models that work using Euclidean distances like KNN models are affected by this change. Regularized models such as lasso and ridge regression also need to be scaled since the regularization depends on the magnitude of the estimates. Secondly, some algorithms simply converge much faster when all the variables are on the same scale. These types of models produce the same fit, just at a slower pace than if you don’t scale the variables. Any algorithms using Gradient Descent fit into this category.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1320,7 +1320,7 @@ TODO
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Have KNN diagram show why this is important</p>
+<p>Have a KNN diagram show why this is important</p>
 </div>
 </div>
 <p>List which types of models need feature scaling. Should be a 2 column list. Left=name, right=comment %in% c(no effect, different fit, slow down)</p>
@@ -1342,7 +1342,7 @@ TODO
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Show different distributions, and how well the different methods does at dealing with them</p>
+<p>Show different distributions, and how well the different methods do at dealing with them</p>
 </div>
 </div>
 </section>

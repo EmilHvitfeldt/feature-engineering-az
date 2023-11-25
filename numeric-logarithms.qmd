@@ -2,6 +2,12 @@
 
 Logarithms come as a tool to deal with highly skewed data. Consider the histogram below, it depicts the lot area for all the houses in the `ames` data set. It is highly skewed with the majority of areas being less than 10,000 with a handful greater than 50,000 with one over 200,000.
 
+::: {.callout-caution}
+# TODO
+
+Find a better data set for this example
+:::
+
 ```{r}
 #| echo: false
 #| message: false
@@ -11,13 +17,12 @@ Logarithms come as a tool to deal with highly skewed data. Consider the histogra
 library(tidymodels)
 data("ames")
 
-# TODO find better data set for this example
 ggplot(ames, aes(Lot_Area)) +
   geom_histogram(bins = 100) +
   theme_minimal()
 ```
 
-This data could cause some problems if we tried to use this variable in its unfinished state. We need to think about how numeric variables are being used in these models. Take a linear regression as an example. It fits under the assumption that there is a linear relationship between the response and the predictors. In other words, the model assumes that a 1000 increase in lot area is going to increase the sale price of the house by the same amount if it occurred to a 5000 lot area house or a 50000 lot area house. This might be a valid scenario for this housing market.Another possibility is that we are seeing diminishing returns, and each increase in lot area is going to cause a smaller increase in predicted sale price.
+This data could cause some problems if we tried to use this variable in its unfinished state. We need to think about how numeric variables are being used in these models. Take a linear regression as an example. It fits under the assumption that there is a linear relationship between the response and the predictors. In other words, the model assumes that a 1000 increase in lot area is going to increase the sale price of the house by the same amount if it occurred to a 5000 lot area house or a 50000 lot area house. This might be a valid scenario for this housing market. Another possibility is that we are seeing diminishing returns, and each increase in lot area is going to cause a smaller increase in the predicted sale price.
 
 The main identity that is interesting when using logarithms for preprocessing is the multiplicative identity
 
@@ -55,7 +60,7 @@ ggplot(ames, aes(log2(Lot_Area))) +
   theme_minimal()
 ```
 
-it is important to note that we are not trying to make the variable normally distributed. What we are trying to accomplish is to remove the skewed nature of the variable. Likewise, this method should not be used a variance reduction tool as that task is handled by doing normalization which we start exploring more in @sec-numeric-scaling-issues.
+it is important to note that we are not trying to make the variable normally distributed. What we are trying to accomplish is to remove the skewed nature of the variable. Likewise, this method should not be used as a variance reduction tool as that task is handled by doing normalization which we start exploring more in @sec-numeric-scaling-issues.
 
 The full equation we use is
 
@@ -72,20 +77,20 @@ offset <- 0.1
 log(c(0, 1, 10, 100, 1000) + offset, base = 2) |> round(3)
 ```
 
-On the other hand, if we set the offset to 0.001, we get that the difference from 0 to 1 is the same as the distance from 1 to 1000, or as the same as multiplying by 1000.
+On the other hand, if we set the offset to 0.001, we get that the difference from 0 to 1 is the same as the distance from 1 to 1000, or the same as multiplying by 1000.
 
 ```{r}
 offset <- 0.001
 log(c(0, 1, 10, 100, 1000) + offset, base = 2) |> round(3)
 ```
 
-The use of logarithms will have different effects on different types of models. Linear models will see a change in transformed variables since we can better model relationships between the response and dependent variable if the transformation leads to a more linear relationship. Tree-based models should in theory not be affected by the use of logarithms, however, some implementations use binning to reduce the number of splitting points for considerations. You will see a change if these bins are based on fixed-width intervals. This is expected to have minimal effect on the final model.
+The use of logarithms will have different effects on different types of models. Linear models will see a change in transformed variables since we can better model relationships between the response and dependent variable if the transformation leads to a more linear relationship. Tree-based models should in theory not be affected by the use of logarithms, however, some implementations use binning to reduce the number of splitting points for consideration. You will see a change if these bins are based on fixed-width intervals. This is expected to have minimal effect on the final model.
 
 ## Pros and Cons
 
 ### Pros
 
-- A non-trained operation, can easily be applied to training and testing data set alike
+- A non-trained operation, can easily be applied to training and testing data sets alike
 
 ### Cons
 

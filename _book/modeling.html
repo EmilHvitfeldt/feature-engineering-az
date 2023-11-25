@@ -1220,7 +1220,7 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>When we talk about the modeling workflow, it starts at the data source, and ends with a fitted model. The fitted model in this instance should be created such that it can be used for the downstream task, be it inference or prediction. We want to make sure that the feature engineering methods we are applying are done correctly as to avoid problem with the modeling. Things we especially want to avoid is <strong>data leakage</strong>, <strong>overfitting</strong>, and high computational cost.</p>
+<p>When we talk about the modeling workflow, it starts at the data source and ends with a fitted model. The fitted model in this instance should be created such that it can be used for the downstream task, be it inference or prediction. We want to make sure that the feature engineering methods we are applying are done correctly to avoid problems with the modeling. Things we especially want to avoid are <strong>data leakage</strong>, <strong>overfitting</strong>, and high computational cost.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1235,7 +1235,7 @@ TODO
 </div>
 </div>
 <p>When applying feature engineering methods, we need to think about <strong>trained</strong> and <strong>untrained</strong> methods. Trained methods will perform a calculation doing the training of the method, and then using the extracted values to perform the transformation again. We see this in <a href="numeric-normalization.html" class="quarto-xref"><span>Chapter&nbsp;8</span></a>, where we do centering. To do centering we subtract the mean value of the variable, calculated based on the training data set. Since this value needs to be calculated, it becomes a trained method. Examples of untrained methods are logarithmic transformation as seen in <a href="numeric-logarithms.html" class="quarto-xref"><span>Chapter&nbsp;3</span></a> and datetime value extraction as seen in <a href="datetime-extraction.html" class="quarto-xref"><span>Chapter&nbsp;39</span></a>. These methods are static in the sense the way they are performed doesn’t need any parameters.</p>
-<p>In practice this means that untrained methods can be applied before the data-splitting procedure, as it would give the same results regardless on when it was done. Trained methods have to be performed after the data-splitting to ensure you don’t have data leakage. The wrinkle to this is that untrained methods applied to variables that has already been transformed by a trained method will have to also be done after the data-splitting.</p>
+<p>In practice, this means that untrained methods can be applied before the data-splitting procedure, as it would give the same results regardless of when it was done. Trained methods have to be performed after the data-splitting to ensure you don’t have data leakage. The wrinkle to this is that untrained methods applied to variables that have already been transformed by a trained method will have to also be done after the data-splitting.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1246,7 +1246,7 @@ TODO
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>add diagram for untrained / trained rule</p>
+<p>add a diagram for untrained/trained rule</p>
 </div>
 </div>
 <p>Some untrained methods have a high computational cost, such as BERT from <a href="text-bert.html" class="quarto-xref"><span>Chapter&nbsp;61</span></a>. A general advice that errs on the side of safety is to do as much as you can after the data-splitting if you are unsure.</p>
