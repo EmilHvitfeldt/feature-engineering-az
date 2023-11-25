@@ -32,6 +32,7 @@ set.seed(1234)
 ```
 
 ```{r}
+#| message: false
 # remotes::install_github("emilhvitfeldt/extrasteps")
 library(recipes)
 library(extrasteps)

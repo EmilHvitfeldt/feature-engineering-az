@@ -104,6 +104,7 @@ plotting_data |>
 We will be using the `ames` data set for these examples.
 
 ```{r}
+#| message: false
 library(recipes)
 library(modeldata)
 data("ames")

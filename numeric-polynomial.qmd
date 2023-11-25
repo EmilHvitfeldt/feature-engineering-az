@@ -6,6 +6,7 @@ Being able to transform a numeric variable that has a non-linear relationship wi
 
 ```{r}
 #| echo: false
+#| message: false
 library(recipes)
 set.seed(1234)
 data_toy <- tibble::tibble(
@@ -262,6 +263,9 @@ data("ames")
 We will be using the `ames` data set for these examples.
 
 ```{r}
+library(recipes)
+library(modeldata)
+
 ames |>
   select(Lot_Area, Year_Built)
 ```

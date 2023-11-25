@@ -71,6 +71,7 @@ data_splines |>
 ```
 
 ```{r}
+#| echo: false
 spline_rounder <- function(value, name) {
   name <- paste0("predictor_bs_", name)
   value <- bake(rec_splines, tibble(predictor = value))[[name]]
@@ -88,6 +89,7 @@ So in this example, we are taking 1 numeric variable and turning it into 6 numer
 ```{r}
 #| label: tbl-splines-values
 #| tbl-cap: Spline values for different values of the predictor
+#| echo: false
 rec_splines |>
   bake(tibble(predictor = c(0, 10, 35, 50, 80))) |>
   select(-predictor_bs_7) |>
@@ -309,6 +311,9 @@ data("ames")
 We will be using the `ames` data set for these examples.
 
 ```{r}
+library(recipes)
+library(modeldata)
+
 ames |>
   select(Lot_Area, Year_Built)
 ```

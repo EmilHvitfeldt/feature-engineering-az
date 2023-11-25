@@ -31,7 +31,8 @@ looking at the above chart we see some correlated features. One way to perform o
 
 ```{r}
 #| label: tbl-correlation-values
-#| tbl-cap: Some predictors appears multiple times in this table.
+#| tbl-cap: Some predictors appear multiple times in this table.
+#| echo: false
 ames |>
   select(where(is.numeric)) |>
   correlate(method = "pearson", quiet = TRUE) |>
@@ -85,6 +86,9 @@ What we could do, is take the correlation matrix and apply a clustering model on
 We will use the `ames` data set from {modeldata} in this example. The {recipes} step `step_corrr()` performs the simple correlation filter described at the beginning of this chapter.
 
 ```{r}
+library(recipes)
+library(modeldata)
+
 corr_rec <- recipe(Sale_Price ~ ., data = ames) |>
   step_corr(all_numeric_predictors(), threshold = 0.75) |>
   prep()

@@ -44,6 +44,7 @@ find a better data set
 Below we are showing how we can impute using a K-nearest neighbor model using `step_impute_knn()`. We specify the variable to impute on first, and then with `impute_with` we specify which variables are used as predictors in the model.
 
 ```{r}
+#| message: false
 library(recipes)
 
 impute_knn_rec <- recipe(mpg ~ ., data = mtcars) |>

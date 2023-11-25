@@ -73,6 +73,7 @@ Where $x$ is the input, $y$ is the result. The base in and of itself makes a dif
 One thing we haven't touched on yet is that logarithms are only defined for positive input. The offset is introduced to deal with this problem. The offset will default to 0 in most software you will encounter. If you know that your variables contain values from -100 to 10000, you can set `offset = 101` to make sure we never take the logarithm of a negative number. A common scenario is non-negative, which contains 0, setting `offset = 0.5` helps in that case. The choice of offset you choose does matter a little bit. The offset should generally be smaller than the smallest non-negative value you have, otherwise, you will influence the proportions too much. Below we use an offset of 0.1, and the relationship we get out of this is that distance from 0 to 1, is roughly the same as multiplying by 10.
 
 ```{r}
+#| echo: false
 offset <- 0.1
 log(c(0, 1, 10, 100, 1000) + offset, base = 2) |> round(3)
 ```
@@ -80,6 +81,7 @@ log(c(0, 1, 10, 100, 1000) + offset, base = 2) |> round(3)
 On the other hand, if we set the offset to 0.001, we get that the difference from 0 to 1 is the same as the distance from 1 to 1000, or the same as multiplying by 1000.
 
 ```{r}
+#| echo: false
 offset <- 0.001
 log(c(0, 1, 10, 100, 1000) + offset, base = 2) |> round(3)
 ```
@@ -111,6 +113,9 @@ runif(10000) |> log10() |> hist(breaks = 20)
 We will be using the `ames` data set for these examples.
 
 ```{r}
+library(recipes)
+library(modeldata)
+
 ames |>
   select(Lot_Area, Wood_Deck_SF, Sale_Price)
 ```

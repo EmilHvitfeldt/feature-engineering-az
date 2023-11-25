@@ -70,6 +70,7 @@ set.seed(1234)
 ```
 
 ```{r}
+#| message: false
 library(recipes)
 library(textrecipes)
 library(modeldata)
