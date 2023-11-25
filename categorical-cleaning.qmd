@@ -25,6 +25,7 @@ Domain knowledge is important. In the case of spell-checking, we need to be care
 Back to the example at hand. The first thing we notice is that there is a difference in **capitalization**. In this case, since we presumably are working with a variable of city names, capitalization shouldn't matter. A common trick is to either turn everything upper-case or lower-case. I prefer to lower-casing as I find the results easier to read.
 
 ```{r}
+#| echo: false
 st_albans <- st_albans |>
   tolower() |>
   unique()
@@ -34,6 +35,7 @@ st_albans
 By turning everything into lower-case, we were able to remove 2 of the errors. Next, we see that some of these spellings include periods. For this example, I'm going to decide that they are safe to remove as well.
 
 ```{r}
+#| echo: false
 st_albans <- st_albans |>
   stringr::str_remove("\\.") |>
   unique()
@@ -43,6 +45,7 @@ st_albans
 This removes yet another of our problems. This next problem is horrible and is so easy to overlook. Notice how the second spelling has a double space between `st` and `alban`? At a glance that can be hard to see. Likewise, the last spelling has a trailing space. Let us fix this as well.
 
 ```{r}
+#| echo: false
 st_albans <- st_albans |>
   stringr::str_squish() |>
   stringr::str_trim() |>
