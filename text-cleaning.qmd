@@ -2,15 +2,23 @@
 
 When working with unstructured data such as free-form text. You likely will need to do some cleaning. As with basically every method in this book, not all the steps in this chapter should be applied, and it will be up to you the practitioner to evaluate what is best for your data. It is also important that you formalize what these steps should be such that you can apply them consistently to new data that comes in.
 
-removing stuff
-- html tags,
-- malformed text
-- non-text such as punctuation
+I'll split this chapter into 2 major categories. It doesn't mean that they are the only ones, but it helps to keep things clear in our minds. These two categories are **removing things** and **transforming things**.
 
-converting stuff
-- lower-casing
-- keyword replacing `IT -> information technology`. should happen before lower-casing
-- replace emojis, hashtags, links to indicators
+Removing things should be quite self-explanatory. This group of actions can be quite lengthy depending on how clean your data is when you get it. HTML tags, Markdown, and other artifacts are prime candidates for removal as they have less information about the words written and more about how they are displaced. You can also get malformed text for different reasons, with the most common being speech-to-text and optical character recognition (OCR). If you get this kind of malformed text, you should try your best to have that part of the process improved, to hopefully avoid the malformed text altogether, but the escape-hatch would be to remove it. Sometimes people will remove all non-alphanumeric values from the text. This is a quick and crude method of getting something decent and easy to work with. This is also popular because it can be done using a small regular expression. The crudeness because a problem as it removes indiscriminately such that periods, question marks, emojis, and non-Latin characters are removed.
+
+The crudeness of the last approach is what inspires some of the transformation actions we can take. If we are going to count different parts of the text for analysis, then we might benefit from some bucketing. We could replace all emojis with `EMOJI` to denote that an emoji was present. The same could be done with emails, hashtags, user names and URLs. Doing this will rob us of the information about which emojis were used, but it lets us count how many times and where they are used instead. Another case of bucketing is done by lower-casing all the text. By making all the characters lowercase we lose some information. In English, we lose proper nouns and the starts of sentences and in German, we lose all nouns. We do this when we work under the assumption that `Today` and `today` isn't a meaningful difference to our analysis.
+
+One thing that can happen when we lowercase is that some works we don't want to combine are combined, `it` and `IT` make a good example. replacing `IT` with `information technology` is one way to solve this issue. As you can see, there are a lot of different ways to improve our data quality, and spending some time at this part of the process tends to give better results as it affects every part of the rest of the pipeline.
+
+The choices you make on the actions above will depend on where the text is supposed to end up. If we want to use the data as part of a supervised machine learning model then we will likely be counting tokens, and keeping periods will not be helpful. if we want text generation, we need the periods as it will try to replicate text.
+
+When working with text data you will inevitably run into encodings and their associated irregularities.
+
+::: {.callout-note}
+# text encoding
+
+Computers work with ones and zeroes. To store text we got creative and started assigning each character to a different number. Numbers already have a good representation in memory. Common encodings include ASCII which includes 128 different symbols (7 bits), and UTF-8 includes 1,112,064 symbols.
+:::
 
 text normalization, encodings
 
