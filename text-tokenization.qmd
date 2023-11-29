@@ -1,6 +1,23 @@
 # 🏗️ Tokenization {#sec-text-tokenization}
 
-WIP
+The main issue with text, when working with machines is that they don't have a way to natively deal with it in a way that makes sense. Machines like numbers, and text are far from that. **tokenization** is the act of turning long strings of text into many smaller units of text (called **tokens**) which can then be worked with.
+
+talk about languages
+
+talk about how this is ALWAYS done, it might just be hidden,
+also some implementation loops in @sec-text-cleaning and @sec-text-ngrams.
+
+character tokenizer
+
+simple (space seperate)
+
+advanced {tokenizers}
+
+Byte-Pair Encoding (BPE)
+
+where does it break down (different for each type of method and choices made during cleaning)
+
+talk about non-latin characters
 
 ## Pros and Cons
 
