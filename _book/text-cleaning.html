@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -1246,18 +1280,96 @@ text encoding
 <p>Computers work with ones and zeroes. To store text we got creative and started assigning each character to a different number. Numbers already have a good representation in memory. Common encodings include ASCII which includes 128 different symbols (7 bits), and UTF-8 includes 1,112,064 symbols.</p>
 </div>
 </div>
-<p>text normalization, encodings</p>
+<p>What this means in practice is that you can run into issues by reading data in as the wrong encoding, or if multiple pieces of text read the same, but constructed by different characters. You are less and less likely to run into encoding confusion as more and more text is encoded with UTF-8. These issues appear as glitched text, if you see that you can use one of the many encoding detection methods online to try to narrow down how to read the text correctly.</p>
+<p>The other issue is much harder to detect unless you know what you are looking for. Consider the two strings <code>"schön"</code> and <code>"schön"</code>, are they the same? the reasonable reader would say yes. But the computer disagrees, if you look at the Unicode codes you see that they are different <code>\u0073\u0063\u0068\u00f6\u006e</code> and <code>\u0073\u0063\u0068\u006f\u0308\u006e</code>. The difference comes in the o with the umlaut. In the first string, <a href="https://www.fileformat.info/info/unicode/char/00f6/index.htm">0f6</a> is a “latin small letter o with diaeresis” where <a href="https://www.fileformat.info/info/unicode/char/006f/index.htm">06f</a> is a “latin small letter o”m and <a href="https://www.fileformat.info/info/unicode/char/0308/index.htm">308</a> is a “combining diaeresis”. This means the first string uses one symbol to represent <code>"ö"</code> and the second string uses two symbols to represent it, but combining a <code>"0"</code> with an umlaut symbol. And they appear similar to the naked eye.</p>
+<p>This is an issue because the computer considers these strings as different strings, so for counting operations they are counted differently. Luckily there are solutions to this problem, and the method is known as <strong>unicode normalization</strong>. The ways these methods work could be a chapter by itself and will be excluded. But the methods by themselves are easy to find and use on your data. Unless you are sure that you won’t have these issues, or you are on a big performance crush, it is recommended to use Unicode normalization at all times.</p>
 <section id="pros-and-cons" class="level2" data-number="48.1">
 <h2 data-number="48.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">48.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="48.1.1">
 <h3 data-number="48.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">48.1.1</span> Pros</h3>
+<ul>
+<li>When applied correctly, can lead to boosts in insights into the data</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="48.1.2">
 <h3 data-number="48.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">48.1.2</span> Cons</h3>
+<ul>
+<li>Can be a quite manual process which will likely be domain specific</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="48.2">
 <h2 data-number="48.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">48.2</span> R Examples</h2>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Find a data set that isn’t clean</p>
+</div>
+</div>
+<p>We will use the <code>step_text_normalization()</code> function from the {textrecipes} package to perform unicode normalization, which defaults to the NFC normalization form.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textrecipes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: recipes</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: dplyr</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'recipes'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:stats':
+
+    step</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sample_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">text =</span> <span class="fu">c</span>(<span class="st">"sch\U00f6n"</span>, <span class="st">"scho\U0308n"</span>))</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>sample_data <span class="sc">|&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  text      n
+  &lt;chr&gt; &lt;int&gt;
+1 schön     1
+2 schön     1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(<span class="sc">~</span>., <span class="at">data =</span> sample_data) <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_text_normalization</span>(text) <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>rec <span class="sc">|&gt;</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  text      n
+  &lt;fct&gt; &lt;int&gt;
+1 schön     2</code></pre>
+</div>
+</div>
 </section>
 <section id="python-examples" class="level2" data-number="48.3">
 <h2 data-number="48.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">48.3</span> Python Examples</h2>

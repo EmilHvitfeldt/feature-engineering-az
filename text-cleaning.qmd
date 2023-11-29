@@ -20,15 +20,53 @@ When working with text data you will inevitably run into encodings and their ass
 Computers work with ones and zeroes. To store text we got creative and started assigning each character to a different number. Numbers already have a good representation in memory. Common encodings include ASCII which includes 128 different symbols (7 bits), and UTF-8 includes 1,112,064 symbols.
 :::
 
-text normalization, encodings
+What this means in practice is that you can run into issues by reading data in as the wrong encoding, or if multiple pieces of text read the same, but constructed by different characters. You are less and less likely to run into encoding confusion as more and more text is encoded with UTF-8. These issues appear as glitched text, if you see that you can use one of the many encoding detection methods online to try to narrow down how to read the text correctly.
+
+The other issue is much harder to detect unless you know what you are looking for. Consider the two strings `"schön"` and `"schön"`, are they the same? the reasonable reader would say yes. But the computer disagrees, if you look at the Unicode codes you see that they are different `\u0073\u0063\u0068\u00f6\u006e` and `\u0073\u0063\u0068\u006f\u0308\u006e`. The difference comes in the o with the umlaut. In the first string, [\u00f6](https://www.fileformat.info/info/unicode/char/00f6/index.htm) is a "latin small letter o with diaeresis" where [\u006f](https://www.fileformat.info/info/unicode/char/006f/index.htm) is a "latin small letter o"m and [\u0308](https://www.fileformat.info/info/unicode/char/0308/index.htm) is a "combining diaeresis". This means the first string uses one symbol to represent `"ö"` and the second string uses two symbols to represent it, but combining a `"0"` with an umlaut symbol. And they appear similar to the naked eye.
+
+This is an issue because the computer considers these strings as different strings, so for counting operations they are counted differently. Luckily there are solutions to this problem, and the method is known as **unicode normalization**. The ways these methods work could be a chapter by itself and will be excluded. But the methods by themselves are easy to find and use on your data. Unless you are sure that you won't have these issues, or you are on a big performance crush, it is recommended to use Unicode normalization at all times. 
 
 ## Pros and Cons
 
 ### Pros
 
+- When applied correctly, can lead to boosts in insights into the data
+
 ### Cons
 
+- Can be a quite manual process which will likely be domain specific
+
 ## R Examples
+
+::: {.callout-caution}
+# TODO
+
+Find a data set that isn't clean
+:::
+
+```{r}
+#| echo: false
+set.seed(1234)
+```
+
+We will use the `step_text_normalization()` function from the {textrecipes} package to perform unicode normalization, which defaults to the NFC normalization form.
+
+```{r}
+library(textrecipes)
+
+sample_data <- tibble(text = c("sch\U00f6n", "scho\U0308n"))
+
+sample_data |>
+  count(text)
+
+rec <- recipe(~., data = sample_data) |>
+  step_text_normalization(text) |>
+  prep()
+
+rec |>
+  bake(new_data = NULL) |>
+  count(text)
+```
 
 ## Python Examples
 

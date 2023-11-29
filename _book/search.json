@@ -1040,14 +1040,14 @@
     "href": "text-cleaning.html#pros-and-cons",
     "title": "48  🏗️ Text cleaning",
     "section": "48.1 Pros and Cons",
-    "text": "48.1 Pros and Cons\n\n48.1.1 Pros\n\n\n48.1.2 Cons"
+    "text": "48.1 Pros and Cons\n\n48.1.1 Pros\n\nWhen applied correctly, can lead to boosts in insights into the data\n\n\n\n48.1.2 Cons\n\nCan be a quite manual process which will likely be domain specific"
   },
   {
     "objectID": "text-cleaning.html#r-examples",
     "href": "text-cleaning.html#r-examples",
     "title": "48  🏗️ Text cleaning",
     "section": "48.2 R Examples",
-    "text": "48.2 R Examples"
+    "text": "48.2 R Examples\n\n\n\n\n\n\nTODO\n\n\n\nFind a data set that isn’t clean\n\n\nWe will use the step_text_normalization() function from the {textrecipes} package to perform unicode normalization, which defaults to the NFC normalization form.\n\nlibrary(textrecipes)\n\nLoading required package: recipes\n\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nsample_data &lt;- tibble(text = c(\"sch\\U00f6n\", \"scho\\U0308n\"))\n\nsample_data |&gt;\n  count(text)\n\n# A tibble: 2 × 2\n  text      n\n  &lt;chr&gt; &lt;int&gt;\n1 schön     1\n2 schön     1\n\nrec &lt;- recipe(~., data = sample_data) |&gt;\n  step_text_normalization(text) |&gt;\n  prep()\n\nrec |&gt;\n  bake(new_data = NULL) |&gt;\n  count(text)\n\n# A tibble: 1 × 2\n  text      n\n  &lt;fct&gt; &lt;int&gt;\n1 schön     2"
   },
   {
     "objectID": "text-cleaning.html#python-examples",
