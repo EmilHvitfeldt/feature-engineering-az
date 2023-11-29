@@ -1,15 +1,18 @@
 # 🏗️ Tokenization {#sec-text-tokenization}
 
-The main issue with text, when working with machines is that they don't have a way to natively deal with it in a way that makes sense. Machines like numbers, and text are far from that. **tokenization** is the act of turning long strings of text into many smaller units of text (called **tokens**) which can then be worked with.
+The main issue with text, when working with machines is that they don't have a way to natively deal with it in a way that makes sense. Machines like numbers, and text are far from that. **tokenization** is the act of turning long strings of text into many smaller units of text (called **tokens**) which can then be worked with. The method that performs the tokenization is called a **tokenizer**.
 
-talk about languages
+::: {.callout-note}
+it is important to note that the effectiveness of each of the methods seen in this chapter is heavily determined by the language the text is from and its form. Synthetic languages are going to be harder to tokenize in a meaningful way compared to other languages. Likewise, social media posts and short text messages can be harder to work with than more structured long-form texts like books. 
+:::
 
-talk about how this is ALWAYS done, it might just be hidden,
-also some implementation loops in @sec-text-cleaning and @sec-text-ngrams.
+Before we turn to the technical task of defining the right size of units, I to make it clear that tokenization is always used when working with text data in machine learning and AI tasks. It might be hidden, but it is always there. This book tries to make a clear distinction between the preprocessing techniques that are applied to text. However it is not uncommon for multiple of these methods to be combined into one function call, where text has non-ascii characters removed, text lower-cased and then tokenized. You just have to hope that the documentation is thorough enough.
+
+The first and arguably simplest type of tokenization is a **character tokenizer**. This tokenization is done by splitting the text into the smallest unit possible, which in most cases will be letters. This is likely not the best way. For counting procedures knowing the distributions of letters of a text is in most cases not enough to help us extract insights. The main upside to this tokenizer is that it produces the smallest number of unique tokens for any of the tokenizers we have seen.
 
 character tokenizer
 
-simple (space seperate)
+simple (space separate)
 
 advanced {tokenizers}
 
