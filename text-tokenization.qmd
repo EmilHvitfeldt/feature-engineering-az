@@ -8,11 +8,28 @@ it is important to note that the effectiveness of each of the methods seen in th
 
 Before we turn to the technical task of defining the right size of units, I to make it clear that tokenization is always used when working with text data in machine learning and AI tasks. It might be hidden, but it is always there. This book tries to make a clear distinction between the preprocessing techniques that are applied to text. However it is not uncommon for multiple of these methods to be combined into one function call, where text has non-ascii characters removed, text lower-cased and then tokenized. You just have to hope that the documentation is thorough enough.
 
-The first and arguably simplest type of tokenization is a **character tokenizer**. This tokenization is done by splitting the text into the smallest unit possible, which in most cases will be letters. This is likely not the best way. For counting procedures knowing the distributions of letters of a text is in most cases not enough to help us extract insights. The main upside to this tokenizer is that it produces the smallest number of unique tokens for any of the tokenizers we have seen.
+The first and arguably simplest type of tokenization is a **character tokenizer**. This tokenization is done by splitting the text into the smallest unit possible, which in most cases will be letters. This is likely not the best way. For counting procedures knowing the distributions of letters of a text is in most cases not enough to help us extract insights. The main upside to this tokenizer is that it produces the smallest number of unique tokens for any of the tokenizers we have seen. `"Don't Blame Me"` becomes `"D", "o", "n", "'", "t", " ", "B", "l", "a", "m", "e", " ", "M", "e"` under this type of tokenization.
 
-character tokenizer
+The next tokenizer is more practical but is harder to define. This is the **word tokenizer**. The idea behind it is solid. Words appear to be a good small unit to break a longer text into. The problem is that we don't have a good definition of what a word is. In English, the definition "anything that is separated by spaces" isn't that bad. This is the first type of word tokenizer you will find. with this you have that `"Don't Blame Me"` becomes `"Don't", "Blame", "Me"`.
 
-simple (space separate)
+::: {.callout-caution}
+# TODO
+
+Find good links why the definition of a word isn't easy to find, and why it doesn't matter much in the end.
+:::
+
+There are more advanced methods of tokenizing into words. One of them is done by [finding word boundaries](https://www.unicode.org/reports/tr29/tr29-35.html#Default_Word_Boundaries) according to specifications made by International Components for Unicode (ICU). This method is much more advanced and will likely give you better word tokens then what you would get by using the space tokenizer. At least for English text. 
+
+::: {.callout-caution}
+# TODO
+Find a good way to link to the algorithm <https://smltar.com/tokenization#what-is-a-token>
+:::
+
+::: {.callout-caution}
+# TODO
+
+find an example where tokenizers are different from the space tokenizer.
+:::
 
 advanced {tokenizers}
 
