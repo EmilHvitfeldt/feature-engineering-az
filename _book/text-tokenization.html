@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -1256,7 +1290,7 @@ TODO
 <p>Find good links why the definition of a word isn’t easy to find, and why it doesn’t matter much in the end.</p>
 </div>
 </div>
-<p>There are more advanced methods of tokenizing into words. One of them is done by <a href="https://www.unicode.org/reports/tr29/tr29-35.html#Default_Word_Boundaries">finding word boundaries</a> according to specifications made by International Components for Unicode (ICU). This method is much more advanced and will likely give you better word tokens then what you would get by using the space tokenizer. At least for English text.</p>
+<p>There are more advanced methods of tokenizing into words. One of them is done by <a href="https://www.unicode.org/reports/tr29/tr29-35.html#Default_Word_Boundaries">finding word boundaries</a> according to specifications made by International Components for Unicode (ICU). This method is much more advanced and will likely give you better word tokens than what you would get by using the space tokenizer. At least for English text. The method is going to be slower than the amount of calculations that are being done, but the speed hit is likely to be outweighed by the performance increase.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1283,10 +1317,30 @@ TODO
 <p>find an example where tokenizers are different from the space tokenizer.</p>
 </div>
 </div>
-<p>advanced {tokenizers}</p>
-<p>Byte-Pair Encoding (BPE)</p>
-<p>where does it break down (different for each type of method and choices made during cleaning)</p>
-<p>talk about non-latin characters</p>
+<p>Both space tokenizers and word tokenizers are useful, they are performant and interpretable. If you want to dial up on performance, then this next tokenizer is for you. It is called the <strong>Byte-Pair Encoding tokenizer</strong>, or BPE tokenizer for short. It is also the first tokenizer that we have to train to the text corpus. The mechanics behind it borrows from compression. Imagine that we want to store some text as a sequence of tokens.</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>should properly rewrite the below as a diagram or series of diagrams</p>
+</div>
+</div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>n e v e r   e v e r   g e t t i n g   t o g e t h e r </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">2</span> <span class="dv">7</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">1</span> <span class="dv">6</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">9</span> <span class="dv">6</span> <span class="dv">2</span> <span class="dv">7</span> <span class="dv">10</span> <span class="dv">2</span> <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>each token is going to be assigned a unique integer. Then we take a look at the whole corpus and find the most frequent pair of adjacent integers. In this case, it is <code>2 4</code> and we merge them into a new token <code>er</code> and give them a new integer value <code>11</code></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>n e v er   e v er   g e t t i n g   t o g e t h er </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">11</span> <span class="dv">5</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">11</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">2</span> <span class="dv">7</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">1</span> <span class="dv">6</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">9</span> <span class="dv">6</span> <span class="dv">2</span> <span class="dv">7</span> <span class="dv">10</span> <span class="dv">11</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>and this process is repeated, many times, creating longer and longer tokens.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>n ever   ever   get t i n g   t o get h er </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>   <span class="dv">14</span> <span class="dv">5</span>   <span class="dv">14</span> <span class="dv">5</span>  <span class="dv">16</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">1</span> <span class="dv">6</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">9</span> <span class="dv">16</span> <span class="dv">10</span> <span class="dv">11</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>this process will go on until there are no more duplicate pairs of tokens, which is far too long. Typically the vocabulary size is fixed beforehand, in the orders of 1000s. The good thing about this tokenizer is that it is more tailored toward the data you are working with, hence words like <code>"credit"</code> and <code>"load"</code> will self-populate very fast in banking text, and other words won’t come until later in the vocabulary. It is in essence less dependent on language since it tries to find frequent sequences of characters. For some language tasks, you will use this tokenizer without removing spaces and punctuation, since the tokenizer then will be able to “learn” the beginning and ends of words. One of the downsides is that the tokens themselves are harder to reason about after the fact. The token <code>"teach"</code> might be found by itself or as part of <code>"teacher"</code> and the later models likely won’t know, unless both <code>"teach"</code> and <code>"teacher"</code> is in the vocabulary.</p>
+<p>We have talked a lot about Latin alphabet tokenization. As with any study of data, it is important to work with domain experts. Tokenization of languages such as Chinese, Japanese and Korean, where each glyph contains much more information, is almost a different problem than the tokenization we have seen so far, since each “word” a lot of times is contained in 1 to 3 glyphs. Many different CJK tokenizers exist to best tackle the language construction specific to each language. Many of the techniques stem from the methods we have discussed above.</p>
 <section id="pros-and-cons" class="level2" data-number="49.1">
 <h2 data-number="49.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">49.1</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="49.1.1">

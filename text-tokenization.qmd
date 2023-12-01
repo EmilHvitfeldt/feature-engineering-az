@@ -18,7 +18,7 @@ The next tokenizer is more practical but is harder to define. This is the **word
 Find good links why the definition of a word isn't easy to find, and why it doesn't matter much in the end.
 :::
 
-There are more advanced methods of tokenizing into words. One of them is done by [finding word boundaries](https://www.unicode.org/reports/tr29/tr29-35.html#Default_Word_Boundaries) according to specifications made by International Components for Unicode (ICU). This method is much more advanced and will likely give you better word tokens then what you would get by using the space tokenizer. At least for English text. 
+There are more advanced methods of tokenizing into words. One of them is done by [finding word boundaries](https://www.unicode.org/reports/tr29/tr29-35.html#Default_Word_Boundaries) according to specifications made by International Components for Unicode (ICU). This method is much more advanced and will likely give you better word tokens than what you would get by using the space tokenizer. At least for English text. The method is going to be slower than the amount of calculations that are being done, but the speed hit is likely to be outweighed by the performance increase.
 
 ::: {.callout-caution}
 # TODO
@@ -31,13 +31,36 @@ Find a good way to link to the algorithm <https://smltar.com/tokenization#what-i
 find an example where tokenizers are different from the space tokenizer.
 :::
 
-advanced {tokenizers}
+Both space tokenizers and word tokenizers are useful, they are performant and interpretable. If you want to dial up on performance, then this next tokenizer is for you. It is called the **Byte-Pair Encoding tokenizer**, or BPE tokenizer for short. It is also the first tokenizer that we have to train to the text corpus. The mechanics behind it borrows from compression. Imagine that we want to store some text as a sequence of tokens.
 
-Byte-Pair Encoding (BPE)
+::: {.callout-caution}
+# TODO
 
-where does it break down (different for each type of method and choices made during cleaning)
+should properly rewrite the below as a diagram or series of diagrams
+:::
 
-talk about non-latin characters
+```r
+n e v e r   e v e r   g e t t i n g   t o g e t h e r 
+1 2 3 2 4 5 2 3 2 4 5 6 2 7 7 8 1 6 5 7 9 6 2 7 10 2 4
+```
+
+each token is going to be assigned a unique integer. Then we take a look at the whole corpus and find the most frequent pair of adjacent integers. In this case, it is `2 4` and we merge them into a new token `er` and give them a new integer value `11`
+
+```r
+n e v er   e v er   g e t t i n g   t o g e t h er 
+1 2 3 11 5 2 3 11 5 6 2 7 7 8 1 6 5 7 9 6 2 7 10 11
+```
+
+and this process is repeated, many times, creating longer and longer tokens.
+
+```r
+n ever   ever   get t i n g   t o get h er 
+1   14 5   14 5  16 7 8 1 6 5 7 9 16 10 11
+```
+
+this process will go on until there are no more duplicate pairs of tokens, which is far too long. Typically the vocabulary size is fixed beforehand, in the orders of 1000s. The good thing about this tokenizer is that it is more tailored toward the data you are working with, hence words like `"credit"` and `"load"` will self-populate very fast in banking text, and other words won't come until later in the vocabulary. It is in essence less dependent on language since it tries to find frequent sequences of characters. For some language tasks, you will use this tokenizer without removing spaces and punctuation, since the tokenizer then will be able to "learn" the beginning and ends of words. One of the downsides is that the tokens themselves are harder to reason about after the fact. The token `"teach"` might be found by itself or as part of `"teacher"` and the later models likely won't know, unless both `"teach"` and `"teacher"` is in the vocabulary. 
+
+We have talked a lot about Latin alphabet tokenization. As with any study of data, it is important to work with domain experts. Tokenization of languages such as Chinese, Japanese and Korean, where each glyph contains much more information, is almost a different problem than the tokenization we have seen so far, since each "word" a lot of times is contained in 1 to 3 glyphs. Many different CJK tokenizers exist to best tackle the language construction specific to each language. Many of the techniques stem from the methods we have discussed above.
 
 ## Pros and Cons
 
