@@ -166,3 +166,11 @@ log_rec |>
 
 ## Python Examples
 
+```{python}
+from feazdata import ames
+from sklearn.preprocessing import FunctionTransformer
+from sklearn.pipeline import Pipeline
+
+ames
+```
+
