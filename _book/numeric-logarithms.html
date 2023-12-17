@@ -1485,6 +1485,29 @@ y = log_{base}(x + offset)
 </section>
 <section id="python-examples" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">2.3</span> Python Examples</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> feazdata <span class="im">import</span> ames</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> FunctionTransformer</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>ames</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                              MS_SubClass  ...   Latitude
+0     One_Story_1946_and_Newer_All_Styles  ...  42.054035
+1     One_Story_1946_and_Newer_All_Styles  ...  42.053014
+2     One_Story_1946_and_Newer_All_Styles  ...  42.052659
+3     One_Story_1946_and_Newer_All_Styles  ...  42.051245
+4                Two_Story_1946_and_Newer  ...  42.060899
+...                                   ...  ...        ...
+2925                  Split_or_Multilevel  ...  41.988964
+2926  One_Story_1946_and_Newer_All_Styles  ...  41.988314
+2927                          Split_Foyer  ...  41.986510
+2928  One_Story_1946_and_Newer_All_Styles  ...  41.990921
+2929             Two_Story_1946_and_Newer  ...  41.989265
+
+[2930 rows x 74 columns]</code></pre>
+</div>
+</div>
 
 
 </section>
