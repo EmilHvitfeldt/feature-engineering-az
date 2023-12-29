@@ -167,10 +167,23 @@ log_rec |>
 ## Python Examples
 
 ```{python}
-from feazdata import ames
-from sklearn.preprocessing import FunctionTransformer
-from sklearn.pipeline import Pipeline
+#| echo: false
+import pandas as pd
+from sklearn import set_config
 
-ames
+set_config(transform_output="pandas")
+pd.set_option('display.precision', 3)
 ```
 
+```{python}
+from feazdata import ames
+from sklearn.compose import ColumnTransformer
+from feature_engine.transformation import LogCpTransformer
+
+ct = ColumnTransformer(
+    [('log', LogCpTransformer(C=1), ['Wood_Deck_SF'])], 
+    remainder="passthrough")
+
+ct.fit(ames)
+ct.transform(ames)
+```
