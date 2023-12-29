@@ -175,6 +175,8 @@ set_config(transform_output="pandas")
 pd.set_option('display.precision', 3)
 ```
 
+We are using the `ames` data set for examples. {feature_engine} provided the `LogCpTransformer()` which is just what we need in this instance. This transformer lets us set an offset `C` that is calculated before taking the logarithm to avoid taking the log of a non-positive number. If we knew that there wasn't any non-positive numbers then we could use the `LogTransformer` instead.
+
 ```{python}
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
