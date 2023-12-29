@@ -5,8 +5,10 @@ book:
   title: "Feature Engineering A-Z"
   author: "Emil Hvitfeldt"
   date: "9/14/2021"
+  repo-url: https://github.com/EmilHvitfeldt/feature-engineering-az
+  repo-actions: [edit, issue, source]
   sidebar:
-    style: "floating"
+    style: "docked"
     search: true
   chapters:
     - index.qmd # draft
@@ -198,7 +200,9 @@ bibliography: references.bib
 
 format:
   html:
-    theme: cosmo
+    theme: [cosmo, theme.scss]
+    grid:
+      sidebar-width: 350px
   pdf:
     documentclass: scrreport
     toc-depth: 1

@@ -1,0 +1,33 @@
+/*-- scss:defaults --*/
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,400;0,600;1,200;1,400;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code_Pro&display=swap');
+
+$font-family-sans-serif: 'Raleway', sans-serif;
+$font-family-monospace: 'Source Code Pro', monospace;
+
+$theme-purple: #854ac8;
+$theme-green: #1EAF98;
+
+$font-size-root: 20px;
+$link-color: $theme-purple;
+
+/*-- scss:rules --*/
+
+h1, h2 {
+  color: $theme-green;
+}
+
+.sidebar-title>a {
+  font-size: 22px;
+}
+
+.sidebar-header {
+  align-self: center;
+}
+
+.sidebar-navigation li a {
+  overflow:hidden; 
+  white-space:nowrap; 
+  text-overflow: ellipsis;
+}
