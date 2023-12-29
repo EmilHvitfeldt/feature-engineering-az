@@ -1485,6 +1485,7 @@ y = log_{base}(x + offset)
 </section>
 <section id="python-examples" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">2.3</span> Python Examples</h2>
+<p>We are using the <code>ames</code> data set for examples. {feature_engine} provided the <code>LogCpTransformer()</code> which is just what we need in this instance. This transformer lets us set an offset <code>C</code> that is calculated before taking the logarithm to avoid taking the log of a non-positive number. If we knew that there wasn’t any non-positive numbers then we could use the <code>LogTransformer</code> instead.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> feazdata <span class="im">import</span> ames</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer</span>
