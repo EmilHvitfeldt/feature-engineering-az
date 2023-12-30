@@ -13,8 +13,6 @@ book:
   chapters:
     - index.qmd # draft
     - introduction.qmd # draft
-    - modeling.qmd # draft
-    - how-to-deal-with.qmd # draft
     - part: "Numeric Features"
       chapters:
         - numeric.qmd # draft
@@ -203,6 +201,6 @@ format:
     theme: [cosmo, theme.scss]
     grid:
       sidebar-width: 350px
-  pdf:
+pdf:
     documentclass: scrreport
     toc-depth: 1
