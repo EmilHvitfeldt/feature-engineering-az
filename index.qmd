@@ -1,12 +1,16 @@
 # Preface {.unnumbered}
 
-Welcome to "Feature Engineering A-Z"! This book is written to be used as a reference guide to the different techniques. This is reflected in the chapter structure. Any question a practitioner is having should be answered by looking at the index and finding the right chapter.
+Welcome to "Feature Engineering A-Z"! This book is written to be used as a reference guide to all feature engineering methods you will encounter. This is reflected in the chapter structure. Any question a practitioner is having should be answered by looking at the index and finding the right chapter.
 
-Each section tries to be as comprehensive as possible with the number of different methods/solutions that are presented. A section on dimensionality reduction should list all the practical methods that could be used, as well as a comparison between the methods to help the reader decide what would be most appropriate. This does not mean that all methods are recommended to use. A number of these methods have little and narrow use cases.
+Each section tries to be as comprehensive as possible with the number of different methods and solutions that are presented. A section on dimensionality reduction should list all the practical methods that could be used, as well as a comparison between the methods to help the reader decide what would be most appropriate. This does not mean that all methods are recommended to use. A number of these methods have little and narrow use cases. Methods that are deemed too domain-specific have been excluded from this book. 
 
-Whenever possible each method will be accompanied by simple mathematical formulas and visualizations to illustrate the mechanics of the method.
+::: {.callout-note}
+# Missing methods
 
-Lastly, each section will include code snippets showcasing how to implement the methods. Preferable in R and Python, Keras/PyTorch. This book is a methods book first, and a coding book second.
+If you think this book is missing a method, then please [file an issue](https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new?assignees=&labels=Request:+New+Method&projects=&template=request-new-method.md&title=) and we will evaluate if it should be added.
+:::
+
+Each chapter will cover a specific method or small group of methods. This will include motivations and explanations for the method. Whenever possible each method will be accompanied by mathematical formulas and visualizations to illustrate the mechanics of the method. A small pros and cons list is provided for each method. Lastly, each section will include code snippets showcasing how to implement the methods. This is done in R and Python, using [tidymodels](https://tidymodels.org) and [scikit-learn](https://scikit-learn.org/) respectively. This book is a methods book first, and a coding book second.
 
 ::: {.callout-note}
 # Empty chapters
