@@ -1,10 +1,17 @@
 # Introduction {.unnumbered}
 
-It is commonly said that feature engineering, much like machine learning, is an art rather than a science. This wants to reemphasize this point. But just because it is an art doesn't mean we can't thoroughly explain the tools and techniques. This is the main goal of this book. Giving you the knowledge of the different techniques you are likely to see and work with, and enough of a base, that any future methods won't be too intimidating.
+It is commonly said that feature engineering, much like machine learning, is an art rather than a science. The purpose of this book is to reinforce this perspective through the exploration of feature engineering tools and techniques. This foundational understanding will make encountering future methods less intimidating.
 
 ## Where does feature engineering fit into the modeling workflow? {#sec-modeling .unnumbered}
 
-When we talk about the modeling workflow, it starts at the data source and ends with a fitted model. The fitted model in this instance should be created such that it can be used for the downstream task, be it inference or prediction. We want to make sure that the feature engineering methods we are applying are done correctly to avoid problems with the modeling. Things we especially want to avoid are **data leakage**, **overfitting**, and high computational cost.
+When we talk about the modeling workflow, it starts at the data source and ends with a fitted model. The fitted model in this instance should be created such that it can be used for the downstream task, be it inference or prediction.
+
+::: {.callout-note}
+# Inference and Prediction
+In some data science organizations, the term "inference" is frequently used interchangeably with "prediction," denoting the process of generating prediction outputs from a trained model. However, in this book, we will use "inference" specifically to refer to statistical inference, which involves drawing conclusions about populations or scientific truths from data analysis.
+:::
+
+We want to make sure that the feature engineering methods we are applying are done correctly to avoid problems with the modeling. Things we especially want to avoid are **data leakage**, **overfitting**, and high computational cost.
 
 ::: {.callout-caution}
 # TODO
@@ -12,7 +19,7 @@ When we talk about the modeling workflow, it starts at the data source and ends 
 Add diagram of modeling workflow from data source to model
 :::
 
-When applying feature engineering methods, we need to think about **trained** and **untrained** methods. Trained methods will perform a calculation doing the training of the method, and then using the extracted values to perform the transformation again. We see this in @sec-numeric-normalization, where we do centering. To do centering we subtract the mean value of the variable, calculated based on the training data set. Since this value needs to be calculated, it becomes a trained method. Examples of untrained methods are logarithmic transformation as seen in @sec-numeric-logarithms and datetime value extraction as seen in @sec-datetime-extraction. These methods are static in the sense the way they are performed doesn't need any parameters.
+When applying feature engineering methods, we need to think about **trained** and **untrained** methods. Trained methods will perform a calculation doing the training of the method, and then using the extracted values to perform the transformation again. We see this in @sec-numeric-normalization, where we explore centering. To implement centering, we adjust each variable by subtracting its mean value, computed using the training dataset. Since this value needs to be calculated, it becomes a trained method. Examples of untrained methods are logarithmic transformation as seen in @sec-numeric-logarithms and datetime value extraction as seen in @sec-datetime-extraction. These methods are static in nature, meaning their execution can be applied at the observation-level without parameter-level inferences.
 
 In practice, this means that untrained methods can be applied before the data-splitting procedure, as it would give the same results regardless of when it was done. Trained methods have to be performed after the data-splitting to ensure you don't have data leakage. The wrinkle to this is that untrained methods applied to variables that have already been transformed by a trained method will have to also be done after the data-splitting.
 
@@ -22,7 +29,9 @@ In practice, this means that untrained methods can be applied before the data-sp
 add a diagram for untrained/trained rule
 :::
 
-Some untrained methods have a high computational cost, such as BERT from @sec-text-bert. A general advice that errs on the side of safety is to do as much as you can after the data-splitting if you are unsure.
+Some untrained methods have a high computational cost, such as BERT from @sec-text-bert. If you are unsure about when to apply a feature engineering method, a general rule of thumb that errs on the side of caution is to apply the method _after_ the data-splitting procedure.
+
+# JAVIER CONTINUE HERE
 
 ### Why do we use thresholds?
 
