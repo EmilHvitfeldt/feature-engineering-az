@@ -31,8 +31,6 @@ add a diagram for untrained/trained rule
 
 Some untrained methods have a high computational cost, such as BERT from @sec-text-bert. If you are unsure about when to apply a feature engineering method, a general rule of thumb that errs on the side of caution is to apply the method _after_ the data-splitting procedure.
 
-# JAVIER CONTINUE HERE
-
 ### Why do we use thresholds?
 
 Oftentimes, when we use a method that selects something with a quantity, we end up doing it with a threshold instead of counting directly. The answer to this is purely practical, as it leaves less ambiguity. When selecting these features to keep in a feature selection routine @sec-too-many is a good example. It is easier to write the code that selects every feature that has more than X amount of variability. On the other hand, if we said "Give me the 25 most useful features", we might have 4 variables tied for 25th place. Now we have another problem. Does it keep all of them in, leaving 27 variables? If we do that then we violated our request of 25 variables. What if we select the first? then we arbitrarily give a bias towards variables early in the data set. What if we randomly select among the ties? then we introduce randomness into the method.
