@@ -36,10 +36,95 @@ https://aml4td.org/#license
 
 ## Rendering details
 
-- quarto
-- R
-- Python
-- r packages
-- python libraries
+```{r}
+#| label: language-versions
+#| echo: false
+
+quarto_version <- paste0("(", system("quarto --version", intern = TRUE), ")")
+
+python_version <- paste0("(", gsub("Python ", "", system("python3 --version", intern = TRUE)), ")")
+
+r_version <- paste0("(", R.version$major, ".", R.version$minor, ")")
+```
+
+This book is rendered using [quarto](https://quarto.org/) `r quarto_version`, [R](https://www.r-project.org/) `r python_version` and [Python](https://www.python.org/) `r_version`. The website source is hosted on [Github](https://github.com/EmilHvitfeldt/feature-engineering-az).
+
+```{r}
+#| label: preface-versions
+#| include: false
+
+get_pkg_depends <- function() {
+  info <- read.dcf("DESCRIPTION")
+  pkgs <- strsplit(info[, "Imports"], "\\n")[[1]]
+  pkgs <- purrr::map_chr(pkgs, ~ gsub(",", "", .x))
+  pkgs <- strsplit(pkgs, " ")
+  pkgs <- purrr::map_chr(pkgs, ~ .x[1])
+  pkgs
+}
+
+make_matrix <- function(x, cols = 3) {
+  remainder <- length(x) %% cols
+  padding <- cols - remainder
+  if (padding > 0) {
+    x <- c(x, rep(" ", padding))
+  }
+  matrix(x, ncol = 3, byrow = TRUE)
+}
+
+write_pkg_list <- function() {
+  pkgs <- get_pkg_depends()
+  excld <- c()
+  pkgs <- pkgs[!(pkgs %in% excld)]
+  loaded <-
+    purrr::map(pkgs,
+               ~ try(
+                 suppressPackageStartupMessages(
+                   library(.x, character.only = TRUE, quietly = TRUE)
+                 ),
+                 silent = TRUE
+               )
+    )
+  # Write to repo root
+  nm <- paste0("session-info-", Sys.info()["user"], "-", Sys.info()["machine"], ".txt")
+  # sessioninfo::session_info(to_file = nm)
+  # Save for text
+  si <-
+    sessioninfo::session_info()$packages %>%
+    tibble::as_tibble() %>%
+    dplyr::filter(package %in% pkgs)
+  pkgs <- purrr::map2_chr(si$package, si$loadedversion, ~ paste0("`", .x, "` (", .y, ")"))
+  make_matrix(pkgs)
+}
+```
+
+The following R packages are used to render the book, with [tidymodels](https://www.tidymodels.org/), [recipes](https://recipes.tidymodels.org/), [embed](https://embed.tidymodels.org/), [themis](https://themis.tidymodels.org/), [textrecipes](https://textrecipes.tidymodels.org/) and [timetk](https://business-science.github.io/timetk/) being the main packages.
+
+```{r}
+#| label: write-pkg-versions
+#| echo: false
+#| results: asis
+
+knitr::kable(write_pkg_list())
+```
+
+The following Python libraries are used to render the book, with [scikit-learn](https://scikit-learn.org/) and [feature-engine](https://feature-engine.trainindata.com/en/latest/) being the main ones.
+
+```{r}
+#| label: write-poetry-versions
+#| echo: false
+#| results: asis
+poetry_list <- system("poetry show", intern = TRUE)
+
+poetry_list <- poetry_list |>
+  stringr::str_replace_all("\\s+", " ") |>
+  stringr::str_extract(".+? .+? ") |>
+  stringr::str_remove(" $")
+
+paste0("`", poetry_list, ")") |>
+  stringr::str_replace(" ", "` (") |>
+  sort() |>
+  make_matrix(3) |>
+  knitr::kable()
+```
 
 ## Acknowledgements
