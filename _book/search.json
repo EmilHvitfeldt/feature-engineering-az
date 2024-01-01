@@ -7,6 +7,41 @@
     "text": "Preface\nWelcome to “Feature Engineering A-Z”! This book is written to be used as a reference guide to all feature engineering methods you will encounter. This is reflected in the chapter structure. Any question a practitioner is having should be answered by looking at the index and finding the right chapter.\nEach section tries to be as comprehensive as possible with the number of different methods and solutions that are presented. A section on dimensionality reduction should list all the practical methods that could be used, as well as a comparison between the methods to help the reader decide what would be most appropriate. This does not mean that all methods are recommended to use. A number of these methods have little and narrow use cases. Methods that are deemed too domain-specific have been excluded from this book.\nEach chapter will cover a specific method or small group of methods. This will include motivations and explanations for the method. Whenever possible each method will be accompanied by mathematical formulas and visualizations to illustrate the mechanics of the method. A small pros and cons list is provided for each method. Lastly, each section will include code snippets showcasing how to implement the methods. This is done in R and Python, using tidymodels and scikit-learn respectively. This book is a methods book first, and a coding book second."
   },
   {
+    "objectID": "index.html#what-does-this-book-not-cover",
+    "href": "index.html#what-does-this-book-not-cover",
+    "title": "Feature Engineering A-Z",
+    "section": "What does this book not cover?",
+    "text": "What does this book not cover?\n\nWhole process modeling\ndeployment details\ndomain-specific methods\ncase studies"
+  },
+  {
+    "objectID": "index.html#who-is-this-book-for",
+    "href": "index.html#who-is-this-book-for",
+    "title": "Feature Engineering A-Z",
+    "section": "Who is this book for?",
+    "text": "Who is this book for?\nhttps://smltar.com/preface#who-is-this-book-for https://aml4td.org/#intended-audience"
+  },
+  {
+    "objectID": "index.html#license",
+    "href": "index.html#license",
+    "title": "Feature Engineering A-Z",
+    "section": "License",
+    "text": "License\nhttps://aml4td.org/#license"
+  },
+  {
+    "objectID": "index.html#rendering-details",
+    "href": "index.html#rendering-details",
+    "title": "Feature Engineering A-Z",
+    "section": "Rendering details",
+    "text": "Rendering details\nThis book is rendered using quarto (1.4.104), R (3.9.10) and Python r_version. The website source is hosted on Github.\nThe following R packages are used to render the book, with tidymodels, recipes, embed, themis, textrecipes and timetk being the main packages.\n\n\n\n\n\n\n\n\n\ncorrr (0.4.4)\nembed (1.1.3)\nextrasteps (0.0.0.9000)\n\n\nggforce (0.4.1)\nggraph (2.1.0)\njsonlite (1.8.7)\n\n\nlme4 (1.1-35.1)\nMatrix (1.6-3)\npatchwork (1.1.3)\n\n\nreadr (2.1.4)\nremotes (2.4.2.1)\nreshape (0.8.9)\n\n\nreticulate (1.34.0)\nrmarkdown (2.25)\nsplines2 (0.5.1)\n\n\ntext2vec (0.6.4)\ntextfeatures (0.3.3)\ntextrecipes (1.0.6)\n\n\ntidymodels (1.1.1)\ntidyverse (2.0.0)\n\n\n\n\n\nThe following Python libraries are used to render the book, with scikit-learn and feature-engine being the main ones.\n\n\n\n\n\n\n\n\n\nfeature-engine (1.6.2)\nfeazdata (0.0.1)\njoblib (1.3.2)\n\n\nnumpy (1.26.2)\npackaging (23.2)\npandas (2.1.4)\n\n\npatsy (0.5.5)\npython-dateutil (2.8.2)\npytz (2023.3.post1)\n\n\npyyaml (6.0.1)\nscikit-learn (1.3.2)\nscipy (1.11.4)\n\n\nsix (1.16.0)\nstatsmodels (0.14.1)\nthreadpoolctl (3.2.0)\n\n\ntzdata (2023.3)"
+  },
+  {
+    "objectID": "index.html#acknowledgements",
+    "href": "index.html#acknowledgements",
+    "title": "Feature Engineering A-Z",
+    "section": "Acknowledgements",
+    "text": "Acknowledgements\nI’m so thankful for the contributions, help, and perspectives of people who have supported us in this project. There are several I would like to thank in particular.\nI would like to thank my Posit colleagues on the tidymodels team (Hannah Frick, Max Kuhn, and Simon Couch) as well as the rest of our coworkers on the Posit open-source team. I also thank Javier Orraca-Deatcu, Matt Dancho and Mike Mahoney for looking over some of the chapters before the first release.\nThis book was written in the open, and multiple people contributed via pull requests or issues. Special thanks goes to the zero people who contributed via GitHub pull requests (in alphabetical order by username): ."
+  },
+  {
     "objectID": "introduction.html#sec-modeling",
     "href": "introduction.html#sec-modeling",
     "title": "Introduction",
@@ -2910,40 +2945,5 @@
     "title": "References",
     "section": "",
     "text": "Micci-Barreca, Daniele. 2001. “A Preprocessing Scheme for\nHigh-Cardinality Categorical Attributes in Classification and Prediction\nProblems.” SIGKDD Explor. Newsl. 3 (1): 27–32. https://doi.org/10.1145/507533.507538."
-  },
-  {
-    "objectID": "index.html#what-does-this-book-not-cover",
-    "href": "index.html#what-does-this-book-not-cover",
-    "title": "Feature Engineering A-Z",
-    "section": "What does this book not cover?",
-    "text": "What does this book not cover?\n\nWhole process modeling\ndeployment details\ndomain-specific methods\ncase studies"
-  },
-  {
-    "objectID": "index.html#who-is-this-book-for",
-    "href": "index.html#who-is-this-book-for",
-    "title": "Feature Engineering A-Z",
-    "section": "Who is this book for?",
-    "text": "Who is this book for?\nhttps://smltar.com/preface#who-is-this-book-for https://aml4td.org/#intended-audience"
-  },
-  {
-    "objectID": "index.html#license",
-    "href": "index.html#license",
-    "title": "Feature Engineering A-Z",
-    "section": "License",
-    "text": "License\nhttps://aml4td.org/#license"
-  },
-  {
-    "objectID": "index.html#rendering-details",
-    "href": "index.html#rendering-details",
-    "title": "Feature Engineering A-Z",
-    "section": "Rendering details",
-    "text": "Rendering details\nThis book is rendered using quarto (1.4.104), R (3.9.10) and Python r_version. The website source is hosted on Github.\nThe following R packages are used to render the book, with tidymodels, recipes, embed, themis, textrecipes and timetk being the main packages.\n\n\n\n\n\n\n\n\n\ncorrr (0.4.4)\nembed (1.1.3)\nextrasteps (0.0.0.9000)\n\n\nggforce (0.4.1)\nggraph (2.1.0)\njsonlite (1.8.7)\n\n\nlme4 (1.1-35.1)\nMatrix (1.6-3)\npatchwork (1.1.3)\n\n\nreadr (2.1.4)\nremotes (2.4.2.1)\nreshape (0.8.9)\n\n\nreticulate (1.34.0)\nrmarkdown (2.25)\nsplines2 (0.5.1)\n\n\ntext2vec (0.6.4)\ntextfeatures (0.3.3)\ntextrecipes (1.0.6)\n\n\ntidymodels (1.1.1)\ntidyverse (2.0.0)\n\n\n\n\n\nThe following Python libraries are used to render the book, with scikit-learn and feature-engine being the main ones.\n\n\n\n\n\n\n\n\n\nfeature-engine (1.6.2)\nfeazdata (0.0.1)\njoblib (1.3.2)\n\n\nnumpy (1.26.2)\npackaging (23.2)\npandas (2.1.4)\n\n\npatsy (0.5.5)\npython-dateutil (2.8.2)\npytz (2023.3.post1)\n\n\npyyaml (6.0.1)\nscikit-learn (1.3.2)\nscipy (1.11.4)\n\n\nsix (1.16.0)\nstatsmodels (0.14.1)\nthreadpoolctl (3.2.0)\n\n\ntzdata (2023.3)"
-  },
-  {
-    "objectID": "index.html#acknowledgements",
-    "href": "index.html#acknowledgements",
-    "title": "Feature Engineering A-Z",
-    "section": "Acknowledgements",
-    "text": "Acknowledgements"
   }
 ]
