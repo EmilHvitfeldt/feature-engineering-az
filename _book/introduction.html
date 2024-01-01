@@ -1224,10 +1224,24 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>It is commonly said that feature engineering, much like machine learning, is an art rather than a science. This wants to reemphasize this point. But just because it is an art doesn’t mean we can’t thoroughly explain how the tools and techniques can be used with different materials. This is the main goal of this book. Giving you the knowledge of the different techniques you are likely to see and work with, and enough of a base, that any future methods won’t be too intimidating.</p>
+<p>It is commonly said that feature engineering, much like machine learning, is an art rather than a science. The purpose of this book is to reinforce this perspective through the exploration of feature engineering tools and techniques. This foundational understanding will make encountering future methods less intimidating.</p>
 <section id="sec-modeling" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="sec-modeling">Where does feature engineering fit into the modeling workflow?</h2>
-<p>When we talk about the modeling workflow, it starts at the data source and ends with a fitted model. The fitted model in this instance should be created such that it can be used for the downstream task, be it inference or prediction. We want to make sure that the feature engineering methods we are applying are done correctly to avoid problems with the modeling. Things we especially want to avoid are <strong>data leakage</strong>, <strong>overfitting</strong>, and high computational cost.</p>
+<p>When we talk about the modeling workflow, it starts at the data source and ends with a fitted model. The fitted model in this instance should be created such that it can be used for the downstream task, be it inference or prediction.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Inference and Prediction
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In some data science organizations, the term “inference” is frequently used interchangeably with “prediction,” denoting the process of generating prediction outputs from a trained model. However, in this book, we will use “inference” specifically to refer to statistical inference, which involves drawing conclusions about populations or scientific truths from data analysis.</p>
+</div>
+</div>
+<p>We want to make sure that the feature engineering methods we are applying are done correctly to avoid problems with the modeling. Things we especially want to avoid are <strong>data leakage</strong>, <strong>overfitting</strong>, and high computational cost.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1241,7 +1255,7 @@ TODO
 <p>Add diagram of modeling workflow from data source to model</p>
 </div>
 </div>
-<p>When applying feature engineering methods, we need to think about <strong>trained</strong> and <strong>untrained</strong> methods. Trained methods will perform a calculation doing the training of the method, and then using the extracted values to perform the transformation again. We see this in <a href="numeric-normalization.html" class="quarto-xref"><span>Chapter&nbsp;7</span></a>, where we do centering. To do centering we subtract the mean value of the variable, calculated based on the training data set. Since this value needs to be calculated, it becomes a trained method. Examples of untrained methods are logarithmic transformation as seen in <a href="numeric-logarithms.html" class="quarto-xref"><span>Chapter&nbsp;2</span></a> and datetime value extraction as seen in <a href="datetime-extraction.html" class="quarto-xref"><span>Chapter&nbsp;38</span></a>. These methods are static in the sense the way they are performed doesn’t need any parameters.</p>
+<p>When applying feature engineering methods, we need to think about <strong>trained</strong> and <strong>untrained</strong> methods. Trained methods will perform a calculation doing the training of the method, and then using the extracted values to perform the transformation again. We see this in <a href="numeric-normalization.html" class="quarto-xref"><span>Chapter&nbsp;7</span></a>, where we explore centering. To implement centering, we adjust each variable by subtracting its mean value, computed using the training dataset. Since this value needs to be calculated, it becomes a trained method. Examples of untrained methods are logarithmic transformation as seen in <a href="numeric-logarithms.html" class="quarto-xref"><span>Chapter&nbsp;2</span></a> and datetime value extraction as seen in <a href="datetime-extraction.html" class="quarto-xref"><span>Chapter&nbsp;38</span></a>. These methods are static in nature, meaning their execution can be applied at the observation-level without parameter-level inferences.</p>
 <p>In practice, this means that untrained methods can be applied before the data-splitting procedure, as it would give the same results regardless of when it was done. Trained methods have to be performed after the data-splitting to ensure you don’t have data leakage. The wrinkle to this is that untrained methods applied to variables that have already been transformed by a trained method will have to also be done after the data-splitting.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1256,7 +1270,7 @@ TODO
 <p>add a diagram for untrained/trained rule</p>
 </div>
 </div>
-<p>Some untrained methods have a high computational cost, such as BERT from <a href="text-bert.html" class="quarto-xref"><span>Chapter&nbsp;60</span></a>. A general advice that errs on the side of safety is to do as much as you can after the data-splitting if you are unsure.</p>
+<p>Some untrained methods have a high computational cost, such as BERT from <a href="text-bert.html" class="quarto-xref"><span>Chapter&nbsp;60</span></a>. If you are unsure about when to apply a feature engineering method, a general rule of thumb that errs on the side of caution is to apply the method <em>after</em> the data-splitting procedure.</p>
 <section id="why-do-we-use-thresholds" class="level3">
 <h3 class="anchored" data-anchor-id="why-do-we-use-thresholds">Why do we use thresholds?</h3>
 <p>Oftentimes, when we use a method that selects something with a quantity, we end up doing it with a threshold instead of counting directly. The answer to this is purely practical, as it leaves less ambiguity. When selecting these features to keep in a feature selection routine <a href="too-many.html" class="quarto-xref"><span>Chapter&nbsp;65</span></a> is a good example. It is easier to write the code that selects every feature that has more than X amount of variability. On the other hand, if we said “Give me the 25 most useful features”, we might have 4 variables tied for 25th place. Now we have another problem. Does it keep all of them in, leaving 27 variables? If we do that then we violated our request of 25 variables. What if we select the first? then we arbitrarily give a bias towards variables early in the data set. What if we randomly select among the ties? then we introduce randomness into the method.</p>
