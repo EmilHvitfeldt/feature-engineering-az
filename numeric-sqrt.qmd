@@ -91,3 +91,47 @@ sqrt_rec |>
 ```
 
 ## Python Examples
+
+
+```{python}
+#| echo: false
+import pandas as pd
+from sklearn import set_config
+
+set_config(transform_output="pandas")
+pd.set_option('display.precision', 3)
+```
+
+We are using the `ames` data set for examples. Since there isn't a built-in transformer for square root, we can create our own using `FunctionTransformer()` and `numpy.sqrt()`.
+
+```{python}
+from feazdata import ames
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import FunctionTransformer
+import numpy as np
+
+sqrt_transformer = FunctionTransformer(np.sqrt)
+
+ct = ColumnTransformer(
+    [('sqrt', sqrt_transformer, ['Wood_Deck_SF'])], 
+    remainder="passthrough")
+
+ct.fit(ames)
+ct.transform(ames)
+```
+
+We can also create and perform a signed square root transformation, by creating a function for `signed_sqrt()` and then using it in `FunctionTransformer()` as before
+
+```{python}
+def signed_sqrt(x):
+  return np.sqrt(np.abs(x)) * np.sign(x)
+
+signed_sqrt_transformer = FunctionTransformer(signed_sqrt)
+
+ct = ColumnTransformer(
+    [('signed_sqrt', signed_sqrt_transformer, ['Wood_Deck_SF'])], 
+    remainder="passthrough")
+
+ct.fit(ames)
+ct.transform(ames)
+```
