@@ -75,17 +75,23 @@ hotel_bookings |>
 
 {recipes} provides a step to perform logarithms, which out of the box uses $e$ as the base with an offset of 0.
 
-::: {.callout-caution}
-# TODO
-
-use signed sqrt
-:::
-
 ```{r}
 sqrt_rec <- recipe(lead_time ~ adr, data = hotel_bookings) |>
   step_sqrt(adr)
 
 sqrt_rec |>
+  prep() |>
+  bake(new_data = NULL)
+```
+
+if you want to do a signed square root instead, you can use `step_mutate()` which allows you to do any kind of transformations
+
+```{r}
+
+signed_sqrt_rec <- recipe(lead_time ~ adr, data = hotel_bookings) |>
+  step_mutate(adr = sqrt(abs(adr)) * sign(adr))
+
+signed_sqrt_rec |>
   prep() |>
   bake(new_data = NULL)
 ```
