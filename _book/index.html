@@ -22,7 +22,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -1264,12 +1283,14 @@ Empty chapters
 </div>
 <section id="what-does-this-book-not-cover" class="level2">
 <h2 class="anchored" data-anchor-id="what-does-this-book-not-cover">What does this book not cover?</h2>
+<p>To keep the scope of this book as focused as possible, the following topics will not be covered in this book:</p>
 <ul>
 <li>whole process modeling</li>
+<li>case studies</li>
 <li>deployment details</li>
 <li>domain-specific methods</li>
-<li>case studies</li>
 </ul>
+<p>For whole process modeling see instead “Hands-On Machine Learning with Scikit-learn, Keras &amp; Tensorflow” <span class="citation" data-cites="geron2017hands-on">(<a href="references.html#ref-geron2017hands-on" role="doc-biblioref">2017</a>)</span>, “Tidy modeling with R” <span class="citation" data-cites="kuhn2022tidy">(<a href="references.html#ref-kuhn2022tidy" role="doc-biblioref">2022</a>)</span>, “Approaching (almost) any machine learning problem” <span class="citation" data-cites="thakur2020approaching">(<a href="references.html#ref-thakur2020approaching" role="doc-biblioref">2020</a>)</span> and “Applied Predictive Modeling” <span class="citation" data-cites="kuhn2013applied">(<a href="references.html#ref-kuhn2013applied" role="doc-biblioref">2013</a>)</span> are all great resources. For feature engineering books that tell more of a story by going through case studies, I recommended: “Python Feature Engineering Cookbook” <span class="citation" data-cites="galli2020python">(<a href="references.html#ref-galli2020python" role="doc-biblioref">2020</a>)</span>, “Feature Engineering Bookcamp” <span class="citation" data-cites="ozdemir2022feature">(<a href="references.html#ref-ozdemir2022feature" role="doc-biblioref">2022</a>)</span> And “Feature Engineering and Selection” <span class="citation" data-cites="kuhn2019feature">(<a href="references.html#ref-kuhn2019feature" role="doc-biblioref">2019</a>)</span>. I have found that books on deployment domain-specific methods are highly related to the field and stack that you are using and am not able to give broad advice.</p>
 </section>
 <section id="who-is-this-book-for" class="level2">
 <h2 class="anchored" data-anchor-id="who-is-this-book-for">Who is this book for?</h2>
@@ -1379,6 +1400,29 @@ Empty chapters
 <p>This book was written in the open, and multiple people contributed via pull requests or issues. Special thanks goes to the zero people who contributed via GitHub pull requests (in alphabetical order by username): .</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-galli2020python" class="csl-entry" role="listitem">
+Galli, S. 2020. <em>Python Feature Engineering Cookbook: Over 70 Recipes for Creating, Engineering, and Transforming Features to Build Machine Learning Models</em>. Packt Publishing. <a href="https://books.google.com/books?id=2c_LDwAAQBAJ">https://books.google.com/books?id=2c_LDwAAQBAJ</a>.
+</div>
+<div id="ref-geron2017hands-on" class="csl-entry" role="listitem">
+Géron, Aurélien. 2017. <em>Hands-on Machine Learning with Scikit-Learn and TensorFlow : Concepts, Tools, and Techniques to Build Intelligent Systems</em>. Sebastopol, CA: O’Reilly Media.
+</div>
+<div id="ref-kuhn2013applied" class="csl-entry" role="listitem">
+Kuhn, M., and K. Johnson. 2013. <em>Applied Predictive Modeling</em>. SpringerLink : B<span>ü</span>cher. Springer New York. <a href="https://books.google.com/books?id=xYRDAAAAQBAJ">https://books.google.com/books?id=xYRDAAAAQBAJ</a>.
+</div>
+<div id="ref-kuhn2019feature" class="csl-entry" role="listitem">
+———. 2019. <em>Feature Engineering and Selection: A Practical Approach for Predictive Models</em>. Chapman &amp; Hall/CRC Data Science Series. CRC Press. <a href="https://books.google.com/books?id=q5alDwAAQBAJ">https://books.google.com/books?id=q5alDwAAQBAJ</a>.
+</div>
+<div id="ref-kuhn2022tidy" class="csl-entry" role="listitem">
+Kuhn, M., and J. Silge. 2022. <em>Tidy Modeling with r</em>. O’Reilly Media. <a href="https://books.google.com/books?id=98J6EAAAQBAJ">https://books.google.com/books?id=98J6EAAAQBAJ</a>.
+</div>
+<div id="ref-ozdemir2022feature" class="csl-entry" role="listitem">
+Ozdemir, S. 2022. <em>Feature Engineering Bookcamp</em>. Manning. <a href="https://books.google.com/books?id=3n6HEAAAQBAJ">https://books.google.com/books?id=3n6HEAAAQBAJ</a>.
+</div>
+<div id="ref-thakur2020approaching" class="csl-entry" role="listitem">
+Thakur, A. 2020. <em>Approaching (Almost) Any Machine Learning Problem</em>. Amazon Digital Services LLC - Kdp. <a href="https://books.google.com/books?id=ZbgAEAAAQBAJ">https://books.google.com/books?id=ZbgAEAAAQBAJ</a>.
+</div>
+</div>
 </section>
 </section>
 
