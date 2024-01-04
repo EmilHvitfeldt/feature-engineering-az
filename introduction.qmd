@@ -41,7 +41,7 @@ In the examples of this book, we will show how to perform methods and techniques
 
 ## Why do we use thresholds?
 
-Oftentimes, when we use a method that selects something with a quantity, we end up doing it with a threshold instead of counting directly. The answer to this is purely practical, as it leaves less ambiguity. When selecting these features to keep in a feature selection routine @sec-too-many is a good example. It is easier to write the code that selects every feature that has more than X amount of variability. On the other hand, if we said "Give me the 25 most useful features", we might have 4 variables tied for 25th place. Now we have another problem. Does it keep all of them in, leaving 27 variables? If we do that, we violate our request of 25 variables. What if we select the first? Then we arbitrarily give a bias towards variables early in the data set. What if we randomly select among the ties? Then we introduce randomness into the method.
+Oftentimes, when we use a method that selects something with a quantity, we end up doing it with a threshold instead of counting directly. The answer to this is purely practical, as it leaves less ambiguity. When selecting these features to keep in a feature selection routine @sec-too-many is a good example. It is easier to write the code that selects every feature that has more than X amount of variability. On the other hand, if we said "Give me the 25 most useful features", we might have 4 variables tied for 25th place. Now we have another problem. Does it keep all of them in, leaving 28 variables? If we do that, we violate our request of 25 variables. What if we select the first? Then we arbitrarily give a bias towards variables early in the data set. What if we randomly select among the ties? Then we introduce randomness into the method.
 
 It is for the above reasons that many methods in feature engineering and machine learning use thresholds instead of precise numbers.
 
@@ -65,7 +65,7 @@ Reading this book will not tell you how to think about your data; You alone poss
 
 Some methods require information to be transformed that we are not able to supply beforehand. In the case of centering of numeric variables described in @sec-numeric-normalization, you need to know the mean value of the training data set to apply this transformation. This means is the sufficient information needed to perform the calculations and is the reason why the method is a *learned* method.
 
-In contract, taking the square root of a variable as described in @sec-numeric-sqrt isn't a learned method as there isn't any sufficient information needed. The method can be applied immediately.
+In contrast, taking the square root of a variable as described in @sec-numeric-sqrt isn't a learned method as there isn't any sufficient information needed. The method can be applied immediately.
 
 ### Supervised / Unsupervised
 

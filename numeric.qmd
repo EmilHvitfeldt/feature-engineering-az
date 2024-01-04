@@ -1,12 +1,12 @@
 # Overview {#sec-numeric}
 
-Data can come in all shapes and sizes, but the most common one is the numeric variable. These are values such as `age`, `height`, `deficit`, `price`, and `quantity`. We call these *quantitative* variables and they are plentiful in most data sets and immediately usable in all statistical and machine learning models. That being said, it doesn't mean that there are things that wouldn't help to be done.
+Data can come in all shapes and sizes, but the most common one is the numeric variable. These are values such as `age`, `height`, `deficit`, `price`, and `quantity` and we call these *quantitative* variables. They are plentiful in most data sets and immediately usable in all statistical and machine learning models. That being said, this does not imply that certain transformations wouldn't improve model performance.
 
 The following chapters will focus on different methods that follow 1-to-1 or 1-to-more transformations. These methods will mostly be applied one at a time to each variable. Methods that take many variables and return fewer variables such as dimensionality reduction methods will be covered in @sec-too-many.
 
-When we are working with a single variable at a time, there is a handful of problems we can run into. Identifying the problem and how each of the following methods tries to remedy the said problem is key to getting the most out of numeric variables.
+When working with a single variable at a time, there are several problems we can encounter. Understanding the problem and how each method addresses it is key to getting the most out of numeric variables.
 
-The 4 main types of problems we deal with when working with individual numeric variables are:
+The four main types of problems we deal with when working with individual numeric variables are:
 
 -   Distributional problems
 -   Scaling issues
@@ -35,7 +35,7 @@ $$
 X_{scaled} = \dfrac{X - a}{b}
 $$ {#eq-feature-scaling}
 
-The main difference between the methods is how $a$ and $b$ are calculated. These methods are learned transformation. So we use the training data to derive the right values of $a$ and $b$, and then these values are used to perform the transformations when applied to new data. The different methods might differ on what property is desired for the transformed variables, same range or same spread, but they never change the distribution itself. The power transformations we saw in @sec-numeric-boxcox and @sec-numeric-yeojohnson, distort the transformations, where these feature scalings essentially perform a "zooming" effect.
+The main difference between the methods is how $a$ and $b$ are calculated. These are learned transformation methods. We use the training data to derive the right values of $a$ and $b$, and then these values are used to perform the transformations when applied to new data. The different methods might differ on what property is desired for the transformed variables, same range or same spread, but they never change the distribution itself. The power transformations we saw in @sec-numeric-boxcox and @sec-numeric-yeojohnson, distort the transformations, where these feature scalings essentially perform a "zooming" effect.
 
 | Method        | Definition                                                               |
 |----------------|--------------------------------------------------------|
@@ -48,9 +48,9 @@ The main difference between the methods is how $a$ and $b$ are calculated. These
 
 : All feature scaling methods {#tbl-feature-scaling}
 
-We see here that all the methods in @tbl-feature-scaling follow the equation @eq-feature-scaling. Sometimes $a$ and $b$ take a value of 0, which is perfectly fine. Centering and scaling when used together is equal to normalization. They are kept separate in the table since they are sometimes used independently. Centering, scaling, and normalization will all be discussed in @sec-numeric-normalization.
+We see here that all the methods in @tbl-feature-scaling follow @eq-feature-scaling. Sometimes $a$ and $b$ take a value of 0, which is perfectly fine. Centering and scaling when used together is equal to normalization. They are kept separate in the table since they are sometimes used independently. Centering, scaling, and normalization will all be discussed in @sec-numeric-normalization.
 
-There are 2 main reasons why we want to perform feature scaling. Firstly, many different types of models take the magnitude of the variables into account when fitting the models, so having variables on different scales can be disadvantageous because some variables have high priorities. In turn, we get that the other variables have low priority. Models that work using Euclidean distances like KNN models are affected by this change. Regularized models such as lasso and ridge regression also need to be scaled since the regularization depends on the magnitude of the estimates. Secondly, some algorithms simply converge much faster when all the variables are on the same scale. These types of models produce the same fit, just at a slower pace than if you don't scale the variables. Any algorithms using Gradient Descent fit into this category.
+There are two main reasons why we want to perform feature scaling. Firstly, many different types of models take the magnitude of the variables into account when fitting the models, so having variables on different scales can be disadvantageous because some variables have high priorities. In turn, we get that the other variables have low priority. Models that work using Euclidean distances like KNN models are affected by this change. Regularized models such as lasso and ridge regression also need to be scaled since the regularization depends on the magnitude of the estimates. Secondly, some algorithms converge much faster when all the variables are on the same scale. These types of models produce the same fit, just at a slower pace than if you don't scale the variables. Any algorithms using Gradient Descent fit into this category.
 
 ::: {.callout-caution}
 # TODO
