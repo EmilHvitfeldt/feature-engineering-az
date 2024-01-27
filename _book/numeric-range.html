@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.104">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -81,7 +81,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -90,6 +96,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -99,6 +106,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 </head>
 
 <body class="nav-sidebar docked">
@@ -107,12 +141,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./numeric.html">Numeric Features</a></li><li class="breadcrumb-item"><a href="./numeric-range.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Range</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./numeric.html">Numeric Features</a></li><li class="breadcrumb-item"><a href="./numeric-range.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Range</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -122,7 +156,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Feature Engineering A-Z</a> 
@@ -1216,7 +1250,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -1231,12 +1265,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">8.2</span> R Examples</a></li>
   <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">8.3</span> Python Examples</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/numeric-range.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/numeric-range.qmd" class="toc-action">View source</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/numeric-range.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/numeric-range.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./numeric.html">Numeric Features</a></li><li class="breadcrumb-item"><a href="./numeric-range.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Range</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span id="sec-numeric-range" class="quarto-section-identifier"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Range</span></span></h1>
 </div>
@@ -1251,7 +1285,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <p><strong>Range scaling,</strong> also known as <strong>Min-Max scaling,</strong> is a method to make the data fit into a pre-defined interval. Typically the equation used to illustrate this method is shown so</p>
 <p><span id="eq-range-minimal"><span class="math display">\[
@@ -1269,10 +1305,14 @@ X_{scaled}=
 <p>The equation is a lot bigger, but what is different is that we specify that the transformation should be done using training data, and by adding a couple of branches to reflect the clipping. In practice, it will look something like <a href="#fig-range-clipping" class="quarto-xref">Figure&nbsp;<span>8.1</span></a> where the original data had a range of <span class="math inline">\([10, 32]\)</span>.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-range-clipping" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="numeric-range_files/figure-html/fig-range-clipping-1.png" class="img-fluid figure-img" alt="Scatter chart with &quot;original&quot; on the x-axis and &quot;transformed&quot; on the y-axis. The Scale of the x-axis is 0 to 50, and the scale of the y-axis is 0 to 1. A series of points are plotted along a line, starting at the value 0 for values x values less than 10, between 10 and 32 there is a linear line of point resulting in the point at (x = 32, y = 1), all remaining larger values of x has a y value of 1." width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;8.1: Using clipping in range scaling results in a piece-wise linear transformation of our original data.</figcaption>
+<div id="fig-range-clipping" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Scatter chart with &quot;original&quot; on the x-axis and &quot;transformed&quot; on the y-axis. The Scale of the x-axis is 0 to 50, and the scale of the y-axis is 0 to 1. A series of points are plotted along a line, starting at the value 0 for values x values less than 10, between 10 and 32 there is a linear line of point resulting in the point at (x = 32, y = 1), all remaining larger values of x has a y value of 1.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-range-clipping-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="numeric-range_files/figure-html/fig-range-clipping-1.png" class="img-fluid figure-img" alt="Scatter chart with &quot;original&quot; on the x-axis and &quot;transformed&quot; on the y-axis. The Scale of the x-axis is 0 to 50, and the scale of the y-axis is 0 to 1. A series of points are plotted along a line, starting at the value 0 for values x values less than 10, between 10 and 32 there is a linear line of point resulting in the point at (x = 32, y = 1), all remaining larger values of x has a y value of 1." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-range-clipping-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.1: Using clipping in range scaling results in a piece-wise linear transformation of our original data.
+</figcaption>
 </figure>
 </div>
 </div>
@@ -1307,10 +1347,14 @@ R_{upper} &amp; X_{new} &gt; \text{max}(X_{train})\\
 # ℹ 3,990 more rows</code></pre>
 </div>
 <div class="cell-output-display">
-<div id="fig-range-outlier" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="numeric-range_files/figure-html/fig-range-outlier-1.png" class="img-fluid figure-img" alt="4 histograms of distribution in 2 columns. The left distribution shows the same bimodal distribution. To the left are the same distributions after being normalized. The bottom row shows the effect of having one outlier at 10000, which in this case made the transformed distribution has almost no width." width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;8.2: Outliers can have a big effect on the resulting distribution when applying range scaling</figcaption>
+<div id="fig-range-outlier" class="quarto-figure quarto-figure-center quarto-float anchored" alt="4 histograms of distribution in 2 columns. The left distribution shows the same bimodal distribution. To the left are the same distributions after being normalized. The bottom row shows the effect of having one outlier at 10000, which in this case made the transformed distribution has almost no width.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-range-outlier-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="numeric-range_files/figure-html/fig-range-outlier-1.png" class="img-fluid figure-img" alt="4 histograms of distribution in 2 columns. The left distribution shows the same bimodal distribution. To the left are the same distributions after being normalized. The bottom row shows the effect of having one outlier at 10000, which in this case made the transformed distribution has almost no width." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-range-outlier-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.2: Outliers can have a big effect on the resulting distribution when applying range scaling
+</figcaption>
 </figure>
 </div>
 </div>
@@ -1559,19 +1603,55 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
   const processXRef = (id, note) => {
-    if (id.startsWith('sec-')) {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
       if (note.children && note.children.length > 2) {
-        for (let i = 0; i < 2; i++) {
-          container.appendChild(note.children[i].cloneNode(true));
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
         }
         return container.innerHTML
       } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
         return note.innerHTML;
       }
     } else {
-      return note.innerHTML;
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -1580,28 +1660,56 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       instance.disable();
       let url = xref.getAttribute('href');
       let hash = undefined; 
-      try { hash = new URL(url).hash; } catch {}
-      const id = hash.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note !== null) {
-        try {
-          const html = processXRef(id, note);
-          instance.setContent(html);
-        } finally {
-          instance.enable();
-          instance.show();
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
         }
       } else {
-        // See if we can fetch this
-        fetch(url.split('#')[0])
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
         .then(res => res.text())
         .then(html => {
           const parser = new DOMParser();
           const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.getElementById(id);
-          console.log(htmlDoc.body.innerHTML);
+          const note = htmlDoc.querySelector('main.content');
           if (note !== null) {
-            const html = processXRef(id, note);
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
             instance.setContent(html);
           } 
         }).finally(() => {
@@ -1679,6 +1787,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1740,12 +1874,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./numeric-normalization.html" class="pagination-link">
+      <a href="./numeric-normalization.html" class="pagination-link  aria-label=" &lt;span="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Normalization</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./numeric-maxabs.html" class="pagination-link">
+      <a href="./numeric-maxabs.html" class="pagination-link" aria-label="<span class='chapter-number'>9</span>&nbsp; <span class='chapter-title'>Max Abs</span>">
         <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Max Abs</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -1754,4 +1888,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-</body></html>
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/numeric-range.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/numeric-range.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div></div></footer></body></html>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.104">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -47,7 +47,13 @@ ul.task-list li input[type="checkbox"] {
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -56,6 +62,7 @@ ul.task-list li input[type="checkbox"] {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -71,12 +78,12 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./time-series.html">Time-Series Data</a></li><li class="breadcrumb-item"><a href="./time-series.html"><span class="chapter-number">111</span>&nbsp; <span class="chapter-title">Overview</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./time-series.html">Time-Series Data</a></li><li class="breadcrumb-item"><a href="./time-series.html"><span class="chapter-number">111</span>&nbsp; <span class="chapter-title">Overview</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -86,7 +93,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Feature Engineering A-Z</a> 
@@ -1180,7 +1187,7 @@ ul.task-list li input[type="checkbox"] {
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
@@ -1188,7 +1195,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./time-series.html">Time-Series Data</a></li><li class="breadcrumb-item"><a href="./time-series.html"><span class="chapter-number">111</span>&nbsp; <span class="chapter-title">Overview</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span id="sec-time-series" class="quarto-section-identifier"><span class="chapter-number">111</span>&nbsp; <span class="chapter-title">Overview</span></span></h1>
 </div>
@@ -1203,7 +1210,9 @@ ul.task-list li input[type="checkbox"] {
   </div>
   
 
+
 </header>
+
 
 <p>A very common type of data is <strong>time-series data</strong>. This is data where the observations are taken across time with time stamps. This data will inherently be correlated with itself as the same measurement for the same unit likely isn’t going to change too much. Time series data is typically modeled using different methods than other predictive modeling for this reason.</p>
 <p>Nevertheless, there are still some methods that will be useful for us. It is important to note that there is a time component to this data, which is what we are trying to predict. The observations can happen at regular intervals, once a day, or irregular intervals, each time the engine errors. Different types of data use different types of models and make the feature engineering a little different depending on what you are trying to do.</p>
@@ -1221,22 +1230,22 @@ TODO
 <p>add a link to appropriate resources</p>
 </div>
 </div>
-<p>One area of work is modifying the sequence itself. Some of these transformations can be taken from <a href="numeric.html" class="quarto-xref"><span>Chapter&nbsp;1</span></a>. However, some metrics are specific to time series data. Likewise, some metrics are similar to what we do in <a href="missing.html" class="quarto-xref"><span>Chapter&nbsp;41</span></a> and <a href="outliers.html" class="quarto-xref"><span>Chapter&nbsp;81</span></a>, but special care needs to be taken with time series data.</p>
+<p>One area of work is modifying the sequence itself. Some of these transformations can be taken from <a href="numeric.html" class="quarto-xref"><span>Chapter 1</span></a>. However, some metrics are specific to time series data. Likewise, some metrics are similar to what we do in <a href="missing.html" class="quarto-xref"><span>Chapter 41</span></a> and <a href="outliers.html" class="quarto-xref"><span>Chapter 81</span></a>, but special care needs to be taken with time series data.</p>
 <ul>
-<li>Smoothing in <a href="time-series-smooth.html" class="quarto-xref"><span>Chapter&nbsp;112</span></a></li>
-<li>Sliding window transformations in <a href="time-series-sliding.html" class="quarto-xref"><span>Chapter&nbsp;113</span></a></li>
-<li>Log Interval Transformation in <a href="time-series-log-interval.html" class="quarto-xref"><span>Chapter&nbsp;114</span></a></li>
-<li>Time series-specific handling of missing values in <a href="time-series-missing.html" class="quarto-xref"><span>Chapter&nbsp;115</span></a></li>
-<li>Time series-specific handling of outliers in <a href="time-series-outliers.html" class="quarto-xref"><span>Chapter&nbsp;116</span></a></li>
+<li>Smoothing in <a href="time-series-smooth.html" class="quarto-xref"><span>Chapter 112</span></a></li>
+<li>Sliding window transformations in <a href="time-series-sliding.html" class="quarto-xref"><span>Chapter 113</span></a></li>
+<li>Log Interval Transformation in <a href="time-series-log-interval.html" class="quarto-xref"><span>Chapter 114</span></a></li>
+<li>Time series-specific handling of missing values in <a href="time-series-missing.html" class="quarto-xref"><span>Chapter 115</span></a></li>
+<li>Time series-specific handling of outliers in <a href="time-series-outliers.html" class="quarto-xref"><span>Chapter 116</span></a></li>
 </ul>
-<p>Another area of methods is where we extract or modify the sequence or its data to create new variables, this is done by considering the time component. This will result in breaking about the time component in a decomposition kind of way, or by getting information out of the values themselves. One such example of the latter is found in the datetime section <a href="datetime.html" class="quarto-xref"><span>Chapter&nbsp;37</span></a>. Particularly holiday extraction as seen in <a href="datetime-extraction.html" class="quarto-xref"><span>Chapter&nbsp;38</span></a>.</p>
+<p>Another area of methods is where we extract or modify the sequence or its data to create new variables, this is done by considering the time component. This will result in breaking about the time component in a decomposition kind of way, or by getting information out of the values themselves. One such example of the latter is found in the datetime section <a href="datetime.html" class="quarto-xref"><span>Chapter 37</span></a>. Particularly holiday extraction as seen in <a href="datetime-extraction.html" class="quarto-xref"><span>Chapter 38</span></a>.</p>
 <ul>
-<li>Differences in <a href="time-series-diff.html" class="quarto-xref"><span>Chapter&nbsp;117</span></a></li>
-<li>Lagging features in <a href="time-series-lag.html" class="quarto-xref"><span>Chapter&nbsp;118</span></a></li>
-<li>rolling window features in <a href="time-series-rolling-window.html" class="quarto-xref"><span>Chapter&nbsp;119</span></a></li>
-<li>expanding window features in <a href="time-series-expanding-window.html" class="quarto-xref"><span>Chapter&nbsp;120</span></a></li>
-<li>Fourier decomposition in <a href="time-series-fourier.html" class="quarto-xref"><span>Chapter&nbsp;121</span></a></li>
-<li>Wavelet decomposition in <a href="time-series-wavelet.html" class="quarto-xref"><span>Chapter&nbsp;122</span></a></li>
+<li>Differences in <a href="time-series-diff.html" class="quarto-xref"><span>Chapter 117</span></a></li>
+<li>Lagging features in <a href="time-series-lag.html" class="quarto-xref"><span>Chapter 118</span></a></li>
+<li>rolling window features in <a href="time-series-rolling-window.html" class="quarto-xref"><span>Chapter 119</span></a></li>
+<li>expanding window features in <a href="time-series-expanding-window.html" class="quarto-xref"><span>Chapter 120</span></a></li>
+<li>Fourier decomposition in <a href="time-series-fourier.html" class="quarto-xref"><span>Chapter 121</span></a></li>
+<li>Wavelet decomposition in <a href="time-series-wavelet.html" class="quarto-xref"><span>Chapter 122</span></a></li>
 </ul>
 
 
@@ -1360,19 +1369,55 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
   const processXRef = (id, note) => {
-    if (id.startsWith('sec-')) {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
       if (note.children && note.children.length > 2) {
-        for (let i = 0; i < 2; i++) {
-          container.appendChild(note.children[i].cloneNode(true));
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
         }
         return container.innerHTML
       } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
         return note.innerHTML;
       }
     } else {
-      return note.innerHTML;
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -1381,28 +1426,56 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       instance.disable();
       let url = xref.getAttribute('href');
       let hash = undefined; 
-      try { hash = new URL(url).hash; } catch {}
-      const id = hash.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note !== null) {
-        try {
-          const html = processXRef(id, note);
-          instance.setContent(html);
-        } finally {
-          instance.enable();
-          instance.show();
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
         }
       } else {
-        // See if we can fetch this
-        fetch(url.split('#')[0])
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
         .then(res => res.text())
         .then(html => {
           const parser = new DOMParser();
           const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.getElementById(id);
-          console.log(htmlDoc.body.innerHTML);
+          const note = htmlDoc.querySelector('main.content');
           if (note !== null) {
-            const html = processXRef(id, note);
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
             instance.setContent(html);
           } 
         }).finally(() => {
@@ -1480,6 +1553,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1541,12 +1640,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./spatial-characteristics.html" class="pagination-link">
+      <a href="./spatial-characteristics.html" class="pagination-link  aria-label=" &lt;span="" spatial="" characteristics&lt;="" span&gt;"="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">110</span>&nbsp; <span class="chapter-title">🏗️ Spatial Characteristics</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./time-series-smooth.html" class="pagination-link">
+      <a href="./time-series-smooth.html" class="pagination-link" aria-label="<span class='chapter-number'>112</span>&nbsp; <span class='chapter-title'>🏗️ Smoothing</span>">
         <span class="nav-page-text"><span class="chapter-number">112</span>&nbsp; <span class="chapter-title">🏗️ Smoothing</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -1555,4 +1654,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/time-series.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/time-series.qmd" class="toc-action">View source</a></p></div></div></div></div></footer></body></html>
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/time-series.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/time-series.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div></div></footer></body></html>

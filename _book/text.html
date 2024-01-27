@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.104">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -47,7 +47,13 @@ ul.task-list li input[type="checkbox"] {
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -56,6 +62,7 @@ ul.task-list li input[type="checkbox"] {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -71,12 +78,12 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./text.html">Text Features</a></li><li class="breadcrumb-item"><a href="./text.html"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Overview</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./text.html">Text Features</a></li><li class="breadcrumb-item"><a href="./text.html"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Overview</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -86,7 +93,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Feature Engineering A-Z</a> 
@@ -1180,7 +1187,7 @@ ul.task-list li input[type="checkbox"] {
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -1194,12 +1201,12 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#counting-tokens" id="toc-counting-tokens" class="nav-link" data-scroll-target="#counting-tokens"><span class="header-section-number">46.5</span> Counting tokens</a></li>
   <li><a href="#embeddings" id="toc-embeddings" class="nav-link" data-scroll-target="#embeddings"><span class="header-section-number">46.6</span> Embeddings</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/text.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/text.qmd" class="toc-action">View source</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/text.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/text.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./text.html">Text Features</a></li><li class="breadcrumb-item"><a href="./text.html"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Overview</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span id="sec-text" class="quarto-section-identifier"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Overview</span></span></h1>
 </div>
@@ -1214,9 +1221,11 @@ ul.task-list li input[type="checkbox"] {
   </div>
   
 
+
 </header>
 
-<p>Sometimes you have fields that are free long-form text. This cannot be dealt with using the methods we saw in <a href="categorical.html" class="quarto-xref"><span>Chapter&nbsp;14</span></a>, as the natural text will have enough variation that counting the full-text fields is not going to be fruitful. Imagine this fictitious short book reviews</p>
+
+<p>Sometimes you have fields that are free long-form text. This cannot be dealt with using the methods we saw in <a href="categorical.html" class="quarto-xref"><span>Chapter 14</span></a>, as the natural text will have enough variation that counting the full-text fields is not going to be fruitful. Imagine this fictitious short book reviews</p>
 <ul>
 <li>This book is excellent</li>
 <li>Best book I have read all year</li>
@@ -1229,39 +1238,39 @@ ul.task-list li input[type="checkbox"] {
 <p>In these chapters, we will be studying methods to work with text. Notably, text and language are different things, with many languages starting as spoken words, and a smaller number of these develop a writing system. This is important to remember, as the written text will almost always have less information than the language it is transcribing. You have seen examples of this when you send a text message that wasn’t received correctly, because of the missing non-verbal information.</p>
 <p>Text data, like all other types of data, isn’t guaranteed to contain information that helps your modeling data at hand. This is especially true with shorter text fields but can be true with just about anything.</p>
 <p>The types of operations you do to get text data into numeric data are various, but they can usually be split into several different tasks. You don’t have to do everything in this list to get good results, and some off-the-shelf methods will sometimes combine 2 or more of these steps into one. This is another reason why it is important to read the documentation of the implementation you are using.</p>
-<p>There is also the possibility that you know exactly what type of information is important in your text field. In that case, you will be better served by manually extracting the information with regular expression or related text processing tools, we look at examples of that in <a href="text-manual.html" class="quarto-xref"><span>Chapter&nbsp;47</span></a>.</p>
+<p>There is also the possibility that you know exactly what type of information is important in your text field. In that case, you will be better served by manually extracting the information with regular expression or related text processing tools, we look at examples of that in <a href="text-manual.html" class="quarto-xref"><span>Chapter 47</span></a>.</p>
 <section id="text-cleaning" class="level2" data-number="46.1">
 <h2 data-number="46.1" class="anchored" data-anchor-id="text-cleaning"><span class="header-section-number">46.1</span> Text cleaning</h2>
-<p>In <a href="text-cleaning.html" class="quarto-xref"><span>Chapter&nbsp;48</span></a>, we will look over the ways we take raw text and get it ready for later tasks. This work deals with encoding issues, standardization, and cases and sometimes you need to get rid of a lot of unwanted chunks.</p>
+<p>In <a href="text-cleaning.html" class="quarto-xref"><span>Chapter 48</span></a>, we will look over the ways we take raw text and get it ready for later tasks. This work deals with encoding issues, standardization, and cases and sometimes you need to get rid of a lot of unwanted chunks.</p>
 </section>
 <section id="tokenization" class="level2" data-number="46.2">
 <h2 data-number="46.2" class="anchored" data-anchor-id="tokenization"><span class="header-section-number">46.2</span> Tokenization</h2>
-<p>Once the text is cleaned, we need to split it into a smaller unit of information such that we can count it, this is called tokenization and we will visit that in <a href="text-tokenization.html" class="quarto-xref"><span>Chapter&nbsp;49</span></a>.</p>
+<p>Once the text is cleaned, we need to split it into a smaller unit of information such that we can count it, this is called tokenization and we will visit that in <a href="text-tokenization.html" class="quarto-xref"><span>Chapter 49</span></a>.</p>
 </section>
 <section id="modifying-tokens" class="level2" data-number="46.3">
 <h2 data-number="46.3" class="anchored" data-anchor-id="modifying-tokens"><span class="header-section-number">46.3</span> Modifying tokens</h2>
-<p>Once you have the data as tokens, one of the things you might want to do is modify them in various ways. This could be things like changing the endings to words or changing the words entirely. We see examples of this in <a href="text-stemming.html" class="quarto-xref"><span>Chapter&nbsp;50</span></a> and <a href="text-ngrams.html" class="quarto-xref"><span>Chapter&nbsp;51</span></a>.</p>
+<p>Once you have the data as tokens, one of the things you might want to do is modify them in various ways. This could be things like changing the endings to words or changing the words entirely. We see examples of this in <a href="text-stemming.html" class="quarto-xref"><span>Chapter 50</span></a> and <a href="text-ngrams.html" class="quarto-xref"><span>Chapter 51</span></a>.</p>
 </section>
 <section id="filtering-tokens" class="level2" data-number="46.4">
 <h2 data-number="46.4" class="anchored" data-anchor-id="filtering-tokens"><span class="header-section-number">46.4</span> Filtering tokens</h2>
-<p>The tokens you create might not all be of the same quality. Depending on your choice of tokenizer, there will be reasons for you to remove some of the tokens you have created. We see examples of this in <a href="text-stopwords.html" class="quarto-xref"><span>Chapter&nbsp;52</span></a> and <a href="text-filter.html" class="quarto-xref"><span>Chapter&nbsp;53</span></a>.</p>
+<p>The tokens you create might not all be of the same quality. Depending on your choice of tokenizer, there will be reasons for you to remove some of the tokens you have created. We see examples of this in <a href="text-stopwords.html" class="quarto-xref"><span>Chapter 52</span></a> and <a href="text-filter.html" class="quarto-xref"><span>Chapter 53</span></a>.</p>
 </section>
 <section id="counting-tokens" class="level2" data-number="46.5">
 <h2 data-number="46.5" class="anchored" data-anchor-id="counting-tokens"><span class="header-section-number">46.5</span> Counting tokens</h2>
-<p>We have gotten to the end of the line and we are ready to turn the tokens into numeric variables we can use. There are many different ways we look at them in <a href="text-tf.html" class="quarto-xref"><span>Chapter&nbsp;54</span></a>, <a href="text-tfidf.html" class="quarto-xref"><span>Chapter&nbsp;55</span></a>, <a href="text-hashing.html" class="quarto-xref"><span>Chapter&nbsp;56</span></a>, <a href="text-onehot.html" class="quarto-xref"><span>Chapter&nbsp;57</span></a>, and <a href="text-lda.html" class="quarto-xref"><span>Chapter&nbsp;58</span></a>.</p>
+<p>We have gotten to the end of the line and we are ready to turn the tokens into numeric variables we can use. There are many different ways we look at them in <a href="text-tf.html" class="quarto-xref"><span>Chapter 54</span></a>, <a href="text-tfidf.html" class="quarto-xref"><span>Chapter 55</span></a>, <a href="text-hashing.html" class="quarto-xref"><span>Chapter 56</span></a>, <a href="text-onehot.html" class="quarto-xref"><span>Chapter 57</span></a>, and <a href="text-lda.html" class="quarto-xref"><span>Chapter 58</span></a>.</p>
 </section>
 <section id="embeddings" class="level2" data-number="46.6">
 <h2 data-number="46.6" class="anchored" data-anchor-id="embeddings"><span class="header-section-number">46.6</span> Embeddings</h2>
-<p>Another way to use text is to work with embeddings, this is another powerful tool that can give you good performance. We look at some of them in <a href="text-word2vec.html" class="quarto-xref"><span>Chapter&nbsp;59</span></a> and <a href="text-bert.html" class="quarto-xref"><span>Chapter&nbsp;60</span></a>.</p>
+<p>Another way to use text is to work with embeddings, this is another powerful tool that can give you good performance. We look at some of them in <a href="text-word2vec.html" class="quarto-xref"><span>Chapter 59</span></a> and <a href="text-bert.html" class="quarto-xref"><span>Chapter 60</span></a>.</p>
 
 
 </section>
-<aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn1"><p>https://thegradient.pub/the-benderrule-on-naming-the-languages-we-study-and-why-it-matters/<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</aside>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1382,19 +1391,55 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
   const processXRef = (id, note) => {
-    if (id.startsWith('sec-')) {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
       if (note.children && note.children.length > 2) {
-        for (let i = 0; i < 2; i++) {
-          container.appendChild(note.children[i].cloneNode(true));
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
         }
         return container.innerHTML
       } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
         return note.innerHTML;
       }
     } else {
-      return note.innerHTML;
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -1403,28 +1448,56 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       instance.disable();
       let url = xref.getAttribute('href');
       let hash = undefined; 
-      try { hash = new URL(url).hash; } catch {}
-      const id = hash.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note !== null) {
-        try {
-          const html = processXRef(id, note);
-          instance.setContent(html);
-        } finally {
-          instance.enable();
-          instance.show();
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
         }
       } else {
-        // See if we can fetch this
-        fetch(url.split('#')[0])
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
         .then(res => res.text())
         .then(html => {
           const parser = new DOMParser();
           const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.getElementById(id);
-          console.log(htmlDoc.body.innerHTML);
+          const note = htmlDoc.querySelector('main.content');
           if (note !== null) {
-            const html = processXRef(id, note);
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
             instance.setContent(html);
           } 
         }).finally(() => {
@@ -1502,6 +1575,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1563,12 +1662,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./missing-remove.html" class="pagination-link">
+      <a href="./missing-remove.html" class="pagination-link  aria-label=" &lt;span="" missing="" values&lt;="" span&gt;"="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Remove Missing Values</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./text-manual.html" class="pagination-link">
+      <a href="./text-manual.html" class="pagination-link" aria-label="<span class='chapter-number'>47</span>&nbsp; <span class='chapter-title'>Manual Text Features</span>">
         <span class="nav-page-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Manual Text Features</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -1577,4 +1676,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-</body></html>
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/text.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/text.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div></div></footer></body></html>
