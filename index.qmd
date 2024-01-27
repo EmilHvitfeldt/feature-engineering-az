@@ -118,18 +118,24 @@ The following Python libraries are used to render the book, with [scikit-learn](
 #| label: write-poetry-versions
 #| echo: false
 #| results: asis
-# poetry_list <- system("poetry show", intern = TRUE)
-# 
-# poetry_list <- poetry_list |>
-#   stringr::str_replace_all("\\s+", " ") |>
-#   stringr::str_extract(".+? .+? ") |>
-#   stringr::str_remove(" $")
-# 
-# paste0("`", poetry_list, ")") |>
-#   stringr::str_replace(" ", "` (") |>
-#   sort() |>
-#   make_matrix(3) |>
-#   knitr::kable()
+
+pypackages <- readLines("poetry.lock") |>
+  paste(collapse = "\n") |>
+  strsplit(split = "\\[\\[package\\]\\]")
+
+pypackages <- unlist(pypackages[[1]][-1])
+
+pypackages_names <- stringr::str_extract(pypackages, "name = .*") |>
+  stringr::str_remove("name = \"") |>
+  stringr::str_remove("\"")
+
+pypackages_versions <- stringr::str_extract(pypackages, "version = .*") |>
+  stringr::str_remove("version = \"") |>
+  stringr::str_remove("\"")
+
+glue::glue("`{pypackages_names}` ({pypackages_versions})") |> 
+  make_matrix() |>
+  knitr::kable()
 ```
 
 ## Acknowledgements
