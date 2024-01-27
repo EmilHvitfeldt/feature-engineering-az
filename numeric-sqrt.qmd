@@ -101,7 +101,9 @@ signed_sqrt_rec |>
 #| echo: false
 import pandas as pd
 from sklearn import set_config
+import random
 
+random.seed(1234)
 set_config(transform_output="pandas")
 pd.set_option('display.precision', 3)
 ```
@@ -113,8 +115,6 @@ from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import FunctionTransformer
 import numpy as np
-
-np.random.seed(1234)
 
 sqrt_transformer = FunctionTransformer(np.sqrt)
 
