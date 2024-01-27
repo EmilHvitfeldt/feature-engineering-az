@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.104">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -58,6 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -100,7 +101,13 @@ div.csl-indent {
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -109,6 +116,7 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -124,12 +132,12 @@ div.csl-indent {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./categorical.html">Categorical Features</a></li><li class="breadcrumb-item"><a href="./categorical-target.html"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Target Encoding</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./categorical.html">Categorical Features</a></li><li class="breadcrumb-item"><a href="./categorical-target.html"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Target Encoding</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -139,7 +147,7 @@ div.csl-indent {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Feature Engineering A-Z</a> 
@@ -1233,7 +1241,7 @@ div.csl-indent {
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -1248,12 +1256,12 @@ div.csl-indent {
   <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">22.2</span> R Examples</a></li>
   <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">22.3</span> Python Examples</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/categorical-target.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/categorical-target.qmd" class="toc-action">View source</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/categorical-target.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/categorical-target.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./categorical.html">Categorical Features</a></li><li class="breadcrumb-item"><a href="./categorical-target.html"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Target Encoding</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span id="sec-categorical-target" class="quarto-section-identifier"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Target Encoding</span></span></h1>
 </div>
@@ -1268,9 +1276,11 @@ div.csl-indent {
   </div>
   
 
+
 </header>
 
-<p><strong>Target encoding</strong> (also called <strong>mean encoding</strong>, <strong>likelihood encoding</strong>, or <strong>impact encoding</strong>) is a method that maps the categorical levels to probabilities of your target variable <span class="citation" data-cites="micci2001">(<a href="references.html#ref-micci2001" role="doc-biblioref">Micci-Barreca 2001</a>)</span>. This method is in some ways quite similar to frequency encoding that we saw in <a href="categorical-frequency.html" class="quarto-xref"><span>Chapter&nbsp;21</span></a>. We are taking a single categorical variable, and turning it into a single numeric categorical variable.</p>
+
+<p><strong>Target encoding</strong> (also called <strong>mean encoding</strong>, <strong>likelihood encoding</strong>, or <strong>impact encoding</strong>) is a method that maps the categorical levels to probabilities of your target variable <span class="citation" data-cites="micci2001">(<a href="references.html#ref-micci2001" role="doc-biblioref">Micci-Barreca 2001</a>)</span>. This method is in some ways quite similar to frequency encoding that we saw in <a href="categorical-frequency.html" class="quarto-xref"><span>Chapter 21</span></a>. We are taking a single categorical variable, and turning it into a single numeric categorical variable.</p>
 <p>This is a trained and supervised method since we are using the outcome of our modeling problem to guide the way this method is estimated. In the most simple formulation, target encoding is done by replacing each level of a categorical variable with the mean of the target variable within said level. The target variable will typically be the outcome, but that is not necessarily a requirement.</p>
 <p>Consider the following example data set</p>
 <div class="cell">
@@ -1318,10 +1328,14 @@ div.csl-indent {
 <p>We can visualize this effect in the following charts. First, we have an example of what happens with a smaller amount of smoothing. The points are mostly along the diagonal. Remember that if we didn’t do this, all the points would be along the diagonal regardless of their size.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-target-smoothness-1" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="categorical-target_files/figure-html/fig-target-smoothness-1-1.png" class="img-fluid figure-img" alt="Scatter chart. A green line with slope 1 and intercept, and a blue line with slope 0 and an intercept equal to the global mean. The points are sized according to the number of observations that were used to calculate the value. The points lie along the green line mostly, with some of the smaller points getting closer to the blue line." width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;22.1: With a small amount of smoothing, the adjusted means are close to the original means, regardless of the number of observations.</figcaption>
+<div id="fig-target-smoothness-1" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Scatter chart. A green line with slope 1 and intercept, and a blue line with slope 0 and an intercept equal to the global mean. The points are sized according to the number of observations that were used to calculate the value. The points lie along the green line mostly, with some of the smaller points getting closer to the blue line.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-target-smoothness-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="categorical-target_files/figure-html/fig-target-smoothness-1-1.png" class="img-fluid figure-img" alt="Scatter chart. A green line with slope 1 and intercept, and a blue line with slope 0 and an intercept equal to the global mean. The points are sized according to the number of observations that were used to calculate the value. The points lie along the green line mostly, with some of the smaller points getting closer to the blue line." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-target-smoothness-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;22.1: With a small amount of smoothing, the adjusted means are close to the original means, regardless of the number of observations.
+</figcaption>
 </figure>
 </div>
 </div>
@@ -1329,10 +1343,14 @@ div.csl-indent {
 <p>In this next chart, we see the effect of a higher amount of smoothing, now the levels with fewer observations are pulled quite a bit closer to the global mean.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-target-smoothness-5" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="categorical-target_files/figure-html/fig-target-smoothness-5-1.png" class="img-fluid figure-img" alt="Scatter chart. A green line with slope 1 and intercept, and a blue line with slope 0 and an intercept equal to the global mean. The points are sized according to the number of observations that were used to calculate the value. The points lie between the green and blue lines, with the smaller points being closer to the blue line than the larger points." width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;22.2: With a large amount of smoothing, the adjusted means are not as close to the original means, with smaller points getting quite close to the global mean.</figcaption>
+<div id="fig-target-smoothness-5" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Scatter chart. A green line with slope 1 and intercept, and a blue line with slope 0 and an intercept equal to the global mean. The points are sized according to the number of observations that were used to calculate the value. The points lie between the green and blue lines, with the smaller points being closer to the blue line than the larger points.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-target-smoothness-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="categorical-target_files/figure-html/fig-target-smoothness-5-1.png" class="img-fluid figure-img" alt="Scatter chart. A green line with slope 1 and intercept, and a blue line with slope 0 and an intercept equal to the global mean. The points are sized according to the number of observations that were used to calculate the value. The points lie between the green and blue lines, with the smaller points being closer to the blue line than the larger points." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-target-smoothness-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;22.2: With a large amount of smoothing, the adjusted means are not as close to the original means, with smaller points getting quite close to the global mean.
+</figcaption>
 </figure>
 </div>
 </div>
@@ -1490,7 +1508,7 @@ TODO
 <p><a href="https://contrib.scikit-learn.org/category_encoders/targetencoder.html" class="uri">https://contrib.scikit-learn.org/category_encoders/targetencoder.html</a></p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-micci2001" class="csl-entry" role="listitem">
 Micci-Barreca, Daniele. 2001. <span>“A Preprocessing Scheme for High-Cardinality Categorical Attributes in Classification and Prediction Problems.”</span> <em>SIGKDD Explor. Newsl.</em> 3 (1): 27–32. <a href="https://doi.org/10.1145/507533.507538">https://doi.org/10.1145/507533.507538</a>.
 </div>
@@ -1616,19 +1634,55 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
   const processXRef = (id, note) => {
-    if (id.startsWith('sec-')) {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
       if (note.children && note.children.length > 2) {
-        for (let i = 0; i < 2; i++) {
-          container.appendChild(note.children[i].cloneNode(true));
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
         }
         return container.innerHTML
       } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
         return note.innerHTML;
       }
     } else {
-      return note.innerHTML;
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -1637,28 +1691,56 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       instance.disable();
       let url = xref.getAttribute('href');
       let hash = undefined; 
-      try { hash = new URL(url).hash; } catch {}
-      const id = hash.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note !== null) {
-        try {
-          const html = processXRef(id, note);
-          instance.setContent(html);
-        } finally {
-          instance.enable();
-          instance.show();
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
         }
       } else {
-        // See if we can fetch this
-        fetch(url.split('#')[0])
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
         .then(res => res.text())
         .then(html => {
           const parser = new DOMParser();
           const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.getElementById(id);
-          console.log(htmlDoc.body.innerHTML);
+          const note = htmlDoc.querySelector('main.content');
           if (note !== null) {
-            const html = processXRef(id, note);
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
             instance.setContent(html);
           } 
         }).finally(() => {
@@ -1736,6 +1818,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1797,12 +1905,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./categorical-frequency.html" class="pagination-link">
+      <a href="./categorical-frequency.html" class="pagination-link  aria-label=" &lt;span="" encoding&lt;="" span&gt;"="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Frequency Encoding</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./categorical-hashing.html" class="pagination-link">
+      <a href="./categorical-hashing.html" class="pagination-link" aria-label="<span class='chapter-number'>23</span>&nbsp; <span class='chapter-title'>Hashing Encoding</span>">
         <span class="nav-page-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Hashing Encoding</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -1811,4 +1919,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-</body></html>
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/categorical-target.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/categorical-target.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div></div></footer></body></html>

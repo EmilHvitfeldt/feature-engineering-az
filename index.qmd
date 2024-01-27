@@ -118,18 +118,18 @@ The following Python libraries are used to render the book, with [scikit-learn](
 #| label: write-poetry-versions
 #| echo: false
 #| results: asis
-poetry_list <- system("poetry show", intern = TRUE)
-
-poetry_list <- poetry_list |>
-  stringr::str_replace_all("\\s+", " ") |>
-  stringr::str_extract(".+? .+? ") |>
-  stringr::str_remove(" $")
-
-paste0("`", poetry_list, ")") |>
-  stringr::str_replace(" ", "` (") |>
-  sort() |>
-  make_matrix(3) |>
-  knitr::kable()
+# poetry_list <- system("poetry show", intern = TRUE)
+# 
+# poetry_list <- poetry_list |>
+#   stringr::str_replace_all("\\s+", " ") |>
+#   stringr::str_extract(".+? .+? ") |>
+#   stringr::str_remove(" $")
+# 
+# paste0("`", poetry_list, ")") |>
+#   stringr::str_replace(" ", "` (") |>
+#   sort() |>
+#   make_matrix(3) |>
+#   knitr::kable()
 ```
 
 ## Acknowledgements
