@@ -62,3 +62,27 @@ maxabs_rec |>
 ```
 
 ## Python Examples
+
+```{python}
+#| echo: false
+import pandas as pd
+from sklearn import set_config
+
+set_config(transform_output="pandas")
+pd.set_option('display.precision', 3)
+```
+
+We are using the `ames` data set for examples. {sklearn} provided the `MaxAbsScaler()` method we can use. 
+
+```{python}
+from feazdata import ames
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import MaxAbsScaler
+
+ct = ColumnTransformer(
+    [('minmax', MaxAbsScaler(), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], 
+    remainder="passthrough")
+
+ct.fit(ames)
+ct.transform(ames)
+```
