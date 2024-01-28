@@ -1,6 +1,6 @@
 # Range {#sec-numeric-range}
 
-**Range scaling,** also known as **Min-Max scaling,** is a method to make the data fit into a pre-defined interval. Typically the equation used to illustrate this method is shown so
+**Range scaling**, also known as **Min-Max scaling**, is a method to make the data fit into a pre-defined interval. Typically the equation used to illustrate this method is shown so
 
 $$
 X_{scaled} = \dfrac{X - \text{min}(X)}{\text{max}(X) - \text{min}(X)}
@@ -164,4 +164,48 @@ range_rec |>
 
 ## Python Examples
 
-`MinMaxScaler()` doesn't clip by default. Allows the user to specify a range.
+```{python}
+#| echo: false
+import pandas as pd
+from sklearn import set_config
+
+set_config(transform_output="pandas")
+pd.set_option('display.precision', 3)
+```
+
+We are using the `ames` data set for examples. {sklearn} provided the `MinMaxScaler()` method we can use. By default we can use this method to perform both the centering and scaling.
+
+```{python}
+from feazdata import ames
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import MinMaxScaler
+
+ct = ColumnTransformer(
+    [('minmax', MinMaxScaler(), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], 
+    remainder="passthrough")
+
+ct.fit(ames)
+ct.transform(ames)
+```
+
+`MinMaxScaler()` doesn't clip by default, we can turn this back on by setting `clip=True`.
+
+```{python}
+ct = ColumnTransformer(
+    [('minmax', MinMaxScaler(clip=True), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], 
+    remainder="passthrough")
+
+ct.fit(ames)
+ct.transform(ames)
+```
+
+We can also set a different range other than `(0, 1)` with the `feature_range` argument
+
+```{python}
+ct = ColumnTransformer(
+    [('minmax', MinMaxScaler(feature_range=(-1,1)), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], 
+    remainder="passthrough")
+
+ct.fit(ames)
+ct.transform(ames)
+```
