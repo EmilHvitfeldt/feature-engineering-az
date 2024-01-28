@@ -200,3 +200,42 @@ onehot_rec |>
 ```
 
 ## Python Examples
+
+```{python}
+#| echo: false
+import pandas as pd
+from sklearn import set_config
+
+set_config(transform_output="pandas")
+pd.set_option('display.precision', 3)
+```
+
+We are using the `ames` data set for examples. {sklearn} provided the `OneHotEncoder()` method we can use. Below we see how it can be used with the `MS_Zoning` columns. 
+
+::: {.callout-note}
+We are setting `sparse_output=False` in this example because we are having `transform()` return pandas data frames for better printing.
+:::
+
+```{python}
+from feazdata import ames
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import OneHotEncoder
+
+ct = ColumnTransformer(
+    [('onehot', OneHotEncoder(sparse_output=False), ['MS_Zoning'])], 
+    remainder="passthrough")
+
+ct.fit(ames)
+ct.transform(ames).filter(regex=("MS_Zoning.*"))
+```
+
+By default `OneHotEncoder()` performs one-hot encoding, we can change this to dummy encoding by setting `drop='first'`.
+
+```{python}
+ct = ColumnTransformer(
+    [('dummy', OneHotEncoder(sparse_output=False, drop='first'), ['MS_Zoning'])], 
+    remainder="passthrough")
+
+ct.fit(ames)
+ct.transform(ames).filter(regex=("MS_Zoning.*"))
+```
