@@ -215,7 +215,7 @@ To only perform scaling, you set `with_mean=False`.
 
 ```{python}
 ct = ColumnTransformer(
-    [('normalize', StandardScaler(with_mean=False, with_std=True), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], 
+    [('scaling', StandardScaler(with_mean=False, with_std=True), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], 
     remainder="passthrough")
 
 ct.fit(ames)
@@ -226,7 +226,7 @@ And to only perform centering you set `with_mean=True`.
 
 ```{python}
 ct = ColumnTransformer(
-    [('normalize', StandardScaler(with_mean=True, with_std=False), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], 
+    [('centering', StandardScaler(with_mean=True, with_std=False), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], 
     remainder="passthrough")
 
 ct.fit(ames)

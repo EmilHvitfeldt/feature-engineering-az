@@ -98,7 +98,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import RobustScaler
 
 ct = ColumnTransformer(
-    [('minmax', RobustScaler(), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], 
+    [('robust', RobustScaler(), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], 
     remainder="passthrough")
 
 ct.fit(ames)
@@ -109,7 +109,7 @@ We can also change the default range `(0.25, 0.75)` to allow more of the distrib
 
 ```{python}
 ct = ColumnTransformer(
-    [('minmax', RobustScaler(quantile_range=(10.0, 90.0)), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], 
+    [('robust', RobustScaler(quantile_range=(10.0, 90.0)), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], 
     remainder="passthrough")
 
 ct.fit(ames)

@@ -80,7 +80,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import MaxAbsScaler
 
 ct = ColumnTransformer(
-    [('minmax', MaxAbsScaler(), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], 
+    [('maxabs', MaxAbsScaler(), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], 
     remainder="passthrough")
 
 ct.fit(ames)
