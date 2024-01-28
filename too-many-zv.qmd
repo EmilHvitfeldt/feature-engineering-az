@@ -79,3 +79,40 @@ nzv_rec |>
 ```
 
 ## Python Examples
+
+```{python}
+#| echo: false
+import pandas as pd
+from sklearn import set_config
+
+set_config(transform_output="pandas")
+pd.set_option('display.precision', 3)
+```
+
+We are using the `ames` data set for examples. {sklearn} provided the `VarianceThreshold()` method we can use. With this, we can set the `threshold` argument to specify the threshold of when to remove. The default `0` will remove zero-variance columns.
+
+```{python}
+from feazdata import ames
+from sklearn.compose import ColumnTransformer
+from sklearn.feature_selection import VarianceThreshold
+from sklearn.compose import make_column_selector
+import numpy as np
+
+ct = ColumnTransformer(
+    [('onehot', VarianceThreshold(threshold=0), make_column_selector(dtype_include=np.number))], 
+    remainder="passthrough")
+
+ct.fit(ames)
+ct.transform(ames)
+```
+
+but we can change that threshold to remove near-zero variance columns.
+
+```{python}
+ct = ColumnTransformer(
+    [('onehot', VarianceThreshold(threshold=0.2), make_column_selector(dtype_include=np.number))], 
+    remainder="passthrough")
+
+ct.fit(ames)
+ct.transform(ames)
+```
