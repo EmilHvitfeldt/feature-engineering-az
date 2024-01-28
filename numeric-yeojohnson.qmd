@@ -126,7 +126,7 @@ set_config(transform_output="pandas")
 pd.set_option('display.precision', 3)
 ```
 
-We are using the `ames` data set for examples. {feature_engine} provided the `YeoJohnsonTransformer()` that we can use
+We are using the `ames` data set for examples. {feature_engine} provided the `YeoJohnsonTransformer()` that we can use.
 
 ```{python}
 from feazdata import ames
