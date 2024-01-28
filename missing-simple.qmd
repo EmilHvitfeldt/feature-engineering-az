@@ -142,3 +142,37 @@ wait for the distribution step
 
 ## Python Examples
 
+```{python}
+#| echo: false
+import pandas as pd
+from sklearn import set_config
+
+set_config(transform_output="pandas")
+pd.set_option('display.precision', 3)
+```
+
+We are using the `ames` data set for examples. {sklearn} provided the `SimpleImputer()` method we can use. The main argument we will use is `strategy` which we can set to determine the type of imputing.
+
+```{python}
+from feazdata import ames
+from sklearn.compose import ColumnTransformer
+from sklearn.impute import SimpleImputer
+
+ct = ColumnTransformer(
+    [('mean_impute', SimpleImputer(strategy='mean'), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], 
+    remainder="passthrough")
+
+ct.fit(ames)
+ct.transform(ames)
+```
+
+Setting `strategy='median'` switches the imputer to do median imputing.
+
+```{python}
+ct = ColumnTransformer(
+    [('median_impute', SimpleImputer(strategy='median'), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], 
+    remainder="passthrough")
+
+ct.fit(ames)
+ct.transform(ames)
+```
