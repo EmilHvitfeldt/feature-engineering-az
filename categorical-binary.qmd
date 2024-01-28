@@ -110,3 +110,28 @@ dummy_rec |>
 ## Python Examples
 
 http://contrib.scikit-learn.org/category_encoders/binary.html
+
+
+```{python}
+#| echo: false
+import pandas as pd
+from sklearn import set_config
+
+set_config(transform_output="pandas")
+pd.set_option('display.precision', 3)
+```
+
+We are using the `ames` data set for examples. {category_encoders} provided the `BinaryEncoder()` method we can use.
+
+```{python}
+from feazdata import ames
+from sklearn.compose import ColumnTransformer
+from category_encoders.binary import BinaryEncoder
+
+ct = ColumnTransformer(
+    [('binary', BinaryEncoder(), ['MS_Zoning'])], 
+    remainder="passthrough")
+
+ct.fit(ames)
+ct.transform(ames).filter(regex="binary.*")
+```
