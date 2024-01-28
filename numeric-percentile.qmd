@@ -1,6 +1,10 @@
 # Percentile {#sec-numeric-percentile}
 
-**Percentile scaling** (also sometimes called **Rank Scaling**) is a method where we apply a non-linear transformation to our data where each value is the percentile of the training data.
+**Percentile scaling** (also sometimes called **Rank Scaling** or **quantile scaling**) is a method where we apply a non-linear transformation to our data where each value is the percentile of the training data.
+
+::: {.callout-note}
+The words percentile and quantile describe the same things in different ways. The difference is the representation. Percentiles are reported as percentages such as 10%, 20%, and 30% and quantiles are reported as decimals such as 0.1, 0.2, and 0.3. This chapter will use these words interchangeably.
+:::
 
 ::: {.callout-caution}
 # TODO
@@ -81,3 +85,27 @@ percentile500_rec |>
 Notice how there are only `r nrow(tidy(percentile500_rec, 1))` values in this output. This is happening because some percentile has been collapsed to save space since if the value for the 10.4 and 10.6 percentile is the same, we just store the 10.6 value.
 
 ## Python Examples
+
+```{python}
+#| echo: false
+import pandas as pd
+from sklearn import set_config
+
+set_config(transform_output="pandas")
+pd.set_option('display.precision', 3)
+```
+
+We are using the `ames` data set for examples. {sklearn} provided the `QuantileTransformer()` method we can use. We can use the `n_quantiles` argument to change the number of quantiles to use. 
+
+```{python}
+from feazdata import ames
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import QuantileTransformer
+
+ct = ColumnTransformer(
+    [('Quantile', QuantileTransformer(n_quantiles = 500), ['Lot_Area'])], 
+    remainder="passthrough")
+
+ct.fit(ames)
+ct.transform(ames)
+```
