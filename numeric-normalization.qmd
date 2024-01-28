@@ -186,3 +186,49 @@ scale_rec |>
 ```
 
 ## Python Examples
+
+```{python}
+#| echo: false
+import pandas as pd
+from sklearn import set_config
+
+set_config(transform_output="pandas")
+pd.set_option('display.precision', 3)
+```
+
+We are using the `ames` data set for examples. {sklearn} provided the `StandardScaler()` method we can use. By default we can use this method to perform both the centering and scaling.
+
+```{python}
+from feazdata import ames
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import StandardScaler
+
+ct = ColumnTransformer(
+    [('normalize', StandardScaler(), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], 
+    remainder="passthrough")
+
+ct.fit(ames)
+ct.transform(ames)
+```
+
+To only perform scaling, you set `with_mean=False`.
+
+```{python}
+ct = ColumnTransformer(
+    [('normalize', StandardScaler(with_mean=False, with_std=True), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], 
+    remainder="passthrough")
+
+ct.fit(ames)
+ct.transform(ames)
+```
+
+And to only perform centering you set `with_mean=True`.
+
+```{python}
+ct = ColumnTransformer(
+    [('normalize', StandardScaler(with_mean=True, with_std=False), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], 
+    remainder="passthrough")
+
+ct.fit(ames)
+ct.transform(ames)
+```
