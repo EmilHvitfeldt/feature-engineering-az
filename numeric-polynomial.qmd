@@ -307,3 +307,39 @@ poly_rec |>
 ```
 
 ## Python Examples
+
+
+```{python}
+#| echo: false
+import pandas as pd
+from sklearn import set_config
+
+set_config(transform_output="pandas")
+pd.set_option('display.precision', 3)
+```
+
+We are using the `ames` data set for examples. {sklearn} provided the `PolynomialFeatures()`. We can use it out of the box.
+
+```{python}
+from feazdata import ames
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import PolynomialFeatures
+
+ct = ColumnTransformer(
+    [('polynomial', PolynomialFeatures(), ['Lot_Area'])], 
+    remainder="passthrough")
+
+ct.fit(ames)
+ct.transform(ames)
+```
+
+Or we can change the degree using the `degree` argument
+
+```{python}
+ct = ColumnTransformer(
+    [('polynomial', PolynomialFeatures(degree = 4), ['Lot_Area'])], 
+    remainder="passthrough")
+
+ct.fit(ames)
+ct.transform(ames)
+```
