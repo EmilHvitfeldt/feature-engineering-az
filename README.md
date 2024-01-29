@@ -4,7 +4,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-This repository contains the source material for the book "Feature Engineering A-Z"
+This repository contains the source material for the book "Feature Engineering A-Z". The rendered book can be found at https://feaz-book.com/
 
 ## Installation
 
