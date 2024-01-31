@@ -52,7 +52,7 @@ python_version <- paste0("(", gsub("Python ", "", system("python3 --version", in
 r_version <- paste0("(", R.version$major, ".", R.version$minor, ")")
 ```
 
-This book is rendered using [quarto](https://quarto.org/) `r quarto_version`, [R](https://www.r-project.org/) `r python_version` and [Python](https://www.python.org/) `r_version`. The website source is hosted on [Github](https://github.com/EmilHvitfeldt/feature-engineering-az).
+This book is rendered using [quarto](https://quarto.org/) `r quarto_version`, [R](https://www.r-project.org/) `r r_version` and [Python](https://www.python.org/) `r python_version`. The website source is hosted on [Github](https://github.com/EmilHvitfeldt/feature-engineering-az).
 
 ```{r}
 #| label: preface-versions
