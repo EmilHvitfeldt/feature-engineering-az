@@ -1,5 +1,9 @@
 # Box-Cox {#sec-numeric-boxcox}
 
+::: {style="visibility: hidden; height: 0px;"}
+## Box-Cox
+:::
+
 You have likely heard a lot of talk about having normally distributed predictors. This isn't that common of an assumption, and having a fairly non-skewed symmetric predictor is often enough. Linear Discriminant Analysis assumes Gaussian data, and that is about it (TODO add a reference here). Still, it is worthwhile to have more symmetric predictors, and this is where the Box-Cox transformation comes into play.
 
 In @sec-numeric-logarithms on logarithms, we saw how they could be used to change the distribution of a variable. One of the downsides is that if we want to get closer to normality, it doesn't do well unless applied to a log-normally distributed variable. The Box-Cox transformation tries to find an optimal power transformation. This method was originally intended to be used on the *outcome* of a model.

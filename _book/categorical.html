@@ -1197,8 +1197,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#categorical-to-categorical" id="toc-categorical-to-categorical" class="nav-link active" data-scroll-target="#categorical-to-categorical"><span class="header-section-number">14.1</span> Categorical to Categorical</a></li>
-  <li><a href="#categorical-to-numerical" id="toc-categorical-to-numerical" class="nav-link" data-scroll-target="#categorical-to-numerical"><span class="header-section-number">14.2</span> Categorical to Numerical</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">14.1</span> Overview</a></li>
+  <li><a href="#categorical-to-categorical" id="toc-categorical-to-categorical" class="nav-link" data-scroll-target="#categorical-to-categorical"><span class="header-section-number">14.2</span> Categorical to Categorical</a></li>
+  <li><a href="#categorical-to-numerical" id="toc-categorical-to-numerical" class="nav-link" data-scroll-target="#categorical-to-numerical"><span class="header-section-number">14.3</span> Categorical to Numerical</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/categorical.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/categorical.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
@@ -1224,6 +1225,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="overview" class="level2" style="visibility: hidden; height: 0px;" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">14.1</span> Overview</h2>
+</section>
 <p>One of the most common types of data you can encounter is categorical variables. These variables take non-numeric values and are things like; <code>names</code>, <code>animal</code>, <code>housetype</code> <code>zipcode</code>, <code>mood</code>, and so on. We call these <em>qualitative</em> variables and you will have to find a way to deal with them as they are plentiful in most data sets you will encounter. You will, however, unlike numerical variables in <a href="numeric.html" class="quarto-xref"><span>Chapter 1</span></a>, have to transform these variables into numeric variables as most models only work with numeric variables. The main exception to this is tree-based models such as decision trees, random forests, and boosted trees. This is of cause a theoretical fact, as some implementations of tree-based models don’t support categorical variables.</p>
 <p>The above description is a small but useful simplification. A categorical variable can take a known or an unknown number of unique values. <code>day_of_the_week</code> and <code>zipcode</code> are examples of variables with a fixed known number of values. Even if our data only contains Sundays, Mondays, and Thursdays we know that there are 7 different possible options. On the other hand, there are plenty of categorical variables where the levels are realistically unknown, such as <code>company_name</code>, <code>street_name</code>, and <code>food_item</code>. This distinction matters as it can be used to inform the pre-processing that will be done.</p>
 <p>Another nuance is some categorical variables have an inherent order to them. So the variables <code>size</code> with the values <code>"small"</code>, <code>"medium"</code>, and <code>"large"</code>, clearly have an ordering to then <code>"small" &lt; "medium" &lt; "large"</code>. This is unlike the theoretical <code>car_color</code> with the values “blue”<code>,</code>“red”<code>, and</code>“black”`, which doesn’t have a natural ordering. Depending on whether a variable has an ordering, we can use that information. This is something that doesn’t have to be dealt with, but the added information can be useful.</p>
@@ -1255,12 +1259,12 @@ TODO
 </div>
 </div>
 <p>The chapters in this section can be put into 2 categories:</p>
-<section id="categorical-to-categorical" class="level2" data-number="14.1">
-<h2 data-number="14.1" class="anchored" data-anchor-id="categorical-to-categorical"><span class="header-section-number">14.1</span> Categorical to Categorical</h2>
+<section id="categorical-to-categorical" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="categorical-to-categorical"><span class="header-section-number">14.2</span> Categorical to Categorical</h2>
 <p>These methods take a categorical variable and <em>improve</em> them. Whether it means cleaning levels, collapsing levels, or making sure it handles new levels correctly. These Tasks as not always needed depending on the method you are using but they are generally helpful to apply. One method that would have been located here if it wasn’t for the fact that it has a whole section by itself is dealing with missing values as seen in <a href="missing.html" class="quarto-xref"><span>Chapter 41</span></a>.</p>
 </section>
-<section id="categorical-to-numerical" class="level2" data-number="14.2">
-<h2 data-number="14.2" class="anchored" data-anchor-id="categorical-to-numerical"><span class="header-section-number">14.2</span> Categorical to Numerical</h2>
+<section id="categorical-to-numerical" class="level2" data-number="14.3">
+<h2 data-number="14.3" class="anchored" data-anchor-id="categorical-to-numerical"><span class="header-section-number">14.3</span> Categorical to Numerical</h2>
 <p>The vast majority of the chapters in these chapters concern methods that take a categorical variable and produce one or more numerical variables suitable for modeling. There are quite a lot of different methods, all have upsides and downsides and they will all be explored in the remaining chapters.</p>
 
 

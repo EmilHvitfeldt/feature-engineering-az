@@ -1231,8 +1231,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#r-examples" id="toc-r-examples" class="nav-link active" data-scroll-target="#r-examples"><span class="header-section-number">16.1</span> R Examples</a></li>
-  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">16.2</span> Python Examples</a></li>
+  <li><a href="#unseen-levels" id="toc-unseen-levels" class="nav-link active" data-scroll-target="#unseen-levels"><span class="header-section-number">16.1</span> Unseen Levels</a></li>
+  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">16.2</span> R Examples</a></li>
+  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">16.3</span> Python Examples</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/categorical-unseen.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/categorical-unseen.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
@@ -1258,6 +1259,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="unseen-levels" class="level2" style="visibility: hidden; height: 0px;" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="unseen-levels"><span class="header-section-number">16.1</span> Unseen Levels</h2>
+</section>
 <p>When you are dealing with categorical variables, it is understood that they can take many values. And we have various methods about how to deal with these categorical values, regardless of what values they take. One problem that eventually will happen for you is that you try to apply a trained preprocessor on data that has levels in your categorical variable that you haven’t seen before. This can happen when you are fitting your model using resampled data when you are applying your model on the testing data set, or, if you are unlucky, at some future time in production.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1300,8 +1304,8 @@ TODO
 <p>add diagram here</p>
 </div>
 </div>
-<section id="r-examples" class="level2" data-number="16.1">
-<h2 data-number="16.1" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">16.1</span> R Examples</h2>
+<section id="r-examples" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">16.2</span> R Examples</h2>
 <p>We will be using the <a href="https://github.com/tidyverse/nycflights13">nycflights13</a> data set. We are downsampling just a bit to only work on the first day and doing a test-train split.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
@@ -1387,8 +1391,8 @@ TODO
 </div>
 <p>And we see that we get no error or anything.</p>
 </section>
-<section id="python-examples" class="level2" data-number="16.2">
-<h2 data-number="16.2" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">16.2</span> Python Examples</h2>
+<section id="python-examples" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">16.3</span> Python Examples</h2>
 <p>I’m not aware of a good way to do this in a scikit-learn way. Please file an <a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new?assignees=&amp;labels=&amp;projects=&amp;template=general-issue.md&amp;title">issue on github</a> if you know of a good way.</p>
 
 

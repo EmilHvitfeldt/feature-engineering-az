@@ -1231,13 +1231,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link active" data-scroll-target="#pros-and-cons"><span class="header-section-number">80.1</span> Pros and Cons</a>
+  <li><a href="#high-correlation-filter" id="toc-high-correlation-filter" class="nav-link active" data-scroll-target="#high-correlation-filter"><span class="header-section-number">80.1</span> High Correlation Filter</a></li>
+  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link" data-scroll-target="#pros-and-cons"><span class="header-section-number">80.2</span> Pros and Cons</a>
   <ul class="collapse">
-  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">80.1.1</span> Pros</a></li>
-  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">80.1.2</span> Cons</a></li>
+  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">80.2.1</span> Pros</a></li>
+  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">80.2.2</span> Cons</a></li>
   </ul></li>
-  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">80.2</span> R Examples</a></li>
-  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">80.3</span> Python Examples</a></li>
+  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">80.3</span> R Examples</a></li>
+  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">80.4</span> Python Examples</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/correlated-filter.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/correlated-filter.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
@@ -1263,6 +1264,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="high-correlation-filter" class="level2" style="visibility: hidden; height: 0px;" data-number="80.1">
+<h2 data-number="80.1" class="anchored" data-anchor-id="high-correlation-filter"><span class="header-section-number">80.1</span> High Correlation Filter</h2>
+</section>
 <p>We are looking to remove correlated features. By correlated features, we typically talk about Pearson correlation. The methods in this chapter don’t require that Pearson correlation is used, just that any correlation method is used. Next, we will look at how we can remove the offending variables. We will show an <strong>iterative approach</strong> and a <strong>clustering approach</strong>. Both methods are learned methods as they identify variables to be kept.</p>
 <p>I always find it useful to look at a correlation matrix first</p>
 <div class="cell">
@@ -1396,26 +1400,26 @@ TODO
 </div>
 </div>
 <p>What we could do, is take the correlation matrix and apply a clustering model on it. Then we use the clustering model to lump together the groups of highly correlated predictors. Then within each cluster, one predictor is chosen to be kept. The clusters should ideally be chosen such that uncorrelated predictors are alone in their cluster. This method can work better with the global structure of the data but requires fitting and tuning another model.</p>
-<section id="pros-and-cons" class="level2" data-number="80.1">
-<h2 data-number="80.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">80.1</span> Pros and Cons</h2>
-<section id="pros" class="level3" data-number="80.1.1">
-<h3 data-number="80.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">80.1.1</span> Pros</h3>
+<section id="pros-and-cons" class="level2" data-number="80.2">
+<h2 data-number="80.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">80.2</span> Pros and Cons</h2>
+<section id="pros" class="level3" data-number="80.2.1">
+<h3 data-number="80.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">80.2.1</span> Pros</h3>
 <ul>
 <li>Computationally simple and fast</li>
 <li>Easily explainable. “Predictors were removed”</li>
 <li>Will lead to a faster and simpler model</li>
 </ul>
 </section>
-<section id="cons" class="level3" data-number="80.1.2">
-<h3 data-number="80.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">80.1.2</span> Cons</h3>
+<section id="cons" class="level3" data-number="80.2.2">
+<h3 data-number="80.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">80.2.2</span> Cons</h3>
 <ul>
 <li>Can be hard to justify. “Why was this predictor kept instead of this one?”</li>
 <li>Will lead to loss of signal and performance, with the hope that this loss is kept minimal</li>
 </ul>
 </section>
 </section>
-<section id="r-examples" class="level2" data-number="80.2">
-<h2 data-number="80.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">80.2</span> R Examples</h2>
+<section id="r-examples" class="level2" data-number="80.3">
+<h2 data-number="80.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">80.3</span> R Examples</h2>
 <p>We will use the <code>ames</code> data set from {modeldata} in this example. The {recipes} step <code>step_corrr()</code> performs the simple correlation filter described at the beginning of this chapter.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
@@ -1464,8 +1468,8 @@ TODO
 </div>
 </div>
 </section>
-<section id="python-examples" class="level2" data-number="80.3">
-<h2 data-number="80.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">80.3</span> Python Examples</h2>
+<section id="python-examples" class="level2" data-number="80.4">
+<h2 data-number="80.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">80.4</span> Python Examples</h2>
 <p>I’m not aware of a good way to do this in a scikit-learn way. Please file an <a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new?assignees=&amp;labels=&amp;projects=&amp;template=general-issue.md&amp;title">issue on github</a> if you know of a good way.</p>
 
 

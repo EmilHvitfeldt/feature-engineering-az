@@ -1,5 +1,9 @@
 # Overview {#sec-numeric}
 
+::: {style="visibility: hidden; height: 0px;"}
+## Overview
+:::
+
 Data can come in all shapes and sizes, but the most common one is the numeric variable. These are values such as `age`, `height`, `deficit`, `price`, and `quantity` and we call these *quantitative* variables. They are plentiful in most data sets and immediately usable in all statistical and machine learning models. That being said, this does not imply that certain transformations wouldn't improve model performance.
 
 The following chapters will focus on different methods that follow 1-to-1 or 1-to-more transformations. These methods will mostly be applied one at a time to each variable. Methods that take many variables and return fewer variables such as dimensionality reduction methods will be covered in @sec-too-many.

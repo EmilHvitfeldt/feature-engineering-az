@@ -1251,13 +1251,14 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link active" data-scroll-target="#pros-and-cons"><span class="header-section-number">22.1</span> Pros and Cons</a>
+  <li><a href="#target-encoding" id="toc-target-encoding" class="nav-link active" data-scroll-target="#target-encoding"><span class="header-section-number">22.1</span> Target Encoding</a></li>
+  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link" data-scroll-target="#pros-and-cons"><span class="header-section-number">22.2</span> Pros and Cons</a>
   <ul class="collapse">
-  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">22.1.1</span> Pros</a></li>
-  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">22.1.2</span> Cons</a></li>
+  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">22.2.1</span> Pros</a></li>
+  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">22.2.2</span> Cons</a></li>
   </ul></li>
-  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">22.2</span> R Examples</a></li>
-  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">22.3</span> Python Examples</a></li>
+  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">22.3</span> R Examples</a></li>
+  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">22.4</span> Python Examples</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/categorical-target.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/categorical-target.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
@@ -1283,6 +1284,9 @@ div.csl-indent {
 </header>
 
 
+<section id="target-encoding" class="level2" style="visibility: hidden; height: 0px;" data-number="22.1">
+<h2 data-number="22.1" class="anchored" data-anchor-id="target-encoding"><span class="header-section-number">22.1</span> Target Encoding</h2>
+</section>
 <p><strong>Target encoding</strong> (also called <strong>mean encoding</strong>, <strong>likelihood encoding</strong>, or <strong>impact encoding</strong>) is a method that maps the categorical levels to probabilities of your target variable <span class="citation" data-cites="micci2001">(<a href="references.html#ref-micci2001" role="doc-biblioref">Micci-Barreca 2001</a>)</span>. This method is in some ways quite similar to frequency encoding that we saw in <a href="categorical-frequency.html" class="quarto-xref"><span>Chapter 21</span></a>. We are taking a single categorical variable, and turning it into a single numeric categorical variable.</p>
 <p>This is a trained and supervised method since we are using the outcome of our modeling problem to guide the way this method is estimated. In the most simple formulation, target encoding is done by replacing each level of a categorical variable with the mean of the target variable within said level. The target variable will typically be the outcome, but that is not necessarily a requirement.</p>
 <p>Consider the following example data set</p>
@@ -1376,24 +1380,24 @@ TODO
 </div>
 <p>A type of data that is sometimes seen is hierarchical categorical variables. Typical examples are city-state and region-subregion. With hierarchical categorical variables you often end up with many levels, and target encoding can be used on such data, and can even use the hierarchical structure.</p>
 <p>The encoding is calculated like normal, but the smoothing is done on a lower level than at the top. So instead of adjusting by the global mean, you smooth by the level below it.</p>
-<section id="pros-and-cons" class="level2" data-number="22.1">
-<h2 data-number="22.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">22.1</span> Pros and Cons</h2>
-<section id="pros" class="level3" data-number="22.1.1">
-<h3 data-number="22.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">22.1.1</span> Pros</h3>
+<section id="pros-and-cons" class="level2" data-number="22.2">
+<h2 data-number="22.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">22.2</span> Pros and Cons</h2>
+<section id="pros" class="level3" data-number="22.2.1">
+<h3 data-number="22.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">22.2.1</span> Pros</h3>
 <ul>
 <li>Can deal with categorical variables with many levels</li>
 <li>Can deal with unseen levels in a sensible way</li>
 </ul>
 </section>
-<section id="cons" class="level3" data-number="22.1.2">
-<h3 data-number="22.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">22.1.2</span> Cons</h3>
+<section id="cons" class="level3" data-number="22.2.2">
+<h3 data-number="22.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">22.2.2</span> Cons</h3>
 <ul>
 <li>Can be prone to overfitting</li>
 </ul>
 </section>
 </section>
-<section id="r-examples" class="level2" data-number="22.2">
-<h2 data-number="22.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">22.2</span> R Examples</h2>
+<section id="r-examples" class="level2" data-number="22.3">
+<h2 data-number="22.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">22.3</span> R Examples</h2>
 <p>The embed package comes with a couple of functions to do target encoding. <code>step_lencode_glm()</code>, <code>step_lencode_bayes()</code> and <code>step_lencode_mixed()</code>. These functions are named such because they <strong>l</strong>ikelihood <strong>encode</strong> variables, and because the encodings can be calculated using no intercept models.</p>
 <p><code>step_lencode_glm()</code> implements the no-smoothing method, so we will look at that one first using the ames data set.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
@@ -1506,8 +1510,8 @@ TODO
 </div>
 </div>
 </section>
-<section id="python-examples" class="level2" data-number="22.3">
-<h2 data-number="22.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">22.3</span> Python Examples</h2>
+<section id="python-examples" class="level2" data-number="22.4">
+<h2 data-number="22.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">22.4</span> Python Examples</h2>
 <p>We are using the <code>ames</code> data set for examples. {sklearn} provided the <code>TargetEncoder()</code> method we can use. For this to work, we need to remember to specify an outcome when we <code>fit()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> feazdata <span class="im">import</span> ames</span>

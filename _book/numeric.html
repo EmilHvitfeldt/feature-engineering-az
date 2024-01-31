@@ -1226,11 +1226,12 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#distributional-problems" id="toc-distributional-problems" class="nav-link active" data-scroll-target="#distributional-problems"><span class="header-section-number">1.1</span> Distributional problems</a></li>
-  <li><a href="#sec-numeric-scaling-issues" id="toc-sec-numeric-scaling-issues" class="nav-link" data-scroll-target="#sec-numeric-scaling-issues"><span class="header-section-number">1.2</span> Scaling issues</a></li>
-  <li><a href="#non-linear-effect" id="toc-non-linear-effect" class="nav-link" data-scroll-target="#non-linear-effect"><span class="header-section-number">1.3</span> Non-linear effect</a></li>
-  <li><a href="#sec-numeric-outliers-issues" id="toc-sec-numeric-outliers-issues" class="nav-link" data-scroll-target="#sec-numeric-outliers-issues"><span class="header-section-number">1.4</span> Outliers</a></li>
-  <li><a href="#other" id="toc-other" class="nav-link" data-scroll-target="#other"><span class="header-section-number">1.5</span> Other</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">1.1</span> Overview</a></li>
+  <li><a href="#distributional-problems" id="toc-distributional-problems" class="nav-link" data-scroll-target="#distributional-problems"><span class="header-section-number">1.2</span> Distributional problems</a></li>
+  <li><a href="#sec-numeric-scaling-issues" id="toc-sec-numeric-scaling-issues" class="nav-link" data-scroll-target="#sec-numeric-scaling-issues"><span class="header-section-number">1.3</span> Scaling issues</a></li>
+  <li><a href="#non-linear-effect" id="toc-non-linear-effect" class="nav-link" data-scroll-target="#non-linear-effect"><span class="header-section-number">1.4</span> Non-linear effect</a></li>
+  <li><a href="#sec-numeric-outliers-issues" id="toc-sec-numeric-outliers-issues" class="nav-link" data-scroll-target="#sec-numeric-outliers-issues"><span class="header-section-number">1.5</span> Outliers</a></li>
+  <li><a href="#other" id="toc-other" class="nav-link" data-scroll-target="#other"><span class="header-section-number">1.6</span> Other</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/numeric.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/numeric.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
@@ -1256,6 +1257,9 @@ window.Quarto = {
 </header>
 
 
+<section id="overview" class="level2" style="visibility: hidden; height: 0px;" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">1.1</span> Overview</h2>
+</section>
 <p>Data can come in all shapes and sizes, but the most common one is the numeric variable. These are values such as <code>age</code>, <code>height</code>, <code>deficit</code>, <code>price</code>, and <code>quantity</code> and we call these <em>quantitative</em> variables. They are plentiful in most data sets and immediately usable in all statistical and machine learning models. That being said, this does not imply that certain transformations wouldn’t improve model performance.</p>
 <p>The following chapters will focus on different methods that follow 1-to-1 or 1-to-more transformations. These methods will mostly be applied one at a time to each variable. Methods that take many variables and return fewer variables such as dimensionality reduction methods will be covered in <a href="too-many.html" class="quarto-xref"><span>Chapter 65</span></a>.</p>
 <p>When working with a single variable at a time, there are several problems we can encounter. Understanding the problem and how each method addresses it is key to getting the most out of numeric variables.</p>
@@ -1266,8 +1270,8 @@ window.Quarto = {
 <li>Non-linear effect</li>
 <li>Outliers</li>
 </ul>
-<section id="distributional-problems" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="distributional-problems"><span class="header-section-number">1.1</span> Distributional problems</h2>
+<section id="distributional-problems" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="distributional-problems"><span class="header-section-number">1.2</span> Distributional problems</h2>
 <ul>
 <li>logarithm</li>
 <li>sqrt</li>
@@ -1276,8 +1280,8 @@ window.Quarto = {
 <li>Percentile</li>
 </ul>
 </section>
-<section id="sec-numeric-scaling-issues" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="sec-numeric-scaling-issues"><span class="header-section-number">1.2</span> Scaling issues</h2>
+<section id="sec-numeric-scaling-issues" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="sec-numeric-scaling-issues"><span class="header-section-number">1.3</span> Scaling issues</h2>
 <p>The topic of feature scaling is important and used widely in all of machine learning. This chapter will go over what feature scaling is and why we want to use it. The following chapters will each go over a different method of feature scaling.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1361,8 +1365,8 @@ TODO
 </div>
 <p>List which types of models need feature scaling. Should be a 2 column list. Left=name, right=comment %in% c(no effect, different fit, slow down)</p>
 </section>
-<section id="non-linear-effect" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="non-linear-effect"><span class="header-section-number">1.3</span> Non-linear effect</h2>
+<section id="non-linear-effect" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="non-linear-effect"><span class="header-section-number">1.4</span> Non-linear effect</h2>
 <ul>
 <li>binning</li>
 <li>splines</li>
@@ -1382,11 +1386,11 @@ TODO
 </div>
 </div>
 </section>
-<section id="sec-numeric-outliers-issues" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="sec-numeric-outliers-issues"><span class="header-section-number">1.4</span> Outliers</h2>
+<section id="sec-numeric-outliers-issues" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="sec-numeric-outliers-issues"><span class="header-section-number">1.5</span> Outliers</h2>
 </section>
-<section id="other" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="other"><span class="header-section-number">1.5</span> Other</h2>
+<section id="other" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="other"><span class="header-section-number">1.6</span> Other</h2>
 <p>There are any number of transformations we can apply to numeric data, other functions include:</p>
 <ul>
 <li>hyperbolic</li>

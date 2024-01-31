@@ -1197,9 +1197,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#imputation" id="toc-imputation" class="nav-link active" data-scroll-target="#imputation"><span class="header-section-number">41.1</span> Imputation</a></li>
-  <li><a href="#indication" id="toc-indication" class="nav-link" data-scroll-target="#indication"><span class="header-section-number">41.2</span> Indication</a></li>
-  <li><a href="#removal" id="toc-removal" class="nav-link" data-scroll-target="#removal"><span class="header-section-number">41.3</span> Removal</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">41.1</span> Overview</a></li>
+  <li><a href="#imputation" id="toc-imputation" class="nav-link" data-scroll-target="#imputation"><span class="header-section-number">41.2</span> Imputation</a></li>
+  <li><a href="#indication" id="toc-indication" class="nav-link" data-scroll-target="#indication"><span class="header-section-number">41.3</span> Indication</a></li>
+  <li><a href="#removal" id="toc-removal" class="nav-link" data-scroll-target="#removal"><span class="header-section-number">41.4</span> Removal</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/missing.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/missing.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
@@ -1225,6 +1226,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="overview" class="level2" style="visibility: hidden; height: 0px;" data-number="41.1">
+<h2 data-number="41.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">41.1</span> Overview</h2>
+</section>
 <p>Missing data is sometimes hard to avoid. So we will have to work to deal with them. This is something we can’t avoid since many implemented models are not set up to work with missing data and will error if it encounters them.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1254,16 +1258,16 @@ TODO
 </div>
 </div>
 <p>The following chapters assume that the reader has identified missing values. Sometimes they are easily labeled as <code>NA</code> in your code and database. but creativity knows no bounds, which sadly has influenced some users in their way of identifying missing values. Common values are <code>-9</code>, <code>9999</code>, and <code>9000</code>. If you are lucky, then you can find this information in the data dictionary, but sometimes you need to be in contact with the people in charge of data collection. To make matters more complicated, there will also be times when different types of missingness will be encoded differently, such as <code>9000</code> for machine failure, and <code>9001</code> for missing sheet.</p>
-<section id="imputation" class="level2" data-number="41.1">
-<h2 data-number="41.1" class="anchored" data-anchor-id="imputation"><span class="header-section-number">41.1</span> Imputation</h2>
+<section id="imputation" class="level2" data-number="41.2">
+<h2 data-number="41.2" class="anchored" data-anchor-id="imputation"><span class="header-section-number">41.2</span> Imputation</h2>
 <p>One of the most common ways of dealing with missing values is to fill them in with some values. The types of methods that do this can be split into two groups. Simple imputation in <a href="missing-simple.html" class="quarto-xref"><span>Chapter 42</span></a> is when you use the values in the variable to impute its missing values, which is where mean and mode imputation are found. Anything more complicated than this will be found in <a href="missing-model.html" class="quarto-xref"><span>Chapter 43</span></a>. This is where multiple columns are used to determine the type of imputation needed.</p>
 </section>
-<section id="indication" class="level2" data-number="41.2">
-<h2 data-number="41.2" class="anchored" data-anchor-id="indication"><span class="header-section-number">41.2</span> Indication</h2>
+<section id="indication" class="level2" data-number="41.3">
+<h2 data-number="41.3" class="anchored" data-anchor-id="indication"><span class="header-section-number">41.3</span> Indication</h2>
 <p>If you suspect that the data is not missing at random, it might be worthwhile to include the missingness as an indicator in your data. We will see how we can do that in <a href="missing-indicator.html" class="quarto-xref"><span>Chapter 44</span></a>.</p>
 </section>
-<section id="removal" class="level2" data-number="41.3">
-<h2 data-number="41.3" class="anchored" data-anchor-id="removal"><span class="header-section-number">41.3</span> Removal</h2>
+<section id="removal" class="level2" data-number="41.4">
+<h2 data-number="41.4" class="anchored" data-anchor-id="removal"><span class="header-section-number">41.4</span> Removal</h2>
 <p>As a last resort, you might want to remove variables or rows with missing data, we will see how that is done in <a href="missing-remove.html" class="quarto-xref"><span>Chapter 45</span></a>. This chapter is put last in this section, as it is generally not the preferred action, and all other avenues should be considered before removal is done.</p>
 
 

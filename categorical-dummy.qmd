@@ -1,5 +1,9 @@
 # Dummy Encoding {#sec-categorical-dummy}
 
+::: {style="visibility: hidden; height: 0px;"}
+## Dummy Encoding
+:::
+
 We have some categorical variables and we want to turn them into numerical values, one of the most common ways of going about it is to create **dummy variables**. Dummy variables are variables that only take the values 0 and 1 to indicate the absence or presence of the levels in a categorical variable. This is nicely shown with an example.
 
 Considering this short categorical variable of animals, we observe there are 3 unique values "cat", "dog", and "horse".

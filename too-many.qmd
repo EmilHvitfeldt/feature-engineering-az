@@ -1,5 +1,9 @@
 # Overview {#sec-too-many}
 
+::: {style="visibility: hidden; height: 0px;"}
+## Overview
+:::
+
 There will be times were you are given a lot of variables in your data set. This by itself may not be a problem. but it could come with some drawbacks. Many models will have slower fit times at best, and worse performance at worst. Not all your variables are likely beneficial in your model. They could be uninformative, correlated or contain redundant information. We look at ways to deal with correlated features in @sec-correlated, but there will also be methods here to accomplish similar goals.
 
 Suppose the same variable is included twice in your model. Both will not be able to be used in your model at the same time. Once one is included, the other becomes irrelevant. In essence, these two variables are completely correlated, thus we need to deal with this type of problem as well.

@@ -1,5 +1,9 @@
 # Value Extraction {#sec-datetime-extraction}
 
+::: {style="visibility: hidden; height: 0px;"}
+## Value Extraction
+:::
+
 Sometimes date variables come in many data sets and problems. The presence of a date time variable doesn't mean that we are working with a time series data set. If you are, then read more about how to handle that in @sec-time-series. All the extract methods are not learned, as there isn't anything to estimate.
 
 Dates and date times are typically stored as integers. With dates represented as the number of days since 1970-01-01, with negative values for earlier dates. with date times representing the number of seconds since 1970-01-01. 

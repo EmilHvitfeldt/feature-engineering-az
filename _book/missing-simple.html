@@ -1231,13 +1231,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link active" data-scroll-target="#pros-and-cons"><span class="header-section-number">42.1</span> Pros and Cons</a>
+  <li><a href="#simple-imputation" id="toc-simple-imputation" class="nav-link active" data-scroll-target="#simple-imputation"><span class="header-section-number">42.1</span> Simple Imputation</a></li>
+  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link" data-scroll-target="#pros-and-cons"><span class="header-section-number">42.2</span> Pros and Cons</a>
   <ul class="collapse">
-  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">42.1.1</span> Pros</a></li>
-  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">42.1.2</span> Cons</a></li>
+  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">42.2.1</span> Pros</a></li>
+  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">42.2.2</span> Cons</a></li>
   </ul></li>
-  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">42.2</span> R Examples</a></li>
-  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">42.3</span> Python Examples</a></li>
+  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">42.3</span> R Examples</a></li>
+  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">42.4</span> Python Examples</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/missing-simple.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/missing-simple.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
@@ -1263,6 +1264,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="simple-imputation" class="level2" style="visibility: hidden; height: 0px;" data-number="42.1">
+<h2 data-number="42.1" class="anchored" data-anchor-id="simple-imputation"><span class="header-section-number">42.1</span> Simple Imputation</h2>
+</section>
 <p>When dealing with missing data, the first suggestion is often imputation. <strong>Simple imputation</strong> as covered in this chapter refers to the method where for each variable a single value is selected, and all missing values will be replaced by that value. It is important to remind ourselves why we impute missing values. Because the model we are using isn’t able to handle missing values natively. Simple imputation is the simplest way to handle missing values.</p>
 <p>The way we find this value will depend on the variable type, and within each type of variable, we find multiple ways to decide on a value. The main categories are categorical and numeric variables.</p>
 <p>For categorical we have 2 main options. We can replace the value of <code>NA</code> with <code>"missing"</code> or some other unused value. This would denote that the value was missing, without trying to pick a value. It would change the cardinality of the predictors as variables with levels “new”, “used”, and “old” would go from 3 levels to 4. Which may be undesirable. Especially with ordinal variables as it is unclear where the <code>"missing"</code> should go in the ordering.</p>
@@ -1303,17 +1307,17 @@ Figure&nbsp;42.2: Same distribution with a longer and longer spike at the mean.
 </div>
 <p>Another thing we can do, while we stay in this domain of only using a single variable to impute itself, is to impute using the original distribution. So instead of imputing by the mode, a sample is drawn from the non-missing values, and that value is used. This is then done for each observation. Each observation won’t get the same values, but it will preserve the distribution, variance and standard deviation. It won’t help with the relationship between variables and as an added downside, it adds noise into imputation, making it a seeded feature engineering method.</p>
 <p>On the implementation side, we need to be careful about how we extract the original distribution. This distribution needs to be saved for later reapply. Imagine a numeric predictor, if it is a non-integer, it will likely take many unique values, if not all unique values. We might want to bin the data to create a distribution that way to the same memory.</p>
-<section id="pros-and-cons" class="level2" data-number="42.1">
-<h2 data-number="42.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">42.1</span> Pros and Cons</h2>
-<section id="pros" class="level3" data-number="42.1.1">
-<h3 data-number="42.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">42.1.1</span> Pros</h3>
+<section id="pros-and-cons" class="level2" data-number="42.2">
+<h2 data-number="42.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">42.2</span> Pros and Cons</h2>
+<section id="pros" class="level3" data-number="42.2.1">
+<h3 data-number="42.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">42.2.1</span> Pros</h3>
 <ul>
 <li>Fast computationally</li>
 <li>Easy to explain what was done</li>
 </ul>
 </section>
-<section id="cons" class="level3" data-number="42.1.2">
-<h3 data-number="42.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">42.1.2</span> Cons</h3>
+<section id="cons" class="level3" data-number="42.2.2">
+<h3 data-number="42.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">42.2.2</span> Cons</h3>
 <ul>
 <li>Doesn’t preserve relationship between predictors</li>
 <li>reducing the variance and standard deviation of the data</li>
@@ -1321,8 +1325,8 @@ Figure&nbsp;42.2: Same distribution with a longer and longer spike at the mean.
 </ul>
 </section>
 </section>
-<section id="r-examples" class="level2" data-number="42.2">
-<h2 data-number="42.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">42.2</span> R Examples</h2>
+<section id="r-examples" class="level2" data-number="42.3">
+<h2 data-number="42.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">42.3</span> R Examples</h2>
 <p>The recipes package contains several steps. It includes the steps <code>step_impute_mean()</code>, <code>step_impute_median()</code> and <code>step_impute_mode()</code> which imputes by the mean, median and mode respectively.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1415,8 +1419,8 @@ TODO
 </div>
 </div>
 </section>
-<section id="python-examples" class="level2" data-number="42.3">
-<h2 data-number="42.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">42.3</span> Python Examples</h2>
+<section id="python-examples" class="level2" data-number="42.4">
+<h2 data-number="42.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">42.4</span> Python Examples</h2>
 <p>We are using the <code>ames</code> data set for examples. {sklearn} provided the <code>SimpleImputer()</code> method we can use. The main argument we will use is <code>strategy</code> which we can set to determine the type of imputing.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> feazdata <span class="im">import</span> ames</span>

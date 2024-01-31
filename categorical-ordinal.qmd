@@ -1,5 +1,9 @@
 # Ordinal Encoding {#sec-categorical-ordinal}
 
+::: {style="visibility: hidden; height: 0px;"}
+## Ordinal Encoding
+:::
+
 This method is similar to @sec-categorical-label, except that we manually specify the mapping. This method is generally used for *ordinal* variables as they are encoded with a natural ordering. Where this method shines compared to integer encoding is that we allow arbitrary values for encoding, thus we can have (cold = 1, warm = 5, hot = 20). But we might as well use (cold = -1, warm = 0, hot = 1) or (cold = 1.618, warm = 2.718, hot = 3.141). Although you would have a hard time justifying the latter. Nothing is stopping you from using this method with an unordered categorical variable, you just need to spend some time justifying your levels.
 
 ::: callout-note

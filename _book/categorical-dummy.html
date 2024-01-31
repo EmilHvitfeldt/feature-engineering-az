@@ -1231,16 +1231,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#dummy-or-one-hot-encoding" id="toc-dummy-or-one-hot-encoding" class="nav-link active" data-scroll-target="#dummy-or-one-hot-encoding"><span class="header-section-number">17.1</span> Dummy or one-hot encoding</a></li>
-  <li><a href="#ordered-factors" id="toc-ordered-factors" class="nav-link" data-scroll-target="#ordered-factors"><span class="header-section-number">17.2</span> Ordered factors</a></li>
-  <li><a href="#contrasts" id="toc-contrasts" class="nav-link" data-scroll-target="#contrasts"><span class="header-section-number">17.3</span> Contrasts</a></li>
-  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link" data-scroll-target="#pros-and-cons"><span class="header-section-number">17.4</span> Pros and Cons</a>
+  <li><a href="#dummy-encoding" id="toc-dummy-encoding" class="nav-link active" data-scroll-target="#dummy-encoding"><span class="header-section-number">17.1</span> Dummy Encoding</a></li>
+  <li><a href="#dummy-or-one-hot-encoding" id="toc-dummy-or-one-hot-encoding" class="nav-link" data-scroll-target="#dummy-or-one-hot-encoding"><span class="header-section-number">17.2</span> Dummy or one-hot encoding</a></li>
+  <li><a href="#ordered-factors" id="toc-ordered-factors" class="nav-link" data-scroll-target="#ordered-factors"><span class="header-section-number">17.3</span> Ordered factors</a></li>
+  <li><a href="#contrasts" id="toc-contrasts" class="nav-link" data-scroll-target="#contrasts"><span class="header-section-number">17.4</span> Contrasts</a></li>
+  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link" data-scroll-target="#pros-and-cons"><span class="header-section-number">17.5</span> Pros and Cons</a>
   <ul class="collapse">
-  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">17.4.1</span> Pros</a></li>
-  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">17.4.2</span> Cons</a></li>
+  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">17.5.1</span> Pros</a></li>
+  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">17.5.2</span> Cons</a></li>
   </ul></li>
-  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">17.5</span> R Examples</a></li>
-  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">17.6</span> Python Examples</a></li>
+  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">17.6</span> R Examples</a></li>
+  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">17.7</span> Python Examples</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/categorical-dummy.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/categorical-dummy.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
@@ -1266,6 +1267,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="dummy-encoding" class="level2" style="visibility: hidden; height: 0px;" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="dummy-encoding"><span class="header-section-number">17.1</span> Dummy Encoding</h2>
+</section>
 <p>We have some categorical variables and we want to turn them into numerical values, one of the most common ways of going about it is to create <strong>dummy variables</strong>. Dummy variables are variables that only take the values 0 and 1 to indicate the absence or presence of the levels in a categorical variable. This is nicely shown with an example.</p>
 <p>Considering this short categorical variable of animals, we observe there are 3 unique values “cat”, “dog”, and “horse”.</p>
 <div class="cell">
@@ -1296,8 +1300,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>the <code>horse</code> variable must be here too, even if it is empty as the subsequent preprocessing steps and model expect the horse variable to be present. Likewise, you can run into problems if the value <code>"duck"</code> was used as the preprocessor wouldn’t know what to do. These cases are talked about in <a href="categorical-unseen.html" class="quarto-xref"><span>Chapter 16</span></a>.</p>
-<section id="dummy-or-one-hot-encoding" class="level2" data-number="17.1">
-<h2 data-number="17.1" class="anchored" data-anchor-id="dummy-or-one-hot-encoding"><span class="header-section-number">17.1</span> Dummy or one-hot encoding</h2>
+<section id="dummy-or-one-hot-encoding" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="dummy-or-one-hot-encoding"><span class="header-section-number">17.2</span> Dummy or one-hot encoding</h2>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1360,8 +1364,8 @@ Note
 </div>
 <p>And in this case, we have that <code>house = cat + dog + horse - apartment</code> which again is an example of perfect collinearity. Unless you have a reason to do otherwise I would suggest that you use dummy encoding in your models. Additionally, this leads to slightly smaller models as each categorical variable produces 1 less variable. It is worth noting that the choice between dummy encoding and one-hot encoding does matter for some models such as decision trees. Depending on what types of rules they can use. Being able to write <code>animal == "cat"</code> is easier then saying <code>animal != "dog" &amp; animal != "horse"</code>. This is unlikely to be an issue as many tree-based models can work with categorical variables directly without the need for encoding.</p>
 </section>
-<section id="ordered-factors" class="level2" data-number="17.2">
-<h2 data-number="17.2" class="anchored" data-anchor-id="ordered-factors"><span class="header-section-number">17.2</span> Ordered factors</h2>
+<section id="ordered-factors" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="ordered-factors"><span class="header-section-number">17.3</span> Ordered factors</h2>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1376,8 +1380,8 @@ TODO
 </div>
 </div>
 </section>
-<section id="contrasts" class="level2" data-number="17.3">
-<h2 data-number="17.3" class="anchored" data-anchor-id="contrasts"><span class="header-section-number">17.3</span> Contrasts</h2>
+<section id="contrasts" class="level2" data-number="17.4">
+<h2 data-number="17.4" class="anchored" data-anchor-id="contrasts"><span class="header-section-number">17.4</span> Contrasts</h2>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1392,18 +1396,18 @@ TODO
 </div>
 </div>
 </section>
-<section id="pros-and-cons" class="level2" data-number="17.4">
-<h2 data-number="17.4" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">17.4</span> Pros and Cons</h2>
-<section id="pros" class="level3" data-number="17.4.1">
-<h3 data-number="17.4.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">17.4.1</span> Pros</h3>
+<section id="pros-and-cons" class="level2" data-number="17.5">
+<h2 data-number="17.5" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">17.5</span> Pros and Cons</h2>
+<section id="pros" class="level3" data-number="17.5.1">
+<h3 data-number="17.5.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">17.5.1</span> Pros</h3>
 <ul>
 <li>Versatile and commonly used</li>
 <li>Easy interpretation</li>
 <li>Will rarely lead to a decrease in performance</li>
 </ul>
 </section>
-<section id="cons" class="level3" data-number="17.4.2">
-<h3 data-number="17.4.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">17.4.2</span> Cons</h3>
+<section id="cons" class="level3" data-number="17.5.2">
+<h3 data-number="17.5.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">17.5.2</span> Cons</h3>
 <ul>
 <li>Does require fairly clean categorical levels</li>
 <li>Can be quite memory intensive if you have many levels in your categorical variables and you are unable to use sparse representation</li>
@@ -1411,8 +1415,8 @@ TODO
 </ul>
 </section>
 </section>
-<section id="r-examples" class="level2" data-number="17.5">
-<h2 data-number="17.5" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">17.5</span> R Examples</h2>
+<section id="r-examples" class="level2" data-number="17.6">
+<h2 data-number="17.6" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">17.6</span> R Examples</h2>
 <p>We will be using the <code>ames</code> data set for these examples. The <code>step_dummy()</code> function allows us to perform dummy encoding and one-hot encoding.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
@@ -1580,8 +1584,8 @@ $ MS_Zoning_I_all                                       &lt;dbl&gt; 0, 0, 0, 0, 
 </div>
 </div>
 </section>
-<section id="python-examples" class="level2" data-number="17.6">
-<h2 data-number="17.6" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">17.6</span> Python Examples</h2>
+<section id="python-examples" class="level2" data-number="17.7">
+<h2 data-number="17.7" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">17.7</span> Python Examples</h2>
 <p>We are using the <code>ames</code> data set for examples. {sklearn} provided the <code>OneHotEncoder()</code> method we can use. Below we see how it can be used with the <code>MS_Zoning</code> columns.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">

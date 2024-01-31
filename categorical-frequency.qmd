@@ -1,5 +1,9 @@
 # Frequency Encoding {#sec-categorical-frequency}
 
+::: {style="visibility: hidden; height: 0px;"}
+## Frequency Encoding
+:::
+
 Frequency encoding takes a categorical variable and replaces each level with its frequency in the training data set. This results in a single numeric variable, with values between 0 and 1. This is a trained method since we need to keep a record of the frequencies from the training data set.
 
 This method isn't a silver bullet, as it will only sometimes be useful. It is useful when the frequency/rarity of a category level is related to our outcome. Imagine we have data about wines and their producers, some big producers produce many wines, and small producers only produce a couple. This information could potentially be useful and would be easily captured in frequency encoding. This method is not able to distinguish between two levels that have the same frequency.

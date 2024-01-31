@@ -1,5 +1,9 @@
 # Model Based Imputation {#sec-missing-model}
 
+::: {style="visibility: hidden; height: 0px;"}
+## Model Based Imputation
+:::
+
 In model-based imputation, this is where we get the remaining types of imputation that we can use. It is quite a big and broad topic. This chapter will try to do it justice.
 
 We start with simpler methods. Remember, this chapter specifically refers to methods where more than one variable is being used for the imputation. So we could do grouped versions of the simple imputation methods seen in @sec-missing-simple. Instead of imputing with the mean, you impute with the mean within a given group as defined by another categorical variable.

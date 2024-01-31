@@ -1,5 +1,9 @@
 # Splines {#sec-numeric-splines}
 
+::: {style="visibility: hidden; height: 0px;"}
+## Splines
+:::
+
 **Splines**, is one way to represent a curve that makes it useful in modeling content, since it allows us to model non-linear relationships between predictors and outcomes. This is a trained method.
 
 Being able to transform a numeric variable that has a non-linear relationship with the outcome into one or more variables that do have linear relationships with the outcome is of great importance, as many models wouldn't be able to work with these types of variables effectively themselves. Below is a toy example of one such variable

@@ -1,5 +1,9 @@
 # 🏗️ Tokenization {#sec-text-tokenization}
 
+::: {style="visibility: hidden; height: 0px;"}
+## Tokenization
+:::
+
 The main issue with text, when working with machines is that they don't have a way to natively deal with it in a way that makes sense. Machines like numbers, and text are far from that. **tokenization** is the act of turning long strings of text into many smaller units of text (called **tokens**) which can then be worked with. The method that performs the tokenization is called a **tokenizer**.
 
 ::: {.callout-note}

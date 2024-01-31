@@ -1231,13 +1231,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link active" data-scroll-target="#pros-and-cons"><span class="header-section-number">44.1</span> Pros and Cons</a>
+  <li><a href="#missing-values-indicators" id="toc-missing-values-indicators" class="nav-link active" data-scroll-target="#missing-values-indicators"><span class="header-section-number">44.1</span> Missing Values Indicators</a></li>
+  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link" data-scroll-target="#pros-and-cons"><span class="header-section-number">44.2</span> Pros and Cons</a>
   <ul class="collapse">
-  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">44.1.1</span> Pros</a></li>
-  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">44.1.2</span> Cons</a></li>
+  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">44.2.1</span> Pros</a></li>
+  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">44.2.2</span> Cons</a></li>
   </ul></li>
-  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">44.2</span> R Examples</a></li>
-  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">44.3</span> Python Examples</a></li>
+  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">44.3</span> R Examples</a></li>
+  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">44.4</span> Python Examples</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/missing-indicator.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/missing-indicator.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
@@ -1263,6 +1264,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="missing-values-indicators" class="level2" style="visibility: hidden; height: 0px;" data-number="44.1">
+<h2 data-number="44.1" class="anchored" data-anchor-id="missing-values-indicators"><span class="header-section-number">44.1</span> Missing Values Indicators</h2>
+</section>
 <p>While imputation can be useful, as we saw in <a href="missing-simple.html" class="quarto-xref"><span>Chapter 42</span></a> and <a href="missing-model.html" class="quarto-xref"><span>Chapter 43</span></a>. That by itself isn’t always enough to extract all the information. As was described in <a href="missing.html" class="quarto-xref"><span>Chapter 41</span></a>, missing values can come in different variants, and depending on the variant, imputation might not give enough information. Suppose you are working with non-MCAR data (non Missing Completely At Random). Then we have some mechanism that determines when missing values occur. This mechanism might be known or unknown. From a predictive standpoint whether or not it is known doesn’t matter as much, what matters is whether the mechanism is related to the outcome or not.</p>
 <p>This is where <strong>missing value indicators</strong> come in. Used in combination with imputation, missing value indicators will try to capture that signal. For each chosen variable, create another Boolean variable that is 1 when a missing value is seen, and 0 otherwise.</p>
 <p>The following sample data set</p>
@@ -1292,25 +1296,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>From here on, you are potentially adding information, otherwise we are adding a lot of noise. The noise here can be filtered by other methods seen in this book. If variables with no missing data were used, then we create zero variance predictors, which we can deal with as seen in <a href="too-many-zv.html" class="quarto-xref"><span>Chapter 66</span></a>.</p>
-<section id="pros-and-cons" class="level2" data-number="44.1">
-<h2 data-number="44.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">44.1</span> Pros and Cons</h2>
-<section id="pros" class="level3" data-number="44.1.1">
-<h3 data-number="44.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">44.1.1</span> Pros</h3>
+<section id="pros-and-cons" class="level2" data-number="44.2">
+<h2 data-number="44.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">44.2</span> Pros and Cons</h2>
+<section id="pros" class="level3" data-number="44.2.1">
+<h3 data-number="44.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">44.2.1</span> Pros</h3>
 <ul>
 <li>No performance harm when added to variables with no missing data</li>
 <li>Simple and interpretable</li>
 </ul>
 </section>
-<section id="cons" class="level3" data-number="44.1.2">
-<h3 data-number="44.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">44.1.2</span> Cons</h3>
+<section id="cons" class="level3" data-number="44.2.2">
+<h3 data-number="44.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">44.2.2</span> Cons</h3>
 <ul>
 <li>Will produce zero variance columns when used on data with no missing values</li>
 <li>Can create a sizable increase in data set size</li>
 </ul>
 </section>
 </section>
-<section id="r-examples" class="level2" data-number="44.2">
-<h2 data-number="44.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">44.2</span> R Examples</h2>
+<section id="r-examples" class="level2" data-number="44.3">
+<h2 data-number="44.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">44.3</span> R Examples</h2>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1353,8 +1357,8 @@ TODO
 </div>
 </div>
 </section>
-<section id="python-examples" class="level2" data-number="44.3">
-<h2 data-number="44.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">44.3</span> Python Examples</h2>
+<section id="python-examples" class="level2" data-number="44.4">
+<h2 data-number="44.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">44.4</span> Python Examples</h2>
 <p>We are using the <code>ames</code> data set for examples. {sklearn} provided the <code>MissingIndicator()</code> method we can use.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> feazdata <span class="im">import</span> ames</span>
