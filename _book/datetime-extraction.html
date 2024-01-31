@@ -1231,13 +1231,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link active" data-scroll-target="#pros-and-cons"><span class="header-section-number">38.1</span> Pros and Cons</a>
+  <li><a href="#value-extraction" id="toc-value-extraction" class="nav-link active" data-scroll-target="#value-extraction"><span class="header-section-number">38.1</span> Value Extraction</a></li>
+  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link" data-scroll-target="#pros-and-cons"><span class="header-section-number">38.2</span> Pros and Cons</a>
   <ul class="collapse">
-  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">38.1.1</span> Pros</a></li>
-  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">38.1.2</span> Cons</a></li>
+  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">38.2.1</span> Pros</a></li>
+  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">38.2.2</span> Cons</a></li>
   </ul></li>
-  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">38.2</span> R Examples</a></li>
-  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">38.3</span> Python Examples</a></li>
+  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">38.3</span> R Examples</a></li>
+  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">38.4</span> Python Examples</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/datetime-extraction.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/datetime-extraction.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
@@ -1263,6 +1264,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="value-extraction" class="level2" style="visibility: hidden; height: 0px;" data-number="38.1">
+<h2 data-number="38.1" class="anchored" data-anchor-id="value-extraction"><span class="header-section-number">38.1</span> Value Extraction</h2>
+</section>
 <p>Sometimes date variables come in many data sets and problems. The presence of a date time variable doesn’t mean that we are working with a time series data set. If you are, then read more about how to handle that in <a href="time-series.html" class="quarto-xref"><span>Chapter 111</span></a>. All the extract methods are not learned, as there isn’t anything to estimate.</p>
 <p>Dates and date times are typically stored as integers. With dates represented as the number of days since 1970-01-01, with negative values for earlier dates. with date times representing the number of seconds since 1970-01-01.</p>
 <p>This means that if you are lucky and the model you were trying to fit knew to convert dates and date times into integers, that “time since 1970-01-01” would be a helpful predictor. If not then we need to do some more advanced work.</p>
@@ -1325,25 +1329,25 @@ Note
 </div>
 </div>
 <p>The talk in this chapter is very Euro and US-focused. Many cultures around the world divide the “year” and “day” up differently. Always use the conventions that are most appropriate to the culture you are working with.</p>
-<section id="pros-and-cons" class="level2" data-number="38.1">
-<h2 data-number="38.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">38.1</span> Pros and Cons</h2>
-<section id="pros" class="level3" data-number="38.1.1">
-<h3 data-number="38.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">38.1.1</span> Pros</h3>
+<section id="pros-and-cons" class="level2" data-number="38.2">
+<h2 data-number="38.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">38.2</span> Pros and Cons</h2>
+<section id="pros" class="level3" data-number="38.2.1">
+<h3 data-number="38.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">38.2.1</span> Pros</h3>
 <ul>
 <li>Fast and easy computations</li>
 <li>Can provide good results</li>
 </ul>
 </section>
-<section id="cons" class="level3" data-number="38.1.2">
-<h3 data-number="38.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">38.1.2</span> Cons</h3>
+<section id="cons" class="level3" data-number="38.2.2">
+<h3 data-number="38.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">38.2.2</span> Cons</h3>
 <ul>
 <li>The numerical features generated are all increasing with time linearly</li>
 <li>There are a lot of extractions, and they correlate quite a bit</li>
 </ul>
 </section>
 </section>
-<section id="r-examples" class="level2" data-number="38.2">
-<h2 data-number="38.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">38.2</span> R Examples</h2>
+<section id="r-examples" class="level2" data-number="38.3">
+<h2 data-number="38.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">38.3</span> R Examples</h2>
 <p>We will be using the <code>hotel_bookings</code> data set for these examples.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
@@ -1463,8 +1467,8 @@ $ reservation_status_date_JPConstitutionDay &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 
 </div>
 </div>
 </section>
-<section id="python-examples" class="level2" data-number="38.3">
-<h2 data-number="38.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">38.3</span> Python Examples</h2>
+<section id="python-examples" class="level2" data-number="38.4">
+<h2 data-number="38.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">38.4</span> Python Examples</h2>
 <p>I’m not aware of a good way to do this in a scikit-learn way. Please file an <a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new?assignees=&amp;labels=&amp;projects=&amp;template=general-issue.md&amp;title">issue on github</a> if you know of a good way.</p>
 
 

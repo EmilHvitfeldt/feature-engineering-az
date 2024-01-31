@@ -1231,13 +1231,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link active" data-scroll-target="#pros-and-cons"><span class="header-section-number">20.1</span> Pros and Cons</a>
+  <li><a href="#binary-encoding" id="toc-binary-encoding" class="nav-link active" data-scroll-target="#binary-encoding"><span class="header-section-number">20.1</span> Binary Encoding</a></li>
+  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link" data-scroll-target="#pros-and-cons"><span class="header-section-number">20.2</span> Pros and Cons</a>
   <ul class="collapse">
-  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">20.1.1</span> Pros</a></li>
-  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">20.1.2</span> Cons</a></li>
+  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">20.2.1</span> Pros</a></li>
+  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">20.2.2</span> Cons</a></li>
   </ul></li>
-  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">20.2</span> R Examples</a></li>
-  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">20.3</span> Python Examples</a></li>
+  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">20.3</span> R Examples</a></li>
+  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">20.4</span> Python Examples</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/categorical-binary.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/categorical-binary.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
@@ -1263,6 +1264,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="binary-encoding" class="level2" style="visibility: hidden; height: 0px;" data-number="20.1">
+<h2 data-number="20.1" class="anchored" data-anchor-id="binary-encoding"><span class="header-section-number">20.1</span> Binary Encoding</h2>
+</section>
 <p>Binary encoding encodes each category by encoding it as its binary representation. From the categorical variables, you assign an integer value to each level, in the same way as in <a href="categorical-label.html" class="quarto-xref"><span>Chapter 18</span></a>. That value will then be converted to its binary representation, and that value will be returned.</p>
 <p>Suppose we have the following variable, and the values they take are (cat = 11, dog = 3, horse = 20). We are using a subset to gain a better understanding of what is happening.</p>
 <div class="cell">
@@ -1322,23 +1326,23 @@ TODO
 <p>talk about grey encoding</p>
 </div>
 </div>
-<section id="pros-and-cons" class="level2" data-number="20.1">
-<h2 data-number="20.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">20.1</span> Pros and Cons</h2>
-<section id="pros" class="level3" data-number="20.1.1">
-<h3 data-number="20.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">20.1.1</span> Pros</h3>
+<section id="pros-and-cons" class="level2" data-number="20.2">
+<h2 data-number="20.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">20.2</span> Pros and Cons</h2>
+<section id="pros" class="level3" data-number="20.2.1">
+<h3 data-number="20.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">20.2.1</span> Pros</h3>
 <ul>
 <li>uses fewer variables to store the same information as dummy encoding</li>
 </ul>
 </section>
-<section id="cons" class="level3" data-number="20.1.2">
-<h3 data-number="20.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">20.1.2</span> Cons</h3>
+<section id="cons" class="level3" data-number="20.2.2">
+<h3 data-number="20.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">20.2.2</span> Cons</h3>
 <ul>
 <li>Less interpretability compared to dummy variables</li>
 </ul>
 </section>
 </section>
-<section id="r-examples" class="level2" data-number="20.2">
-<h2 data-number="20.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">20.2</span> R Examples</h2>
+<section id="r-examples" class="level2" data-number="20.3">
+<h2 data-number="20.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">20.3</span> R Examples</h2>
 <p>We will be using the <code>ames</code> data set for these examples. The <code>step_encoding_binary()</code> function from the <a href="https://github.com/emilhvitfeldt/extrasteps">extrasteps</a> package allows us to perform binary encoding.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
@@ -1436,8 +1440,8 @@ $ MS_Zoning_8    &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 </div>
 </div>
 </section>
-<section id="python-examples" class="level2" data-number="20.3">
-<h2 data-number="20.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">20.3</span> Python Examples</h2>
+<section id="python-examples" class="level2" data-number="20.4">
+<h2 data-number="20.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">20.4</span> Python Examples</h2>
 <p>We are using the <code>ames</code> data set for examples. {category_encoders} provided the <code>BinaryEncoder()</code> method we can use.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> feazdata <span class="im">import</span> ames</span>

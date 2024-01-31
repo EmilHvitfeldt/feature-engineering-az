@@ -1,5 +1,9 @@
 # Circular Features {#sec-datetime-circular}
 
+::: {style="visibility: hidden; height: 0px;"}
+## Circular Features
+:::
+
 When working with datetime features, there are a couple of instances where it is useful to work with them in a purely circular sense. We will cover those instances and why we would want to do it in this chapter. For a broader and more comprehensive look at how to work with circular features, see the @sec-circular section.
 
 To make things perfectly circular we need to work with regular units of seasonality. This is quite nice as we have the units that are going to guide the circular nature of the effects. This is unlike other types of circular data where we need to find the scale of the period.

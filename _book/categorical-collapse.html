@@ -1231,13 +1231,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link active" data-scroll-target="#pros-and-cons"><span class="header-section-number">34.1</span> Pros and Cons</a>
+  <li><a href="#collapsing-categories" id="toc-collapsing-categories" class="nav-link active" data-scroll-target="#collapsing-categories"><span class="header-section-number">34.1</span> Collapsing Categories</a></li>
+  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link" data-scroll-target="#pros-and-cons"><span class="header-section-number">34.2</span> Pros and Cons</a>
   <ul class="collapse">
-  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">34.1.1</span> Pros</a></li>
-  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">34.1.2</span> Cons</a></li>
+  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">34.2.1</span> Pros</a></li>
+  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">34.2.2</span> Cons</a></li>
   </ul></li>
-  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">34.2</span> R Examples</a></li>
-  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">34.3</span> Python Examples</a></li>
+  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">34.3</span> R Examples</a></li>
+  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">34.4</span> Python Examples</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/categorical-collapse.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/categorical-collapse.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
@@ -1263,6 +1264,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="collapsing-categories" class="level2" style="visibility: hidden; height: 0px;" data-number="34.1">
+<h2 data-number="34.1" class="anchored" data-anchor-id="collapsing-categories"><span class="header-section-number">34.1</span> Collapsing Categories</h2>
+</section>
 <p>There are times, especially when you have a lot of levels in a categorical variable, that it will be beneficial for you to combine some of them. This practice is in some ways similar to what we saw in <a href="categorical-cleaning.html" class="quarto-xref"><span>Chapter 15</span></a>, but here we are doing it for performance reasons.</p>
 <p>Essentially what we are working on, is trying to combine many levels to get higher performance and interpretability</p>
 <p>this has two prongs</p>
@@ -1387,25 +1391,25 @@ TODO
 <p>Some data is naturally hierarchical, and if we have this type of data and we want to collapse, we can take advantage of that and collapse according to the hierarchies.</p>
 <p>Collapsing categorical levels is not without risk, and each application should be monitored and checked to make sure we don’t do anything bad. In many ways, this is quite a manual process and luckily the results are very easy to validate.</p>
 <p>Unseen levels will have to be treated on a method-to-method basis. Tree-based collapsing will not be able to handle unseen levels as they are not part of the tree at all. On the other hand, it is possible to handle unseen levels on the string distance method as you just need to calculate the distances. With the caveat that some strings could be the same distance away from multiple levels.</p>
-<section id="pros-and-cons" class="level2" data-number="34.1">
-<h2 data-number="34.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">34.1</span> Pros and Cons</h2>
-<section id="pros" class="level3" data-number="34.1.1">
-<h3 data-number="34.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">34.1.1</span> Pros</h3>
+<section id="pros-and-cons" class="level2" data-number="34.2">
+<h2 data-number="34.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">34.2</span> Pros and Cons</h2>
+<section id="pros" class="level3" data-number="34.2.1">
+<h3 data-number="34.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">34.2.1</span> Pros</h3>
 <ul>
 <li>Easy to perform and verify</li>
 <li>Computationally fast</li>
 </ul>
 </section>
-<section id="cons" class="level3" data-number="34.1.2">
-<h3 data-number="34.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">34.1.2</span> Cons</h3>
+<section id="cons" class="level3" data-number="34.2.2">
+<h3 data-number="34.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">34.2.2</span> Cons</h3>
 <ul>
 <li>Must be tuned</li>
 <li>Can produce counterintuitive results</li>
 </ul>
 </section>
 </section>
-<section id="r-examples" class="level2" data-number="34.2">
-<h2 data-number="34.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">34.2</span> R Examples</h2>
+<section id="r-examples" class="level2" data-number="34.3">
+<h2 data-number="34.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">34.3</span> R Examples</h2>
 <p>Methods to collapse categorical levels can be found in the recipes package with <code>step_other()</code> and the embed package in <code>step_collapse_cart()</code> and <code>step_collapse_stringdist()</code>.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1554,8 +1558,8 @@ TODO
 </div>
 </div>
 </section>
-<section id="python-examples" class="level2" data-number="34.3">
-<h2 data-number="34.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">34.3</span> Python Examples</h2>
+<section id="python-examples" class="level2" data-number="34.4">
+<h2 data-number="34.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">34.4</span> Python Examples</h2>
 <p>https://github.com/skrub-data/skrub</p>
 
 

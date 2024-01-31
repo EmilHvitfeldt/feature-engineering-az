@@ -1,5 +1,9 @@
 # Manual Text Features {#sec-text-manual}
 
+::: {style="visibility: hidden; height: 0px;"}
+## Manual Text Features
+:::
+
 When talking about manual text features, we are talking about hand-crafted metrics or counts based on the text. you will be able to find some off-the-shelf features that fit into this category. But generally, this is where you can use your domain knowledge to extract useful information.
 
 Typical of-the-shelf counts are generally counted. So it will be counts of words, sentences, linebreaks, commas, hashtags, emojis, and punctuation. A lot of these will be proxies for text length so some kind of normalization will be useful here. Normalizing in this setting is typically done by dividing by the text length, which then gives different interpretations as we are no longer looking at the "number of words", and now finding "the inverse of average word length".

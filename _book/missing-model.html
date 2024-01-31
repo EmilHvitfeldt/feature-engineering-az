@@ -1231,13 +1231,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link active" data-scroll-target="#pros-and-cons"><span class="header-section-number">43.1</span> Pros and Cons</a>
+  <li><a href="#model-based-imputation" id="toc-model-based-imputation" class="nav-link active" data-scroll-target="#model-based-imputation"><span class="header-section-number">43.1</span> Model Based Imputation</a></li>
+  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link" data-scroll-target="#pros-and-cons"><span class="header-section-number">43.2</span> Pros and Cons</a>
   <ul class="collapse">
-  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">43.1.1</span> Pros</a></li>
-  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">43.1.2</span> Cons</a></li>
+  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">43.2.1</span> Pros</a></li>
+  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">43.2.2</span> Cons</a></li>
   </ul></li>
-  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">43.2</span> R Examples</a></li>
-  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">43.3</span> Python Examples</a></li>
+  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">43.3</span> R Examples</a></li>
+  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">43.4</span> Python Examples</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/missing-model.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/missing-model.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
@@ -1263,6 +1264,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="model-based-imputation" class="level2" style="visibility: hidden; height: 0px;" data-number="43.1">
+<h2 data-number="43.1" class="anchored" data-anchor-id="model-based-imputation"><span class="header-section-number">43.1</span> Model Based Imputation</h2>
+</section>
 <p>In model-based imputation, this is where we get the remaining types of imputation that we can use. It is quite a big and broad topic. This chapter will try to do it justice.</p>
 <p>We start with simpler methods. Remember, this chapter specifically refers to methods where more than one variable is being used for the imputation. So we could do grouped versions of the simple imputation methods seen in <a href="missing-simple.html" class="quarto-xref"><span>Chapter 42</span></a>. Instead of imputing with the mean, you impute with the mean within a given group as defined by another categorical variable.</p>
 <p>You could also fit a linear regression model with the target variable as the variable you intend to impute, and other complete variables as predictors.</p>
@@ -1293,24 +1297,24 @@ TODO
 <p>figure out if MICE is applicable here</p>
 </div>
 </div>
-<section id="pros-and-cons" class="level2" data-number="43.1">
-<h2 data-number="43.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">43.1</span> Pros and Cons</h2>
-<section id="pros" class="level3" data-number="43.1.1">
-<h3 data-number="43.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">43.1.1</span> Pros</h3>
+<section id="pros-and-cons" class="level2" data-number="43.2">
+<h2 data-number="43.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">43.2</span> Pros and Cons</h2>
+<section id="pros" class="level3" data-number="43.2.1">
+<h3 data-number="43.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">43.2.1</span> Pros</h3>
 <ul>
 <li>Likely get better performance than simple imputation</li>
 </ul>
 </section>
-<section id="cons" class="level3" data-number="43.1.2">
-<h3 data-number="43.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">43.1.2</span> Cons</h3>
+<section id="cons" class="level3" data-number="43.2.2">
+<h3 data-number="43.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">43.2.2</span> Cons</h3>
 <ul>
 <li>More complex model</li>
 <li>lower interpretability</li>
 </ul>
 </section>
 </section>
-<section id="r-examples" class="level2" data-number="43.2">
-<h2 data-number="43.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">43.2</span> R Examples</h2>
+<section id="r-examples" class="level2" data-number="43.3">
+<h2 data-number="43.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">43.3</span> R Examples</h2>
 <p>There are a number of steps in the recipes package that fall under this category. Within that, we have <code>step_impute_bag()</code>, <code>step_impute_knn()</code>, and <code>step_impute_linear()</code>.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1353,8 +1357,8 @@ TODO
 </div>
 </div>
 </section>
-<section id="python-examples" class="level2" data-number="43.3">
-<h2 data-number="43.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">43.3</span> Python Examples</h2>
+<section id="python-examples" class="level2" data-number="43.4">
+<h2 data-number="43.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">43.4</span> Python Examples</h2>
 
 
 </section>

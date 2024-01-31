@@ -1231,13 +1231,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link active" data-scroll-target="#pros-and-cons"><span class="header-section-number">48.1</span> Pros and Cons</a>
+  <li><a href="#text-cleaning" id="toc-text-cleaning" class="nav-link active" data-scroll-target="#text-cleaning"><span class="header-section-number">48.1</span> Text cleaning</a></li>
+  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link" data-scroll-target="#pros-and-cons"><span class="header-section-number">48.2</span> Pros and Cons</a>
   <ul class="collapse">
-  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">48.1.1</span> Pros</a></li>
-  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">48.1.2</span> Cons</a></li>
+  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">48.2.1</span> Pros</a></li>
+  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">48.2.2</span> Cons</a></li>
   </ul></li>
-  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">48.2</span> R Examples</a></li>
-  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">48.3</span> Python Examples</a></li>
+  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">48.3</span> R Examples</a></li>
+  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">48.4</span> Python Examples</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/text-cleaning.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/text-cleaning.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
@@ -1263,6 +1264,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="text-cleaning" class="level2" style="visibility: hidden; height: 0px;" data-number="48.1">
+<h2 data-number="48.1" class="anchored" data-anchor-id="text-cleaning"><span class="header-section-number">48.1</span> Text cleaning</h2>
+</section>
 <p>When working with unstructured data such as free-form text. You likely will need to do some cleaning. As with basically every method in this book, not all the steps in this chapter should be applied, and it will be up to you the practitioner to evaluate what is best for your data. It is also important that you formalize what these steps should be such that you can apply them consistently to new data that comes in.</p>
 <p>I’ll split this chapter into 2 major categories. It doesn’t mean that they are the only ones, but it helps to keep things clear in our minds. These two categories are <strong>removing things</strong> and <strong>transforming things</strong>.</p>
 <p>Removing things should be quite self-explanatory. This group of actions can be quite lengthy depending on how clean your data is when you get it. HTML tags, Markdown, and other artifacts are prime candidates for removal as they have less information about the words written and more about how they are displaced. You can also get malformed text for different reasons, with the most common being speech-to-text and optical character recognition (OCR). If you get this kind of malformed text, you should try your best to have that part of the process improved, to hopefully avoid the malformed text altogether, but the escape-hatch would be to remove it. Sometimes people will remove all non-alphanumeric values from the text. This is a quick and crude method of getting something decent and easy to work with. This is also popular because it can be done using a small regular expression. The crudeness because a problem as it removes indiscriminately such that periods, question marks, emojis, and non-Latin characters are removed.</p>
@@ -1286,23 +1290,23 @@ text encoding
 <p>What this means in practice is that you can run into issues by reading data in as the wrong encoding, or if multiple pieces of text read the same, but constructed by different characters. You are less and less likely to run into encoding confusion as more and more text is encoded with UTF-8. These issues appear as glitched text, if you see that you can use one of the many encoding detection methods online to try to narrow down how to read the text correctly.</p>
 <p>The other issue is much harder to detect unless you know what you are looking for. Consider the two strings <code>"schön"</code> and <code>"schön"</code>, are they the same? the reasonable reader would say yes. But the computer disagrees, if you look at the Unicode codes you see that they are different <code>\u0073\u0063\u0068\u00f6\u006e</code> and <code>\u0073\u0063\u0068\u006f\u0308\u006e</code>. The difference comes in the o with the umlaut. In the first string, <a href="https://www.fileformat.info/info/unicode/char/00f6/index.htm">0f6</a> is a “latin small letter o with diaeresis” where <a href="https://www.fileformat.info/info/unicode/char/006f/index.htm">06f</a> is a “latin small letter o”m and <a href="https://www.fileformat.info/info/unicode/char/0308/index.htm">308</a> is a “combining diaeresis”. This means the first string uses one symbol to represent <code>"ö"</code> and the second string uses two symbols to represent it, but combining a <code>"0"</code> with an umlaut symbol. And they appear similar to the naked eye.</p>
 <p>This is an issue because the computer considers these strings as different strings, so for counting operations they are counted differently. Luckily there are solutions to this problem, and the method is known as <strong>unicode normalization</strong>. The ways these methods work could be a chapter by itself and will be excluded. But the methods by themselves are easy to find and use on your data. Unless you are sure that you won’t have these issues, or you are on a big performance crush, it is recommended to use Unicode normalization at all times.</p>
-<section id="pros-and-cons" class="level2" data-number="48.1">
-<h2 data-number="48.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">48.1</span> Pros and Cons</h2>
-<section id="pros" class="level3" data-number="48.1.1">
-<h3 data-number="48.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">48.1.1</span> Pros</h3>
+<section id="pros-and-cons" class="level2" data-number="48.2">
+<h2 data-number="48.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">48.2</span> Pros and Cons</h2>
+<section id="pros" class="level3" data-number="48.2.1">
+<h3 data-number="48.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">48.2.1</span> Pros</h3>
 <ul>
 <li>When applied correctly, can lead to boosts in insights into the data</li>
 </ul>
 </section>
-<section id="cons" class="level3" data-number="48.1.2">
-<h3 data-number="48.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">48.1.2</span> Cons</h3>
+<section id="cons" class="level3" data-number="48.2.2">
+<h3 data-number="48.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">48.2.2</span> Cons</h3>
 <ul>
 <li>Can be a quite manual process which will likely be domain specific</li>
 </ul>
 </section>
 </section>
-<section id="r-examples" class="level2" data-number="48.2">
-<h2 data-number="48.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">48.2</span> R Examples</h2>
+<section id="r-examples" class="level2" data-number="48.3">
+<h2 data-number="48.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">48.3</span> R Examples</h2>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1374,8 +1378,8 @@ Attaching package: 'recipes'</code></pre>
 </div>
 </div>
 </section>
-<section id="python-examples" class="level2" data-number="48.3">
-<h2 data-number="48.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">48.3</span> Python Examples</h2>
+<section id="python-examples" class="level2" data-number="48.4">
+<h2 data-number="48.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">48.4</span> Python Examples</h2>
 
 
 </section>

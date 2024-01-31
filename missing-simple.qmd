@@ -1,5 +1,9 @@
 # Simple Imputation {#sec-missing-simple}
 
+::: {style="visibility: hidden; height: 0px;"}
+## Simple Imputation
+:::
+
 When dealing with missing data, the first suggestion is often imputation. **Simple imputation** as covered in this chapter refers to the method where for each variable a single value is selected, and all missing values will be replaced by that value. It is important to remind ourselves why we impute missing values. Because the model we are using isn't able to handle missing values natively. Simple imputation is the simplest way to handle missing values.
 
 The way we find this value will depend on the variable type, and within each type of variable, we find multiple ways to decide on a value. The main categories are categorical and numeric variables.

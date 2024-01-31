@@ -1,5 +1,9 @@
 # High Correlation Filter {#sec-correlated-filter}
 
+::: {style="visibility: hidden; height: 0px;"}
+## High Correlation Filter
+:::
+
 We are looking to remove correlated features. By correlated features, we typically talk about Pearson correlation. The methods in this chapter don't require that Pearson correlation is used, just that any correlation method is used.
 Next, we will look at how we can remove the offending variables. We will show an **iterative approach** and a **clustering approach**. Both methods are learned methods as they identify variables to be kept.
 

@@ -1,5 +1,9 @@
 # Collapsing Categories {#sec-categorical-collapse}
 
+::: {style="visibility: hidden; height: 0px;"}
+## Collapsing Categories
+:::
+
 There are times, especially when you have a lot of levels in a categorical variable, that it will be beneficial for you to combine some of them. This practice is in some ways similar to what we saw in @sec-categorical-cleaning, but here we are doing it for performance reasons.
 
 Essentially what we are working on, is trying to combine many levels to get higher performance and interpretability

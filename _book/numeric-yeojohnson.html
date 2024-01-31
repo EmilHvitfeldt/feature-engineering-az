@@ -1260,13 +1260,14 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link active" data-scroll-target="#pros-and-cons"><span class="header-section-number">5.1</span> Pros and Cons</a>
+  <li><a href="#yeo-johnson" id="toc-yeo-johnson" class="nav-link active" data-scroll-target="#yeo-johnson"><span class="header-section-number">5.1</span> Yeo-Johnson</a></li>
+  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link" data-scroll-target="#pros-and-cons"><span class="header-section-number">5.2</span> Pros and Cons</a>
   <ul class="collapse">
-  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">5.1.1</span> Pros</a></li>
-  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">5.1.2</span> Cons</a></li>
+  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">5.2.1</span> Pros</a></li>
+  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">5.2.2</span> Cons</a></li>
   </ul></li>
-  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">5.2</span> R Examples</a></li>
-  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">5.3</span> Python Examples</a></li>
+  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">5.3</span> R Examples</a></li>
+  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">5.4</span> Python Examples</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/numeric-yeojohnson.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/numeric-yeojohnson.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
@@ -1292,6 +1293,9 @@ window.Quarto = {
 </header>
 
 
+<section id="yeo-johnson" class="level2" style="visibility: hidden; height: 0px;" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="yeo-johnson"><span class="header-section-number">5.1</span> Yeo-Johnson</h2>
+</section>
 <p>You have likely heard a lot of talk about having normally distributed predictors. This isn’t that common of an assumption, and having a fairly non-skewed symmetric predictor is often enough. Linear Discriminant Analysis assumes Gaussian data, and that is about it (TODO add a reference here). Still, it is worthwhile to have more symmetric predictors, and this is where the Yeo-Johnson transformation comes into play.</p>
 <p>This method is very similar to the Box-Cox method in <a href="numeric-boxcox.html" class="quarto-xref"><span>Chapter 4</span></a>, except it doesn’t have the restriction that the variable <span class="math inline">\(x\)</span> needs to be positive.</p>
 <p>It works by using maximum likelihood estimation to estimate a transformation parameter <span class="math inline">\(\lambda\)</span> in the following equation that would optimize the normality of <span class="math inline">\(x^*\)</span></p>
@@ -1330,24 +1334,24 @@ x^* = \left\{
 </div>
 </div>
 <p>The first distribution here is uniformly random. The resulting transformation ends up more skewed, even if only a little bit, than the original distribution because this method is not intended for this type of data. We are seeing similar results with the bi-modal distributions.</p>
-<section id="pros-and-cons" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">5.1</span> Pros and Cons</h2>
-<section id="pros" class="level3" data-number="5.1.1">
-<h3 data-number="5.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">5.1.1</span> Pros</h3>
+<section id="pros-and-cons" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">5.2</span> Pros and Cons</h2>
+<section id="pros" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">5.2.1</span> Pros</h3>
 <ul>
 <li>More flexible than individually chosen power transformations such as logarithms and square roots</li>
 <li>Can handle negative values</li>
 </ul>
 </section>
-<section id="cons" class="level3" data-number="5.1.2">
-<h3 data-number="5.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">5.1.2</span> Cons</h3>
+<section id="cons" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">5.2.2</span> Cons</h3>
 <ul>
 <li>Isn’t a universal fix</li>
 </ul>
 </section>
 </section>
-<section id="r-examples" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">5.2</span> R Examples</h2>
+<section id="r-examples" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">5.3</span> R Examples</h2>
 <p>We will be using the <code>ames</code> data set for these examples.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
@@ -1410,8 +1414,8 @@ x^* = \left\{
 </div>
 </div>
 </section>
-<section id="python-examples" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">5.3</span> Python Examples</h2>
+<section id="python-examples" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">5.4</span> Python Examples</h2>
 <p>We are using the <code>ames</code> data set for examples. {feature_engine} provided the <code>YeoJohnsonTransformer()</code> that we can use.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> feazdata <span class="im">import</span> ames</span>

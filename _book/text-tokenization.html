@@ -1231,13 +1231,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link active" data-scroll-target="#pros-and-cons"><span class="header-section-number">49.1</span> Pros and Cons</a>
+  <li><a href="#tokenization" id="toc-tokenization" class="nav-link active" data-scroll-target="#tokenization"><span class="header-section-number">49.1</span> Tokenization</a></li>
+  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link" data-scroll-target="#pros-and-cons"><span class="header-section-number">49.2</span> Pros and Cons</a>
   <ul class="collapse">
-  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">49.1.1</span> Pros</a></li>
-  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">49.1.2</span> Cons</a></li>
+  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">49.2.1</span> Pros</a></li>
+  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">49.2.2</span> Cons</a></li>
   </ul></li>
-  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">49.2</span> R Examples</a></li>
-  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">49.3</span> Python Examples</a></li>
+  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">49.3</span> R Examples</a></li>
+  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">49.4</span> Python Examples</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/text-tokenization.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/text-tokenization.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
@@ -1263,6 +1264,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="tokenization" class="level2" style="visibility: hidden; height: 0px;" data-number="49.1">
+<h2 data-number="49.1" class="anchored" data-anchor-id="tokenization"><span class="header-section-number">49.1</span> Tokenization</h2>
+</section>
 <p>The main issue with text, when working with machines is that they don’t have a way to natively deal with it in a way that makes sense. Machines like numbers, and text are far from that. <strong>tokenization</strong> is the act of turning long strings of text into many smaller units of text (called <strong>tokens</strong>) which can then be worked with. The method that performs the tokenization is called a <strong>tokenizer</strong>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1344,20 +1348,20 @@ TODO
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>   <span class="dv">14</span> <span class="dv">5</span>   <span class="dv">14</span> <span class="dv">5</span>  <span class="dv">16</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">1</span> <span class="dv">6</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">9</span> <span class="dv">16</span> <span class="dv">10</span> <span class="dv">11</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>this process will go on until there are no more duplicate pairs of tokens, which is far too long. Typically the vocabulary size is fixed beforehand, in the orders of 1000s. The good thing about this tokenizer is that it is more tailored toward the data you are working with, hence words like <code>"credit"</code> and <code>"load"</code> will self-populate very fast in banking text, and other words won’t come until later in the vocabulary. It is in essence less dependent on language since it tries to find frequent sequences of characters. For some language tasks, you will use this tokenizer without removing spaces and punctuation, since the tokenizer then will be able to “learn” the beginning and ends of words. One of the downsides is that the tokens themselves are harder to reason about after the fact. The token <code>"teach"</code> might be found by itself or as part of <code>"teacher"</code> and the later models likely won’t know, unless both <code>"teach"</code> and <code>"teacher"</code> is in the vocabulary.</p>
 <p>We have talked a lot about Latin alphabet tokenization. As with any study of data, it is important to work with domain experts. Tokenization of languages such as Chinese, Japanese and Korean, where each glyph contains much more information, is almost a different problem than the tokenization we have seen so far, since each “word” a lot of times is contained in 1 to 3 glyphs. Many different CJK tokenizers exist to best tackle the language construction specific to each language. Many of the techniques stem from the methods we have discussed above.</p>
-<section id="pros-and-cons" class="level2" data-number="49.1">
-<h2 data-number="49.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">49.1</span> Pros and Cons</h2>
-<section id="pros" class="level3" data-number="49.1.1">
-<h3 data-number="49.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">49.1.1</span> Pros</h3>
+<section id="pros-and-cons" class="level2" data-number="49.2">
+<h2 data-number="49.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">49.2</span> Pros and Cons</h2>
+<section id="pros" class="level3" data-number="49.2.1">
+<h3 data-number="49.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">49.2.1</span> Pros</h3>
 </section>
-<section id="cons" class="level3" data-number="49.1.2">
-<h3 data-number="49.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">49.1.2</span> Cons</h3>
+<section id="cons" class="level3" data-number="49.2.2">
+<h3 data-number="49.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">49.2.2</span> Cons</h3>
 </section>
 </section>
-<section id="r-examples" class="level2" data-number="49.2">
-<h2 data-number="49.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">49.2</span> R Examples</h2>
+<section id="r-examples" class="level2" data-number="49.3">
+<h2 data-number="49.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">49.3</span> R Examples</h2>
 </section>
-<section id="python-examples" class="level2" data-number="49.3">
-<h2 data-number="49.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">49.3</span> Python Examples</h2>
+<section id="python-examples" class="level2" data-number="49.4">
+<h2 data-number="49.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">49.4</span> Python Examples</h2>
 
 
 </section>

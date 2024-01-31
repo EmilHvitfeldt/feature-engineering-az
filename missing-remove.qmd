@@ -1,5 +1,9 @@
 # Remove Missing Values {#sec-missing-remove}
 
+::: {style="visibility: hidden; height: 0px;"}
+## Remove Missing Values
+:::
+
 Removing observations with missing values should generally be considered the last resort. This will of course depend on your data and practices, and there are cases where it is appropriate. 
 
 Nevertheless, the removal of observations should be done with care. Especially since the removal of observations means that no prediction will happen to them. This might be unacceptable, and you need to make sure proper procedure is taken to guarantee that all observations are predicted. Even if removed observations are given default values for predictions. 

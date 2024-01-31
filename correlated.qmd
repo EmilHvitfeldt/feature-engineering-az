@@ -1,5 +1,9 @@
 # Overview {#sec-correlated}
 
+::: {style="visibility: hidden; height: 0px;"}
+## Overview
+:::
+
 Correlation happens when two or more variables contain similar information. We typically refer to correlation when we talk about predictors. This can be a problem for some machine learning models as they don't perform well with correlated predictors. There are many different ways to calculate the degree of correlation. And those details aren't going to matter much right now. The important thing is that it can happen. Below we see such examples
 
 ```{r}

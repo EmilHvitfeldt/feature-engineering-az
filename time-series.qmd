@@ -1,5 +1,9 @@
 # Overview {#sec-time-series}
 
+::: {style="visibility: hidden; height: 0px;"}
+## Overview
+:::
+
 A very common type of data is **time-series data**. This is data where the observations are taken across time with time stamps. This data will inherently be correlated with itself as the same measurement for the same unit likely isn't going to change too much. Time series data is typically modeled using different methods than other predictive modeling for this reason.
 
 Nevertheless, there are still some methods that will be useful for us. It is important to note that there is a time component to this data, which is what we are trying to predict. The observations can happen at regular intervals, once a day, or irregular intervals, each time the engine errors. Different types of data use different types of models and make the feature engineering a little different depending on what you are trying to do.

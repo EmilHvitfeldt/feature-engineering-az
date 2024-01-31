@@ -1,5 +1,9 @@
 # Overview {#sec-spatial}
 
+::: {style="visibility: hidden; height: 0px;"}
+## Overview
+:::
+
 When we talk about spatial and geospatial feature engineering, we want to focus on the transformation and enrichment of the data set, based on spatial information. Typically this will be longitude and latitude-based, with the additional information being based on areas and regions such as cities or countries.
 
 What sets these methods apart from some of the other methods we see in this book, is that they almost always require a reference data set to be able to perform the calculations. If you want to find the closest city to an observation, you need a data set of all the cities and their location. For all the methods in this section, the reader is expected to know how to gather this reference material for their problem.

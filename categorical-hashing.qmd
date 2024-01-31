@@ -1,5 +1,9 @@
 # Hashing Encoding {#sec-categorical-hashing}
 
+::: {style="visibility: hidden; height: 0px;"}
+## Hashing Encoding
+:::
+
 Hashing encoding, also known as the **hashing trick** and **feature hashing**, is a method where we take in the categorical values, run those values through a fast hashing function and let the resulting value determine how the encoding is done.
 
 There are a couple of things to unpack here. Hashing functions are one of them. But the first thing we will deal with is the motivation. Some categorical variables contain many unique levels, enough to make dummy encoding @sec-categorical-dummy unfeasible. This happens for a couple of reasons. Firstly, we are creating many columns and thus high sparsity. Secondly, high cardinality often comes with many new unseen levels. Feature hashing can be used to deal with both.

@@ -1197,10 +1197,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#feature-extraction" id="toc-feature-extraction" class="nav-link active" data-scroll-target="#feature-extraction"><span class="header-section-number">123.1</span> Feature Extraction</a></li>
-  <li><a href="#image-modification" id="toc-image-modification" class="nav-link" data-scroll-target="#image-modification"><span class="header-section-number">123.2</span> Image Modification</a></li>
-  <li><a href="#augmentation" id="toc-augmentation" class="nav-link" data-scroll-target="#augmentation"><span class="header-section-number">123.3</span> Augmentation</a></li>
-  <li><a href="#embeddings" id="toc-embeddings" class="nav-link" data-scroll-target="#embeddings"><span class="header-section-number">123.4</span> Embeddings</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">123.1</span> Overview</a></li>
+  <li><a href="#feature-extraction" id="toc-feature-extraction" class="nav-link" data-scroll-target="#feature-extraction"><span class="header-section-number">123.2</span> Feature Extraction</a></li>
+  <li><a href="#image-modification" id="toc-image-modification" class="nav-link" data-scroll-target="#image-modification"><span class="header-section-number">123.3</span> Image Modification</a></li>
+  <li><a href="#augmentation" id="toc-augmentation" class="nav-link" data-scroll-target="#augmentation"><span class="header-section-number">123.4</span> Augmentation</a></li>
+  <li><a href="#embeddings" id="toc-embeddings" class="nav-link" data-scroll-target="#embeddings"><span class="header-section-number">123.5</span> Embeddings</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/image.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/image.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
@@ -1226,6 +1227,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="overview" class="level2" style="visibility: hidden; height: 0px;" data-number="123.1">
+<h2 data-number="123.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">123.1</span> Overview</h2>
+</section>
 <p>Image data is quite dissimilar to anything we have seen so far in this book. And will need a whole different set of techniques to deal with them. For Most of this book, the unit of data was 1 value, such as 4, 7, or 0.3562 for numeric, and “cat” and “dog” for categorical. Text data as seen in <a href="text.html" class="quarto-xref"><span>Chapter 46</span></a>, is being treated as a series of tokens.</p>
 <p>Image data on the other hand is represented as an array of numbers, typically integers with varying dimensions. Each image is comprised of pixels, these pixels are laid out in a rectangular grid. For each pixel value, you typically have between 1 and 4 values. These are called channels. 1 channel is used for gray-scale images. 3 channels are used for color images as they have a red channel, a green channel and a blue channel. Lastly, sometimes there is also a fourth channel for opacity.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
@@ -1243,16 +1247,16 @@ TODO
 </div>
 <p>This means that for a 500-pixel by 1000-pixel color image, we have <code>500 * 1000 * 3 = 1500000</code> values. This is quite a lot of data, and hopefully, we will be able to squeeze some out of it.</p>
 <p>The preprocessing techniques for images can be split into a couple of categories. All of which will be covered.</p>
-<section id="feature-extraction" class="level2" data-number="123.1">
-<h2 data-number="123.1" class="anchored" data-anchor-id="feature-extraction"><span class="header-section-number">123.1</span> Feature Extraction</h2>
+<section id="feature-extraction" class="level2" data-number="123.2">
+<h2 data-number="123.2" class="anchored" data-anchor-id="feature-extraction"><span class="header-section-number">123.2</span> Feature Extraction</h2>
 <p>In the extraction setting, we take the images and try to extract smaller, hopefully smaller vectors of information. These could be simple statistics or larger and more complicated methods. One does not need to do this right away, and sometimes it is beneficial to apply some of the image modification methods below before doing the extraction.</p>
 <ul>
 <li>Edge detection and corner detection in <a href="image-edge-corner.html" class="quarto-xref"><span>Chapter 124</span></a></li>
 <li>texture analysis in <a href="image-texture.html" class="quarto-xref"><span>Chapter 125</span></a></li>
 </ul>
 </section>
-<section id="image-modification" class="level2" data-number="123.2">
-<h2 data-number="123.2" class="anchored" data-anchor-id="image-modification"><span class="header-section-number">123.2</span> Image Modification</h2>
+<section id="image-modification" class="level2" data-number="123.3">
+<h2 data-number="123.3" class="anchored" data-anchor-id="image-modification"><span class="header-section-number">123.3</span> Image Modification</h2>
 <p>Sometimes the images you get will not be in the best shape for your task at hand. This could be for various reasons. Applying color changes of different kinds can help highlight the important parts of the image, such that later preprocessing steps or models have an easier time picking up on it. Likewise, you might need to scale the data to help the model and well as reduce noise. Lastly, you will most likely need to resize your images as many deep-learning image modes work on fixed input sizes.</p>
 <ul>
 <li>Grayscale conversion in <a href="image-grayscale.html" class="quarto-xref"><span>Chapter 126</span></a></li>
@@ -1262,8 +1266,8 @@ TODO
 <li>resizing in <a href="image-resize.html" class="quarto-xref"><span>Chapter 130</span></a></li>
 </ul>
 </section>
-<section id="augmentation" class="level2" data-number="123.3">
-<h2 data-number="123.3" class="anchored" data-anchor-id="augmentation"><span class="header-section-number">123.3</span> Augmentation</h2>
+<section id="augmentation" class="level2" data-number="123.4">
+<h2 data-number="123.4" class="anchored" data-anchor-id="augmentation"><span class="header-section-number">123.4</span> Augmentation</h2>
 <p>A common trick when working with image data is to do augmentation. What we mean by that, is that we do different kinds of transformations to generate new images that contain the same information but in different ways. It creates a larger data set. With the hopes of increasing the performance and generalization. Being able to detect cat pictures regardless if they are centered in the image or not.</p>
 <ul>
 <li>Changing brightness in <a href="image-brightness.html" class="quarto-xref"><span>Chapter 131</span></a></li>
@@ -1271,8 +1275,8 @@ TODO
 <li>Cropping and scaling in <a href="image-crop-scale.html" class="quarto-xref"><span>Chapter 133</span></a></li>
 </ul>
 </section>
-<section id="embeddings" class="level2" data-number="123.4">
-<h2 data-number="123.4" class="anchored" data-anchor-id="embeddings"><span class="header-section-number">123.4</span> Embeddings</h2>
+<section id="embeddings" class="level2" data-number="123.5">
+<h2 data-number="123.5" class="anchored" data-anchor-id="embeddings"><span class="header-section-number">123.5</span> Embeddings</h2>
 <p>We can also take advantage of transfer learning. People have fit image deep learning models on many images before us. And some of these trained models can be reused for us. We will look at that in <a href="image-embeddings.html" class="quarto-xref"><span>Chapter 134</span></a>.</p>
 
 

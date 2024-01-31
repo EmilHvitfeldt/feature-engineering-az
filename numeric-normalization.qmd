@@ -1,5 +1,9 @@
 # Normalization {#sec-numeric-normalization}
 
+::: {style="visibility: hidden; height: 0px;"}
+## Normalization
+:::
+
 Normalization is a method where we modify a variable by subtracting the mean and dividing by the standard deviation
 
 $$X_{scaled} = \dfrac{X - \text{mean}(X)}{\text{sd}(X)}$$

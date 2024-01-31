@@ -1193,7 +1193,13 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">81.1</span> Overview</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/outliers.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/outliers.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -1217,6 +1223,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="overview" class="level2" style="visibility: hidden; height: 0px;" data-number="81.1">
+<h2 data-number="81.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">81.1</span> Overview</h2>
+</section>
 <p>When we talk about outliers, we mean values that are different from the rest of the values. This is typically seen as extreme values. Let us talk about it with an example first. Below is the famous Ames housing data set. We have plotted the living area against the sale price.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -1240,7 +1249,7 @@ Figure&nbsp;81.1: Two groups of points don’t appear close to the main group of
 <p>In this care, we had enough domain knowledge to be able to determine the reason for these points to be outliers, and how to deal with them. We won’t always be this lucky. These points were outliers in 2 ways. 3 of the points didn’t include the full price of the house, so it could be classified as an error. If we think of this data set as “houses with know full prices” then we could exclude them as not fitting that criteria. The other two houses are outliers in a purely numerical sense. They take values that are much more different than the rest of the observations.</p>
 <p>When you systematically remove observations, regardless of whether you think they are outliers or not. Then you are limiting the domain where your model is expected to work. This may be fine or not, it will depend on the specific problem you working on. But be very careful not to remove actual observations from your data.</p>
 <p>We have a handful of different ways to deal with outliers. the first choice is to not. Some model types don’t care about outliers that much. Anything that uses distances is very affected by outliers. Tree-based models don’t. Some other preprocessing method such as <a href="numeric-robust.html" class="quarto-xref"><span>Chapter 10</span></a> also isn’t affected by outliers.</p>
-<p>If you are planning on handling outliers you want to start by identifying them. In <a href="outliers-remove.html" class="quarto-xref"><span>Chapter 82</span></a> we look at how we can identify and remove outliers. In <a href="numeric.html#sec-numeric-outliers-issues" class="quarto-xref"><span>Section 1.4</span></a> we cover numerical transformations that lessen the effect that outliers have on the distribution. Instead of removing the specific observation that has outliers, or transforming the whole variable, we can choose to only modify the value of the outliers. We look at methods on how to do that in <a href="outliers-imputation.html" class="quarto-xref"><span>Chapter 83</span></a>. In addition to all of these methods, we can also add additional indicator variables to denote whether an observation is an outlier or not, this is covered in <a href="outliers-indicate.html" class="quarto-xref"><span>Chapter 84</span></a>.</p>
+<p>If you are planning on handling outliers you want to start by identifying them. In <a href="outliers-remove.html" class="quarto-xref"><span>Chapter 82</span></a> we look at how we can identify and remove outliers. In <a href="numeric.html#sec-numeric-outliers-issues" class="quarto-xref"><span>Section 1.5</span></a> we cover numerical transformations that lessen the effect that outliers have on the distribution. Instead of removing the specific observation that has outliers, or transforming the whole variable, we can choose to only modify the value of the outliers. We look at methods on how to do that in <a href="outliers-imputation.html" class="quarto-xref"><span>Chapter 83</span></a>. In addition to all of these methods, we can also add additional indicator variables to denote whether an observation is an outlier or not, this is covered in <a href="outliers-indicate.html" class="quarto-xref"><span>Chapter 84</span></a>.</p>
 <p>Lastly, it might be appropriate to treat the outliers as a separate data set and fit a specific model to that part of the data.</p>
 
 
@@ -1650,4 +1659,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/outliers.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/outliers.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/outliers.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/outliers.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div></div></footer></body></html>

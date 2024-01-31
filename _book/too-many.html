@@ -1197,9 +1197,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#non-zero-variance-filtering" id="toc-non-zero-variance-filtering" class="nav-link active" data-scroll-target="#non-zero-variance-filtering"><span class="header-section-number">65.1</span> Non-zero Variance filtering</a></li>
-  <li><a href="#dimensionality-reduction" id="toc-dimensionality-reduction" class="nav-link" data-scroll-target="#dimensionality-reduction"><span class="header-section-number">65.2</span> Dimensionality reduction</a></li>
-  <li><a href="#feature-selection" id="toc-feature-selection" class="nav-link" data-scroll-target="#feature-selection"><span class="header-section-number">65.3</span> Feature selection</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">65.1</span> Overview</a></li>
+  <li><a href="#non-zero-variance-filtering" id="toc-non-zero-variance-filtering" class="nav-link" data-scroll-target="#non-zero-variance-filtering"><span class="header-section-number">65.2</span> Non-zero Variance filtering</a></li>
+  <li><a href="#dimensionality-reduction" id="toc-dimensionality-reduction" class="nav-link" data-scroll-target="#dimensionality-reduction"><span class="header-section-number">65.3</span> Dimensionality reduction</a></li>
+  <li><a href="#feature-selection" id="toc-feature-selection" class="nav-link" data-scroll-target="#feature-selection"><span class="header-section-number">65.4</span> Feature selection</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/too-many.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/too-many.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
@@ -1225,15 +1226,18 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="overview" class="level2" style="visibility: hidden; height: 0px;" data-number="65.1">
+<h2 data-number="65.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">65.1</span> Overview</h2>
+</section>
 <p>There will be times were you are given a lot of variables in your data set. This by itself may not be a problem. but it could come with some drawbacks. Many models will have slower fit times at best, and worse performance at worst. Not all your variables are likely beneficial in your model. They could be uninformative, correlated or contain redundant information. We look at ways to deal with correlated features in <a href="correlated.html" class="quarto-xref"><span>Chapter 79</span></a>, but there will also be methods here to accomplish similar goals.</p>
 <p>Suppose the same variable is included twice in your model. Both will not be able to be used in your model at the same time. Once one is included, the other becomes irrelevant. In essence, these two variables are completely correlated, thus we need to deal with this type of problem as well.</p>
 <p>The overarching names for these types of methods are <strong>dimensionality reduction</strong> and <strong>feature selection</strong>, and we will cover most of these methods here.</p>
-<section id="non-zero-variance-filtering" class="level2" data-number="65.1">
-<h2 data-number="65.1" class="anchored" data-anchor-id="non-zero-variance-filtering"><span class="header-section-number">65.1</span> Non-zero Variance filtering</h2>
+<section id="non-zero-variance-filtering" class="level2" data-number="65.2">
+<h2 data-number="65.2" class="anchored" data-anchor-id="non-zero-variance-filtering"><span class="header-section-number">65.2</span> Non-zero Variance filtering</h2>
 <p>These types of methods are quite simple, we remove variables that take a few number of values. If the value is always 1 then it doesn’t have any information in it and we should remove it. If the variables are almost always the same we might want to remove them. We look at these methods in <a href="too-many-zv.html" class="quarto-xref"><span>Chapter 66</span></a>.</p>
 </section>
-<section id="dimensionality-reduction" class="level2" data-number="65.2">
-<h2 data-number="65.2" class="anchored" data-anchor-id="dimensionality-reduction"><span class="header-section-number">65.2</span> Dimensionality reduction</h2>
+<section id="dimensionality-reduction" class="level2" data-number="65.3">
+<h2 data-number="65.3" class="anchored" data-anchor-id="dimensionality-reduction"><span class="header-section-number">65.3</span> Dimensionality reduction</h2>
 <p>The bulk of the chapter will be in this category. This book categorizes dimensionality reduction methods as methods where a calculation is done on several features, with the same or fewer features being returned. Remember that we only look at methods that can be used in predictive settings, hence we won’t be talking about t-distributed stochastic neighbor embedding <a href="https://stats.stackexchange.com/a/584327">t-SNE</a>.</p>
 <ul>
 <li>Principal Component Analysis (PCA) <a href="too-many-pca.html" class="quarto-xref"><span>Chapter 67</span></a></li>
@@ -1247,8 +1251,8 @@ ul.task-list li input[type="checkbox"] {
 <li>ISOMAP <a href="too-many-isomap.html" class="quarto-xref"><span>Chapter 75</span></a></li>
 </ul>
 </section>
-<section id="feature-selection" class="level2" data-number="65.3">
-<h2 data-number="65.3" class="anchored" data-anchor-id="feature-selection"><span class="header-section-number">65.3</span> Feature selection</h2>
+<section id="feature-selection" class="level2" data-number="65.4">
+<h2 data-number="65.4" class="anchored" data-anchor-id="feature-selection"><span class="header-section-number">65.4</span> Feature selection</h2>
 <p>Feature selection on the other hand finds which variables to keep or remove. And then you act on that. This can be done in a couple of different ways. Filter-based approaches are covered in <a href="too-many-filter.html" class="quarto-xref"><span>Chapter 76</span></a>, these methods give each feature a score or rank, and then you use this information to select variables. There are many different ways to get these rankings and many will be covered in the chapter. Wrapper-based approaches are covered in <a href="too-many-wrapper.html" class="quarto-xref"><span>Chapter 77</span></a>. These methods iteratively look at subsets of data to try to find the best set. Their main downside is they tend to add a lot of computational overhead as you need to fit your model many times. Lastly, we have embedded methods which will be covered in <a href="too-many-embedded.html" class="quarto-xref"><span>Chapter 78</span></a>. These methods use more advanced methods, sometimes other models, to do the feature selection.</p>
 
 

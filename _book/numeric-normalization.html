@@ -1260,13 +1260,14 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link active" data-scroll-target="#pros-and-cons"><span class="header-section-number">7.1</span> Pros and Cons</a>
+  <li><a href="#normalization" id="toc-normalization" class="nav-link active" data-scroll-target="#normalization"><span class="header-section-number">7.1</span> Normalization</a></li>
+  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link" data-scroll-target="#pros-and-cons"><span class="header-section-number">7.2</span> Pros and Cons</a>
   <ul class="collapse">
-  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">7.1.1</span> Pros</a></li>
-  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">7.1.2</span> Cons</a></li>
+  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">7.2.1</span> Pros</a></li>
+  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">7.2.2</span> Cons</a></li>
   </ul></li>
-  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">7.2</span> R Examples</a></li>
-  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">7.3</span> Python Examples</a></li>
+  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">7.3</span> R Examples</a></li>
+  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">7.4</span> Python Examples</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/numeric-normalization.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/numeric-normalization.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
@@ -1292,6 +1293,9 @@ window.Quarto = {
 </header>
 
 
+<section id="normalization" class="level2" style="visibility: hidden; height: 0px;" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="normalization"><span class="header-section-number">7.1</span> Normalization</h2>
+</section>
 <p>Normalization is a method where we modify a variable by subtracting the mean and dividing by the standard deviation</p>
 <p><span class="math display">\[X_{scaled} = \dfrac{X - \text{mean}(X)}{\text{sd}(X)}\]</span></p>
 <p>Performing this transformation means that the resulting variable will have a mean of 0 and a standard deviation and variance of 1. This method is a learned transformation. So we use the training data to derive the right values of <span class="math inline">\(\text{sd}(X)\)</span> and <span class="math inline">\(\text{mean}(X)\)</span> and then these values are used to perform the transformations when applied to new data. It is a common misconception that this transformation is done to make the data normally distributed. This transformation doesn’t change the distribution, it scales the values. Below is a figure <a href="#fig-normalization-not-normal" class="quarto-xref">Figure&nbsp;<span>7.1</span></a> that illustrates that point</p>
@@ -1310,18 +1314,18 @@ Figure&nbsp;7.1: Normalization doesn’t make data more normal. The green curve 
 </div>
 </div>
 <p>In <a href="#fig-normalization-not-normal" class="quarto-xref">Figure&nbsp;<span>7.1</span></a> we see some distribution, before and after applying normalization to it. Both the original and transformed distribution are bimodal, and the transformed distribution is no more normal than the original. That is fine because the transformation did its job by moving the values close to 0 and a specific spread, which in this case is a variance of 1.</p>
-<section id="pros-and-cons" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">7.1</span> Pros and Cons</h2>
-<section id="pros" class="level3" data-number="7.1.1">
-<h3 data-number="7.1.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">7.1.1</span> Pros</h3>
+<section id="pros-and-cons" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">7.2</span> Pros and Cons</h2>
+<section id="pros" class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">7.2.1</span> Pros</h3>
 <ul>
 <li>If you don’t have any severe outliers then you will rarely see any downsides to applying normalization</li>
 <li>Fast calculations</li>
 <li>Transformation can easily be reversed, making its interpretations easier on the original scale</li>
 </ul>
 </section>
-<section id="cons" class="level3" data-number="7.1.2">
-<h3 data-number="7.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">7.1.2</span> Cons</h3>
+<section id="cons" class="level3" data-number="7.2.2">
+<h3 data-number="7.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">7.2.2</span> Cons</h3>
 <ul>
 <li>Not all software solutions will be helpful when applying this transformation to a constant variable. You will often get a “division by <code>0</code>” error</li>
 <li>Cannot be used with sparse data as it isn’t preserved because of the centering that is happening. If you only scale the data you don’t have a problem</li>
@@ -1344,8 +1348,8 @@ Figure&nbsp;7.2: Outliers can have a big effect on the resulting distribution wh
 </div>
 </section>
 </section>
-<section id="r-examples" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">7.2</span> R Examples</h2>
+<section id="r-examples" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">7.3</span> R Examples</h2>
 <p>We will be using the <code>ames</code> data set for these examples.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
@@ -1541,8 +1545,8 @@ Figure&nbsp;7.2: Outliers can have a big effect on the resulting distribution wh
 </div>
 </div>
 </section>
-<section id="python-examples" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">7.3</span> Python Examples</h2>
+<section id="python-examples" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">7.4</span> Python Examples</h2>
 <p>We are using the <code>ames</code> data set for examples. {sklearn} provided the <code>StandardScaler()</code> method we can use. By default we can use this method to perform both the centering and scaling.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> feazdata <span class="im">import</span> ames</span>
