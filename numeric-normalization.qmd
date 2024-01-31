@@ -54,7 +54,7 @@ In @fig-normalization-not-normal we see some distribution, before and after appl
 
 ### Cons
 
--   Not all software solutions will not be helpful when applying this transformation to a constant variable. A division by 0 error is likely what you will see
+-   Not all software solutions will be helpful when applying this transformation to a constant variable. You will often get a "division by `0`" error
 -   Cannot be used with sparse data as it isn't preserved because of the centering that is happening. If you only scale the data you don't have a problem
 -   This transformation is highly affected by outliers, as they affect the mean and standard deviation quite a lot
 

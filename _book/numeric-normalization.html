@@ -1323,7 +1323,7 @@ Figure&nbsp;7.1: Normalization doesn’t make data more normal. The green curve 
 <section id="cons" class="level3" data-number="7.1.2">
 <h3 data-number="7.1.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">7.1.2</span> Cons</h3>
 <ul>
-<li>Not all software solutions will not be helpful when applying this transformation to a constant variable. A division by 0 error is likely what you will see</li>
+<li>Not all software solutions will be helpful when applying this transformation to a constant variable. You will often get a “division by <code>0</code>” error</li>
 <li>Cannot be used with sparse data as it isn’t preserved because of the centering that is happening. If you only scale the data you don’t have a problem</li>
 <li>This transformation is highly affected by outliers, as they affect the mean and standard deviation quite a lot</li>
 </ul>
