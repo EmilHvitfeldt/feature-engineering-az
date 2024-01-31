@@ -1,7 +1,7 @@
-# Overview {#sec-too-many}
+# Too Many Overview {#sec-too-many}
 
 ::: {style="visibility: hidden; height: 0px;"}
-## Overview
+## Too Many Overview
 :::
 
 There will be times were you are given a lot of variables in your data set. This by itself may not be a problem. but it could come with some drawbacks. Many models will have slower fit times at best, and worse performance at worst. Not all your variables are likely beneficial in your model. They could be uninformative, correlated or contain redundant information. We look at ways to deal with correlated features in @sec-correlated, but there will also be methods here to accomplish similar goals.

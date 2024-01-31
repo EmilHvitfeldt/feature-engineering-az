@@ -94,7 +94,7 @@
     "href": "introduction.html#how-to-deal-with",
     "title": "Introduction",
     "section": "How to Deal With …",
-    "text": "How to Deal With …\nThis book is structured according to the types of data and problems you will encounter. Each section specifies a type of data or problem, and each chapter details a method or group of methods that can be useful in dealing with that type. So for example 1  Overview contains methods that deal with numeric variables such as 2  Logarithms and 9  Max Abs, and 14  Overview contains methods that deal with categorical variables such as 17  Dummy Encoding and 23  Hashing Encoding. There should be sections and chapters for most methods you will find in practice that aren’t too domain-specific.\nIt is because of this structure that this book is most suited as reference material, each time you encounter some data you are unsure how to deal with, you find the corresponding section and study the methods listed to see which would be best for your use case. This isn’t to say that you can’t read this book from end to end. The sections have been ordered roughly such that earlier chapters are broadly useful and later chapters touch on less used data types and problems.",
+    "text": "How to Deal With …\nThis book is structured according to the types of data and problems you will encounter. Each section specifies a type of data or problem, and each chapter details a method or group of methods that can be useful in dealing with that type. So for example 1  Numeric Overview contains methods that deal with numeric variables such as 2  Logarithms and 9  Max Abs, and 14  Categorical Overview contains methods that deal with categorical variables such as 17  Dummy Encoding and 23  Hashing Encoding. There should be sections and chapters for most methods you will find in practice that aren’t too domain-specific.\nIt is because of this structure that this book is most suited as reference material, each time you encounter some data you are unsure how to deal with, you find the corresponding section and study the methods listed to see which would be best for your use case. This isn’t to say that you can’t read this book from end to end. The sections have been ordered roughly such that earlier chapters are broadly useful and later chapters touch on less used data types and problems.",
     "crumbs": [
       "Introduction"
     ]
@@ -114,7 +114,7 @@
     "href": "introduction.html#why-do-we-use-thresholds",
     "title": "Introduction",
     "section": "Why do we use thresholds?",
-    "text": "Why do we use thresholds?\nOftentimes, when we use a method that selects something with a quantity, we end up doing it with a threshold instead of counting directly. The answer to this is purely practical, as it leaves less ambiguity. When selecting these features to keep in a feature selection routine 65  Overview is a good example. It is easier to write the code that selects every feature that has more than X amount of variability. On the other hand, if we said “Give me the 25 most useful features”, we might have 4 variables tied for 25th place. Now we have another problem. Does it keep all of them in, leaving 28 variables? If we do that, we violate our request of 25 variables. What if we select the first? Then we arbitrarily give a bias towards variables early in the data set. What if we randomly select among the ties? Then we introduce randomness into the method.\nIt is for the above reasons that many methods in feature engineering and machine learning use thresholds instead of precise numbers.",
+    "text": "Why do we use thresholds?\nOftentimes, when we use a method that selects something with a quantity, we end up doing it with a threshold instead of counting directly. The answer to this is purely practical, as it leaves less ambiguity. When selecting these features to keep in a feature selection routine 65  Too Many Overview is a good example. It is easier to write the code that selects every feature that has more than X amount of variability. On the other hand, if we said “Give me the 25 most useful features”, we might have 4 variables tied for 25th place. Now we have another problem. Does it keep all of them in, leaving 28 variables? If we do that, we violate our request of 25 variables. What if we select the first? Then we arbitrarily give a bias towards variables early in the data set. What if we randomly select among the ties? Then we introduce randomness into the method.\nIt is for the above reasons that many methods in feature engineering and machine learning use thresholds instead of precise numbers.",
     "crumbs": [
       "Introduction"
     ]
@@ -132,67 +132,67 @@
   {
     "objectID": "numeric.html",
     "href": "numeric.html",
-    "title": "1  Overview",
+    "title": "1  Numeric Overview",
     "section": "",
-    "text": "1.1 Overview",
+    "text": "1.1 Numeric Overview",
     "crumbs": [
       "Numeric Features",
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Numeric Overview</span>"
     ]
   },
   {
     "objectID": "numeric.html#distributional-problems",
     "href": "numeric.html#distributional-problems",
-    "title": "1  Overview",
+    "title": "1  Numeric Overview",
     "section": "1.2 Distributional problems",
     "text": "1.2 Distributional problems\n\nlogarithm\nsqrt\nBoxCox\nYeo-Johnson\nPercentile",
     "crumbs": [
       "Numeric Features",
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Numeric Overview</span>"
     ]
   },
   {
     "objectID": "numeric.html#sec-numeric-scaling-issues",
     "href": "numeric.html#sec-numeric-scaling-issues",
-    "title": "1  Overview",
+    "title": "1  Numeric Overview",
     "section": "1.3 Scaling issues",
     "text": "1.3 Scaling issues\nThe topic of feature scaling is important and used widely in all of machine learning. This chapter will go over what feature scaling is and why we want to use it. The following chapters will each go over a different method of feature scaling.\n\n\n\n\n\n\nNote\n\n\n\nThere is some disagreement about the naming of these topics. These types of methods are called feature scaling and scaling in different fields. This book will call this general class of methods feature scaling and will make notes for each specific method and what other names they go by.\n\n\nIn this book, we will define feature scaling as an operation that modifies variables using multiplication and addition. While broadly defined, the methods typically reduce to the following form:\n\\[\nX_{scaled} = \\dfrac{X - a}{b}\n\\tag{1.1}\\]\nThe main difference between the methods is how \\(a\\) and \\(b\\) are calculated. These are learned transformation methods. We use the training data to derive the right values of \\(a\\) and \\(b\\), and then these values are used to perform the transformations when applied to new data. The different methods might differ on what property is desired for the transformed variables, same range or same spread, but they never change the distribution itself. The power transformations we saw in Chapter 4 and Chapter 5, distort the transformations, where these feature scalings essentially perform a “zooming” effect.\n\n\n\nTable 1.1: All feature scaling methods\n\n\n\n\n\n\n\n\n\nMethod\nDefinition\n\n\n\n\nCentering\n\\(X_{scaled} = X - \\text{mean}(X)\\)\n\n\nScaling\n\\(X_{scaled} = \\dfrac{X}{\\text{sd}(X)}\\)\n\n\nMax-Abs\n\\(X_{scaled} = \\dfrac{X}{\\text{max}(\\text{abs}(X))}\\)\n\n\nNormalization\n\\(X_{scaled} = \\dfrac{X - \\text{mean}(X)}{\\text{sd}(X)}\\)\n\n\nMin-Max\n\\(X_{scaled} = \\dfrac{X - \\text{min}(X)}{\\text{max}(X) - \\text{min}(X)}\\)\n\n\nRobust\n\\(X_{scaled} = \\dfrac{X - \\text{median}(X)}{\\text{Q3}(X) - \\text{Q1}(X)}\\)\n\n\n\n\n\n\nWe see here that all the methods in Table 1.1 follow Equation 1.1. Sometimes \\(a\\) and \\(b\\) take a value of 0, which is perfectly fine. Centering and scaling when used together is equal to normalization. They are kept separate in the table since they are sometimes used independently. Centering, scaling, and normalization will all be discussed in Chapter 7.\nThere are two main reasons why we want to perform feature scaling. Firstly, many different types of models take the magnitude of the variables into account when fitting the models, so having variables on different scales can be disadvantageous because some variables have high priorities. In turn, we get that the other variables have low priority. Models that work using Euclidean distances like KNN models are affected by this change. Regularized models such as lasso and ridge regression also need to be scaled since the regularization depends on the magnitude of the estimates. Secondly, some algorithms converge much faster when all the variables are on the same scale. These types of models produce the same fit, just at a slower pace than if you don’t scale the variables. Any algorithms using Gradient Descent fit into this category.\n\n\n\n\n\n\nTODO\n\n\n\nHave a KNN diagram show why this is important\n\n\nList which types of models need feature scaling. Should be a 2 column list. Left=name, right=comment %in% c(no effect, different fit, slow down)",
     "crumbs": [
       "Numeric Features",
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Numeric Overview</span>"
     ]
   },
   {
     "objectID": "numeric.html#non-linear-effect",
     "href": "numeric.html#non-linear-effect",
-    "title": "1  Overview",
+    "title": "1  Numeric Overview",
     "section": "1.4 Non-linear effect",
     "text": "1.4 Non-linear effect\n\nbinning\nsplines\npolynomial\n\n\n\n\n\n\n\nTODO\n\n\n\nShow different distributions, and how well the different methods do at dealing with them",
     "crumbs": [
       "Numeric Features",
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Numeric Overview</span>"
     ]
   },
   {
     "objectID": "numeric.html#sec-numeric-outliers-issues",
     "href": "numeric.html#sec-numeric-outliers-issues",
-    "title": "1  Overview",
+    "title": "1  Numeric Overview",
     "section": "1.5 Outliers",
     "text": "1.5 Outliers",
     "crumbs": [
       "Numeric Features",
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Numeric Overview</span>"
     ]
   },
   {
     "objectID": "numeric.html#other",
     "href": "numeric.html#other",
-    "title": "1  Overview",
+    "title": "1  Numeric Overview",
     "section": "1.6 Other",
     "text": "1.6 Other\nThere are any number of transformations we can apply to numeric data, other functions include:\n\nhyperbolic\nRelu\ninverse\ninverse logit\nlogit",
     "crumbs": [
       "Numeric Features",
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Numeric Overview</span>"
     ]
   },
   {
@@ -277,7 +277,7 @@
     "href": "numeric-sqrt.html#python-examples",
     "title": "3  Square Root",
     "section": "3.4 Python Examples",
-    "text": "3.4 Python Examples\nWe are using the ames data set for examples. Since there isn’t a built-in transformer for square root, we can create our own using FunctionTransformer() and numpy.sqrt().\n\nfrom feazdata import ames\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.preprocessing import FunctionTransformer\nimport numpy as np\n\nsqrt_transformer = FunctionTransformer(np.sqrt)\n\nct = ColumnTransformer(\n    [('sqrt', sqrt_transformer, ['Wood_Deck_SF'])], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('sqrt',\n                                 FunctionTransformer(func=&lt;ufunc 'sqrt'&gt;),\n                                 ['Wood_Deck_SF'])])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.ColumnTransformerColumnTransformer(remainder='passthrough',\n                  transformers=[('sqrt',\n                                 FunctionTransformer(func=&lt;ufunc 'sqrt'&gt;),\n                                 ['Wood_Deck_SF'])])sqrt['Wood_Deck_SF']FunctionTransformerFunctionTransformer(func=&lt;ufunc 'sqrt'&gt;)remainder['MS_SubClass', 'MS_Zoning', 'Lot_Frontage', 'Lot_Area', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Year_Built', 'Year_Remod_Add', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Mas_Vnr_Area', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_SF_1', 'BsmtFin_Type_2', 'BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Total_Bsmt_SF', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'First_Flr_SF', 'Second_Flr_SF', 'Gr_Liv_Area', 'Bsmt_Full_Bath', 'Bsmt_Half_Bath', 'Full_Bath', 'Half_Bath', 'Bedroom_AbvGr', 'Kitchen_AbvGr', 'TotRms_AbvGrd', 'Functional', 'Fireplaces', 'Garage_Type', 'Garage_Finish', 'Garage_Cars', 'Garage_Area', 'Garage_Cond', 'Paved_Drive', 'Open_Porch_SF', 'Enclosed_Porch', 'Three_season_porch', 'Screen_Porch', 'Pool_Area', 'Pool_QC', 'Fence', 'Misc_Feature', 'Misc_Val', 'Mo_Sold', 'Year_Sold', 'Sale_Type', 'Sale_Condition', 'Sale_Price', 'Longitude', 'Latitude']passthroughpassthrough\n\nct.transform(ames)\n\n      sqrt__Wood_Deck_SF  ... remainder__Latitude\n0                 14.491  ...              42.054\n1                 11.832  ...              42.053\n2                 19.824  ...              42.053\n3                  0.000  ...              42.051\n4                 14.560  ...              42.061\n...                  ...  ...                 ...\n2925              10.954  ...              41.989\n2926              12.806  ...              41.988\n2927               8.944  ...              41.987\n2928              15.492  ...              41.991\n2929              13.784  ...              41.989\n\n[2930 rows x 74 columns]\n\n\nWe can also create and perform a signed square root transformation, by creating a function for signed_sqrt() and then using it in FunctionTransformer() as before\n\ndef signed_sqrt(x):\n  return np.sqrt(np.abs(x)) * np.sign(x)\n\nsigned_sqrt_transformer = FunctionTransformer(signed_sqrt)\n\nct = ColumnTransformer(\n    [('signed_sqrt', signed_sqrt_transformer, ['Wood_Deck_SF'])], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('signed_sqrt',\n                                 FunctionTransformer(func=&lt;function signed_sqrt at 0x2a081a670&gt;),\n                                 ['Wood_Deck_SF'])])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.ColumnTransformerColumnTransformer(remainder='passthrough',\n                  transformers=[('signed_sqrt',\n                                 FunctionTransformer(func=&lt;function signed_sqrt at 0x2a081a670&gt;),\n                                 ['Wood_Deck_SF'])])signed_sqrt['Wood_Deck_SF']FunctionTransformerFunctionTransformer(func=&lt;function signed_sqrt at 0x2a081a670&gt;)remainder['MS_SubClass', 'MS_Zoning', 'Lot_Frontage', 'Lot_Area', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Year_Built', 'Year_Remod_Add', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Mas_Vnr_Area', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_SF_1', 'BsmtFin_Type_2', 'BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Total_Bsmt_SF', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'First_Flr_SF', 'Second_Flr_SF', 'Gr_Liv_Area', 'Bsmt_Full_Bath', 'Bsmt_Half_Bath', 'Full_Bath', 'Half_Bath', 'Bedroom_AbvGr', 'Kitchen_AbvGr', 'TotRms_AbvGrd', 'Functional', 'Fireplaces', 'Garage_Type', 'Garage_Finish', 'Garage_Cars', 'Garage_Area', 'Garage_Cond', 'Paved_Drive', 'Open_Porch_SF', 'Enclosed_Porch', 'Three_season_porch', 'Screen_Porch', 'Pool_Area', 'Pool_QC', 'Fence', 'Misc_Feature', 'Misc_Val', 'Mo_Sold', 'Year_Sold', 'Sale_Type', 'Sale_Condition', 'Sale_Price', 'Longitude', 'Latitude']passthroughpassthrough\n\nct.transform(ames)\n\n      signed_sqrt__Wood_Deck_SF  ... remainder__Latitude\n0                        14.491  ...              42.054\n1                        11.832  ...              42.053\n2                        19.824  ...              42.053\n3                         0.000  ...              42.051\n4                        14.560  ...              42.061\n...                         ...  ...                 ...\n2925                     10.954  ...              41.989\n2926                     12.806  ...              41.988\n2927                      8.944  ...              41.987\n2928                     15.492  ...              41.991\n2929                     13.784  ...              41.989\n\n[2930 rows x 74 columns]",
+    "text": "3.4 Python Examples\nWe are using the ames data set for examples. Since there isn’t a built-in transformer for square root, we can create our own using FunctionTransformer() and numpy.sqrt().\n\nfrom feazdata import ames\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.preprocessing import FunctionTransformer\nimport numpy as np\n\nsqrt_transformer = FunctionTransformer(np.sqrt)\n\nct = ColumnTransformer(\n    [('sqrt', sqrt_transformer, ['Wood_Deck_SF'])], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('sqrt',\n                                 FunctionTransformer(func=&lt;ufunc 'sqrt'&gt;),\n                                 ['Wood_Deck_SF'])])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.ColumnTransformerColumnTransformer(remainder='passthrough',\n                  transformers=[('sqrt',\n                                 FunctionTransformer(func=&lt;ufunc 'sqrt'&gt;),\n                                 ['Wood_Deck_SF'])])sqrt['Wood_Deck_SF']FunctionTransformerFunctionTransformer(func=&lt;ufunc 'sqrt'&gt;)remainder['MS_SubClass', 'MS_Zoning', 'Lot_Frontage', 'Lot_Area', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Year_Built', 'Year_Remod_Add', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Mas_Vnr_Area', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_SF_1', 'BsmtFin_Type_2', 'BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Total_Bsmt_SF', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'First_Flr_SF', 'Second_Flr_SF', 'Gr_Liv_Area', 'Bsmt_Full_Bath', 'Bsmt_Half_Bath', 'Full_Bath', 'Half_Bath', 'Bedroom_AbvGr', 'Kitchen_AbvGr', 'TotRms_AbvGrd', 'Functional', 'Fireplaces', 'Garage_Type', 'Garage_Finish', 'Garage_Cars', 'Garage_Area', 'Garage_Cond', 'Paved_Drive', 'Open_Porch_SF', 'Enclosed_Porch', 'Three_season_porch', 'Screen_Porch', 'Pool_Area', 'Pool_QC', 'Fence', 'Misc_Feature', 'Misc_Val', 'Mo_Sold', 'Year_Sold', 'Sale_Type', 'Sale_Condition', 'Sale_Price', 'Longitude', 'Latitude']passthroughpassthrough\n\nct.transform(ames)\n\n      sqrt__Wood_Deck_SF  ... remainder__Latitude\n0                 14.491  ...              42.054\n1                 11.832  ...              42.053\n2                 19.824  ...              42.053\n3                  0.000  ...              42.051\n4                 14.560  ...              42.061\n...                  ...  ...                 ...\n2925              10.954  ...              41.989\n2926              12.806  ...              41.988\n2927               8.944  ...              41.987\n2928              15.492  ...              41.991\n2929              13.784  ...              41.989\n\n[2930 rows x 74 columns]\n\n\nWe can also create and perform a signed square root transformation, by creating a function for signed_sqrt() and then using it in FunctionTransformer() as before\n\ndef signed_sqrt(x):\n  return np.sqrt(np.abs(x)) * np.sign(x)\n\nsigned_sqrt_transformer = FunctionTransformer(signed_sqrt)\n\nct = ColumnTransformer(\n    [('signed_sqrt', signed_sqrt_transformer, ['Wood_Deck_SF'])], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('signed_sqrt',\n                                 FunctionTransformer(func=&lt;function signed_sqrt at 0x29fcc2670&gt;),\n                                 ['Wood_Deck_SF'])])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.ColumnTransformerColumnTransformer(remainder='passthrough',\n                  transformers=[('signed_sqrt',\n                                 FunctionTransformer(func=&lt;function signed_sqrt at 0x29fcc2670&gt;),\n                                 ['Wood_Deck_SF'])])signed_sqrt['Wood_Deck_SF']FunctionTransformerFunctionTransformer(func=&lt;function signed_sqrt at 0x29fcc2670&gt;)remainder['MS_SubClass', 'MS_Zoning', 'Lot_Frontage', 'Lot_Area', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Year_Built', 'Year_Remod_Add', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Mas_Vnr_Area', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_SF_1', 'BsmtFin_Type_2', 'BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Total_Bsmt_SF', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'First_Flr_SF', 'Second_Flr_SF', 'Gr_Liv_Area', 'Bsmt_Full_Bath', 'Bsmt_Half_Bath', 'Full_Bath', 'Half_Bath', 'Bedroom_AbvGr', 'Kitchen_AbvGr', 'TotRms_AbvGrd', 'Functional', 'Fireplaces', 'Garage_Type', 'Garage_Finish', 'Garage_Cars', 'Garage_Area', 'Garage_Cond', 'Paved_Drive', 'Open_Porch_SF', 'Enclosed_Porch', 'Three_season_porch', 'Screen_Porch', 'Pool_Area', 'Pool_QC', 'Fence', 'Misc_Feature', 'Misc_Val', 'Mo_Sold', 'Year_Sold', 'Sale_Type', 'Sale_Condition', 'Sale_Price', 'Longitude', 'Latitude']passthroughpassthrough\n\nct.transform(ames)\n\n      signed_sqrt__Wood_Deck_SF  ... remainder__Latitude\n0                        14.491  ...              42.054\n1                        11.832  ...              42.053\n2                        19.824  ...              42.053\n3                         0.000  ...              42.051\n4                        14.560  ...              42.061\n...                         ...  ...                 ...\n2925                     10.954  ...              41.989\n2926                     12.806  ...              41.988\n2927                      8.944  ...              41.987\n2928                     15.492  ...              41.991\n2929                     13.784  ...              41.989\n\n[2930 rows x 74 columns]",
     "crumbs": [
       "Numeric Features",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Square Root</span>"
@@ -726,34 +726,34 @@
   {
     "objectID": "categorical.html",
     "href": "categorical.html",
-    "title": "14  Overview",
+    "title": "14  Categorical Overview",
     "section": "",
-    "text": "14.1 Overview",
+    "text": "14.1 Categorical Overview",
     "crumbs": [
       "Categorical Features",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Categorical Overview</span>"
     ]
   },
   {
     "objectID": "categorical.html#categorical-to-categorical",
     "href": "categorical.html#categorical-to-categorical",
-    "title": "14  Overview",
+    "title": "14  Categorical Overview",
     "section": "14.2 Categorical to Categorical",
     "text": "14.2 Categorical to Categorical\nThese methods take a categorical variable and improve them. Whether it means cleaning levels, collapsing levels, or making sure it handles new levels correctly. These Tasks as not always needed depending on the method you are using but they are generally helpful to apply. One method that would have been located here if it wasn’t for the fact that it has a whole section by itself is dealing with missing values as seen in Chapter 41.",
     "crumbs": [
       "Categorical Features",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Categorical Overview</span>"
     ]
   },
   {
     "objectID": "categorical.html#categorical-to-numerical",
     "href": "categorical.html#categorical-to-numerical",
-    "title": "14  Overview",
+    "title": "14  Categorical Overview",
     "section": "14.3 Categorical to Numerical",
     "text": "14.3 Categorical to Numerical\nThe vast majority of the chapters in these chapters concern methods that take a categorical variable and produce one or more numerical variables suitable for modeling. There are quite a lot of different methods, all have upsides and downsides and they will all be explored in the remaining chapters.",
     "crumbs": [
       "Categorical Features",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Categorical Overview</span>"
     ]
   },
   {
@@ -1738,12 +1738,12 @@
   {
     "objectID": "datetime.html",
     "href": "datetime.html",
-    "title": "37  Overview",
+    "title": "37  Datetime Overview",
     "section": "",
-    "text": "37.1 Overview",
+    "text": "37.1 Datetime Overview",
     "crumbs": [
       "Datetime Features",
-      "<span class='chapter-number'>37</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>37</span>  <span class='chapter-title'>Datetime Overview</span>"
     ]
   },
   {
@@ -1881,45 +1881,45 @@
   {
     "objectID": "missing.html",
     "href": "missing.html",
-    "title": "41  Overview",
+    "title": "41  Missing Overview",
     "section": "",
-    "text": "41.1 Overview",
+    "text": "41.1 Missing Overview",
     "crumbs": [
       "Missing Data",
-      "<span class='chapter-number'>41</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>41</span>  <span class='chapter-title'>Missing Overview</span>"
     ]
   },
   {
     "objectID": "missing.html#imputation",
     "href": "missing.html#imputation",
-    "title": "41  Overview",
+    "title": "41  Missing Overview",
     "section": "41.2 Imputation",
     "text": "41.2 Imputation\nOne of the most common ways of dealing with missing values is to fill them in with some values. The types of methods that do this can be split into two groups. Simple imputation in Chapter 42 is when you use the values in the variable to impute its missing values, which is where mean and mode imputation are found. Anything more complicated than this will be found in Chapter 43. This is where multiple columns are used to determine the type of imputation needed.",
     "crumbs": [
       "Missing Data",
-      "<span class='chapter-number'>41</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>41</span>  <span class='chapter-title'>Missing Overview</span>"
     ]
   },
   {
     "objectID": "missing.html#indication",
     "href": "missing.html#indication",
-    "title": "41  Overview",
+    "title": "41  Missing Overview",
     "section": "41.3 Indication",
     "text": "41.3 Indication\nIf you suspect that the data is not missing at random, it might be worthwhile to include the missingness as an indicator in your data. We will see how we can do that in Chapter 44.",
     "crumbs": [
       "Missing Data",
-      "<span class='chapter-number'>41</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>41</span>  <span class='chapter-title'>Missing Overview</span>"
     ]
   },
   {
     "objectID": "missing.html#removal",
     "href": "missing.html#removal",
-    "title": "41  Overview",
+    "title": "41  Missing Overview",
     "section": "41.4 Removal",
     "text": "41.4 Removal\nAs a last resort, you might want to remove variables or rows with missing data, we will see how that is done in Chapter 45. This chapter is put last in this section, as it is generally not the preferred action, and all other avenues should be considered before removal is done.",
     "crumbs": [
       "Missing Data",
-      "<span class='chapter-number'>41</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>41</span>  <span class='chapter-title'>Missing Overview</span>"
     ]
   },
   {
@@ -2101,89 +2101,89 @@
   {
     "objectID": "text.html",
     "href": "text.html",
-    "title": "46  Overview",
+    "title": "46  Text Overview",
     "section": "",
-    "text": "46.1 Overview",
+    "text": "46.1 Text Overview",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>46</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>46</span>  <span class='chapter-title'>Text Overview</span>"
     ]
   },
   {
     "objectID": "text.html#text-cleaning",
     "href": "text.html#text-cleaning",
-    "title": "46  Overview",
+    "title": "46  Text Overview",
     "section": "46.2 Text cleaning",
     "text": "46.2 Text cleaning\nIn Chapter 48, we will look over the ways we take raw text and get it ready for later tasks. This work deals with encoding issues, standardization, and cases and sometimes you need to get rid of a lot of unwanted chunks.",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>46</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>46</span>  <span class='chapter-title'>Text Overview</span>"
     ]
   },
   {
     "objectID": "text.html#tokenization",
     "href": "text.html#tokenization",
-    "title": "46  Overview",
+    "title": "46  Text Overview",
     "section": "46.3 Tokenization",
     "text": "46.3 Tokenization\nOnce the text is cleaned, we need to split it into a smaller unit of information such that we can count it, this is called tokenization and we will visit that in Chapter 49.",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>46</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>46</span>  <span class='chapter-title'>Text Overview</span>"
     ]
   },
   {
     "objectID": "text.html#modifying-tokens",
     "href": "text.html#modifying-tokens",
-    "title": "46  Overview",
+    "title": "46  Text Overview",
     "section": "46.4 Modifying tokens",
     "text": "46.4 Modifying tokens\nOnce you have the data as tokens, one of the things you might want to do is modify them in various ways. This could be things like changing the endings to words or changing the words entirely. We see examples of this in Chapter 50 and Chapter 51.",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>46</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>46</span>  <span class='chapter-title'>Text Overview</span>"
     ]
   },
   {
     "objectID": "text.html#filtering-tokens",
     "href": "text.html#filtering-tokens",
-    "title": "46  Overview",
+    "title": "46  Text Overview",
     "section": "46.5 Filtering tokens",
     "text": "46.5 Filtering tokens\nThe tokens you create might not all be of the same quality. Depending on your choice of tokenizer, there will be reasons for you to remove some of the tokens you have created. We see examples of this in Chapter 52 and Chapter 53.",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>46</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>46</span>  <span class='chapter-title'>Text Overview</span>"
     ]
   },
   {
     "objectID": "text.html#counting-tokens",
     "href": "text.html#counting-tokens",
-    "title": "46  Overview",
+    "title": "46  Text Overview",
     "section": "46.6 Counting tokens",
     "text": "46.6 Counting tokens\nWe have gotten to the end of the line and we are ready to turn the tokens into numeric variables we can use. There are many different ways we look at them in Chapter 54, Chapter 55, Chapter 56, Chapter 57, and Chapter 58.",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>46</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>46</span>  <span class='chapter-title'>Text Overview</span>"
     ]
   },
   {
     "objectID": "text.html#embeddings",
     "href": "text.html#embeddings",
-    "title": "46  Overview",
+    "title": "46  Text Overview",
     "section": "46.7 Embeddings",
     "text": "46.7 Embeddings\nAnother way to use text is to work with embeddings, this is another powerful tool that can give you good performance. We look at some of them in Chapter 59 and Chapter 60.",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>46</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>46</span>  <span class='chapter-title'>Text Overview</span>"
     ]
   },
   {
     "objectID": "text.html#footnotes",
     "href": "text.html#footnotes",
-    "title": "46  Overview",
+    "title": "46  Text Overview",
     "section": "",
     "text": "https://thegradient.pub/the-benderrule-on-naming-the-languages-we-study-and-why-it-matters/↩︎",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>46</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>46</span>  <span class='chapter-title'>Text Overview</span>"
     ]
   },
   {
@@ -2805,12 +2805,12 @@
   {
     "objectID": "circular.html",
     "href": "circular.html",
-    "title": "61  Overview",
+    "title": "61  Circular Overview",
     "section": "",
-    "text": "61.1 Overview",
+    "text": "61.1 Circular Overview",
     "crumbs": [
       "Circular Features",
-      "<span class='chapter-number'>61</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>61</span>  <span class='chapter-title'>Circular Overview</span>"
     ]
   },
   {
@@ -2948,45 +2948,45 @@
   {
     "objectID": "too-many.html",
     "href": "too-many.html",
-    "title": "65  Overview",
+    "title": "65  Too Many Overview",
     "section": "",
-    "text": "65.1 Overview",
+    "text": "65.1 Too Many Overview",
     "crumbs": [
       "Too Many Variables",
-      "<span class='chapter-number'>65</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>65</span>  <span class='chapter-title'>Too Many Overview</span>"
     ]
   },
   {
     "objectID": "too-many.html#non-zero-variance-filtering",
     "href": "too-many.html#non-zero-variance-filtering",
-    "title": "65  Overview",
+    "title": "65  Too Many Overview",
     "section": "65.2 Non-zero Variance filtering",
     "text": "65.2 Non-zero Variance filtering\nThese types of methods are quite simple, we remove variables that take a few number of values. If the value is always 1 then it doesn’t have any information in it and we should remove it. If the variables are almost always the same we might want to remove them. We look at these methods in Chapter 66.",
     "crumbs": [
       "Too Many Variables",
-      "<span class='chapter-number'>65</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>65</span>  <span class='chapter-title'>Too Many Overview</span>"
     ]
   },
   {
     "objectID": "too-many.html#dimensionality-reduction",
     "href": "too-many.html#dimensionality-reduction",
-    "title": "65  Overview",
+    "title": "65  Too Many Overview",
     "section": "65.3 Dimensionality reduction",
     "text": "65.3 Dimensionality reduction\nThe bulk of the chapter will be in this category. This book categorizes dimensionality reduction methods as methods where a calculation is done on several features, with the same or fewer features being returned. Remember that we only look at methods that can be used in predictive settings, hence we won’t be talking about t-distributed stochastic neighbor embedding t-SNE.\n\nPrincipal Component Analysis (PCA) Chapter 67\nPCA variants Chapter 68\nIndependent Component Analysis (ICA) Chapter 69\nNon-negative matrix factorization (NMF) Chapter 70\nLinear discriminant analysis (LDA) Chapter 71\nGeneralized discriminant analysis (GDA) Chapter 72\nAutoencoders Chapter 73\nUniform Manifold Approximation and Projection (UMAP) Chapter 74\nISOMAP Chapter 75",
     "crumbs": [
       "Too Many Variables",
-      "<span class='chapter-number'>65</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>65</span>  <span class='chapter-title'>Too Many Overview</span>"
     ]
   },
   {
     "objectID": "too-many.html#feature-selection",
     "href": "too-many.html#feature-selection",
-    "title": "65  Overview",
+    "title": "65  Too Many Overview",
     "section": "65.4 Feature selection",
     "text": "65.4 Feature selection\nFeature selection on the other hand finds which variables to keep or remove. And then you act on that. This can be done in a couple of different ways. Filter-based approaches are covered in Chapter 76, these methods give each feature a score or rank, and then you use this information to select variables. There are many different ways to get these rankings and many will be covered in the chapter. Wrapper-based approaches are covered in Chapter 77. These methods iteratively look at subsets of data to try to find the best set. Their main downside is they tend to add a lot of computational overhead as you need to fit your model many times. Lastly, we have embedded methods which will be covered in Chapter 78. These methods use more advanced methods, sometimes other models, to do the feature selection.",
     "crumbs": [
       "Too Many Variables",
-      "<span class='chapter-number'>65</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>65</span>  <span class='chapter-title'>Too Many Overview</span>"
     ]
   },
   {
@@ -3027,7 +3027,7 @@
     "href": "too-many-zv.html#python-examples",
     "title": "66  Zero Variance Filter",
     "section": "66.4 Python Examples",
-    "text": "66.4 Python Examples\nWe are using the ames data set for examples. {sklearn} provided the VarianceThreshold() method we can use. With this, we can set the threshold argument to specify the threshold of when to remove. The default 0 will remove zero-variance columns.\n\nfrom feazdata import ames\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.feature_selection import VarianceThreshold\nfrom sklearn.compose import make_column_selector\nimport numpy as np\n\nct = ColumnTransformer(\n    [('onehot', VarianceThreshold(threshold=0), make_column_selector(dtype_include=np.number))], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x298837ac0&gt;)])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.ColumnTransformerColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x298837ac0&gt;)])onehot&lt;sklearn.compose._column_transformer.make_column_selector object at 0x298837ac0&gt;VarianceThresholdVarianceThreshold(threshold=0)remainder['MS_SubClass', 'MS_Zoning', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_Type_2', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'Functional', 'Garage_Type', 'Garage_Finish', 'Garage_Cond', 'Paved_Drive', 'Pool_QC', 'Fence', 'Misc_Feature', 'Sale_Type', 'Sale_Condition']passthroughpassthrough\n\nct.transform(ames)\n\n      onehot__Lot_Frontage  ...  remainder__Sale_Condition\n0                      141  ...                     Normal\n1                       80  ...                     Normal\n2                       81  ...                     Normal\n3                       93  ...                     Normal\n4                       74  ...                     Normal\n...                    ...  ...                        ...\n2925                    37  ...                     Normal\n2926                     0  ...                     Normal\n2927                    62  ...                     Normal\n2928                    77  ...                     Normal\n2929                    74  ...                     Normal\n\n[2930 rows x 74 columns]\n\n\nbut we can change that threshold to remove near-zero variance columns.\n\nct = ColumnTransformer(\n    [('onehot', VarianceThreshold(threshold=0.2), make_column_selector(dtype_include=np.number))], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0.2),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x2988b8820&gt;)])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.ColumnTransformerColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0.2),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x2988b8820&gt;)])onehot&lt;sklearn.compose._column_transformer.make_column_selector object at 0x2988b8820&gt;VarianceThresholdVarianceThreshold(threshold=0.2)remainder['MS_SubClass', 'MS_Zoning', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_Type_2', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'Functional', 'Garage_Type', 'Garage_Finish', 'Garage_Cond', 'Paved_Drive', 'Pool_QC', 'Fence', 'Misc_Feature', 'Sale_Type', 'Sale_Condition']passthroughpassthrough\n\nct.transform(ames)\n\n      onehot__Lot_Frontage  ...  remainder__Sale_Condition\n0                      141  ...                     Normal\n1                       80  ...                     Normal\n2                       81  ...                     Normal\n3                       93  ...                     Normal\n4                       74  ...                     Normal\n...                    ...  ...                        ...\n2925                    37  ...                     Normal\n2926                     0  ...                     Normal\n2927                    62  ...                     Normal\n2928                    77  ...                     Normal\n2929                    74  ...                     Normal\n\n[2930 rows x 70 columns]",
+    "text": "66.4 Python Examples\nWe are using the ames data set for examples. {sklearn} provided the VarianceThreshold() method we can use. With this, we can set the threshold argument to specify the threshold of when to remove. The default 0 will remove zero-variance columns.\n\nfrom feazdata import ames\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.feature_selection import VarianceThreshold\nfrom sklearn.compose import make_column_selector\nimport numpy as np\n\nct = ColumnTransformer(\n    [('onehot', VarianceThreshold(threshold=0), make_column_selector(dtype_include=np.number))], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x16b7d3ac0&gt;)])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.ColumnTransformerColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x16b7d3ac0&gt;)])onehot&lt;sklearn.compose._column_transformer.make_column_selector object at 0x16b7d3ac0&gt;VarianceThresholdVarianceThreshold(threshold=0)remainder['MS_SubClass', 'MS_Zoning', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_Type_2', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'Functional', 'Garage_Type', 'Garage_Finish', 'Garage_Cond', 'Paved_Drive', 'Pool_QC', 'Fence', 'Misc_Feature', 'Sale_Type', 'Sale_Condition']passthroughpassthrough\n\nct.transform(ames)\n\n      onehot__Lot_Frontage  ...  remainder__Sale_Condition\n0                      141  ...                     Normal\n1                       80  ...                     Normal\n2                       81  ...                     Normal\n3                       93  ...                     Normal\n4                       74  ...                     Normal\n...                    ...  ...                        ...\n2925                    37  ...                     Normal\n2926                     0  ...                     Normal\n2927                    62  ...                     Normal\n2928                    77  ...                     Normal\n2929                    74  ...                     Normal\n\n[2930 rows x 74 columns]\n\n\nbut we can change that threshold to remove near-zero variance columns.\n\nct = ColumnTransformer(\n    [('onehot', VarianceThreshold(threshold=0.2), make_column_selector(dtype_include=np.number))], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0.2),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x16b854820&gt;)])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.ColumnTransformerColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0.2),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x16b854820&gt;)])onehot&lt;sklearn.compose._column_transformer.make_column_selector object at 0x16b854820&gt;VarianceThresholdVarianceThreshold(threshold=0.2)remainder['MS_SubClass', 'MS_Zoning', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_Type_2', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'Functional', 'Garage_Type', 'Garage_Finish', 'Garage_Cond', 'Paved_Drive', 'Pool_QC', 'Fence', 'Misc_Feature', 'Sale_Type', 'Sale_Condition']passthroughpassthrough\n\nct.transform(ames)\n\n      onehot__Lot_Frontage  ...  remainder__Sale_Condition\n0                      141  ...                     Normal\n1                       80  ...                     Normal\n2                       81  ...                     Normal\n3                       93  ...                     Normal\n4                       74  ...                     Normal\n...                    ...  ...                        ...\n2925                    37  ...                     Normal\n2926                     0  ...                     Normal\n2927                    62  ...                     Normal\n2928                    77  ...                     Normal\n2929                    74  ...                     Normal\n\n[2930 rows x 70 columns]",
     "crumbs": [
       "Too Many Variables",
       "<span class='chapter-number'>66</span>  <span class='chapter-title'>Zero Variance Filter</span>"
@@ -3564,12 +3564,12 @@
   {
     "objectID": "correlated.html",
     "href": "correlated.html",
-    "title": "79  Overview",
+    "title": "79  Correlated Overview",
     "section": "",
-    "text": "79.1 Overview",
+    "text": "79.1 Correlated Overview",
     "crumbs": [
       "Correlated Data",
-      "<span class='chapter-number'>79</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>79</span>  <span class='chapter-title'>Correlated Overview</span>"
     ]
   },
   {
@@ -3762,12 +3762,12 @@
   {
     "objectID": "imbalenced.html",
     "href": "imbalenced.html",
-    "title": "85  Overview",
+    "title": "85  Imbalanced Overview",
     "section": "",
-    "text": "85.1 Overview",
+    "text": "85.1 Imbalanced Overview",
     "crumbs": [
       "Imbalanced Data",
-      "<span class='chapter-number'>85</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>85</span>  <span class='chapter-title'>Imbalanced Overview</span>"
     ]
   },
   {
@@ -4345,12 +4345,12 @@
   {
     "objectID": "miscellaneous.html",
     "href": "miscellaneous.html",
-    "title": "99  Overview",
+    "title": "99  Miscellaneous Overview",
     "section": "",
-    "text": "99.1 Overview",
+    "text": "99.1 Miscellaneous Overview",
     "crumbs": [
       "Miscellaneous",
-      "<span class='chapter-number'>99</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>99</span>  <span class='chapter-title'>Miscellaneous Overview</span>"
     ]
   },
   {
@@ -4532,12 +4532,12 @@
   {
     "objectID": "spatial.html",
     "href": "spatial.html",
-    "title": "104  Overview",
+    "title": "104  Spatial Overview",
     "section": "",
-    "text": "104.1 Overview",
+    "text": "104.1 Spatial Overview",
     "crumbs": [
       "Spatial",
-      "<span class='chapter-number'>104</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>104</span>  <span class='chapter-title'>Spatial Overview</span>"
     ]
   },
   {
@@ -4807,12 +4807,12 @@
   {
     "objectID": "time-series.html",
     "href": "time-series.html",
-    "title": "111  Overview",
+    "title": "111  Time-series Overview",
     "section": "",
-    "text": "111.1 Overview",
+    "text": "111.1 Time-series Overview",
     "crumbs": [
       "Time-Series Data",
-      "<span class='chapter-number'>111</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>111</span>  <span class='chapter-title'>Time-series Overview</span>"
     ]
   },
   {
@@ -5302,56 +5302,56 @@
   {
     "objectID": "image.html",
     "href": "image.html",
-    "title": "123  Overview",
+    "title": "123  Image Overview",
     "section": "",
-    "text": "123.1 Overview",
+    "text": "123.1 Image Overview",
     "crumbs": [
       "Image Data",
-      "<span class='chapter-number'>123</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>123</span>  <span class='chapter-title'>Image Overview</span>"
     ]
   },
   {
     "objectID": "image.html#feature-extraction",
     "href": "image.html#feature-extraction",
-    "title": "123  Overview",
+    "title": "123  Image Overview",
     "section": "123.2 Feature Extraction",
     "text": "123.2 Feature Extraction\nIn the extraction setting, we take the images and try to extract smaller, hopefully smaller vectors of information. These could be simple statistics or larger and more complicated methods. One does not need to do this right away, and sometimes it is beneficial to apply some of the image modification methods below before doing the extraction.\n\nEdge detection and corner detection in Chapter 124\ntexture analysis in Chapter 125",
     "crumbs": [
       "Image Data",
-      "<span class='chapter-number'>123</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>123</span>  <span class='chapter-title'>Image Overview</span>"
     ]
   },
   {
     "objectID": "image.html#image-modification",
     "href": "image.html#image-modification",
-    "title": "123  Overview",
+    "title": "123  Image Overview",
     "section": "123.3 Image Modification",
     "text": "123.3 Image Modification\nSometimes the images you get will not be in the best shape for your task at hand. This could be for various reasons. Applying color changes of different kinds can help highlight the important parts of the image, such that later preprocessing steps or models have an easier time picking up on it. Likewise, you might need to scale the data to help the model and well as reduce noise. Lastly, you will most likely need to resize your images as many deep-learning image modes work on fixed input sizes.\n\nGrayscale conversion in Chapter 126\ncolor modifications in Chapter 127\nnoise reduction in Chapter 128\nValue normalization in Chapter 129\nresizing in Chapter 130",
     "crumbs": [
       "Image Data",
-      "<span class='chapter-number'>123</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>123</span>  <span class='chapter-title'>Image Overview</span>"
     ]
   },
   {
     "objectID": "image.html#augmentation",
     "href": "image.html#augmentation",
-    "title": "123  Overview",
+    "title": "123  Image Overview",
     "section": "123.4 Augmentation",
     "text": "123.4 Augmentation\nA common trick when working with image data is to do augmentation. What we mean by that, is that we do different kinds of transformations to generate new images that contain the same information but in different ways. It creates a larger data set. With the hopes of increasing the performance and generalization. Being able to detect cat pictures regardless if they are centered in the image or not.\n\nChanging brightness in Chapter 131\nShifting, Flipping, Rotation in Chapter 132\nCropping and scaling in Chapter 133",
     "crumbs": [
       "Image Data",
-      "<span class='chapter-number'>123</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>123</span>  <span class='chapter-title'>Image Overview</span>"
     ]
   },
   {
     "objectID": "image.html#embeddings",
     "href": "image.html#embeddings",
-    "title": "123  Overview",
+    "title": "123  Image Overview",
     "section": "123.5 Embeddings",
     "text": "123.5 Embeddings\nWe can also take advantage of transfer learning. People have fit image deep learning models on many images before us. And some of these trained models can be reused for us. We will look at that in Chapter 134.",
     "crumbs": [
       "Image Data",
-      "<span class='chapter-number'>123</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>123</span>  <span class='chapter-title'>Image Overview</span>"
     ]
   },
   {
@@ -5841,12 +5841,12 @@
   {
     "objectID": "relational.html",
     "href": "relational.html",
-    "title": "135  Overview",
+    "title": "135  Rational Overview",
     "section": "",
-    "text": "135.1 Overview",
+    "text": "135.1 Rational Overview",
     "crumbs": [
       "Ralational Data",
-      "<span class='chapter-number'>135</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>135</span>  <span class='chapter-title'>Rational Overview</span>"
     ]
   },
   {
@@ -5940,12 +5940,12 @@
   {
     "objectID": "video.html",
     "href": "video.html",
-    "title": "138  Overview",
+    "title": "138  Video Overview",
     "section": "",
-    "text": "138.1 Overview",
+    "text": "138.1 Video Overview",
     "crumbs": [
       "Video Data",
-      "<span class='chapter-number'>138</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>138</span>  <span class='chapter-title'>Video Overview</span>"
     ]
   },
   {
@@ -5995,12 +5995,12 @@
   {
     "objectID": "sound.html",
     "href": "sound.html",
-    "title": "140  Overview",
+    "title": "140  Sound Overview",
     "section": "",
-    "text": "140.1 Overview",
+    "text": "140.1 Sound Overview",
     "crumbs": [
       "Sound Data",
-      "<span class='chapter-number'>140</span>  <span class='chapter-title'>Overview</span>"
+      "<span class='chapter-number'>140</span>  <span class='chapter-title'>Sound Overview</span>"
     ]
   },
   {
