@@ -1,7 +1,7 @@
-# Overview {#sec-time-series}
+# Time-series Overview {#sec-time-series}
 
 ::: {style="visibility: hidden; height: 0px;"}
-## Overview
+## Time-series Overview
 :::
 
 A very common type of data is **time-series data**. This is data where the observations are taken across time with time stamps. This data will inherently be correlated with itself as the same measurement for the same unit likely isn't going to change too much. Time series data is typically modeled using different methods than other predictive modeling for this reason.
