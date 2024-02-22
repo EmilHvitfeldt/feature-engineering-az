@@ -53,5 +53,55 @@
       "Missing Data",
       "<span class='chapter-number'>41</span>  <span class='chapter-title'>Missing Overview</span>"
     ]
+  },
+  {
+    "objectID": "introduction.html",
+    "href": "introduction.html",
+    "title": "Introduction",
+    "section": "",
+    "text": "Introduction",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "introduction.html#how-to-deal-with",
+    "href": "introduction.html#how-to-deal-with",
+    "title": "Introduction",
+    "section": "How to Deal With …",
+    "text": "How to Deal With …\nThis book is structured according to the types of data and problems you will encounter. Each section specifies a type of data or problem, and each chapter details a method or group of methods that can be useful in dealing with that type. So for example 1  Numeric Overview contains methods that deal with numeric variables such as 2  Logarithms and 9  Max Abs, and 14  Categorical Overview contains methods that deal with categorical variables such as 17  Dummy Encoding and 23  Hashing Encoding. There should be sections and chapters for most methods you will find in practice that aren’t too domain-specific.\nIt is because of this structure that this book is most suited as reference material, each time you encounter some data you are unsure how to deal with, you find the corresponding section and study the methods listed to see which would be best for your use case. This isn’t to say that you can’t read this book from end to end. The sections have been ordered roughly such that earlier chapters are broadly useful and later chapters touch on less used data types and problems.",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "introduction.html#sec-modeling",
+    "href": "introduction.html#sec-modeling",
+    "title": "Introduction",
+    "section": "Where does feature engineering fit into the modeling workflow?",
+    "text": "Where does feature engineering fit into the modeling workflow?\nWhen we talk about the modeling workflow, it starts at the data source and ends with a fitted model. The fitted model in this instance should be created such that it can be used for the downstream task, be it inference or prediction.\n\n\n\n\n\n\nInference and Prediction\n\n\n\nIn some data science organizations, the term “inference” is frequently used interchangeably with “prediction,” denoting the process of generating prediction outputs from a trained model. However, in this book, we will use “inference” specifically to refer to statistical inference, which involves drawing conclusions about populations or scientific truths from data analysis.\n\n\nWe want to make sure that the feature engineering methods we are applying are done correctly to avoid problems with the modeling. Things we especially want to avoid are data leakage, overfitting, and high computational cost.\n\n\n\n\n\n\nTODO\n\n\n\nAdd diagram of modeling workflow from data source to model\n\n\nWhen applying feature engineering methods, we need to think about trained and untrained methods. Trained methods will perform a calculation doing the training of the method, and then using the extracted values to perform the transformation again. We see this in 7  Normalization, where we explore centering. To implement centering, we adjust each variable by subtracting its mean value, computed using the training dataset. Since this value needs to be calculated, it becomes a trained method. Examples of untrained methods are logarithmic transformation as seen in 2  Logarithms and datetime value extraction as seen in 38  Value Extraction. These methods are static in nature, meaning their execution can be applied at the observation-level without parameter-level inferences.\nIn practice, this means that untrained methods can be applied before the data-splitting procedure, as it would give the same results regardless of when it was done. Trained methods have to be performed after the data-splitting to ensure you don’t have data leakage. The wrinkle to this is that untrained methods applied to variables that have already been transformed by a trained method will have to also be done after the data-splitting.\n\n\n\n\n\n\nTODO\n\n\n\nadd a diagram for untrained/trained rule\n\n\nSome untrained methods have a high computational cost, such as BERT from 60  🏗️ BERT. If you are unsure about when to apply a feature engineering method, a general rule of thumb that errs on the side of caution is to apply the method after the data-splitting procedure.\nIn the examples of this book, we will show how to perform methods and techniques using {recipes} on the R side, as they can be used together with the rest of tidymodels to make sure the calculations are done correctly. On the Python side, we show the methods by using transformers, that should then be used inside a sklearn.pipeline.Pipeline() to make sure the calculations are done correctly.",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "introduction.html#why-do-we-use-thresholds",
+    "href": "introduction.html#why-do-we-use-thresholds",
+    "title": "Introduction",
+    "section": "Why do we use thresholds?",
+    "text": "Why do we use thresholds?\nOftentimes, when we use a method that selects something with a quantity, we end up doing it with a threshold instead of counting directly. The answer to this is purely practical, as it leaves less ambiguity. When selecting these features to keep in a feature selection routine 65  Too Many Overview is a good example. It is easier to write the code that selects every feature that has more than X amount of variability. On the other hand, if we said “Give me the 25 most useful features”, we might have 4 variables tied for 25th place. Now we have another problem. Does it keep all of them in, leaving 28 variables? If we do that, we violate our request of 25 variables. What if we select the first? Then we arbitrarily give a bias towards variables early in the data set. What if we randomly select among the ties? Then we introduce randomness into the method.\nIt is for the above reasons that many methods in feature engineering and machine learning use thresholds instead of precise numbers.",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "introduction.html#sec-terminology",
+    "href": "introduction.html#sec-terminology",
+    "title": "Introduction",
+    "section": "Terminology",
+    "text": "Terminology\nBelow are some terminology clarifications since the term usage in this book may differ from other books. When a method is known by multiple names, the additional name(s) will be listed at the beginning of each chapter. The index will likewise point you to the right chapter regardless of which name you use.\n\nEDA\nOtherwise known as exploratory data analysis is the part of the modeling process where you look at the data very carefully. This will be done in part using descriptive statistics and visualization. This should be done after splitting the data, and only on the training data set. A project may be scraped at this stage due to the limited usefulness of the data. Spending a lot of time in EDA is almost always fruitful as you gain insight into how to use and transform the data best with feature engineering methods.\n\n\nObservations\nThis book will mostly be working with rectangular data. In this context, each observation is defined as a row, with the columns holding the specific characteristics for each observation.\nThe observational unit can change depending on the data. Consider the following examples consisting of restaurants:\n\nIf we were looking at a data set of restaurant health code inspections, you are likely to see the data with one row per inspection\nIf your data set represented general business information about each restaurant, each observation may represent one unique restaurant\nIf you were a restaurant owner planning future schedules, you could think of each day/week as an observation\n\nReading this book will not tell you how to think about your data; You alone possess the subject matter expertise specific to your data set and problem statement. However, once your data is in the right format and order, we can expose you to possible feature engineering methods.\n\n\nLearned\nSome methods require information to be transformed that we are not able to supply beforehand. In the case of centering of numeric variables described in 7  Normalization, you need to know the mean value of the training data set to apply this transformation. This means is the sufficient information needed to perform the calculations and is the reason why the method is a learned method.\nIn contrast, taking the square root of a variable as described in 3  Square Root isn’t a learned method as there isn’t any sufficient information needed. The method can be applied immediately.\n\n\nSupervised / Unsupervised\nSome methods use the outcome to guide the calculations. If the outcome is used, the method is said to be supervised. Most methods are unsupervised.\n\n\nLevels\nVariables that contain non-numeric information are typically called qualitative or categorical variables. These can be things such as eye color, street names, names, grades, car models and subscription types. Where there is a finite known set of values a categorical variable can take, we call these values the levels of that variable. So the levels of the variables containing weekdays are “Monday”, “Tuesday”, “Wednesday”, “Thursday”, “Friday”, “Saturday”, and “Sunday”. But the names of our subscribers don’t have levels as we don’t know all of them.\nWe will sometimes bend this definition, as it is sometimes useful to pretend that a variable has a finite known set of values, even if it doesn’t.\n\n\nLinear models\nWe talk about linear models as models that are specified as a linear combination of features. These models tend to be simple, and fast to use, but having the limitation of “linear combination of features” means that they struggle when non-linear effects exist in the data set.\n\n\nEmbedding\nThe word embedding is frequently utilized in machine learning and artificial intelligence documentation, however, we will use it to refer to the numeric transformation of data point. We see this often in text embeddings, where a free-from-text field is turned into a fixed-length numerical vector.\nSomething being an embedding doesn’t mean that it is useful. However, with care and signal, useful representations of the data can be created. The reason why we have embeddings in the first place is that most machine learning models require numerical features for the models to work.",
+    "crumbs": [
+      "Introduction"
+    ]
   }
 ]

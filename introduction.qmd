@@ -51,7 +51,11 @@ It is for the above reasons that many methods in feature engineering and machine
 
 ## Terminology {#sec-terminology}
 
-Below are some terminology clarifications since the term usage in this book may differ from other books. When a method is know by multiple names, the additional name(s) will be listed at the beginning of each chapter. The index will likewise point you to the right chapter regardless of which name you use.
+Below are some terminology clarifications since the term usage in this book may differ from other books. When a method is known by multiple names, the additional name(s) will be listed at the beginning of each chapter. The index will likewise point you to the right chapter regardless of which name you use.
+
+### EDA
+
+Otherwise known as *exploratory data analysis* is the part of the modeling process where you look at the data very carefully. This will be done in part using descriptive statistics and visualization. This should be done after splitting the data, and only on the training data set. A project may be scraped at this stage due to the limited usefulness of the data. Spending a lot of time in EDA is almost always fruitful as you gain insight into how to use and transform the data best with feature engineering methods.
 
 ### Observations
 
