@@ -6,13 +6,19 @@
 
 Missing data is sometimes hard to avoid. So we will have to work to deal with them. This is something we can't avoid since many implemented models are not set up to work with missing data and will error if it encounters them.
 
-::: {.callout-caution}
-# TODO
+We have different ways data can be missing. It is important to identify which type it is as it will change how we should deal with it. The 3 types we will consider are *Missing Completely At Random* (MCAR), *Missing At Random* (MAR), and *Missing Not At Random* (MNAR) [@rubin1976].
 
-add paragraphs about MCAR, MAR and MNAR
-:::
+When data is MCAR, then we have that the missingness is unrelated to anything else in our data set or other relevant information. This is the cleanest form of missingness as if a truly random die was rolled for each value to determine whether a value should be marked as missing or not. This type of missing data doesn't contain any information, and our method of remedying it is about causing the least destruction. Data are very rarely missing completely at random. 
+
+When data is MAR, then the missingness is related to the observed data but not the unobserved data. We can find this type of missingness by looking at the relationship between the missingness and the observed data we have. If we are collecting reviews from hotel stays, we might imagine that satisfaction with the stay is related to how much information we get in other fields. This is a much bigger class of missingness than MCAR and something we can find good remedies for. Most methods that try to deal with missing data assume the data is MAR.
+
+Lastly, we have MNAR. This happens when neither MCAR nor MAR holds. Rephrased, this happens when the missingness isn't related to anything we have observed. An example of this is an instrument that wears over time, giving higher and higher probabilities of producing missing values. If we don't know and measure this, then we have data that are MNAR. MNAR might feel like MCAR, so our main goal is to figure out if it is or not. This should all be done at the EDA stage.
+
+Another wrinkle to missingness is that we can have a combination of the above methods. This is happening because we see missingness in two ways, observation-wise and column-wise. For observation missingness, the whole observation is missing. E.I. all the values for the observation are missing, maybe except for the ID. For column missingness, it is the values of a given feature that can be missing or not. You could imagine a data set where some columns are MCAR while others are MAR. We need to treat the columns accordingly.
 
 How and why the data might be missing will require investigation and domain knowledge, both of which this book won't be able to give you. What the following chapters will show you, is the ways to deal with the missingness, once you find out what measure is appropriate.
+
+Depending on what type of missing data you have, and the access to the data-generating process. You might be able to improve your collected data to fill in the blanks. Suppose that some of your data comes from OCR^[Optical Character Recognition is used to extract text from images.] from some documents. If the original images are still available and the missing values could be removed by changing the settings then we can deal with the missing values directly. You might even be able to manually correct missing data.
 
 ::: {.callout-caution}
 # TODO
@@ -33,3 +39,4 @@ If you suspect that the data is not missing at random, it might be worthwhile to
 ## Removal
 
 As a last resort, you might want to remove variables or rows with missing data, we will see how that is done in @sec-missing-remove. This chapter is put last in this section, as it is generally not the preferred action, and all other avenues should be considered before removal is done. 
+

@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -1230,20 +1250,13 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="41.1" class="anchored" data-anchor-id="missing-overview"><span class="header-section-number">41.1</span> Missing Overview</h2>
 </section>
 <p>Missing data is sometimes hard to avoid. So we will have to work to deal with them. This is something we can’t avoid since many implemented models are not set up to work with missing data and will error if it encounters them.</p>
-<div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-TODO
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>add paragraphs about MCAR, MAR and MNAR</p>
-</div>
-</div>
+<p>We have different ways data can be missing. It is important to identify which type it is as it will change how we should deal with it. The 3 types we will consider are <em>Missing Completely At Random</em> (MCAR), <em>Missing At Random</em> (MAR), and <em>Missing Not At Random</em> (MNAR) <span class="citation" data-cites="rubin1976">(<a href="references.html#ref-rubin1976" role="doc-biblioref">RUBIN 1976</a>)</span>.</p>
+<p>When data is MCAR, then we have that the missingness is unrelated to anything else in our data set or other relevant information. This is the cleanest form of missingness as if a truly random die was rolled for each value to determine whether a value should be marked as missing or not. This type of missing data doesn’t contain any information, and our method of remedying it is about causing the least destruction. Data are very rarely missing completely at random.</p>
+<p>When data is MAR, then the missingness is related to the observed data but not the unobserved data. We can find this type of missingness by looking at the relationship between the missingness and the observed data we have. If we are collecting reviews from hotel stays, we might imagine that satisfaction with the stay is related to how much information we get in other fields. This is a much bigger class of missingness than MCAR and something we can find good remedies for. Most methods that try to deal with missing data assume the data is MAR.</p>
+<p>Lastly, we have MNAR. This happens when neither MCAR nor MAR holds. Rephrased, this happens when the missingness isn’t related to anything we have observed. An example of this is an instrument that wears over time, giving higher and higher probabilities of producing missing values. If we don’t know and measure this, then we have data that are MNAR. MNAR might feel like MCAR, so our main goal is to figure out if it is or not. This should all be done at the EDA stage.</p>
+<p>Another wrinkle to missingness is that we can have a combination of the above methods. This is happening because we see missingness in two ways, observation-wise and column-wise. For observation missingness, the whole observation is missing. E.I. all the values for the observation are missing, maybe except for the ID. For column missingness, it is the values of a given feature that can be missing or not. You could imagine a data set where some columns are MCAR while others are MAR. We need to treat the columns accordingly.</p>
 <p>How and why the data might be missing will require investigation and domain knowledge, both of which this book won’t be able to give you. What the following chapters will show you, is the ways to deal with the missingness, once you find out what measure is appropriate.</p>
+<p>Depending on what type of missing data you have, and the access to the data-generating process. You might be able to improve your collected data to fill in the blanks. Suppose that some of your data comes from OCR<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> from some documents. If the original images are still available and the missing values could be removed by changing the settings then we can deal with the missing values directly. You might even be able to manually correct missing data.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1271,6 +1284,17 @@ TODO
 <p>As a last resort, you might want to remove variables or rows with missing data, we will see how that is done in <a href="missing-remove.html" class="quarto-xref"><span>Chapter 45</span></a>. This chapter is put last in this section, as it is generally not the preferred action, and all other avenues should be considered before removal is done.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-rubin1976" class="csl-entry" role="listitem">
+RUBIN, DONALD B. 1976. <span>“<span class="nocase">Inference and missing data</span>.”</span> <em>Biometrika</em> 63 (3): 581–92. <a href="https://doi.org/10.1093/biomet/63.3.581">https://doi.org/10.1093/biomet/63.3.581</a>.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Optical Character Recognition is used to extract text from images.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 
 </main> <!-- /main -->
