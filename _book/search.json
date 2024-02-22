@@ -103,5 +103,49 @@
     "crumbs": [
       "Introduction"
     ]
+  },
+  {
+    "objectID": "missing-model.html",
+    "href": "missing-model.html",
+    "title": "43  Model Based Imputation",
+    "section": "",
+    "text": "43.1 Model Based Imputation",
+    "crumbs": [
+      "Missing Data",
+      "<span class='chapter-number'>43</span>  <span class='chapter-title'>Model Based Imputation</span>"
+    ]
+  },
+  {
+    "objectID": "missing-model.html#pros-and-cons",
+    "href": "missing-model.html#pros-and-cons",
+    "title": "43  Model Based Imputation",
+    "section": "43.2 Pros and Cons",
+    "text": "43.2 Pros and Cons\n\n43.2.1 Pros\n\nLikely get better performance than simple imputation\n\n\n\n43.2.2 Cons\n\nMore complex model\nlower interpretability",
+    "crumbs": [
+      "Missing Data",
+      "<span class='chapter-number'>43</span>  <span class='chapter-title'>Model Based Imputation</span>"
+    ]
+  },
+  {
+    "objectID": "missing-model.html#r-examples",
+    "href": "missing-model.html#r-examples",
+    "title": "43  Model Based Imputation",
+    "section": "43.3 R Examples",
+    "text": "43.3 R Examples\nThere are a number of steps in the recipes package that fall under this category. Within that, we have step_impute_bag(), step_impute_knn(), and step_impute_linear().\n\n\n\n\n\n\nTODO\n\n\n\nfind a better data set\n\n\nBelow we are showing how we can impute using a K-nearest neighbor model using step_impute_knn(). We specify the variable to impute on first, and then with impute_with we specify which variables are used as predictors in the model.\n\nlibrary(recipes)\n\nimpute_knn_rec &lt;- recipe(mpg ~ ., data = mtcars) |&gt;\n  step_impute_knn(disp, neighbors = 1, impute_with = imp_vars(vs, am, hp, drat))\n\nimpute_knn_rec |&gt;\n  prep() |&gt;\n  juice()\n\n# A tibble: 32 × 11\n     cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb   mpg\n   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n 1     6  160    110  3.9   2.62  16.5     0     1     4     4  21  \n 2     6  160    110  3.9   2.88  17.0     0     1     4     4  21  \n 3     4  108     93  3.85  2.32  18.6     1     1     4     1  22.8\n 4     6  258    110  3.08  3.22  19.4     1     0     3     1  21.4\n 5     8  360    175  3.15  3.44  17.0     0     0     3     2  18.7\n 6     6  225    105  2.76  3.46  20.2     1     0     3     1  18.1\n 7     8  360    245  3.21  3.57  15.8     0     0     3     4  14.3\n 8     4  147.    62  3.69  3.19  20       1     0     4     2  24.4\n 9     4  141.    95  3.92  3.15  22.9     1     0     4     2  22.8\n10     6  168.   123  3.92  3.44  18.3     1     0     4     4  19.2\n# ℹ 22 more rows",
+    "crumbs": [
+      "Missing Data",
+      "<span class='chapter-number'>43</span>  <span class='chapter-title'>Model Based Imputation</span>"
+    ]
+  },
+  {
+    "objectID": "missing-model.html#python-examples",
+    "href": "missing-model.html#python-examples",
+    "title": "43  Model Based Imputation",
+    "section": "43.4 Python Examples",
+    "text": "43.4 Python Examples",
+    "crumbs": [
+      "Missing Data",
+      "<span class='chapter-number'>43</span>  <span class='chapter-title'>Model Based Imputation</span>"
+    ]
   }
 ]
