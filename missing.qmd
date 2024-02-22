@@ -20,11 +20,7 @@ How and why the data might be missing will require investigation and domain know
 
 Depending on what type of missing data you have, and the access to the data-generating process. You might be able to improve your collected data to fill in the blanks. Suppose that some of your data comes from OCR^[Optical Character Recognition is used to extract text from images.] from some documents. If the original images are still available and the missing values could be removed by changing the settings then we can deal with the missing values directly. You might even be able to manually correct missing data.
 
-::: {.callout-caution}
-# TODO
-
-Add diagrams to show different types of missingness
-:::
+![The 3 types of missing data MCAR, MAR, and MNAR. Missing data is represented in the first column as gray squares. The missing values don't seem to have a pattern for MCAR. For MAR the missing values appear to align with light values in the second column. For MNAR we have that the missing values align with dark values of the unobserved data.](diagrams/missing-mcar-mar-mnar.png){#fig-types-of-missing}
 
 The following chapters assume that the reader has identified missing values. Sometimes they are easily labeled as `NA` in your code and database. but creativity knows no bounds, which sadly has influenced some users in their way of identifying missing values. Common values are `-9`, `9999`, and `9000`. If you are lucky, then you can find this information in the data dictionary, but sometimes you need to be in contact with the people in charge of data collection. To make matters more complicated, there will also be times when different types of missingness will be encoded differently, such as `9000` for machine failure, and `9001` for missing sheet.
 
