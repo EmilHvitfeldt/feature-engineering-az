@@ -1,7 +1,11 @@
-# Percentile {#sec-numeric-percentile}
+---
+pagetitle: "Feature Engineering A-Z | Percentile Scaling"
+---
+
+# Percentile Scaling {#sec-numeric-percentile}
 
 ::: {style="visibility: hidden; height: 0px;"}
-## Percentile
+## Percentile Scaling
 :::
 
 **Percentile scaling** (also sometimes called **Rank Scaling** or **quantile scaling**) is a method where we apply a non-linear transformation to our data where each value is the percentile of the training data.

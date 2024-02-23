@@ -1,7 +1,11 @@
-# Rational Overview {#sec-relational}
+---
+pagetitle: "Feature Engineering A-Z | Relational Overview"
+---
+
+# Relational Overview {#sec-relational}
 
 ::: {style="visibility: hidden; height: 0px;"}
-## Rational Overview
+## Relational Overview
 :::
 
 So far in this book, we have almost exclusively talked about tabular data. except for image data in @sec-image, and to some degree time series data as seen in @sec-time-series. The latter doesn't quite count as is it typically stored in a tabular way. This section will talk about the scenario where you are working with more than 1 table. A situation that is quite common.

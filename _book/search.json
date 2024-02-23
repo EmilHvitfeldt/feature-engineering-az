@@ -94,7 +94,7 @@
     "href": "introduction.html#how-to-deal-with",
     "title": "Introduction",
     "section": "How to Deal With …",
-    "text": "How to Deal With …\nThis book is structured according to the types of data and problems you will encounter. Each section specifies a type of data or problem, and each chapter details a method or group of methods that can be useful in dealing with that type. So for example 1  Numeric Overview contains methods that deal with numeric variables such as 2  Logarithms and 9  Max Abs, and 14  Categorical Overview contains methods that deal with categorical variables such as 17  Dummy Encoding and 23  Hashing Encoding. There should be sections and chapters for most methods you will find in practice that aren’t too domain-specific.\nIt is because of this structure that this book is most suited as reference material, each time you encounter some data you are unsure how to deal with, you find the corresponding section and study the methods listed to see which would be best for your use case. This isn’t to say that you can’t read this book from end to end. The sections have been ordered roughly such that earlier chapters are broadly useful and later chapters touch on less used data types and problems.",
+    "text": "How to Deal With …\nThis book is structured according to the types of data and problems you will encounter. Each section specifies a type of data or problem, and each chapter details a method or group of methods that can be useful in dealing with that type. So for example 1  Numeric Overview contains methods that deal with numeric variables such as 2  Logarithms and 9  Max Abs Scaling, and 14  Categorical Overview contains methods that deal with categorical variables such as 17  Dummy Encoding and 23  Hashing Encoding. There should be sections and chapters for most methods you will find in practice that aren’t too domain-specific.\nIt is because of this structure that this book is most suited as reference material, each time you encounter some data you are unsure how to deal with, you find the corresponding section and study the methods listed to see which would be best for your use case. This isn’t to say that you can’t read this book from end to end. The sections have been ordered roughly such that earlier chapters are broadly useful and later chapters touch on less used data types and problems.",
     "crumbs": [
       "Introduction"
     ]
@@ -277,7 +277,7 @@
     "href": "numeric-sqrt.html#python-examples",
     "title": "3  Square Root",
     "section": "3.4 Python Examples",
-    "text": "3.4 Python Examples\nWe are using the ames data set for examples. Since there isn’t a built-in transformer for square root, we can create our own using FunctionTransformer() and numpy.sqrt().\n\nfrom feazdata import ames\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.preprocessing import FunctionTransformer\nimport numpy as np\n\nsqrt_transformer = FunctionTransformer(np.sqrt)\n\nct = ColumnTransformer(\n    [('sqrt', sqrt_transformer, ['Wood_Deck_SF'])], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('sqrt',\n                                 FunctionTransformer(func=&lt;ufunc 'sqrt'&gt;),\n                                 ['Wood_Deck_SF'])])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('sqrt',\n                                 FunctionTransformer(func=&lt;ufunc 'sqrt'&gt;),\n                                 ['Wood_Deck_SF'])]) sqrt['Wood_Deck_SF']  FunctionTransformer?Documentation for FunctionTransformerFunctionTransformer(func=&lt;ufunc 'sqrt'&gt;) remainder['MS_SubClass', 'MS_Zoning', 'Lot_Frontage', 'Lot_Area', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Year_Built', 'Year_Remod_Add', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Mas_Vnr_Area', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_SF_1', 'BsmtFin_Type_2', 'BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Total_Bsmt_SF', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'First_Flr_SF', 'Second_Flr_SF', 'Gr_Liv_Area', 'Bsmt_Full_Bath', 'Bsmt_Half_Bath', 'Full_Bath', 'Half_Bath', 'Bedroom_AbvGr', 'Kitchen_AbvGr', 'TotRms_AbvGrd', 'Functional', 'Fireplaces', 'Garage_Type', 'Garage_Finish', 'Garage_Cars', 'Garage_Area', 'Garage_Cond', 'Paved_Drive', 'Open_Porch_SF', 'Enclosed_Porch', 'Three_season_porch', 'Screen_Porch', 'Pool_Area', 'Pool_QC', 'Fence', 'Misc_Feature', 'Misc_Val', 'Mo_Sold', 'Year_Sold', 'Sale_Type', 'Sale_Condition', 'Sale_Price', 'Longitude', 'Latitude'] passthroughpassthrough \n\nct.transform(ames)\n\n      sqrt__Wood_Deck_SF  ... remainder__Latitude\n0                 14.491  ...              42.054\n1                 11.832  ...              42.053\n2                 19.824  ...              42.053\n3                  0.000  ...              42.051\n4                 14.560  ...              42.061\n...                  ...  ...                 ...\n2925              10.954  ...              41.989\n2926              12.806  ...              41.988\n2927               8.944  ...              41.987\n2928              15.492  ...              41.991\n2929              13.784  ...              41.989\n\n[2930 rows x 74 columns]\n\n\nWe can also create and perform a signed square root transformation, by creating a function for signed_sqrt() and then using it in FunctionTransformer() as before\n\ndef signed_sqrt(x):\n  return np.sqrt(np.abs(x)) * np.sign(x)\n\nsigned_sqrt_transformer = FunctionTransformer(signed_sqrt)\n\nct = ColumnTransformer(\n    [('signed_sqrt', signed_sqrt_transformer, ['Wood_Deck_SF'])], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('signed_sqrt',\n                                 FunctionTransformer(func=&lt;function signed_sqrt at 0x29eb3da80&gt;),\n                                 ['Wood_Deck_SF'])])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('signed_sqrt',\n                                 FunctionTransformer(func=&lt;function signed_sqrt at 0x29eb3da80&gt;),\n                                 ['Wood_Deck_SF'])]) signed_sqrt['Wood_Deck_SF']  FunctionTransformer?Documentation for FunctionTransformerFunctionTransformer(func=&lt;function signed_sqrt at 0x29eb3da80&gt;) remainder['MS_SubClass', 'MS_Zoning', 'Lot_Frontage', 'Lot_Area', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Year_Built', 'Year_Remod_Add', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Mas_Vnr_Area', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_SF_1', 'BsmtFin_Type_2', 'BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Total_Bsmt_SF', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'First_Flr_SF', 'Second_Flr_SF', 'Gr_Liv_Area', 'Bsmt_Full_Bath', 'Bsmt_Half_Bath', 'Full_Bath', 'Half_Bath', 'Bedroom_AbvGr', 'Kitchen_AbvGr', 'TotRms_AbvGrd', 'Functional', 'Fireplaces', 'Garage_Type', 'Garage_Finish', 'Garage_Cars', 'Garage_Area', 'Garage_Cond', 'Paved_Drive', 'Open_Porch_SF', 'Enclosed_Porch', 'Three_season_porch', 'Screen_Porch', 'Pool_Area', 'Pool_QC', 'Fence', 'Misc_Feature', 'Misc_Val', 'Mo_Sold', 'Year_Sold', 'Sale_Type', 'Sale_Condition', 'Sale_Price', 'Longitude', 'Latitude'] passthroughpassthrough \n\nct.transform(ames)\n\n      signed_sqrt__Wood_Deck_SF  ... remainder__Latitude\n0                        14.491  ...              42.054\n1                        11.832  ...              42.053\n2                        19.824  ...              42.053\n3                         0.000  ...              42.051\n4                        14.560  ...              42.061\n...                         ...  ...                 ...\n2925                     10.954  ...              41.989\n2926                     12.806  ...              41.988\n2927                      8.944  ...              41.987\n2928                     15.492  ...              41.991\n2929                     13.784  ...              41.989\n\n[2930 rows x 74 columns]",
+    "text": "3.4 Python Examples\nWe are using the ames data set for examples. Since there isn’t a built-in transformer for square root, we can create our own using FunctionTransformer() and numpy.sqrt().\n\nfrom feazdata import ames\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.preprocessing import FunctionTransformer\nimport numpy as np\n\nsqrt_transformer = FunctionTransformer(np.sqrt)\n\nct = ColumnTransformer(\n    [('sqrt', sqrt_transformer, ['Wood_Deck_SF'])], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('sqrt',\n                                 FunctionTransformer(func=&lt;ufunc 'sqrt'&gt;),\n                                 ['Wood_Deck_SF'])])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('sqrt',\n                                 FunctionTransformer(func=&lt;ufunc 'sqrt'&gt;),\n                                 ['Wood_Deck_SF'])]) sqrt['Wood_Deck_SF']  FunctionTransformer?Documentation for FunctionTransformerFunctionTransformer(func=&lt;ufunc 'sqrt'&gt;) remainder['MS_SubClass', 'MS_Zoning', 'Lot_Frontage', 'Lot_Area', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Year_Built', 'Year_Remod_Add', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Mas_Vnr_Area', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_SF_1', 'BsmtFin_Type_2', 'BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Total_Bsmt_SF', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'First_Flr_SF', 'Second_Flr_SF', 'Gr_Liv_Area', 'Bsmt_Full_Bath', 'Bsmt_Half_Bath', 'Full_Bath', 'Half_Bath', 'Bedroom_AbvGr', 'Kitchen_AbvGr', 'TotRms_AbvGrd', 'Functional', 'Fireplaces', 'Garage_Type', 'Garage_Finish', 'Garage_Cars', 'Garage_Area', 'Garage_Cond', 'Paved_Drive', 'Open_Porch_SF', 'Enclosed_Porch', 'Three_season_porch', 'Screen_Porch', 'Pool_Area', 'Pool_QC', 'Fence', 'Misc_Feature', 'Misc_Val', 'Mo_Sold', 'Year_Sold', 'Sale_Type', 'Sale_Condition', 'Sale_Price', 'Longitude', 'Latitude'] passthroughpassthrough \n\nct.transform(ames)\n\n      sqrt__Wood_Deck_SF  ... remainder__Latitude\n0                 14.491  ...              42.054\n1                 11.832  ...              42.053\n2                 19.824  ...              42.053\n3                  0.000  ...              42.051\n4                 14.560  ...              42.061\n...                  ...  ...                 ...\n2925              10.954  ...              41.989\n2926              12.806  ...              41.988\n2927               8.944  ...              41.987\n2928              15.492  ...              41.991\n2929              13.784  ...              41.989\n\n[2930 rows x 74 columns]\n\n\nWe can also create and perform a signed square root transformation, by creating a function for signed_sqrt() and then using it in FunctionTransformer() as before\n\ndef signed_sqrt(x):\n  return np.sqrt(np.abs(x)) * np.sign(x)\n\nsigned_sqrt_transformer = FunctionTransformer(signed_sqrt)\n\nct = ColumnTransformer(\n    [('signed_sqrt', signed_sqrt_transformer, ['Wood_Deck_SF'])], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('signed_sqrt',\n                                 FunctionTransformer(func=&lt;function signed_sqrt at 0x2a5b8da80&gt;),\n                                 ['Wood_Deck_SF'])])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('signed_sqrt',\n                                 FunctionTransformer(func=&lt;function signed_sqrt at 0x2a5b8da80&gt;),\n                                 ['Wood_Deck_SF'])]) signed_sqrt['Wood_Deck_SF']  FunctionTransformer?Documentation for FunctionTransformerFunctionTransformer(func=&lt;function signed_sqrt at 0x2a5b8da80&gt;) remainder['MS_SubClass', 'MS_Zoning', 'Lot_Frontage', 'Lot_Area', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Year_Built', 'Year_Remod_Add', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Mas_Vnr_Area', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_SF_1', 'BsmtFin_Type_2', 'BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Total_Bsmt_SF', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'First_Flr_SF', 'Second_Flr_SF', 'Gr_Liv_Area', 'Bsmt_Full_Bath', 'Bsmt_Half_Bath', 'Full_Bath', 'Half_Bath', 'Bedroom_AbvGr', 'Kitchen_AbvGr', 'TotRms_AbvGrd', 'Functional', 'Fireplaces', 'Garage_Type', 'Garage_Finish', 'Garage_Cars', 'Garage_Area', 'Garage_Cond', 'Paved_Drive', 'Open_Porch_SF', 'Enclosed_Porch', 'Three_season_porch', 'Screen_Porch', 'Pool_Area', 'Pool_QC', 'Fence', 'Misc_Feature', 'Misc_Val', 'Mo_Sold', 'Year_Sold', 'Sale_Type', 'Sale_Condition', 'Sale_Price', 'Longitude', 'Latitude'] passthroughpassthrough \n\nct.transform(ames)\n\n      signed_sqrt__Wood_Deck_SF  ... remainder__Latitude\n0                        14.491  ...              42.054\n1                        11.832  ...              42.053\n2                        19.824  ...              42.053\n3                         0.000  ...              42.051\n4                        14.560  ...              42.061\n...                         ...  ...                 ...\n2925                     10.954  ...              41.989\n2926                     12.806  ...              41.988\n2927                      8.944  ...              41.987\n2928                     15.492  ...              41.991\n2929                     13.784  ...              41.989\n\n[2930 rows x 74 columns]",
     "crumbs": [
       "Numeric Features",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Square Root</span>"
@@ -374,45 +374,45 @@
   {
     "objectID": "numeric-percentile.html",
     "href": "numeric-percentile.html",
-    "title": "6  Percentile",
+    "title": "6  Percentile Scaling",
     "section": "",
-    "text": "6.1 Percentile",
+    "text": "6.1 Percentile Scaling",
     "crumbs": [
       "Numeric Features",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Percentile</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Percentile Scaling</span>"
     ]
   },
   {
     "objectID": "numeric-percentile.html#pros-and-cons",
     "href": "numeric-percentile.html#pros-and-cons",
-    "title": "6  Percentile",
+    "title": "6  Percentile Scaling",
     "section": "6.2 Pros and Cons",
     "text": "6.2 Pros and Cons\n\n6.2.1 Pros\n\nTransformation isn’t affected much by outliers\n\n\n\n6.2.2 Cons\n\nDoesn’t allow to exact reverse transformation\nIsn’t ideal if training data doesn’t have that many unique values",
     "crumbs": [
       "Numeric Features",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Percentile</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Percentile Scaling</span>"
     ]
   },
   {
     "objectID": "numeric-percentile.html#r-examples",
     "href": "numeric-percentile.html#r-examples",
-    "title": "6  Percentile",
+    "title": "6  Percentile Scaling",
     "section": "6.3 R Examples",
     "text": "6.3 R Examples\nWe will be using the ames data set for these examples.\n\nlibrary(recipes)\nlibrary(modeldata)\ndata(\"ames\")\n\names |&gt;\n  select(Lot_Area, Wood_Deck_SF, Sale_Price)\n\n# A tibble: 2,930 × 3\n   Lot_Area Wood_Deck_SF Sale_Price\n      &lt;int&gt;        &lt;int&gt;      &lt;int&gt;\n 1    31770          210     215000\n 2    11622          140     105000\n 3    14267          393     172000\n 4    11160            0     244000\n 5    13830          212     189900\n 6     9978          360     195500\n 7     4920            0     213500\n 8     5005            0     191500\n 9     5389          237     236500\n10     7500          140     189000\n# ℹ 2,920 more rows\n\n\nThe {recipes} step to do this transformation is step_percentile(). It defaults to the calculation of 100 percentiles and uses those to transform the data\n\npercentile_rec &lt;- recipe(Sale_Price ~ Lot_Area, data = ames) |&gt;\n  step_percentile(Lot_Area) |&gt;\n  prep()\n\npercentile_rec |&gt;\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Lot_Area Sale_Price\n      &lt;dbl&gt;      &lt;int&gt;\n 1    0.989     215000\n 2    0.756     105000\n 3    0.898     172000\n 4    0.717     244000\n 5    0.883     189900\n 6    0.580     195500\n 7    0.104     213500\n 8    0.106     191500\n 9    0.120     236500\n10    0.259     189000\n# ℹ 2,920 more rows\n\n\nWe can use the tidy() method to pull out what the specific values are for each percentile\n\npercentile_rec |&gt;\n  tidy(1)\n\n# A tibble: 99 × 4\n   terms    value percentile id              \n   &lt;chr&gt;    &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;           \n 1 Lot_Area 1300           0 percentile_Bp5vK\n 2 Lot_Area 1680           1 percentile_Bp5vK\n 3 Lot_Area 2040.          2 percentile_Bp5vK\n 4 Lot_Area 2362.          3 percentile_Bp5vK\n 5 Lot_Area 2779.          4 percentile_Bp5vK\n 6 Lot_Area 3188.          5 percentile_Bp5vK\n 7 Lot_Area 3674.          6 percentile_Bp5vK\n 8 Lot_Area 3901.          7 percentile_Bp5vK\n 9 Lot_Area 4122.          8 percentile_Bp5vK\n10 Lot_Area 4435           9 percentile_Bp5vK\n# ℹ 89 more rows\n\n\nYou can change the granularity by using the options argument. In this example, we are calculating 500 points evenly spaced between 0 and 1, both inclusive.\n\npercentile500_rec &lt;- recipe(Sale_Price ~ Lot_Area, data = ames) |&gt;\n  step_percentile(Lot_Area, options = list(probs = (0:500)/500)) |&gt;\n  prep()\n\npercentile500_rec |&gt;\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Lot_Area Sale_Price\n      &lt;dbl&gt;      &lt;int&gt;\n 1    0.989     215000\n 2    0.755     105000\n 3    0.899     172000\n 4    0.717     244000\n 5    0.884     189900\n 6    0.580     195500\n 7    0.103     213500\n 8    0.106     191500\n 9    0.118     236500\n10    0.254     189000\n# ℹ 2,920 more rows\n\n\nAnd we can see the more precise numbers.\n\npercentile500_rec |&gt;\n  tidy(1)\n\n# A tibble: 457 × 4\n   terms    value percentile id              \n   &lt;chr&gt;    &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;           \n 1 Lot_Area 1300         0   percentile_RUieL\n 2 Lot_Area 1487.        0.2 percentile_RUieL\n 3 Lot_Area 1531.        0.4 percentile_RUieL\n 4 Lot_Area 1605.        0.6 percentile_RUieL\n 5 Lot_Area 1680         0.8 percentile_RUieL\n 6 Lot_Area 1879.        1.4 percentile_RUieL\n 7 Lot_Area 1890         1.6 percentile_RUieL\n 8 Lot_Area 1946.        1.8 percentile_RUieL\n 9 Lot_Area 2040.        2   percentile_RUieL\n10 Lot_Area 2136.        2.2 percentile_RUieL\n# ℹ 447 more rows\n\n\nNotice how there are only 457 values in this output. This is happening because some percentile has been collapsed to save space since if the value for the 10.4 and 10.6 percentile is the same, we just store the 10.6 value.",
     "crumbs": [
       "Numeric Features",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Percentile</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Percentile Scaling</span>"
     ]
   },
   {
     "objectID": "numeric-percentile.html#python-examples",
     "href": "numeric-percentile.html#python-examples",
-    "title": "6  Percentile",
+    "title": "6  Percentile Scaling",
     "section": "6.4 Python Examples",
     "text": "6.4 Python Examples\nWe are using the ames data set for examples. {sklearn} provided the QuantileTransformer() method we can use. We can use the n_quantiles argument to change the number of quantiles to use.\n\nfrom feazdata import ames\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.preprocessing import QuantileTransformer\n\nct = ColumnTransformer(\n    [('Quantile', QuantileTransformer(n_quantiles = 500), ['Lot_Area'])], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('Quantile',\n                                 QuantileTransformer(n_quantiles=500),\n                                 ['Lot_Area'])])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('Quantile',\n                                 QuantileTransformer(n_quantiles=500),\n                                 ['Lot_Area'])]) Quantile['Lot_Area']  QuantileTransformer?Documentation for QuantileTransformerQuantileTransformer(n_quantiles=500) remainder['MS_SubClass', 'MS_Zoning', 'Lot_Frontage', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Year_Built', 'Year_Remod_Add', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Mas_Vnr_Area', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_SF_1', 'BsmtFin_Type_2', 'BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Total_Bsmt_SF', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'First_Flr_SF', 'Second_Flr_SF', 'Gr_Liv_Area', 'Bsmt_Full_Bath', 'Bsmt_Half_Bath', 'Full_Bath', 'Half_Bath', 'Bedroom_AbvGr', 'Kitchen_AbvGr', 'TotRms_AbvGrd', 'Functional', 'Fireplaces', 'Garage_Type', 'Garage_Finish', 'Garage_Cars', 'Garage_Area', 'Garage_Cond', 'Paved_Drive', 'Wood_Deck_SF', 'Open_Porch_SF', 'Enclosed_Porch', 'Three_season_porch', 'Screen_Porch', 'Pool_Area', 'Pool_QC', 'Fence', 'Misc_Feature', 'Misc_Val', 'Mo_Sold', 'Year_Sold', 'Sale_Type', 'Sale_Condition', 'Sale_Price', 'Longitude', 'Latitude'] passthroughpassthrough \n\nct.transform(ames)\n\n      Quantile__Lot_Area  ... remainder__Latitude\n0                  0.989  ...              42.054\n1                  0.755  ...              42.053\n2                  0.899  ...              42.053\n3                  0.717  ...              42.051\n4                  0.884  ...              42.061\n...                  ...  ...                 ...\n2925               0.300  ...              41.989\n2926               0.427  ...              41.988\n2927               0.639  ...              41.987\n2928               0.586  ...              41.991\n2929               0.536  ...              41.989\n\n[2930 rows x 74 columns]",
     "crumbs": [
       "Numeric Features",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Percentile</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Percentile Scaling</span>"
     ]
   },
   {
@@ -462,89 +462,89 @@
   {
     "objectID": "numeric-range.html",
     "href": "numeric-range.html",
-    "title": "8  Range",
+    "title": "8  Range Scaling",
     "section": "",
-    "text": "8.1 Range",
+    "text": "8.1 Range Scaling",
     "crumbs": [
       "Numeric Features",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Range</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Range Scaling</span>"
     ]
   },
   {
     "objectID": "numeric-range.html#pros-and-cons",
     "href": "numeric-range.html#pros-and-cons",
-    "title": "8  Range",
+    "title": "8  Range Scaling",
     "section": "8.2 Pros and Cons",
     "text": "8.2 Pros and Cons\n\n8.2.1 Pros\n\nFast calculations\nTransformation can easily be reversed, making its interpretations easier on the original scale, provided that clipping wasn’t turned on\n\n\n\n8.2.2 Cons\n\nTurning on clipping diminishes the effect of outliers by rounding them up/down\nDoesn’t work with zero variance data as max(x) - min(x) = 0, yielding a division by zero\nCannot be used with sparse data as it isn’t preserved",
     "crumbs": [
       "Numeric Features",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Range</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Range Scaling</span>"
     ]
   },
   {
     "objectID": "numeric-range.html#r-examples",
     "href": "numeric-range.html#r-examples",
-    "title": "8  Range",
+    "title": "8  Range Scaling",
     "section": "8.3 R Examples",
     "text": "8.3 R Examples\nstep_range() clips. Does allow the user to specify range step_minmax() doesn’t clip. Doesn’t allow users to specify a range. A PR is planned to allow users to turn off clipping in step_range()\nWe will be using the ames data set for these examples.\n\nlibrary(recipes)\nlibrary(modeldata)\ndata(\"ames\")\n\names |&gt;\n  select(Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)\n\n# A tibble: 2,930 × 4\n   Sale_Price Lot_Area Wood_Deck_SF Mas_Vnr_Area\n        &lt;int&gt;    &lt;int&gt;        &lt;int&gt;        &lt;dbl&gt;\n 1     215000    31770          210          112\n 2     105000    11622          140            0\n 3     172000    14267          393          108\n 4     244000    11160            0            0\n 5     189900    13830          212            0\n 6     195500     9978          360           20\n 7     213500     4920            0            0\n 8     191500     5005            0            0\n 9     236500     5389          237            0\n10     189000     7500          140            0\n# ℹ 2,920 more rows\n\n\nWe will be using the step_range() step for this\n\nrange_rec &lt;- recipe(Sale_Price ~ ., data = ames) |&gt;\n  step_range(all_numeric_predictors()) |&gt;\n  prep()\n\nrange_rec |&gt;\n  bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)\n\n# A tibble: 2,930 × 4\n   Sale_Price Lot_Area Wood_Deck_SF Mas_Vnr_Area\n        &lt;int&gt;    &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;\n 1     215000   0.142        0.147        0.07  \n 2     105000   0.0482       0.0983       0     \n 3     172000   0.0606       0.276        0.0675\n 4     244000   0.0461       0            0     \n 5     189900   0.0586       0.149        0     \n 6     195500   0.0406       0.253        0.0125\n 7     213500   0.0169       0            0     \n 8     191500   0.0173       0            0     \n 9     236500   0.0191       0.166        0     \n10     189000   0.0290       0.0983       0     \n# ℹ 2,920 more rows\n\n\nWe can also pull out what the min and max values were for each variable using tidy()\n\nrange_rec |&gt;\n  tidy(1)\n\n# A tibble: 33 × 4\n   terms            min    max id         \n   &lt;chr&gt;          &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;      \n 1 Lot_Frontage       0    313 range_FGmgk\n 2 Lot_Area        1300 215245 range_FGmgk\n 3 Year_Built      1872   2010 range_FGmgk\n 4 Year_Remod_Add  1950   2010 range_FGmgk\n 5 Mas_Vnr_Area       0   1600 range_FGmgk\n 6 BsmtFin_SF_1       0      7 range_FGmgk\n 7 BsmtFin_SF_2       0   1526 range_FGmgk\n 8 Bsmt_Unf_SF        0   2336 range_FGmgk\n 9 Total_Bsmt_SF      0   6110 range_FGmgk\n10 First_Flr_SF     334   5095 range_FGmgk\n# ℹ 23 more rows\n\n\nusing the min and max arguments we can set different ranges\n\nrange_rec &lt;- recipe(Sale_Price ~ ., data = ames) |&gt;\n  step_range(all_numeric_predictors(), min = -2, max = 2) |&gt;\n  prep()\n\nrange_rec |&gt;\n  bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)\n\n# A tibble: 2,930 × 4\n   Sale_Price Lot_Area Wood_Deck_SF Mas_Vnr_Area\n        &lt;int&gt;    &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;\n 1     215000    -1.43       -1.41         -1.72\n 2     105000    -1.81       -1.61         -2   \n 3     172000    -1.76       -0.896        -1.73\n 4     244000    -1.82       -2            -2   \n 5     189900    -1.77       -1.40         -2   \n 6     195500    -1.84       -0.989        -1.95\n 7     213500    -1.93       -2            -2   \n 8     191500    -1.93       -2            -2   \n 9     236500    -1.92       -1.33         -2   \n10     189000    -1.88       -1.61         -2   \n# ℹ 2,920 more rows",
     "crumbs": [
       "Numeric Features",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Range</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Range Scaling</span>"
     ]
   },
   {
     "objectID": "numeric-range.html#python-examples",
     "href": "numeric-range.html#python-examples",
-    "title": "8  Range",
+    "title": "8  Range Scaling",
     "section": "8.4 Python Examples",
     "text": "8.4 Python Examples\nWe are using the ames data set for examples. {sklearn} provided the MinMaxScaler() method we can use. By default we can use this method to perform both the centering and scaling.\n\nfrom feazdata import ames\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.preprocessing import MinMaxScaler\n\nct = ColumnTransformer(\n    [('minmax', MinMaxScaler(), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('minmax', MinMaxScaler(),\n                                 ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',\n                                  'Mas_Vnr_Area'])])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('minmax', MinMaxScaler(),\n                                 ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',\n                                  'Mas_Vnr_Area'])]) minmax['Sale_Price', 'Lot_Area', 'Wood_Deck_SF', 'Mas_Vnr_Area']  MinMaxScaler?Documentation for MinMaxScalerMinMaxScaler() remainder['MS_SubClass', 'MS_Zoning', 'Lot_Frontage', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Year_Built', 'Year_Remod_Add', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_SF_1', 'BsmtFin_Type_2', 'BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Total_Bsmt_SF', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'First_Flr_SF', 'Second_Flr_SF', 'Gr_Liv_Area', 'Bsmt_Full_Bath', 'Bsmt_Half_Bath', 'Full_Bath', 'Half_Bath', 'Bedroom_AbvGr', 'Kitchen_AbvGr', 'TotRms_AbvGrd', 'Functional', 'Fireplaces', 'Garage_Type', 'Garage_Finish', 'Garage_Cars', 'Garage_Area', 'Garage_Cond', 'Paved_Drive', 'Open_Porch_SF', 'Enclosed_Porch', 'Three_season_porch', 'Screen_Porch', 'Pool_Area', 'Pool_QC', 'Fence', 'Misc_Feature', 'Misc_Val', 'Mo_Sold', 'Year_Sold', 'Sale_Type', 'Sale_Condition', 'Longitude', 'Latitude'] passthroughpassthrough \n\nct.transform(ames)\n\n      minmax__Sale_Price  ...  remainder__Latitude\n0                  0.272  ...               42.054\n1                  0.124  ...               42.053\n2                  0.215  ...               42.053\n3                  0.312  ...               42.051\n4                  0.239  ...               42.061\n...                  ...  ...                  ...\n2925               0.175  ...               41.989\n2926               0.159  ...               41.988\n2927               0.161  ...               41.987\n2928               0.212  ...               41.991\n2929               0.236  ...               41.989\n\n[2930 rows x 74 columns]\n\n\nMinMaxScaler() doesn’t clip by default, we can turn this back on by setting clip=True.\n\nct = ColumnTransformer(\n    [('minmax', MinMaxScaler(clip=True), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('minmax', MinMaxScaler(clip=True),\n                                 ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',\n                                  'Mas_Vnr_Area'])])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('minmax', MinMaxScaler(clip=True),\n                                 ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',\n                                  'Mas_Vnr_Area'])]) minmax['Sale_Price', 'Lot_Area', 'Wood_Deck_SF', 'Mas_Vnr_Area']  MinMaxScaler?Documentation for MinMaxScalerMinMaxScaler(clip=True) remainder['MS_SubClass', 'MS_Zoning', 'Lot_Frontage', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Year_Built', 'Year_Remod_Add', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_SF_1', 'BsmtFin_Type_2', 'BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Total_Bsmt_SF', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'First_Flr_SF', 'Second_Flr_SF', 'Gr_Liv_Area', 'Bsmt_Full_Bath', 'Bsmt_Half_Bath', 'Full_Bath', 'Half_Bath', 'Bedroom_AbvGr', 'Kitchen_AbvGr', 'TotRms_AbvGrd', 'Functional', 'Fireplaces', 'Garage_Type', 'Garage_Finish', 'Garage_Cars', 'Garage_Area', 'Garage_Cond', 'Paved_Drive', 'Open_Porch_SF', 'Enclosed_Porch', 'Three_season_porch', 'Screen_Porch', 'Pool_Area', 'Pool_QC', 'Fence', 'Misc_Feature', 'Misc_Val', 'Mo_Sold', 'Year_Sold', 'Sale_Type', 'Sale_Condition', 'Longitude', 'Latitude'] passthroughpassthrough \n\nct.transform(ames)\n\n      minmax__Sale_Price  ...  remainder__Latitude\n0                  0.272  ...               42.054\n1                  0.124  ...               42.053\n2                  0.215  ...               42.053\n3                  0.312  ...               42.051\n4                  0.239  ...               42.061\n...                  ...  ...                  ...\n2925               0.175  ...               41.989\n2926               0.159  ...               41.988\n2927               0.161  ...               41.987\n2928               0.212  ...               41.991\n2929               0.236  ...               41.989\n\n[2930 rows x 74 columns]\n\n\nWe can also set a different range other than (0, 1) with the feature_range argument\n\nct = ColumnTransformer(\n    [('minmax', MinMaxScaler(feature_range=(-1,1)), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('minmax', MinMaxScaler(feature_range=(-1, 1)),\n                                 ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',\n                                  'Mas_Vnr_Area'])])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('minmax', MinMaxScaler(feature_range=(-1, 1)),\n                                 ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',\n                                  'Mas_Vnr_Area'])]) minmax['Sale_Price', 'Lot_Area', 'Wood_Deck_SF', 'Mas_Vnr_Area']  MinMaxScaler?Documentation for MinMaxScalerMinMaxScaler(feature_range=(-1, 1)) remainder['MS_SubClass', 'MS_Zoning', 'Lot_Frontage', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Year_Built', 'Year_Remod_Add', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_SF_1', 'BsmtFin_Type_2', 'BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Total_Bsmt_SF', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'First_Flr_SF', 'Second_Flr_SF', 'Gr_Liv_Area', 'Bsmt_Full_Bath', 'Bsmt_Half_Bath', 'Full_Bath', 'Half_Bath', 'Bedroom_AbvGr', 'Kitchen_AbvGr', 'TotRms_AbvGrd', 'Functional', 'Fireplaces', 'Garage_Type', 'Garage_Finish', 'Garage_Cars', 'Garage_Area', 'Garage_Cond', 'Paved_Drive', 'Open_Porch_SF', 'Enclosed_Porch', 'Three_season_porch', 'Screen_Porch', 'Pool_Area', 'Pool_QC', 'Fence', 'Misc_Feature', 'Misc_Val', 'Mo_Sold', 'Year_Sold', 'Sale_Type', 'Sale_Condition', 'Longitude', 'Latitude'] passthroughpassthrough \n\nct.transform(ames)\n\n      minmax__Sale_Price  ...  remainder__Latitude\n0                 -0.455  ...               42.054\n1                 -0.752  ...               42.053\n2                 -0.571  ...               42.053\n3                 -0.377  ...               42.051\n4                 -0.523  ...               42.061\n...                  ...  ...                  ...\n2925              -0.650  ...               41.989\n2926              -0.681  ...               41.988\n2927              -0.679  ...               41.987\n2928              -0.576  ...               41.991\n2929              -0.528  ...               41.989\n\n[2930 rows x 74 columns]",
     "crumbs": [
       "Numeric Features",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Range</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Range Scaling</span>"
     ]
   },
   {
     "objectID": "numeric-maxabs.html",
     "href": "numeric-maxabs.html",
-    "title": "9  Max Abs",
+    "title": "9  Max Abs Scaling",
     "section": "",
-    "text": "9.1 Max Abs",
+    "text": "9.1 Max Abs Scaling",
     "crumbs": [
       "Numeric Features",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Max Abs</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Max Abs Scaling</span>"
     ]
   },
   {
     "objectID": "numeric-maxabs.html#pros-and-cons",
     "href": "numeric-maxabs.html#pros-and-cons",
-    "title": "9  Max Abs",
+    "title": "9  Max Abs Scaling",
     "section": "9.2 Pros and Cons",
     "text": "9.2 Pros and Cons\n\n9.2.1 Pros\n\nFast calculations\nTransformation can easily be reversed, making its interpretations easier on the original scale\nDoesn’t affect sparsity\nCan be used on a zero variance variable. Doesn’t matter much since you likely should get rid of it\n\n\n\n9.2.2 Cons\n\nIs highly affected by outliers",
     "crumbs": [
       "Numeric Features",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Max Abs</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Max Abs Scaling</span>"
     ]
   },
   {
     "objectID": "numeric-maxabs.html#r-examples",
     "href": "numeric-maxabs.html#r-examples",
-    "title": "9  Max Abs",
+    "title": "9  Max Abs Scaling",
     "section": "9.3 R Examples",
     "text": "9.3 R Examples\nWe will be using the ames data set for these examples.\n\n# remotes::install_github(\"emilhvitfeldt/extrasteps\")\nlibrary(recipes)\nlibrary(extrasteps)\nlibrary(modeldata)\ndata(\"ames\")\n\names |&gt;\n  select(Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)\n\n# A tibble: 2,930 × 4\n   Sale_Price Lot_Area Wood_Deck_SF Mas_Vnr_Area\n        &lt;int&gt;    &lt;int&gt;        &lt;int&gt;        &lt;dbl&gt;\n 1     215000    31770          210          112\n 2     105000    11622          140            0\n 3     172000    14267          393          108\n 4     244000    11160            0            0\n 5     189900    13830          212            0\n 6     195500     9978          360           20\n 7     213500     4920            0            0\n 8     191500     5005            0            0\n 9     236500     5389          237            0\n10     189000     7500          140            0\n# ℹ 2,920 more rows\n\n\nWe will be using the step_maxabs() step for this, and it can be found in the extrasteps extension package.\n\nmaxabs_rec &lt;- recipe(Sale_Price ~ ., data = ames) |&gt;\n  step_maxabs(all_numeric_predictors()) |&gt;\n  prep()\n\nmaxabs_rec |&gt;\n  bake(new_data = NULL, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)\n\n# A tibble: 2,930 × 4\n   Sale_Price Lot_Area Wood_Deck_SF Mas_Vnr_Area\n        &lt;int&gt;    &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;\n 1     215000   0.148        0.147        0.07  \n 2     105000   0.0540       0.0983       0     \n 3     172000   0.0663       0.276        0.0675\n 4     244000   0.0518       0            0     \n 5     189900   0.0643       0.149        0     \n 6     195500   0.0464       0.253        0.0125\n 7     213500   0.0229       0            0     \n 8     191500   0.0233       0            0     \n 9     236500   0.0250       0.166        0     \n10     189000   0.0348       0.0983       0     \n# ℹ 2,920 more rows\n\n\nWe can also pull out what the max values were for each variable using tidy()\n\nmaxabs_rec |&gt;\n  tidy(1)\n\n# A tibble: 33 × 4\n   terms          statistic  value id          \n   &lt;chr&gt;          &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;       \n 1 Lot_Frontage   max          313 maxabs_Bp5vK\n 2 Lot_Area       max       215245 maxabs_Bp5vK\n 3 Year_Built     max         2010 maxabs_Bp5vK\n 4 Year_Remod_Add max         2010 maxabs_Bp5vK\n 5 Mas_Vnr_Area   max         1600 maxabs_Bp5vK\n 6 BsmtFin_SF_1   max            7 maxabs_Bp5vK\n 7 BsmtFin_SF_2   max         1526 maxabs_Bp5vK\n 8 Bsmt_Unf_SF    max         2336 maxabs_Bp5vK\n 9 Total_Bsmt_SF  max         6110 maxabs_Bp5vK\n10 First_Flr_SF   max         5095 maxabs_Bp5vK\n# ℹ 23 more rows",
     "crumbs": [
       "Numeric Features",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Max Abs</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Max Abs Scaling</span>"
     ]
   },
   {
     "objectID": "numeric-maxabs.html#python-examples",
     "href": "numeric-maxabs.html#python-examples",
-    "title": "9  Max Abs",
+    "title": "9  Max Abs Scaling",
     "section": "9.4 Python Examples",
     "text": "9.4 Python Examples\nWe are using the ames data set for examples. {sklearn} provided the MaxAbsScaler() method we can use.\n\nfrom feazdata import ames\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.preprocessing import MaxAbsScaler\n\nct = ColumnTransformer(\n    [('maxabs', MaxAbsScaler(), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('maxabs', MaxAbsScaler(),\n                                 ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',\n                                  'Mas_Vnr_Area'])])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('maxabs', MaxAbsScaler(),\n                                 ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',\n                                  'Mas_Vnr_Area'])]) maxabs['Sale_Price', 'Lot_Area', 'Wood_Deck_SF', 'Mas_Vnr_Area']  MaxAbsScaler?Documentation for MaxAbsScalerMaxAbsScaler() remainder['MS_SubClass', 'MS_Zoning', 'Lot_Frontage', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Year_Built', 'Year_Remod_Add', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_SF_1', 'BsmtFin_Type_2', 'BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Total_Bsmt_SF', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'First_Flr_SF', 'Second_Flr_SF', 'Gr_Liv_Area', 'Bsmt_Full_Bath', 'Bsmt_Half_Bath', 'Full_Bath', 'Half_Bath', 'Bedroom_AbvGr', 'Kitchen_AbvGr', 'TotRms_AbvGrd', 'Functional', 'Fireplaces', 'Garage_Type', 'Garage_Finish', 'Garage_Cars', 'Garage_Area', 'Garage_Cond', 'Paved_Drive', 'Open_Porch_SF', 'Enclosed_Porch', 'Three_season_porch', 'Screen_Porch', 'Pool_Area', 'Pool_QC', 'Fence', 'Misc_Feature', 'Misc_Val', 'Mo_Sold', 'Year_Sold', 'Sale_Type', 'Sale_Condition', 'Longitude', 'Latitude'] passthroughpassthrough \n\nct.transform(ames)\n\n      maxabs__Sale_Price  ...  remainder__Latitude\n0                  0.285  ...               42.054\n1                  0.139  ...               42.053\n2                  0.228  ...               42.053\n3                  0.323  ...               42.051\n4                  0.252  ...               42.061\n...                  ...  ...                  ...\n2925               0.189  ...               41.989\n2926               0.174  ...               41.988\n2927               0.175  ...               41.987\n2928               0.225  ...               41.991\n2929               0.249  ...               41.989\n\n[2930 rows x 74 columns]",
     "crumbs": [
       "Numeric Features",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Max Abs</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Max Abs Scaling</span>"
     ]
   },
   {
@@ -682,45 +682,45 @@
   {
     "objectID": "numeric-polynomial.html",
     "href": "numeric-polynomial.html",
-    "title": "13  Polynomial",
+    "title": "13  Polynomial Expansion",
     "section": "",
-    "text": "13.1 Polynomial",
+    "text": "13.1 Polynomial Expansion",
     "crumbs": [
       "Numeric Features",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Polynomial</span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Polynomial Expansion</span>"
     ]
   },
   {
     "objectID": "numeric-polynomial.html#pros-and-cons",
     "href": "numeric-polynomial.html#pros-and-cons",
-    "title": "13  Polynomial",
+    "title": "13  Polynomial Expansion",
     "section": "13.2 Pros and Cons",
     "text": "13.2 Pros and Cons\n\n13.2.1 Pros\n\nWorks fast computationally\nGood performance compared to binning\nDoesn’t create correlated features\nis good at handling continuous changes in predictors\n\n\n\n13.2.2 Cons\n\narguably less interpretable than binning and splines\ncan produce a lot of variables\nhave a hard time modeling sudden changes in distributions",
     "crumbs": [
       "Numeric Features",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Polynomial</span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Polynomial Expansion</span>"
     ]
   },
   {
     "objectID": "numeric-polynomial.html#r-examples",
     "href": "numeric-polynomial.html#r-examples",
-    "title": "13  Polynomial",
+    "title": "13  Polynomial Expansion",
     "section": "13.3 R Examples",
     "text": "13.3 R Examples\nWe will be using the ames data set for these examples.\n\nlibrary(recipes)\nlibrary(modeldata)\n\names |&gt;\n  select(Lot_Area, Year_Built)\n\n# A tibble: 2,930 × 2\n   Lot_Area Year_Built\n      &lt;int&gt;      &lt;int&gt;\n 1    31770       1960\n 2    11622       1961\n 3    14267       1958\n 4    11160       1968\n 5    13830       1997\n 6     9978       1998\n 7     4920       2001\n 8     5005       1992\n 9     5389       1995\n10     7500       1999\n# ℹ 2,920 more rows\n\n\n{recipes} has the function step_poly() for just this occasion.\n\npoly_rec &lt;- recipe(~ Lot_Area + Year_Built, data = ames) |&gt;\n  step_poly(Lot_Area, Year_Built)\n\npoly_rec |&gt;\n  prep() |&gt;\n  bake(new_data = NULL) |&gt;\n  glimpse()\n\nRows: 2,930\nColumns: 4\n$ Lot_Area_poly_1   &lt;dbl&gt; 5.070030e-02, 3.456477e-03, 9.658577e-03, 2.373161e-…\n$ Lot_Area_poly_2   &lt;dbl&gt; -0.052288355, -0.006139895, -0.013560043, -0.0048015…\n$ Year_Built_poly_1 &lt;dbl&gt; -0.0069377547, -0.0063268386, -0.0081595868, -0.0020…\n$ Year_Built_poly_2 &lt;dbl&gt; -0.0188536923, -0.0189190631, -0.0186090288, -0.0183…\n\n\nIf you don’t like the default number of features created, you can use the degree argument to change it.\n\npoly_rec &lt;- recipe(~ Lot_Area + Year_Built, data = ames) |&gt;\n  step_poly(Lot_Area, Year_Built, degree = 5)\n\npoly_rec |&gt;\n  prep() |&gt;\n  bake(new_data = NULL) |&gt;\n  glimpse()\n\nRows: 2,930\nColumns: 10\n$ Lot_Area_poly_1   &lt;dbl&gt; 5.070030e-02, 3.456477e-03, 9.658577e-03, 2.373161e-…\n$ Lot_Area_poly_2   &lt;dbl&gt; -0.052288355, -0.006139895, -0.013560043, -0.0048015…\n$ Lot_Area_poly_3   &lt;dbl&gt; 0.0024951091, 0.0067956902, 0.0110336270, 0.00588901…\n$ Lot_Area_poly_4   &lt;dbl&gt; 0.0390305341, -0.0078110499, -0.0092519823, -0.00723…\n$ Lot_Area_poly_5   &lt;dbl&gt; -0.0649379780, 0.0051370320, 0.0004088393, 0.0055404…\n$ Year_Built_poly_1 &lt;dbl&gt; -0.0069377547, -0.0063268386, -0.0081595868, -0.0020…\n$ Year_Built_poly_2 &lt;dbl&gt; -0.0188536923, -0.0189190631, -0.0186090288, -0.0183…\n$ Year_Built_poly_3 &lt;dbl&gt; -0.0031709327, -0.0044248985, -0.0006208212, -0.0124…\n$ Year_Built_poly_4 &lt;dbl&gt; 1.420211e-02, 1.311711e-02, 1.609112e-02, 3.358699e-…\n$ Year_Built_poly_5 &lt;dbl&gt; 0.009938840, 0.011096007, 0.007277173, 0.015173692, …\n\n\nwhile you properly shouldn’t, you can turn off the orthogonal polynomials by setting options = list(raw = TRUE).\n\npoly_rec &lt;- recipe(~ Lot_Area + Year_Built, data = ames) |&gt;\n  step_poly(Lot_Area, Year_Built, options = list(raw = TRUE))\n\npoly_rec |&gt;\n  prep() |&gt;\n  bake(new_data = NULL) |&gt;\n  glimpse()\n\nRows: 2,930\nColumns: 4\n$ Lot_Area_poly_1   &lt;dbl&gt; 31770, 11622, 14267, 11160, 13830, 9978, 4920, 5005,…\n$ Lot_Area_poly_2   &lt;dbl&gt; 1009332900, 135070884, 203547289, 124545600, 1912689…\n$ Year_Built_poly_1 &lt;dbl&gt; 1960, 1961, 1958, 1968, 1997, 1998, 2001, 1992, 1995…\n$ Year_Built_poly_2 &lt;dbl&gt; 3841600, 3845521, 3833764, 3873024, 3988009, 3992004…",
     "crumbs": [
       "Numeric Features",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Polynomial</span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Polynomial Expansion</span>"
     ]
   },
   {
     "objectID": "numeric-polynomial.html#python-examples",
     "href": "numeric-polynomial.html#python-examples",
-    "title": "13  Polynomial",
+    "title": "13  Polynomial Expansion",
     "section": "13.4 Python Examples",
     "text": "13.4 Python Examples\nWe are using the ames data set for examples. {sklearn} provided the PolynomialFeatures(). We can use it out of the box.\n\nfrom feazdata import ames\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.preprocessing import PolynomialFeatures\n\nct = ColumnTransformer(\n    [('polynomial', PolynomialFeatures(), ['Lot_Area'])], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('polynomial', PolynomialFeatures(),\n                                 ['Lot_Area'])])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('polynomial', PolynomialFeatures(),\n                                 ['Lot_Area'])]) polynomial['Lot_Area']  PolynomialFeatures?Documentation for PolynomialFeaturesPolynomialFeatures() remainder['MS_SubClass', 'MS_Zoning', 'Lot_Frontage', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Year_Built', 'Year_Remod_Add', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Mas_Vnr_Area', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_SF_1', 'BsmtFin_Type_2', 'BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Total_Bsmt_SF', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'First_Flr_SF', 'Second_Flr_SF', 'Gr_Liv_Area', 'Bsmt_Full_Bath', 'Bsmt_Half_Bath', 'Full_Bath', 'Half_Bath', 'Bedroom_AbvGr', 'Kitchen_AbvGr', 'TotRms_AbvGrd', 'Functional', 'Fireplaces', 'Garage_Type', 'Garage_Finish', 'Garage_Cars', 'Garage_Area', 'Garage_Cond', 'Paved_Drive', 'Wood_Deck_SF', 'Open_Porch_SF', 'Enclosed_Porch', 'Three_season_porch', 'Screen_Porch', 'Pool_Area', 'Pool_QC', 'Fence', 'Misc_Feature', 'Misc_Val', 'Mo_Sold', 'Year_Sold', 'Sale_Type', 'Sale_Condition', 'Sale_Price', 'Longitude', 'Latitude'] passthroughpassthrough \n\nct.transform(ames)\n\n      polynomial__1  ...  remainder__Latitude\n0               1.0  ...               42.054\n1               1.0  ...               42.053\n2               1.0  ...               42.053\n3               1.0  ...               42.051\n4               1.0  ...               42.061\n...             ...  ...                  ...\n2925            1.0  ...               41.989\n2926            1.0  ...               41.988\n2927            1.0  ...               41.987\n2928            1.0  ...               41.991\n2929            1.0  ...               41.989\n\n[2930 rows x 76 columns]\n\n\nOr we can change the degree using the degree argument\n\nct = ColumnTransformer(\n    [('polynomial', PolynomialFeatures(degree = 4), ['Lot_Area'])], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('polynomial', PolynomialFeatures(degree=4),\n                                 ['Lot_Area'])])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('polynomial', PolynomialFeatures(degree=4),\n                                 ['Lot_Area'])]) polynomial['Lot_Area']  PolynomialFeatures?Documentation for PolynomialFeaturesPolynomialFeatures(degree=4) remainder['MS_SubClass', 'MS_Zoning', 'Lot_Frontage', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Year_Built', 'Year_Remod_Add', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Mas_Vnr_Area', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_SF_1', 'BsmtFin_Type_2', 'BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Total_Bsmt_SF', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'First_Flr_SF', 'Second_Flr_SF', 'Gr_Liv_Area', 'Bsmt_Full_Bath', 'Bsmt_Half_Bath', 'Full_Bath', 'Half_Bath', 'Bedroom_AbvGr', 'Kitchen_AbvGr', 'TotRms_AbvGrd', 'Functional', 'Fireplaces', 'Garage_Type', 'Garage_Finish', 'Garage_Cars', 'Garage_Area', 'Garage_Cond', 'Paved_Drive', 'Wood_Deck_SF', 'Open_Porch_SF', 'Enclosed_Porch', 'Three_season_porch', 'Screen_Porch', 'Pool_Area', 'Pool_QC', 'Fence', 'Misc_Feature', 'Misc_Val', 'Mo_Sold', 'Year_Sold', 'Sale_Type', 'Sale_Condition', 'Sale_Price', 'Longitude', 'Latitude'] passthroughpassthrough \n\nct.transform(ames)\n\n      polynomial__1  ...  remainder__Latitude\n0               1.0  ...               42.054\n1               1.0  ...               42.053\n2               1.0  ...               42.053\n3               1.0  ...               42.051\n4               1.0  ...               42.061\n...             ...  ...                  ...\n2925            1.0  ...               41.989\n2926            1.0  ...               41.988\n2927            1.0  ...               41.987\n2928            1.0  ...               41.991\n2929            1.0  ...               41.989\n\n[2930 rows x 78 columns]",
     "crumbs": [
       "Numeric Features",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Polynomial</span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Polynomial Expansion</span>"
     ]
   },
   {
@@ -1694,45 +1694,45 @@
   {
     "objectID": "categorical-multi-dummy.html",
     "href": "categorical-multi-dummy.html",
-    "title": "36  🏗️ Multi-Dummy encoding",
+    "title": "36  🏗️ Multi-Dummy Encoding",
     "section": "",
-    "text": "36.1 Multi-Dummy encoding",
+    "text": "36.1 Multi-Dummy Encoding",
     "crumbs": [
       "Categorical Features",
-      "<span class='chapter-number'>36</span>  <span class='chapter-title'>🏗️ Multi-Dummy encoding</span>"
+      "<span class='chapter-number'>36</span>  <span class='chapter-title'>🏗️ Multi-Dummy Encoding</span>"
     ]
   },
   {
     "objectID": "categorical-multi-dummy.html#pros-and-cons",
     "href": "categorical-multi-dummy.html#pros-and-cons",
-    "title": "36  🏗️ Multi-Dummy encoding",
+    "title": "36  🏗️ Multi-Dummy Encoding",
     "section": "36.2 Pros and Cons",
     "text": "36.2 Pros and Cons\n\n36.2.1 Pros\n\n\n36.2.2 Cons",
     "crumbs": [
       "Categorical Features",
-      "<span class='chapter-number'>36</span>  <span class='chapter-title'>🏗️ Multi-Dummy encoding</span>"
+      "<span class='chapter-number'>36</span>  <span class='chapter-title'>🏗️ Multi-Dummy Encoding</span>"
     ]
   },
   {
     "objectID": "categorical-multi-dummy.html#r-examples",
     "href": "categorical-multi-dummy.html#r-examples",
-    "title": "36  🏗️ Multi-Dummy encoding",
+    "title": "36  🏗️ Multi-Dummy Encoding",
     "section": "36.3 R Examples",
     "text": "36.3 R Examples",
     "crumbs": [
       "Categorical Features",
-      "<span class='chapter-number'>36</span>  <span class='chapter-title'>🏗️ Multi-Dummy encoding</span>"
+      "<span class='chapter-number'>36</span>  <span class='chapter-title'>🏗️ Multi-Dummy Encoding</span>"
     ]
   },
   {
     "objectID": "categorical-multi-dummy.html#python-examples",
     "href": "categorical-multi-dummy.html#python-examples",
-    "title": "36  🏗️ Multi-Dummy encoding",
+    "title": "36  🏗️ Multi-Dummy Encoding",
     "section": "36.4 Python Examples",
     "text": "36.4 Python Examples",
     "crumbs": [
       "Categorical Features",
-      "<span class='chapter-number'>36</span>  <span class='chapter-title'>🏗️ Multi-Dummy encoding</span>"
+      "<span class='chapter-number'>36</span>  <span class='chapter-title'>🏗️ Multi-Dummy Encoding</span>"
     ]
   },
   {
@@ -2244,45 +2244,45 @@
   {
     "objectID": "text-cleaning.html",
     "href": "text-cleaning.html",
-    "title": "48  🏗️ Text cleaning",
+    "title": "48  🏗️ Text Cleaning",
     "section": "",
-    "text": "48.1 Text cleaning",
+    "text": "48.1 Text Cleaning",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>48</span>  <span class='chapter-title'>🏗️ Text cleaning</span>"
+      "<span class='chapter-number'>48</span>  <span class='chapter-title'>🏗️ Text Cleaning</span>"
     ]
   },
   {
     "objectID": "text-cleaning.html#pros-and-cons",
     "href": "text-cleaning.html#pros-and-cons",
-    "title": "48  🏗️ Text cleaning",
+    "title": "48  🏗️ Text Cleaning",
     "section": "48.2 Pros and Cons",
     "text": "48.2 Pros and Cons\n\n48.2.1 Pros\n\nWhen applied correctly, can lead to boosts in insights into the data\n\n\n\n48.2.2 Cons\n\nCan be a quite manual process which will likely be domain specific",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>48</span>  <span class='chapter-title'>🏗️ Text cleaning</span>"
+      "<span class='chapter-number'>48</span>  <span class='chapter-title'>🏗️ Text Cleaning</span>"
     ]
   },
   {
     "objectID": "text-cleaning.html#r-examples",
     "href": "text-cleaning.html#r-examples",
-    "title": "48  🏗️ Text cleaning",
+    "title": "48  🏗️ Text Cleaning",
     "section": "48.3 R Examples",
     "text": "48.3 R Examples\n\n\n\n\n\n\nTODO\n\n\n\nFind a data set that isn’t clean\n\n\nWe will use the step_text_normalization() function from the {textrecipes} package to perform unicode normalization, which defaults to the NFC normalization form.\n\nlibrary(textrecipes)\n\nLoading required package: recipes\n\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nsample_data &lt;- tibble(text = c(\"sch\\U00f6n\", \"scho\\U0308n\"))\n\nsample_data |&gt;\n  count(text)\n\n# A tibble: 2 × 2\n  text      n\n  &lt;chr&gt; &lt;int&gt;\n1 schön     1\n2 schön     1\n\nrec &lt;- recipe(~., data = sample_data) |&gt;\n  step_text_normalization(text) |&gt;\n  prep()\n\nrec |&gt;\n  bake(new_data = NULL) |&gt;\n  count(text)\n\n# A tibble: 1 × 2\n  text      n\n  &lt;fct&gt; &lt;int&gt;\n1 schön     2",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>48</span>  <span class='chapter-title'>🏗️ Text cleaning</span>"
+      "<span class='chapter-number'>48</span>  <span class='chapter-title'>🏗️ Text Cleaning</span>"
     ]
   },
   {
     "objectID": "text-cleaning.html#python-examples",
     "href": "text-cleaning.html#python-examples",
-    "title": "48  🏗️ Text cleaning",
+    "title": "48  🏗️ Text Cleaning",
     "section": "48.4 Python Examples",
     "text": "48.4 Python Examples",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>48</span>  <span class='chapter-title'>🏗️ Text cleaning</span>"
+      "<span class='chapter-number'>48</span>  <span class='chapter-title'>🏗️ Text Cleaning</span>"
     ]
   },
   {
@@ -2464,45 +2464,45 @@
   {
     "objectID": "text-filter.html",
     "href": "text-filter.html",
-    "title": "53  🏗️ Token filter",
+    "title": "53  🏗️ Token Filter",
     "section": "",
-    "text": "53.1 Token filter",
+    "text": "53.1 Token Filter",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>53</span>  <span class='chapter-title'>🏗️ Token filter</span>"
+      "<span class='chapter-number'>53</span>  <span class='chapter-title'>🏗️ Token Filter</span>"
     ]
   },
   {
     "objectID": "text-filter.html#pros-and-cons",
     "href": "text-filter.html#pros-and-cons",
-    "title": "53  🏗️ Token filter",
+    "title": "53  🏗️ Token Filter",
     "section": "53.2 Pros and Cons",
     "text": "53.2 Pros and Cons\n\n53.2.1 Pros\n\n\n53.2.2 Cons",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>53</span>  <span class='chapter-title'>🏗️ Token filter</span>"
+      "<span class='chapter-number'>53</span>  <span class='chapter-title'>🏗️ Token Filter</span>"
     ]
   },
   {
     "objectID": "text-filter.html#r-examples",
     "href": "text-filter.html#r-examples",
-    "title": "53  🏗️ Token filter",
+    "title": "53  🏗️ Token Filter",
     "section": "53.3 R Examples",
     "text": "53.3 R Examples",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>53</span>  <span class='chapter-title'>🏗️ Token filter</span>"
+      "<span class='chapter-number'>53</span>  <span class='chapter-title'>🏗️ Token Filter</span>"
     ]
   },
   {
     "objectID": "text-filter.html#python-examples",
     "href": "text-filter.html#python-examples",
-    "title": "53  🏗️ Token filter",
+    "title": "53  🏗️ Token Filter",
     "section": "53.4 Python Examples",
     "text": "53.4 Python Examples",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>53</span>  <span class='chapter-title'>🏗️ Token filter</span>"
+      "<span class='chapter-number'>53</span>  <span class='chapter-title'>🏗️ Token Filter</span>"
     ]
   },
   {
@@ -2871,45 +2871,45 @@
   {
     "objectID": "circular-splines.html",
     "href": "circular-splines.html",
-    "title": "63  🏗️ Period Splines",
+    "title": "63  🏗️ Periodic Splines",
     "section": "",
-    "text": "63.1 Period Splines",
+    "text": "63.1 Periodic Splines",
     "crumbs": [
       "Circular Features",
-      "<span class='chapter-number'>63</span>  <span class='chapter-title'>🏗️ Period Splines</span>"
+      "<span class='chapter-number'>63</span>  <span class='chapter-title'>🏗️ Periodic Splines</span>"
     ]
   },
   {
     "objectID": "circular-splines.html#pros-and-cons",
     "href": "circular-splines.html#pros-and-cons",
-    "title": "63  🏗️ Period Splines",
+    "title": "63  🏗️ Periodic Splines",
     "section": "63.2 Pros and Cons",
     "text": "63.2 Pros and Cons\n\n63.2.1 Pros\n\n\n63.2.2 Cons",
     "crumbs": [
       "Circular Features",
-      "<span class='chapter-number'>63</span>  <span class='chapter-title'>🏗️ Period Splines</span>"
+      "<span class='chapter-number'>63</span>  <span class='chapter-title'>🏗️ Periodic Splines</span>"
     ]
   },
   {
     "objectID": "circular-splines.html#r-examples",
     "href": "circular-splines.html#r-examples",
-    "title": "63  🏗️ Period Splines",
+    "title": "63  🏗️ Periodic Splines",
     "section": "63.3 R Examples",
     "text": "63.3 R Examples",
     "crumbs": [
       "Circular Features",
-      "<span class='chapter-number'>63</span>  <span class='chapter-title'>🏗️ Period Splines</span>"
+      "<span class='chapter-number'>63</span>  <span class='chapter-title'>🏗️ Periodic Splines</span>"
     ]
   },
   {
     "objectID": "circular-splines.html#python-examples",
     "href": "circular-splines.html#python-examples",
-    "title": "63  🏗️ Period Splines",
+    "title": "63  🏗️ Periodic Splines",
     "section": "63.4 Python Examples",
     "text": "63.4 Python Examples",
     "crumbs": [
       "Circular Features",
-      "<span class='chapter-number'>63</span>  <span class='chapter-title'>🏗️ Period Splines</span>"
+      "<span class='chapter-number'>63</span>  <span class='chapter-title'>🏗️ Periodic Splines</span>"
     ]
   },
   {
@@ -3038,7 +3038,7 @@
     "href": "too-many-zv.html#python-examples",
     "title": "66  Zero Variance Filter",
     "section": "66.4 Python Examples",
-    "text": "66.4 Python Examples\nWe are using the ames data set for examples. {sklearn} provided the VarianceThreshold() method we can use. With this, we can set the threshold argument to specify the threshold of when to remove. The default 0 will remove zero-variance columns.\n\nfrom feazdata import ames\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.feature_selection import VarianceThreshold\nfrom sklearn.compose import make_column_selector\nimport numpy as np\n\nct = ColumnTransformer(\n    [('onehot', VarianceThreshold(threshold=0), make_column_selector(dtype_include=np.number))], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x17f253ce0&gt;)])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x17f253ce0&gt;)]) onehot&lt;sklearn.compose._column_transformer.make_column_selector object at 0x17f253ce0&gt;  VarianceThreshold?Documentation for VarianceThresholdVarianceThreshold(threshold=0) remainder['MS_SubClass', 'MS_Zoning', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_Type_2', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'Functional', 'Garage_Type', 'Garage_Finish', 'Garage_Cond', 'Paved_Drive', 'Pool_QC', 'Fence', 'Misc_Feature', 'Sale_Type', 'Sale_Condition'] passthroughpassthrough \n\nct.transform(ames)\n\n      onehot__Lot_Frontage  ...  remainder__Sale_Condition\n0                      141  ...                     Normal\n1                       80  ...                     Normal\n2                       81  ...                     Normal\n3                       93  ...                     Normal\n4                       74  ...                     Normal\n...                    ...  ...                        ...\n2925                    37  ...                     Normal\n2926                     0  ...                     Normal\n2927                    62  ...                     Normal\n2928                    77  ...                     Normal\n2929                    74  ...                     Normal\n\n[2930 rows x 74 columns]\n\n\nbut we can change that threshold to remove near-zero variance columns.\n\nct = ColumnTransformer(\n    [('onehot', VarianceThreshold(threshold=0.2), make_column_selector(dtype_include=np.number))], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0.2),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x13df89520&gt;)])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0.2),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x13df89520&gt;)]) onehot&lt;sklearn.compose._column_transformer.make_column_selector object at 0x13df89520&gt;  VarianceThreshold?Documentation for VarianceThresholdVarianceThreshold(threshold=0.2) remainder['MS_SubClass', 'MS_Zoning', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_Type_2', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'Functional', 'Garage_Type', 'Garage_Finish', 'Garage_Cond', 'Paved_Drive', 'Pool_QC', 'Fence', 'Misc_Feature', 'Sale_Type', 'Sale_Condition'] passthroughpassthrough \n\nct.transform(ames)\n\n      onehot__Lot_Frontage  ...  remainder__Sale_Condition\n0                      141  ...                     Normal\n1                       80  ...                     Normal\n2                       81  ...                     Normal\n3                       93  ...                     Normal\n4                       74  ...                     Normal\n...                    ...  ...                        ...\n2925                    37  ...                     Normal\n2926                     0  ...                     Normal\n2927                    62  ...                     Normal\n2928                    77  ...                     Normal\n2929                    74  ...                     Normal\n\n[2930 rows x 70 columns]",
+    "text": "66.4 Python Examples\nWe are using the ames data set for examples. {sklearn} provided the VarianceThreshold() method we can use. With this, we can set the threshold argument to specify the threshold of when to remove. The default 0 will remove zero-variance columns.\n\nfrom feazdata import ames\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.feature_selection import VarianceThreshold\nfrom sklearn.compose import make_column_selector\nimport numpy as np\n\nct = ColumnTransformer(\n    [('onehot', VarianceThreshold(threshold=0), make_column_selector(dtype_include=np.number))], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x2959a3b00&gt;)])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x2959a3b00&gt;)]) onehot&lt;sklearn.compose._column_transformer.make_column_selector object at 0x2959a3b00&gt;  VarianceThreshold?Documentation for VarianceThresholdVarianceThreshold(threshold=0) remainder['MS_SubClass', 'MS_Zoning', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_Type_2', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'Functional', 'Garage_Type', 'Garage_Finish', 'Garage_Cond', 'Paved_Drive', 'Pool_QC', 'Fence', 'Misc_Feature', 'Sale_Type', 'Sale_Condition'] passthroughpassthrough \n\nct.transform(ames)\n\n      onehot__Lot_Frontage  ...  remainder__Sale_Condition\n0                      141  ...                     Normal\n1                       80  ...                     Normal\n2                       81  ...                     Normal\n3                       93  ...                     Normal\n4                       74  ...                     Normal\n...                    ...  ...                        ...\n2925                    37  ...                     Normal\n2926                     0  ...                     Normal\n2927                    62  ...                     Normal\n2928                    77  ...                     Normal\n2929                    74  ...                     Normal\n\n[2930 rows x 74 columns]\n\n\nbut we can change that threshold to remove near-zero variance columns.\n\nct = ColumnTransformer(\n    [('onehot', VarianceThreshold(threshold=0.2), make_column_selector(dtype_include=np.number))], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0.2),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x2956564e0&gt;)])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0.2),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x2956564e0&gt;)]) onehot&lt;sklearn.compose._column_transformer.make_column_selector object at 0x2956564e0&gt;  VarianceThreshold?Documentation for VarianceThresholdVarianceThreshold(threshold=0.2) remainder['MS_SubClass', 'MS_Zoning', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_Type_2', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'Functional', 'Garage_Type', 'Garage_Finish', 'Garage_Cond', 'Paved_Drive', 'Pool_QC', 'Fence', 'Misc_Feature', 'Sale_Type', 'Sale_Condition'] passthroughpassthrough \n\nct.transform(ames)\n\n      onehot__Lot_Frontage  ...  remainder__Sale_Condition\n0                      141  ...                     Normal\n1                       80  ...                     Normal\n2                       81  ...                     Normal\n3                       93  ...                     Normal\n4                       74  ...                     Normal\n...                    ...  ...                        ...\n2925                    37  ...                     Normal\n2926                     0  ...                     Normal\n2927                    62  ...                     Normal\n2928                    77  ...                     Normal\n2929                    74  ...                     Normal\n\n[2930 rows x 70 columns]",
     "crumbs": [
       "Too Many Variables",
       "<span class='chapter-number'>66</span>  <span class='chapter-title'>Zero Variance Filter</span>"
@@ -3179,133 +3179,133 @@
   {
     "objectID": "too-many-nmf.html",
     "href": "too-many-nmf.html",
-    "title": "70  🏗️ Non-negative matrix factorization",
+    "title": "70  🏗️ Non-Negative Matrix Factorization",
     "section": "",
-    "text": "70.1 Non-negative matrix factorization",
+    "text": "70.1 Non-Negative Matrix Factorization",
     "crumbs": [
       "Too Many Variables",
-      "<span class='chapter-number'>70</span>  <span class='chapter-title'>🏗️ Non-negative matrix factorization</span>"
+      "<span class='chapter-number'>70</span>  <span class='chapter-title'>🏗️ Non-Negative Matrix Factorization</span>"
     ]
   },
   {
     "objectID": "too-many-nmf.html#pros-and-cons",
     "href": "too-many-nmf.html#pros-and-cons",
-    "title": "70  🏗️ Non-negative matrix factorization",
+    "title": "70  🏗️ Non-Negative Matrix Factorization",
     "section": "70.2 Pros and Cons",
     "text": "70.2 Pros and Cons\n\n70.2.1 Pros\n\n\n70.2.2 Cons",
     "crumbs": [
       "Too Many Variables",
-      "<span class='chapter-number'>70</span>  <span class='chapter-title'>🏗️ Non-negative matrix factorization</span>"
+      "<span class='chapter-number'>70</span>  <span class='chapter-title'>🏗️ Non-Negative Matrix Factorization</span>"
     ]
   },
   {
     "objectID": "too-many-nmf.html#r-examples",
     "href": "too-many-nmf.html#r-examples",
-    "title": "70  🏗️ Non-negative matrix factorization",
+    "title": "70  🏗️ Non-Negative Matrix Factorization",
     "section": "70.3 R Examples",
     "text": "70.3 R Examples",
     "crumbs": [
       "Too Many Variables",
-      "<span class='chapter-number'>70</span>  <span class='chapter-title'>🏗️ Non-negative matrix factorization</span>"
+      "<span class='chapter-number'>70</span>  <span class='chapter-title'>🏗️ Non-Negative Matrix Factorization</span>"
     ]
   },
   {
     "objectID": "too-many-nmf.html#python-examples",
     "href": "too-many-nmf.html#python-examples",
-    "title": "70  🏗️ Non-negative matrix factorization",
+    "title": "70  🏗️ Non-Negative Matrix Factorization",
     "section": "70.4 Python Examples",
     "text": "70.4 Python Examples",
     "crumbs": [
       "Too Many Variables",
-      "<span class='chapter-number'>70</span>  <span class='chapter-title'>🏗️ Non-negative matrix factorization</span>"
+      "<span class='chapter-number'>70</span>  <span class='chapter-title'>🏗️ Non-Negative Matrix Factorization</span>"
     ]
   },
   {
     "objectID": "too-many-lda.html",
     "href": "too-many-lda.html",
-    "title": "71  🏗️ Linear discriminant analysis",
+    "title": "71  🏗️ Linear Discriminant Analysis",
     "section": "",
-    "text": "71.1 Linear discriminant analysis",
+    "text": "71.1 Linear Discriminant Analysis",
     "crumbs": [
       "Too Many Variables",
-      "<span class='chapter-number'>71</span>  <span class='chapter-title'>🏗️ Linear discriminant analysis</span>"
+      "<span class='chapter-number'>71</span>  <span class='chapter-title'>🏗️ Linear Discriminant Analysis</span>"
     ]
   },
   {
     "objectID": "too-many-lda.html#pros-and-cons",
     "href": "too-many-lda.html#pros-and-cons",
-    "title": "71  🏗️ Linear discriminant analysis",
+    "title": "71  🏗️ Linear Discriminant Analysis",
     "section": "71.2 Pros and Cons",
     "text": "71.2 Pros and Cons\n\n71.2.1 Pros\n\n\n71.2.2 Cons",
     "crumbs": [
       "Too Many Variables",
-      "<span class='chapter-number'>71</span>  <span class='chapter-title'>🏗️ Linear discriminant analysis</span>"
+      "<span class='chapter-number'>71</span>  <span class='chapter-title'>🏗️ Linear Discriminant Analysis</span>"
     ]
   },
   {
     "objectID": "too-many-lda.html#r-examples",
     "href": "too-many-lda.html#r-examples",
-    "title": "71  🏗️ Linear discriminant analysis",
+    "title": "71  🏗️ Linear Discriminant Analysis",
     "section": "71.3 R Examples",
     "text": "71.3 R Examples",
     "crumbs": [
       "Too Many Variables",
-      "<span class='chapter-number'>71</span>  <span class='chapter-title'>🏗️ Linear discriminant analysis</span>"
+      "<span class='chapter-number'>71</span>  <span class='chapter-title'>🏗️ Linear Discriminant Analysis</span>"
     ]
   },
   {
     "objectID": "too-many-lda.html#python-examples",
     "href": "too-many-lda.html#python-examples",
-    "title": "71  🏗️ Linear discriminant analysis",
+    "title": "71  🏗️ Linear Discriminant Analysis",
     "section": "71.4 Python Examples",
     "text": "71.4 Python Examples",
     "crumbs": [
       "Too Many Variables",
-      "<span class='chapter-number'>71</span>  <span class='chapter-title'>🏗️ Linear discriminant analysis</span>"
+      "<span class='chapter-number'>71</span>  <span class='chapter-title'>🏗️ Linear Discriminant Analysis</span>"
     ]
   },
   {
     "objectID": "too-many-gda.html",
     "href": "too-many-gda.html",
-    "title": "72  🏗️ Generalized discriminant analysis",
+    "title": "72  🏗️ Generalized Discriminant Analysis",
     "section": "",
-    "text": "72.1 Generalized discriminant analysis",
+    "text": "72.1 Generalized Discriminant Analysis",
     "crumbs": [
       "Too Many Variables",
-      "<span class='chapter-number'>72</span>  <span class='chapter-title'>🏗️ Generalized discriminant analysis</span>"
+      "<span class='chapter-number'>72</span>  <span class='chapter-title'>🏗️ Generalized Discriminant Analysis</span>"
     ]
   },
   {
     "objectID": "too-many-gda.html#pros-and-cons",
     "href": "too-many-gda.html#pros-and-cons",
-    "title": "72  🏗️ Generalized discriminant analysis",
+    "title": "72  🏗️ Generalized Discriminant Analysis",
     "section": "72.2 Pros and Cons",
     "text": "72.2 Pros and Cons\n\n72.2.1 Pros\n\n\n72.2.2 Cons",
     "crumbs": [
       "Too Many Variables",
-      "<span class='chapter-number'>72</span>  <span class='chapter-title'>🏗️ Generalized discriminant analysis</span>"
+      "<span class='chapter-number'>72</span>  <span class='chapter-title'>🏗️ Generalized Discriminant Analysis</span>"
     ]
   },
   {
     "objectID": "too-many-gda.html#r-examples",
     "href": "too-many-gda.html#r-examples",
-    "title": "72  🏗️ Generalized discriminant analysis",
+    "title": "72  🏗️ Generalized Discriminant Analysis",
     "section": "72.3 R Examples",
     "text": "72.3 R Examples",
     "crumbs": [
       "Too Many Variables",
-      "<span class='chapter-number'>72</span>  <span class='chapter-title'>🏗️ Generalized discriminant analysis</span>"
+      "<span class='chapter-number'>72</span>  <span class='chapter-title'>🏗️ Generalized Discriminant Analysis</span>"
     ]
   },
   {
     "objectID": "too-many-gda.html#python-examples",
     "href": "too-many-gda.html#python-examples",
-    "title": "72  🏗️ Generalized discriminant analysis",
+    "title": "72  🏗️ Generalized Discriminant Analysis",
     "section": "72.4 Python Examples",
     "text": "72.4 Python Examples",
     "crumbs": [
       "Too Many Variables",
-      "<span class='chapter-number'>72</span>  <span class='chapter-title'>🏗️ Generalized discriminant analysis</span>"
+      "<span class='chapter-number'>72</span>  <span class='chapter-title'>🏗️ Generalized Discriminant Analysis</span>"
     ]
   },
   {
@@ -3531,45 +3531,45 @@
   {
     "objectID": "too-many-embedded.html",
     "href": "too-many-embedded.html",
-    "title": "78  🏗️ embedded based feature selection",
+    "title": "78  🏗️ Embedded based feature selection",
     "section": "",
-    "text": "78.1 embedded based feature selection",
+    "text": "78.1 Embedded based feature selection",
     "crumbs": [
       "Too Many Variables",
-      "<span class='chapter-number'>78</span>  <span class='chapter-title'>🏗️ embedded based feature selection</span>"
+      "<span class='chapter-number'>78</span>  <span class='chapter-title'>🏗️ Embedded based feature selection</span>"
     ]
   },
   {
     "objectID": "too-many-embedded.html#pros-and-cons",
     "href": "too-many-embedded.html#pros-and-cons",
-    "title": "78  🏗️ embedded based feature selection",
+    "title": "78  🏗️ Embedded based feature selection",
     "section": "78.2 Pros and Cons",
     "text": "78.2 Pros and Cons\n\n78.2.1 Pros\n\n\n78.2.2 Cons",
     "crumbs": [
       "Too Many Variables",
-      "<span class='chapter-number'>78</span>  <span class='chapter-title'>🏗️ embedded based feature selection</span>"
+      "<span class='chapter-number'>78</span>  <span class='chapter-title'>🏗️ Embedded based feature selection</span>"
     ]
   },
   {
     "objectID": "too-many-embedded.html#r-examples",
     "href": "too-many-embedded.html#r-examples",
-    "title": "78  🏗️ embedded based feature selection",
+    "title": "78  🏗️ Embedded based feature selection",
     "section": "78.3 R Examples",
     "text": "78.3 R Examples",
     "crumbs": [
       "Too Many Variables",
-      "<span class='chapter-number'>78</span>  <span class='chapter-title'>🏗️ embedded based feature selection</span>"
+      "<span class='chapter-number'>78</span>  <span class='chapter-title'>🏗️ Embedded based feature selection</span>"
     ]
   },
   {
     "objectID": "too-many-embedded.html#python-examples",
     "href": "too-many-embedded.html#python-examples",
-    "title": "78  🏗️ embedded based feature selection",
+    "title": "78  🏗️ Embedded based feature selection",
     "section": "78.4 Python Examples",
     "text": "78.4 Python Examples",
     "crumbs": [
       "Too Many Variables",
-      "<span class='chapter-number'>78</span>  <span class='chapter-title'>🏗️ embedded based feature selection</span>"
+      "<span class='chapter-number'>78</span>  <span class='chapter-title'>🏗️ Embedded based feature selection</span>"
     ]
   },
   {
@@ -3784,45 +3784,45 @@
   {
     "objectID": "imbalenced-upsample.html",
     "href": "imbalenced-upsample.html",
-    "title": "86  🏗️ Up-sampling",
+    "title": "86  🏗️ Up-Sampling",
     "section": "",
-    "text": "86.1 Up-sampling",
+    "text": "86.1 Up-Sampling",
     "crumbs": [
       "Imbalanced Data",
-      "<span class='chapter-number'>86</span>  <span class='chapter-title'>🏗️ Up-sampling</span>"
+      "<span class='chapter-number'>86</span>  <span class='chapter-title'>🏗️ Up-Sampling</span>"
     ]
   },
   {
     "objectID": "imbalenced-upsample.html#pros-and-cons",
     "href": "imbalenced-upsample.html#pros-and-cons",
-    "title": "86  🏗️ Up-sampling",
+    "title": "86  🏗️ Up-Sampling",
     "section": "86.2 Pros and Cons",
     "text": "86.2 Pros and Cons\n\n86.2.1 Pros\n\n\n86.2.2 Cons",
     "crumbs": [
       "Imbalanced Data",
-      "<span class='chapter-number'>86</span>  <span class='chapter-title'>🏗️ Up-sampling</span>"
+      "<span class='chapter-number'>86</span>  <span class='chapter-title'>🏗️ Up-Sampling</span>"
     ]
   },
   {
     "objectID": "imbalenced-upsample.html#r-examples",
     "href": "imbalenced-upsample.html#r-examples",
-    "title": "86  🏗️ Up-sampling",
+    "title": "86  🏗️ Up-Sampling",
     "section": "86.3 R Examples",
     "text": "86.3 R Examples",
     "crumbs": [
       "Imbalanced Data",
-      "<span class='chapter-number'>86</span>  <span class='chapter-title'>🏗️ Up-sampling</span>"
+      "<span class='chapter-number'>86</span>  <span class='chapter-title'>🏗️ Up-Sampling</span>"
     ]
   },
   {
     "objectID": "imbalenced-upsample.html#python-examples",
     "href": "imbalenced-upsample.html#python-examples",
-    "title": "86  🏗️ Up-sampling",
+    "title": "86  🏗️ Up-Sampling",
     "section": "86.4 Python Examples",
     "text": "86.4 Python Examples",
     "crumbs": [
       "Imbalanced Data",
-      "<span class='chapter-number'>86</span>  <span class='chapter-title'>🏗️ Up-sampling</span>"
+      "<span class='chapter-number'>86</span>  <span class='chapter-title'>🏗️ Up-Sampling</span>"
     ]
   },
   {
@@ -5093,45 +5093,45 @@
   {
     "objectID": "time-series-lag.html",
     "href": "time-series-lag.html",
-    "title": "118  🏗️ Lagging features",
+    "title": "118  🏗️ Lagging Features",
     "section": "",
-    "text": "118.1 Lagging features",
+    "text": "118.1 Lagging Features",
     "crumbs": [
       "Time-Series Data",
-      "<span class='chapter-number'>118</span>  <span class='chapter-title'>🏗️ Lagging features</span>"
+      "<span class='chapter-number'>118</span>  <span class='chapter-title'>🏗️ Lagging Features</span>"
     ]
   },
   {
     "objectID": "time-series-lag.html#pros-and-cons",
     "href": "time-series-lag.html#pros-and-cons",
-    "title": "118  🏗️ Lagging features",
+    "title": "118  🏗️ Lagging Features",
     "section": "118.2 Pros and Cons",
     "text": "118.2 Pros and Cons\n\n118.2.1 Pros\n\n\n118.2.2 Cons",
     "crumbs": [
       "Time-Series Data",
-      "<span class='chapter-number'>118</span>  <span class='chapter-title'>🏗️ Lagging features</span>"
+      "<span class='chapter-number'>118</span>  <span class='chapter-title'>🏗️ Lagging Features</span>"
     ]
   },
   {
     "objectID": "time-series-lag.html#r-examples",
     "href": "time-series-lag.html#r-examples",
-    "title": "118  🏗️ Lagging features",
+    "title": "118  🏗️ Lagging Features",
     "section": "118.3 R Examples",
     "text": "118.3 R Examples",
     "crumbs": [
       "Time-Series Data",
-      "<span class='chapter-number'>118</span>  <span class='chapter-title'>🏗️ Lagging features</span>"
+      "<span class='chapter-number'>118</span>  <span class='chapter-title'>🏗️ Lagging Features</span>"
     ]
   },
   {
     "objectID": "time-series-lag.html#python-examples",
     "href": "time-series-lag.html#python-examples",
-    "title": "118  🏗️ Lagging features",
+    "title": "118  🏗️ Lagging Features",
     "section": "118.4 Python Examples",
     "text": "118.4 Python Examples",
     "crumbs": [
       "Time-Series Data",
-      "<span class='chapter-number'>118</span>  <span class='chapter-title'>🏗️ Lagging features</span>"
+      "<span class='chapter-number'>118</span>  <span class='chapter-title'>🏗️ Lagging Features</span>"
     ]
   },
   {
@@ -5852,12 +5852,12 @@
   {
     "objectID": "relational.html",
     "href": "relational.html",
-    "title": "135  Rational Overview",
+    "title": "135  Relational Overview",
     "section": "",
-    "text": "135.1 Rational Overview",
+    "text": "135.1 Relational Overview",
     "crumbs": [
       "Ralational Data",
-      "<span class='chapter-number'>135</span>  <span class='chapter-title'>Rational Overview</span>"
+      "<span class='chapter-number'>135</span>  <span class='chapter-title'>Relational Overview</span>"
     ]
   },
   {
