@@ -14,11 +14,7 @@ We start with simpler methods. Remember, this chapter specifically refers to met
 
 You could also fit a linear regression model with the target variable as the variable you intend to impute, and other complete variables as predictors.
 
-::: {.callout-caution}
-# TODO
-
-add diagram
-:::
+![linear imputation in action. The left-hand side shows the linear fit between a predictor and the target variable. Missing values are shown along the x-axis. The right-hand side shows how the missing values are being imputed using the linear fit.](diagrams/missing-impute-linear.png){#fig-missing-impute-linear}
 
 This idea will extend into most other types of models. K-nearest neighbors and trees are common models for this task. For these models, you need to make sure that the predictors can be used. So they will need to not have any missing values themselves. You could in theory use a series of models you impute variables with missing data, which then will be used as predictors to predict another variable.
 
