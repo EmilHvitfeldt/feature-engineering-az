@@ -22,11 +22,7 @@ add diagram
 
 This idea will extend into most other types of models. K-nearest neighbors and trees are common models for this task. For these models, you need to make sure that the predictors can be used. So they will need to not have any missing values themselves. You could in theory use a series of models you impute variables with missing data, which then will be used as predictors to predict another variable.
 
-::: {.callout-caution}
-# TODO
-
-figure out if MICE is applicable here
-:::
+Methods such as Multivariate Imputation by Chained Equations[@van2012flexible] also fall into this category of imputation as well.
 
 ## Pros and Cons
 
@@ -64,3 +60,40 @@ impute_knn_rec |>
 ```
 
 ## Python Examples
+
+I'm not aware of a good way to do this for models other than KNN in a scikit-learn way. Please file an [issue on github](https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new?assignees=&labels=&projects=&template=general-issue.md&title) if you know of a good way.
+
+```{python}
+#| echo: false
+import pandas as pd
+from sklearn import set_config
+
+set_config(transform_output="pandas")
+pd.set_option('display.precision', 3)
+```
+
+We are using the `ames` data set for examples. {sklearn} provided the `KNNImputer()` method we can use.
+
+```{python}
+from feazdata import ames
+from sklearn.compose import ColumnTransformer
+from sklearn.impute import KNNImputer
+
+ct = ColumnTransformer(
+    [('na_indicator', KNNImputer(), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], 
+    remainder="passthrough")
+
+ct.fit(ames)
+ct.transform(ames)
+```
+
+The argument `n_neighbors` is something you might have to tune to get good performance for this type of imputing method.
+
+```{python}
+ct = ColumnTransformer(
+    [('na_indicator', KNNImputer(n_neighbors=15), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], 
+    remainder="passthrough")
+
+ct.fit(ames)
+ct.transform(ames)
+```
