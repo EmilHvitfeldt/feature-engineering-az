@@ -1290,18 +1290,15 @@ div.csl-indent {
 <p>In model-based imputation, this is where we get the remaining types of imputation that we can use. It is quite a big and broad topic. This chapter will try to do it justice.</p>
 <p>We start with simpler methods. Remember, this chapter specifically refers to methods where more than one variable is being used for the imputation. So we could do grouped versions of the simple imputation methods seen in <a href="missing-simple.html" class="quarto-xref"><span>Chapter 42</span></a>. Instead of imputing with the mean, you impute with the mean within a given group as defined by another categorical variable.</p>
 <p>You could also fit a linear regression model with the target variable as the variable you intend to impute, and other complete variables as predictors.</p>
-<div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<div id="fig-missing-impute-linear" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-missing-impute-linear-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="diagrams/missing-impute-linear.png" class="img-fluid figure-img">
 </div>
-<div class="callout-title-container flex-fill">
-TODO
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>add diagram</p>
-</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-missing-impute-linear-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;43.1: linear imputation in action. The left-hand side shows the linear fit between a predictor and the target variable. Missing values are shown along the x-axis. The right-hand side shows how the missing values are being imputed using the linear fit.
+</figcaption>
+</figure>
 </div>
 <p>This idea will extend into most other types of models. K-nearest neighbors and trees are common models for this task. For these models, you need to make sure that the predictors can be used. So they will need to not have any missing values themselves. You could in theory use a series of models you impute variables with missing data, which then will be used as predictors to predict another variable.</p>
 <p>Methods such as Multivariate Imputation by Chained Equations<span class="citation" data-cites="van2012flexible">(<a href="references.html#ref-van2012flexible" role="doc-biblioref">Buuren 2012</a>)</span> also fall into this category of imputation as well.</p>
