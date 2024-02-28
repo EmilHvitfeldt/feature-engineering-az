@@ -30,6 +30,8 @@ The types of operations you do to get text data into numeric data are various, b
 
 There is also the possibility that you know exactly what type of information is important in your text field. In that case, you will be better served by manually extracting the information with regular expression or related text processing tools, we look at examples of that in @sec-text-manual.
 
+The coding portions of the following chapters will be focused on using text as features in addition to other features. This is unlike other modeling tasks where text is the whole input, such as in translation or text2image tasks. Despite this, they would still be a worthwhile read for practitioners working on those types of tasks.
+
 ## Text cleaning
 
 In @sec-text-cleaning, we will look over the ways we take raw text and get it ready for later tasks. This work deals with encoding issues, standardization, and cases and sometimes you need to get rid of a lot of unwanted chunks.
