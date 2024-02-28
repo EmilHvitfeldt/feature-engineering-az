@@ -1348,20 +1348,69 @@ TODO
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>   <span class="dv">14</span> <span class="dv">5</span>   <span class="dv">14</span> <span class="dv">5</span>  <span class="dv">16</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">1</span> <span class="dv">6</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">9</span> <span class="dv">16</span> <span class="dv">10</span> <span class="dv">11</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>this process will go on until there are no more duplicate pairs of tokens, which is far too long. Typically the vocabulary size is fixed beforehand, in the orders of 1000s. The good thing about this tokenizer is that it is more tailored toward the data you are working with, hence words like <code>"credit"</code> and <code>"load"</code> will self-populate very fast in banking text, and other words won’t come until later in the vocabulary. It is in essence less dependent on language since it tries to find frequent sequences of characters. For some language tasks, you will use this tokenizer without removing spaces and punctuation, since the tokenizer then will be able to “learn” the beginning and ends of words. One of the downsides is that the tokens themselves are harder to reason about after the fact. The token <code>"teach"</code> might be found by itself or as part of <code>"teacher"</code> and the later models likely won’t know, unless both <code>"teach"</code> and <code>"teacher"</code> is in the vocabulary.</p>
 <p>We have talked a lot about Latin alphabet tokenization. As with any study of data, it is important to work with domain experts. Tokenization of languages such as Chinese, Japanese and Korean, where each glyph contains much more information, is almost a different problem than the tokenization we have seen so far, since each “word” a lot of times is contained in 1 to 3 glyphs. Many different CJK tokenizers exist to best tackle the language construction specific to each language. Many of the techniques stem from the methods we have discussed above.</p>
+<p>Above all else, it is important to make sure that you know that the tokenization choice is one we have to make, and to make sure it matches the other things we are doing. If you look up a model on a site like <a href="https://huggingface.co/">Hugging Face</a>, you will see that for each model, a specific tokenizer is explicitly stated. This is done because we want to make sure future use of the model uses the same tokenizer. If you were to want to change the tokenizer, you would need to retrain the model from scratch using the new tokenizer.</p>
+<p>If you were to look at some of these tokenizers you will see options not discussed here in this chapter. This is partly because it is hard to keep up, and because many of the options are very specific to the text cleaning tasks. Some cleaning tasks involve having specific tokens to represent things like unknown tokens, the beginning of the sequence, and the end of the sequence. The choice doesn’t really matter, as not as it doesn’t overlap with your vocabulary and the data is cleaned in such a way that they are used correctly.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It is the author’s unverified opinion, that there is a lot of untapped potential to be gained by spending time on thorough text cleaning and optimized tokenizers. The goal of the text cleaning should be to let the tokenizer work as flawlessly as possible.</p>
+</div>
+</div>
 <section id="pros-and-cons" class="level2" data-number="49.2">
 <h2 data-number="49.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">49.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="49.2.1">
 <h3 data-number="49.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">49.2.1</span> Pros</h3>
+<ul>
+<li>Many established methods are implemented</li>
+<li>You rarely have to think about performance in terms of speed</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="49.2.2">
 <h3 data-number="49.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">49.2.2</span> Cons</h3>
+<ul>
+<li>There is often not a best answer, and experimentation will be needed</li>
+<li>something a handcrafted tokenizer will go better than an off-the-shelf version</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="49.3">
 <h2 data-number="49.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">49.3</span> R Examples</h2>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>find text data set to use</p>
+</div>
+</div>
 </section>
 <section id="python-examples" class="level2" data-number="49.4">
 <h2 data-number="49.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">49.4</span> Python Examples</h2>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>figure out the best approach to teach in Python. Should we stay in scikit-learn? move somewhere else? how should this be taught since it is likely not separate as it is in {textrecipes}</p>
+</div>
+</div>
 
 
 </section>
