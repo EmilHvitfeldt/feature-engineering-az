@@ -8,7 +8,21 @@ pagetitle: "Feature Engineering A-Z | Stemming"
 ## Stemming
 :::
 
-WIP
+When we tokenize text we will end up with a lot of different types of tokens. More importantly, we will end up with different tokens, that feel very similar. Take the tokens `"house"`, `"houses"`, and `"housing"`. Whether or not those tokens are similar or not depends on your task. If you think these tokens are the same, then you should consider applying **stemming**.
+
+In its simplest form, stemming is the task of modifying tokens to collapse dissimilar tokens. Often this is seen done, by modifying the ends of words. In practice, this is done using rule-based algorithms or using regular expressions. 
+
+::: {.callout-caution}
+This doesn't work quite well with BPE tokenizers. As those tokenizers already split up words into different parts of meaning. Changing those representations is unlikely to have a positive effect as it would have been picked up by the tokenizer itself.
+:::
+
+talk about different stemmers
+
+:::{.callout-note}
+you need a language-specific stemmer, as the language features will influence the best way to stem. The idea that a stemmer needs to modify the end of a word, comes from the fact that English words are stemmed by changing the end. But it is not a universal rule.
+:::
+
+stemming vs lemmatization
 
 ## Pros and Cons
 
