@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -1248,7 +1268,9 @@ Caution
 <p>This doesn’t work quite well with BPE tokenizers. As those tokenizers already split up words into different parts of meaning. Changing those representations is unlikely to have a positive effect as it would have been picked up by the tokenizer itself.</p>
 </div>
 </div>
-<p>talk about different stemmers</p>
+<p>The simplest English stemmer that has some useful applications is the <strong>S-Stemmer</strong>. This stemmer works by removing ending s’s on tokens. Especially turning plural versions of words into their non-plural version. <code>"houses"</code> to <code>"house"</code>, <code>"Happiness"</code> to <code>"Happine"</code> and <code>"is"</code> to <code>"i"</code>. We don’t mind that the results aren’t real words. What is important is that we are reducing the total number of tokens, in a hopefully useful way. If we took Jane Austen’s 6 published novels, tokenized them and applied the S-Stemmer, we would go front around 14520 to 12860 tokens, representing a drop of 11.4%.</p>
+<p>We see above that some failures do appear with stemmers. Such as the <code>"is"</code> to <code>"i"</code> example. And it is a choice for us as the practitioner to determine if the non-informative collapsing is worth it. A simple script can be created to showcase all the collapsed tokens and whether we can tolerate them or not.</p>
+<p>A well-used stemmer is the Porter Stemmer <span class="citation" data-cites="Porter80">(<a href="references.html#ref-Porter80" role="doc-biblioref">Porter 1980</a>)</span>. Porter himself released the implementation in the <a href="https://snowballstem.org/">Snowball framework</a>. The stemmer itself has implementations in almost any language you would need. The <a href="https://snowballstem.org/algorithms/english/stemmer.html">The English (Porter2) stemming algorithm</a> is fully described on the website, as it is a little more advanced than the S-Stemmer, and there is little advantage of copying it into these pages. The last update to the algorithm happened in October 2023, as of the time of writing.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1262,14 +1284,20 @@ Note
 <p>you need a language-specific stemmer, as the language features will influence the best way to stem. The idea that a stemmer needs to modify the end of a word, comes from the fact that English words are stemmed by changing the end. But it is not a universal rule.</p>
 </div>
 </div>
-<p>stemming vs lemmatization</p>
+<p>Lemmatization is a similar method to stemming. But with a few differences. The main similarity is that both methods aim to find a shorter representation of the token. Stemming does this by working on each token in isolation, using a set of rules to carry out an algorithm. Lemmatization on the other hand is linguistics-based, operating on the word in its context. Using Part of Speech and word meaning, you can find the lemma of words we are looking for. So a good implementation of a lemmatization would change the word to <code>"say"</code> from <code>"said"</code> and to <code>"come"</code> from <code>"came"</code>. These methods are orders of magnitude slower than stemming but can be useful when time isn’t a limiting factor as the results tend to be better. One of the better software implementations that do lemmatization is <a href="https://spacy.io/">spacy</a> <span class="citation" data-cites="Honnibal2020">(<a href="references.html#ref-Honnibal2020" role="doc-biblioref">Honnibal et al. 2020</a>)</span>.</p>
 <section id="pros-and-cons" class="level2" data-number="50.2">
 <h2 data-number="50.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">50.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="50.2.1">
 <h3 data-number="50.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">50.2.1</span> Pros</h3>
+<ul>
+<li>Can be a fast and easy way to reduce the number of tokens</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="50.2.2">
 <h3 data-number="50.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">50.2.2</span> Cons</h3>
+<ul>
+<li>Does require thorough inspection to avoid wrongful collapse</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="50.3">
@@ -1279,6 +1307,14 @@ Note
 <h2 data-number="50.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">50.4</span> Python Examples</h2>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-Honnibal2020" class="csl-entry" role="listitem">
+Honnibal, Matthew, Ines Montani, Sofie Van Landeghem, and Adriane Boyd. 2020. <span>“<span class="nocase">spaCy: Industrial-strength Natural Language Processing in Python</span>.”</span> <a href="https://doi.org/10.5281/zenodo.1212303">https://doi.org/10.5281/zenodo.1212303</a>.
+</div>
+<div id="ref-Porter80" class="csl-entry" role="listitem">
+Porter, Martin F. 1980. <span>“An Algorithm for Suffix Stripping.”</span> <em>Program</em> 14 (3): 130–37. <a href="https://doi.org/10.1108/eb046814">https://doi.org/10.1108/eb046814</a>.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->

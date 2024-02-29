@@ -16,19 +16,48 @@ In its simplest form, stemming is the task of modifying tokens to collapse dissi
 This doesn't work quite well with BPE tokenizers. As those tokenizers already split up words into different parts of meaning. Changing those representations is unlikely to have a positive effect as it would have been picked up by the tokenizer itself.
 :::
 
-talk about different stemmers
+```{r}
+#| echo: false
+library(janeaustenr)
+library(tokenizers)
+
+austen_tokens <- austen_books()$text |>
+  tokenize_words() |>
+  unlist() |>
+  unique()
+
+n_before <- length(austen_tokens)
+
+asuten_stems <- austen_tokens |>
+  stringr::str_remove("s*$") |>
+  unique()
+
+n_after <- length(asuten_stems)
+
+change <- scales::percent_format(0.1)(1 - (n_after / n_before))
+```
+
+The simplest English stemmer that has some useful applications is the **S-Stemmer**. This stemmer works by removing ending s's on tokens. Especially turning plural versions of words into their non-plural version. `"houses"` to `"house"`, `"Happiness"` to `"Happine"` and `"is"` to `"i"`. We don't mind that the results aren't real words. What is important is that we are reducing the total number of tokens, in a hopefully useful way. If we took Jane Austen's 6 published novels, tokenized them and applied the S-Stemmer, we would go front around `r n_before` to `r n_after` tokens, representing a drop of `r change`.
+
+We see above that some failures do appear with stemmers. Such as the `"is"` to `"i"` example. And it is a choice for us as the practitioner to determine if the non-informative collapsing is worth it. A simple script can be created to showcase all the collapsed tokens and whether we can tolerate them or not.
+
+A well-used stemmer is the Porter Stemmer [@Porter80]. Porter himself released the implementation in the [Snowball framework](https://snowballstem.org/). The stemmer itself has implementations in almost any language you would need. The [The English (Porter2) stemming algorithm](https://snowballstem.org/algorithms/english/stemmer.html) is fully described on the website, as it is a little more advanced than the S-Stemmer, and there is little advantage of copying it into these pages. The last update to the algorithm happened in October 2023, as of the time of writing.
 
 :::{.callout-note}
 you need a language-specific stemmer, as the language features will influence the best way to stem. The idea that a stemmer needs to modify the end of a word, comes from the fact that English words are stemmed by changing the end. But it is not a universal rule.
 :::
 
-stemming vs lemmatization
+Lemmatization is a similar method to stemming. But with a few differences. The main similarity is that both methods aim to find a shorter representation of the token. Stemming does this by working on each token in isolation, using a set of rules to carry out an algorithm. Lemmatization on the other hand is linguistics-based, operating on the word in its context. Using Part of Speech and word meaning, you can find the lemma of words we are looking for. So a good implementation of a lemmatization would change the word to `"say"` from `"said"` and to `"come"` from `"came"`. These methods are orders of magnitude slower than stemming but can be useful when time isn't a limiting factor as the results tend to be better. One of the better software implementations that do lemmatization is [spacy](https://spacy.io/) [@Honnibal2020].
 
 ## Pros and Cons
 
 ### Pros
 
+- Can be a fast and easy way to reduce the number of tokens
+
 ### Cons
+
+- Does require thorough inspection to avoid wrongful collapse
 
 ## R Examples
 
