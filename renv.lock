@@ -58,6 +58,16 @@
       ],
       "Hash": "29a7dccade1fd037c8262c2a239775eb"
     },
+    "ISOcodes": {
+      "Package": "ISOcodes",
+      "Version": "2024.02.12",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R"
+      ],
+      "Hash": "8882a4410a254e41eab064b0330fea56"
+    },
     "KernSmooth": {
       "Package": "KernSmooth",
       "Version": "2.23-22",
@@ -2581,6 +2591,17 @@
         "stats"
       ],
       "Hash": "12194b295d87fb2ade6d6f4cca7c6384"
+    },
+    "stopwords": {
+      "Package": "stopwords",
+      "Version": "2.3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "ISOcodes",
+        "R"
+      ],
+      "Hash": "82036936cbed392a250d2e6ee6ef2e53"
     },
     "stringdist": {
       "Package": "stringdist",

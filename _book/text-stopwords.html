@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -1233,7 +1253,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="stop-words" class="level2" style="visibility: hidden; height: 0px;" data-number="52.1">
 <h2 data-number="52.1" class="anchored" data-anchor-id="stop-words"><span class="header-section-number">52.1</span> Stop words</h2>
 </section>
-<p>The term <strong>stop words</strong> is a very loaded term, that is often under-explained and therefore misunderstood by practitioners. The original definition is a set of words that contains no information and are safe to remove. This is too simplistic of a view. Instead, we can think of words as having an amount of signal in them related to the task we are trying to accomplish. Removing low-signal words can be fruitful, if we are able to identify them.</p>
+<p>The term <strong>stop words</strong> is a very loaded term, that is often under-explained and therefore misunderstood by practitioners. The original definition is a set of words that contains no information and are safe to remove. This is too simplistic of a view. Instead, we can think of words as having an amount of signal in them related to the task we are trying to accomplish. Removing low-signal words can be fruitful, if we are able to identify them. The term was first coined in 1960 <span class="citation" data-cites="luhn1960">(<a href="references.html#ref-luhn1960" role="doc-biblioref">Luhn 1960</a>)</span>.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1247,9 +1267,31 @@ TODO
 <p>find good diagrams</p>
 </div>
 </div>
-<p>what are stop words</p>
-<p>gradient of usefulness</p>
-<p>depends on task</p>
+<p>Under this definition, we need to find a way to quantify how important each word is. One can think about the scopes as global, domain, and document. Global stop words are words that are almost almost low information words. These are the words like <code>"and"</code> and <code>"or"</code>. They are highly unlikely to provide a signal to the modeling task at hand, especially when using a counting method. This list is inherently going to be quite small. The domain-level stop words are more interesting but can be harder to precisely define. Suppose you are looking at hotel listings. The words <code>"bed"</code> and <code>"room"</code> are likely stop words as they don’t provide much value to any talk that you would imagine. Hotel listings are all but guaranteed to be talking about the style of bed, and the room they are offering. The word <code>"beach"</code> would generally be a word of interest when talking about hotel listings as a whole, but could be a stop word when we are scoped to beach hotel listings. There is a lot of grey area and domain knowledge happening in this type of stop words. Lastly, we have document-level stop words. These are words in a document that don’t contain information, and they are really hard to figure out effectively because it is determined on a document-by-document basis. These stop words technically exist but will likely not be picked up on the methods we will be using.</p>
+<p>The first application of stop words that people encounter is premade stop word lists. The list of stop word lists is very long and we won’t bother looking over all of them. But some of the well-known and popular ones are: SMART (System for the Mechanical Analysis and Retrieval of Text) Information Retrieval System, an information retrieval system developed at Cornell University in the 1960s <span class="citation" data-cites="Lewis2004">(<a href="references.html#ref-Lewis2004" role="doc-biblioref">Lewis et al. 2004</a>)</span> and the English Snowball stop word list <span class="citation" data-cites="porter2001snowball">(<a href="references.html#ref-porter2001snowball" role="doc-biblioref">Porter 2001</a>)</span>.</p>
+<p>The SMART stop word list contains 571 words, and the Snowball list contains <code>length(stopwords::data_stopwords_smart$en)</code>. The first 25 stop words alphabetically from the SMART list are shown here</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "a"           "a's"         "able"        "about"       "above"      
+ [6] "according"   "accordingly" "across"      "actually"    "after"      
+[11] "afterwards"  "again"       "against"     "ain't"       "all"        
+[16] "allow"       "allows"      "almost"      "alone"       "along"      
+[21] "already"     "also"        "although"    "always"      "am"         </code></pre>
+</div>
+</div>
+<p>with the first 25 words from the Snowball list shown here.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "a"       "about"   "above"   "after"   "again"   "against" "all"    
+ [8] "am"      "an"      "and"     "any"     "are"     "aren't"  "as"     
+[15] "at"      "be"      "because" "been"    "before"  "being"   "below"  
+[22] "between" "both"    "but"     "by"     </code></pre>
+</div>
+</div>
+<p>We notice that the SMART list contains a lot more words, some of which may feel on the verge of importance in certain cases. And there may be a reason for that. The Snowball list is meticulously constructed by looking at words by their classes as <a href="http://snowball.tartarus.org/algorithms/english/stop.txt">seen here</a>. On the other hand, is it not known how the SMART list was constructed.</p>
+<p>how smart was constructed</p>
+<p>missing words</p>
+<p>problems with it</p>
 <p>premade lists</p>
 <p>Look at your stop words</p>
 <p>homemade lists</p>
@@ -1270,6 +1312,17 @@ TODO
 <h2 data-number="52.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">52.4</span> Python Examples</h2>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-Lewis2004" class="csl-entry" role="listitem">
+Lewis, David D., Yiming Yang, Tony G. Rose, and Fan Li. 2004. <span>“<span>RCV1</span>: A New Benchmark Collection for Text Categorization Research.”</span> <em>Journal of Machine Learning Research</em> 5: 361–97. <a href="https://www.jmlr.org/papers/volume5/lewis04a/lewis04a.pdf">https://www.jmlr.org/papers/volume5/lewis04a/lewis04a.pdf</a>.
+</div>
+<div id="ref-luhn1960" class="csl-entry" role="listitem">
+Luhn, H. P. 1960. <span>“Key Word-in-Context Index for Technical Literature (Kwic Index).”</span> <em>American Documentation</em> 11 (4): 288–95. https://doi.org/<a href="https://doi.org/10.1002/asi.5090110403">https://doi.org/10.1002/asi.5090110403</a>.
+</div>
+<div id="ref-porter2001snowball" class="csl-entry" role="listitem">
+Porter, Martin F. 2001. <span>“Snowball: A Language for Stemming Algorithms.”</span> <a href="https://snowballstem.org">https://snowballstem.org</a>.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
