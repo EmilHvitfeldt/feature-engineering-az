@@ -277,7 +277,7 @@
     "href": "numeric-sqrt.html#python-examples",
     "title": "3  Square Root",
     "section": "3.4 Python Examples",
-    "text": "3.4 Python Examples\nWe are using the ames data set for examples. Since there isn’t a built-in transformer for square root, we can create our own using FunctionTransformer() and numpy.sqrt().\n\nfrom feazdata import ames\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.preprocessing import FunctionTransformer\nimport numpy as np\n\nsqrt_transformer = FunctionTransformer(np.sqrt)\n\nct = ColumnTransformer(\n    [('sqrt', sqrt_transformer, ['Wood_Deck_SF'])], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('sqrt',\n                                 FunctionTransformer(func=&lt;ufunc 'sqrt'&gt;),\n                                 ['Wood_Deck_SF'])])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('sqrt',\n                                 FunctionTransformer(func=&lt;ufunc 'sqrt'&gt;),\n                                 ['Wood_Deck_SF'])]) sqrt['Wood_Deck_SF']  FunctionTransformer?Documentation for FunctionTransformerFunctionTransformer(func=&lt;ufunc 'sqrt'&gt;) remainder['MS_SubClass', 'MS_Zoning', 'Lot_Frontage', 'Lot_Area', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Year_Built', 'Year_Remod_Add', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Mas_Vnr_Area', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_SF_1', 'BsmtFin_Type_2', 'BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Total_Bsmt_SF', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'First_Flr_SF', 'Second_Flr_SF', 'Gr_Liv_Area', 'Bsmt_Full_Bath', 'Bsmt_Half_Bath', 'Full_Bath', 'Half_Bath', 'Bedroom_AbvGr', 'Kitchen_AbvGr', 'TotRms_AbvGrd', 'Functional', 'Fireplaces', 'Garage_Type', 'Garage_Finish', 'Garage_Cars', 'Garage_Area', 'Garage_Cond', 'Paved_Drive', 'Open_Porch_SF', 'Enclosed_Porch', 'Three_season_porch', 'Screen_Porch', 'Pool_Area', 'Pool_QC', 'Fence', 'Misc_Feature', 'Misc_Val', 'Mo_Sold', 'Year_Sold', 'Sale_Type', 'Sale_Condition', 'Sale_Price', 'Longitude', 'Latitude'] passthroughpassthrough \n\nct.transform(ames)\n\n      sqrt__Wood_Deck_SF  ... remainder__Latitude\n0                 14.491  ...              42.054\n1                 11.832  ...              42.053\n2                 19.824  ...              42.053\n3                  0.000  ...              42.051\n4                 14.560  ...              42.061\n...                  ...  ...                 ...\n2925              10.954  ...              41.989\n2926              12.806  ...              41.988\n2927               8.944  ...              41.987\n2928              15.492  ...              41.991\n2929              13.784  ...              41.989\n\n[2930 rows x 74 columns]\n\n\nWe can also create and perform a signed square root transformation, by creating a function for signed_sqrt() and then using it in FunctionTransformer() as before\n\ndef signed_sqrt(x):\n  return np.sqrt(np.abs(x)) * np.sign(x)\n\nsigned_sqrt_transformer = FunctionTransformer(signed_sqrt)\n\nct = ColumnTransformer(\n    [('signed_sqrt', signed_sqrt_transformer, ['Wood_Deck_SF'])], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('signed_sqrt',\n                                 FunctionTransformer(func=&lt;function signed_sqrt at 0x29423da80&gt;),\n                                 ['Wood_Deck_SF'])])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('signed_sqrt',\n                                 FunctionTransformer(func=&lt;function signed_sqrt at 0x29423da80&gt;),\n                                 ['Wood_Deck_SF'])]) signed_sqrt['Wood_Deck_SF']  FunctionTransformer?Documentation for FunctionTransformerFunctionTransformer(func=&lt;function signed_sqrt at 0x29423da80&gt;) remainder['MS_SubClass', 'MS_Zoning', 'Lot_Frontage', 'Lot_Area', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Year_Built', 'Year_Remod_Add', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Mas_Vnr_Area', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_SF_1', 'BsmtFin_Type_2', 'BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Total_Bsmt_SF', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'First_Flr_SF', 'Second_Flr_SF', 'Gr_Liv_Area', 'Bsmt_Full_Bath', 'Bsmt_Half_Bath', 'Full_Bath', 'Half_Bath', 'Bedroom_AbvGr', 'Kitchen_AbvGr', 'TotRms_AbvGrd', 'Functional', 'Fireplaces', 'Garage_Type', 'Garage_Finish', 'Garage_Cars', 'Garage_Area', 'Garage_Cond', 'Paved_Drive', 'Open_Porch_SF', 'Enclosed_Porch', 'Three_season_porch', 'Screen_Porch', 'Pool_Area', 'Pool_QC', 'Fence', 'Misc_Feature', 'Misc_Val', 'Mo_Sold', 'Year_Sold', 'Sale_Type', 'Sale_Condition', 'Sale_Price', 'Longitude', 'Latitude'] passthroughpassthrough \n\nct.transform(ames)\n\n      signed_sqrt__Wood_Deck_SF  ... remainder__Latitude\n0                        14.491  ...              42.054\n1                        11.832  ...              42.053\n2                        19.824  ...              42.053\n3                         0.000  ...              42.051\n4                        14.560  ...              42.061\n...                         ...  ...                 ...\n2925                     10.954  ...              41.989\n2926                     12.806  ...              41.988\n2927                      8.944  ...              41.987\n2928                     15.492  ...              41.991\n2929                     13.784  ...              41.989\n\n[2930 rows x 74 columns]",
+    "text": "3.4 Python Examples\nWe are using the ames data set for examples. Since there isn’t a built-in transformer for square root, we can create our own using FunctionTransformer() and numpy.sqrt().\n\nfrom feazdata import ames\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.preprocessing import FunctionTransformer\nimport numpy as np\n\nsqrt_transformer = FunctionTransformer(np.sqrt)\n\nct = ColumnTransformer(\n    [('sqrt', sqrt_transformer, ['Wood_Deck_SF'])], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('sqrt',\n                                 FunctionTransformer(func=&lt;ufunc 'sqrt'&gt;),\n                                 ['Wood_Deck_SF'])])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('sqrt',\n                                 FunctionTransformer(func=&lt;ufunc 'sqrt'&gt;),\n                                 ['Wood_Deck_SF'])]) sqrt['Wood_Deck_SF']  FunctionTransformer?Documentation for FunctionTransformerFunctionTransformer(func=&lt;ufunc 'sqrt'&gt;) remainder['MS_SubClass', 'MS_Zoning', 'Lot_Frontage', 'Lot_Area', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Year_Built', 'Year_Remod_Add', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Mas_Vnr_Area', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_SF_1', 'BsmtFin_Type_2', 'BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Total_Bsmt_SF', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'First_Flr_SF', 'Second_Flr_SF', 'Gr_Liv_Area', 'Bsmt_Full_Bath', 'Bsmt_Half_Bath', 'Full_Bath', 'Half_Bath', 'Bedroom_AbvGr', 'Kitchen_AbvGr', 'TotRms_AbvGrd', 'Functional', 'Fireplaces', 'Garage_Type', 'Garage_Finish', 'Garage_Cars', 'Garage_Area', 'Garage_Cond', 'Paved_Drive', 'Open_Porch_SF', 'Enclosed_Porch', 'Three_season_porch', 'Screen_Porch', 'Pool_Area', 'Pool_QC', 'Fence', 'Misc_Feature', 'Misc_Val', 'Mo_Sold', 'Year_Sold', 'Sale_Type', 'Sale_Condition', 'Sale_Price', 'Longitude', 'Latitude'] passthroughpassthrough \n\nct.transform(ames)\n\n      sqrt__Wood_Deck_SF  ... remainder__Latitude\n0                 14.491  ...              42.054\n1                 11.832  ...              42.053\n2                 19.824  ...              42.053\n3                  0.000  ...              42.051\n4                 14.560  ...              42.061\n...                  ...  ...                 ...\n2925              10.954  ...              41.989\n2926              12.806  ...              41.988\n2927               8.944  ...              41.987\n2928              15.492  ...              41.991\n2929              13.784  ...              41.989\n\n[2930 rows x 74 columns]\n\n\nWe can also create and perform a signed square root transformation, by creating a function for signed_sqrt() and then using it in FunctionTransformer() as before\n\ndef signed_sqrt(x):\n  return np.sqrt(np.abs(x)) * np.sign(x)\n\nsigned_sqrt_transformer = FunctionTransformer(signed_sqrt)\n\nct = ColumnTransformer(\n    [('signed_sqrt', signed_sqrt_transformer, ['Wood_Deck_SF'])], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('signed_sqrt',\n                                 FunctionTransformer(func=&lt;function signed_sqrt at 0x2a2a8da80&gt;),\n                                 ['Wood_Deck_SF'])])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('signed_sqrt',\n                                 FunctionTransformer(func=&lt;function signed_sqrt at 0x2a2a8da80&gt;),\n                                 ['Wood_Deck_SF'])]) signed_sqrt['Wood_Deck_SF']  FunctionTransformer?Documentation for FunctionTransformerFunctionTransformer(func=&lt;function signed_sqrt at 0x2a2a8da80&gt;) remainder['MS_SubClass', 'MS_Zoning', 'Lot_Frontage', 'Lot_Area', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Year_Built', 'Year_Remod_Add', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Mas_Vnr_Area', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_SF_1', 'BsmtFin_Type_2', 'BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Total_Bsmt_SF', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'First_Flr_SF', 'Second_Flr_SF', 'Gr_Liv_Area', 'Bsmt_Full_Bath', 'Bsmt_Half_Bath', 'Full_Bath', 'Half_Bath', 'Bedroom_AbvGr', 'Kitchen_AbvGr', 'TotRms_AbvGrd', 'Functional', 'Fireplaces', 'Garage_Type', 'Garage_Finish', 'Garage_Cars', 'Garage_Area', 'Garage_Cond', 'Paved_Drive', 'Open_Porch_SF', 'Enclosed_Porch', 'Three_season_porch', 'Screen_Porch', 'Pool_Area', 'Pool_QC', 'Fence', 'Misc_Feature', 'Misc_Val', 'Mo_Sold', 'Year_Sold', 'Sale_Type', 'Sale_Condition', 'Sale_Price', 'Longitude', 'Latitude'] passthroughpassthrough \n\nct.transform(ames)\n\n      signed_sqrt__Wood_Deck_SF  ... remainder__Latitude\n0                        14.491  ...              42.054\n1                        11.832  ...              42.053\n2                        19.824  ...              42.053\n3                         0.000  ...              42.051\n4                        14.560  ...              42.061\n...                         ...  ...                 ...\n2925                     10.954  ...              41.989\n2926                     12.806  ...              41.988\n2927                      8.944  ...              41.987\n2928                     15.492  ...              41.991\n2929                     13.784  ...              41.989\n\n[2930 rows x 74 columns]",
     "crumbs": [
       "Numeric Features",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Square Root</span>"
@@ -2244,221 +2244,221 @@
   {
     "objectID": "text-cleaning.html",
     "href": "text-cleaning.html",
-    "title": "48  🏗️ Text Cleaning",
+    "title": "48  Text Cleaning",
     "section": "",
     "text": "48.1 Text Cleaning",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>48</span>  <span class='chapter-title'>🏗️ Text Cleaning</span>"
+      "<span class='chapter-number'>48</span>  <span class='chapter-title'>Text Cleaning</span>"
     ]
   },
   {
     "objectID": "text-cleaning.html#pros-and-cons",
     "href": "text-cleaning.html#pros-and-cons",
-    "title": "48  🏗️ Text Cleaning",
+    "title": "48  Text Cleaning",
     "section": "48.2 Pros and Cons",
     "text": "48.2 Pros and Cons\n\n48.2.1 Pros\n\nWhen applied correctly, can lead to boosts in insights into the data\n\n\n\n48.2.2 Cons\n\nCan be a quite manual process which will likely be domain specific",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>48</span>  <span class='chapter-title'>🏗️ Text Cleaning</span>"
+      "<span class='chapter-number'>48</span>  <span class='chapter-title'>Text Cleaning</span>"
     ]
   },
   {
     "objectID": "text-cleaning.html#r-examples",
     "href": "text-cleaning.html#r-examples",
-    "title": "48  🏗️ Text Cleaning",
+    "title": "48  Text Cleaning",
     "section": "48.3 R Examples",
     "text": "48.3 R Examples\n\n\n\n\n\n\nTODO\n\n\n\nFind a data set that isn’t clean\n\n\nWe will use the step_text_normalization() function from the {textrecipes} package to perform unicode normalization, which defaults to the NFC normalization form.\n\nlibrary(textrecipes)\n\nLoading required package: recipes\n\n\nLoading required package: dplyr\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nAttaching package: 'recipes'\n\n\nThe following object is masked from 'package:stats':\n\n    step\n\nsample_data &lt;- tibble(text = c(\"sch\\U00f6n\", \"scho\\U0308n\"))\n\nsample_data |&gt;\n  count(text)\n\n# A tibble: 2 × 2\n  text      n\n  &lt;chr&gt; &lt;int&gt;\n1 schön     1\n2 schön     1\n\nrec &lt;- recipe(~., data = sample_data) |&gt;\n  step_text_normalization(text) |&gt;\n  prep()\n\nrec |&gt;\n  bake(new_data = NULL) |&gt;\n  count(text)\n\n# A tibble: 1 × 2\n  text      n\n  &lt;fct&gt; &lt;int&gt;\n1 schön     2",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>48</span>  <span class='chapter-title'>🏗️ Text Cleaning</span>"
+      "<span class='chapter-number'>48</span>  <span class='chapter-title'>Text Cleaning</span>"
     ]
   },
   {
     "objectID": "text-cleaning.html#python-examples",
     "href": "text-cleaning.html#python-examples",
-    "title": "48  🏗️ Text Cleaning",
+    "title": "48  Text Cleaning",
     "section": "48.4 Python Examples",
     "text": "48.4 Python Examples",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>48</span>  <span class='chapter-title'>🏗️ Text Cleaning</span>"
+      "<span class='chapter-number'>48</span>  <span class='chapter-title'>Text Cleaning</span>"
     ]
   },
   {
     "objectID": "text-tokenization.html",
     "href": "text-tokenization.html",
-    "title": "49  🏗️ Tokenization",
+    "title": "49  Tokenization",
     "section": "",
     "text": "49.1 Tokenization",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>49</span>  <span class='chapter-title'>🏗️ Tokenization</span>"
+      "<span class='chapter-number'>49</span>  <span class='chapter-title'>Tokenization</span>"
     ]
   },
   {
     "objectID": "text-tokenization.html#pros-and-cons",
     "href": "text-tokenization.html#pros-and-cons",
-    "title": "49  🏗️ Tokenization",
+    "title": "49  Tokenization",
     "section": "49.2 Pros and Cons",
     "text": "49.2 Pros and Cons\n\n49.2.1 Pros\n\nMany established methods are implemented\nYou rarely have to think about performance in terms of speed\n\n\n\n49.2.2 Cons\n\nThere is often not a best answer, and experimentation will be needed\nsomething a handcrafted tokenizer will go better than an off-the-shelf version",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>49</span>  <span class='chapter-title'>🏗️ Tokenization</span>"
+      "<span class='chapter-number'>49</span>  <span class='chapter-title'>Tokenization</span>"
     ]
   },
   {
     "objectID": "text-tokenization.html#r-examples",
     "href": "text-tokenization.html#r-examples",
-    "title": "49  🏗️ Tokenization",
+    "title": "49  Tokenization",
     "section": "49.3 R Examples",
     "text": "49.3 R Examples\n\n\n\n\n\n\nTODO\n\n\n\nfind text data set to use",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>49</span>  <span class='chapter-title'>🏗️ Tokenization</span>"
+      "<span class='chapter-number'>49</span>  <span class='chapter-title'>Tokenization</span>"
     ]
   },
   {
     "objectID": "text-tokenization.html#python-examples",
     "href": "text-tokenization.html#python-examples",
-    "title": "49  🏗️ Tokenization",
+    "title": "49  Tokenization",
     "section": "49.4 Python Examples",
     "text": "49.4 Python Examples\n\n\n\n\n\n\nTODO\n\n\n\nfigure out the best approach to teach in Python. Should we stay in scikit-learn? move somewhere else? how should this be taught since it is likely not separate as it is in {textrecipes}",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>49</span>  <span class='chapter-title'>🏗️ Tokenization</span>"
+      "<span class='chapter-number'>49</span>  <span class='chapter-title'>Tokenization</span>"
     ]
   },
   {
     "objectID": "text-stemming.html",
     "href": "text-stemming.html",
-    "title": "50  🏗️ Stemming",
+    "title": "50  Stemming",
     "section": "",
     "text": "50.1 Stemming",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>50</span>  <span class='chapter-title'>🏗️ Stemming</span>"
+      "<span class='chapter-number'>50</span>  <span class='chapter-title'>Stemming</span>"
     ]
   },
   {
     "objectID": "text-stemming.html#pros-and-cons",
     "href": "text-stemming.html#pros-and-cons",
-    "title": "50  🏗️ Stemming",
+    "title": "50  Stemming",
     "section": "50.2 Pros and Cons",
     "text": "50.2 Pros and Cons\n\n50.2.1 Pros\n\nCan be a fast and easy way to reduce the number of tokens\n\n\n\n50.2.2 Cons\n\nDoes require thorough inspection to avoid wrongful collapse",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>50</span>  <span class='chapter-title'>🏗️ Stemming</span>"
+      "<span class='chapter-number'>50</span>  <span class='chapter-title'>Stemming</span>"
     ]
   },
   {
     "objectID": "text-stemming.html#r-examples",
     "href": "text-stemming.html#r-examples",
-    "title": "50  🏗️ Stemming",
+    "title": "50  Stemming",
     "section": "50.3 R Examples",
     "text": "50.3 R Examples",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>50</span>  <span class='chapter-title'>🏗️ Stemming</span>"
+      "<span class='chapter-number'>50</span>  <span class='chapter-title'>Stemming</span>"
     ]
   },
   {
     "objectID": "text-stemming.html#python-examples",
     "href": "text-stemming.html#python-examples",
-    "title": "50  🏗️ Stemming",
+    "title": "50  Stemming",
     "section": "50.4 Python Examples",
     "text": "50.4 Python Examples\n\n\n\n\nHonnibal, Matthew, Ines Montani, Sofie Van Landeghem, and Adriane Boyd. 2020. “spaCy: Industrial-strength Natural Language Processing in Python.” https://doi.org/10.5281/zenodo.1212303.\n\n\nPorter, Martin F. 1980. “An Algorithm for Suffix Stripping.” Program 14 (3): 130–37. https://doi.org/10.1108/eb046814.",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>50</span>  <span class='chapter-title'>🏗️ Stemming</span>"
+      "<span class='chapter-number'>50</span>  <span class='chapter-title'>Stemming</span>"
     ]
   },
   {
     "objectID": "text-ngrams.html",
     "href": "text-ngrams.html",
-    "title": "51  🏗️ N-grams",
+    "title": "51  N-grams",
     "section": "",
     "text": "51.1 N-grams",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>51</span>  <span class='chapter-title'>🏗️ N-grams</span>"
+      "<span class='chapter-number'>51</span>  <span class='chapter-title'>N-grams</span>"
     ]
   },
   {
     "objectID": "text-ngrams.html#pros-and-cons",
     "href": "text-ngrams.html#pros-and-cons",
-    "title": "51  🏗️ N-grams",
+    "title": "51  N-grams",
     "section": "51.2 Pros and Cons",
     "text": "51.2 Pros and Cons\n\n51.2.1 Pros\n\nCan uncover patterns in the data not otherwise seen\n\n\n\n51.2.2 Cons\n\nCan lead to longer computation times",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>51</span>  <span class='chapter-title'>🏗️ N-grams</span>"
+      "<span class='chapter-number'>51</span>  <span class='chapter-title'>N-grams</span>"
     ]
   },
   {
     "objectID": "text-ngrams.html#r-examples",
     "href": "text-ngrams.html#r-examples",
-    "title": "51  🏗️ N-grams",
+    "title": "51  N-grams",
     "section": "51.3 R Examples",
     "text": "51.3 R Examples",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>51</span>  <span class='chapter-title'>🏗️ N-grams</span>"
+      "<span class='chapter-number'>51</span>  <span class='chapter-title'>N-grams</span>"
     ]
   },
   {
     "objectID": "text-ngrams.html#python-examples",
     "href": "text-ngrams.html#python-examples",
-    "title": "51  🏗️ N-grams",
+    "title": "51  N-grams",
     "section": "51.4 Python Examples",
     "text": "51.4 Python Examples",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>51</span>  <span class='chapter-title'>🏗️ N-grams</span>"
+      "<span class='chapter-number'>51</span>  <span class='chapter-title'>N-grams</span>"
     ]
   },
   {
     "objectID": "text-stopwords.html",
     "href": "text-stopwords.html",
-    "title": "52  🏗️ Stop words",
+    "title": "52  Stop words",
     "section": "",
     "text": "52.1 Stop words",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>52</span>  <span class='chapter-title'>🏗️ Stop words</span>"
+      "<span class='chapter-number'>52</span>  <span class='chapter-title'>Stop words</span>"
     ]
   },
   {
     "objectID": "text-stopwords.html#pros-and-cons",
     "href": "text-stopwords.html#pros-and-cons",
-    "title": "52  🏗️ Stop words",
+    "title": "52  Stop words",
     "section": "52.2 Pros and Cons",
     "text": "52.2 Pros and Cons\n\n52.2.1 Pros\n\n\n52.2.2 Cons",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>52</span>  <span class='chapter-title'>🏗️ Stop words</span>"
+      "<span class='chapter-number'>52</span>  <span class='chapter-title'>Stop words</span>"
     ]
   },
   {
     "objectID": "text-stopwords.html#r-examples",
     "href": "text-stopwords.html#r-examples",
-    "title": "52  🏗️ Stop words",
+    "title": "52  Stop words",
     "section": "52.3 R Examples",
     "text": "52.3 R Examples",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>52</span>  <span class='chapter-title'>🏗️ Stop words</span>"
+      "<span class='chapter-number'>52</span>  <span class='chapter-title'>Stop words</span>"
     ]
   },
   {
     "objectID": "text-stopwords.html#python-examples",
     "href": "text-stopwords.html#python-examples",
-    "title": "52  🏗️ Stop words",
+    "title": "52  Stop words",
     "section": "52.4 Python Examples",
     "text": "52.4 Python Examples",
     "crumbs": [
       "Text Features",
-      "<span class='chapter-number'>52</span>  <span class='chapter-title'>🏗️ Stop words</span>"
+      "<span class='chapter-number'>52</span>  <span class='chapter-title'>Stop words</span>"
     ]
   },
   {
@@ -3038,7 +3038,7 @@
     "href": "too-many-zv.html#python-examples",
     "title": "66  Zero Variance Filter",
     "section": "66.4 Python Examples",
-    "text": "66.4 Python Examples\nWe are using the ames data set for examples. {sklearn} provided the VarianceThreshold() method we can use. With this, we can set the threshold argument to specify the threshold of when to remove. The default 0 will remove zero-variance columns.\n\nfrom feazdata import ames\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.feature_selection import VarianceThreshold\nfrom sklearn.compose import make_column_selector\nimport numpy as np\n\nct = ColumnTransformer(\n    [('onehot', VarianceThreshold(threshold=0), make_column_selector(dtype_include=np.number))], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x2a2dee5a0&gt;)])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x2a2dee5a0&gt;)]) onehot&lt;sklearn.compose._column_transformer.make_column_selector object at 0x2a2dee5a0&gt;  VarianceThreshold?Documentation for VarianceThresholdVarianceThreshold(threshold=0) remainder['MS_SubClass', 'MS_Zoning', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_Type_2', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'Functional', 'Garage_Type', 'Garage_Finish', 'Garage_Cond', 'Paved_Drive', 'Pool_QC', 'Fence', 'Misc_Feature', 'Sale_Type', 'Sale_Condition'] passthroughpassthrough \n\nct.transform(ames)\n\n      onehot__Lot_Frontage  ...  remainder__Sale_Condition\n0                      141  ...                     Normal\n1                       80  ...                     Normal\n2                       81  ...                     Normal\n3                       93  ...                     Normal\n4                       74  ...                     Normal\n...                    ...  ...                        ...\n2925                    37  ...                     Normal\n2926                     0  ...                     Normal\n2927                    62  ...                     Normal\n2928                    77  ...                     Normal\n2929                    74  ...                     Normal\n\n[2930 rows x 74 columns]\n\n\nbut we can change that threshold to remove near-zero variance columns.\n\nct = ColumnTransformer(\n    [('onehot', VarianceThreshold(threshold=0.2), make_column_selector(dtype_include=np.number))], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0.2),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x2a36b13d0&gt;)])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0.2),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x2a36b13d0&gt;)]) onehot&lt;sklearn.compose._column_transformer.make_column_selector object at 0x2a36b13d0&gt;  VarianceThreshold?Documentation for VarianceThresholdVarianceThreshold(threshold=0.2) remainder['MS_SubClass', 'MS_Zoning', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_Type_2', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'Functional', 'Garage_Type', 'Garage_Finish', 'Garage_Cond', 'Paved_Drive', 'Pool_QC', 'Fence', 'Misc_Feature', 'Sale_Type', 'Sale_Condition'] passthroughpassthrough \n\nct.transform(ames)\n\n      onehot__Lot_Frontage  ...  remainder__Sale_Condition\n0                      141  ...                     Normal\n1                       80  ...                     Normal\n2                       81  ...                     Normal\n3                       93  ...                     Normal\n4                       74  ...                     Normal\n...                    ...  ...                        ...\n2925                    37  ...                     Normal\n2926                     0  ...                     Normal\n2927                    62  ...                     Normal\n2928                    77  ...                     Normal\n2929                    74  ...                     Normal\n\n[2930 rows x 70 columns]",
+    "text": "66.4 Python Examples\nWe are using the ames data set for examples. {sklearn} provided the VarianceThreshold() method we can use. With this, we can set the threshold argument to specify the threshold of when to remove. The default 0 will remove zero-variance columns.\n\nfrom feazdata import ames\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.feature_selection import VarianceThreshold\nfrom sklearn.compose import make_column_selector\nimport numpy as np\n\nct = ColumnTransformer(\n    [('onehot', VarianceThreshold(threshold=0), make_column_selector(dtype_include=np.number))], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x298437aa0&gt;)])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x298437aa0&gt;)]) onehot&lt;sklearn.compose._column_transformer.make_column_selector object at 0x298437aa0&gt;  VarianceThreshold?Documentation for VarianceThresholdVarianceThreshold(threshold=0) remainder['MS_SubClass', 'MS_Zoning', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_Type_2', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'Functional', 'Garage_Type', 'Garage_Finish', 'Garage_Cond', 'Paved_Drive', 'Pool_QC', 'Fence', 'Misc_Feature', 'Sale_Type', 'Sale_Condition'] passthroughpassthrough \n\nct.transform(ames)\n\n      onehot__Lot_Frontage  ...  remainder__Sale_Condition\n0                      141  ...                     Normal\n1                       80  ...                     Normal\n2                       81  ...                     Normal\n3                       93  ...                     Normal\n4                       74  ...                     Normal\n...                    ...  ...                        ...\n2925                    37  ...                     Normal\n2926                     0  ...                     Normal\n2927                    62  ...                     Normal\n2928                    77  ...                     Normal\n2929                    74  ...                     Normal\n\n[2930 rows x 74 columns]\n\n\nbut we can change that threshold to remove near-zero variance columns.\n\nct = ColumnTransformer(\n    [('onehot', VarianceThreshold(threshold=0.2), make_column_selector(dtype_include=np.number))], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0.2),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x2984352b0&gt;)])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0.2),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x2984352b0&gt;)]) onehot&lt;sklearn.compose._column_transformer.make_column_selector object at 0x2984352b0&gt;  VarianceThreshold?Documentation for VarianceThresholdVarianceThreshold(threshold=0.2) remainder['MS_SubClass', 'MS_Zoning', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_Type_2', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'Functional', 'Garage_Type', 'Garage_Finish', 'Garage_Cond', 'Paved_Drive', 'Pool_QC', 'Fence', 'Misc_Feature', 'Sale_Type', 'Sale_Condition'] passthroughpassthrough \n\nct.transform(ames)\n\n      onehot__Lot_Frontage  ...  remainder__Sale_Condition\n0                      141  ...                     Normal\n1                       80  ...                     Normal\n2                       81  ...                     Normal\n3                       93  ...                     Normal\n4                       74  ...                     Normal\n...                    ...  ...                        ...\n2925                    37  ...                     Normal\n2926                     0  ...                     Normal\n2927                    62  ...                     Normal\n2928                    77  ...                     Normal\n2929                    74  ...                     Normal\n\n[2930 rows x 70 columns]",
     "crumbs": [
       "Too Many Variables",
       "<span class='chapter-number'>66</span>  <span class='chapter-title'>Zero Variance Filter</span>"
@@ -6103,7 +6103,7 @@
     "href": "references.html",
     "title": "References",
     "section": "",
-    "text": "Buuren, S. van. 2012. Flexible Imputation of Missing Data.\nChapman & Hall/CRC Interdisciplinary Statistics. CRC Press. https://books.google.com/books?id=elDNBQAAQBAJ.\n\n\nGalli, S. 2020. Python Feature Engineering Cookbook: Over 70 Recipes\nfor Creating, Engineering, and Transforming Features to Build Machine\nLearning Models. Packt Publishing. https://books.google.com/books?id=2c_LDwAAQBAJ.\n\n\nGéron, Aurélien. 2017. Hands-on Machine Learning with Scikit-Learn\nand TensorFlow : Concepts, Tools, and Techniques to Build Intelligent\nSystems. Sebastopol, CA: O’Reilly Media.\n\n\nKuhn, M., and K. Johnson. 2013. Applied Predictive Modeling.\nSpringerLink : Bücher. Springer New York. https://books.google.com/books?id=xYRDAAAAQBAJ.\n\n\n———. 2019. Feature Engineering and Selection: A Practical Approach\nfor Predictive Models. Chapman & Hall/CRC Data Science Series.\nCRC Press. https://books.google.com/books?id=q5alDwAAQBAJ.\n\n\nKuhn, M., and J. Silge. 2022. Tidy Modeling with r. O’Reilly\nMedia. https://books.google.com/books?id=98J6EAAAQBAJ.\n\n\nMicci-Barreca, Daniele. 2001. “A Preprocessing Scheme for\nHigh-Cardinality Categorical Attributes in Classification and Prediction\nProblems.” SIGKDD Explor. Newsl. 3 (1): 27–32. https://doi.org/10.1145/507533.507538.\n\n\nOzdemir, S. 2022. Feature Engineering Bookcamp. Manning. https://books.google.com/books?id=3n6HEAAAQBAJ.\n\n\nRUBIN, DONALD B. 1976. “Inference and missing\ndata.” Biometrika 63 (3): 581–92. https://doi.org/10.1093/biomet/63.3.581.\n\n\nThakur, A. 2020. Approaching (Almost) Any Machine Learning\nProblem. Amazon Digital Services LLC - Kdp. https://books.google.com/books?id=ZbgAEAAAQBAJ.",
+    "text": "Buuren, S. van. 2012. Flexible Imputation of Missing Data.\nChapman & Hall/CRC Interdisciplinary Statistics. CRC Press. https://books.google.com/books?id=elDNBQAAQBAJ.\n\n\nGalli, S. 2020. Python Feature Engineering Cookbook: Over 70 Recipes\nfor Creating, Engineering, and Transforming Features to Build Machine\nLearning Models. Packt Publishing. https://books.google.com/books?id=2c_LDwAAQBAJ.\n\n\nGéron, Aurélien. 2017. Hands-on Machine Learning with Scikit-Learn\nand TensorFlow : Concepts, Tools, and Techniques to Build Intelligent\nSystems. Sebastopol, CA: O’Reilly Media.\n\n\nHonnibal, Matthew, Ines Montani, Sofie Van Landeghem, and Adriane Boyd.\n2020. “spaCy: Industrial-strength Natural\nLanguage Processing in Python.” https://doi.org/10.5281/zenodo.1212303.\n\n\nKuhn, M., and K. Johnson. 2013. Applied Predictive Modeling.\nSpringerLink : Bücher. Springer New York. https://books.google.com/books?id=xYRDAAAAQBAJ.\n\n\n———. 2019. Feature Engineering and Selection: A Practical Approach\nfor Predictive Models. Chapman & Hall/CRC Data Science Series.\nCRC Press. https://books.google.com/books?id=q5alDwAAQBAJ.\n\n\nKuhn, M., and J. Silge. 2022. Tidy Modeling with r. O’Reilly\nMedia. https://books.google.com/books?id=98J6EAAAQBAJ.\n\n\nMicci-Barreca, Daniele. 2001. “A Preprocessing Scheme for\nHigh-Cardinality Categorical Attributes in Classification and Prediction\nProblems.” SIGKDD Explor. Newsl. 3 (1): 27–32. https://doi.org/10.1145/507533.507538.\n\n\nOzdemir, S. 2022. Feature Engineering Bookcamp. Manning. https://books.google.com/books?id=3n6HEAAAQBAJ.\n\n\nPorter, Martin F. 1980. “An Algorithm for Suffix\nStripping.” Program 14 (3): 130–37. https://doi.org/10.1108/eb046814.\n\n\nRUBIN, DONALD B. 1976. “Inference and missing\ndata.” Biometrika 63 (3): 581–92. https://doi.org/10.1093/biomet/63.3.581.\n\n\nThakur, A. 2020. Approaching (Almost) Any Machine Learning\nProblem. Amazon Digital Services LLC - Kdp. https://books.google.com/books?id=ZbgAEAAAQBAJ.",
     "crumbs": [
       "References"
     ]
