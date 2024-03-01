@@ -8,7 +8,27 @@ pagetitle: "Feature Engineering A-Z | Stop words"
 ## Stop words
 :::
 
-WIP
+The term **stop words** is a very loaded term, that is often under-explained and therefore misunderstood by practitioners. The original definition is a set of words that contains no information and are safe to remove. This is too simplistic of a view. Instead, we can think of words as having an amount of signal in them related to the task we are trying to accomplish. Removing low-signal words can be fruitful, if we are able to identify them.
+
+::: {.callout-caution}
+# TODO
+
+find good diagrams
+:::
+
+what are stop words
+
+gradient of usefulness
+
+depends on task
+
+premade lists
+
+Look at your stop words
+
+homemade lists
+
+combine lists for your task and document how they were created
 
 ## Pros and Cons
 
