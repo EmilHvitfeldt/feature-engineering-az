@@ -36,21 +36,14 @@ with the first 25 words from the Snowball list shown here.
 head(sort(stopwords::data_stopwords_snowball$en), 25)
 ```
 
-We notice that the SMART list contains a lot more words, some of which may feel on the verge of importance in certain cases. And there may be a reason for that. The Snowball list is meticulously constructed by looking at words by their classes as [seen here](http://snowball.tartarus.org/algorithms/english/stop.txt). On the other hand, is it not known how the SMART list was constructed.
+We notice that the SMART list contains a lot more words, some of which may feel on the verge of importance in certain cases. And there may be a reason for that. The Snowball list is meticulously constructed by looking at words by their classes as [seen here](http://snowball.tartarus.org/algorithms/english/stop.txt). On the other hand, is it not known how the SMART list was constructed. But there are hints, we can look at the words that are included as well as those which aren't included. By digging around for a little bit, we notice that the word `"he's"` is in the list but `"she's"` isn't. One explanation for this is that this list is partly frequency-based. And it wouldn't be surprising to see, especially with some of the other words in the list like `"wish"` and `"thanx"`. But there is some evidence of this list being manually curated as well, as all the letters of the alphabet are in there, which is quite unlikely to all have been frequent enough in the original corpus.
 
-how smart was constructed
+All of this is to say that it is important to thoroughly investigate the stop word list you are using, as they can have unexpected results. @nothman2018 explores a selection of 52 stop word lists with alarming results. Among some of the more grave issues were misspellings (`“fify”` instead of `“fifty”`), the inclusion of clearly informative words such as `“computer”` and `“cry”` and internal inconsistencies, such as including the word `“has”` but not the word `“does”`. Some of these mistakes have crept into [popular libraries](https://github.com/scikit-learn/scikit-learn/issues/10834#issuecomment-375328981) without notice for several years.
 
-missing words
+We can create homemade lists in a few different ways. One of which is to take the training data set, count the tokens and sort the results. Then we can go through them and manually select which ones to put on the list. You don't have to pick the top 50, you can leave some in and some out, as some frequent words could be informative. We will talk about TF-IDF in @sec-text-tfidf, but that can also be helpful in finding noninformative words. Calculating the IDF of all the words and sorting them lets us find tokens with low IDF that are good candidates for removal.
 
-problems with it
 
-premade lists
-
-Look at your stop words
-
-homemade lists
-
-combine lists for your task and document how they were created
+The final advice is to combine the two approaches you see above. Pick a premade list, and make modifications to it, based on your domain expertise and the data set you are working with.
 
 ## Pros and Cons
 
