@@ -84,7 +84,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./text.html">Text Features</a></li><li class="breadcrumb-item"><a href="./text-tf.html"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">🏗️ Term Frequency</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./text.html">Text Features</a></li><li class="breadcrumb-item"><a href="./text-tf.html"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">Term Frequency</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -492,13 +492,13 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./text-filter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">🏗️ Token Filter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Token Filter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./text-tf.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">🏗️ Term Frequency</span></span></a>
+ <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">Term Frequency</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1211,9 +1211,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./text.html">Text Features</a></li><li class="breadcrumb-item"><a href="./text-tf.html"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">🏗️ Term Frequency</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./text.html">Text Features</a></li><li class="breadcrumb-item"><a href="./text-tf.html"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">Term Frequency</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-text-tf" class="quarto-section-identifier"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">🏗️ Term Frequency</span></span></h1>
+<h1 class="title"><span id="sec-text-tf" class="quarto-section-identifier"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">Term Frequency</span></span></h1>
 </div>
 
 
@@ -1233,7 +1233,26 @@ ul.task-list li input[type="checkbox"] {
 <section id="term-frequency" class="level2" style="visibility: hidden; height: 0px;" data-number="54.1">
 <h2 data-number="54.1" class="anchored" data-anchor-id="term-frequency"><span class="header-section-number">54.1</span> Term Frequency</h2>
 </section>
-<p>WIP</p>
+<p>The main reason why we do these text feature engineering steps is to produce numeric variables. Once we have a selection of tokens we are happy with it is time to turn them into these numeric variables, and <strong>term frequency</strong> (TF) is the first and simplest method we will showcase to accomplish this.</p>
+<p>In essence, it works by taking the tokens we have generated, and counting how many times they appear for each observation. If there are 500 unique tokens, then 500 columns are generated. If there are 50,000 unique tokens, then 50,000 columns are created.</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>add a diagram of this happening</p>
+</div>
+</div>
+<p>The traditional way is to count how many times each token appears. But it is not the only way. We could also create an indicator of whether the token was there or not. This is another way of encoding <code>x &gt; 0</code>. We can use this if we think that the number of times a token appears doesn’t matter that much, just that it appears. If you have a mix of long and short text fields, you might be interested in calculating the frequency instead of the raw counts. Here we take the number of times a token appears, divided by the number of tokens in the observation. This is similar but not exactly the same as <a href="numeric-range.html" class="quarto-xref"><span>Chapter 8</span></a>, as we are making it so the values across the row sum to 1, not making it so each column has values between 0 and 1. Since we are working with counts, there are also times when log normalization is done, which means that we take the columns produced here, and take the logarithm of them as per <a href="numeric-logarithms.html" class="quarto-xref"><span>Chapter 2</span></a>, Typically with an offset because this method tends to produce a lot of zeroes. Lastly, we also see people perform <strong>double normalization</strong>, which is done by taking the raw frequency divided by the raw frequency of the most occurring token in the observation. This is then multiplied by some offset and the offset is added to the result. This is again done to prevent a bias towards longer documents. The offset can be anything, with 0.5 being an option some prefer as it doesn’t have more influence than than a single count.</p>
+<p>talk about sparsity and token numbers</p>
+<p>these columns are diagonal to each other</p>
+<p>not going to be a good representation of data</p>
+<p>talk about unseen tokens</p>
 <section id="pros-and-cons" class="level2" data-number="54.2">
 <h2 data-number="54.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">54.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="54.2.1">
@@ -1647,8 +1666,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./text-filter.html" class="pagination-link  aria-label=" &lt;span="" token="" filter&lt;="" span&gt;"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">🏗️ Token Filter</span></span>
+      <a href="./text-filter.html" class="pagination-link  aria-label=" &lt;span="" filter&lt;="" span&gt;"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Token Filter</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
