@@ -84,7 +84,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./text.html">Text Features</a></li><li class="breadcrumb-item"><a href="./text-filter.html"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">🏗️ Token Filter</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./text.html">Text Features</a></li><li class="breadcrumb-item"><a href="./text-filter.html"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Token Filter</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -492,7 +492,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./text-filter.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">🏗️ Token Filter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Token Filter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1211,9 +1211,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./text.html">Text Features</a></li><li class="breadcrumb-item"><a href="./text-filter.html"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">🏗️ Token Filter</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./text.html">Text Features</a></li><li class="breadcrumb-item"><a href="./text-filter.html"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Token Filter</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-text-filter" class="quarto-section-identifier"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">🏗️ Token Filter</span></span></h1>
+<h1 class="title"><span id="sec-text-filter" class="quarto-section-identifier"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Token Filter</span></span></h1>
 </div>
 
 
@@ -1233,14 +1233,24 @@ ul.task-list li input[type="checkbox"] {
 <section id="token-filter" class="level2" style="visibility: hidden; height: 0px;" data-number="53.1">
 <h2 data-number="53.1" class="anchored" data-anchor-id="token-filter"><span class="header-section-number">53.1</span> Token Filter</h2>
 </section>
-<p>WIP</p>
+<p>This chapter is going to be quite similar to stop word removal in <a href="text-stopwords.html" class="quarto-xref"><span>Chapter 52</span></a>. The difference is going to be how we go about doing things. When removing stop words we are hoping to remove words that don’t contain enough information. Depending on our model, we might want to further reduce the number of tokens we are considering. For counting methods such as TF <span class="quarto-unresolved-ref">?sec-sec-text-tf</span> and TF-IDF <a href="text-tfidf.html" class="quarto-xref"><span>Chapter 55</span></a>, each unique token leads to 1 column in the output. Depending on your data set and model type, you can end up with tens of thousands of different tokens, which can be too much.</p>
+<p>We can do this filtering in 2 ways, thresholded and counted. In the thresholded, we say “Keep all tokens that satisfy this condition”, and in the counted way we say “Keep the n tokens with the highest value of x”. Each has a pro and a con. Thresholded methods are precisely defined, but don’t return a fixed number of tokens. Counted methods are imprecisely defined, because of potential ties, but return a fixed number of tokens. Both of these concepts can be used for the criterias explained below.</p>
+<p>The frequency of a token in the training data set is going to be an important factor as to whether we should keep it or not. Some tokens will only appear less than a handful of times, they are likely not to appear enough times to provide a signal to a model. On the same side, you could also filter away the most common words. This is very similar to what some people do as a proxy for stop word removal as seen in <a href="text-stopwords.html" class="quarto-xref"><span>Chapter 52</span></a>. This is less likely to be a success, especially if you have already done stop word removal.</p>
+<p>On the same coin, we could use IDF values to determine the cut-off. We will talk about TF-IDF in <a href="text-tfidf.html" class="quarto-xref"><span>Chapter 55</span></a>, but that can also be helpful in finding noninformative words. Calculating the IDF of all the words and sorting them lets us find tokens with low IDF that are good candidates for removal.</p>
+<p>Removal of tokens is rarely done to improve performance but is done as a tradeoff between speed and accuracy. Removing too many tokens will yield faster models, but risk removing tokens with signal, removing too few tokens yields slower models, that may or may not contain noise.</p>
 <section id="pros-and-cons" class="level2" data-number="53.2">
 <h2 data-number="53.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">53.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="53.2.1">
 <h3 data-number="53.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">53.2.1</span> Pros</h3>
+<ul>
+<li>done as a tradeoff between speed</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="53.2.2">
 <h3 data-number="53.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">53.2.2</span> Cons</h3>
+<ul>
+<li>Has to be done with care to avoid removing signal</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="53.3">
