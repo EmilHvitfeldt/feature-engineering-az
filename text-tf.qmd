@@ -18,22 +18,27 @@ In essence, it works by taking the tokens we have generated, and counting how ma
 add a diagram of this happening
 :::
 
-The traditional way is to count how many times each token appears. But it is not the only way. We could also create an indicator of whether the token was there or not. This is another way of encoding `x > 0`. We can use this if we think that the number of times a token appears doesn't matter that much, just that it appears. If you have a mix of long and short text fields, you might be interested in calculating the frequency instead of the raw counts. Here we take the number of times a token appears, divided by the number of tokens in the observation. This is similar but not exactly the same as @sec-numeric-range, as we are making it so the values across the row sum to 1, not making it so each column has values between 0 and 1. Since we are working with counts, there are also times when log normalization is done, which means that we take the columns produced here, and take the logarithm of them as per @sec-numeric-logarithms, Typically with an offset because this method tends to produce a lot of zeroes. Lastly, we also see people perform **double normalization**, which is done by taking the raw frequency divided by the raw frequency of the most occurring token in the observation. This is then multiplied by some offset and the offset is added to the result. This is again done to prevent a bias towards longer documents. The offset can be anything, with 0.5 being an option some prefer as it doesn't have more influence than than a single count.
+The traditional way is to count how many times each token appears. But it is not the only way. We could also create an indicator of whether the token was there or not. This is another way of encoding `x > 0`. We can use this if we think that the number of times a token appears doesn't matter that much, just that it appears. If you have a mix of long and short text fields, you might be interested in calculating the frequency instead of the raw counts. Here we take the number of times a token appears, divided by the number of tokens in the observation. This is similar but not exactly the same as @sec-numeric-range, as we are making it so the values across the row sum to 1, not making it so each column has values between 0 and 1. Since we are working with counts, there are also times when log normalization is done, which means that we take the columns produced here, and take the logarithm of them as per @sec-numeric-logarithms, Typically with an offset because this method tends to produce a lot of zeroes. Lastly, we also see people perform **double normalization**, which is done by taking the raw frequency divided by the raw frequency of the most occurring token in the observation. This is then multiplied by some offset and the offset is added to the result. This is again done to prevent a bias towards longer documents. The offset can be anything, with 0.5 being an option some prefer as it doesn't have more influence than a single count.
 
+One thing that is going to happen is that there will be a high degree of sparsity. Generally speaking, each document contains far fewer words, than the total amount of used words. It will be less so if you limit the number of tokens you count, but you will generally see around sparsity rates from 90% to 99.99% in practice. Another thing that happens when we represent our data in this way, is that each resulting column is going to be orthogonal to each other. If you were to add another token to a document, you would only see it being affected in 1 column. This is great for interpretability, but it isn't exactly a space-efficient way to store the information. 
 
-talk about sparsity and token numbers
+:::{.callout-note}
+The above statement isn't true if we have applied n-grams to our tokens.
+:::
 
-these columns are diagonal to each other
-
-not going to be a good representation of data
-
-talk about unseen tokens
+You might run into what is known as unseen tokens. They typically won't show up in term frequency solutions. You could, in theory, add a column with `"<unseen token>"`, but for counting methods like this, it doesn't make much sense as it would only take the value `0`. Any such variable should properly be removed anyway as we further talk about in @sec-too-many-zv. An efficient software solution wouldn't generate this column to begin with.
 
 ## Pros and Cons
 
 ### Pros
 
+- Easy calculations
+- Intepretable
+
 ### Cons
+
+- Can have problems with long and short documents
+- not very space efficient results
 
 ## R Examples
 
