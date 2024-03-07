@@ -8,7 +8,7 @@ pagetitle: "Feature Engineering A-Z | Token Filter"
 ## Token Filter
 :::
 
-This chapter is going to be quite similar to stop word removal in @sec-text-stopwords. The difference is going to be how we go about doing things. When removing stop words we are hoping to remove words that don't contain enough information. Depending on our model, we might want to further reduce the number of tokens we are considering. For counting methods such as TF @sec-sec-text-tf and TF-IDF @sec-text-tfidf, each unique token leads to 1 column in the output. Depending on your data set and model type, you can end up with tens of thousands of different tokens, which can be too much.
+This chapter is going to be quite similar to stop word removal in @sec-text-stopwords. The difference is going to be how we go about doing things. When removing stop words we are hoping to remove words that don't contain enough information. Depending on our model, we might want to further reduce the number of tokens we are considering. For counting methods such as TF @sec-text-tf and TF-IDF @sec-text-tfidf, each unique token leads to 1 column in the output. Depending on your data set and model type, you can end up with tens of thousands of different tokens, which can be too much.
 
 We can do this filtering in 2 ways, thresholded and counted. In the thresholded, we say "Keep all tokens that satisfy this condition", and in the counted way we say "Keep the n tokens with the highest value of x". Each has a pro and a con. Thresholded methods are precisely defined, but don't return a fixed number of tokens. Counted methods are imprecisely defined, because of potential ties, but return a fixed number of tokens. Both of these concepts can be used for the criterias explained below.
 
