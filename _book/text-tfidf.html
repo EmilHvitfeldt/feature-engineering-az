@@ -69,6 +69,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <meta property="og:title" content="Feature Engineering A-Z | TF-IDF">
 <meta property="og:description" content="">
@@ -1233,10 +1262,29 @@ ul.task-list li input[type="checkbox"] {
 <section id="tf-idf" class="level2" style="visibility: hidden; height: 0px;" data-number="55.1">
 <h2 data-number="55.1" class="anchored" data-anchor-id="tf-idf"><span class="header-section-number">55.1</span> TF-IDF</h2>
 </section>
-<p>compare to TF</p>
-<p>explain the math behind TF-IDF</p>
+<p><strong>Term Frequency inverse document frequency</strong> is the next iteration based on term frequency we explored in <a href="text-tf.html" class="quarto-xref"><span>Chapter 54</span></a>. As the name implies, it is what happens when you take the term frequencies and multiply them by the inverse document frequency.</p>
+<p><span class="math display">\[
+TF-IDF(t, d) = TF(t, d) \times IDF(t)
+\]</span></p>
+<p>Conceptually, we start by creating the term frequency matrix we created in <a href="text-tf.html" class="quarto-xref"><span>Chapter 54</span></a>. Then we Look at each term/token. We calculate the inverse document frequency by dividing the number of observations we have, by how many observations that token appears in. Once we have that number we take the logarithm of it. There will thus be one IDF value for each token. These values will be multiplied column-wise to the term frequency matrix.</p>
+<p>You can think of IDF as a dampening value. If a given token appears in <code>1</code> out of <code>100</code> document, then the IDF of that token is <code>r round(log(100 / 1), 2)</code>, if it is <code>1</code> out of <code>10</code> the value is <code>r round(log(10 / 1), 2)</code>, if the token appears in 90% of the documents the IDF is <code>r round(log(10 / 1), 2)</code> and if the token appears in every document then the IDF is <code>r 0</code>. We reward tokens that appear in few documents and punish tokens that appear in every document.</p>
+<p>It is important to note that TF-IDF is a <em>trained</em> method. So we need to save the IDF values so we can apply them to new incoming observations.</p>
+<p>Above is explained the main idea behind TF-IDF calculations. In practice, we see a couple of modifications and options one might take. Smoothing of the IDF values is commonly done as a default to avoid division by zero issues. It is done by …</p>
 <p>maybe mention that these calculations aren’t based on anything other than empirical results and vibes?</p>
+<p>Find the good references I used to have</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>?maybe a good diagram of the equation instead of the equation itself?</p>
+</div>
+</div>
 <p>Talk about weighting schemes</p>
 <section id="pros-and-cons" class="level2" data-number="55.2">
 <h2 data-number="55.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">55.2</span> Pros and Cons</h2>
