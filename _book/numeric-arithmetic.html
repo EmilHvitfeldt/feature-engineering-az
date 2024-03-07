@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Feature Engineering A-Z | Time Series Expanding Window</title>
+<title>Feature Engineering A-Z | Arithmetic</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./time-series-fourier.html" rel="next">
-<link href="./time-series-rolling-window.html" rel="prev">
+<link href="./categorical.html" rel="next">
+<link href="./numeric-polynomial.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -70,7 +70,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<meta property="og:title" content="Feature Engineering A-Z | Time Series Expanding Window">
+<meta property="og:title" content="Feature Engineering A-Z | Arithmetic">
 <meta property="og:description" content="">
 <meta property="og:site_name" content="Feature Engineering A-Z">
 </head>
@@ -84,7 +84,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./time-series.html">Time-Series Data</a></li><li class="breadcrumb-item"><a href="./time-series-expanding-window.html"><span class="chapter-number">121</span>&nbsp; <span class="chapter-title">🏗️ Expanding Window</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./numeric.html">Numeric Features</a></li><li class="breadcrumb-item"><a href="./numeric-arithmetic.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">🏗️ Arithmetic</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -213,7 +213,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./numeric-arithmetic.html" class="sidebar-item-text sidebar-link">
+  <a href="./numeric-arithmetic.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">🏗️ Arithmetic</span></span></a>
   </div>
 </li>
@@ -987,7 +987,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./time-series-expanding-window.html" class="sidebar-item-text sidebar-link active">
+  <a href="./time-series-expanding-window.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">121</span>&nbsp; <span class="chapter-title">🏗️ Expanding Window</span></span></a>
   </div>
 </li>
@@ -1203,23 +1203,23 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#expanding-window" id="toc-expanding-window" class="nav-link active" data-scroll-target="#expanding-window"><span class="header-section-number">121.1</span> Expanding Window</a></li>
-  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link" data-scroll-target="#pros-and-cons"><span class="header-section-number">121.2</span> Pros and Cons</a>
+  <li><a href="#arithmetic" id="toc-arithmetic" class="nav-link active" data-scroll-target="#arithmetic"><span class="header-section-number">14.1</span> Arithmetic</a></li>
+  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link" data-scroll-target="#pros-and-cons"><span class="header-section-number">14.2</span> Pros and Cons</a>
   <ul class="collapse">
-  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">121.2.1</span> Pros</a></li>
-  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">121.2.2</span> Cons</a></li>
+  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">14.2.1</span> Pros</a></li>
+  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">14.2.2</span> Cons</a></li>
   </ul></li>
-  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">121.3</span> R Examples</a></li>
-  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">121.4</span> Python Examples</a></li>
+  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">14.3</span> R Examples</a></li>
+  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">14.4</span> Python Examples</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/time-series-expanding-window.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/time-series-expanding-window.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/numeric-arithmetic.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/numeric-arithmetic.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./time-series.html">Time-Series Data</a></li><li class="breadcrumb-item"><a href="./time-series-expanding-window.html"><span class="chapter-number">121</span>&nbsp; <span class="chapter-title">🏗️ Expanding Window</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./numeric.html">Numeric Features</a></li><li class="breadcrumb-item"><a href="./numeric-arithmetic.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">🏗️ Arithmetic</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-time-series-expanding-window" class="quarto-section-identifier"><span class="chapter-number">121</span>&nbsp; <span class="chapter-title">🏗️ Expanding Window</span></span></h1>
+<h1 class="title"><span id="sec-numeric-arithmetic" class="quarto-section-identifier"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">🏗️ Arithmetic</span></span></h1>
 </div>
 
 
@@ -1236,24 +1236,24 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="expanding-window" class="level2" style="visibility: hidden; height: 0px;" data-number="121.1">
-<h2 data-number="121.1" class="anchored" data-anchor-id="expanding-window"><span class="header-section-number">121.1</span> Expanding Window</h2>
+<section id="arithmetic" class="level2" style="visibility: hidden; height: 0px;" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="arithmetic"><span class="header-section-number">14.1</span> Arithmetic</h2>
 </section>
 <p>WIP</p>
-<section id="pros-and-cons" class="level2" data-number="121.2">
-<h2 data-number="121.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">121.2</span> Pros and Cons</h2>
-<section id="pros" class="level3" data-number="121.2.1">
-<h3 data-number="121.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">121.2.1</span> Pros</h3>
+<section id="pros-and-cons" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">14.2</span> Pros and Cons</h2>
+<section id="pros" class="level3" data-number="14.2.1">
+<h3 data-number="14.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">14.2.1</span> Pros</h3>
 </section>
-<section id="cons" class="level3" data-number="121.2.2">
-<h3 data-number="121.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">121.2.2</span> Cons</h3>
+<section id="cons" class="level3" data-number="14.2.2">
+<h3 data-number="14.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">14.2.2</span> Cons</h3>
 </section>
 </section>
-<section id="r-examples" class="level2" data-number="121.3">
-<h2 data-number="121.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">121.3</span> R Examples</h2>
+<section id="r-examples" class="level2" data-number="14.3">
+<h2 data-number="14.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">14.3</span> R Examples</h2>
 </section>
-<section id="python-examples" class="level2" data-number="121.4">
-<h2 data-number="121.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">121.4</span> Python Examples</h2>
+<section id="python-examples" class="level2" data-number="14.4">
+<h2 data-number="14.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">14.4</span> Python Examples</h2>
 
 
 </section>
@@ -1653,13 +1653,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./time-series-rolling-window.html" class="pagination-link  aria-label=" &lt;span="" rolling="" window&lt;="" span&gt;"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">120</span>&nbsp; <span class="chapter-title">🏗️ Rolling Window</span></span>
+      <a href="./numeric-polynomial.html" class="pagination-link  aria-label=" &lt;span="" expansion&lt;="" span&gt;"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Polynomial Expansion</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./time-series-fourier.html" class="pagination-link" aria-label="<span class='chapter-number'>122</span>&nbsp; <span class='chapter-title'>🏗️ Fourier Features</span>">
-        <span class="nav-page-text"><span class="chapter-number">122</span>&nbsp; <span class="chapter-title">🏗️ Fourier Features</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./categorical.html" class="pagination-link" aria-label="<span class='chapter-number'>15</span>&nbsp; <span class='chapter-title'>Categorical Overview</span>">
+        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Categorical Overview</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1668,4 +1668,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/time-series-expanding-window.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/time-series-expanding-window.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/numeric-arithmetic.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/numeric-arithmetic.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div></div></footer></body></html>
