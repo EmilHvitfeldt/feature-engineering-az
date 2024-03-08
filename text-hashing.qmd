@@ -2,13 +2,19 @@
 pagetitle: "Feature Engineering A-Z | Token Hashing"
 ---
 
-# 🏗️ Token Hashing {#sec-text-hashing}
+# Token Hashing {#sec-text-hashing}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## Token Hashing
 :::
 
-WIP
+Token hashing is quite similar to hashing encoding that we saw in @sec-categorical-hashing. Instead of hashing the whole text string, we instead apply the hashing function to each token. This means that Token Hashing is to term frequency as hashing encoding is to dummy encoding.
+
+::: {.callout-caution}
+# TODO
+
+add diagram
+:::
 
 ## Pros and Cons
 
