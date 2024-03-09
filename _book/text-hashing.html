@@ -1253,13 +1253,40 @@ TODO
 <p>add diagram</p>
 </div>
 </div>
+<p>One mental model is that we are performing term frequency, and then combining the columns in a deterministically random way. For this, we are using a hashing function. A <strong>hashing function</strong> is a function that takes an input, and returns a integer. The same value will always return the same output. It is computationally easy to perform this transformation, but it is hard to reverse it. This is not a downside as we don’t need to perform the reverse transformation. Furthermore a good hashing function outputs values evenly across their supported range, and similar values such as <code>cat</code> and <code>cats</code> will produce vastly different hashes, <code>1751422759</code> and <code>2517493566</code> respectively for the MurmurHash3 hashing function.</p>
+<p>The MurmurHash3, which is commonly used for its speed, produces values 32-but hash values, which gives us integers between <code>1</code> and <code>2^32 = 4294967296</code>. Producing <code>4294967296</code> columns would not help us, so what is typically done is to round these values down to a more manageable range. Specifically rounding by a power of 2 is common since that can be archived by bit manipulation. Suppose we round such that we only keep the 6 significant digits, then we are left with <code>2^6 = 64</code> values. And the hashes for <code>cat</code> is now <code>39</code> and <code>cats</code> is <code>62</code>. They are still different, but now they take up a smaller space of possible values.</p>
+<p>One thing that will happen when you use these hashing functions is that different tokens hash to the same value. This is called a <strong>collision</strong>. And are technically a bad thing, as the model will be unable to distinguish between the influence of those two tokens. This is much more likely to happen than with hashing encoding since each observation will contain many different tokens, however it is not something to avoid at all costs. One of the main tenets of token hashing is that we are getting a trade-off between storage size and information.</p>
+<p>One thing that is used to combat collisions is the use of a hashed sign function. Much like we are using a hashing function to generate integers, we will use a different hashing function to give us one of two values <code>-1</code> and <code>1</code>. This will determine the sign of each hashed word. This is done to lessen the negative effects of collisions as there is a 50% chance that a pair of strings that hash to the same values will have different signs and thus cancel each other out.</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>show a diagram of this happening</p>
+</div>
+</div>
+<p>The main downside to this method is the lack of explainability, as the collisions make it so we can’t know for sure which level contributed to the effect of that variable. On the other hand, we get the added benefit of being able to handle unseen tokens directly. These will not be of use directly, but they are handled in the sense that we don’t have to keep track of levels, as the hashing function just does its job.</p>
 <section id="pros-and-cons" class="level2" data-number="57.2">
 <h2 data-number="57.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">57.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="57.2.1">
 <h3 data-number="57.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">57.2.1</span> Pros</h3>
+<ul>
+<li>Computationally fast</li>
+<li>Allows for a fixed number of output columns</li>
+<li>gives less sparse output than term frequencies</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="57.2.2">
 <h3 data-number="57.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">57.2.2</span> Cons</h3>
+<ul>
+<li>Loss of interpretability</li>
+<li>Still gives quite sparse output</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="57.3">
