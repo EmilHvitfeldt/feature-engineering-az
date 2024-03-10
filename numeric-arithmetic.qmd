@@ -10,7 +10,9 @@ pagetitle: "Feature Engineering A-Z | Arithmetic"
 
 With domain knowledge, we can generate quite good features by combining multiple existing numeric variables. This chapter is less about methods, but rather exploring and reinforcing the idea that powerful transformations can happen when you apply simple arithmetic operators carefully and thoughtfully.
 
-An important kind of transformation we can get with arithmetic operators is *ratios*. Simply dividing two columns by each other can give us better insights than what we could get without.
+An important kind of transformation we can get with arithmetic operators is *ratios*. Simply dividing two columns by each other can give us better insights than what we could get without them. The use of ratios is already common practice in most industries. What we are trying to do is identify them and apply them if they are not already there. Ratios come in many fashions such as the debt ratio (total debt/total assets), bathrooms-to-bedrooms ratio (number of bathrooms/bedrooms), and orders-to-reviews ratio (orders/reviews).
+
+Below we are seeing such a ratio in action. This fictitious data set contains the number of deposits and withdrawals from some customers. There is a clear effect between the predictors `deposits` and `withdrawals` and the outcome variable, but they both contribute to the  But they contribute to the outcome together. By taking the ratio between these two variables we get a singular variable that has a linear relationship with the outcome.
 
 ```{r}
 #| label: fig-numeric-ratios
@@ -25,29 +27,39 @@ library(tidyverse)
 library(patchwork)
 
 ratio_data <- tibble(
-  deposits = rpois(500, 120),
-  withdrawals = rpois(500, 110)
+  deposits = rpois(1000, 120),
+  withdrawals = rpois(1000, 110)
 ) |>
-  mutate(outcome = deposits / withdrawals + rnorm(500, sd = 0.1)) 
+  mutate(outcome = deposits / withdrawals + rnorm(1000, sd = 0.1)) 
 
 g1 <- ratio_data |>
-  ggplot(aes(deposits, withdrawals, color = outcome)) +
-  geom_point() +
-  scale_color_viridis_c() +
+  ggplot(aes(deposits, withdrawals, fill = outcome)) +
+  geom_point(shape = 21, color = "white") +
+  scale_fill_viridis_c() +
   theme_minimal() +
   theme(legend.position = "top")
 
 g2 <- ratio_data |>
   mutate(ratio = deposits / withdrawals) |>
   ggplot(aes(ratio, outcome)) +
-  geom_point() +
+  geom_point(shape = 21, fill = "black", color = "white") +
   theme_minimal()
 
 g1 + g2
 ```
 
+The ordering of these ratios doesn't matter to the performance but can be helpful later on when we try to interpret the model later on. Another thing we often do is to take the logarithm [@sec-sec-numeric-logarithms] of the resulting ratio to give us some better intervals.
+
+::: {.callout-caution}
+# TODO
+
+maybe show how log and logit can influence the scales and how they interact with ratios
+:::
+
 feature crosses (seems like too much on that word. But will include for SEO)
 https://developers.google.com/machine-learning/crash-course/feature-crosses/encoding-nonlinearity
+
+we can thing of ratios and crosses as identical, once we ally inversion of variables
 
 automatic try-all combinations
 
