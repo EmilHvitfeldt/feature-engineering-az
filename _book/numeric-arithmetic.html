@@ -1240,7 +1240,8 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="14.1" class="anchored" data-anchor-id="arithmetic"><span class="header-section-number">14.1</span> Arithmetic</h2>
 </section>
 <p>With domain knowledge, we can generate quite good features by combining multiple existing numeric variables. This chapter is less about methods, but rather exploring and reinforcing the idea that powerful transformations can happen when you apply simple arithmetic operators carefully and thoughtfully.</p>
-<p>An important kind of transformation we can get with arithmetic operators is <em>ratios</em>. Simply dividing two columns by each other can give us better insights than what we could get without.</p>
+<p>An important kind of transformation we can get with arithmetic operators is <em>ratios</em>. Simply dividing two columns by each other can give us better insights than what we could get without them. The use of ratios is already common practice in most industries. What we are trying to do is identify them and apply them if they are not already there. Ratios come in many fashions such as the debt ratio (total debt/total assets), bathrooms-to-bedrooms ratio (number of bathrooms/bedrooms), and orders-to-reviews ratio (orders/reviews).</p>
+<p>Below we are seeing such a ratio in action. This fictitious data set contains the number of deposits and withdrawals from some customers. There is a clear effect between the predictors <code>deposits</code> and <code>withdrawals</code> and the outcome variable, but they both contribute to the But they contribute to the outcome together. By taking the ratio between these two variables we get a singular variable that has a linear relationship with the outcome.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-numeric-ratios" class="quarto-figure quarto-figure-center quarto-float anchored" alt="2 scatter charts. The left chart has points evenly scattered along the x (deposits) and y (withdrawals) axis. A color scale is used to indicate the outcome variable, which appears to have high values when deposits are high and withdrawals are low. The right chart shows the ratio of these two variables plotted along the x-axis and the outcome plotted along the y-axis. They appear to follow each other linearly with some noise.">
@@ -1255,7 +1256,22 @@ Figure&nbsp;14.1: Some relationships can be detangled using ratios.
 </div>
 </div>
 </div>
+<p>The ordering of these ratios doesn’t matter to the performance but can be helpful later on when we try to interpret the model later on. Another thing we often do is to take the logarithm <span class="quarto-unresolved-ref">?sec-sec-numeric-logarithms</span> of the resulting ratio to give us some better intervals.</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>maybe show how log and logit can influence the scales and how they interact with ratios</p>
+</div>
+</div>
 <p>feature crosses (seems like too much on that word. But will include for SEO) https://developers.google.com/machine-learning/crash-course/feature-crosses/encoding-nonlinearity</p>
+<p>we can thing of ratios and crosses as identical, once we ally inversion of variables</p>
 <p>automatic try-all combinations</p>
 <section id="pros-and-cons" class="level2" data-number="14.2">
 <h2 data-number="14.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">14.2</span> Pros and Cons</h2>
