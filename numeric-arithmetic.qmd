@@ -56,8 +56,60 @@ The ordering of these ratios doesn't matter to the performance but can be helpfu
 maybe show how log and logit can influence the scales and how they interact with ratios
 :::
 
-feature crosses (seems like too much on that word. But will include for SEO)
-https://developers.google.com/machine-learning/crash-course/feature-crosses/encoding-nonlinearity
+We can do some of the same tricks with multiplication as well. This is also known as *feature crosses*. Again we can have features that jointly contain information that relates to the outcome, in a way that combining them multiplicatively is better explained.
+
+
+TODO fix below to actually show something
+
+```{r}
+#| label: fig-numeric-crosses
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Some relationships can be detangled using crosses.
+#| fig-alt: |
+#|   2 scatter charts. The left chart has points evenly scattered along the x (deposits) and y (withdrawals) axis. A color scale is used to indicate the outcome variable, which appears to have high values when deposits are high and withdrawals are low. The right chart shows the ratio of these two variables plotted along the x-axis and the outcome plotted along the y-axis. They appear to follow each other linearly with some noise.
+set.seed(1234)
+library(tidyverse)
+library(patchwork)
+
+ratio_data <- tibble(
+  deposits = sample(seq(100, 500), 1000, TRUE),
+  withdrawals = sample(seq(100, 500), 1000, TRUE)
+) |>
+  mutate(
+    outcome = case_when(
+      deposits > 300 & withdrawals > 300 ~ 1,
+      deposits < 300 & withdrawals < 300 ~ 1,
+      .default = 0
+    ),
+    outcome = outcome + rnorm(1000, sd = 0.2)
+  ) |>
+  filter(
+    abs(withdrawals - 300) > 25,
+    abs(deposits - 300) > 25
+  ) |>
+  mutate(
+    deposits = deposits + rpois(n(), 45),
+    withdrawals = withdrawals + rpois(n(), 45)
+  )
+
+g1 <- ratio_data |>
+  ggplot(aes(deposits, withdrawals, fill = outcome)) +
+  geom_point(shape = 21, color = "white") +
+  scale_fill_viridis_c() +
+  theme_minimal() +
+  theme(legend.position = "top")
+
+g2 <- ratio_data |>
+  mutate(ratio = deposits * withdrawals) |>
+  ggplot(aes(ratio, outcome)) +
+  geom_point(shape = 21, fill = "black", color = "white") +
+  theme_minimal()
+
+g1 + g2
+```
+
 
 we can thing of ratios and crosses as identical, once we ally inversion of variables
 
