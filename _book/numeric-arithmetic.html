@@ -1270,7 +1270,22 @@ TODO
 <p>maybe show how log and logit can influence the scales and how they interact with ratios</p>
 </div>
 </div>
-<p>feature crosses (seems like too much on that word. But will include for SEO) https://developers.google.com/machine-learning/crash-course/feature-crosses/encoding-nonlinearity</p>
+<p>We can do some of the same tricks with multiplication as well. This is also known as <em>feature crosses</em>. Again we can have features that jointly contain information that relates to the outcome, in a way that combining them multiplicatively is better explained.</p>
+<p>TODO fix below to actually show something</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-numeric-crosses" class="quarto-figure quarto-figure-center quarto-float anchored" alt="2 scatter charts. The left chart has points evenly scattered along the x (deposits) and y (withdrawals) axis. A color scale is used to indicate the outcome variable, which appears to have high values when deposits are high and withdrawals are low. The right chart shows the ratio of these two variables plotted along the x-axis and the outcome plotted along the y-axis. They appear to follow each other linearly with some noise.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-numeric-crosses-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="numeric-arithmetic_files/figure-html/fig-numeric-crosses-1.png" class="img-fluid figure-img" alt="2 scatter charts. The left chart has points evenly scattered along the x (deposits) and y (withdrawals) axis. A color scale is used to indicate the outcome variable, which appears to have high values when deposits are high and withdrawals are low. The right chart shows the ratio of these two variables plotted along the x-axis and the outcome plotted along the y-axis. They appear to follow each other linearly with some noise." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-numeric-crosses-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;14.2: Some relationships can be detangled using crosses.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
 <p>we can thing of ratios and crosses as identical, once we ally inversion of variables</p>
 <p>automatic try-all combinations</p>
 <section id="pros-and-cons" class="level2" data-number="14.2">
