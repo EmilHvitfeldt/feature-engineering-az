@@ -2,7 +2,7 @@
 pagetitle: "Feature Engineering A-Z | Arithmetic"
 ---
 
-# 🏗️ Arithmetic {#sec-numeric-arithmetic}
+# Arithmetic {#sec-numeric-arithmetic}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## Arithmetic
@@ -50,16 +50,7 @@ g1 + g2
 
 The ordering of these ratios doesn't matter to the performance but can be helpful later on when we try to interpret the model later on. Another thing we often do is to take the logarithm [@sec-sec-numeric-logarithms] of the resulting ratio to give us some better intervals.
 
-::: {.callout-caution}
-# TODO
-
-maybe show how log and logit can influence the scales and how they interact with ratios
-:::
-
 We can do some of the same tricks with multiplication as well. This is also known as *feature crosses*. Again we can have features that jointly contain information that relates to the outcome, in a way that combining them multiplicatively is better explained.
-
-
-TODO fix below to actually show something
 
 ```{r}
 #| label: fig-numeric-crosses
@@ -68,31 +59,16 @@ TODO fix below to actually show something
 #| fig-cap: |
 #|   Some relationships can be detangled using crosses.
 #| fig-alt: |
-#|   2 scatter charts. The left chart has points evenly scattered along the x (deposits) and y (withdrawals) axis. A color scale is used to indicate the outcome variable, which appears to have high values when deposits are high and withdrawals are low. The right chart shows the ratio of these two variables plotted along the x-axis and the outcome plotted along the y-axis. They appear to follow each other linearly with some noise.
-set.seed(1234)
+#|   2 scatter charts. The left chart has points evenly scattered along the x (deposits) and y (withdrawals) axis. A color scale is used to indicate the outcome variable, which appears to have high values when deposits are high and withdrawals are high. The right chart shows the ratio of these two variables plotted along the x-axis and the outcome plotted along the y-axis. They appear to follow each other linearly with some noise.
+set.seed(12345)
 library(tidyverse)
 library(patchwork)
 
 ratio_data <- tibble(
-  deposits = sample(seq(100, 500), 1000, TRUE),
-  withdrawals = sample(seq(100, 500), 1000, TRUE)
+  deposits = rpois(1000, 120),
+  withdrawals = rpois(1000, 110)
 ) |>
-  mutate(
-    outcome = case_when(
-      deposits > 300 & withdrawals > 300 ~ 1,
-      deposits < 300 & withdrawals < 300 ~ 1,
-      .default = 0
-    ),
-    outcome = outcome + rnorm(1000, sd = 0.2)
-  ) |>
-  filter(
-    abs(withdrawals - 300) > 25,
-    abs(deposits - 300) > 25
-  ) |>
-  mutate(
-    deposits = deposits + rpois(n(), 45),
-    withdrawals = withdrawals + rpois(n(), 45)
-  )
+  mutate(outcome = deposits * withdrawals + rnorm(1000, sd = 1500)) 
 
 g1 <- ratio_data |>
   ggplot(aes(deposits, withdrawals, fill = outcome)) +
@@ -110,16 +86,19 @@ g2 <- ratio_data |>
 g1 + g2
 ```
 
+Ratios and crosses are in essence the same thing, with them being the same after the inversion of one of the variables. The same way division and multiplication are connected. Using these simple arithmetic operations we can combine 2 or more variables in ways that enhance our understanding of the data. 
 
-we can thing of ratios and crosses as identical, once we ally inversion of variables
-
-automatic try-all combinations
+One could imagine that you could try all possible combinations for a set of variables and operations. That is likely to be too much as the number of created variables would increase exponentially, with each newly created variable being a candidate for future combinations. This is not to say that it is an impossible task but should be used as a last resort. Methods in @sec-sec-too-many should be tried first.
 
 ## Pros and Cons
 
 ### Pros
 
+- Create interpretable features
+
 ### Cons
+
+- Requires manual effort to find and create
 
 ## R Examples
 

@@ -84,7 +84,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./numeric.html">Numeric Features</a></li><li class="breadcrumb-item"><a href="./numeric-arithmetic.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">🏗️ Arithmetic</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./numeric.html">Numeric Features</a></li><li class="breadcrumb-item"><a href="./numeric-arithmetic.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Arithmetic</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -214,7 +214,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./numeric-arithmetic.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">🏗️ Arithmetic</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Arithmetic</span></span></a>
   </div>
 </li>
       </ul>
@@ -1217,9 +1217,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./numeric.html">Numeric Features</a></li><li class="breadcrumb-item"><a href="./numeric-arithmetic.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">🏗️ Arithmetic</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./numeric.html">Numeric Features</a></li><li class="breadcrumb-item"><a href="./numeric-arithmetic.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Arithmetic</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-numeric-arithmetic" class="quarto-section-identifier"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">🏗️ Arithmetic</span></span></h1>
+<h1 class="title"><span id="sec-numeric-arithmetic" class="quarto-section-identifier"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Arithmetic</span></span></h1>
 </div>
 
 
@@ -1257,27 +1257,13 @@ Figure&nbsp;14.1: Some relationships can be detangled using ratios.
 </div>
 </div>
 <p>The ordering of these ratios doesn’t matter to the performance but can be helpful later on when we try to interpret the model later on. Another thing we often do is to take the logarithm <span class="quarto-unresolved-ref">?sec-sec-numeric-logarithms</span> of the resulting ratio to give us some better intervals.</p>
-<div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-TODO
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>maybe show how log and logit can influence the scales and how they interact with ratios</p>
-</div>
-</div>
 <p>We can do some of the same tricks with multiplication as well. This is also known as <em>feature crosses</em>. Again we can have features that jointly contain information that relates to the outcome, in a way that combining them multiplicatively is better explained.</p>
-<p>TODO fix below to actually show something</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-numeric-crosses" class="quarto-figure quarto-figure-center quarto-float anchored" alt="2 scatter charts. The left chart has points evenly scattered along the x (deposits) and y (withdrawals) axis. A color scale is used to indicate the outcome variable, which appears to have high values when deposits are high and withdrawals are low. The right chart shows the ratio of these two variables plotted along the x-axis and the outcome plotted along the y-axis. They appear to follow each other linearly with some noise.">
+<div id="fig-numeric-crosses" class="quarto-figure quarto-figure-center quarto-float anchored" alt="2 scatter charts. The left chart has points evenly scattered along the x (deposits) and y (withdrawals) axis. A color scale is used to indicate the outcome variable, which appears to have high values when deposits are high and withdrawals are high. The right chart shows the ratio of these two variables plotted along the x-axis and the outcome plotted along the y-axis. They appear to follow each other linearly with some noise.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-numeric-crosses-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="numeric-arithmetic_files/figure-html/fig-numeric-crosses-1.png" class="img-fluid figure-img" alt="2 scatter charts. The left chart has points evenly scattered along the x (deposits) and y (withdrawals) axis. A color scale is used to indicate the outcome variable, which appears to have high values when deposits are high and withdrawals are low. The right chart shows the ratio of these two variables plotted along the x-axis and the outcome plotted along the y-axis. They appear to follow each other linearly with some noise." width="672">
+<img src="numeric-arithmetic_files/figure-html/fig-numeric-crosses-1.png" class="img-fluid figure-img" alt="2 scatter charts. The left chart has points evenly scattered along the x (deposits) and y (withdrawals) axis. A color scale is used to indicate the outcome variable, which appears to have high values when deposits are high and withdrawals are high. The right chart shows the ratio of these two variables plotted along the x-axis and the outcome plotted along the y-axis. They appear to follow each other linearly with some noise." width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-numeric-crosses-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;14.2: Some relationships can be detangled using crosses.
@@ -1286,15 +1272,21 @@ Figure&nbsp;14.2: Some relationships can be detangled using crosses.
 </div>
 </div>
 </div>
-<p>we can thing of ratios and crosses as identical, once we ally inversion of variables</p>
-<p>automatic try-all combinations</p>
+<p>Ratios and crosses are in essence the same thing, with them being the same after the inversion of one of the variables. The same way division and multiplication are connected. Using these simple arithmetic operations we can combine 2 or more variables in ways that enhance our understanding of the data.</p>
+<p>One could imagine that you could try all possible combinations for a set of variables and operations. That is likely to be too much as the number of created variables would increase exponentially, with each newly created variable being a candidate for future combinations. This is not to say that it is an impossible task but should be used as a last resort. Methods in <span class="quarto-unresolved-ref">?sec-sec-too-many</span> should be tried first.</p>
 <section id="pros-and-cons" class="level2" data-number="14.2">
 <h2 data-number="14.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">14.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="14.2.1">
 <h3 data-number="14.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">14.2.1</span> Pros</h3>
+<ul>
+<li>Create interpretable features</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="14.2.2">
 <h3 data-number="14.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">14.2.2</span> Cons</h3>
+<ul>
+<li>Requires manual effort to find and create</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="14.3">
