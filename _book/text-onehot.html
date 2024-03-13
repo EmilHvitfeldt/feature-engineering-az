@@ -84,7 +84,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./text.html">Text Features</a></li><li class="breadcrumb-item"><a href="./text-onehot.html"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">🏗️ Sequence Encoding</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./text.html">Text Features</a></li><li class="breadcrumb-item"><a href="./text-onehot.html"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Sequence Encoding</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -214,7 +214,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./numeric-arithmetic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">🏗️ Arithmetic</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Arithmetic</span></span></a>
   </div>
 </li>
       </ul>
@@ -516,13 +516,13 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./text-hashing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">🏗️ Token Hashing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Token Hashing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./text-onehot.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">🏗️ Sequence Encoding</span></span></a>
+ <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Sequence Encoding</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1217,9 +1217,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./text.html">Text Features</a></li><li class="breadcrumb-item"><a href="./text-onehot.html"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">🏗️ Sequence Encoding</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./text.html">Text Features</a></li><li class="breadcrumb-item"><a href="./text-onehot.html"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Sequence Encoding</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-text-onehot" class="quarto-section-identifier"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">🏗️ Sequence Encoding</span></span></h1>
+<h1 class="title"><span id="sec-text-onehot" class="quarto-section-identifier"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Sequence Encoding</span></span></h1>
 </div>
 
 
@@ -1239,7 +1239,27 @@ ul.task-list li input[type="checkbox"] {
 <section id="sequence-encoding" class="level2" style="visibility: hidden; height: 0px;" data-number="58.1">
 <h2 data-number="58.1" class="anchored" data-anchor-id="sequence-encoding"><span class="header-section-number">58.1</span> Sequence Encoding</h2>
 </section>
-<p>WIP</p>
+<p>In <span class="quarto-unresolved-ref">?sec-sec-text-tf</span>, <a href="text-tfidf.html" class="quarto-xref"><span>Chapter 56</span></a>, and <span class="quarto-unresolved-ref">?sec-sec-text-hashing</span> we took a <em>bag of words</em> approach to encoding the tokens into numeric columns. This approach strips out the positional information of the text. For some tasks that is perfectly fine to do. One way to encode the sequence itself is presented in this chapter. Known as <em>sequence encoding</em> or <em>one-hot encoding</em>.</p>
+<p>Each token in the dictionary is assigned an integer value. The tokens are then replaced with their dictionary value at their location. The sentence <code>"he", "was", "very", "happy"</code> could be encoded as the sequence <code>5, 205, 361, 663</code>.</p>
+<p>considerations about lengths, will have a hard time dealing with both long and short text.</p>
+<p>you need to pick a length, that will affect the number of output columns</p>
+<p>you need to handle padding</p>
+<p>you are not restricted by the number of columns</p>
+<p>you should have a way to handle unseen tokens</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>add diagrams</p>
+</div>
+</div>
+<p>This is likely to work better with neural networks such as LSTMs as they can use this representation efficiently.</p>
 <section id="pros-and-cons" class="level2" data-number="58.2">
 <h2 data-number="58.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">58.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="58.2.1">
@@ -1653,8 +1673,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./text-hashing.html" class="pagination-link  aria-label=" &lt;span="" token="" hashing&lt;="" span&gt;"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">🏗️ Token Hashing</span></span>
+      <a href="./text-hashing.html" class="pagination-link  aria-label=" &lt;span="" hashing&lt;="" span&gt;"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Token Hashing</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

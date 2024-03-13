@@ -2,13 +2,33 @@
 pagetitle: "Feature Engineering A-Z | Sequence Encoding"
 ---
 
-# 🏗️ Sequence Encoding {#sec-text-onehot}
+# Sequence Encoding {#sec-text-onehot}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## Sequence Encoding
 :::
 
-WIP
+In @sec-sec-text-tf, @sec-text-tfidf, and @sec-sec-text-hashing we took a *bag of words* approach to encoding the tokens into numeric columns. This approach strips out the positional information of the text. For some tasks that is perfectly fine to do. One way to encode the sequence itself is presented in this chapter. Known as *sequence encoding* or *one-hot encoding*.
+
+Each token in the dictionary is assigned an integer value. The tokens are then replaced with their dictionary value at their location. The sentence `"he", "was", "very", "happy"` could be encoded as the sequence `5, 205, 361, 663`. 
+
+considerations about lengths, will have a hard time dealing with both long and short text.
+
+you need to pick a length, that will affect the number of output columns
+
+you need to handle padding
+
+you are not restricted by the number of columns
+
+you should have a way to handle unseen tokens
+
+::: {.callout-caution}
+# TODO
+
+add diagrams
+:::
+
+This is likely to work better with neural networks such as LSTMs as they can use this representation efficiently.
 
 ## Pros and Cons
 
