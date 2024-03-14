@@ -1239,13 +1239,8 @@ ul.task-list li input[type="checkbox"] {
 <section id="sequence-encoding" class="level2" style="visibility: hidden; height: 0px;" data-number="58.1">
 <h2 data-number="58.1" class="anchored" data-anchor-id="sequence-encoding"><span class="header-section-number">58.1</span> Sequence Encoding</h2>
 </section>
-<p>In <span class="quarto-unresolved-ref">?sec-sec-text-tf</span>, <a href="text-tfidf.html" class="quarto-xref"><span>Chapter 56</span></a>, and <span class="quarto-unresolved-ref">?sec-sec-text-hashing</span> we took a <em>bag of words</em> approach to encoding the tokens into numeric columns. This approach strips out the positional information of the text. For some tasks that is perfectly fine to do. One way to encode the sequence itself is presented in this chapter. Known as <em>sequence encoding</em> or <em>one-hot encoding</em>.</p>
+<p>In <a href="text-tf.html" class="quarto-xref"><span>Chapter 55</span></a>, <a href="text-tfidf.html" class="quarto-xref"><span>Chapter 56</span></a>, and <a href="text-hashing.html" class="quarto-xref"><span>Chapter 57</span></a> we took a <em>bag of words</em> approach to encoding the tokens into numeric columns. This approach strips out the positional information of the text. For some tasks that is perfectly fine to do. One way to encode the sequence itself is presented in this chapter. Known as <em>sequence encoding</em> or <em>one-hot encoding</em>.</p>
 <p>Each token in the dictionary is assigned an integer value. The tokens are then replaced with their dictionary value at their location. The sentence <code>"he", "was", "very", "happy"</code> could be encoded as the sequence <code>5, 205, 361, 663</code>.</p>
-<p>considerations about lengths, will have a hard time dealing with both long and short text.</p>
-<p>you need to pick a length, that will affect the number of output columns</p>
-<p>you need to handle padding</p>
-<p>you are not restricted by the number of columns</p>
-<p>you should have a way to handle unseen tokens</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1256,9 +1251,54 @@ TODO
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>add diagrams</p>
+<p>add diagram</p>
 </div>
 </div>
+<p>With this setup in mind, we need to set some parameters as to how we do it. They can not easily be inferred by the data so we have to use our expert knowledge, and their nature makes them harder to put into a hyperparameter optimization scheme. The parameters are <em>sequence length</em>, <em>truncating</em>, and <em>padding</em>.</p>
+<p>The sequence length refers to the number of tokens we consider in the sequence. This number needs to be constant as it dictates the number of columns that are produced. A sequence with 10 tokens can not be put into the same number of columns as a sequence with 1000 tokens without some hard choices to be made. The choice should be informed based on the distribution of the number of tokens in your observations. The longer the sequence length you select, the larger the model becomes, but picking a shorter sequence length risks losing valuable signal in the data. This can be especially hard if you have a mixture of long and short text fields.</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>add diagram</p>
+</div>
+</div>
+<p>For a sequence of tokens that are shorter than the selected sequence length, we need to decide how it should be placed inside the output values. Typically we wanna do the padding with zeros to indicate that no token appeared. Should the padding with zeros happen before or after? This is a question we need to answer. What it asks of us, is how to align the sequences. If we do padding after the sequence, then all the beginnings pair up.</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>add diagram</p>
+</div>
+</div>
+<p>A similar question is what happens when the sequence is too long. Where should truncation occur? This is the same style of decision as with padding we just went over. This choice makes a big difference when some of the sequences are much longer than the sequence length. The choice of type of truncating can be the difference between keeping the beginning of a sequence or the end.</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>add diagram</p>
+</div>
+</div>
+<p>One of the nice things about this method is that you aren’t restricted to a certain number of unique tokens as they just influence the number of unique values the columns can take, not the number of columns. That doesn’t mean that filtering tokens shouldn’t be done, just that it isn’t a requirement as it often is for methods such as <a href="text-tf.html" class="quarto-xref"><span>Chapter 55</span></a> and <a href="text-tfidf.html" class="quarto-xref"><span>Chapter 56</span></a>.</p>
+<p>This method of embedding tokens relies on the positional information that we have. For this reason, we should have a way to encode unseen tokens. This should be done as another integer value not used in the dictionary already.</p>
 <p>This is likely to work better with neural networks such as LSTMs as they can use this representation efficiently.</p>
 <section id="pros-and-cons" class="level2" data-number="58.2">
 <h2 data-number="58.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">58.2</span> Pros and Cons</h2>
