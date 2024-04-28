@@ -8,7 +8,7 @@ pagetitle: "Feature Engineering A-Z | Robust Scaling"
 ## Robust Scaling
 :::
 
-**Range scaling**, is a scaling method that is typically done by removing the median and dividing by the interquartile range. As illustrated by @eq-robust-minimal
+**Robust scaling**, is a scaling method that is typically done by removing the median and dividing by the interquartile range. As illustrated by @eq-robust-minimal
 
 $$X_{scaled} = \dfrac{X - \text{median}(X)}{\text{Q3}(X) - \text{Q1}(X)}$$ {#eq-robust-minimal}
 
