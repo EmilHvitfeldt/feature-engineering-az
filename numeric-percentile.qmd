@@ -22,6 +22,12 @@ Add equation
 
 This does a couple of things for us. It naturally constrains the transformed data into the range $[0, 1]$, and it deals with outlier values nicely in the sense that they don't change the transformation that much. Moreover, if the testing distribution is close to the training distribution then the transformed distribution would be approximately uniformly distributed between 0 and 1.
 
+::: {.callout-caution}
+# TODO
+
+add color-coded pair of distribution, where the color map to the previous location of the data
+:::
+
 ## Pros and Cons
 
 ### Pros
