@@ -55,9 +55,13 @@ This is likely to work better with neural networks such as LSTMs as they can use
 
 ### Pros
 
+- Takes order of tokens into account when modeling
+
 ### Cons
+
+- A lot of decisions in the form of hyperparameters to make things work correctly
+- Will require a specific type of model to get the most out of this data format
 
 ## R Examples
 
 ## Python Examples
-

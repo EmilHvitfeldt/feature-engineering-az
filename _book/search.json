@@ -2697,7 +2697,7 @@
     "href": "text-onehot.html#pros-and-cons",
     "title": "58  Sequence Encoding",
     "section": "58.2 Pros and Cons",
-    "text": "58.2 Pros and Cons\n\n58.2.1 Pros\n\n\n58.2.2 Cons",
+    "text": "58.2 Pros and Cons\n\n58.2.1 Pros\n\nTakes order of tokens into account when modeling\n\n\n\n58.2.2 Cons\n\nA lot of decisions in the form of hyperparameters to make things work correctly\nWill require a specific type of model to get the most out of this data format",
     "crumbs": [
       "Text Features",
       "<span class='chapter-number'>58</span>  <span class='chapter-title'>Sequence Encoding</span>"
