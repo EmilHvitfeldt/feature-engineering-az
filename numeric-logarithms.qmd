@@ -105,7 +105,7 @@ The use of logarithms will have different effects on different types of models. 
 ### Cons
 
 - Needs offset to deal with negative data
-- Is not a universal fix. While it can make skewed distributions less skewed. It has the opposite effect on a distribution that isn't skewed. See the effect below on 10,000 uniformly distributed values
+- Is not a universal fix. While it can improve right-skewed distributions (where most of the data points are on lower values), it has the opposite effect on a distribution that isn't skewed or that is left-skewed. See the effect below on 10,000 uniformly distributed values:
 
 ```{r}
 #| echo: false
