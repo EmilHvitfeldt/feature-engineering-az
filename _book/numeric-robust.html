@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.554">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -1302,7 +1302,7 @@ window.Quarto = {
 <section id="robust-scaling" class="level2" style="visibility: hidden; height: 0px;" data-number="10.1">
 <h2 data-number="10.1" class="anchored" data-anchor-id="robust-scaling"><span class="header-section-number">10.1</span> Robust Scaling</h2>
 </section>
-<p><strong>Range scaling</strong>, is a scaling method that is typically done by removing the median and dividing by the interquartile range. As illustrated by <a href="#eq-robust-minimal" class="quarto-xref">Equation&nbsp;<span>10.1</span></a></p>
+<p><strong>Robust scaling</strong>, is a scaling method that is typically done by removing the median and dividing by the interquartile range. As illustrated by <a href="#eq-robust-minimal" class="quarto-xref">Equation&nbsp;<span>10.1</span></a></p>
 <p><span id="eq-robust-minimal"><span class="math display">\[X_{scaled} = \dfrac{X - \text{median}(X)}{\text{Q3}(X) - \text{Q1}(X)} \tag{10.1}\]</span></span></p>
 <p>This is the most common formulation of this method. This method is a learned transformation. So we use the training data to derive the right values of <span class="math inline">\(\text{Q3}(X)\)</span>, <span class="math inline">\(\text{Q1}(X)\)</span>, and <span class="math inline">\(\text{median}(X)\)</span> and then these values are used to perform the transformations when applied to new data. You are not bound to use <code>Q1</code> and <code>Q3</code>, any quantiles can be used. Most software implementations allow you to modify the ranges. It is typically recommended that you pick a symmetric range like <span class="math inline">\([0.1, 0.9]\)</span> or <span class="math inline">\([0.3, 0.7]\)</span> unless you have a good reason why observations high or low should be excluded.</p>
 <p>This method is normally showcased as a way to scale variables with outliers in them. That is true, so far that you don’t take the outer quantiles into consideration. The default range means that only 50% of the observations are used to calculate the scaling statistics. This is fine if you want to ignore the outliers, however, it is conventionally not a good idea to outright ignore outliers, so you might want to take a look at <a href="numeric.html#sec-numeric-outliers-issues" class="quarto-xref"><span>Section 1.5</span></a> before you throw away the information that is present in the outliers.</p>
