@@ -52,7 +52,7 @@ ames |>
   knitr::kable()
 ```
 
-One way to do filtering is to pink a threshold and repeatably remove one of the variables of the most correlated pair until there are no pairs left with a correlation over the threshold. This method has a minimal computational footprint as it just needs to calculate the correlations once at the beginning. The threshold is likely to need to be tuned as we can't say for sure what a good threshold is. With the removal of variables, there is always a chance that we are removing signal rather than noise, this is increasingly true as we remove more and more predictors.
+One way to do filtering is to pick a threshold and repeatably remove one of the variables of the most correlated pair until there are no pairs left with a correlation over the threshold. This method has a minimal computational footprint as it just needs to calculate the correlations once at the beginning. The threshold is likely to need to be tuned as we can't say for sure what a good threshold is. With the removal of variables, there is always a chance that we are removing signal rather than noise, this is increasingly true as we remove more and more predictors.
 
 ::: {.callout-caution}
 # TODO

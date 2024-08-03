@@ -20,7 +20,7 @@ The solution to this problem is very simple. For each variable in the data set, 
 write as an algorithm
 :::
 
-the zero-variance only matters on the training data set. So you could be in a situation where the testing data contained other values. This doesn't matter as zero-variance predictors only affect the fitting of the model, which is done on the training data set.
+The zero-variance only matters on the training data set. So you could be in a situation where the testing data contained other values. This doesn't matter as zero-variance predictors only affect the fitting of the model, which is done on the training data set.
 
 There are a couple of variants to this problem. Some models require multiple values for predictors across groups. And we need to handle that accordingly. Another more complicated problem is working with predictors that have almost zero variance but not quite. Say a predictor has 999 instances of 10 and 1 instance of 15. According to the above definition, it doesn't have zero variance. But it feels very close to it. These might be considered so low in information that they would be worth removing as well.
 
