@@ -10,7 +10,7 @@ pagetitle: "Feature Engineering A-Z | Imbalanced Overview"
 
 Whether to keep this chapter in this book or not was considered, as the methods in this section are borderline feature engineering methods.
 
-The potential problem with imbalanced data can most easily be seen in a classification setting. Propose we want to predict if an incoming email is spam or not. Furthermore, we assume that the spam rate is low and around 1% of the incoming emails. If you are not careful, you can easily end up with a model that predicts "not spam" all the time, since it will be correct 100% of the time. This is a common scenario, and it happens all the time. One culprit could be that there isn't enough information in the minority class to be able to distinguish it from the majority class. And that is okay, not all modeling problems are easy. But your model will do its best anyway. 
+The potential problem with imbalanced data can most easily be seen in a classification setting. Propose we want to predict if an incoming email is spam or not. Furthermore, we assume that the spam rate is low and around 1% of the incoming emails. If you are not careful, you can easily end up with a model that predicts "not spam" all the time, since it will be correct 99% of the times. This is a common scenario, and it happens all the time. One culprit could be that there isn't enough information in the minority class to be able to distinguish it from the majority class. And that is okay, not all modeling problems are easy. But your model will do its best anyway. 
 
 There are several different ways to handle imbalanced data, we will list all the ways in broad strokes, and then cover the methods that we could count as feature engineering.
 
