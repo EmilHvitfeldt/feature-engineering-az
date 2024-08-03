@@ -1,27 +1,32 @@
 Package: feature-engineering-az
 Imports: 
     corrr,
+    dapr,
     embed,
     extrasteps,
     ggforce,
     ggraph,
     janeaustenr,
     jsonlite,
+    lme4,
+    Matrix,
     patchwork,
     readr,
     remotes,
-    reticulate,
     reshape,
+    reticulate,
     rmarkdown,
     splines2,
     stopwords,
     text2vec,
-    textrecipes,
-    tidymodels,
-    tidyverse,
     textfeatures,
-    lme4,
-    Matrix
+    textrecipes,
+    tfse,
+    tidymodels,
+    tidyverse
 Remotes:
-    emilhvitfeldt/extrasteps
+    emilhvitfeldt/extrasteps,
+    mkearney/dapr,
+    mkearney/textfeatures,
+    mkearney/tfse
 Encoding: UTF-8

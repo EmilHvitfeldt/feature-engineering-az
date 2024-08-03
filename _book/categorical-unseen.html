@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.554">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -1346,7 +1346,9 @@ TODO
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">bake</span>(dummy_spec_prepped, <span class="at">new_data =</span> flights_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: ! There are new levels in a factor: `AS` and `HA`.</code></pre>
+<pre><code>Warning: ! There are new levels in `carrier`: "AS" and "HA".
+ℹ Consider using step_novel() (`?recipes::step_novel()`) before `step_dummy()`
+  to handle unseen values.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 211 × 12
