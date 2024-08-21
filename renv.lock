@@ -1813,15 +1813,9 @@
     },
     "parsnip": {
       "Package": "parsnip",
-      "Version": "1.2.1.9001",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "parsnip",
-      "RemoteUsername": "tidymodels",
-      "RemotePkgRef": "tidymodels/parsnip",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "017b671273d233ff005029ed6aa8ebdfe77f7892",
+      "Version": "1.2.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "cli",
@@ -1844,7 +1838,7 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "6063dc5d7cb9857d622060cee8d50ef8"
+      "Hash": "ace928adf616e06ece817d970faa2d03"
     },
     "patchwork": {
       "Package": "patchwork",
@@ -2175,9 +2169,12 @@
     "renv": {
       "Package": "renv",
       "Version": "1.0.7",
-      "OS_type": null,
+      "Source": "Repository",
       "Repository": "CRAN",
-      "Source": "Repository"
+      "Requirements": [
+        "utils"
+      ],
+      "Hash": "397b7b2a265bc5a7a06852524dabae20"
     },
     "reprex": {
       "Package": "reprex",
