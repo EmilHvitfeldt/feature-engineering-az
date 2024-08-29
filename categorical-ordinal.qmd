@@ -8,21 +8,33 @@ pagetitle: "Feature Engineering A-Z | Ordinal Encoding"
 ## Ordinal Encoding
 :::
 
-This method is similar to @sec-categorical-label, except that we manually specify the mapping. This method is generally used for *ordinal* variables as they are encoded with a natural ordering. Where this method shines compared to integer encoding is that we allow arbitrary values for encoding, thus we can have (cold = 1, warm = 5, hot = 20). But we might as well use (cold = -1, warm = 0, hot = 1) or (cold = 1.618, warm = 2.718, hot = 3.141). Although you would have a hard time justifying the latter. Nothing is stopping you from using this method with an unordered categorical variable, you just need to spend some time justifying your levels.
+This method is similar to @sec-categorical-label, except that we manually specify the mapping.
+This method is generally used for *ordinal* variables as they are encoded with a natural ordering.
+Where this method shines compared to integer encoding is that we allow arbitrary values for encoding, thus we can have (cold = 1, warm = 5, hot = 20).
+But we might as well use (cold = -1, warm = 0, hot = 1) or (cold = 1.618, warm = 2.718, hot = 3.141).
+Although you would have a hard time justifying the latter.
+Nothing is stopping you from using this method with an unordered categorical variable, you just need to spend some time justifying your levels.
 
 ::: callout-note
 This book's framing of ordinal encoding is more general than other sources, in so far as it is described as manually giving values to levels of a categorical, whether it is ordered or not.
 :::
 
-This method feels like it but isn't a trained method. This is because we are providing the record of the possible values and their corresponding integer value. Unseen levels can be manually specified, but it isn't entirely obvious what their value should be.
+This method feels like it but isn't a trained method.
+This is because we are providing the record of the possible values and their corresponding integer value.
+Unseen levels can be manually specified, but it isn't entirely obvious what their value should be.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 add diagram
 :::
 
-Manually setting values for your levels comes with some upsides and downsides. Assuming that you have the domain expertise to apply numeric values for the levels, removes a lot of the guesswork. This can be very effective if the numeric values selected for the levels have some intrinsic meaning. It can remove a lot of the guesswork and trial and error that we see in integer encoding. The downside is the other side of the coin. We need to have the domain expertise to be able to give the levels meaningful values, otherwise, we are doing no better than integer encoding.
+Manually setting values for your levels comes with some upsides and downsides.
+Assuming that you have the domain expertise to apply numeric values for the levels, removes a lot of the guesswork.
+This can be very effective if the numeric values selected for the levels have some intrinsic meaning.
+It can remove a lot of the guesswork and trial and error that we see in integer encoding.
+The downside is the other side of the coin.
+We need to have the domain expertise to be able to give the levels meaningful values, otherwise, we are doing no better than integer encoding.
 
 ## Pros and Cons
 
@@ -38,7 +50,8 @@ Manually setting values for your levels comes with some upsides and downsides. A
 
 ## R Examples
 
-We will be using the `ames` data set for these examples. The `step_dummy()` function allows us to perform dummy encoding and one-hot encoding.
+We will be using the `ames` data set for these examples.
+The `step_dummy()` function allows us to perform dummy encoding and one-hot encoding.
 
 ```{r}
 #| echo: false
@@ -56,7 +69,8 @@ ames |>
   select(Lot_Shape, Land_Slope)
 ```
 
-Looking at the levels of `Lot_Shape` and `Land_Slope` we see that they match the levels in the documentation <http://jse.amstat.org/v19n3/decock/DataDocumentation.txt>. Furthermore, these variables are listed as ordinal, they just aren't denoted like this in this data set.
+Looking at the levels of `Lot_Shape` and `Land_Slope` we see that they match the levels in the documentation <http://jse.amstat.org/v19n3/decock/DataDocumentation.txt>.
+Furthermore, these variables are listed as ordinal, they just aren't denoted like this in this data set.
 
 ```{r}
 ames |> pull(Lot_Shape) |> levels()
@@ -70,7 +84,8 @@ ames <- ames |>
   mutate(across(.cols = c(Lot_Shape, Land_Slope), .fns = as.ordered))
 ```
 
-to perform ordinal encoding we will use the `step_ordinalscore()` step. This defaults to giving each level values between `1` and `n`, much like `step_integer()`.
+to perform ordinal encoding we will use the `step_ordinalscore()` step.
+This defaults to giving each level values between `1` and `n`, much like `step_integer()`.
 
 ```{r}
 ordinal_rec <- recipe(Sale_Price ~ ., data = ames) |>
@@ -81,7 +96,8 @@ ordinal_rec |>
   bake(new_data = NULL, starts_with("Lot_Shape"), starts_with("Land_Slope"))
 ```
 
-What we can do is define a special transformation function for each of the steps. One way is to use the `case_when()` function
+What we can do is define a special transformation function for each of the steps.
+One way is to use the `case_when()` function
 
 ```{r}
 Lot_Shape_transformer <- function(x) {
@@ -119,4 +135,5 @@ ordinal_rec |>
 
 ## Python Examples
 
-I'm not aware of a good way to do this in a scikit-learn way. Please file an [issue on github](https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new?assignees=&labels=&projects=&template=general-issue.md&title) if you know of a good way.
+I'm not aware of a good way to do this in a scikit-learn way.
+Please file an [issue on github](https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new?assignees=&labels=&projects=&template=general-issue.md&title) if you know of a good way.

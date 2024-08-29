@@ -8,18 +8,20 @@ pagetitle: "Feature Engineering A-Z | Collapsing Categories"
 ## Collapsing Categories
 :::
 
-There are times, especially when you have a lot of levels in a categorical variable, that it will be beneficial for you to combine some of them. This practice is in some ways similar to what we saw in @sec-categorical-cleaning, but here we are doing it for performance reasons.
+There are times, especially when you have a lot of levels in a categorical variable, that it will be beneficial for you to combine some of them.
+This practice is in some ways similar to what we saw in @sec-categorical-cleaning, but here we are doing it for performance reasons.
 
 Essentially what we are working on, is trying to combine many levels to get higher performance and interpretability
 
 this has two prongs
 
-- there aren't enough observations here, let us combine them
-- these levels are similar
-    - expert knowledge
-    - inferred from data
+-   there aren't enough observations here, let us combine them
+-   these levels are similar
+    -   expert knowledge
+    -   inferred from data
 
-The first issue can be quite a common one. See the below distribution as an example
+The first issue can be quite a common one.
+See the below distribution as an example
 
 ```{r}
 #| message: false
@@ -43,7 +45,10 @@ ames |>
 
 The proportion of how often each level appears is quite stark, to the point where 4 of them happen less than 10 times, which is not a lot considering the most frequent level occurs over 1000 times.
 
-For some methods such as @sec-categorical-dummy, having these infrequent levels would not do us much good, and may even make things worse. Having a level be so infrequent increases its likelihood of being uninformative. This is where collapsing can come into play. The method takes the most infrequent levels and combines them into one, typically called `"other"`.
+For some methods such as @sec-categorical-dummy, having these infrequent levels would not do us much good, and may even make things worse.
+Having a level be so infrequent increases its likelihood of being uninformative.
+This is where collapsing can come into play.
+The method takes the most infrequent levels and combines them into one, typically called `"other"`.
 
 ```{r}
 #| echo: false
@@ -61,11 +66,24 @@ ames |>
   )
 ```
 
-Above we see how that is done. We took all the levels that appeared less than `2.5%` of the time and combined them into a new level called `"other"`. This value threshold will off cause depend on many things and is a good candidate for tuning. And we don't have to do it as a percentage, we might as well do it based on counts. Collapsing anything with less than 10 occurrences.
+Above we see how that is done.
+We took all the levels that appeared less than `2.5%` of the time and combined them into a new level called `"other"`.
+This value threshold will off cause depend on many things and is a good candidate for tuning.
+And we don't have to do it as a percentage, we might as well do it based on counts.
+Collapsing anything with less than 10 occurrences.
 
-This method can give pretty good results. But is by nature very crude. We are more than likely to combine levels that have nothing to do with each other than their low frequency. This will sometimes be inefficient, and while it has straightforward explainability due to its simple nature it can be hard to argue for its approach to shareholders.
+This method can give pretty good results.
+But is by nature very crude.
+We are more than likely to combine levels that have nothing to do with each other than their low frequency.
+This will sometimes be inefficient, and while it has straightforward explainability due to its simple nature it can be hard to argue for its approach to shareholders.
 
-This is where the other type of collapsing comes in. These methods use a little more information about the data, in the hopes that the collapsing will be more sensible. We will describe two of them here. First is the model-based approach. You can imagine that we fit a small model, such as a decision tree on the categorical variable, using a sensible outcome. This outcome could the the real outcome of our larger modeling problem. then we let the decision tree run, and the way the tree splits the data is how we combine the levels.
+This is where the other type of collapsing comes in.
+These methods use a little more information about the data, in the hopes that the collapsing will be more sensible.
+We will describe two of them here.
+First is the model-based approach.
+You can imagine that we fit a small model, such as a decision tree on the categorical variable, using a sensible outcome.
+This outcome could the the real outcome of our larger modeling problem.
+then we let the decision tree run, and the way the tree splits the data is how we combine the levels.
 
 This is done below as an example:
 
@@ -82,17 +100,23 @@ res <- recipe(Sale_Price ~ Exterior_2nd, data = ames) |>
 split(res$old, res$new)
 ```
 
-And it isn't super hard to see that these make sense. "Asbestos Shingles" and "Asphalt Shingles" got paired, as did "Metal Siding" and "Wood Siding", and "Hard Board" and "Plywood". These are of course only linked because they appear similar when looking at the sale price. But We are likely able to reason better about these new labels than before.
+And it isn't super hard to see that these make sense.
+"Asbestos Shingles" and "Asphalt Shingles" got paired, as did "Metal Siding" and "Wood Siding", and "Hard Board" and "Plywood".
+These are of course only linked because they appear similar when looking at the sale price.
+But We are likely able to reason better about these new labels than before.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 add a plot of the tree
 :::
 
-When to stop growing the is still something that we can and should tune. Too small of a tree and we collapse levels that should be different, too large a tree and we don't collapse things that should have been collapsed.
+When to stop growing the is still something that we can and should tune.
+Too small of a tree and we collapse levels that should be different, too large a tree and we don't collapse things that should have been collapsed.
 
-Another interesting method is when we use the levels themselves to decide how to do the collapsing. Using string distances between the levels. Hence similar levels will be collapsed together.
+Another interesting method is when we use the levels themselves to decide how to do the collapsing.
+Using string distances between the levels.
+Hence similar levels will be collapsed together.
 
 ```{r}
 #| echo: false
@@ -106,39 +130,48 @@ res <- recipe(Sale_Price ~ Exterior_2nd, data = ames) |>
 split(res$from, res$to)
 ```
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 add a plot of what happens here
 :::
 
-This doesn't use the data at all, and the results reflect that. The distance will again have to be used for best results, and there are quite a few different types of ways to calculate string distance. The choices will sometimes matter a lot and should be investigated before use for best results.
+This doesn't use the data at all, and the results reflect that.
+The distance will again have to be used for best results, and there are quite a few different types of ways to calculate string distance.
+The choices will sometimes matter a lot and should be investigated before use for best results.
 
-The string distance collapsing method does in some ways feel like a cleaning method like we saw in @sec-categorical-cleaning. Having many levels in a freeform state will often lead to misspellings or other slight variations. String distances are a great way to deal with those types of problems. It is recommended that you always look at the resulting mappings to make sure they are created correctly, or good enough.
+The string distance collapsing method does in some ways feel like a cleaning method like we saw in @sec-categorical-cleaning.
+Having many levels in a freeform state will often lead to misspellings or other slight variations.
+String distances are a great way to deal with those types of problems.
+It is recommended that you always look at the resulting mappings to make sure they are created correctly, or good enough.
 
 Some data is naturally hierarchical, and if we have this type of data and we want to collapse, we can take advantage of that and collapse according to the hierarchies.
 
-Collapsing categorical levels is not without risk, and each application should be monitored and checked to make sure we don't do anything bad. In many ways, this is quite a manual process and luckily the results are very easy to validate.
+Collapsing categorical levels is not without risk, and each application should be monitored and checked to make sure we don't do anything bad.
+In many ways, this is quite a manual process and luckily the results are very easy to validate.
 
-Unseen levels will have to be treated on a method-to-method basis. Tree-based collapsing will not be able to handle unseen levels as they are not part of the tree at all. On the other hand, it is possible to handle unseen levels on the string distance method as you just need to calculate the distances. With the caveat that some strings could be the same distance away from multiple levels.
+Unseen levels will have to be treated on a method-to-method basis.
+Tree-based collapsing will not be able to handle unseen levels as they are not part of the tree at all.
+On the other hand, it is possible to handle unseen levels on the string distance method as you just need to calculate the distances.
+With the caveat that some strings could be the same distance away from multiple levels.
 
 ## Pros and Cons
 
 ### Pros
 
-- Easy to perform and verify
-- Computationally fast
+-   Easy to perform and verify
+-   Computationally fast
 
 ### Cons
 
-- Must be tuned
-- Can produce counterintuitive results
+-   Must be tuned
+-   Can produce counterintuitive results
 
 ## R Examples
 
 Methods to collapse categorical levels can be found in the recipes package with `step_other()` and the embed package in `step_collapse_cart()` and `step_collapse_stringdist()`.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 find a better data set for examples
@@ -176,8 +209,10 @@ rec_other |>
   bake(new_data = NULL)
 ```
 
+for the more advanced methods, we turn to the embed package.
+To collapse levels by their string distance, we use the `step_collapse_stringdist()`.
+By default, you control it with the `distance` argument.
 
-for the more advanced methods, we turn to the embed package. To collapse levels by their string distance, we use the `step_collapse_stringdist()`. By default, you control it with the `distance` argument. 
 ```{r}
 rec_stringdist <- recipe(Sale_Price ~ Exterior_2nd, data = ames) |>
   step_collapse_stringdist(Exterior_2nd, distance = 5) |>
@@ -187,7 +222,8 @@ rec_stringdist |>
   bake(new_data = NULL)
 ```
 
-Unsurprisingly, there are almost a dozen different ways to calculate the distance between two strings. Most are supported and can be changed using the `method` argument, and further controlled using the `options` argument.
+Unsurprisingly, there are almost a dozen different ways to calculate the distance between two strings.
+Most are supported and can be changed using the `method` argument, and further controlled using the `options` argument.
 
 ```{r}
 rec_stringdist <- recipe(Sale_Price ~ Exterior_2nd, data = ames) |>
@@ -201,7 +237,9 @@ rec_stringdist |>
   bake(new_data = NULL)
 ```
 
-Lastly, we have the tree-based method, this is done using the `step_collapse_cart()` function. For this to work, you need to select an outcome variable using the `outcome` argument. With `cost_complexity` and `min_n` as arguments to change the shape of the tree.
+Lastly, we have the tree-based method, this is done using the `step_collapse_cart()` function.
+For this to work, you need to select an outcome variable using the `outcome` argument.
+With `cost_complexity` and `min_n` as arguments to change the shape of the tree.
 
 ```{r}
 rec_cart <- recipe(Sale_Price ~ Exterior_2nd, data = ames) |>

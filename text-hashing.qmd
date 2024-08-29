@@ -8,44 +8,65 @@ pagetitle: "Feature Engineering A-Z | Token Hashing"
 ## Token Hashing
 :::
 
-Token hashing is quite similar to hashing encoding that we saw in @sec-categorical-hashing. Instead of hashing the whole text string, we instead apply the hashing function to each token. This means that Token Hashing is to term frequency as hashing encoding is to dummy encoding.
+Token hashing is quite similar to hashing encoding that we saw in @sec-categorical-hashing.
+Instead of hashing the whole text string, we instead apply the hashing function to each token.
+This means that Token Hashing is to term frequency as hashing encoding is to dummy encoding.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 add diagram
 :::
 
-One mental model is that we are performing term frequency, and then combining the columns in a deterministically random way. For this, we are using a hashing function. A **hashing function** is a function that takes an input, and returns a integer. The same value will always return the same output. It is computationally easy to perform this transformation, but it is hard to reverse it. This is not a downside as we don't need to perform the reverse transformation. Furthermore a good hashing function outputs values evenly across their supported range, and similar values such as `cat` and `cats` will produce vastly different hashes, `1751422759` and `2517493566` respectively for the MurmurHash3 hashing function. 
+One mental model is that we are performing term frequency, and then combining the columns in a deterministically random way.
+For this, we are using a hashing function.
+A **hashing function** is a function that takes an input, and returns a integer.
+The same value will always return the same output.
+It is computationally easy to perform this transformation, but it is hard to reverse it.
+This is not a downside as we don't need to perform the reverse transformation.
+Furthermore a good hashing function outputs values evenly across their supported range, and similar values such as `cat` and `cats` will produce vastly different hashes, `1751422759` and `2517493566` respectively for the MurmurHash3 hashing function.
 
-The MurmurHash3, which is commonly used for its speed, produces values 32-but hash values, which gives us integers between `1` and `2^32 = 4294967296`. Producing `4294967296` columns would not help us, so what is typically done is to round these values down to a more manageable range. Specifically rounding by a power of 2 is common since that can be archived by bit manipulation. Suppose we round such that we only keep the 6 significant digits, then we are left with `2^6 = 64` values. And the hashes for `cat` is now `39` and `cats` is `62`. They are still different, but now they take up a smaller space of possible values.
+The MurmurHash3, which is commonly used for its speed, produces values 32-but hash values, which gives us integers between `1` and `2^32 = 4294967296`.
+Producing `4294967296` columns would not help us, so what is typically done is to round these values down to a more manageable range.
+Specifically rounding by a power of 2 is common since that can be archived by bit manipulation.
+Suppose we round such that we only keep the 6 significant digits, then we are left with `2^6 = 64` values.
+And the hashes for `cat` is now `39` and `cats` is `62`.
+They are still different, but now they take up a smaller space of possible values.
 
-One thing that will happen when you use these hashing functions is that different tokens hash to the same value. This is called a **collision**. And are technically a bad thing, as the model will be unable to distinguish between the influence of those two tokens. This is much more likely to happen than with hashing encoding since each observation will contain many different tokens, however it is not something to avoid at all costs. One of the main tenets of token hashing is that we are getting a trade-off between storage size and information.
+One thing that will happen when you use these hashing functions is that different tokens hash to the same value.
+This is called a **collision**.
+And are technically a bad thing, as the model will be unable to distinguish between the influence of those two tokens.
+This is much more likely to happen than with hashing encoding since each observation will contain many different tokens, however it is not something to avoid at all costs.
+One of the main tenets of token hashing is that we are getting a trade-off between storage size and information.
 
-One thing that is used to combat collisions is the use of a hashed sign function. Much like we are using a hashing function to generate integers, we will use a different hashing function to give us one of two values `-1` and `1`. This will determine the sign of each hashed word. This is done to lessen the negative effects of collisions as there is a 50% chance that a pair of strings that hash to the same values will have different signs and thus cancel each other out.
+One thing that is used to combat collisions is the use of a hashed sign function.
+Much like we are using a hashing function to generate integers, we will use a different hashing function to give us one of two values `-1` and `1`.
+This will determine the sign of each hashed word.
+This is done to lessen the negative effects of collisions as there is a 50% chance that a pair of strings that hash to the same values will have different signs and thus cancel each other out.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 show a diagram of this happening
 :::
 
-The main downside to this method is the lack of explainability, as the collisions make it so we can't know for sure which level contributed to the effect of that variable. On the other hand, we get the added benefit of being able to handle unseen tokens directly. These will not be of use directly, but they are handled in the sense that we don't have to keep track of levels, as the hashing function just does its job.
+The main downside to this method is the lack of explainability, as the collisions make it so we can't know for sure which level contributed to the effect of that variable.
+On the other hand, we get the added benefit of being able to handle unseen tokens directly.
+These will not be of use directly, but they are handled in the sense that we don't have to keep track of levels, as the hashing function just does its job.
 
 ## Pros and Cons
 
 ### Pros
 
-- Computationally fast
-- Allows for a fixed number of output columns
-- gives less sparse output than term frequencies
+-   Computationally fast
+-   Allows for a fixed number of output columns
+-   gives less sparse output than term frequencies
 
 ### Cons
 
-- Loss of interpretability
-- Still gives quite sparse output
+-   Loss of interpretability
+-   Still gives quite sparse output
 
 ## R Examples
 
 ## Python Examples
-

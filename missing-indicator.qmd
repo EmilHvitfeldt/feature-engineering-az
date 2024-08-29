@@ -8,9 +8,17 @@ pagetitle: "Feature Engineering A-Z | Missing Values Indicators"
 ## Missing Values Indicators
 :::
 
-While imputation can be useful, as we saw in @sec-missing-simple and @sec-missing-model. That by itself isn't always enough to extract all the information. As was described in @sec-missing, missing values can come in different variants, and depending on the variant, imputation might not give enough information. Suppose you are working with non-MCAR data (non Missing Completely At Random). Then we have some mechanism that determines when missing values occur. This mechanism might be known or unknown. From a predictive standpoint whether or not it is known doesn't matter as much, what matters is whether the mechanism is related to the outcome or not.
+While imputation can be useful, as we saw in @sec-missing-simple and @sec-missing-model.
+That by itself isn't always enough to extract all the information.
+As was described in @sec-missing, missing values can come in different variants, and depending on the variant, imputation might not give enough information.
+Suppose you are working with non-MCAR data (non Missing Completely At Random).
+Then we have some mechanism that determines when missing values occur.
+This mechanism might be known or unknown.
+From a predictive standpoint whether or not it is known doesn't matter as much, what matters is whether the mechanism is related to the outcome or not.
 
-This is where **missing value indicators** come in. Used in combination with imputation, missing value indicators will try to capture that signal. For each chosen variable, create another Boolean variable that is 1 when a missing value is seen, and 0 otherwise.
+This is where **missing value indicators** come in.
+Used in combination with imputation, missing value indicators will try to capture that signal.
+For each chosen variable, create another Boolean variable that is 1 when a missing value is seen, and 0 otherwise.
 
 The following sample data set
 
@@ -43,23 +51,25 @@ example <- tribble(
 example
 ```
 
-From here on, you are potentially adding information, otherwise we are adding a lot of noise. The noise here can be filtered by other methods seen in this book. If variables with no missing data were used, then we create zero variance predictors, which we can deal with as seen in @sec-too-many-zv.
+From here on, you are potentially adding information, otherwise we are adding a lot of noise.
+The noise here can be filtered by other methods seen in this book.
+If variables with no missing data were used, then we create zero variance predictors, which we can deal with as seen in @sec-too-many-zv.
 
 ## Pros and Cons
 
 ### Pros
 
-- No performance harm when added to variables with no missing data
-- Simple and interpretable
+-   No performance harm when added to variables with no missing data
+-   Simple and interpretable
 
 ### Cons
 
-- Will produce zero variance columns when used on data with no missing values
-- Can create a sizable increase in data set size
+-   Will produce zero variance columns when used on data with no missing values
+-   Can create a sizable increase in data set size
 
 ## R Examples
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 find a better data set
@@ -92,7 +102,8 @@ set_config(transform_output="pandas")
 pd.set_option('display.precision', 3)
 ```
 
-We are using the `ames` data set for examples. {sklearn} provided the `MissingIndicator()` method we can use.
+We are using the `ames` data set for examples.
+{sklearn} provided the `MissingIndicator()` method we can use.
 
 ```{python}
 from feazdata import ames

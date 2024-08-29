@@ -8,11 +8,17 @@ pagetitle: "Feature Engineering A-Z | Remove Missing Values"
 ## Remove Missing Values
 :::
 
-Removing observations with missing values should generally be considered the last resort. This will of course depend on your data and practices, and there are cases where it is appropriate. 
+Removing observations with missing values should generally be considered the last resort.
+This will of course depend on your data and practices, and there are cases where it is appropriate.
 
-Nevertheless, the removal of observations should be done with care. Especially since the removal of observations means that no prediction will happen to them. This might be unacceptable, and you need to make sure proper procedure is taken to guarantee that all observations are predicted. Even if removed observations are given default values for predictions. 
+Nevertheless, the removal of observations should be done with care.
+Especially since the removal of observations means that no prediction will happen to them.
+This might be unacceptable, and you need to make sure proper procedure is taken to guarantee that all observations are predicted.
+Even if removed observations are given default values for predictions.
 
-The most simple way to do missing value removal is to remove observations that experience any number of missing values. It is straightforward to do and implemented in any modeling software you use. The downside to this is that if you are seeing a little bit of missing data, across your predictors, you end up throwing away a lot of data once you have a lot of columns.
+The most simple way to do missing value removal is to remove observations that experience any number of missing values.
+It is straightforward to do and implemented in any modeling software you use.
+The downside to this is that if you are seeing a little bit of missing data, across your predictors, you end up throwing away a lot of data once you have a lot of columns.
 
 ```{r}
 #| message: false
@@ -34,28 +40,45 @@ expand_grid(
   )
 ```
 
-This can also happen with missingness that clusters in certain groups of variables. Remember to always look at how many observations you are losing by doing the removals.
+This can also happen with missingness that clusters in certain groups of variables.
+Remember to always look at how many observations you are losing by doing the removals.
 
-We are removing observations for one of two reasons. The first reason is that it messes with our model's ability to fit correctly. If this is the issue we should think about other methods in @sec-missing than removal. Another reason why we want to remove observations is because they don't have enough information in them because of their missingness.
+We are removing observations for one of two reasons.
+The first reason is that it messes with our model's ability to fit correctly.
+If this is the issue we should think about other methods in @sec-missing than removal.
+Another reason why we want to remove observations is because they don't have enough information in them because of their missingness.
 
-Imagine an observation where every single field is missing. There is no information about the observation other than the fact that it is fully missing. On the other end of the spectrum, we have observations with no missing values at all. Somewhere between these two extremes is a threshold that we imagine defines "too much missing". This is the basis behind **threshold-based missing value removal** we define a threshold and then remove observations once they have more than, say 50% missing values. This method by itself doesn't deal with all the missing values and would need to be accompanied by other methods as described in @sec-missing. This threshold will need to be carefully selected, as you are still removing observations.
+Imagine an observation where every single field is missing.
+There is no information about the observation other than the fact that it is fully missing.
+On the other end of the spectrum, we have observations with no missing values at all.
+Somewhere between these two extremes is a threshold that we imagine defines "too much missing".
+This is the basis behind **threshold-based missing value removal** we define a threshold and then remove observations once they have more than, say 50% missing values.
+This method by itself doesn't deal with all the missing values and would need to be accompanied by other methods as described in @sec-missing.
+This threshold will need to be carefully selected, as you are still removing observations.
 
-In the same vein as above, we can look at removing predictors that have too many missing values. This is a less controversial option that you can explore. As for its use. It is still recommended that you do it in a thresholded fashion. So you can set up your preprocessing to remove predictors that have more than 30% or 50% missing values. Again this value will likely have to be tuned. The reason why this method isn't as bad is that we aren't removing observations, we are instead trying to remove low information predictors. This is not a foolproof method, as the missingness could be non-MCAR and be informative.
+In the same vein as above, we can look at removing predictors that have too many missing values.
+This is a less controversial option that you can explore.
+As for its use.
+It is still recommended that you do it in a thresholded fashion.
+So you can set up your preprocessing to remove predictors that have more than 30% or 50% missing values.
+Again this value will likely have to be tuned.
+The reason why this method isn't as bad is that we aren't removing observations, we are instead trying to remove low information predictors.
+This is not a foolproof method, as the missingness could be non-MCAR and be informative.
 
 ## Pros and Cons
 
 ### Pros
 
-- Will sometimes be necessary
+-   Will sometimes be necessary
 
 ### Cons
 
-- Extreme care has to be taken
-- Loss of data
+-   Extreme care has to be taken
+-   Loss of data
 
 ## R Examples
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 find data set
@@ -74,7 +97,7 @@ naomit_rec <- recipe(~., data = mtcars) |>
 bake(naomit_rec, new_data = NULL)
 ```
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 wait for thresholded observation removal
@@ -94,4 +117,5 @@ bake(filter_missing_rec, new_data = NULL)
 
 ## Python Examples
 
-I'm not aware of a good way to do this in a scikit-learn way. Please file an [issue on github](https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new?assignees=&labels=&projects=&template=general-issue.md&title) if you know of a good way.
+I'm not aware of a good way to do this in a scikit-learn way.
+Please file an [issue on github](https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new?assignees=&labels=&projects=&template=general-issue.md&title) if you know of a good way.

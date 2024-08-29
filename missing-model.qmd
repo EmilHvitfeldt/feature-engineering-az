@@ -8,15 +8,24 @@ pagetitle: "Feature Engineering A-Z | Model Based Imputation"
 ## Model Based Imputation
 :::
 
-In model-based imputation, this is where we get the remaining types of imputation that we can use. It is quite a big and broad topic. This chapter will try to do it justice.
+In model-based imputation, this is where we get the remaining types of imputation that we can use.
+It is quite a big and broad topic.
+This chapter will try to do it justice.
 
-We start with simpler methods. Remember, this chapter specifically refers to methods where more than one variable is being used for the imputation. So we could do grouped versions of the simple imputation methods seen in @sec-missing-simple. Instead of imputing with the mean, you impute with the mean within a given group as defined by another categorical variable.
+We start with simpler methods.
+Remember, this chapter specifically refers to methods where more than one variable is being used for the imputation.
+So we could do grouped versions of the simple imputation methods seen in @sec-missing-simple.
+Instead of imputing with the mean, you impute with the mean within a given group as defined by another categorical variable.
 
 You could also fit a linear regression model with the target variable as the variable you intend to impute, and other complete variables as predictors.
 
 ![linear imputation in action. The left-hand side shows the linear fit between a predictor and the target variable. Missing values are shown along the x-axis. The right-hand side shows how the missing values are being imputed using the linear fit.](diagrams/missing-impute-linear.png){#fig-missing-impute-linear}
 
-This idea will extend into most other types of models. K-nearest neighbors and trees are common models for this task. For these models, you need to make sure that the predictors can be used. So they will need to not have any missing values themselves. You could in theory use a series of models you impute variables with missing data, which then will be used as predictors to predict another variable.
+This idea will extend into most other types of models.
+K-nearest neighbors and trees are common models for this task.
+For these models, you need to make sure that the predictors can be used.
+So they will need to not have any missing values themselves.
+You could in theory use a series of models you impute variables with missing data, which then will be used as predictors to predict another variable.
 
 Methods such as Multivariate Imputation by Chained Equations[@van2012flexible] also fall into this category of imputation as well.
 
@@ -24,24 +33,26 @@ Methods such as Multivariate Imputation by Chained Equations[@van2012flexible] a
 
 ### Pros
 
-- Likely get better performance than simple imputation
+-   Likely get better performance than simple imputation
 
 ### Cons
 
-- More complex model
-- lower interpretability
+-   More complex model
+-   lower interpretability
 
 ## R Examples
 
-There are a number of steps in the recipes package that fall under this category. Within that, we have `step_impute_bag()`, `step_impute_knn()`, and `step_impute_linear()`.
+There are a number of steps in the recipes package that fall under this category.
+Within that, we have `step_impute_bag()`, `step_impute_knn()`, and `step_impute_linear()`.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 find a better data set
 :::
 
-Below we are showing how we can impute using a K-nearest neighbor model using `step_impute_knn()`. We specify the variable to impute on first, and then with `impute_with` we specify which variables are used as predictors in the model.
+Below we are showing how we can impute using a K-nearest neighbor model using `step_impute_knn()`.
+We specify the variable to impute on first, and then with `impute_with` we specify which variables are used as predictors in the model.
 
 ```{r}
 #| message: false
@@ -57,7 +68,8 @@ impute_knn_rec |>
 
 ## Python Examples
 
-I'm not aware of a good way to do this for models other than KNN in a scikit-learn way. Please file an [issue on github](https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new?assignees=&labels=&projects=&template=general-issue.md&title) if you know of a good way.
+I'm not aware of a good way to do this for models other than KNN in a scikit-learn way.
+Please file an [issue on github](https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new?assignees=&labels=&projects=&template=general-issue.md&title) if you know of a good way.
 
 ```{python}
 #| echo: false
@@ -68,7 +80,8 @@ set_config(transform_output="pandas")
 pd.set_option('display.precision', 3)
 ```
 
-We are using the `ames` data set for examples. {sklearn} provided the `KNNImputer()` method we can use.
+We are using the `ames` data set for examples.
+{sklearn} provided the `KNNImputer()` method we can use.
 
 ```{python}
 from feazdata import ames

@@ -8,25 +8,51 @@ pagetitle: "Feature Engineering A-Z | N-grams"
 ## N-grams
 :::
 
-So far we have thought of tokens as a single unit. This is a useful technique for a lot of modeling workflows. It is a simple way to represent the text in a way that we can turn into numbers later down the line. The main shortcoming of this approach is that it doesn't capture any order or positioning of the tokens at all. 
+So far we have thought of tokens as a single unit.
+This is a useful technique for a lot of modeling workflows.
+It is a simple way to represent the text in a way that we can turn into numbers later down the line.
+The main shortcoming of this approach is that it doesn't capture any order or positioning of the tokens at all.
 
-**N-grams** are one way of dealing with this shortcoming. Consider the sequence of tokens `"we", "are", "all", "learning", "today"`. If we were to count the tokens, it would not be any different than the sequence `"today", "all", "we", "are", "learning"`. The idea being n-grams is to look at sequences of tokens as tokens themselves. So by considering the first set of tokens, and finding 2-grams (also called bi-grams) we get the bi-grams`"we are", "are all", "all learning", "learning today"`. These bi-grams are different than the bigrams we would find with the second set of tokens.
+**N-grams** are one way of dealing with this shortcoming.
+Consider the sequence of tokens `"we", "are", "all", "learning", "today"`.
+If we were to count the tokens, it would not be any different than the sequence `"today", "all", "we", "are", "learning"`.
+The idea being n-grams is to look at sequences of tokens as tokens themselves.
+So by considering the first set of tokens, and finding 2-grams (also called bi-grams) we get the bi-grams`"we are", "are all", "all learning", "learning today"`.
+These bi-grams are different than the bigrams we would find with the second set of tokens.
 
-We can let `n` be any integer value, and often we want to collect multiple at the same time. So we could collect all n-grams for `n=1,2,3` and get `"we", "are", "all", "learning", "today", "we are", "are all", "all learning", "learning today", "we are all", "we are learning" "all learning today"`. Generating these n-grams leads us to our first observation. Generating n-grams of higher values of `n`, leads to many more unique tokens, each with lower counts. The word `"truck"` might appear in the text a lot of times, and even `"fire truck"` might appear a lot of times. But the n-gram `"he ran after the fire truck"` is quite likely to be a singleton in the data set.
+We can let `n` be any integer value, and often we want to collect multiple at the same time.
+So we could collect all n-grams for `n=1,2,3` and get `"we", "are", "all", "learning", "today", "we are", "are all", "all learning", "learning today", "we are all", "we are learning" "all learning today"`.
+Generating these n-grams leads us to our first observation.
+Generating n-grams of higher values of `n`, leads to many more unique tokens, each with lower counts.
+The word `"truck"` might appear in the text a lot of times, and even `"fire truck"` might appear a lot of times.
+But the n-gram `"he ran after the fire truck"` is quite likely to be a singleton in the data set.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 create diagram or series of diagrams showing how this works
 :::
 
-Each value of `n` provides many hopefully useful tokens, with a drop-off at one point as the count of the n-grams drops off. The challenge for the practitioner is to find the right number of n-grams to collect. `m` unigrams give rise to `m-1` bigrams, `m-2` trigrams and so on. Many of the tokens will not be useful, so we have a balance between performance and speed.
+Each value of `n` provides many hopefully useful tokens, with a drop-off at one point as the count of the n-grams drops off.
+The challenge for the practitioner is to find the right number of n-grams to collect.
+`m` unigrams give rise to `m-1` bigrams, `m-2` trigrams and so on.
+Many of the tokens will not be useful, so we have a balance between performance and speed.
 
-There are also cases where n-grams don't give us enough information to be worth doing. After all, it is not a free operation. This chapter talks about n-grams as a process that happens independently from tokenization. And in theory that should be possible. However many software implementations connect the tokenization action with the n-gramming procedure. If your tool allows you to create n-grams independently, you can create n-grams based on stemmed tokens @sec-text-stemming.
+There are also cases where n-grams don't give us enough information to be worth doing.
+After all, it is not a free operation.
+This chapter talks about n-grams as a process that happens independently from tokenization.
+And in theory that should be possible.
+However many software implementations connect the tokenization action with the n-gramming procedure.
+If your tool allows you to create n-grams independently, you can create n-grams based on stemmed tokens @sec-text-stemming.
 
-N-grams work by looking at neighboring tokens. **skip-grams** on the other hand work by looking at nearby tokens. For the set of tokens `"we", "are", "all", "learning", "today"`, the skip-grams generated from `"are"` are `"are we", "are all", "are learning", "are today"`. We have a number to determine how far away from the target word we look. Skip-grams produce a lot of unique tokens but are not as focused on the ordering as we saw in the n-gram case. And we see that there are cases where one is more useful than the other.
+N-grams work by looking at neighboring tokens.
+**skip-grams** on the other hand work by looking at nearby tokens.
+For the set of tokens `"we", "are", "all", "learning", "today"`, the skip-grams generated from `"are"` are `"are we", "are all", "are learning", "are today"`.
+We have a number to determine how far away from the target word we look.
+Skip-grams produce a lot of unique tokens but are not as focused on the ordering as we saw in the n-gram case.
+And we see that there are cases where one is more useful than the other.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 create diagram or series of diagrams showing how this works
@@ -36,13 +62,12 @@ create diagram or series of diagrams showing how this works
 
 ### Pros
 
-- Can uncover patterns in the data not otherwise seen
+-   Can uncover patterns in the data not otherwise seen
 
 ### Cons
 
-- Can lead to longer computation times
+-   Can lead to longer computation times
 
 ## R Examples
 
 ## Python Examples
-

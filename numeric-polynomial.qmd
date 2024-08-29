@@ -8,9 +8,12 @@ pagetitle: "Feature Engineering A-Z | Polynomial Expansion"
 ## Polynomial Expansion
 :::
 
-**Polynomial expansion**, is one way to turn a numeric variable into something that can represent a non-linear relationship between two variables. This is useful in modeling content since it allows us to model non-linear relationships between predictors and outcomes. This is a trained method.
+**Polynomial expansion**, is one way to turn a numeric variable into something that can represent a non-linear relationship between two variables.
+This is useful in modeling content since it allows us to model non-linear relationships between predictors and outcomes.
+This is a trained method.
 
-Being able to transform a numeric variable that has a non-linear relationship with the outcome into one or more variables that do have linear relationships with the outcome is of great importance, as many models wouldn't be able to work with these types of variables effectively themselves. Below is a toy example of one such variable
+Being able to transform a numeric variable that has a non-linear relationship with the outcome into one or more variables that do have linear relationships with the outcome is of great importance, as many models wouldn't be able to work with these types of variables effectively themselves.
+Below is a toy example of one such variable
 
 ```{r}
 #| echo: false
@@ -41,17 +44,24 @@ data_toy |>
   theme_minimal()
 ```
 
-Here we have a non-linear relationship. It is a fairly simple one, the outcome is high when the predictor takes values between 25 and 50, and outside the ranges, it takes over values. Given that this is a toy example, we do not have any expert knowledge regarding what we expect the relationship to be outside this range. The trend could go back up, it could go down or flatten out. We don't know.
+Here we have a non-linear relationship.
+It is a fairly simple one, the outcome is high when the predictor takes values between 25 and 50, and outside the ranges, it takes over values.
+Given that this is a toy example, we do not have any expert knowledge regarding what we expect the relationship to be outside this range.
+The trend could go back up, it could go down or flatten out.
+We don't know.
 
-As we saw in @sec-numeric-binning, one way to deal with this non-linearity is to chop up the predictor and emit indicators for which region the values take. While this works, we are losing quite a lot of detail by the rounding that occurs.
+As we saw in @sec-numeric-binning, one way to deal with this non-linearity is to chop up the predictor and emit indicators for which region the values take.
+While this works, we are losing quite a lot of detail by the rounding that occurs.
 
-We know that we can fit a polynomial function to some data set. And it would take the following format
+We know that we can fit a polynomial function to some data set.
+And it would take the following format
 
 $$
 \text{poly}(x,\ \text{degree} = n) = a_0 + a_1 x + a_2 x ^ 2 + \cdots + a_n x ^ n
 $$
 
-This can then be used to generate features. Each feature is done by taking the value to a given degree and multiplying it according to the corresponding coefficient.
+This can then be used to generate features.
+Each feature is done by taking the value to a given degree and multiplying it according to the corresponding coefficient.
 
 ```{r}
 #| label: tbl-poly-raw-values
@@ -67,7 +77,8 @@ tibble::tibble(
   knitr::kable()
 ```
 
-In the above table, we see a small example of how this could be done, using a 4th-degree polynomial with coefficients of 1. If we were to look at the individual functions over the domain of our data we see the following
+In the above table, we see a small example of how this could be done, using a 4th-degree polynomial with coefficients of 1.
+If we were to look at the individual functions over the domain of our data we see the following
 
 ```{r}
 #| label: fig-poly-poly-raw-curves
@@ -94,9 +105,11 @@ recipe(outcome ~ predictor, data = data_toy) |>
   theme_minimal()
 ```
 
-This is to be expected, but we are noticing that these curves look quite similar, and the values these functions are taking very quickly escalate. And this is for predictor values between 0 and 100, higher values will get even higher, possibly causing overflow issues.
+This is to be expected, but we are noticing that these curves look quite similar, and the values these functions are taking very quickly escalate.
+And this is for predictor values between 0 and 100, higher values will get even higher, possibly causing overflow issues.
 
-We also have an issue where the values appear quite correlated since the functions are all increasing. As we see below, the correlation between the variables is close to 1 for all pairs.
+We also have an issue where the values appear quite correlated since the functions are all increasing.
+As we see below, the correlation between the variables is close to 1 for all pairs.
 
 ```{r}
 #| label: fig-poly-raw-correlation
@@ -118,15 +131,18 @@ recipe(outcome ~ predictor, data = data_toy) |>
   autoplot(method = "identity")
 ```
 
-This is a problem that needs to be dealt with. The way we can deal with this is by calculating **orthogonal polynomials** instead. We have that any set polynomial function can be rewritten as a set of orthogonal polynomial functions.
+This is a problem that needs to be dealt with.
+The way we can deal with this is by calculating **orthogonal polynomials** instead.
+We have that any set polynomial function can be rewritten as a set of orthogonal polynomial functions.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 Add more bath background here
 :::
 
-With this, we deal with the two problems we had before. As seen in the figure below, the functions take smaller values within their ranges
+With this, we deal with the two problems we had before.
+As seen in the figure below, the functions take smaller values within their ranges
 
 ```{r}
 #| echo: false
@@ -205,7 +221,8 @@ rec_poly |>
   theme_minimal()
 ```
 
-Below is a chart of how well using polynomial expansion works when using it on our toy example. Since the data isn't that complicated, having a `degree` larger than 1 will do the trick.
+Below is a chart of how well using polynomial expansion works when using it on our toy example.
+Since the data isn't that complicated, having a `degree` larger than 1 will do the trick.
 
 ```{r}
 #| label: fig-poly-different-degrees
@@ -248,16 +265,16 @@ map(
 
 ### Pros
 
-- Works fast computationally
-- Good performance compared to binning
-- Doesn't create correlated features
-- is good at handling continuous changes in predictors
+-   Works fast computationally
+-   Good performance compared to binning
+-   Doesn't create correlated features
+-   is good at handling continuous changes in predictors
 
 ### Cons
 
-- arguably less interpretable than binning and splines
-- can produce a lot of variables
-- have a hard time modeling sudden changes in distributions
+-   arguably less interpretable than binning and splines
+-   can produce a lot of variables
+-   have a hard time modeling sudden changes in distributions
 
 ## R Examples
 
@@ -316,7 +333,6 @@ poly_rec |>
 
 ## Python Examples
 
-
 ```{python}
 #| echo: false
 import pandas as pd
@@ -326,7 +342,9 @@ set_config(transform_output="pandas")
 pd.set_option('display.precision', 3)
 ```
 
-We are using the `ames` data set for examples. {sklearn} provided the `PolynomialFeatures()`. We can use it out of the box.
+We are using the `ames` data set for examples.
+{sklearn} provided the `PolynomialFeatures()`.
+We can use it out of the box.
 
 ```{python}
 from feazdata import ames

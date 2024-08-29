@@ -8,9 +8,13 @@ pagetitle: "Feature Engineering A-Z | Target Encoding"
 ## Target Encoding
 :::
 
-**Target encoding** (also called **mean encoding**, **likelihood encoding**, or **impact encoding**) is a method that maps the categorical levels to probabilities of your target variable [@micci2001]. This method is in some ways quite similar to frequency encoding that we saw in @sec-categorical-frequency. We are taking a single categorical variable, and turning it into a single numeric categorical variable.
+**Target encoding** (also called **mean encoding**, **likelihood encoding**, or **impact encoding**) is a method that maps the categorical levels to probabilities of your target variable [@micci2001].
+This method is in some ways quite similar to frequency encoding that we saw in @sec-categorical-frequency.
+We are taking a single categorical variable, and turning it into a single numeric categorical variable.
 
-This is a trained and supervised method since we are using the outcome of our modeling problem to guide the way this method is estimated. In the most simple formulation, target encoding is done by replacing each level of a categorical variable with the mean of the target variable within said level. The target variable will typically be the outcome, but that is not necessarily a requirement.
+This is a trained and supervised method since we are using the outcome of our modeling problem to guide the way this method is estimated.
+In the most simple formulation, target encoding is done by replacing each level of a categorical variable with the mean of the target variable within said level.
+The target variable will typically be the outcome, but that is not necessarily a requirement.
 
 Consider the following example data set
 
@@ -53,13 +57,29 @@ animals |>
   rename(animal = mean)
 ```
 
-From the above example, we notice 3 things. Firstly, once the calculations have been done, applying the encoding to new data is a fairly easy procedure as it amounts to a left join. Secondly, some classes have different numbers of observations associated with them. The `"horse"` class only has 1 observation in this data set, how confident are we that the mean calculated from this value is as valid as the mean that was calculated over the 3 values for the `"cat"` class? Lastly, how will this method handle unseen levels?
+From the above example, we notice 3 things.
+Firstly, once the calculations have been done, applying the encoding to new data is a fairly easy procedure as it amounts to a left join.
+Secondly, some classes have different numbers of observations associated with them.
+The `"horse"` class only has 1 observation in this data set, how confident are we that the mean calculated from this value is as valid as the mean that was calculated over the 3 values for the `"cat"` class?
+Lastly, how will this method handle unseen levels?
 
-Let us think about the unseen levels first. If we have no information about a given class. This could happen in at least two different ways. Because the level is truly unseen because the company was just started and wasn't known in the training data set. Or because the known level wasn't observed, e.i. no Sundays in the training data set. Regardless of the reason, we will want to give these levels a baseline number. For this, we can use the mean value of the target, across all of the training data set. So for our toy example, we have a mean cuteness of `r mean(animals$cuteness)`, which we will assign to any new animal.
+Let us think about the unseen levels first.
+If we have no information about a given class.
+This could happen in at least two different ways.
+Because the level is truly unseen because the company was just started and wasn't known in the training data set.
+Or because the known level wasn't observed, e.i.
+no Sundays in the training data set.
+Regardless of the reason, we will want to give these levels a baseline number.
+For this, we can use the mean value of the target, across all of the training data set.
+So for our toy example, we have a mean cuteness of `r mean(animals$cuteness)`, which we will assign to any new animal.
 
-This value is by no means a good value, but it is an educated guess that can be calculated with ease. This also means that regardless of the distribution of the target, these values can be calculated.
+This value is by no means a good value, but it is an educated guess that can be calculated with ease.
+This also means that regardless of the distribution of the target, these values can be calculated.
 
-The way we handle unseen levels gives us a clue as to how we can deal with low-frequency counts. Knowing that the global mean of the target is our baseline when we have no information. We can combine the level mean with the global mean, in accordance with how many observations we observe. If we have a lot of observations at a level, we will let the global mean have little influence, and if there are fewer observations we will let the global mean have a higher influence.
+The way we handle unseen levels gives us a clue as to how we can deal with low-frequency counts.
+Knowing that the global mean of the target is our baseline when we have no information.
+We can combine the level mean with the global mean, in accordance with how many observations we observe.
+If we have a lot of observations at a level, we will let the global mean have little influence, and if there are fewer observations we will let the global mean have a higher influence.
 
 ```{r}
 #| echo: false
@@ -78,7 +98,10 @@ range <- range(data$value)
 range <- range + diff(range) * c(-0.1, 0.1)
 ```
 
-We can visualize this effect in the following charts. First, we have an example of what happens with a smaller amount of smoothing. The points are mostly along the diagonal. Remember that if we didn't do this, all the points would be along the diagonal regardless of their size.
+We can visualize this effect in the following charts.
+First, we have an example of what happens with a smaller amount of smoothing.
+The points are mostly along the diagonal.
+Remember that if we didn't do this, all the points would be along the diagonal regardless of their size.
 
 ```{r}
 #| label: fig-target-smoothness-1
@@ -145,38 +168,48 @@ data |>
 
 The exact way this is done will vary from method to method, and the strength of this smoothing can and should properly be tuned as there isn't an empirical best way to choose it.
 
-This smoothing isn't required but it is often beneficial to include if you are dealing with low count levels. It is also recommended because if omitted, it would lead to overfitting since we are essentially using the outcome to guide the predictors.
+This smoothing isn't required but it is often beneficial to include if you are dealing with low count levels.
+It is also recommended because if omitted, it would lead to overfitting since we are essentially using the outcome to guide the predictors.
 
-We have so far talked about target encoding, from the perspective of a regression task. But target encoding is not limited to numeric outcomes, but can be used in classification settings as well. In the classification setting, where we have a categorical outcome, instead of calculating the mean of the target variable, we need to figure something else out. It could be calculating the probability of the first level, or we could try to go more linear by converting them to log odds. Now everything works as before.
+We have so far talked about target encoding, from the perspective of a regression task.
+But target encoding is not limited to numeric outcomes, but can be used in classification settings as well.
+In the classification setting, where we have a categorical outcome, instead of calculating the mean of the target variable, we need to figure something else out.
+It could be calculating the probability of the first level, or we could try to go more linear by converting them to log odds.
+Now everything works as before.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 find good example
 :::
 
-A type of data that is sometimes seen is hierarchical categorical variables. Typical examples are city-state and region-subregion. With hierarchical categorical variables you often end up with many levels, and target encoding can be used on such data, and can even use the hierarchical structure. 
+A type of data that is sometimes seen is hierarchical categorical variables.
+Typical examples are city-state and region-subregion.
+With hierarchical categorical variables you often end up with many levels, and target encoding can be used on such data, and can even use the hierarchical structure.
 
-The encoding is calculated like normal, but the smoothing is done on a lower level than at the top. So instead of adjusting by the global mean, you smooth by the level below it.
+The encoding is calculated like normal, but the smoothing is done on a lower level than at the top.
+So instead of adjusting by the global mean, you smooth by the level below it.
 
 ## Pros and Cons
 
 ### Pros
 
-- Can deal with categorical variables with many levels
-- Can deal with unseen levels in a sensible way
+-   Can deal with categorical variables with many levels
+-   Can deal with unseen levels in a sensible way
 
 ### Cons
 
-- Can be prone to overfitting
+-   Can be prone to overfitting
 
 ## R Examples
 
-The embed package comes with a couple of functions to do target encoding. `step_lencode_glm()`, `step_lencode_bayes()` and `step_lencode_mixed()`. These functions are named such because they **l**ikelihood **encode** variables, and because the encodings can be calculated using no intercept models.
+The embed package comes with a couple of functions to do target encoding.
+`step_lencode_glm()`, `step_lencode_bayes()` and `step_lencode_mixed()`.
+These functions are named such because they **l**ikelihood **encode** variables, and because the encodings can be calculated using no intercept models.
 
 `step_lencode_glm()` implements the no-smoothing method, so we will look at that one first using the ames data set.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 find a better data set
@@ -238,7 +271,9 @@ set_config(transform_output="pandas")
 pd.set_option('display.precision', 3)
 ```
 
-We are using the `ames` data set for examples. {sklearn} provided the `TargetEncoder()` method we can use. For this to work, we need to remember to specify an outcome when we `fit()`.
+We are using the `ames` data set for examples.
+{sklearn} provided the `TargetEncoder()` method we can use.
+For this to work, we need to remember to specify an outcome when we `fit()`.
 
 ```{python}
 from feazdata import ames

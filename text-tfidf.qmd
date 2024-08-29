@@ -8,47 +8,60 @@ pagetitle: "Feature Engineering A-Z | TF-IDF"
 ## TF-IDF
 :::
 
-**Term Frequency inverse document frequency** is the next iteration based on term frequency we explored in @sec-text-tf. As the name implies, it is what happens when you take the term frequencies and multiply them by the inverse document frequency. 
+**Term Frequency inverse document frequency** is the next iteration based on term frequency we explored in @sec-text-tf.
+As the name implies, it is what happens when you take the term frequencies and multiply them by the inverse document frequency.
 
 $$
 TF-IDF(t, d) = TF(t, d) \times IDF(t)
 $$
 
-Conceptually, we start by creating the term frequency matrix we created in @sec-text-tf. Then we Look at each term/token. We calculate the inverse document frequency by dividing the number of observations we have, by how many observations that token appears in. Once we have that number we take the logarithm of it. There will thus be one IDF value for each token. These values will be multiplied column-wise to the term frequency matrix.
+Conceptually, we start by creating the term frequency matrix we created in @sec-text-tf.
+Then we Look at each term/token.
+We calculate the inverse document frequency by dividing the number of observations we have, by how many observations that token appears in.
+Once we have that number we take the logarithm of it.
+There will thus be one IDF value for each token.
+These values will be multiplied column-wise to the term frequency matrix.
 
-You can think of IDF as a dampening value. If a given token appears in `1` out of `100` document, then the IDF of that token is `r round(log(100 / 1), 2)`, if it is `1` out of `10` the value is `r round(log(10 / 1), 2)`, if the token appears in 90% of the documents the IDF is `r round(log(10 / 1), 2)` and if the token appears in every document then the IDF is `r 0`. We reward tokens that appear in a few documents and punish tokens that appear in every document.
+You can think of IDF as a dampening value.
+If a given token appears in `1` out of `100` document, then the IDF of that token is `r round(log(100 / 1), 2)`, if it is `1` out of `10` the value is `r round(log(10 / 1), 2)`, if the token appears in 90% of the documents the IDF is `r round(log(10 / 1), 2)` and if the token appears in every document then the IDF is `r 0`.
+We reward tokens that appear in a few documents and punish tokens that appear in every document.
 
-It is important to note that TF-IDF is a *trained* method. So we need to save the IDF values so we can apply them to new incoming observations.
+It is important to note that TF-IDF is a *trained* method.
+So we need to save the IDF values so we can apply them to new incoming observations.
 
-Above is explained the main idea behind TF-IDF calculations. In practice, we see a couple of modifications and options one might take. Smoothing of the IDF values is commonly done as a default to avoid division by zero issues. It is done by (TODO).
+Above is explained the main idea behind TF-IDF calculations.
+In practice, we see a couple of modifications and options one might take.
+Smoothing of the IDF values is commonly done as a default to avoid division by zero issues.
+It is done by (TODO).
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 clarify which smoothing method I will cover
 :::
 
-We could also do probabilistic inverse document frequency. We calculate this by having the numerator be the number of documents minus the number of occurrences instead of just the number of documents.
+We could also do probabilistic inverse document frequency.
+We calculate this by having the numerator be the number of documents minus the number of occurrences instead of just the number of documents.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 add a graph of how these weighting scales differ
 :::
 
-The idea of TF-IDF was first proposed in 1972 [@spark1972], while it works well in practice, it wasn't based on much theory. Efforts have been made to see how we can ground IDF calculations in theory [@robertson2004], but it doesn't change the uses.
+The idea of TF-IDF was first proposed in 1972 [@spark1972], while it works well in practice, it wasn't based on much theory.
+Efforts have been made to see how we can ground IDF calculations in theory [@robertson2004], but it doesn't change the uses.
 
 ## Pros and Cons
 
 ### Pros
 
-- Can lead to performance gains if the IDF capture relevant words
+-   Can lead to performance gains if the IDF capture relevant words
 
 ### Cons
 
-- Leads to harder interpretations than term frequencies
+-   Leads to harder interpretations than term frequencies
 
 ## R Examples
 
 ## Python Examples
-

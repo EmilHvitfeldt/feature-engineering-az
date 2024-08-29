@@ -8,13 +8,25 @@ pagetitle: "Feature Engineering A-Z | Range Scaling"
 ## Range Scaling
 :::
 
-**Range scaling**, also known as **Min-Max scaling**, is a method to make the data fit into a pre-defined interval. Typically the equation used to illustrate this method is shown so
+**Range scaling**, also known as **Min-Max scaling**, is a method to make the data fit into a pre-defined interval.
+Typically the equation used to illustrate this method is shown so
 
 $$
 X_{scaled} = \dfrac{X - \text{min}(X)}{\text{max}(X) - \text{min}(X)}
 $$ {#eq-range-minimal}
 
-This equation only shows what happens if you use the software with defaults. This will scale your variable to be in the range $[0, 1]$. It is important to treat this as a learned method, and we will thus calculate $\text{min}(X)$ and $\text{max}(X)$ on the training data set, and use those to apply the transformation on new data. One of the benefits of this method is that it transforms any variable into a predefined range of 0 and 1. Unless of cause, a new data point is outside the range. Suppose that the original data was in the range $\text{min}(X) = 5$ and $\text{max}(X) = 100$, and we encounter a new data point with the value 200. Then according to @eq-range-clip, we would get a transformed value of (200-5)/(100-5) = 2.0526 which is very much not between 0 and 1. We thus have a violation of our original goal. One way to get around this is to use clipping. Clipping is a technique when using this method where any values less than $\text{min}(X)$ will be noted as 0 and any values larger than $\text{max}(X)$ will be noted as 1. This little tick ensures that any new data points stay within the range. Expanding our equation to the following
+This equation only shows what happens if you use the software with defaults.
+This will scale your variable to be in the range $[0, 1]$.
+It is important to treat this as a learned method, and we will thus calculate $\text{min}(X)$ and $\text{max}(X)$ on the training data set, and use those to apply the transformation on new data.
+One of the benefits of this method is that it transforms any variable into a predefined range of 0 and 1.
+Unless of cause, a new data point is outside the range.
+Suppose that the original data was in the range $\text{min}(X) = 5$ and $\text{max}(X) = 100$, and we encounter a new data point with the value 200.
+Then according to @eq-range-clip, we would get a transformed value of (200-5)/(100-5) = 2.0526 which is very much not between 0 and 1.
+We thus have a violation of our original goal.
+One way to get around this is to use clipping.
+Clipping is a technique when using this method where any values less than $\text{min}(X)$ will be noted as 0 and any values larger than $\text{max}(X)$ will be noted as 1.
+This little tick ensures that any new data points stay within the range.
+Expanding our equation to the following
 
 $$
 X_{scaled}=    
@@ -25,7 +37,8 @@ X_{scaled}=
 \end{cases}
 $$ {#eq-range-clip}
 
-The equation is a lot bigger, but what is different is that we specify that the transformation should be done using training data, and by adding a couple of branches to reflect the clipping. In practice, it will look something like @fig-range-clipping where the original data had a range of $[10, 32]$.
+The equation is a lot bigger, but what is different is that we specify that the transformation should be done using training data, and by adding a couple of branches to reflect the clipping.
+In practice, it will look something like @fig-range-clipping where the original data had a range of $[10, 32]$.
 
 ```{r}
 #| label: fig-range-clipping
@@ -53,7 +66,9 @@ recipe(~mpg, data = mtcars) |>
   theme_minimal()
 ```
 
-Sadly we are not done quite yet. One last thing that @eq-range-clip doesn't take into account is that sometimes people don't want to transform to be into any range, not just $[0, 1]$. This gives us the final equation
+Sadly we are not done quite yet.
+One last thing that @eq-range-clip doesn't take into account is that sometimes people don't want to transform to be into any range, not just $[0, 1]$.
+This gives us the final equation
 
 $$
 X_{scaled}=    
@@ -64,11 +79,18 @@ R_{upper} & X_{new} > \text{max}(X_{train})\\
 \end{cases}
 $$ {#eq-range-custom}
 
-Where @eq-range-custom now has $R_{lower}$ to represent a user-defined lower bound, and $R_{upper}$ representing the corresponding user-defined upper bound. I would recommend that you keep @eq-range-minimal in mind when thinking about this method but also include a little footnote that doesn't include all the little options.
+Where @eq-range-custom now has $R_{lower}$ to represent a user-defined lower bound, and $R_{upper}$ representing the corresponding user-defined upper bound.
+I would recommend that you keep @eq-range-minimal in mind when thinking about this method but also include a little footnote that doesn't include all the little options.
 
-One thing you should know is how this transformation is affected by outliers. Clipping essentially ignores the magnitude of how much an outlier is. There is no difference between a new value of 100 and 100000 to a variable that had a range of $[0, 90]$ on the training data set. This might be a problem, and it is up to you as the practitioner to decide. One option would be to turn off clipping, but it would violate the assumption that all future transformed observations will be within a specific range.
+One thing you should know is how this transformation is affected by outliers.
+Clipping essentially ignores the magnitude of how much an outlier is.
+There is no difference between a new value of 100 and 100000 to a variable that had a range of $[0, 90]$ on the training data set.
+This might be a problem, and it is up to you as the practitioner to decide.
+One option would be to turn off clipping, but it would violate the assumption that all future transformed observations will be within a specific range.
 
-Below is the figure @fig-range-outlier is an illustration of the effect of having a single high value. In this case, a single observation with the value \`10000\` moved the transformed distribution much tighter around zero. And all but removed the variance of the non-outliers.
+Below is the figure @fig-range-outlier is an illustration of the effect of having a single high value.
+In this case, a single observation with the value \`10000\` moved the transformed distribution much tighter around zero.
+And all but removed the variance of the non-outliers.
 
 ```{r}
 #| label: fig-range-outlier
@@ -128,7 +150,10 @@ plotting_data |>
 
 ## R Examples
 
-`step_range()` clips. Does allow the user to specify range `step_minmax()` doesn't clip. Doesn't allow users to specify a range. A PR is planned to allow users to turn off clipping in `step_range()`
+`step_range()` clips.
+Does allow the user to specify range `step_minmax()` doesn't clip.
+Doesn't allow users to specify a range.
+A PR is planned to allow users to turn off clipping in `step_range()`
 
 We will be using the `ames` data set for these examples.
 
@@ -181,7 +206,9 @@ set_config(transform_output="pandas")
 pd.set_option('display.precision', 3)
 ```
 
-We are using the `ames` data set for examples. {sklearn} provided the `MinMaxScaler()` method we can use. By default we can use this method to perform both the centering and scaling.
+We are using the `ames` data set for examples.
+{sklearn} provided the `MinMaxScaler()` method we can use.
+By default we can use this method to perform both the centering and scaling.
 
 ```{python}
 from feazdata import ames

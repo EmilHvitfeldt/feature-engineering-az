@@ -8,14 +8,25 @@ pagetitle: "Feature Engineering A-Z | Circular Overview"
 ## Circular Overview
 :::
 
-When working with numeric variables, you see many different kinds of relationships. Positive, negative, non-linear. But a special type of relationship is the circular type. It is in essence a non-linear relationship, but specifically it relies on the assumption that the beginning of the domain behaves the same way as the end. Another assumption in this type of data is that the domain of values is restricted on the left and right sides.
+When working with numeric variables, you see many different kinds of relationships.
+Positive, negative, non-linear.
+But a special type of relationship is the circular type.
+It is in essence a non-linear relationship, but specifically it relies on the assumption that the beginning of the domain behaves the same way as the end.
+Another assumption in this type of data is that the domain of values is restricted on the left and right sides.
 
-Typical examples of this are type-based, such as time of day, day of the week, day of the month, and day of the year. If we have an effect, we would imagine that the end and beginning are similar. Another example is directions, 1° of a circle is very close to 359° in reality. The goal of the chapters in this section is to use transformations to make sure they are close numerically in your model.
+Typical examples of this are type-based, such as time of day, day of the week, day of the month, and day of the year.
+If we have an effect, we would imagine that the end and beginning are similar.
+Another example is directions, 1° of a circle is very close to 359° in reality.
+The goal of the chapters in this section is to use transformations to make sure they are close numerically in your model.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 find a good example of this
 :::
 
-There are 2 main ways we can handle this. Harmonic calculations using trigonometric functions will be showcased in @sec-circular-trig, Essentially what happens is that we are mapping the features to the unit circle in 2 dimensions. Another intriguing type of method is using periodic indicators such as splines or other methods. It doesn't have to be splines, but if you carefully set the range of the indicators, you can get good performance. Splines are covered in @sec-circular-splines, and the other more general methods are covered in @sec-circular-indicators.
+There are 2 main ways we can handle this.
+Harmonic calculations using trigonometric functions will be showcased in @sec-circular-trig, Essentially what happens is that we are mapping the features to the unit circle in 2 dimensions.
+Another intriguing type of method is using periodic indicators such as splines or other methods.
+It doesn't have to be splines, but if you carefully set the range of the indicators, you can get good performance.
+Splines are covered in @sec-circular-splines, and the other more general methods are covered in @sec-circular-indicators.

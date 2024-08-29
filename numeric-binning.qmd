@@ -8,9 +8,11 @@ pagetitle: "Feature Engineering A-Z | Binning"
 ## Binning
 :::
 
-**Binning**, is one way to represent a curve that makes it useful in modeling content since it allows us to model non-linear relationships between predictors and outcomes. This is a trained method.
+**Binning**, is one way to represent a curve that makes it useful in modeling content since it allows us to model non-linear relationships between predictors and outcomes.
+This is a trained method.
 
-Being able to transform a numeric variable that has a non-linear relationship with the outcome into one or more variables that do have linear relationships with the outcome is of great importance, as many models wouldn't be able to work with these types of variables effectively themselves. Below is a toy example of one such variable
+Being able to transform a numeric variable that has a non-linear relationship with the outcome into one or more variables that do have linear relationships with the outcome is of great importance, as many models wouldn't be able to work with these types of variables effectively themselves.
+Below is a toy example of one such variable
 
 ```{r}
 #| echo: false
@@ -39,9 +41,13 @@ data_toy |>
   theme_minimal()
 ```
 
-Here we have a non-linear relationship. It is a fairly simple one, the outcome is high when the predictor takes values between 25 and 50, and outside the ranges, it takes over values. Given that this is a toy example, we do not have any expert knowledge regarding what we expect the relationship to be outside this range. The trend could go back up, it could go down or flatten out. We don't know.
+Here we have a non-linear relationship.
+It is a fairly simple one, the outcome is high when the predictor takes values between 25 and 50, and outside the ranges, it takes over values.
+Given that this is a toy example, we do not have any expert knowledge regarding what we expect the relationship to be outside this range.
+The trend could go back up, it could go down or flatten out.
+We don't know.
 
-Below we see the way each of the new variables activates different areas of the domain. 
+Below we see the way each of the new variables activates different areas of the domain.
 
 ```{r}
 #| echo: false
@@ -78,7 +84,11 @@ data_bins |>
   theme_minimal()
 ```
 
-What we see in this example is that the regions appear to be evenly spaced over the observed values of the predictor. This is neither and good nor bad thing, but something we need to think about. Ideally, we want the different regions to represent something shared within them. If the cuts are happening at non-ideal locations we don't get the full benefit. See below for such an example 
+What we see in this example is that the regions appear to be evenly spaced over the observed values of the predictor.
+This is neither and good nor bad thing, but something we need to think about.
+Ideally, we want the different regions to represent something shared within them.
+If the cuts are happening at non-ideal locations we don't get the full benefit.
+See below for such an example
 
 ```{r}
 #| label: fig-binning-highlight
@@ -101,9 +111,12 @@ data_bins |>
   theme_minimal()
 ```
 
-Ideally, we would want the region with the highest values of `outcome` to be in the same region. but It appears to be split between Bin 2 and Bin 3.
+Ideally, we would want the region with the highest values of `outcome` to be in the same region.
+but It appears to be split between Bin 2 and Bin 3.
 
-Below is a chart of how well using evenly split binning works when using it on our toy example. We notice that using binning doesn't work that well for this type of data. And it makes sense, binning will naturally create a step function like we see below, and if your predictor doesn't have that shape, you are unlikely to see as good performance as with splines @sec-numeric-splines or polynomial expansion @sec-numeric-polynomial.
+Below is a chart of how well using evenly split binning works when using it on our toy example.
+We notice that using binning doesn't work that well for this type of data.
+And it makes sense, binning will naturally create a step function like we see below, and if your predictor doesn't have that shape, you are unlikely to see as good performance as with splines @sec-numeric-splines or polynomial expansion @sec-numeric-polynomial.
 
 ```{r}
 #| label: fig-binning-different-num_breaks
@@ -190,7 +203,11 @@ map(
   labs(y = "outcome", color = "deg_free")
 ```
 
-The evenly spaced cut points don't give us good performance, since they didn't happen to align with the breaks in the data. What we can do instead is to use a more supervised method of finding these splits. Such as using a CART model of xgboost model, to find the optimal breaks in the data. This would make the method supervised and outcome-dependent. Below is an example where we use a CARt model.
+The evenly spaced cut points don't give us good performance, since they didn't happen to align with the breaks in the data.
+What we can do instead is to use a more supervised method of finding these splits.
+Such as using a CART model of xgboost model, to find the optimal breaks in the data.
+This would make the method supervised and outcome-dependent.
+Below is an example where we use a CARt model.
 
 ```{r}
 #| label: fig-discont-binning-different-num_breaks-cart
@@ -231,26 +248,27 @@ map(
   labs(y = "outcome", color = "deg_free")
 ```
 
-While these results look promising, there are a couple of things that are worth remembering. Firstly, this is not a silver bullet, as we still need to tune the method, to find the optimal value for the model we are fitting. Secondly, this type of data is not seen that much in the wild, and if you are seeing them in your application, there is a good chance that you can manually encode this information without having to resort to these methods. 
+While these results look promising, there are a couple of things that are worth remembering.
+Firstly, this is not a silver bullet, as we still need to tune the method, to find the optimal value for the model we are fitting.
+Secondly, this type of data is not seen that much in the wild, and if you are seeing them in your application, there is a good chance that you can manually encode this information without having to resort to these methods.
 
 ## Pros and Cons
 
 ### Pros
 
-- Works fast computationally
-- Behaves predictably outside the range of the predictors
-- If cuts are placed well, it can handle sudden changes in distributions
-- Interpretable
-- doesn't create correlated features
+-   Works fast computationally
+-   Behaves predictably outside the range of the predictors
+-   If cuts are placed well, it can handle sudden changes in distributions
+-   Interpretable
+-   doesn't create correlated features
 
 ### Cons
 
-- The inherent rounding that happens, can lead to loss of performance and interpretations
-- arguably less interpretable than binning
-- can produce a lot of variables
+-   The inherent rounding that happens, can lead to loss of performance and interpretations
+-   arguably less interpretable than binning
+-   can produce a lot of variables
 
 ## R Examples
-
 
 ```{r}
 #| echo: false
