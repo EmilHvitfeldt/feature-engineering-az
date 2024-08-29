@@ -8,47 +8,63 @@ pagetitle: "Feature Engineering A-Z | Text LDA"
 ## LDA
 :::
 
-The feature engineering methods we have seen so far, have been counting based or variations thereof as seen in @sec-text-tf, @sec-text-tfidf, and @sec-text-hashing. Latent Dirichlet Allocation (LDA) is different because it is done by first fitting a model on the data, and then using this fitted model to define features for us.
+The feature engineering methods we have seen so far, have been counting based or variations thereof as seen in @sec-text-tf, @sec-text-tfidf, and @sec-text-hashing.
+Latent Dirichlet Allocation (LDA) is different because it is done by first fitting a model on the data, and then using this fitted model to define features for us.
 
 To understand this method, we should first learn what Latent Dirichlet Allocation[@lda2003, @chen2016warpldacacheefficiento1] is, and how it is used for topic modeling[^1].
 
 [^1]: <https://msaxton.github.io/topic-model-best-practices/> provides a nice overview of topic models and their best practices.
 
-Latent Dirichlet Allocation is a probabilistic generative model which in simple terms assumes that each document (observation in our case) is made up of a mixture of topics, and each topic is a distribution of words (tokens). Since we have the distributions of tokens for each document, we can use the LDA method to try to find the topics. The features we pull out of this are the topic memberships for each observation. 
+Latent Dirichlet Allocation is a probabilistic generative model which in simple terms assumes that each document (observation in our case) is made up of a mixture of topics, and each topic is a distribution of words (tokens).
+Since we have the distributions of tokens for each document, we can use the LDA method to try to find the topics.
+The features we pull out of this are the topic memberships for each observation.
 
-:::: {.callout-caution}
+::: callout-caution
 # TODO
 
 add a diagram to show this.
 :::
 
-We are in essence turning our tokens into `n` numerical features where `n` is the number of topics. The number of topics is not set in stone and can act as a hyperparameter.
+We are in essence turning our tokens into `n` numerical features where `n` is the number of topics.
+The number of topics is not set in stone and can act as a hyperparameter.
 
-Documents, which are the established terminology for the observations, are seen as a bag-of-words representation of tokens. Meaning that much like @sec-text-tfidf, the order doesn't matter. We are simply looking at token counts.
+Documents, which are the established terminology for the observations, are seen as a bag-of-words representation of tokens.
+Meaning that much like @sec-text-tfidf, the order doesn't matter.
+We are simply looking at token counts.
 
-Words are the common term used, but we know that it is referring to tokens. Each token has a given probability for each topic, and it is assumed that when a document is generated, it samples the topics associated with it, and then samples a token from that topic. This is obviously not how writing is done, but together with the other assumptions in the model gives decent results at times.
+Words are the common term used, but we know that it is referring to tokens.
+Each token has a given probability for each topic, and it is assumed that when a document is generated, it samples the topics associated with it, and then samples a token from that topic.
+This is obviously not how writing is done, but together with the other assumptions in the model gives decent results at times.
 
-Topics, and latent structures over the documents. They are characterized by their distribution of words (tokens). the same word can appear in multiple topics, with the same or different weights. A document is associated with a given topic, proportional to how the document's distribution of words aligns with the topic's word distribution.
+Topics, and latent structures over the documents.
+They are characterized by their distribution of words (tokens).
+the same word can appear in multiple topics, with the same or different weights.
+A document is associated with a given topic, proportional to how the document's distribution of words aligns with the topic's word distribution.
 
-:::: {.callout-caution}
+::: callout-caution
 # TODO
 
-I feel like the math wouldn't help here? file issue if you disagree.
+I feel like the math wouldn't help here?
+file issue if you disagree.
 :::
 
-This procedure doesn't natively have a way to determine the number of topics. But by itself, that isn't the worst thing. Finding the "right" number of topics will depend on your modeling goal. If you are interested in having an interpretable model, then you want the topics to align with the perceived structure of the documents. This will be hard to do, as it is akin to finding the "right" number of clusters. On the other hand, if your problem is finding a very predictive model, then you will likely have an easier time as you could tune it as a hyper-parameter.
+This procedure doesn't natively have a way to determine the number of topics.
+But by itself, that isn't the worst thing.
+Finding the "right" number of topics will depend on your modeling goal.
+If you are interested in having an interpretable model, then you want the topics to align with the perceived structure of the documents.
+This will be hard to do, as it is akin to finding the "right" number of clusters.
+On the other hand, if your problem is finding a very predictive model, then you will likely have an easier time as you could tune it as a hyper-parameter.
 
 ## Pros and Cons
 
 ### Pros
 
-- Reduces text to few number of numerical features
+-   Reduces text to few number of numerical features
 
 ### Cons
 
-- May not extract information in an interpretable way
+-   May not extract information in an interpretable way
 
 ## R Examples
 
 ## Python Examples
-

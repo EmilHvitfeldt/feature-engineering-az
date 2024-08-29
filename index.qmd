@@ -8,19 +8,32 @@ pagetitle: "Feature Engineering A-Z | Preface"
 ## Preface
 :::
 
-Welcome to "Feature Engineering A-Z"! This book is written to be used as a reference guide to nearly all feature engineering methods you will encounter. This is reflected in the chapter structure. Any question a practitioner is having should be answered by looking at the index and finding the right chapter.
+Welcome to "Feature Engineering A-Z"!
+This book is written to be used as a reference guide to nearly all feature engineering methods you will encounter.
+This is reflected in the chapter structure.
+Any question a practitioner is having should be answered by looking at the index and finding the right chapter.
 
-Each section tries to be as comprehensive as possible with the number of different methods and solutions that are presented. A section on dimensionality reduction should list all the practical methods that could be used, as well as a comparison between the methods to help the reader decide what would be most appropriate. This does not mean that all methods are recommended to use. A number of these methods have little and narrow use cases. Methods that are deemed too domain-specific have been excluded from this book. 
+Each section tries to be as comprehensive as possible with the number of different methods and solutions that are presented.
+A section on dimensionality reduction should list all the practical methods that could be used, as well as a comparison between the methods to help the reader decide what would be most appropriate.
+This does not mean that all methods are recommended to use.
+A number of these methods have little and narrow use cases.
+Methods that are deemed too domain-specific have been excluded from this book.
 
-::: {.callout-note}
+::: callout-note
 # Missing methods
 
 If you think this book is missing a method, then please [file an issue](https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new?assignees=&labels=Request:+New+Method&projects=&template=request-new-method.md&title=) and we will evaluate if it should be added.
 :::
 
-Each chapter will cover a specific method or small group of methods. This will include motivations and explanations for the method. Whenever possible each method will be accompanied by mathematical formulas and visualizations to illustrate the mechanics of the method. A small pros and cons list is provided for each method. Lastly, each section will include code snippets showcasing how to implement the methods. This is done in R and Python, using [tidymodels](https://tidymodels.org) and [scikit-learn](https://scikit-learn.org/) respectively. This book is a methods book first, and a coding book second.
+Each chapter will cover a specific method or small group of methods.
+This will include motivations and explanations for the method.
+Whenever possible each method will be accompanied by mathematical formulas and visualizations to illustrate the mechanics of the method.
+A small pros and cons list is provided for each method.
+Lastly, each section will include code snippets showcasing how to implement the methods.
+This is done in R and Python, using [tidymodels](https://tidymodels.org) and [scikit-learn](https://scikit-learn.org/) respectively.
+This book is a methods book first, and a coding book second.
 
-::: {.callout-note}
+::: callout-note
 # Empty chapters
 
 A chapter is prefixed with the emoji 🏗️ to indicate that it hasn't been fully written yet.
@@ -30,18 +43,24 @@ A chapter is prefixed with the emoji 🏗️ to indicate that it hasn't been ful
 
 To keep the scope of this book as focused as possible, the following topics will not be covered in this book:
 
-- whole process modeling
-- case studies
-- deployment details
-- domain-specific methods
+-   whole process modeling
+-   case studies
+-   deployment details
+-   domain-specific methods
 
-For whole process modeling see instead "Hands-On Machine Learning with Scikit-learn, Keras & Tensorflow" [-@geron2017hands-on], "Tidy modeling with R" [-@kuhn2022tidy], "Approaching (almost) any machine learning problem" [-@thakur2020approaching] and "Applied Predictive Modeling" [-@kuhn2013applied] are all great resources. For feature engineering books that tell more of a story by going through case studies, I recommended: "Python Feature Engineering Cookbook" [-@galli2020python], "Feature Engineering Bookcamp" [-@ozdemir2022feature] And "Feature Engineering and Selection" [-@kuhn2019feature]. I have found that books on deployment domain-specific methods are highly related to the field and stack that you are using and am not able to give broad advice.
+For whole process modeling see instead "Hands-On Machine Learning with Scikit-learn, Keras & Tensorflow" [-@geron2017hands-on], "Tidy modeling with R" [-@kuhn2022tidy], "Approaching (almost) any machine learning problem" [-@thakur2020approaching] and "Applied Predictive Modeling" [-@kuhn2013applied] are all great resources.
+For feature engineering books that tell more of a story by going through case studies, I recommended: "Python Feature Engineering Cookbook" [-@galli2020python], "Feature Engineering Bookcamp" [-@ozdemir2022feature] And "Feature Engineering and Selection" [-@kuhn2019feature].
+I have found that books on deployment domain-specific methods are highly related to the field and stack that you are using and am not able to give broad advice.
 
 ## Who is this book for?
 
-This book is designed to be used by people involved in the modeling of data. These can include but are not limited to data scientists, students, professors, data analysts and machine learning engineers. The reference style nature of the book makes it useful for beginners and seasoned professionals. A background in the basics of modeling, statistics and machine learning would be helpful. Feature engineering as a practice is tightly connected to the rest of the machine learning pipeline so knowledge of the other components is key.  
+This book is designed to be used by people involved in the modeling of data.
+These can include but are not limited to data scientists, students, professors, data analysts and machine learning engineers.
+The reference style nature of the book makes it useful for beginners and seasoned professionals.
+A background in the basics of modeling, statistics and machine learning would be helpful.
+Feature engineering as a practice is tightly connected to the rest of the machine learning pipeline so knowledge of the other components is key.
 
-Many educational resources skip over the finer details of feature engineering methods, which is where this book tries to fill the gap. 
+Many educational resources skip over the finer details of feature engineering methods, which is where this book tries to fill the gap.
 
 ## License
 
@@ -60,7 +79,8 @@ python_version <- paste0("(", gsub("Python ", "", system("python3 --version", in
 r_version <- paste0("(", R.version$major, ".", R.version$minor, ")")
 ```
 
-This book is rendered using [quarto](https://quarto.org/) `r quarto_version`, [R](https://www.r-project.org/) `r r_version` and [Python](https://www.python.org/) `r python_version`. The website source is hosted on [Github](https://github.com/EmilHvitfeldt/feature-engineering-az).
+This book is rendered using [quarto](https://quarto.org/) `r quarto_version`, [R](https://www.r-project.org/) `r r_version` and [Python](https://www.python.org/) `r python_version`.
+The website source is hosted on [Github](https://github.com/EmilHvitfeldt/feature-engineering-az).
 
 ```{r}
 #| label: preface-versions
@@ -148,13 +168,18 @@ glue::glue("`{pypackages_names}` ({pypackages_versions})") |>
 
 ## Can I contribute?
 
-Please feel free to improve the quality of this content by submitting pull requests. A merged PR will make you appear in the contributor list. It will, however, be considered a donation of your work to this project. You are still bound by the conditions of the license, meaning that you are not considered an author, copyright holder, or owner of the content once it has been merged in.
+Please feel free to improve the quality of this content by submitting pull requests.
+A merged PR will make you appear in the contributor list.
+It will, however, be considered a donation of your work to this project.
+You are still bound by the conditions of the license, meaning that you are not considered an author, copyright holder, or owner of the content once it has been merged in.
 
 ## Acknowledgements
 
-I'm so thankful for the contributions, help, and perspectives of people who have supported us in this project. There are several I would like to thank in particular.
+I'm so thankful for the contributions, help, and perspectives of people who have supported us in this project.
+There are several I would like to thank in particular.
 
-I would like to thank my Posit colleagues on the tidymodels team (Hannah Frick, Max Kuhn, and Simon Couch) as well as the rest of our coworkers on the Posit open-source team. I also thank Javier Orraca-Deatcu, Matt Dancho and Mike Mahoney for looking over some of the chapters before the first release. 
+I would like to thank my Posit colleagues on the tidymodels team (Hannah Frick, Max Kuhn, and Simon Couch) as well as the rest of our coworkers on the Posit open-source team.
+I also thank Javier Orraca-Deatcu, Matt Dancho and Mike Mahoney for looking over some of the chapters before the first release.
 
 ```{r, eval = FALSE, echo = FALSE}
 library(tidyverse)

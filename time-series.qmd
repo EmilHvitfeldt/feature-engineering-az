@@ -8,31 +8,43 @@ pagetitle: "Feature Engineering A-Z | Time Series Overview"
 ## Time-series Overview
 :::
 
-A very common type of data is **time-series data**. This is data where the observations are taken across time with time stamps. This data will inherently be correlated with itself as the same measurement for the same unit likely isn't going to change too much. Time series data is typically modeled using different methods than other predictive modeling for this reason.
+A very common type of data is **time-series data**.
+This is data where the observations are taken across time with time stamps.
+This data will inherently be correlated with itself as the same measurement for the same unit likely isn't going to change too much.
+Time series data is typically modeled using different methods than other predictive modeling for this reason.
 
-Nevertheless, there are still some methods that will be useful for us. It is important to note that there is a time component to this data, which is what we are trying to predict. The observations can happen at regular intervals, once a day, or irregular intervals, each time the engine errors. Different types of data use different types of models and make the feature engineering a little different depending on what you are trying to do.
+Nevertheless, there are still some methods that will be useful for us.
+It is important to note that there is a time component to this data, which is what we are trying to predict.
+The observations can happen at regular intervals, once a day, or irregular intervals, each time the engine errors.
+Different types of data use different types of models and make the feature engineering a little different depending on what you are trying to do.
 
 This chapter assumes the user knows how to use time series data and the precautions that are needed when working with data of this type.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 add a link to appropriate resources
 :::
 
-One area of work is modifying the sequence itself. Some of these transformations can be taken from @sec-numeric. However, some metrics are specific to time series data. Likewise, some metrics are similar to what we do in @sec-missing and @sec-outliers, but special care needs to be taken with time series data.
+One area of work is modifying the sequence itself.
+Some of these transformations can be taken from @sec-numeric.
+However, some metrics are specific to time series data.
+Likewise, some metrics are similar to what we do in @sec-missing and @sec-outliers, but special care needs to be taken with time series data.
 
-- Smoothing in @sec-time-series-smooth
-- Sliding window transformations in @sec-time-series-sliding
-- Log Interval Transformation in @sec-time-series-log-interval
-- Time series-specific handling of missing values in @sec-time-series-missing
-- Time series-specific handling of outliers in @sec-time-series-outliers
+-   Smoothing in @sec-time-series-smooth
+-   Sliding window transformations in @sec-time-series-sliding
+-   Log Interval Transformation in @sec-time-series-log-interval
+-   Time series-specific handling of missing values in @sec-time-series-missing
+-   Time series-specific handling of outliers in @sec-time-series-outliers
 
-Another area of methods is where we extract or modify the sequence or its data to create new variables, this is done by considering the time component. This will result in breaking about the time component in a decomposition kind of way, or by getting information out of the values themselves. One such example of the latter is found in the datetime section @sec-datetime. Particularly holiday extraction as seen in @sec-datetime-extraction.
+Another area of methods is where we extract or modify the sequence or its data to create new variables, this is done by considering the time component.
+This will result in breaking about the time component in a decomposition kind of way, or by getting information out of the values themselves.
+One such example of the latter is found in the datetime section @sec-datetime.
+Particularly holiday extraction as seen in @sec-datetime-extraction.
 
-- Differences in @sec-time-series-diff
-- Lagging features in @sec-time-series-lag
-- rolling window features in @sec-time-series-rolling-window
-- expanding window features in @sec-time-series-expanding-window
-- Fourier decomposition in @sec-time-series-fourier
-- Wavelet decomposition in @sec-time-series-wavelet
+-   Differences in @sec-time-series-diff
+-   Lagging features in @sec-time-series-lag
+-   rolling window features in @sec-time-series-rolling-window
+-   expanding window features in @sec-time-series-expanding-window
+-   Fourier decomposition in @sec-time-series-fourier
+-   Wavelet decomposition in @sec-time-series-wavelet

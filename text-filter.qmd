@@ -8,25 +8,42 @@ pagetitle: "Feature Engineering A-Z | Token Filter"
 ## Token Filter
 :::
 
-This chapter is going to be quite similar to stop word removal in @sec-text-stopwords. The difference is going to be how we go about doing things. When removing stop words we are hoping to remove words that don't contain enough information. Depending on our model, we might want to further reduce the number of tokens we are considering. For counting methods such as TF @sec-text-tf and TF-IDF @sec-text-tfidf, each unique token leads to 1 column in the output. Depending on your data set and model type, you can end up with tens of thousands of different tokens, which can be too much.
+This chapter is going to be quite similar to stop word removal in @sec-text-stopwords.
+The difference is going to be how we go about doing things.
+When removing stop words we are hoping to remove words that don't contain enough information.
+Depending on our model, we might want to further reduce the number of tokens we are considering.
+For counting methods such as TF @sec-text-tf and TF-IDF @sec-text-tfidf, each unique token leads to 1 column in the output.
+Depending on your data set and model type, you can end up with tens of thousands of different tokens, which can be too much.
 
-We can do this filtering in 2 ways, thresholded and counted. In the thresholded, we say "Keep all tokens that satisfy this condition", and in the counted way we say "Keep the n tokens with the highest value of x". Each has a pro and a con. Thresholded methods are precisely defined, but don't return a fixed number of tokens. Counted methods are imprecisely defined, because of potential ties, but return a fixed number of tokens. Both of these concepts can be used for the criterias explained below.
+We can do this filtering in 2 ways, thresholded and counted.
+In the thresholded, we say "Keep all tokens that satisfy this condition", and in the counted way we say "Keep the n tokens with the highest value of x".
+Each has a pro and a con.
+Thresholded methods are precisely defined, but don't return a fixed number of tokens.
+Counted methods are imprecisely defined, because of potential ties, but return a fixed number of tokens.
+Both of these concepts can be used for the criterias explained below.
 
-The frequency of a token in the training data set is going to be an important factor as to whether we should keep it or not. Some tokens will only appear less than a handful of times, they are likely not to appear enough times to provide a signal to a model. On the same side, you could also filter away the most common words. This is very similar to what some people do as a proxy for stop word removal as seen in @sec-text-stopwords. This is less likely to be a success, especially if you have already done stop word removal.
+The frequency of a token in the training data set is going to be an important factor as to whether we should keep it or not.
+Some tokens will only appear less than a handful of times, they are likely not to appear enough times to provide a signal to a model.
+On the same side, you could also filter away the most common words.
+This is very similar to what some people do as a proxy for stop word removal as seen in @sec-text-stopwords.
+This is less likely to be a success, especially if you have already done stop word removal.
 
-On the same coin, we could use IDF values to determine the cut-off. We will talk about TF-IDF in @sec-text-tfidf, but that can also be helpful in finding noninformative words. Calculating the IDF of all the words and sorting them lets us find tokens with low IDF that are good candidates for removal.
+On the same coin, we could use IDF values to determine the cut-off.
+We will talk about TF-IDF in @sec-text-tfidf, but that can also be helpful in finding noninformative words.
+Calculating the IDF of all the words and sorting them lets us find tokens with low IDF that are good candidates for removal.
 
-Removal of tokens is rarely done to improve performance but is done as a tradeoff between speed and accuracy. Removing too many tokens will yield faster models, but risk removing tokens with signal, removing too few tokens yields slower models, that may or may not contain noise.
+Removal of tokens is rarely done to improve performance but is done as a tradeoff between speed and accuracy.
+Removing too many tokens will yield faster models, but risk removing tokens with signal, removing too few tokens yields slower models, that may or may not contain noise.
 
 ## Pros and Cons
 
 ### Pros
 
-- done as a tradeoff between speed
+-   done as a tradeoff between speed
 
 ### Cons
 
-- Has to be done with care to avoid removing signal
+-   Has to be done with care to avoid removing signal
 
 ## R Examples
 

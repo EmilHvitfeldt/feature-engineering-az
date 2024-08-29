@@ -8,8 +8,12 @@ pagetitle: "Feature Engineering A-Z | High Correlation Filter"
 ## High Correlation Filter
 :::
 
-We are looking to remove correlated features. By correlated features, we typically talk about Pearson correlation. The methods in this chapter don't require that Pearson correlation is used, just that any correlation method is used.
-Next, we will look at how we can remove the offending variables. We will show an **iterative approach** and a **clustering approach**. Both methods are learned methods as they identify variables to be kept.
+We are looking to remove correlated features.
+By correlated features, we typically talk about Pearson correlation.
+The methods in this chapter don't require that Pearson correlation is used, just that any correlation method is used.
+Next, we will look at how we can remove the offending variables.
+We will show an **iterative approach** and a **clustering approach**.
+Both methods are learned methods as they identify variables to be kept.
 
 I always find it useful to look at a correlation matrix first
 
@@ -35,7 +39,9 @@ ames |>
   autoplot(method = "identity")
 ```
 
-looking at the above chart we see some correlated features. One way to perform our filtering is to find all the correlated pairs over a certain threshold and remove one of them. Below is a chart of the 10 most correlated pairs
+looking at the above chart we see some correlated features.
+One way to perform our filtering is to find all the correlated pairs over a certain threshold and remove one of them.
+Below is a chart of the 10 most correlated pairs
 
 ```{r}
 #| label: tbl-correlation-values
@@ -52,46 +58,56 @@ ames |>
   knitr::kable()
 ```
 
-One way to do filtering is to pick a threshold and repeatably remove one of the variables of the most correlated pair until there are no pairs left with a correlation over the threshold. This method has a minimal computational footprint as it just needs to calculate the correlations once at the beginning. The threshold is likely to need to be tuned as we can't say for sure what a good threshold is. With the removal of variables, there is always a chance that we are removing signal rather than noise, this is increasingly true as we remove more and more predictors.
+One way to do filtering is to pick a threshold and repeatably remove one of the variables of the most correlated pair until there are no pairs left with a correlation over the threshold.
+This method has a minimal computational footprint as it just needs to calculate the correlations once at the beginning.
+The threshold is likely to need to be tuned as we can't say for sure what a good threshold is.
+With the removal of variables, there is always a chance that we are removing signal rather than noise, this is increasingly true as we remove more and more predictors.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 rewrite this as an algorithm
 :::
 
-If we look at the above table, we notice that some of the variables occur together. One such example is `Garage_Cars`, `Garage_Area` and `Sale_Price`. These 3 variables are highly co-correlated and it would be neat if we could deal with these variables at the same time.
+If we look at the above table, we notice that some of the variables occur together.
+One such example is `Garage_Cars`, `Garage_Area` and `Sale_Price`.
+These 3 variables are highly co-correlated and it would be neat if we could deal with these variables at the same time.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 find a different example so `Sale_Price` isn't part of this as it is usually the outcome.
 :::
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 Add a good graph showing this effect.
 :::
 
-What we could do, is take the correlation matrix and apply a clustering model on it. Then we use the clustering model to lump together the groups of highly correlated predictors. Then within each cluster, one predictor is chosen to be kept. The clusters should ideally be chosen such that uncorrelated predictors are alone in their cluster. This method can work better with the global structure of the data but requires fitting and tuning another model.
+What we could do, is take the correlation matrix and apply a clustering model on it.
+Then we use the clustering model to lump together the groups of highly correlated predictors.
+Then within each cluster, one predictor is chosen to be kept.
+The clusters should ideally be chosen such that uncorrelated predictors are alone in their cluster.
+This method can work better with the global structure of the data but requires fitting and tuning another model.
 
 ## Pros and Cons
 
 ### Pros
 
-- Computationally simple and fast
-- Easily explainable. "Predictors were removed"
-- Will lead to a faster and simpler model
+-   Computationally simple and fast
+-   Easily explainable. "Predictors were removed"
+-   Will lead to a faster and simpler model
 
 ### Cons
 
-- Can be hard to justify. "Why was this predictor kept instead of this one?"
-- Will lead to loss of signal and performance, with the hope that this loss is kept minimal
+-   Can be hard to justify. "Why was this predictor kept instead of this one?"
+-   Will lead to loss of signal and performance, with the hope that this loss is kept minimal
 
 ## R Examples
 
-We will use the `ames` data set from {modeldata} in this example. The {recipes} step `step_corrr()` performs the simple correlation filter described at the beginning of this chapter.
+We will use the `ames` data set from {modeldata} in this example.
+The {recipes} step `step_corrr()` performs the simple correlation filter described at the beginning of this chapter.
 
 ```{r}
 library(recipes)
@@ -118,7 +134,7 @@ recipe(Sale_Price ~ ., data = ames) |>
   tidy(1)
 ```
 
-
 ## Python Examples
 
-I'm not aware of a good way to do this in a scikit-learn way. Please file an [issue on github](https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new?assignees=&labels=&projects=&template=general-issue.md&title) if you know of a good way.
+I'm not aware of a good way to do this in a scikit-learn way.
+Please file an [issue on github](https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new?assignees=&labels=&projects=&template=general-issue.md&title) if you know of a good way.

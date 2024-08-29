@@ -8,31 +8,41 @@ pagetitle: "Feature Engineering A-Z | Frequency Encoding"
 ## Frequency Encoding
 :::
 
-Frequency encoding takes a categorical variable and replaces each level with its frequency in the training data set. This results in a single numeric variable, with values between 0 and 1. This is a trained method since we need to keep a record of the frequencies from the training data set.
+Frequency encoding takes a categorical variable and replaces each level with its frequency in the training data set.
+This results in a single numeric variable, with values between 0 and 1.
+This is a trained method since we need to keep a record of the frequencies from the training data set.
 
-This method isn't a silver bullet, as it will only sometimes be useful. It is useful when the frequency/rarity of a category level is related to our outcome. Imagine we have data about wines and their producers, some big producers produce many wines, and small producers only produce a couple. This information could potentially be useful and would be easily captured in frequency encoding. This method is not able to distinguish between two levels that have the same frequency.
+This method isn't a silver bullet, as it will only sometimes be useful.
+It is useful when the frequency/rarity of a category level is related to our outcome.
+Imagine we have data about wines and their producers, some big producers produce many wines, and small producers only produce a couple.
+This information could potentially be useful and would be easily captured in frequency encoding.
+This method is not able to distinguish between two levels that have the same frequency.
 
-Unseen levels can be automatically handled by giving them a value of 0 as they are unseen in the training data set. Thus no extra treatment is necessary. Sometimes taking the logarithm can be useful if you are having a big difference between the number of occurrences in your levels.
+Unseen levels can be automatically handled by giving them a value of 0 as they are unseen in the training data set.
+Thus no extra treatment is necessary.
+Sometimes taking the logarithm can be useful if you are having a big difference between the number of occurrences in your levels.
 
 ::: callout-note
-This is similar to **count encoding** in the sense that both these encodings calculate the same quantity, the difference is just what you put in the denominator. Since we divide by a constant value in frequency encoding, these will be treated as identical methods.
+This is similar to **count encoding** in the sense that both these encodings calculate the same quantity, the difference is just what you put in the denominator.
+Since we divide by a constant value in frequency encoding, these will be treated as identical methods.
 :::
 
 ## Pros and Cons
 
 ### Pros
 
-- Powerful and simple when used correctly
-- High interpretability
+-   Powerful and simple when used correctly
+-   High interpretability
 
 ### Cons
 
-- Is not able to distinguish between two levels that have the same frequency
-- May not add predictive power
+-   Is not able to distinguish between two levels that have the same frequency
+-   May not add predictive power
 
 ## R Examples
 
-We will be using the `ames` data set for these examples. The `step_encoding_frequency()` function from the [extrasteps](https://github.com/emilhvitfeldt/extrasteps) package allows us to perform frequency encoding.
+We will be using the `ames` data set for these examples.
+The `step_encoding_frequency()` function from the [extrasteps](https://github.com/emilhvitfeldt/extrasteps) package allows us to perform frequency encoding.
 
 ```{r}
 #| echo: false
@@ -58,7 +68,8 @@ ames |>
   count(MS_SubClass, sort = TRUE)
 ```
 
-We can then apply frequency encoding using `step_encoding_frequency()`. Notice how we only get 1 numeric variable for each categorical variable
+We can then apply frequency encoding using `step_encoding_frequency()`.
+Notice how we only get 1 numeric variable for each categorical variable
 
 ```{r}
 dummy_rec <- recipe(Sale_Price ~ ., data = ames) |>
@@ -88,7 +99,9 @@ set_config(transform_output="pandas")
 pd.set_option('display.precision', 3)
 ```
 
-We are using the `ames` data set for examples. {category_encoders} provided the `CountEncoder()` method we can use. This performs count encoding, which we know is functionally equivalent to frequency encoding.
+We are using the `ames` data set for examples.
+{category_encoders} provided the `CountEncoder()` method we can use.
+This performs count encoding, which we know is functionally equivalent to frequency encoding.
 
 ```{python}
 from feazdata import ames

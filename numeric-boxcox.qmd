@@ -8,9 +8,15 @@ pagetitle: "Feature Engineering A-Z | Box-Cox"
 ## Box-Cox
 :::
 
-You have likely heard a lot of talk about having normally distributed predictors. This isn't that common of an assumption, and having a fairly non-skewed symmetric predictor is often enough. Linear Discriminant Analysis assumes Gaussian data, and that is about it (TODO add a reference here). Still, it is worthwhile to have more symmetric predictors, and this is where the Box-Cox transformation comes into play.
+You have likely heard a lot of talk about having normally distributed predictors.
+This isn't that common of an assumption, and having a fairly non-skewed symmetric predictor is often enough.
+Linear Discriminant Analysis assumes Gaussian data, and that is about it (TODO add a reference here).
+Still, it is worthwhile to have more symmetric predictors, and this is where the Box-Cox transformation comes into play.
 
-In @sec-numeric-logarithms on logarithms, we saw how they could be used to change the distribution of a variable. One of the downsides is that if we want to get closer to normality, it doesn't do well unless applied to a log-normally distributed variable. The Box-Cox transformation tries to find an optimal power transformation. This method was originally intended to be used on the *outcome* of a model.
+In @sec-numeric-logarithms on logarithms, we saw how they could be used to change the distribution of a variable.
+One of the downsides is that if we want to get closer to normality, it doesn't do well unless applied to a log-normally distributed variable.
+The Box-Cox transformation tries to find an optimal power transformation.
+This method was originally intended to be used on the *outcome* of a model.
 
 It works by using maximum likelihood estimation to estimate a transformation parameter $\lambda$ in the following equation that would optimize the normality of $x^*$
 
@@ -23,9 +29,15 @@ x^* = \left\{
   \right.
 $$
 
-where $\tilde{x}$ is the geometric mean of $x$. It is worth noting again, that what we are optimizing over is the value of $\lambda$. This is also a case of a trained preprocessing method when used on the predictors. We need to estimate the parameter $\lambda$ on the training data set, then use the estimated value to apply the transformation to the training and test data set to avoid data leakage. Lastly, Box-Cox only works with positive numbers. Take a look at @sec-numeric-yeojohnson about the Yeo-Johnson method that tries to accomplish the same thing, and it works on positive as well as negative numbers.
+where $\tilde{x}$ is the geometric mean of $x$.
+It is worth noting again, that what we are optimizing over is the value of $\lambda$.
+This is also a case of a trained preprocessing method when used on the predictors.
+We need to estimate the parameter $\lambda$ on the training data set, then use the estimated value to apply the transformation to the training and test data set to avoid data leakage.
+Lastly, Box-Cox only works with positive numbers.
+Take a look at @sec-numeric-yeojohnson about the Yeo-Johnson method that tries to accomplish the same thing, and it works on positive as well as negative numbers.
 
-Let us see some examples of Box-Cox at work. Below is three different simulated distribution, before and after they have been transformed by Box-Cox.
+Let us see some examples of Box-Cox at work.
+Below is three different simulated distribution, before and after they have been transformed by Box-Cox.
 
 ```{r}
 #| echo: false
@@ -61,7 +73,12 @@ visualize_boxcox(abs(rnorm(10000))) /
 visualize_boxcox(5 - abs(rt(10000, 205)) + rnorm(10000, sd = 0.1))
 ```
 
-The original distributions have some left or right skewness. And the transformed columns look better, in the sense that they are less skewed and they are fairly symmetric around the center. Are they perfectly normal? No! but these transformations might be beneficial. The next set of distributions wasn't so lucky.
+The original distributions have some left or right skewness.
+And the transformed columns look better, in the sense that they are less skewed and they are fairly symmetric around the center.
+Are they perfectly normal?
+No!
+but these transformations might be beneficial.
+The next set of distributions wasn't so lucky.
 
 The Box-Cox method isn't magic and will only give you something more normally distributed if the distribution can be made more normally distributed by applying a power transformation.
 
@@ -76,7 +93,9 @@ visualize_boxcox(c(rnorm(7000, 10), rnorm(13000, 14))) /
 visualize_boxcox(1 + rbeta(10000, 0.5, 0.5) + rnorm(10000, sd = 0.05))
 ```
 
-The first distribution here is uniformly random. The resulting transformation ends up more skewed, even if only a little bit, than the original distribution because this method is not intended for this type of data. We are seeing similar results with the bi-modal distributions.
+The first distribution here is uniformly random.
+The resulting transformation ends up more skewed, even if only a little bit, than the original distribution because this method is not intended for this type of data.
+We are seeing similar results with the bi-modal distributions.
 
 ## Pros and Cons
 
@@ -131,7 +150,9 @@ set_config(transform_output="pandas")
 pd.set_option('display.precision', 3)
 ```
 
-We are using the `ames` data set for examples. {feature_engine} provided the `BoxCoxTransformer()` which is just what we need in this instance. We note that this transformer does not work on non-positive data.
+We are using the `ames` data set for examples.
+{feature_engine} provided the `BoxCoxTransformer()` which is just what we need in this instance.
+We note that this transformer does not work on non-positive data.
 
 ```{python}
 from feazdata import ames

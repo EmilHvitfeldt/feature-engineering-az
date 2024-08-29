@@ -10,19 +10,24 @@ pagetitle: "Feature Engineering A-Z | Percentile Scaling"
 
 **Percentile scaling** (also sometimes called **Rank Scaling** or **quantile scaling**) is a method where we apply a non-linear transformation to our data where each value is the percentile of the training data.
 
-::: {.callout-note}
-The words percentile and quantile describe the same things in different ways. The difference is the representation. Percentiles are reported as percentages such as 10%, 20%, and 30% and quantiles are reported as decimals such as 0.1, 0.2, and 0.3. This chapter will use these words interchangeably.
+::: callout-note
+The words percentile and quantile describe the same things in different ways.
+The difference is the representation.
+Percentiles are reported as percentages such as 10%, 20%, and 30% and quantiles are reported as decimals such as 0.1, 0.2, and 0.3.
+This chapter will use these words interchangeably.
 :::
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 Add equation
 :::
 
-This does a couple of things for us. It naturally constrains the transformed data into the range $[0, 1]$, and it deals with outlier values nicely in the sense that they don't change the transformation that much. Moreover, if the testing distribution is close to the training distribution then the transformed distribution would be approximately uniformly distributed between 0 and 1.
+This does a couple of things for us.
+It naturally constrains the transformed data into the range $[0, 1]$, and it deals with outlier values nicely in the sense that they don't change the transformation that much.
+Moreover, if the testing distribution is close to the training distribution then the transformed distribution would be approximately uniformly distributed between 0 and 1.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 add color-coded pair of distribution, where the color map to the previous location of the data
@@ -60,7 +65,8 @@ ames |>
   select(Lot_Area, Wood_Deck_SF, Sale_Price)
 ```
 
-The {recipes} step to do this transformation is `step_percentile()`. It defaults to the calculation of 100 percentiles and uses those to transform the data
+The {recipes} step to do this transformation is `step_percentile()`.
+It defaults to the calculation of 100 percentiles and uses those to transform the data
 
 ```{r}
 percentile_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) |>
@@ -78,7 +84,8 @@ percentile_rec |>
   tidy(1)
 ```
 
-You can change the granularity by using the `options` argument. In this example, we are calculating 500 points evenly spaced between 0 and 1, both inclusive.
+You can change the granularity by using the `options` argument.
+In this example, we are calculating 500 points evenly spaced between 0 and 1, both inclusive.
 
 ```{r}
 percentile500_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) |>
@@ -96,7 +103,8 @@ percentile500_rec |>
   tidy(1)
 ```
 
-Notice how there are only `r nrow(tidy(percentile500_rec, 1))` values in this output. This is happening because some percentile has been collapsed to save space since if the value for the 10.4 and 10.6 percentile is the same, we just store the 10.6 value.
+Notice how there are only `r nrow(tidy(percentile500_rec, 1))` values in this output.
+This is happening because some percentile has been collapsed to save space since if the value for the 10.4 and 10.6 percentile is the same, we just store the 10.6 value.
 
 ## Python Examples
 
@@ -109,7 +117,9 @@ set_config(transform_output="pandas")
 pd.set_option('display.precision', 3)
 ```
 
-We are using the `ames` data set for examples. {sklearn} provided the `QuantileTransformer()` method we can use. We can use the `n_quantiles` argument to change the number of quantiles to use. 
+We are using the `ames` data set for examples.
+{sklearn} provided the `QuantileTransformer()` method we can use.
+We can use the `n_quantiles` argument to change the number of quantiles to use.
 
 ```{python}
 from feazdata import ames

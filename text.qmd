@@ -8,33 +8,49 @@ pagetitle: "Feature Engineering A-Z | Text Overview"
 ## Text Overview
 :::
 
-Sometimes you have fields that are free long-form text. This cannot be dealt with using the methods we saw in @sec-categorical, as the natural text will have enough variation that counting the full-text fields is not going to be fruitful. Imagine this fictitious short book reviews
+Sometimes you have fields that are free long-form text.
+This cannot be dealt with using the methods we saw in @sec-categorical, as the natural text will have enough variation that counting the full-text fields is not going to be fruitful.
+Imagine this fictitious short book reviews
 
-- This book is excellent
-- Best book I have read all year
-- This book is absolutely excellent
-- This book is far from excellent
-- Not worth your time
+-   This book is excellent
+-   Best book I have read all year
+-   This book is absolutely excellent
+-   This book is far from excellent
+-   Not worth your time
 
-On a character level, these are all uniquely different. But to us English speakers, the first 3 are positive, and the last 2 are negative. We will in the upcoming chapters look at all the methods and their details, to see how we can modify and extract as much information out of this as we can.
+On a character level, these are all uniquely different.
+But to us English speakers, the first 3 are positive, and the last 2 are negative.
+We will in the upcoming chapters look at all the methods and their details, to see how we can modify and extract as much information out of this as we can.
 
-We will adhere to the #BenderRule[^1] and make it clear that while the examples you will see in this book are going to be in English, it doesn't mean that the results you see can be replicated in other languages. All languages have unique things about them that make these types of calculations harder or easier to use.
+We will adhere to the #BenderRule[^1] and make it clear that while the examples you will see in this book are going to be in English, it doesn't mean that the results you see can be replicated in other languages.
+All languages have unique things about them that make these types of calculations harder or easier to use.
 
 [^1]: https://thegradient.pub/the-benderrule-on-naming-the-languages-we-study-and-why-it-matters/
 
-In these chapters, we will be studying methods to work with text. Notably, text and language are different things, with many languages starting as spoken words, and a smaller number of these develop a writing system. This is important to remember, as the written text will almost always have less information than the language it is transcribing. You have seen examples of this when you send a text message that wasn't received correctly, because of the missing non-verbal information.
+In these chapters, we will be studying methods to work with text.
+Notably, text and language are different things, with many languages starting as spoken words, and a smaller number of these develop a writing system.
+This is important to remember, as the written text will almost always have less information than the language it is transcribing.
+You have seen examples of this when you send a text message that wasn't received correctly, because of the missing non-verbal information.
 
-Text data, like all other types of data, isn't guaranteed to contain information that helps your modeling data at hand. This is especially true with shorter text fields but can be true with just about anything. 
+Text data, like all other types of data, isn't guaranteed to contain information that helps your modeling data at hand.
+This is especially true with shorter text fields but can be true with just about anything.
 
-The types of operations you do to get text data into numeric data are various, but they can usually be split into several different tasks. You don't have to do everything in this list to get good results, and some off-the-shelf methods will sometimes combine 2 or more of these steps into one. This is another reason why it is important to read the documentation of the implementation you are using. 
+The types of operations you do to get text data into numeric data are various, but they can usually be split into several different tasks.
+You don't have to do everything in this list to get good results, and some off-the-shelf methods will sometimes combine 2 or more of these steps into one.
+This is another reason why it is important to read the documentation of the implementation you are using.
 
-There is also the possibility that you know exactly what type of information is important in your text field. In that case, you will be better served by manually extracting the information with regular expression or related text processing tools, we look at examples of that in @sec-text-manual.
+There is also the possibility that you know exactly what type of information is important in your text field.
+In that case, you will be better served by manually extracting the information with regular expression or related text processing tools, we look at examples of that in @sec-text-manual.
 
-The coding portions of the following chapters will be focused on using text as features in addition to other features. This is unlike other modeling tasks where text is the whole input, such as in translation or text2image tasks. Despite this, they would still be a worthwhile read for practitioners working on those types of tasks.
+The coding portions of the following chapters will be focused on using text as features in addition to other features.
+This is unlike other modeling tasks where text is the whole input, such as in translation or text2image tasks.
+Despite this, they would still be a worthwhile read for practitioners working on those types of tasks.
 
-The chapters in this section read quite differently than the other chapters, as many of the chapters assume that preview chapters are used. This is because some of the chapters describe part of the text handling rather than a specific method. See the diagram below for possible workflows.
+The chapters in this section read quite differently than the other chapters, as many of the chapters assume that preview chapters are used.
+This is because some of the chapters describe part of the text handling rather than a specific method.
+See the diagram below for possible workflows.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 create diagram of how the chapters work together in a flow chart kind of way
@@ -42,7 +58,8 @@ create diagram of how the chapters work together in a flow chart kind of way
 
 ## Text cleaning
 
-In @sec-text-cleaning, we will look over the ways we take raw text and get it ready for later tasks. This work deals with encoding issues, standardization, and cases and sometimes you need to get rid of a lot of unwanted chunks.
+In @sec-text-cleaning, we will look over the ways we take raw text and get it ready for later tasks.
+This work deals with encoding issues, standardization, and cases and sometimes you need to get rid of a lot of unwanted chunks.
 
 ## Tokenization
 
@@ -50,16 +67,22 @@ Once the text is cleaned, we need to split it into a smaller unit of information
 
 ## Modifying tokens
 
-Once you have the data as tokens, one of the things you might want to do is modify them in various ways. This could be things like changing the endings to words or changing the words entirely. We see examples of this in @sec-text-stemming and @sec-text-ngrams.
+Once you have the data as tokens, one of the things you might want to do is modify them in various ways.
+This could be things like changing the endings to words or changing the words entirely.
+We see examples of this in @sec-text-stemming and @sec-text-ngrams.
 
 ## Filtering tokens
 
-The tokens you create might not all be of the same quality. Depending on your choice of tokenizer, there will be reasons for you to remove some of the tokens you have created. We see examples of this in @sec-text-stopwords and @sec-text-filter.
+The tokens you create might not all be of the same quality.
+Depending on your choice of tokenizer, there will be reasons for you to remove some of the tokens you have created.
+We see examples of this in @sec-text-stopwords and @sec-text-filter.
 
 ## Counting tokens
 
-We have gotten to the end of the line and we are ready to turn the tokens into numeric variables we can use. There are many different ways we look at them in @sec-text-tf, @sec-text-tfidf, @sec-text-hashing, @sec-text-onehot, and @sec-text-lda.
+We have gotten to the end of the line and we are ready to turn the tokens into numeric variables we can use.
+There are many different ways we look at them in @sec-text-tf, @sec-text-tfidf, @sec-text-hashing, @sec-text-onehot, and @sec-text-lda.
 
 ## Embeddings
 
-Another way to use text is to work with embeddings, this is another powerful tool that can give you good performance. We look at some of them in @sec-text-word2vec and @sec-text-bert.
+Another way to use text is to work with embeddings, this is another powerful tool that can give you good performance.
+We look at some of them in @sec-text-word2vec and @sec-text-bert.

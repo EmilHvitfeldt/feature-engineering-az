@@ -8,46 +8,70 @@ pagetitle: "Feature Engineering A-Z | Sequence Encoding"
 ## Sequence Encoding
 :::
 
-In @sec-text-tf, @sec-text-tfidf, and @sec-text-hashing we took a *bag of words* approach to encoding the tokens into numeric columns. This approach strips out the positional information of the text. For some tasks that is perfectly fine to do. One way to encode the sequence itself is presented in this chapter. Known as *sequence encoding* or *one-hot encoding*.
+In @sec-text-tf, @sec-text-tfidf, and @sec-text-hashing we took a *bag of words* approach to encoding the tokens into numeric columns.
+This approach strips out the positional information of the text.
+For some tasks that is perfectly fine to do.
+One way to encode the sequence itself is presented in this chapter.
+Known as *sequence encoding* or *one-hot encoding*.
 
-Each token in the dictionary is assigned an integer value. The tokens are then replaced with their dictionary value at their location. The sentence `"he", "was", "very", "happy"` could be encoded as the sequence `5, 205, 361, 663`.
+Each token in the dictionary is assigned an integer value.
+The tokens are then replaced with their dictionary value at their location.
+The sentence `"he", "was", "very", "happy"` could be encoded as the sequence `5, 205, 361, 663`.
 
-
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 add diagram
 :::
 
-With this setup in mind, we need to set some parameters as to how we do it. They can not easily be inferred by the data so we have to use our expert knowledge, and their nature makes them harder to put into a hyperparameter optimization scheme. The parameters are *sequence length*, *truncating*, and *padding*. 
+With this setup in mind, we need to set some parameters as to how we do it.
+They can not easily be inferred by the data so we have to use our expert knowledge, and their nature makes them harder to put into a hyperparameter optimization scheme.
+The parameters are *sequence length*, *truncating*, and *padding*.
 
-The sequence length refers to the number of tokens we consider in the sequence. This number needs to be constant as it dictates the number of columns that are produced. A sequence with 10 tokens can not be put into the same number of columns as a sequence with 1000 tokens without some hard choices to be made. The choice should be informed based on the distribution of the number of tokens in your observations. The longer the sequence length you select, the larger the model becomes, but picking a shorter sequence length risks losing valuable signal in the data. This can be especially hard if you have a mixture of long and short text fields.
+The sequence length refers to the number of tokens we consider in the sequence.
+This number needs to be constant as it dictates the number of columns that are produced.
+A sequence with 10 tokens can not be put into the same number of columns as a sequence with 1000 tokens without some hard choices to be made.
+The choice should be informed based on the distribution of the number of tokens in your observations.
+The longer the sequence length you select, the larger the model becomes, but picking a shorter sequence length risks losing valuable signal in the data.
+This can be especially hard if you have a mixture of long and short text fields.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 add diagram
 :::
 
-For a sequence of tokens that are shorter than the selected sequence length, we need to decide how it should be placed inside the output values. Typically we wanna do the padding with zeros to indicate that no token appeared. Should the padding with zeros happen before or after? This is a question we need to answer. What it asks of us, is how to align the sequences. If we do padding after the sequence, then all the beginnings pair up.
+For a sequence of tokens that are shorter than the selected sequence length, we need to decide how it should be placed inside the output values.
+Typically we wanna do the padding with zeros to indicate that no token appeared.
+Should the padding with zeros happen before or after?
+This is a question we need to answer.
+What it asks of us, is how to align the sequences.
+If we do padding after the sequence, then all the beginnings pair up.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 add diagram
 :::
 
-A similar question is what happens when the sequence is too long. Where should truncation occur? This is the same style of decision as with padding we just went over. This choice makes a big difference when some of the sequences are much longer than the sequence length. The choice of type of truncating can be the difference between keeping the beginning of a sequence or the end.
+A similar question is what happens when the sequence is too long.
+Where should truncation occur?
+This is the same style of decision as with padding we just went over.
+This choice makes a big difference when some of the sequences are much longer than the sequence length.
+The choice of type of truncating can be the difference between keeping the beginning of a sequence or the end.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 add diagram
 :::
 
-One of the nice things about this method is that you aren't restricted to a certain number of unique tokens as they just influence the number of unique values the columns can take, not the number of columns. That doesn't mean that filtering tokens shouldn't be done, just that it isn't a requirement as it often is for methods such as @sec-text-tf and @sec-text-tfidf.
+One of the nice things about this method is that you aren't restricted to a certain number of unique tokens as they just influence the number of unique values the columns can take, not the number of columns.
+That doesn't mean that filtering tokens shouldn't be done, just that it isn't a requirement as it often is for methods such as @sec-text-tf and @sec-text-tfidf.
 
-This method of embedding tokens relies on the positional information that we have. For this reason, we should have a way to encode unseen tokens. This should be done as another integer value not used in the dictionary already.
+This method of embedding tokens relies on the positional information that we have.
+For this reason, we should have a way to encode unseen tokens.
+This should be done as another integer value not used in the dictionary already.
 
 This is likely to work better with neural networks such as LSTMs as they can use this representation efficiently.
 
@@ -55,12 +79,12 @@ This is likely to work better with neural networks such as LSTMs as they can use
 
 ### Pros
 
-- Takes order of tokens into account when modeling
+-   Takes order of tokens into account when modeling
 
 ### Cons
 
-- A lot of decisions in the form of hyperparameters to make things work correctly
-- Will require a specific type of model to get the most out of this data format
+-   A lot of decisions in the form of hyperparameters to make things work correctly
+-   Will require a specific type of model to get the most out of this data format
 
 ## R Examples
 

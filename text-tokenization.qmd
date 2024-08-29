@@ -8,91 +8,141 @@ pagetitle: "Feature Engineering A-Z | Tokenization"
 ## Tokenization
 :::
 
-The main issue with text, when working with machines is that they don't have a way to natively deal with it in a way that makes sense. Machines like numbers, and text are far from that. **tokenization** is the act of turning long strings of text into many smaller units of text (called **tokens**) which can then be worked with. The method that performs the tokenization is called a **tokenizer**.
+The main issue with text, when working with machines is that they don't have a way to natively deal with it in a way that makes sense.
+Machines like numbers, and text are far from that.
+**tokenization** is the act of turning long strings of text into many smaller units of text (called **tokens**) which can then be worked with.
+The method that performs the tokenization is called a **tokenizer**.
 
-::: {.callout-note}
-it is important to note that the effectiveness of each of the methods seen in this chapter is heavily determined by the language the text is from and its form. Synthetic languages are going to be harder to tokenize in a meaningful way compared to other languages. Likewise, social media posts and short text messages can be harder to work with than more structured long-form texts like books. 
+::: callout-note
+it is important to note that the effectiveness of each of the methods seen in this chapter is heavily determined by the language the text is from and its form.
+Synthetic languages are going to be harder to tokenize in a meaningful way compared to other languages.
+Likewise, social media posts and short text messages can be harder to work with than more structured long-form texts like books.
 :::
 
-Before we turn to the technical task of defining the right size of units, I to make it clear that tokenization is always used when working with text data in machine learning and AI tasks. It might be hidden, but it is always there. This book tries to make a clear distinction between the preprocessing techniques that are applied to text. However it is not uncommon for multiple of these methods to be combined into one function call, where text has non-ascii characters removed, text lower-cased and then tokenized. You just have to hope that the documentation is thorough enough.
+Before we turn to the technical task of defining the right size of units, I to make it clear that tokenization is always used when working with text data in machine learning and AI tasks.
+It might be hidden, but it is always there.
+This book tries to make a clear distinction between the preprocessing techniques that are applied to text.
+However it is not uncommon for multiple of these methods to be combined into one function call, where text has non-ascii characters removed, text lower-cased and then tokenized.
+You just have to hope that the documentation is thorough enough.
 
-The first and arguably simplest type of tokenization is a **character tokenizer**. This tokenization is done by splitting the text into the smallest unit possible, which in most cases will be letters. This is likely not the best way. For counting procedures knowing the distributions of letters of a text is in most cases not enough to help us extract insights. The main upside to this tokenizer is that it produces the smallest number of unique tokens for any of the tokenizers we have seen. `"Don't Blame Me"` becomes `"D", "o", "n", "'", "t", " ", "B", "l", "a", "m", "e", " ", "M", "e"` under this type of tokenization.
+The first and arguably simplest type of tokenization is a **character tokenizer**.
+This tokenization is done by splitting the text into the smallest unit possible, which in most cases will be letters.
+This is likely not the best way.
+For counting procedures knowing the distributions of letters of a text is in most cases not enough to help us extract insights.
+The main upside to this tokenizer is that it produces the smallest number of unique tokens for any of the tokenizers we have seen.
+`"Don't Blame Me"` becomes `"D", "o", "n", "'", "t", " ", "B", "l", "a", "m", "e", " ", "M", "e"` under this type of tokenization.
 
-The next tokenizer is more practical but is harder to define. This is the **word tokenizer**. The idea behind it is solid. Words appear to be a good small unit to break a longer text into. The problem is that we don't have a good definition of what a word is. In English, the definition "anything that is separated by spaces" isn't that bad. This is the first type of word tokenizer you will find. with this you have that `"Don't Blame Me"` becomes `"Don't", "Blame", "Me"`.
+The next tokenizer is more practical but is harder to define.
+This is the **word tokenizer**.
+The idea behind it is solid.
+Words appear to be a good small unit to break a longer text into.
+The problem is that we don't have a good definition of what a word is.
+In English, the definition "anything that is separated by spaces" isn't that bad.
+This is the first type of word tokenizer you will find.
+with this you have that `"Don't Blame Me"` becomes `"Don't", "Blame", "Me"`.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 Find good links why the definition of a word isn't easy to find, and why it doesn't matter much in the end.
 :::
 
-There are more advanced methods of tokenizing into words. One of them is done by [finding word boundaries](https://www.unicode.org/reports/tr29/tr29-35.html#Default_Word_Boundaries) according to specifications made by International Components for Unicode (ICU). This method is much more advanced and will likely give you better word tokens than what you would get by using the space tokenizer. At least for English text. The method is going to be slower than the amount of calculations that are being done, but the speed hit is likely to be outweighed by the performance increase.
+There are more advanced methods of tokenizing into words.
+One of them is done by [finding word boundaries](https://www.unicode.org/reports/tr29/tr29-35.html#Default_Word_Boundaries) according to specifications made by International Components for Unicode (ICU).
+This method is much more advanced and will likely give you better word tokens than what you would get by using the space tokenizer.
+At least for English text.
+The method is going to be slower than the amount of calculations that are being done, but the speed hit is likely to be outweighed by the performance increase.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
+
 Find a good way to link to the algorithm <https://smltar.com/tokenization#what-is-a-token>
 :::
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 find an example where tokenizers are different from the space tokenizer.
 :::
 
-Both space tokenizers and word tokenizers are useful, they are performant and interpretable. If you want to dial up on performance, then this next tokenizer is for you. It is called the **Byte-Pair Encoding tokenizer**, or BPE tokenizer for short. It is also the first tokenizer that we have to train to the text corpus. The mechanics behind it borrows from compression. Imagine that we want to store some text as a sequence of tokens.
+Both space tokenizers and word tokenizers are useful, they are performant and interpretable.
+If you want to dial up on performance, then this next tokenizer is for you.
+It is called the **Byte-Pair Encoding tokenizer**, or BPE tokenizer for short.
+It is also the first tokenizer that we have to train to the text corpus.
+The mechanics behind it borrows from compression.
+Imagine that we want to store some text as a sequence of tokens.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 should properly rewrite the below as a diagram or series of diagrams
 :::
 
-```r
+``` r
 n e v e r   e v e r   g e t t i n g   t o g e t h e r 
 1 2 3 2 4 5 2 3 2 4 5 6 2 7 7 8 1 6 5 7 9 6 2 7 10 2 4
 ```
 
-each token is going to be assigned a unique integer. Then we take a look at the whole corpus and find the most frequent pair of adjacent integers. In this case, it is `2 4` and we merge them into a new token `er` and give them a new integer value `11`
+each token is going to be assigned a unique integer.
+Then we take a look at the whole corpus and find the most frequent pair of adjacent integers.
+In this case, it is `2 4` and we merge them into a new token `er` and give them a new integer value `11`
 
-```r
+``` r
 n e v er   e v er   g e t t i n g   t o g e t h er 
 1 2 3 11 5 2 3 11 5 6 2 7 7 8 1 6 5 7 9 6 2 7 10 11
 ```
 
 and this process is repeated, many times, creating longer and longer tokens.
 
-```r
+``` r
 n ever   ever   get t i n g   t o get h er 
 1   14 5   14 5  16 7 8 1 6 5 7 9 16 10 11
 ```
 
-this process will go on until there are no more duplicate pairs of tokens, which is far too long. Typically the vocabulary size is fixed beforehand, in the orders of 1000s. The good thing about this tokenizer is that it is more tailored toward the data you are working with, hence words like `"credit"` and `"load"` will self-populate very fast in banking text, and other words won't come until later in the vocabulary. It is in essence less dependent on language since it tries to find frequent sequences of characters. For some language tasks, you will use this tokenizer without removing spaces and punctuation, since the tokenizer then will be able to "learn" the beginning and ends of words. One of the downsides is that the tokens themselves are harder to reason about after the fact. The token `"teach"` might be found by itself or as part of `"teacher"` and the later models likely won't know, unless both `"teach"` and `"teacher"` is in the vocabulary. 
+this process will go on until there are no more duplicate pairs of tokens, which is far too long.
+Typically the vocabulary size is fixed beforehand, in the orders of 1000s.
+The good thing about this tokenizer is that it is more tailored toward the data you are working with, hence words like `"credit"` and `"load"` will self-populate very fast in banking text, and other words won't come until later in the vocabulary.
+It is in essence less dependent on language since it tries to find frequent sequences of characters.
+For some language tasks, you will use this tokenizer without removing spaces and punctuation, since the tokenizer then will be able to "learn" the beginning and ends of words.
+One of the downsides is that the tokens themselves are harder to reason about after the fact.
+The token `"teach"` might be found by itself or as part of `"teacher"` and the later models likely won't know, unless both `"teach"` and `"teacher"` is in the vocabulary.
 
-We have talked a lot about Latin alphabet tokenization. As with any study of data, it is important to work with domain experts. Tokenization of languages such as Chinese, Japanese and Korean, where each glyph contains much more information, is almost a different problem than the tokenization we have seen so far, since each "word" a lot of times is contained in 1 to 3 glyphs. Many different CJK tokenizers exist to best tackle the language construction specific to each language. Many of the techniques stem from the methods we have discussed above.
+We have talked a lot about Latin alphabet tokenization.
+As with any study of data, it is important to work with domain experts.
+Tokenization of languages such as Chinese, Japanese and Korean, where each glyph contains much more information, is almost a different problem than the tokenization we have seen so far, since each "word" a lot of times is contained in 1 to 3 glyphs.
+Many different CJK tokenizers exist to best tackle the language construction specific to each language.
+Many of the techniques stem from the methods we have discussed above.
 
-Above all else, it is important to make sure that you know that the tokenization choice is one we have to make, and to make sure it matches the other things we are doing. If you look up a model on a site like [Hugging Face](https://huggingface.co/), you will see that for each model, a specific tokenizer is explicitly stated. This is done because we want to make sure future use of the model uses the same tokenizer. If you were to want to change the tokenizer, you would need to retrain the model from scratch using the new tokenizer.
+Above all else, it is important to make sure that you know that the tokenization choice is one we have to make, and to make sure it matches the other things we are doing.
+If you look up a model on a site like [Hugging Face](https://huggingface.co/), you will see that for each model, a specific tokenizer is explicitly stated.
+This is done because we want to make sure future use of the model uses the same tokenizer.
+If you were to want to change the tokenizer, you would need to retrain the model from scratch using the new tokenizer.
 
-If you were to look at some of these tokenizers you will see options not discussed here in this chapter. This is partly because it is hard to keep up, and because many of the options are very specific to the text cleaning tasks. Some cleaning tasks involve having specific tokens to represent things like unknown tokens, the beginning of the sequence, and the end of the sequence. The choice doesn't really matter, as not as it doesn't overlap with your vocabulary and the data is cleaned in such a way that they are used correctly.
+If you were to look at some of these tokenizers you will see options not discussed here in this chapter.
+This is partly because it is hard to keep up, and because many of the options are very specific to the text cleaning tasks.
+Some cleaning tasks involve having specific tokens to represent things like unknown tokens, the beginning of the sequence, and the end of the sequence.
+The choice doesn't really matter, as not as it doesn't overlap with your vocabulary and the data is cleaned in such a way that they are used correctly.
 
-::: {.callout-note}
-It is the author's unverified opinion, that there is a lot of untapped potential to be gained by spending time on thorough text cleaning and optimized tokenizers. The goal of the text cleaning should be to let the tokenizer work as flawlessly as possible.
+::: callout-note
+It is the author's unverified opinion, that there is a lot of untapped potential to be gained by spending time on thorough text cleaning and optimized tokenizers.
+The goal of the text cleaning should be to let the tokenizer work as flawlessly as possible.
 :::
 
 ## Pros and Cons
 
 ### Pros
 
-- Many established methods are implemented
-- You rarely have to think about performance in terms of speed
+-   Many established methods are implemented
+-   You rarely have to think about performance in terms of speed
 
 ### Cons
 
-- There is often not a best answer, and experimentation will be needed
-- something a handcrafted tokenizer will go better than an off-the-shelf version
+-   There is often not a best answer, and experimentation will be needed
+-   something a handcrafted tokenizer will go better than an off-the-shelf version
 
 ## R Examples
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 find text data set to use
@@ -100,10 +150,11 @@ find text data set to use
 
 ## Python Examples
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 figure out the best approach to teach in Python.
-Should we stay in scikit-learn? move somewhere else?
+Should we stay in scikit-learn?
+move somewhere else?
 how should this be taught since it is likely not separate as it is in {textrecipes}
 :::

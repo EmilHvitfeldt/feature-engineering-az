@@ -8,12 +8,25 @@ pagetitle: "Feature Engineering A-Z | Datetime Overview"
 ## Datetime Overview
 :::
 
-Date and datetime variables are another type of data that can be quite common. This is different than time as we talked about in @sec-time-series, as when we talk about time series data, it is typically a series of data points that are related, and we use that inherent structure of the data as the basis for the modeling problem. Here we are talking about predictors, that happen be to expressed as a date or datetime field. 
+Date and datetime variables are another type of data that can be quite common.
+This is different than time as we talked about in @sec-time-series, as when we talk about time series data, it is typically a series of data points that are related, and we use that inherent structure of the data as the basis for the modeling problem.
+Here we are talking about predictors, that happen be to expressed as a date or datetime field.
 
-These types of data could be the day where the sale took place, or when the taxi started and ended its trip. In some of these cases, it wouldn't make sense to treat it as a time-series model, but we still want to be able to pull out valuable information. In many cases, date and datetime variables will be treated as text fields if they are unparsed, and as fancy integer representations. When encoded they typically use integers to denote time since a specific reference point.
+These types of data could be the day where the sale took place, or when the taxi started and ended its trip.
+In some of these cases, it wouldn't make sense to treat it as a time-series model, but we still want to be able to pull out valuable information.
+In many cases, date and datetime variables will be treated as text fields if they are unparsed, and as fancy integer representations.
+When encoded they typically use integers to denote time since a specific reference point.
 
-If the date and datetime variables were used directly in a modeling function it would at best use the underlying integer representation, which is unlikely to be useful since it just denotes chronological time. At worst the modeling function will error and complain.
+If the date and datetime variables were used directly in a modeling function it would at best use the underlying integer representation, which is unlikely to be useful since it just denotes chronological time.
+At worst the modeling function will error and complain.
 
 The chapters in this section are going to assume that you have parsed the date and datetime variables and that we are working with those directly.
 
-When we talk about extraction in @sec-datetime-extraction, what we will be doing is extracting components of the data. This can be things like year, month, day, hour, minutes and seconds. There are more complicated things like "Is this a holiday?" or "Is it a weekend?". After that, we will go over some more complicated features in @sec-datetime-advanced. These features will mostly be based on the extraction features from earlier. But it can be things like "closest holiday" and "how long since last Monday". Lastly, we will talk about how many of these features work in a very circular way in @sec-datetime-circular. Naturally, if we were to model using hours of the day, 1 hour before midnight and 1 hour after midnight are close to the clock but not numerically.
+When we talk about extraction in @sec-datetime-extraction, what we will be doing is extracting components of the data.
+This can be things like year, month, day, hour, minutes and seconds.
+There are more complicated things like "Is this a holiday?" or "Is it a weekend?".
+After that, we will go over some more complicated features in @sec-datetime-advanced.
+These features will mostly be based on the extraction features from earlier.
+But it can be things like "closest holiday" and "how long since last Monday".
+Lastly, we will talk about how many of these features work in a very circular way in @sec-datetime-circular.
+Naturally, if we were to model using hours of the day, 1 hour before midnight and 1 hour after midnight are close to the clock but not numerically.

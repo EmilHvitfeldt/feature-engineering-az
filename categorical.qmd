@@ -8,21 +8,38 @@ pagetitle: "Feature Engineering A-Z | Categorical Overview"
 ## Categorical Overview
 :::
 
-One of the most common types of data you can encounter is categorical variables. These variables take non-numeric values and are things like; `names`, `animal`, `housetype` `zipcode`, `mood`, and so on. We call these *qualitative* variables and you will have to find a way to deal with them as they are plentiful in most data sets you will encounter. You will, however, unlike numerical variables in @sec-numeric, have to transform these variables into numeric variables as most models only work with numeric variables. The main exception to this is tree-based models such as decision trees, random forests, and boosted trees. This is of cause a theoretical fact, as some implementations of tree-based models don't support categorical variables.
+One of the most common types of data you can encounter is categorical variables.
+These variables take non-numeric values and are things like; `names`, `animal`, `housetype` `zipcode`, `mood`, and so on.
+We call these *qualitative* variables and you will have to find a way to deal with them as they are plentiful in most data sets you will encounter.
+You will, however, unlike numerical variables in @sec-numeric, have to transform these variables into numeric variables as most models only work with numeric variables.
+The main exception to this is tree-based models such as decision trees, random forests, and boosted trees.
+This is of cause a theoretical fact, as some implementations of tree-based models don't support categorical variables.
 
-The above description is a small but useful simplification. A categorical variable can take a known or an unknown number of unique values. `day_of_the_week` and `zipcode` are examples of variables with a fixed known number of values. Even if our data only contains Sundays, Mondays, and Thursdays we know that there are 7 different possible options. On the other hand, there are plenty of categorical variables where the levels are realistically unknown, such as `company_name`, `street_name`, and `food_item`. This distinction matters as it can be used to inform the pre-processing that will be done.
+The above description is a small but useful simplification.
+A categorical variable can take a known or an unknown number of unique values.
+`day_of_the_week` and `zipcode` are examples of variables with a fixed known number of values.
+Even if our data only contains Sundays, Mondays, and Thursdays we know that there are 7 different possible options.
+On the other hand, there are plenty of categorical variables where the levels are realistically unknown, such as `company_name`, `street_name`, and `food_item`.
+This distinction matters as it can be used to inform the pre-processing that will be done.
 
-Another nuance is some categorical variables have an inherent order to them. So the variables `size` with the values `"small"`, `"medium"`, and `"large"`, clearly have an ordering to then `"small" < "medium" < "large"`. This is unlike the theoretical `car_color` with the values "blue"`, `"red"`, and `"black"`, which doesn't have a natural ordering. Depending on whether a variable has an ordering, we can use that information. This is something that doesn't have to be dealt with, but the added information can be useful.
+Another nuance is some categorical variables have an inherent order to them.
+So the variables `size` with the values `"small"`, `"medium"`, and `"large"`, clearly have an ordering to then `"small" < "medium" < "large"`.
+This is unlike the theoretical `car_color` with the values "blue"`,`"red"`, and`"black"\`, which doesn't have a natural ordering.
+Depending on whether a variable has an ordering, we can use that information.
+This is something that doesn't have to be dealt with, but the added information can be useful.
 
-Lastly, we have the encoding these categorical variables have. The same variable `household_pet` can be encoded as `["cat", "cat", "dog", "cat", "hamster"]` or as `[1, 1, 2, 1, 3]`. The latter (hopefully) is accompanied by a data dictionary saying `[1 = "cat", 2 = "dog", 3 = "hamster"]`. These variables contain the exact same information, but the encoding is vastly different, and if you are not careful to treat `household_pet` as a categorical variable the model believes that `"hamster" - "cat" = "dog"`.
+Lastly, we have the encoding these categorical variables have.
+The same variable `household_pet` can be encoded as `["cat", "cat", "dog", "cat", "hamster"]` or as `[1, 1, 2, 1, 3]`.
+The latter (hopefully) is accompanied by a data dictionary saying `[1 = "cat", 2 = "dog", 3 = "hamster"]`.
+These variables contain the exact same information, but the encoding is vastly different, and if you are not careful to treat `household_pet` as a categorical variable the model believes that `"hamster" - "cat" = "dog"`.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 find an example of the above data encoding in the wild
 :::
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 add a section about data formats that preserve levels
@@ -32,8 +49,12 @@ The chapters in this section can be put into 2 categories:
 
 ## Categorical to Categorical
 
-These methods take a categorical variable and *improve* them. Whether it means cleaning levels, collapsing levels, or making sure it handles new levels correctly. These Tasks as not always needed depending on the method you are using but they are generally helpful to apply. One method that would have been located here if it wasn't for the fact that it has a whole section by itself is dealing with missing values as seen in @sec-missing.
+These methods take a categorical variable and *improve* them.
+Whether it means cleaning levels, collapsing levels, or making sure it handles new levels correctly.
+These Tasks as not always needed depending on the method you are using but they are generally helpful to apply.
+One method that would have been located here if it wasn't for the fact that it has a whole section by itself is dealing with missing values as seen in @sec-missing.
 
 ## Categorical to Numerical
 
-The vast majority of the chapters in these chapters concern methods that take a categorical variable and produce one or more numerical variables suitable for modeling. There are quite a lot of different methods, all have upsides and downsides and they will all be explored in the remaining chapters.
+The vast majority of the chapters in these chapters concern methods that take a categorical variable and produce one or more numerical variables suitable for modeling.
+There are quite a lot of different methods, all have upsides and downsides and they will all be explored in the remaining chapters.

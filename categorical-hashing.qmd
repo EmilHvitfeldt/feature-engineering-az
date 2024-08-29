@@ -10,66 +10,96 @@ pagetitle: "Feature Engineering A-Z | Hashing Encoding"
 
 Hashing encoding, also known as the **hashing trick** and **feature hashing**, is a method where we take in the categorical values, run those values through a fast hashing function and let the resulting value determine how the encoding is done.
 
-There are a couple of things to unpack here. Hashing functions are one of them. But the first thing we will deal with is the motivation. Some categorical variables contain many unique levels, enough to make dummy encoding @sec-categorical-dummy unfeasible. This happens for a couple of reasons. Firstly, we are creating many columns and thus high sparsity. Secondly, high cardinality often comes with many new unseen levels. Feature hashing can be used to deal with both.
+There are a couple of things to unpack here.
+Hashing functions are one of them.
+But the first thing we will deal with is the motivation.
+Some categorical variables contain many unique levels, enough to make dummy encoding @sec-categorical-dummy unfeasible.
+This happens for a couple of reasons.
+Firstly, we are creating many columns and thus high sparsity.
+Secondly, high cardinality often comes with many new unseen levels.
+Feature hashing can be used to deal with both.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 Add code to showcase what happens
 :::
 
-One mental model is that we are constructing a dummy encoding, and then combining the columns in a deterministically random way. For this, we are using a hashing function. A **hashing function** is a function that takes an input, and returns a integer. The same value will always return the same output. It is computationally easy to perform this transformation, but it is hard to reverse it. This is not a downside as we don't need to perform the reverse transformation. Furthermore a good hashing function outputs values evenly across their supported range, and similar values such as `cat` and `cats` will produce vastly different hashes, `1751422759` and `2517493566` respectively for the MurmurHash3 hashing function. 
+One mental model is that we are constructing a dummy encoding, and then combining the columns in a deterministically random way.
+For this, we are using a hashing function.
+A **hashing function** is a function that takes an input, and returns a integer.
+The same value will always return the same output.
+It is computationally easy to perform this transformation, but it is hard to reverse it.
+This is not a downside as we don't need to perform the reverse transformation.
+Furthermore a good hashing function outputs values evenly across their supported range, and similar values such as `cat` and `cats` will produce vastly different hashes, `1751422759` and `2517493566` respectively for the MurmurHash3 hashing function.
 
-The MurmurHash3, which is commonly used for its speed, produces 32-bit hash values, which gives us integers between `1` and `2^32 = 4294967296`. Producing `4294967296` columns would not help us, so what is typically done is to round these values down to a more manageable range. Specifically rounding by a power of 2 is common since that can be archived by bit manipulation. Suppose we round such that we only keep the 6 significant digits, then we are left with `2^6 = 64` values. And the hashes for `cat` is now `39` and `cats` is `62`. They are still different, but now they take up a smaller space of possible values.
+The MurmurHash3, which is commonly used for its speed, produces 32-bit hash values, which gives us integers between `1` and `2^32 = 4294967296`.
+Producing `4294967296` columns would not help us, so what is typically done is to round these values down to a more manageable range.
+Specifically rounding by a power of 2 is common since that can be archived by bit manipulation.
+Suppose we round such that we only keep the 6 significant digits, then we are left with `2^6 = 64` values.
+And the hashes for `cat` is now `39` and `cats` is `62`.
+They are still different, but now they take up a smaller space of possible values.
 
-One thing that will happen when you use these hashing functions is that different levels hash to the same value. This is called a **collision**. And are technically a bad thing, as the model will be unable to distinguish between the influence of those two levels. However, it is not something to avoid at all costs. One of the main tenets of hashing encoding is that we are getting a trade-off between storage size and information. (TODO find better thing to say here). 
+One thing that will happen when you use these hashing functions is that different levels hash to the same value.
+This is called a **collision**.
+And are technically a bad thing, as the model will be unable to distinguish between the influence of those two levels.
+However, it is not something to avoid at all costs.
+One of the main tenets of hashing encoding is that we are getting a trade-off between storage size and information.
+(TODO find better thing to say here).
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 find examples of this happening
 :::
 
-With this in mind, the optional number of features produced by hashing encoding cannot be inferred directly, and we will need to try different values. Too few columns and we have too many collisions and the performance drops, too many columns and we run into a memory and speed issue. 
+With this in mind, the optional number of features produced by hashing encoding cannot be inferred directly, and we will need to try different values.
+Too few columns and we have too many collisions and the performance drops, too many columns and we run into a memory and speed issue.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 Add diagram with trade-off here
 :::
 
-One thing that is used to combat collisions is the use of a hashed sign function. Much like we are using a hashing function to generate integers, we will use a different hashing function to give us one of two values `-1` and `1`. This will determine the sign of each hashed word. This is done to lessen the negative effects of collisions as there is a 50% chance that a pair of strings that hash to the same values will have different signs and thus cancel each other out.
+One thing that is used to combat collisions is the use of a hashed sign function.
+Much like we are using a hashing function to generate integers, we will use a different hashing function to give us one of two values `-1` and `1`.
+This will determine the sign of each hashed word.
+This is done to lessen the negative effects of collisions as there is a 50% chance that a pair of strings that hash to the same values will have different signs and thus cancel each other out.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 show a diagram of this happening
 :::
 
-The main downside to this method is the lack of explainability, as the collisions make it so we can't know for sure which level contributed to the effect of that variable. On the other hand, we get the added benefit of being able to handle unseen labels directly. These will not be of use directly, but they are handled in the sense that we don't have to keep track of levels, as the hashing function just does its job.
+The main downside to this method is the lack of explainability, as the collisions make it so we can't know for sure which level contributed to the effect of that variable.
+On the other hand, we get the added benefit of being able to handle unseen labels directly.
+These will not be of use directly, but they are handled in the sense that we don't have to keep track of levels, as the hashing function just does its job.
 
 ## Pros and Cons
 
 ### Pros
 
-- Computationally fast
-- Allows for a fixed number of output columns
-- gives less sparse output than dummy encoding
+-   Computationally fast
+-   Allows for a fixed number of output columns
+-   gives less sparse output than dummy encoding
 
 ### Cons
 
-- Loss of interpretability
-- Still gives quite sparse output
+-   Loss of interpretability
+-   Still gives quite sparse output
 
 ## R Examples
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 find a higher cardinality data set for this
 :::
 
-We will be using the `ames` data set for these examples. The `step_dummy_hash()` function from the [textrecipes](textrecipes.tidymodels.org) package allows us to perform hashing encoding.
+We will be using the `ames` data set for these examples.
+The `step_dummy_hash()` function from the [textrecipes](textrecipes.tidymodels.org) package allows us to perform hashing encoding.
 
 ```{r}
 #| echo: false
@@ -88,7 +118,8 @@ ames |>
   select(Sale_Price, Exterior_1st)
 ```
 
-We will be using the `step_dummy_hash()` step for this. For illustrative purposes, we will be creating `8` columns, where in practice you would likely want this value higher.
+We will be using the `step_dummy_hash()` step for this.
+For illustrative purposes, we will be creating `8` columns, where in practice you would likely want this value higher.
 
 ```{r}
 dummy_rec <- recipe(Sale_Price ~ Exterior_1st, data = ames) |>
@@ -111,7 +142,9 @@ set_config(transform_output="pandas")
 pd.set_option('display.precision', 3)
 ```
 
-We are using the `ames` data set for examples. {category_encoders} provided the `HashingEncoder()` method we can use. For illustrative purposes, we will be creating `8` columns, where in practice you would likely want this value higher.
+We are using the `ames` data set for examples.
+{category_encoders} provided the `HashingEncoder()` method we can use.
+For illustrative purposes, we will be creating `8` columns, where in practice you would likely want this value higher.
 
 ```{python}
 from feazdata import ames

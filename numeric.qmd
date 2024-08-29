@@ -8,11 +8,17 @@ pagetitle: "Feature Engineering A-Z | Numeric Overview"
 ## Numeric Overview
 :::
 
-Data can come in all shapes and sizes, but the most common one is the numeric variable. These are values such as `age`, `height`, `deficit`, `price`, and `quantity` and we call these *quantitative* variables. They are plentiful in most data sets and immediately usable in all statistical and machine learning models. That being said, this does not imply that certain transformations wouldn't improve model performance.
+Data can come in all shapes and sizes, but the most common one is the numeric variable.
+These are values such as `age`, `height`, `deficit`, `price`, and `quantity` and we call these *quantitative* variables.
+They are plentiful in most data sets and immediately usable in all statistical and machine learning models.
+That being said, this does not imply that certain transformations wouldn't improve model performance.
 
-The following chapters will focus on different methods that follow 1-to-1 or 1-to-more transformations. These methods will mostly be applied one at a time to each variable. Methods that take many variables and return fewer variables such as dimensionality reduction methods will be covered in @sec-too-many.
+The following chapters will focus on different methods that follow 1-to-1 or 1-to-more transformations.
+These methods will mostly be applied one at a time to each variable.
+Methods that take many variables and return fewer variables such as dimensionality reduction methods will be covered in @sec-too-many.
 
-When working with a single variable at a time, there are several problems we can encounter. Understanding the problem and how each method addresses it is key to getting the most out of numeric variables.
+When working with a single variable at a time, there are several problems we can encounter.
+Understanding the problem and how each method addresses it is key to getting the most out of numeric variables.
 
 The four main types of problems we deal with when working with individual numeric variables are:
 
@@ -33,42 +39,62 @@ TODO: add more explanation to this section
 
 ## Scaling issues {#sec-numeric-scaling-issues}
 
-The topic of feature scaling is important and used widely in all of machine learning. This chapter will go over what feature scaling is and why we want to use it. The following chapters will each go over a different method of feature scaling.
+The topic of feature scaling is important and used widely in all of machine learning.
+This chapter will go over what feature scaling is and why we want to use it.
+The following chapters will each go over a different method of feature scaling.
 
 ::: callout-note
-There is some disagreement about the naming of these topics. These types of methods are called feature scaling and scaling in different fields. This book will call this general class of methods **feature scaling** and will make notes for each specific method and what other names they go by.
+There is some disagreement about the naming of these topics.
+These types of methods are called feature scaling and scaling in different fields.
+This book will call this general class of methods **feature scaling** and will make notes for each specific method and what other names they go by.
 :::
 
-In this book, we will define feature scaling as an operation that modifies variables using multiplication and addition. While broadly defined, the methods typically reduce to the following form:
+In this book, we will define feature scaling as an operation that modifies variables using multiplication and addition.
+While broadly defined, the methods typically reduce to the following form:
 
 $$
 X_{scaled} = \dfrac{X - a}{b}
 $$ {#eq-feature-scaling}
 
-The main difference between the methods is how $a$ and $b$ are calculated. These are learned transformation methods. We use the training data to derive the right values of $a$ and $b$, and then these values are used to perform the transformations when applied to new data. The different methods might differ on what property is desired for the transformed variables, same range or same spread, but they never change the distribution itself. The power transformations we saw in @sec-numeric-boxcox and @sec-numeric-yeojohnson, distort the transformations, where these feature scalings essentially perform a "zooming" effect.
+The main difference between the methods is how $a$ and $b$ are calculated.
+These are learned transformation methods.
+We use the training data to derive the right values of $a$ and $b$, and then these values are used to perform the transformations when applied to new data.
+The different methods might differ on what property is desired for the transformed variables, same range or same spread, but they never change the distribution itself.
+The power transformations we saw in @sec-numeric-boxcox and @sec-numeric-yeojohnson, distort the transformations, where these feature scalings essentially perform a "zooming" effect.
 
-| Method        | Definition                                                               |
-|----------------|--------------------------------------------------------|
-| Centering     | $X_{scaled} = X - \text{mean}(X)$                                        |
-| Scaling       | $X_{scaled} = \dfrac{X}{\text{sd}(X)}$                                   |
-| Max-Abs       | $X_{scaled} = \dfrac{X}{\text{max}(\text{abs}(X))}$                      |
-| Normalization | $X_{scaled} = \dfrac{X - \text{mean}(X)}{\text{sd}(X)}$                  |
-| Min-Max       | $X_{scaled} = \dfrac{X - \text{min}(X)}{\text{max}(X) - \text{min}(X)}$  |
-| Robust        | $X_{scaled} = \dfrac{X - \text{median}(X)}{\text{Q3}(X) - \text{Q1}(X)}$ |
+| Method | Definition |
+|------------------|------------------------------------------------------|
+| Centering | $X_{scaled} = X - \text{mean}(X)$ |
+| Scaling | $X_{scaled} = \dfrac{X}{\text{sd}(X)}$ |
+| Max-Abs | $X_{scaled} = \dfrac{X}{\text{max}(\text{abs}(X))}$ |
+| Normalization | $X_{scaled} = \dfrac{X - \text{mean}(X)}{\text{sd}(X)}$ |
+| Min-Max | $X_{scaled} = \dfrac{X - \text{min}(X)}{\text{max}(X) - \text{min}(X)}$ |
+| Robust | $X_{scaled} = \dfrac{X - \text{median}(X)}{\text{Q3}(X) - \text{Q1}(X)}$ |
 
 : All feature scaling methods {#tbl-feature-scaling}
 
-We see here that all the methods in @tbl-feature-scaling follow @eq-feature-scaling. Sometimes $a$ and $b$ take a value of 0, which is perfectly fine. Centering and scaling when used together is equal to normalization. They are kept separate in the table since they are sometimes used independently. Centering, scaling, and normalization will all be discussed in @sec-numeric-normalization.
+We see here that all the methods in @tbl-feature-scaling follow @eq-feature-scaling.
+Sometimes $a$ and $b$ take a value of 0, which is perfectly fine.
+Centering and scaling when used together is equal to normalization.
+They are kept separate in the table since they are sometimes used independently.
+Centering, scaling, and normalization will all be discussed in @sec-numeric-normalization.
 
-There are two main reasons why we want to perform feature scaling. Firstly, many different types of models take the magnitude of the variables into account when fitting the models, so having variables on different scales can be disadvantageous because some variables have high priorities. In turn, we get that the other variables have low priority. Models that work using Euclidean distances like KNN models are affected by this change. Regularized models such as lasso and ridge regression also need to be scaled since the regularization depends on the magnitude of the estimates. Secondly, some algorithms converge much faster when all the variables are on the same scale. These types of models produce the same fit, just at a slower pace than if you don't scale the variables. Any algorithms using Gradient Descent fit into this category.
+There are two main reasons why we want to perform feature scaling.
+Firstly, many different types of models take the magnitude of the variables into account when fitting the models, so having variables on different scales can be disadvantageous because some variables have high priorities.
+In turn, we get that the other variables have low priority.
+Models that work using Euclidean distances like KNN models are affected by this change.
+Regularized models such as lasso and ridge regression also need to be scaled since the regularization depends on the magnitude of the estimates.
+Secondly, some algorithms converge much faster when all the variables are on the same scale.
+These types of models produce the same fit, just at a slower pace than if you don't scale the variables.
+Any algorithms using Gradient Descent fit into this category.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
-Have a KNN diagram show why this is important
-List which types of models need feature scaling. Should be a 2 column list. Left=name, right=comment %in% c(no effect, different fit, slow down)
+Have a KNN diagram show why this is important List which types of models need feature scaling.
+Should be a 2 column list.
+Left=name, right=comment %in% c(no effect, different fit, slow down)
 :::
-
 
 ## Non-linear effect
 
@@ -76,7 +102,7 @@ List which types of models need feature scaling. Should be a 2 column list. Left
 -   splines
 -   polynomial
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 Show different distributions, and how well the different methods do at dealing with them
@@ -84,7 +110,7 @@ Show different distributions, and how well the different methods do at dealing w
 
 ## Outliers {#sec-numeric-outliers-issues}
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 Fill in some text here, and list issues

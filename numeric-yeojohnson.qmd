@@ -8,9 +8,12 @@ pagetitle: "Feature Engineering A-Z | Yeo-Johnson"
 ## Yeo-Johnson
 :::
 
-You have likely heard a lot of talk about having normally distributed predictors. This isn't that common of an assumption, and having a fairly non-skewed symmetric predictor is often enough. Linear Discriminant Analysis assumes Gaussian data, and that is about it (TODO add a reference here). Still, it is worthwhile to have more symmetric predictors, and this is where the Yeo-Johnson transformation comes into play.
+You have likely heard a lot of talk about having normally distributed predictors.
+This isn't that common of an assumption, and having a fairly non-skewed symmetric predictor is often enough.
+Linear Discriminant Analysis assumes Gaussian data, and that is about it (TODO add a reference here).
+Still, it is worthwhile to have more symmetric predictors, and this is where the Yeo-Johnson transformation comes into play.
 
-This method is very similar to the Box-Cox method in @sec-numeric-boxcox, except it doesn't have the restriction that the variable $x$ needs to be positive. 
+This method is very similar to the Box-Cox method in @sec-numeric-boxcox, except it doesn't have the restriction that the variable $x$ needs to be positive.
 
 It works by using maximum likelihood estimation to estimate a transformation parameter $\lambda$ in the following equation that would optimize the normality of $x^*$
 
@@ -23,12 +26,15 @@ x^* = \left\{
       - \log(-x + 1)                                      & \lambda =    2, x <    0
     \end{array}
   \right.
-$$
-It is worth noting again, that what we are optimizing over is the value of $\lambda$. This is also a case of a trained preprocessing method when used on the predictors. We need to estimate the parameter $\lambda$ on the training data set, then use the estimated value to apply the transformation to the training and test data set to avoid data leakage.
+$$ It is worth noting again, that what we are optimizing over is the value of $\lambda$.
+This is also a case of a trained preprocessing method when used on the predictors.
+We need to estimate the parameter $\lambda$ on the training data set, then use the estimated value to apply the transformation to the training and test data set to avoid data leakage.
 
-If the values of $x$ are strictly positive, then the Yeo-Johnson transformation is the same as the Box-Cox transformation of $x + 1$, if the values of $x$ are strictly negative then the transformation is the Box-Cox transformation of $-x + 1$ with the power $2 - \lambda$. The interpretation of $\lambda$ isn't as easy as for the Box-Cox method.
+If the values of $x$ are strictly positive, then the Yeo-Johnson transformation is the same as the Box-Cox transformation of $x + 1$, if the values of $x$ are strictly negative then the transformation is the Box-Cox transformation of $-x + 1$ with the power $2 - \lambda$.
+The interpretation of $\lambda$ isn't as easy as for the Box-Cox method.
 
-Let us see some examples of Yeo-Johnson at work. Below is three different simulated distribution, before and after they have been transformed by Yeo-Johnson.
+Let us see some examples of Yeo-Johnson at work.
+Below is three different simulated distribution, before and after they have been transformed by Yeo-Johnson.
 
 ```{r}
 #| echo: false
@@ -64,7 +70,12 @@ visualize_yeojohnson(c(rnorm(6000, 0), rnorm(3000, 2), rnorm(1000, 4))) /
 visualize_yeojohnson(5 - abs(rt(10000, 205)) + rnorm(10000, sd = 0.1))
 ```
 
-We have the original distributions that have some left or right skewness. And the transformed columns look better, in the sense that they are less skewed and they are fairly symmetric around the center. Are they perfectly normal? No! but these transformations might be beneficial. We also notice how these methods work, even when there are negative values.
+We have the original distributions that have some left or right skewness.
+And the transformed columns look better, in the sense that they are less skewed and they are fairly symmetric around the center.
+Are they perfectly normal?
+No!
+but these transformations might be beneficial.
+We also notice how these methods work, even when there are negative values.
 
 The Yeo-Johnson method isn't magic and will only give you something more normally distributed if the distribution can be made more normally distributed by applying the above formula would give you some more normally distributed values.
 
@@ -79,18 +90,20 @@ visualize_yeojohnson(c(rnorm(7000, 10), rnorm(13000, 14))) /
 visualize_yeojohnson(1 + rbeta(10000, 0.5, 0.5) + rnorm(10000, sd = 0.05))
 ```
 
-The first distribution here is uniformly random. The resulting transformation ends up more skewed, even if only a little bit, than the original distribution because this method is not intended for this type of data. We are seeing similar results with the bi-modal distributions.
+The first distribution here is uniformly random.
+The resulting transformation ends up more skewed, even if only a little bit, than the original distribution because this method is not intended for this type of data.
+We are seeing similar results with the bi-modal distributions.
 
 ## Pros and Cons
 
 ### Pros
 
-- More flexible than individually chosen power transformations such as logarithms and square roots
-- Can handle negative values
+-   More flexible than individually chosen power transformations such as logarithms and square roots
+-   Can handle negative values
 
 ### Cons
 
-- Isn't a universal fix
+-   Isn't a universal fix
 
 ## R Examples
 
@@ -134,7 +147,8 @@ set_config(transform_output="pandas")
 pd.set_option('display.precision', 3)
 ```
 
-We are using the `ames` data set for examples. {feature_engine} provided the `YeoJohnsonTransformer()` that we can use.
+We are using the `ames` data set for examples.
+{feature_engine} provided the `YeoJohnsonTransformer()` that we can use.
 
 ```{python}
 from feazdata import ames

@@ -8,14 +8,26 @@ pagetitle: "Feature Engineering A-Z | Relational Overview"
 ## Relational Overview
 :::
 
-So far in this book, we have almost exclusively talked about tabular data. except for image data in @sec-image, and to some degree time series data as seen in @sec-time-series. The latter doesn't quite count as is it typically stored in a tabular way. This section will talk about the scenario where you are working with more than 1 table. A situation that is quite common.
+So far in this book, we have almost exclusively talked about tabular data.
+except for image data in @sec-image, and to some degree time series data as seen in @sec-time-series.
+The latter doesn't quite count as is it typically stored in a tabular way.
+This section will talk about the scenario where you are working with more than 1 table.
+A situation that is quite common.
 
-When you have data, one way to store is in a database. You have several smaller tables with information. Once you want to do some kind of modeling, you go to your database and query out the data so you get it in a tabular format that our modeling tools will accept.
+When you have data, one way to store is in a database.
+You have several smaller tables with information.
+Once you want to do some kind of modeling, you go to your database and query out the data so you get it in a tabular format that our modeling tools will accept.
 
-::: {.callout-caution}
+::: callout-caution
 # TODO
 
 add some kind of diagram here
 :::
 
-It is at this stage we can use some feature engineering tricks. Propose that we are looking at daily sales targets for a number of different stores. There will be tables of the individual store performances, who works there, the items they carry and so on. As well as their past behavior. Using the knowledge of these cross tables can be very valuable. We will look at two ways to handle this. Manually in @sec-relational-manual and automatically in @sec-relational-auto.
+It is at this stage we can use some feature engineering tricks.
+Propose that we are looking at daily sales targets for a number of different stores.
+There will be tables of the individual store performances, who works there, the items they carry and so on.
+As well as their past behavior.
+Using the knowledge of these cross tables can be very valuable.
+We will look at two ways to handle this.
+Manually in @sec-relational-manual and automatically in @sec-relational-auto.

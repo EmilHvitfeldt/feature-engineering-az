@@ -8,9 +8,12 @@ pagetitle: "Feature Engineering A-Z | Square Root"
 ## Square Root
 :::
 
-As we saw in @sec-numeric-logarithms about logarithms, we sometimes have to deal with highly skewed data. Square roots are another way to deal with this issue, with some different pros and cons that make it better to use us in some situations. We will spend our time in this section to talk about what those are.
+As we saw in @sec-numeric-logarithms about logarithms, we sometimes have to deal with highly skewed data.
+Square roots are another way to deal with this issue, with some different pros and cons that make it better to use us in some situations.
+We will spend our time in this section to talk about what those are.
 
-Below is a histogram of the average daily rate of the number of hotel stays. It is clear to see that this is another case where the data is highly skewed, with many values close to zero, but a few in the thousands.
+Below is a histogram of the average daily rate of the number of hotel stays.
+It is clear to see that this is another case where the data is highly skewed, with many values close to zero, but a few in the thousands.
 
 ```{r}
 #| echo: false
@@ -30,9 +33,17 @@ hotel_bookings |>
   labs(x = "Average Daily Rate")
 ```
 
-This variable contains some negative values with the smallest being `r min(hotel_bookings$adr)`. We wouldn't want to throw out the negative values. And we could think of many situations where both negative and positive values are part of a skewed distribution, especially financial. Bank account balances, delivery times, etc etc.
+This variable contains some negative values with the smallest being `r min(hotel_bookings$adr)`.
+We wouldn't want to throw out the negative values.
+And we could think of many situations where both negative and positive values are part of a skewed distribution, especially financial.
+Bank account balances, delivery times, etc etc.
 
-We need a method that transforms the scale to un-skew and also works with negative data. The square root could be what we are looking for. By itself, it takes as its input a positive number and returns the number that when multiplied by itself equals the input. This has the desired shrinking effect, where larger values are shrunk more than smaller values. Additionally, since its domain is the positive numbers (0 is a special case since it maps to itself) we can mirror it to work on negative numbers in the same way it worked on positive numbers. This gives us the signed square root
+We need a method that transforms the scale to un-skew and also works with negative data.
+The square root could be what we are looking for.
+By itself, it takes as its input a positive number and returns the number that when multiplied by itself equals the input.
+This has the desired shrinking effect, where larger values are shrunk more than smaller values.
+Additionally, since its domain is the positive numbers (0 is a special case since it maps to itself) we can mirror it to work on negative numbers in the same way it worked on positive numbers.
+This gives us the signed square root
 
 $$
 y = \text{sign}(x)\sqrt{\left| x \right|}
@@ -54,21 +65,25 @@ hotel_bookings |>
   labs(x = "Squared Average Daily Rate")
 ```
 
-it is important to note that we are not trying to make the variable normally distributed. What we are trying to accomplish is to remove the skewed nature of the variable. Likewise, this method should not be used as a variance reduction tool as that task is handled by doing normalization which we start exploring more in @sec-numeric-scaling-issues.
+it is important to note that we are not trying to make the variable normally distributed.
+What we are trying to accomplish is to remove the skewed nature of the variable.
+Likewise, this method should not be used as a variance reduction tool as that task is handled by doing normalization which we start exploring more in @sec-numeric-scaling-issues.
 
-It doesn't have the same power to shrink large values as logarithms do, but it will seamlessly work with negative values and it would allow you to pick up on quadratic effects that you wouldn't otherwise be able to pick up if you hadn't applied the transformation. It also doesn't have good inferential properties. It preserves the order of the numeric values, but it doesn't give us a good way to interpret changes.
+It doesn't have the same power to shrink large values as logarithms do, but it will seamlessly work with negative values and it would allow you to pick up on quadratic effects that you wouldn't otherwise be able to pick up if you hadn't applied the transformation.
+It also doesn't have good inferential properties.
+It preserves the order of the numeric values, but it doesn't give us a good way to interpret changes.
 
 ## Pros and Cons
 
 ### Pros
 
-- A non-trained operation, can easily be applied to training and testing data sets alike
-- Can be applied to all numbers, not just non-negative values 
+-   A non-trained operation, can easily be applied to training and testing data sets alike
+-   Can be applied to all numbers, not just non-negative values
 
 ### Cons
 
-- It will leave regression coefficients virtually uninterpretable
-- Is not a universal fix. While it can make skewed distributions less skewed. It has the opposite effect on a distribution that isn't skewed
+-   It will leave regression coefficients virtually uninterpretable
+-   Is not a universal fix. While it can make skewed distributions less skewed. It has the opposite effect on a distribution that isn't skewed
 
 ## R Examples
 
@@ -114,7 +129,8 @@ set_config(transform_output="pandas")
 pd.set_option('display.precision', 3)
 ```
 
-We are using the `ames` data set for examples. Since there isn't a built-in transformer for square root, we can create our own using `FunctionTransformer()` and `numpy.sqrt()`.
+We are using the `ames` data set for examples.
+Since there isn't a built-in transformer for square root, we can create our own using `FunctionTransformer()` and `numpy.sqrt()`.
 
 ```{python}
 from feazdata import ames

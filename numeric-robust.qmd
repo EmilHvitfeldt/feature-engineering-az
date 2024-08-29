@@ -8,13 +8,22 @@ pagetitle: "Feature Engineering A-Z | Robust Scaling"
 ## Robust Scaling
 :::
 
-**Robust scaling**, is a scaling method that is typically done by removing the median and dividing by the interquartile range. As illustrated by @eq-robust-minimal
+**Robust scaling**, is a scaling method that is typically done by removing the median and dividing by the interquartile range.
+As illustrated by @eq-robust-minimal
 
 $$X_{scaled} = \dfrac{X - \text{median}(X)}{\text{Q3}(X) - \text{Q1}(X)}$$ {#eq-robust-minimal}
 
-This is the most common formulation of this method. This method is a learned transformation. So we use the training data to derive the right values of $\text{Q3}(X)$, $\text{Q1}(X)$, and $\text{median}(X)$ and then these values are used to perform the transformations when applied to new data. You are not bound to use `Q1` and `Q3`, any quantiles can be used. Most software implementations allow you to modify the ranges. It is typically recommended that you pick a symmetric range like $[0.1, 0.9]$ or $[0.3, 0.7]$ unless you have a good reason why observations high or low should be excluded.
+This is the most common formulation of this method.
+This method is a learned transformation.
+So we use the training data to derive the right values of $\text{Q3}(X)$, $\text{Q1}(X)$, and $\text{median}(X)$ and then these values are used to perform the transformations when applied to new data.
+You are not bound to use `Q1` and `Q3`, any quantiles can be used.
+Most software implementations allow you to modify the ranges.
+It is typically recommended that you pick a symmetric range like $[0.1, 0.9]$ or $[0.3, 0.7]$ unless you have a good reason why observations high or low should be excluded.
 
-This method is normally showcased as a way to scale variables with outliers in them. That is true, so far that you don't take the outer quantiles into consideration. The default range means that only 50% of the observations are used to calculate the scaling statistics. This is fine if you want to ignore the outliers, however, it is conventionally not a good idea to outright ignore outliers, so you might want to take a look at @sec-numeric-outliers-issues before you throw away the information that is present in the outliers.
+This method is normally showcased as a way to scale variables with outliers in them.
+That is true, so far that you don't take the outer quantiles into consideration.
+The default range means that only 50% of the observations are used to calculate the scaling statistics.
+This is fine if you want to ignore the outliers, however, it is conventionally not a good idea to outright ignore outliers, so you might want to take a look at @sec-numeric-outliers-issues before you throw away the information that is present in the outliers.
 
 ## Pros and Cons
 
@@ -69,7 +78,8 @@ maxabs_rec |>
   tidy(1)
 ```
 
-We can also change the default range to allow more of the distribution to affect the calculations. This is done using the `range` argument.
+We can also change the default range to allow more of the distribution to affect the calculations.
+This is done using the `range` argument.
 
 ```{r}
 maxabs_rec <- recipe(Sale_Price ~ ., data = ames) |>
@@ -98,7 +108,8 @@ set_config(transform_output="pandas")
 pd.set_option('display.precision', 3)
 ```
 
-We are using the `ames` data set for examples. {sklearn} provided the `RobustScaler()` method we can use. 
+We are using the `ames` data set for examples.
+{sklearn} provided the `RobustScaler()` method we can use.
 
 ```{python}
 from feazdata import ames
@@ -113,7 +124,8 @@ ct.fit(ames)
 ct.transform(ames)
 ```
 
-We can also change the default range `(0.25, 0.75)` to allow more of the distribution to affect the calculations. This is done using the `quantile_range` argument.
+We can also change the default range `(0.25, 0.75)` to allow more of the distribution to affect the calculations.
+This is done using the `quantile_range` argument.
 
 ```{python}
 ct = ColumnTransformer(
