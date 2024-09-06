@@ -84,8 +84,8 @@ book:
         - text-hashing.qmd # draft
         - text-onehot.qmd # draft
         - text-lda.qmd # draft
-        - text-word2vec.qmd # progress
-        - text-bert.qmd
+        - text-word2vec.qmd 
+        - text-bert.qmd # draft
     - part: "Circular Features"
       chapters:
         - circular.qmd # draft
@@ -212,3 +212,4 @@ pdf:
 editor:
   markdown:
     wrap: sentence
+    canonical: true

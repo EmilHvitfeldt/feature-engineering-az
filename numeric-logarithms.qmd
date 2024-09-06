@@ -33,8 +33,7 @@ ggplot(ames, aes(Lot_Area)) +
 ```
 
 This data could cause some problems if we tried to use this variable in its unfinished state.
-We need to think about how numeric variables are being used in these models.
-Take a linear regression as an example.
+We need to think about how numeric variables are being used in these models. Take a linear regression as an example.
 It fits under the assumption that there is a linear relationship between the response and the predictors.
 In other words, the model assumes that a 1000 increase in lot area is going to increase the sale price of the house by the same amount if it occurred to a 5000 lot area house or a 50000 lot area house.
 This might be a valid scenario for this housing market.
@@ -147,7 +146,9 @@ This is expected to have minimal effect on the final model.
 set.seed(1234)
 runif(10000) |> hist(breaks = 20)
 set.seed(1234)
-runif(10000) |> log10() |> hist(breaks = 20) 
+runif(10000) |>
+  log10() |>
+  hist(breaks = 20)
 ```
 
 ## R Examples
