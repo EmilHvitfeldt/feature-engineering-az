@@ -2,23 +2,92 @@
 pagetitle: "Feature Engineering A-Z | BERT"
 ---
 
-# 🏗️ BERT {#sec-text-bert}
+# BERT {#sec-text-bert}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## BERT
 :::
 
-WIP
+Bidirectional Encoder Representations from Transformers (BERT)[@devlin-etal-2019-bert] is a different way to represent text as data than what we have seen before in this section.
+In the bag-of-words method, we counted the occurance of each token.
+This was done regardless of the order of the tokens.
+BERT on the other hand looks at the previous and following works, hence the name Bidirectional.
 
-https://www.sbert.net/
+One of the reasons why BERT excels is that since it looks at the surrounding tokens when trying to give a token meaning, it can better distinguish between "duck" the animal and "duck" the movement.
+This added nuance to tokens in their context is what will give it its edge at times.
+This is of course much more complicated than counting tokens by themselves, but the added complexity pays off in many ways as BERT models have been used in quite a lot of places such as search, translation, etc etc.
+
+BERTs work by using a transformer architecture.
+In simple terms, a transformer is comprised of an encoder and a decoder.
+The encoder maps the tokens to numeric arrays, and the decoder makes the numeric arrays to predictions.
+The BERT model in question is just the encoder part of the transformer.
+
+BERTs are trained on ordered tokens.
+Special tokens are added to allow the model more information about the sentence structure.
+`[SEP]` stands for seperation and is used to denote that a sentence is ending, `[EOS]` stands for "end of sentence".
+These tokens when added doing preprocessing allow us to introduce structure to the data, that the model is able to pick up on.
+
+Once the data is properly structured, we can fit the model.
+It is a Masked Language Model (MLM), meaning that doing the training loop a token is masked, and the model is trying to predict the masked token.
+Remember that this is done using an encoder and a decoder.
+Where the decoder tries to predict the masked token.
+We only need the encoder which maps tokens into numeric arrays.
+
+::: callout-caution
+# TODO
+
+should we have a diagram?
+:::
+
+When we apply a BERT model, we are actually looking up the tokens in the embedding.
+These embeddings can be created from scratch, but it is much more common to use pre-trained embeddings, and fine-tuning them as needed.
+Fine-tuning the model involves more training using our specific data, to update the weights in the model.
+
+::: callout-important
+When using a pre-trained model, it is important that you are using the exact same tokenizer, otherwise, you won't have proper token coverage and you will get bad results.
+BERT uses WordPiece as its tokenizer.
+:::
+
+BERT as a model is very useful, and a number of spin-off models have been added.
+[@lan2020albertlitebertselfsupervised] and DistilBERT[@sanh2020distilbertdistilledversionbert] are a smaller version that has comparable speed, with a smaller computational cost.
+RoBERTa[@liu2019robertarobustlyoptimizedbert] is trained using more data and other data structures allowing for more capabilities.
+
+Since we are able to finetune a BERT to a specific data set.
+People have also been doing that to release domain and language-specific models:
+
+-   SciBERT[@beltagy2019scibertpretrainedlanguagemodel] (biomedical and computer science literature corpus)
+-   FinBERT[@araci2019finbertfinancialsentimentanalysis] (financial services corpus)
+-   BioBERT[@Lee_2019] (biomedical literature corpus)
+-   ClinicalBERT[@huang2020clinicalbertmodelingclinicalnotes] (clinical notes corpus)
+-   patentBERT[@lee2019patentbertpatentclassificationfinetuning] (patent corpus)
+-   [Nordic BERT](https://github.com/certainlyio/nordic_bert) (Danish, Norwegian, Swedish)
+-   SpanBERTa[@canete2023spanishpretrainedbertmodel] (RoBERTa for Spanish)
+
+With all of this in mind, there are a couple of downsides.
+The first is the increased computational cost.
+This is noticed twice, once for the initial training of the corpus and again for the application.
+You can alliviate this but use smaller.
+Which is in line with the general advice to start small and only add complixity as needed.
+
+The second problem you can run into is that BERT has a maximum token limit.
+One way to deal with this is to chunk up text that is over the limit into smaller manageable sizes, process them separately, and combine results.
+
+Lastly, it is known that the performance of any given BERT depends very much on the data it was trained on.
+This means that a general BERT model is unlikely to work well on a domain-specific problem without finetuning.
 
 ## Pros and Cons
 
 ### Pros
 
+-   Performance increases
+-   More nuanced token information that takes surrounding context into consideration
+
 ### Cons
+
+-   Computationally expensive
+-   Has token input limits
+-   Will need to be finetuned for domain-specific tasks
 
 ## R Examples
 
 ## Python Examples
-

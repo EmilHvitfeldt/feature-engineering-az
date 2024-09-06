@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -84,7 +104,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./text.html">Text Features</a></li><li class="breadcrumb-item"><a href="./text-bert.html"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">🏗️ BERT</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./text.html">Text Features</a></li><li class="breadcrumb-item"><a href="./text-bert.html"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">BERT</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -540,7 +560,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./text-bert.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">🏗️ BERT</span></span></a>
+ <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">BERT</span></span></a>
   </div>
 </li>
       </ul>
@@ -1217,9 +1237,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./text.html">Text Features</a></li><li class="breadcrumb-item"><a href="./text-bert.html"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">🏗️ BERT</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./text.html">Text Features</a></li><li class="breadcrumb-item"><a href="./text-bert.html"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">BERT</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-text-bert" class="quarto-section-identifier"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">🏗️ BERT</span></span></h1>
+<h1 class="title"><span id="sec-text-bert" class="quarto-section-identifier"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">BERT</span></span></h1>
 </div>
 
 
@@ -1239,15 +1259,68 @@ ul.task-list li input[type="checkbox"] {
 <section id="bert" class="level2" style="visibility: hidden; height: 0px;" data-number="61.1">
 <h2 data-number="61.1" class="anchored" data-anchor-id="bert"><span class="header-section-number">61.1</span> BERT</h2>
 </section>
-<p>WIP</p>
-<p>https://www.sbert.net/</p>
+<p>Bidirectional Encoder Representations from Transformers (BERT)<span class="citation" data-cites="devlin-etal-2019-bert">(<a href="references.html#ref-devlin-etal-2019-bert" role="doc-biblioref">Devlin et al. 2019</a>)</span> is a different way to represent text as data than what we have seen before in this section. In the bag-of-words method, we counted the occurance of each token. This was done regardless of the order of the tokens. BERT on the other hand looks at the previous and following works, hence the name Bidirectional.</p>
+<p>One of the reasons why BERT excels is that since it looks at the surrounding tokens when trying to give a token meaning, it can better distinguish between “duck” the animal and “duck” the movement. This added nuance to tokens in their context is what will give it its edge at times. This is of course much more complicated than counting tokens by themselves, but the added complexity pays off in many ways as BERT models have been used in quite a lot of places such as search, translation, etc etc.</p>
+<p>BERTs work by using a transformer architecture. In simple terms, a transformer is comprised of an encoder and a decoder. The encoder maps the tokens to numeric arrays, and the decoder makes the numeric arrays to predictions. The BERT model in question is just the encoder part of the transformer.</p>
+<p>BERTs are trained on ordered tokens. Special tokens are added to allow the model more information about the sentence structure. <code>[SEP]</code> stands for seperation and is used to denote that a sentence is ending, <code>[EOS]</code> stands for “end of sentence”. These tokens when added doing preprocessing allow us to introduce structure to the data, that the model is able to pick up on.</p>
+<p>Once the data is properly structured, we can fit the model. It is a Masked Language Model (MLM), meaning that doing the training loop a token is masked, and the model is trying to predict the masked token. Remember that this is done using an encoder and a decoder. Where the decoder tries to predict the masked token. We only need the encoder which maps tokens into numeric arrays.</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>should we have a diagram?</p>
+</div>
+</div>
+<p>When we apply a BERT model, we are actually looking up the tokens in the embedding. These embeddings can be created from scratch, but it is much more common to use pre-trained embeddings, and fine-tuning them as needed. Fine-tuning the model involves more training using our specific data, to update the weights in the model.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When using a pre-trained model, it is important that you are using the exact same tokenizer, otherwise, you won’t have proper token coverage and you will get bad results. BERT uses WordPiece as its tokenizer.</p>
+</div>
+</div>
+<p>BERT as a model is very useful, and a number of spin-off models have been added. <span class="citation" data-cites="lan2020albertlitebertselfsupervised">(<a href="references.html#ref-lan2020albertlitebertselfsupervised" role="doc-biblioref">Lan et al. 2020</a>)</span> and DistilBERT<span class="citation" data-cites="sanh2020distilbertdistilledversionbert">(<a href="references.html#ref-sanh2020distilbertdistilledversionbert" role="doc-biblioref">Sanh et al. 2020</a>)</span> are a smaller version that has comparable speed, with a smaller computational cost. RoBERTa<span class="citation" data-cites="liu2019robertarobustlyoptimizedbert">(<a href="references.html#ref-liu2019robertarobustlyoptimizedbert" role="doc-biblioref">Liu et al. 2019</a>)</span> is trained using more data and other data structures allowing for more capabilities.</p>
+<p>Since we are able to finetune a BERT to a specific data set. People have also been doing that to release domain and language-specific models:</p>
+<ul>
+<li>SciBERT<span class="citation" data-cites="beltagy2019scibertpretrainedlanguagemodel">(<a href="references.html#ref-beltagy2019scibertpretrainedlanguagemodel" role="doc-biblioref">Beltagy, Lo, and Cohan 2019</a>)</span> (biomedical and computer science literature corpus)</li>
+<li>FinBERT<span class="citation" data-cites="araci2019finbertfinancialsentimentanalysis">(<a href="references.html#ref-araci2019finbertfinancialsentimentanalysis" role="doc-biblioref">Araci 2019</a>)</span> (financial services corpus)</li>
+<li>BioBERT<span class="citation" data-cites="Lee_2019">(<a href="references.html#ref-Lee_2019" role="doc-biblioref">J. Lee et al. 2019</a>)</span> (biomedical literature corpus)</li>
+<li>ClinicalBERT<span class="citation" data-cites="huang2020clinicalbertmodelingclinicalnotes">(<a href="references.html#ref-huang2020clinicalbertmodelingclinicalnotes" role="doc-biblioref">Huang, Altosaar, and Ranganath 2020</a>)</span> (clinical notes corpus)</li>
+<li>patentBERT<span class="citation" data-cites="lee2019patentbertpatentclassificationfinetuning">(<a href="references.html#ref-lee2019patentbertpatentclassificationfinetuning" role="doc-biblioref">J.-S. Lee and Hsiang 2019</a>)</span> (patent corpus)</li>
+<li><a href="https://github.com/certainlyio/nordic_bert">Nordic BERT</a> (Danish, Norwegian, Swedish)</li>
+<li>SpanBERTa<span class="citation" data-cites="canete2023spanishpretrainedbertmodel">(<a href="references.html#ref-canete2023spanishpretrainedbertmodel" role="doc-biblioref">Cañete et al. 2023</a>)</span> (RoBERTa for Spanish)</li>
+</ul>
+<p>With all of this in mind, there are a couple of downsides. The first is the increased computational cost. This is noticed twice, once for the initial training of the corpus and again for the application. You can alliviate this but use smaller. Which is in line with the general advice to start small and only add complixity as needed.</p>
+<p>The second problem you can run into is that BERT has a maximum token limit. One way to deal with this is to chunk up text that is over the limit into smaller manageable sizes, process them separately, and combine results.</p>
+<p>Lastly, it is known that the performance of any given BERT depends very much on the data it was trained on. This means that a general BERT model is unlikely to work well on a domain-specific problem without finetuning.</p>
 <section id="pros-and-cons" class="level2" data-number="61.2">
 <h2 data-number="61.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">61.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="61.2.1">
 <h3 data-number="61.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">61.2.1</span> Pros</h3>
+<ul>
+<li>Performance increases</li>
+<li>More nuanced token information that takes surrounding context into consideration</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="61.2.2">
 <h3 data-number="61.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">61.2.2</span> Cons</h3>
+<ul>
+<li>Computationally expensive</li>
+<li>Has token input limits</li>
+<li>Will need to be finetuned for domain-specific tasks</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="61.3">
@@ -1257,6 +1330,38 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="61.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">61.4</span> Python Examples</h2>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-araci2019finbertfinancialsentimentanalysis" class="csl-entry" role="listitem">
+Araci, Dogu. 2019. <span>“FinBERT: Financial Sentiment Analysis with Pre-Trained Language Models.”</span> <a href="https://arxiv.org/abs/1908.10063">https://arxiv.org/abs/1908.10063</a>.
+</div>
+<div id="ref-beltagy2019scibertpretrainedlanguagemodel" class="csl-entry" role="listitem">
+Beltagy, Iz, Kyle Lo, and Arman Cohan. 2019. <span>“SciBERT: A Pretrained Language Model for Scientific Text.”</span> <a href="https://arxiv.org/abs/1903.10676">https://arxiv.org/abs/1903.10676</a>.
+</div>
+<div id="ref-canete2023spanishpretrainedbertmodel" class="csl-entry" role="listitem">
+Cañete, José, Gabriel Chaperon, Rodrigo Fuentes, Jou-Hui Ho, Hojin Kang, and Jorge Pérez. 2023. <span>“Spanish Pre-Trained BERT Model and Evaluation Data.”</span> <a href="https://arxiv.org/abs/2308.02976">https://arxiv.org/abs/2308.02976</a>.
+</div>
+<div id="ref-devlin-etal-2019-bert" class="csl-entry" role="listitem">
+Devlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2019. <span>“<span>BERT</span>: Pre-Training of Deep Bidirectional Transformers for Language Understanding.”</span> In <em>Proceedings of the 2019 Conference of the North <span>A</span>merican Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)</em>, edited by Jill Burstein, Christy Doran, and Thamar Solorio, 4171–86. Minneapolis, Minnesota: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/N19-1423">https://doi.org/10.18653/v1/N19-1423</a>.
+</div>
+<div id="ref-huang2020clinicalbertmodelingclinicalnotes" class="csl-entry" role="listitem">
+Huang, Kexin, Jaan Altosaar, and Rajesh Ranganath. 2020. <span>“ClinicalBERT: Modeling Clinical Notes and Predicting Hospital Readmission.”</span> <a href="https://arxiv.org/abs/1904.05342">https://arxiv.org/abs/1904.05342</a>.
+</div>
+<div id="ref-lan2020albertlitebertselfsupervised" class="csl-entry" role="listitem">
+Lan, Zhenzhong, Mingda Chen, Sebastian Goodman, Kevin Gimpel, Piyush Sharma, and Radu Soricut. 2020. <span>“ALBERT: A Lite BERT for Self-Supervised Learning of Language Representations.”</span> <a href="https://arxiv.org/abs/1909.11942">https://arxiv.org/abs/1909.11942</a>.
+</div>
+<div id="ref-lee2019patentbertpatentclassificationfinetuning" class="csl-entry" role="listitem">
+Lee, Jieh-Sheng, and Jieh Hsiang. 2019. <span>“PatentBERT: Patent Classification with Fine-Tuning a Pre-Trained BERT Model.”</span> <a href="https://arxiv.org/abs/1906.02124">https://arxiv.org/abs/1906.02124</a>.
+</div>
+<div id="ref-Lee_2019" class="csl-entry" role="listitem">
+Lee, Jinhyuk, Wonjin Yoon, Sungdong Kim, Donghyeon Kim, Sunkyu Kim, Chan Ho So, and Jaewoo Kang. 2019. <span>“BioBERT: A Pre-Trained Biomedical Language Representation Model for Biomedical Text Mining.”</span> Edited by Jonathan Wren. <em>Bioinformatics</em> 36 (4): 1234–40. <a href="https://doi.org/10.1093/bioinformatics/btz682">https://doi.org/10.1093/bioinformatics/btz682</a>.
+</div>
+<div id="ref-liu2019robertarobustlyoptimizedbert" class="csl-entry" role="listitem">
+Liu, Yinhan, Myle Ott, Naman Goyal, Jingfei Du, Mandar Joshi, Danqi Chen, Omer Levy, Mike Lewis, Luke Zettlemoyer, and Veselin Stoyanov. 2019. <span>“RoBERTa: A Robustly Optimized BERT Pretraining Approach.”</span> <a href="https://arxiv.org/abs/1907.11692">https://arxiv.org/abs/1907.11692</a>.
+</div>
+<div id="ref-sanh2020distilbertdistilledversionbert" class="csl-entry" role="listitem">
+Sanh, Victor, Lysandre Debut, Julien Chaumond, and Thomas Wolf. 2020. <span>“DistilBERT, a Distilled Version of BERT: Smaller, Faster, Cheaper and Lighter.”</span> <a href="https://arxiv.org/abs/1910.01108">https://arxiv.org/abs/1910.01108</a>.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
