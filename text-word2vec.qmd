@@ -2,21 +2,62 @@
 pagetitle: "Feature Engineering A-Z | word2vec"
 ---
 
-# 🏗️ word2vec {#sec-text-word2vec}
+# word2vec {#sec-text-word2vec}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## word2vec
 :::
 
-WIP
+word2vec [@mikolov2013efficientestimationwordrepresentations] is one of the most popular ways to learn word embeddings of text.
+Each word, or token, will be represented by a numeric vector of values.
+
+We would ideally construct these embeddings in such a way that similar words are positioned closely together in the multidimentional space.
+So words like "happy" and "smiling" would be similar, but "happy" and "house" wouldn't be similar because they aren't related.
+
+word2vec can be done using 2 main methods; Continuous Bag Of Words (CBOW) and Skip-Gram.
+The way they work mirrors each other.
+
+todo: add a diagram like https://swimm.io/learn/large-language-models/what-is-word2vec-and-how-does-it-work
+
+We make sure all the text is tokenized to our liking, making sure that the ordering of the tokens is preserved.
+
+In the continuous bag of words model, we have a neural network that tries to predict what the word is, given the surrounding words.
+In essence what ends up happening is that it takes all the surrounding words, aggregates them, and uses the resulting vector for prediction.
+
+In the Skip-Gram model, we try to predict the surrounding words given a target word.
+This is essentially the reverse talk as we saw before, and it is slightly harder, requiring more training.
+
+A continuous bag of words tends to work better for small data sets, with the added benefit that it is generally faster than the Skip-Gram model.
+Skip-gram models tend to be able to capture more semantic relationships and handle rare words better.
+
+When these models are trained, each word is given a numeric vector, typically of length 100-300 with random numbers.
+Then as the training progresses, these values are updated.
+Hopefully ending with meaningful representation at the end.
+The randomness helps eliminate symmetry.
+However, it also means that the absolute value a vector has isn't important, but its location relative to the vectors is what matters.
+
+Another thing we have to take into account is the window size.
+This changes the number of surrounding words we are considering.
+Smaller window sizes give more value to local words, whereas larger window sizes give more broader semantic meaning.
+This tradeoff is compounded by the fact that bigger window sizes result in longer computational time.
+
+Word2Vec, as with any word embedding procedure has many extensions and variants.
+
+-   Doc2Vec [@le2014distributedrepresentationssentencesdocuments]
+-   Top2Vec [@angelov2020top2vecdistributedrepresentationstopics]
+-   BioVectors [@10.1371/journal.pone.0141287]
+-   dna2vec [@ng2017dna2vecconsistentvectorrepresentations]
 
 ## Pros and Cons
 
 ### Pros
 
+-   Can give more information than term frequency models
+
 ### Cons
+
+-   Requires computationally intensive training
 
 ## R Examples
 
 ## Python Examples
-

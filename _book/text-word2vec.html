@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -84,7 +104,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./text.html">Text Features</a></li><li class="breadcrumb-item"><a href="./text-word2vec.html"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">🏗️ word2vec</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./text.html">Text Features</a></li><li class="breadcrumb-item"><a href="./text-word2vec.html"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">word2vec</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -534,7 +554,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./text-word2vec.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">🏗️ word2vec</span></span></a>
+ <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">word2vec</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1217,9 +1237,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./text.html">Text Features</a></li><li class="breadcrumb-item"><a href="./text-word2vec.html"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">🏗️ word2vec</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./text.html">Text Features</a></li><li class="breadcrumb-item"><a href="./text-word2vec.html"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">word2vec</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-text-word2vec" class="quarto-section-identifier"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">🏗️ word2vec</span></span></h1>
+<h1 class="title"><span id="sec-text-word2vec" class="quarto-section-identifier"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">word2vec</span></span></h1>
 </div>
 
 
@@ -1239,14 +1259,36 @@ ul.task-list li input[type="checkbox"] {
 <section id="word2vec" class="level2" style="visibility: hidden; height: 0px;" data-number="60.1">
 <h2 data-number="60.1" class="anchored" data-anchor-id="word2vec"><span class="header-section-number">60.1</span> word2vec</h2>
 </section>
-<p>WIP</p>
+<p>word2vec <span class="citation" data-cites="mikolov2013efficientestimationwordrepresentations">(<a href="references.html#ref-mikolov2013efficientestimationwordrepresentations" role="doc-biblioref">Mikolov et al. 2013</a>)</span> is one of the most popular ways to learn word embeddings of text. Each word, or token, will be represented by a numeric vector of values.</p>
+<p>We would ideally construct these embeddings in such a way that similar words are positioned closely together in the multidimentional space. So words like “happy” and “smiling” would be similar, but “happy” and “house” wouldn’t be similar because they aren’t related.</p>
+<p>word2vec can be done using 2 main methods; Continuous Bag Of Words (CBOW) and Skip-Gram. The way they work mirrors each other.</p>
+<p>todo: add a diagram like https://swimm.io/learn/large-language-models/what-is-word2vec-and-how-does-it-work</p>
+<p>We make sure all the text is tokenized to our liking, making sure that the ordering of the tokens is preserved.</p>
+<p>In the continuous bag of words model, we have a neural network that tries to predict what the word is, given the surrounding words. In essence what ends up happening is that it takes all the surrounding words, aggregates them, and uses the resulting vector for prediction.</p>
+<p>In the Skip-Gram model, we try to predict the surrounding words given a target word. This is essentially the reverse talk as we saw before, and it is slightly harder, requiring more training.</p>
+<p>A continuous bag of words tends to work better for small data sets, with the added benefit that it is generally faster than the Skip-Gram model. Skip-gram models tend to be able to capture more semantic relationships and handle rare words better.</p>
+<p>When these models are trained, each word is given a numeric vector, typically of length 100-300 with random numbers. Then as the training progresses, these values are updated. Hopefully ending with meaningful representation at the end. The randomness helps eliminate symmetry. However, it also means that the absolute value a vector has isn’t important, but its location relative to the vectors is what matters.</p>
+<p>Another thing we have to take into account is the window size. This changes the number of surrounding words we are considering. Smaller window sizes give more value to local words, whereas larger window sizes give more broader semantic meaning. This tradeoff is compounded by the fact that bigger window sizes result in longer computational time.</p>
+<p>Word2Vec, as with any word embedding procedure has many extensions and variants.</p>
+<ul>
+<li>Doc2Vec <span class="citation" data-cites="le2014distributedrepresentationssentencesdocuments">(<a href="references.html#ref-le2014distributedrepresentationssentencesdocuments" role="doc-biblioref">Le and Mikolov 2014</a>)</span></li>
+<li>Top2Vec <span class="citation" data-cites="angelov2020top2vecdistributedrepresentationstopics">(<a href="references.html#ref-angelov2020top2vecdistributedrepresentationstopics" role="doc-biblioref">Angelov 2020</a>)</span></li>
+<li>BioVectors <span class="citation" data-cites="10.1371/journal.pone.0141287">(<a href="references.html#ref-10.1371/journal.pone.0141287" role="doc-biblioref">Asgari 2015</a>)</span></li>
+<li>dna2vec <span class="citation" data-cites="ng2017dna2vecconsistentvectorrepresentations">(<a href="references.html#ref-ng2017dna2vecconsistentvectorrepresentations" role="doc-biblioref">Ng 2017</a>)</span></li>
+</ul>
 <section id="pros-and-cons" class="level2" data-number="60.2">
 <h2 data-number="60.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">60.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="60.2.1">
 <h3 data-number="60.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">60.2.1</span> Pros</h3>
+<ul>
+<li>Can give more information than term frequency models</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="60.2.2">
 <h3 data-number="60.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">60.2.2</span> Cons</h3>
+<ul>
+<li>Requires computationally intensive training</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="60.3">
@@ -1256,6 +1298,23 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="60.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">60.4</span> Python Examples</h2>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-angelov2020top2vecdistributedrepresentationstopics" class="csl-entry" role="listitem">
+Angelov, Dimo. 2020. <span>“Top2Vec: Distributed Representations of Topics.”</span> <a href="https://arxiv.org/abs/2008.09470">https://arxiv.org/abs/2008.09470</a>.
+</div>
+<div id="ref-10.1371/journal.pone.0141287" class="csl-entry" role="listitem">
+Asgari, Mohammad R. K., Ehsaneddin AND Mofrad. 2015. <span>“Continuous Distributed Representation of Biological Sequences for Deep Proteomics and Genomics.”</span> <em>PLOS ONE</em> 10 (11): 1–15. <a href="https://doi.org/10.1371/journal.pone.0141287">https://doi.org/10.1371/journal.pone.0141287</a>.
+</div>
+<div id="ref-le2014distributedrepresentationssentencesdocuments" class="csl-entry" role="listitem">
+Le, Quoc V., and Tomas Mikolov. 2014. <span>“Distributed Representations of Sentences and Documents.”</span> <a href="https://arxiv.org/abs/1405.4053">https://arxiv.org/abs/1405.4053</a>.
+</div>
+<div id="ref-mikolov2013efficientestimationwordrepresentations" class="csl-entry" role="listitem">
+Mikolov, Tomas, Kai Chen, Greg Corrado, and Jeffrey Dean. 2013. <span>“Efficient Estimation of Word Representations in Vector Space.”</span> <a href="https://arxiv.org/abs/1301.3781">https://arxiv.org/abs/1301.3781</a>.
+</div>
+<div id="ref-ng2017dna2vecconsistentvectorrepresentations" class="csl-entry" role="listitem">
+Ng, Patrick. 2017. <span>“Dna2vec: Consistent Vector Representations of Variable-Length k-Mers.”</span> <a href="https://arxiv.org/abs/1701.06279">https://arxiv.org/abs/1701.06279</a>.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
