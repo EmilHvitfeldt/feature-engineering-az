@@ -2,11 +2,71 @@
 pagetitle: "Feature Engineering A-Z | Leaf Encoding"
 ---
 
-# 🏗️ Leaf Encoding {#sec-categorical-leaf}
+# Leaf Encoding {#sec-categorical-leaf}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## Leaf Encoding
 :::
+
+Leaf encoding, also called **decision tree encoding**, is a method where a single dicision tree it fit using a target, typically the outcome, and a single categorical variable as the predictor. The encoding is then done by using the predictions of the tree to replace the categorical labels.
+
+This should work in both classification and regression settings, but they serve different purposes. If used in a classification setting, we are replaceing a categorial predictor with another categorical predictor with fewer levels. For regression settings, we have that the categorical predictor is replaced with a numeric variable. In some ways, this feels much like target encoding explored in @sec-categorical-target.
+
+Suppose we use leaf encoding on the `MS_SubClass` predictor of the `ames` data set, using the numeric target `Sale_Price`. A possible fitted tree on that data would yield the following encoding table.
+
+```{r}
+#| echo: false
+library(tidymodels)
+set.seed(1234)
+
+data(ames, package = "modeldata")
+
+tree_spec <- decision_tree() |>
+  set_mode("regression")
+
+tree_fit <- fit(tree_spec, Sale_Price ~ MS_SubClass, data = ames)
+
+res <- augment(tree_fit, distinct(ames, MS_SubClass)) |>
+  rename(leaf = .pred) |>
+  arrange(leaf)
+
+knitr::kable(res)
+```
+
+This table has `r dplyr::n_distinct(res$leaf)` different values, meaning that the tree has 4 different leafs. Now prediction happens by using this lookup table.
+
+Instead, lets see what happens if we choose a categorical target. Using the same `MS_SubClass` predictor, but instead using the categorical variable `Lot_Shape` as the target.
+
+```{r}
+#| echo: false
+library(tidymodels)
+set.seed(1234)
+
+data(ames, package = "modeldata")
+
+tree_spec <- decision_tree() |>
+  set_mode("classification")
+
+tree_fit <- fit(tree_spec, Lot_Shape ~ MS_SubClass, data = ames)
+
+res <- augment(tree_fit, distinct(ames, MS_SubClass)) |>
+  rename(leaf = .pred_class) |>
+  arrange(leaf) |>
+  select(leaf, MS_SubClass) |>
+  mutate(leaf = paste0("leaf", as.integer(leaf)))
+
+knitr::kable(res)
+```
+
+And we now have a mapping that takes `r length(res$MS_SubClass)` levels and compresses them into `n_distinct(res$leaf)` levels. We note two insights for the categorical target case. Firstly, the number of unique levels can't exceed the number of levels in the target. Because it is not possible to predict a level that doesn't exist for the target. Secondly, you will produce the same of fewer levels in your leaf. We saw earlier that it is possible to produce fewer. To produce the same about of levels, we would need a target with the same or more levels that the predictor and have each predictor level map to a different target level.
+
+the tree can be tuned
+
+also talk about unseen labels
+
+https://feature-engine.trainindata.com/en/1.7.x/user_guide/encoding/index.html#decision-tree-encoding
+
+https://link.springer.com/article/10.1007/s00180-022-01207-6#:~:text=Leaf%20encoding%20fits%20a%20decision,levels%20with%20similar%20target%20values.
 
 ## Pros and Cons
 
@@ -16,4 +76,7 @@ pagetitle: "Feature Engineering A-Z | Leaf Encoding"
 
 ## R Examples
 
+To be implemented
+
 ## Python Examples
+
