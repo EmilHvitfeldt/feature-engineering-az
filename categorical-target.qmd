@@ -242,24 +242,6 @@ rec_target |>
   tidy(1)
 ```
 
-to apply smoothing we can use the `step_lencode_mixed()` step in the same way
-
-```{r}
-rec_target_smooth <- recipe(Sale_Price ~ Neighborhood, data = ames) |>
-  step_lencode_mixed(Neighborhood, outcome = vars(Sale_Price)) |>
-  prep()
-
-rec_target_smooth |>
-  bake(new_data = NULL)
-```
-
-We see that these values are slightly different than the values we had earlier
-
-```{r}
-rec_target_smooth |>
-  tidy(1)
-```
-
 ## Python Examples
 
 ```{python}
