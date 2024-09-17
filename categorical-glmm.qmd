@@ -2,18 +2,88 @@
 pagetitle: "Feature Engineering A-Z | GLMM Encoding"
 ---
 
-# 🏗️ GLMM Encoding {#sec-categorical-glmm}
+# GLMM Encoding {#sec-categorical-glmm}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## GLMM Encoding
 :::
 
+Generalized linear mixed models (GLMM) encoding @Pargent2022 follows as an extension to target encoding which is laid out in detail at @sec-categorical-target.
+
+A hierarchical generalized linear model is fit, using no intercept.
+
 ## Pros and Cons
 
 ### Pros
 
+- No hyperparameters to tune, as shrinkage is automatically done.
+- Can deal with categorical variables with many levels
+- Can deal with unseen levels in a sensible way
+
 ### Cons
+
+- Can be prone to overfitting
 
 ## R Examples
 
+::: callout-caution
+# TODO
+
+find a better data set
+:::
+
+We apply the smoothed GLMM encoder using the `step_lencode_mixed()` step.
+
+```{r}
+#| echo: false
+set.seed(1234)
+```
+
+```{r}
+#| message: false
+library(recipes)
+library(embed)
+
+data(ames, package = "modeldata")
+
+rec_target_smooth <- recipe(Sale_Price ~ Neighborhood, data = ames) |>
+  step_lencode_mixed(Neighborhood, outcome = vars(Sale_Price)) |>
+  prep()
+
+rec_target_smooth |>
+  bake(new_data = NULL)
+```
+
+And we can pull out the values of the encoding like so.
+
+```{r}
+rec_target_smooth |>
+  tidy(1)
+```
+
 ## Python Examples
+
+```{python}
+#| echo: false
+import pandas as pd
+from sklearn import set_config
+
+set_config(transform_output="pandas")
+pd.set_option('display.precision', 3)
+```
+
+We are using the `ames` data set for examples.
+{category_encoders} provided the `BinaryEncoder()` method we can use.
+
+```{python}
+from feazdata import ames
+from sklearn.compose import ColumnTransformer
+from category_encoders.glmm import GLMMEncoder
+
+ct = ColumnTransformer(
+    [('glmm', GLMMEncoder(), ['MS_Zoning'])], 
+    remainder="passthrough")
+
+ct.fit(ames, y=ames[["Sale_Price"]].values.flatten())
+ct.transform(ames)
+```
