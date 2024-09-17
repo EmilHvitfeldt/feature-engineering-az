@@ -118,6 +118,12 @@ Another interesting method is when we use the levels themselves to decide how to
 Using string distances between the levels.
 Hence similar levels will be collapsed together.
 
+:::: {.callout-caution}
+# TODO
+
+Also talk about min-hash encoder <https://arxiv.org/abs/1907.01860> <https://arxiv.org/abs/1806.00979>
+:::
+
 ```{r}
 #| echo: false
 library(embed)
