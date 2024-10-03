@@ -2,18 +2,92 @@
 pagetitle: "Feature Engineering A-Z | Catboost Encoding"
 ---
 
-# 🏗️ Catboost Encoding {#sec-categorical-catboost}
+# Catboost Encoding {#sec-categorical-catboost}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## Catboost Encoding
 :::
 
+Also known as **ordered target encoding**, is an extension of target encoding as seen in @sec-categorical-target. First proposed as a part of CatBoost[@prokhorenkova2019catboostunbiasedboostingcategorical].
+
+In regular target encoding, we can calculate the encoding at once for each level on the predictor we are working with. Ordered target encoding, as the name suggests, imposes an ordering to the observations, Then the target statistics are calculated only for previous observations, in the hopes that this will reduce target leakage. 
+
+:::: {.callout-warning}
+This is one of the few feature engineering methods where the row order matters. This means the initial ordering of your data matters unless the implementation you are working with can do sampling.
+:::
+
+The general formula used to calculate the encoding is as follows:
+
+$$
+\dfrac{currentCount + prior}{totalCount + 1}
+$$
+
+Where $currentCount$ is the number of times the target class has occured for this predictor level. $totalCount$ is the number of times the predictor level has occured. $prior$ is some constant value, typically defaulted to $0.05$.
+
+:::: {.callout-note}
+There is a handful of variations of how this formula, depending on the target type. [See CatBoost documentation](https://catboost.ai/en/docs/concepts/algorithm-main-stages_cat-to-numberic) for specifics.
+:::
+
+Notice the above formulation assumes a classification setting, regression is usually done by running quantization on the numeric target inside the application.
+
+Below we have a worked example. We are using `color` as the categorical variable we are going to encode, using `target` as the target, and using `"yes"` as the target class we are looking for. The first row is the trivial case since it is the first occurrence of `"red"`. It will thus have the value of `prior` since `currentCount` and `totalCount` are both equal to 0. The next row is another `"red"`, so we just count how many previous values of `"red"` we have, which is 1, and set `totalCount` as that value. Then we count how many times `target` is equal to `"yes"` in those instances, which is also 1, and we set `currentCount` to 1 as well. This gives us `(1 + 0.05) / (1 + 1) = 525`. The third row is another trivial case. The fourth row has `totalCount = 1` and `currentCount = 0` since the previous value of `"green"` didn't have a target of `"yes"`. Follow rows are calculated using the same principles.
+
+```{r}
+tibble::tribble(
+ ~color, ~target, ~currentCount, ~totalCount, ~catboost,
+    "red",   "yes",             0,           0,      0.05,
+    "red",   "yes",             1,           1,     0.525,
+  "green",    "no",             0,           0,      0.05,
+  "green",   "yes",             0,           1,     0.025,
+    "red",    "no",             2,           2,     0.683,
+  "green",    "no",             1,           2,      0.35,
+   "blue",   "yes",             0,           0,      0.05
+) |>
+ knitr::kable()
+```
+
+One of the stated downsides of using this method outside of catboost itselt is that since the encoding happens on order, you end up with an encoding where the amount of information isn't uniformally spread over the observation. Instead, you have that the first observations have low information and the last observations have high information. This is of cause after shuffling if that has taken place. This is not a problem inside catboost as the shuffling of the order before applying the encoding is part of what makes stochastic gradient descent work for catboost. It is worth keeping this in mind when you are doing performance checks of your fitted models.
+
+The way we apply this method to new observations, such as in the testing set, is you pretend that each row would have been appended to the training set, apply the encoding, and then remove it. Rinse and repeat for the remaining observation. That is to say that we use the `currentCount` and `totalCount` but we do not update them.
+
 ## Pros and Cons
 
 ### Pros
 
+- Can deal with categorical variables with many levels
+- Can deal with unseen levels in a sensible way
+
 ### Cons
+
+- Uneven effect for different observations
 
 ## R Examples
 
+Yet to be implemented.
+
 ## Python Examples
+
+```{python}
+#| echo: false
+import pandas as pd
+from sklearn import set_config
+
+set_config(transform_output="pandas")
+pd.set_option('display.precision', 3)
+```
+
+We are using the `ames` data set for examples.
+{category_encoders} provided the `CatBoostEncoder()` method we can use.
+
+```{python}
+from feazdata import ames
+from sklearn.compose import ColumnTransformer
+from category_encoders.cat_boost import CatBoostEncoder
+
+ct = ColumnTransformer(
+    [('catboost', CatBoostEncoder(), ['MS_Zoning'])], 
+    remainder="passthrough")
+
+ct.fit(ames, y=ames[["Sale_Price"]].values.flatten())
+ct.transform(ames).filter(regex="catboost.*")
+```
