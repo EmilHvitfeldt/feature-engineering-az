@@ -1386,45 +1386,45 @@
   {
     "objectID": "categorical-woe.html",
     "href": "categorical-woe.html",
-    "title": "29  🏗️ Weight of Evidence Encoding",
+    "title": "29  Weight of Evidence Encoding",
     "section": "",
     "text": "29.1 Weight of Evidence Encoding",
     "crumbs": [
       "Categorical Features",
-      "<span class='chapter-number'>29</span>  <span class='chapter-title'>🏗️ Weight of Evidence Encoding</span>"
+      "<span class='chapter-number'>29</span>  <span class='chapter-title'>Weight of Evidence Encoding</span>"
     ]
   },
   {
     "objectID": "categorical-woe.html#pros-and-cons",
     "href": "categorical-woe.html#pros-and-cons",
-    "title": "29  🏗️ Weight of Evidence Encoding",
+    "title": "29  Weight of Evidence Encoding",
     "section": "29.2 Pros and Cons",
     "text": "29.2 Pros and Cons\n\n29.2.1 Pros\n\n\n29.2.2 Cons",
     "crumbs": [
       "Categorical Features",
-      "<span class='chapter-number'>29</span>  <span class='chapter-title'>🏗️ Weight of Evidence Encoding</span>"
+      "<span class='chapter-number'>29</span>  <span class='chapter-title'>Weight of Evidence Encoding</span>"
     ]
   },
   {
     "objectID": "categorical-woe.html#r-examples",
     "href": "categorical-woe.html#r-examples",
-    "title": "29  🏗️ Weight of Evidence Encoding",
+    "title": "29  Weight of Evidence Encoding",
     "section": "29.3 R Examples",
-    "text": "29.3 R Examples",
+    "text": "29.3 R Examples\n\nlibrary(recipes)\nlibrary(embed)\n\ndata(ames, package = \"modeldata\")\n\nrec_target &lt;- recipe(Street ~ Neighborhood, data = ames) |&gt;\n  step_woe(Neighborhood, outcome = vars(Street)) |&gt;\n  prep()\n\nrec_target |&gt;\n  bake(new_data = NULL)\n\n# A tibble: 2,930 × 2\n   Street woe_Neighborhood\n   &lt;fct&gt;             &lt;dbl&gt;\n 1 Pave            -14.4  \n 2 Pave            -14.4  \n 3 Pave            -14.4  \n 4 Pave            -14.4  \n 5 Pave              0.394\n 6 Pave              0.394\n 7 Pave            -12.3  \n 8 Pave            -12.3  \n 9 Pave            -12.3  \n10 Pave              0.394\n# ℹ 2,920 more rows\n\n\nAnd we see that it works as intended, we can pull out the exact levels using the tidy() method\n\nrec_target |&gt;\n  tidy(1)\n\n# A tibble: 28 × 10\n   terms        value   n_tot n_Grvl n_Pave p_Grvl  p_Pave     woe outcome id   \n   &lt;chr&gt;        &lt;chr&gt;   &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;\n 1 Neighborhood Bloomi…    28      0     28 0      9.60e-3 -11.7   Street  woe_…\n 2 Neighborhood Blueste    10      0     10 0      3.43e-3 -10.6   Street  woe_…\n 3 Neighborhood Briard…    30      0     30 0      1.03e-2 -11.7   Street  woe_…\n 4 Neighborhood Brooks…   108      0    108 0      3.70e-2 -13.0   Street  woe_…\n 5 Neighborhood Clear_…    44      0     44 0      1.51e-2 -12.1   Street  woe_…\n 6 Neighborhood Colleg…   267      0    267 0      9.15e-2 -13.9   Street  woe_…\n 7 Neighborhood Crawfo…   103      0    103 0      3.53e-2 -13.0   Street  woe_…\n 8 Neighborhood Edwards   194      1    193 0.0833 6.61e-2   0.231 Street  woe_…\n 9 Neighborhood Gilbert   165      1    164 0.0833 5.62e-2   0.394 Street  woe_…\n10 Neighborhood Green_…     2      0      2 0      6.85e-4  -9.01  Street  woe_…\n# ℹ 18 more rows",
     "crumbs": [
       "Categorical Features",
-      "<span class='chapter-number'>29</span>  <span class='chapter-title'>🏗️ Weight of Evidence Encoding</span>"
+      "<span class='chapter-number'>29</span>  <span class='chapter-title'>Weight of Evidence Encoding</span>"
     ]
   },
   {
     "objectID": "categorical-woe.html#python-examples",
     "href": "categorical-woe.html#python-examples",
-    "title": "29  🏗️ Weight of Evidence Encoding",
+    "title": "29  Weight of Evidence Encoding",
     "section": "29.4 Python Examples",
-    "text": "29.4 Python Examples",
+    "text": "29.4 Python Examples\nWe are using the ames data set for examples. {category_encoders} provided the CatBoostEncoder() method we can use.\n\nfrom feazdata import ames\nfrom sklearn.compose import ColumnTransformer\nfrom category_encoders.woe import WOEEncoder\n\nct = ColumnTransformer(\n    [('WOEEncoding', WOEEncoder(), ['MS_Zoning'])], \n    remainder=\"passthrough\")\n\nct.fit(ames, y=ames[[\"Street\"]].values.flatten() == \"Pave\")\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('WOEEncoding', WOEEncoder(), ['MS_Zoning'])])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('WOEEncoding', WOEEncoder(), ['MS_Zoning'])]) WOEEncoding['MS_Zoning'] WOEEncoderWOEEncoder() remainder['MS_SubClass', 'Lot_Frontage', 'Lot_Area', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Year_Built', 'Year_Remod_Add', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Mas_Vnr_Area', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_SF_1', 'BsmtFin_Type_2', 'BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Total_Bsmt_SF', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'First_Flr_SF', 'Second_Flr_SF', 'Gr_Liv_Area', 'Bsmt_Full_Bath', 'Bsmt_Half_Bath', 'Full_Bath', 'Half_Bath', 'Bedroom_AbvGr', 'Kitchen_AbvGr', 'TotRms_AbvGrd', 'Functional', 'Fireplaces', 'Garage_Type', 'Garage_Finish', 'Garage_Cars', 'Garage_Area', 'Garage_Cond', 'Paved_Drive', 'Wood_Deck_SF', 'Open_Porch_SF', 'Enclosed_Porch', 'Three_season_porch', 'Screen_Porch', 'Pool_Area', 'Pool_QC', 'Fence', 'Misc_Feature', 'Misc_Val', 'Mo_Sold', 'Year_Sold', 'Sale_Type', 'Sale_Condition', 'Sale_Price', 'Longitude', 'Latitude'] passthroughpassthrough \n\nct.transform(ames).filter(regex=\"WOEEncoding.*\")\n\n      WOEEncoding__MS_Zoning\n0                      0.778\n1                     -2.008\n2                      0.778\n3                      0.778\n4                      0.778\n...                      ...\n2925                   0.778\n2926                   0.778\n2927                   0.778\n2928                   0.778\n2929                   0.778\n\n[2930 rows x 1 columns]",
     "crumbs": [
       "Categorical Features",
-      "<span class='chapter-number'>29</span>  <span class='chapter-title'>🏗️ Weight of Evidence Encoding</span>"
+      "<span class='chapter-number'>29</span>  <span class='chapter-title'>Weight of Evidence Encoding</span>"
     ]
   },
   {

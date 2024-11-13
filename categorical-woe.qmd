@@ -2,10 +2,46 @@
 pagetitle: "Feature Engineering A-Z | Weight of Evidence Encoding"
 ---
 
-# 🏗️ Weight of Evidence Encoding {#sec-categorical-weight-of-evidence}
+# Weight of Evidence Encoding {#sec-categorical-weight-of-evidence}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## Weight of Evidence Encoding
+:::
+
+The Weight of Evidence (WOE) encoding method is a method that specifically works with a binary target variable and a categorical predictor.
+It has a background in the financial sector.
+Its main drawback is its reliance on a binary outcome, which is often common in that sector.
+
+It works by taking calculating the logarithm of the odds ratio, as a quantification of the relationship between the categorical predictor and the binary target.
+The method assigns the target levels as the good outcome and one as the bad outcome.
+Or target and no target.
+This choice doesn't matter beyond notation.
+Swapping these results in a sign change of the resulting numeric predictor.
+It uses the following formula:
+
+$$
+WOE_c = log\left( \frac{P(X = c | Y = 1)}{P(X = c | Y = 0)} \right)
+$$
+
+Where `c` represents a given level of the categorical predictor.
+We read it as the probability of a specific observation having a given level when the target has one level over the other level.
+
+We can run into bad values with this formula if there aren't enough counts.
+If $P(X = c | Y = 1) = 0$ we get undefined behavior when we take the logarithm, and if $P(X = c | Y = 0) = 0$ we get a division by 0 problem.
+Both of these issues are typically handled with the use of a Laplace value.
+This value, typically quite small is added to the numerator and denominator to avoid these issues.
+
+The resulting single numeric predictor takes non-infinite values.
+0 means that according to the training data set, the category doesn't have any information one way or another.
+Positive values mean a stronger relationship between the predictor and the "good" outcome, and negative values mean a stronger relationship to the "bad" outcome.
+Missing values and unseen levels typically default to have `WOE = 0` as we don't have information about them.
+One could get information out of missing values, by treating it as another level.
+
+The weight of evidence encoding has been reported to be effective for addressing imbalanced data sets, by capturing the minority class effectively.
+
+::: callout-note
+It is often stated that WOE can be used on numeric predictors by first discretizing the predictor and then applying this encoding.
+This is trivially true for all categorical methods but is not recommended as per @sec-numeric-binning.
 :::
 
 ## Pros and Cons
@@ -16,4 +52,57 @@ pagetitle: "Feature Engineering A-Z | Weight of Evidence Encoding"
 
 ## R Examples
 
+```{r}
+#| echo: false
+set.seed(1234)
+```
+
+```{r}
+#| message: false
+#| warning: false
+library(recipes)
+library(embed)
+
+data(ames, package = "modeldata")
+
+rec_target <- recipe(Street ~ Neighborhood, data = ames) |>
+  step_woe(Neighborhood, outcome = vars(Street)) |>
+  prep()
+
+rec_target |>
+  bake(new_data = NULL)
+```
+
+And we see that it works as intended, we can pull out the exact levels using the `tidy()` method
+
+```{r}
+rec_target |>
+  tidy(1)
+```
+
 ## Python Examples
+
+```{python}
+#| echo: false
+import pandas as pd
+from sklearn import set_config
+
+set_config(transform_output="pandas")
+pd.set_option('display.precision', 3)
+```
+
+We are using the `ames` data set for examples.
+{category_encoders} provided the `CatBoostEncoder()` method we can use.
+
+```{python}
+from feazdata import ames
+from sklearn.compose import ColumnTransformer
+from category_encoders.woe import WOEEncoder
+
+ct = ColumnTransformer(
+    [('WOEEncoding', WOEEncoder(), ['MS_Zoning'])], 
+    remainder="passthrough")
+
+ct.fit(ames, y=ames[["Street"]].values.flatten() == "Pave")
+ct.transform(ames).filter(regex="WOEEncoding.*")
+```
