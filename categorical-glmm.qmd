@@ -73,7 +73,7 @@ pd.set_option('display.precision', 3)
 ```
 
 We are using the `ames` data set for examples.
-{category_encoders} provided the `BinaryEncoder()` method we can use.
+{category_encoders} provided the `GLMMEncoder()` method we can use.
 
 ```{python}
 from feazdata import ames
