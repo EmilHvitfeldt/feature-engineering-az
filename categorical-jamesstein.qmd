@@ -2,18 +2,84 @@
 pagetitle: "Feature Engineering A-Z | James-Stein Encoding"
 ---
 
-# 🏗️ James-Stein Encoding {#sec-categorical-james-stein}
+# James-Stein Encoding {#sec-categorical-james-stein}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## James-Stein Encoding
 :::
 
+The James-Stein encoding method is another variation of target encoding as seen in @sec-categorical-target. This page will explain how the James-Stein encoding is different than target encoding, and it is thus encouraged to read that chapter first.
+
+The main difference between James-Stein and target encoding is the way it handles the shrinkage. It uses the variance of the groups and the global variance to denote the amount of shrinkage to apply. If the variance of the group is larger than the whole, then we pull the estimate close to the overall mean, if the group variance is smaller than the whole then we don't pull as much.
+
+For the following equation
+
+$$
+JS_i = (1 - B_i) * \text{mean}(y_i) + B * \text{mean}(y)
+$$
+
+we have that $JS_i$ is the James-Stein estimate for the $i$'th group, with $\text{mean}(y_i)$ being the mean of the $i$'th group of the target, and $\text{mean}(y)$ is the overall mean of the target.
+
+We now need to find $B_i$ which is our amount of shrinkage for each group. 
+
+$$
+B_i = \dfrac{\text{var}(y_i)}{\text{var}(y_i) + \text{var}(y)}
+$$
+
+Which when put into words are expressed as so.
+
+$$
+B_i = \dfrac{\text{group variance}}{\text{group variance} + \text{overall variance}}
+$$
+
+Since variances are non-negative, the value of $B_i$ is bounded between 0 and 1, with it being 0 when the group variance is 0 and tending towards 1 when the group variance is larger than the overall variance.
+
+All of the other considerations we have with target encoding apply to this method. There is no clear-cut reason why you should pick James-Stein over target encoding or vice versa. Trying both and seeing how it does is recommended.
+
 ## Pros and Cons
 
 ### Pros
 
+- Can deal with categorical variables with many levels
+- Can deal with unseen levels in a sensible way
+- Runs fast with sensible shrinkage
+- Less prone to overfitting that unkinked target encoding
+
 ### Cons
+
+- Only defined for normal distributions. Unsure whether this matters
 
 ## R Examples
 
+Not yet implemented
+
+```{r}
+1+1
+```
+
 ## Python Examples
+
+```{python}
+#| echo: false
+import pandas as pd
+from sklearn import set_config
+
+set_config(transform_output="pandas")
+pd.set_option('display.precision', 3)
+```
+
+We are using the `ames` data set for examples.
+{category_encoders} provided the `JamesSteinEncoder()` method we can use.
+
+```{python}
+from feazdata import ames
+from sklearn.compose import ColumnTransformer
+from category_encoders.james_stein import JamesSteinEncoder
+
+ct = ColumnTransformer(
+    [('jamesstein', JamesSteinEncoder(), ['MS_Zoning'])], 
+    remainder="passthrough")
+
+ct.fit(ames, y=ames[["Sale_Price"]].values.flatten())
+ct.transform(ames)
+```
