@@ -2,20 +2,81 @@
 pagetitle: "Feature Engineering A-Z | Thermometer Encoding"
 ---
 
-# 🏗️ Thermometer Encoding {#sec-categorical-thermometer}
+# Thermometer Encoding {#sec-categorical-thermometer}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## Thermometer Encoding
 :::
 
-also called Rank Hot Encoding
+**Thermometer encoding** (also called **Rank Hot Encoding**) is a variation of dummy encoding as seen in @sec-sec-categorical-dummy. It is intended only for ordinal data.
+
+Where one-hot encoding produces 1 for the current level and 0 for all other levels, thermometer encoding produces 1 for the current level and lesser levels and 0 for other levels.
+
+Considering this short ordinal variable of emotions, we observe there are 3 unique values "sad" < "neutral" < "happy". These values clearly have an order as listed.
+
+```{r}
+#| echo: false
+c("happy", "neutral", "neutral", "sad", "happy")
+```
+
+There should be 3 columns one for each of the levels. 
+
+```{r}
+#| echo: false
+dummy <- matrix(0L, nrow = 5, ncol = 3)
+colnames(dummy) <- c("sad", "neutral", "happy")
+dummy[1, seq_len(3)] <- 1L
+dummy[2, seq_len(2)] <- 1L
+dummy[3, seq_len(2)] <- 1L
+dummy[4, seq_len(1)] <- 1L
+dummy[5, seq_len(3)] <- 1L
+dummy
+```
+
+Notice how the happy instances have 1s all across and sad only has 1. You can think of this encoding as making this cumulative. Asking the question "is this emotion at least this X". 
 
 ## Pros and Cons
 
 ### Pros
 
+- explainable results
+- fast calculations
+
 ### Cons
+
+- should only be used for ordinal data
 
 ## R Examples
 
+Not implemented yet
+
+```{r}
+1 + 1
+```
+
 ## Python Examples
+
+```{python}
+#| echo: false
+import pandas as pd
+from sklearn import set_config
+
+set_config(transform_output="pandas")
+pd.set_option('display.precision', 3)
+```
+
+We are using the `ames` data set for examples.
+{category_encoders} provided the `RankHotEncoder()` method we can use.
+
+```{python}
+from feazdata import ames
+from sklearn.compose import ColumnTransformer
+from category_encoders.rankhot import RankHotEncoder
+
+ct = ColumnTransformer(
+    [('rankhot', RankHotEncoder(), ['MS_Zoning'])], 
+    remainder="passthrough")
+
+ct.fit(ames)
+ct.transform(ames).filter(regex="rankhot.*")
+```
