@@ -2,18 +2,69 @@
 pagetitle: "Feature Engineering A-Z | Quantile Encoding"
 ---
 
-# 🏗️ Quantile Encoding {#sec-categorical-quantile}
+# Quantile Encoding {#sec-categorical-quantile}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## Quantile Encoding
 :::
 
+Quantile encoding [@quantile2021], is a reimagined version of target encoding @sec-categorical-target and M-estimator encoding @sec-categorical-m-estimator that uses quantiles instead of means and M regulatization from M-estimator.
+
+Whereas target encoding uses the mean as an aggregation function, quantile encoding uses any quantile as its aggregation function. Most of the things we know about target encoding are also true for quantile encoding. The differences come with how quantiles differ from means. Quantiles are generally more robust to outliers, for quantiles away from the end. This same pattern is mirrored in quantile encoding.
+
+Quantile encoding is suggested to be paired with M-estimator style regularization to deal with the issue of having smaller groups.
+
+The following formula is used to calculate the quantile encodings.
+
+$$
+QE_i = \dfrac{q(category_i) \cdot n_i + q(whole) \cdot M}{n_i + M}
+$$
+
+$QE_i$ is the encoding value for the $i$'th category. $q(category_i)$ is the quantile of the values within the $i$'th category, $q(whole)$ is the quantile of the whole data set. $n_i$ is the number of observations in the $i$'th category and $M$ is the hyperparameter $M$ that handles the regularization.
+
+In essense we have 2 hyper parameters for this style on encoding, one is $M$ which we very much has to tune, and the other one is the quantile of choice. We could set the quantile to specific values, such as 0.5 for median, but tuning it is likely to give better results. But this again is a trade-off between computational time and performance.
+
 ## Pros and Cons
 
 ### Pros
 
+- less prone to outliers compared to target encoding
+
 ### Cons
+
+- has hyperparameters in need of tuning
 
 ## R Examples
 
+Not yet implemented
+
+```{r}
+1 + 1
+```
+
 ## Python Examples
+
+```{python}
+#| echo: false
+import pandas as pd
+from sklearn import set_config
+
+set_config(transform_output="pandas")
+pd.set_option('display.precision', 3)
+```
+
+We are using the `ames` data set for examples.
+{category_encoders} provided the `QuantileEncoder()` method we can use.
+
+```{python}
+from feazdata import ames
+from sklearn.compose import ColumnTransformer
+from category_encoders.quantile_encoder import QuantileEncoder
+
+ct = ColumnTransformer(
+    [('quantile', QuantileEncoder(), ['MS_Zoning'])], 
+    remainder="passthrough")
+
+ct.fit(ames, y=ames[["Sale_Price"]].values.flatten())
+ct.transform(ames)
+```
