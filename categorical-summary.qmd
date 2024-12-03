@@ -2,18 +2,58 @@
 pagetitle: "Feature Engineering A-Z | Summary Encoding"
 ---
 
-# 🏗️ Summary Encoding {#sec-categorical-summary}
+# Summary Encoding {#sec-categorical-summary}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## Summary Encoding
 :::
 
+You can repeat quantile encoding @sec-categorical-quantile, using using different quantiles for more information extraction, e.i. with 0.25, 0.5, and 0.75 quantile. This is called **summary encoding**.
+
+One of the downsides of quantile encoding is that you need to pick or tune to find a good quantile. Summary encoding curcomvents this issue by calculating a lot of quantiles at the same time.
+
 ## Pros and Cons
 
 ### Pros
 
+- Less tuning than quantile encoding
+
 ### Cons
+
+- More computational than quantile encoding
+- chance of producing correlated or redundant features
 
 ## R Examples
 
+Not yet implemented
+
+```{r}
+1 + 1
+```
+
 ## Python Examples
+
+```{python}
+#| echo: false
+import pandas as pd
+from sklearn import set_config
+
+set_config(transform_output="pandas")
+pd.set_option('display.precision', 3)
+```
+
+We are using the `ames` data set for examples.
+{category_encoders} provided the `SummaryEncoder()` method we can use.
+
+```{python}
+from feazdata import ames
+from sklearn.compose import ColumnTransformer
+from category_encoders.quantile_encoder import SummaryEncoder
+
+ct = ColumnTransformer(
+    [('summary', SummaryEncoder(), ['MS_Zoning'])], 
+    remainder="passthrough")
+
+ct.fit(ames, y=ames[["Sale_Price"]].values.flatten())
+ct.transform(ames)
+```

@@ -1,0 +1,95 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "pagetitle: \"Feature Engineering A-Z | Summary Encoding\"\n",
+        "---\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "# Summary Encoding {#sec-categorical-summary}\n",
+        "\n",
+        "::: {style=\"visibility: hidden; height: 0px;\"}\n",
+        "## Summary Encoding\n",
+        ":::\n",
+        "\n",
+        "You can repeat quantile encoding @sec-categorical-quantile, using using different quantiles for more information extraction, e.i. with 0.25, 0.5, and 0.75 quantile. This is called **summary encoding**.\n",
+        "\n",
+        "One of the downsides of quantile encoding is that you need to pick or tune to find a good quantile. Summary encoding curcomvents this issue by calculating a lot of quantiles at the same time.\n",
+        "\n",
+        "## Pros and Cons\n",
+        "\n",
+        "### Pros\n",
+        "\n",
+        "- Less tuning than quantile encoding\n",
+        "\n",
+        "### Cons\n",
+        "\n",
+        "- More computational than quantile encoding\n",
+        "- chance of producing correlated or redundant features\n",
+        "\n",
+        "## R Examples\n",
+        "\n",
+        "## Python Examples\n"
+      ],
+      "id": "75fc9849"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| echo: false\n",
+        "import pandas as pd\n",
+        "from sklearn import set_config\n",
+        "\n",
+        "set_config(transform_output=\"pandas\")\n",
+        "pd.set_option('display.precision', 3)"
+      ],
+      "id": "ac6f6143",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "We are using the `ames` data set for examples.\n",
+        "{category_encoders} provided the `SummaryEncoder()` method we can use.\n"
+      ],
+      "id": "d446832c"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "from feazdata import ames\n",
+        "from sklearn.compose import ColumnTransformer\n",
+        "from category_encoders.quantile_encoder import SummaryEncoder\n",
+        "\n",
+        "ct = ColumnTransformer(\n",
+        "    [('summary', SummaryEncoder(), ['MS_Zoning'])], \n",
+        "    remainder=\"passthrough\")\n",
+        "\n",
+        "ct.fit(ames, y=ames[[\"Sale_Price\"]].values.flatten())\n",
+        "ct.transform(ames)"
+      ],
+      "id": "b83dcbdd",
+      "execution_count": null,
+      "outputs": []
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "/Users/emilhvitfeldt/.virtualenvs/feaz-book/share/jupyter/kernels/python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
