@@ -35,6 +35,8 @@ dummy
 
 Notice how the happy instances have 1s all across and sad only has 1. You can think of this encoding as making this cumulative. Asking the question "is this emotion at least this X". 
 
+While this method is often called rank hot encoding, you should use the dummy variant, since the first column produced by definition will be constant. 
+
 ## Pros and Cons
 
 ### Pros
