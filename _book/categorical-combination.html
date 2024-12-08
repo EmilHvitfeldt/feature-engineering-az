@@ -71,6 +71,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <meta property="og:title" content="Feature Engineering A-Z | Categorical Combinations">
+<meta property="og:description" content="">
 <meta property="og:site_name" content="Feature Engineering A-Z">
 </head>
 
@@ -83,7 +84,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./categorical.html">Categorical Features</a></li><li class="breadcrumb-item"><a href="./categorical-combination.html"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">🏗️ Combination</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./categorical.html">Categorical Features</a></li><li class="breadcrumb-item"><a href="./categorical-combination.html"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Categorical Combination</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -356,7 +357,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./categorical-combination.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">🏗️ Combination</span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Categorical Combination</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1202,7 +1203,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#combination" id="toc-combination" class="nav-link active" data-scroll-target="#combination"><span class="header-section-number">36.1</span> Combination</a></li>
+  <li><a href="#categorical-combination" id="toc-categorical-combination" class="nav-link active" data-scroll-target="#categorical-combination"><span class="header-section-number">36.1</span> Categorical Combination</a></li>
   <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link" data-scroll-target="#pros-and-cons"><span class="header-section-number">36.2</span> Pros and Cons</a>
   <ul class="collapse">
   <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">36.2.1</span> Pros</a></li>
@@ -1216,9 +1217,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./categorical.html">Categorical Features</a></li><li class="breadcrumb-item"><a href="./categorical-combination.html"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">🏗️ Combination</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./categorical.html">Categorical Features</a></li><li class="breadcrumb-item"><a href="./categorical-combination.html"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Categorical Combination</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-categorical-combination" class="quarto-section-identifier"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">🏗️ Combination</span></span></h1>
+<h1 class="title"><span id="sec-categorical-combination" class="quarto-section-identifier"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Categorical Combination</span></span></h1>
 </div>
 
 
@@ -1235,23 +1236,79 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="combination" class="level2" style="visibility: hidden; height: 0px;" data-number="36.1">
-<h2 data-number="36.1" class="anchored" data-anchor-id="combination"><span class="header-section-number">36.1</span> Combination</h2>
+<section id="categorical-combination" class="level2" style="visibility: hidden; height: 0px;" data-number="36.1">
+<h2 data-number="36.1" class="anchored" data-anchor-id="categorical-combination"><span class="header-section-number">36.1</span> Categorical Combination</h2>
 </section>
+<p>When you have multiple categorical variables, it might be the case that you want to see whether certain levels co-occur. For the variables <code>day_of_week</code> and <code>weather</code>, finding <code>"rainy Monday"</code>s can be hard for some model types.</p>
+<p><strong>Categorical combination</strong> does what the name suggests. We are combining categorical variables one to one. We would multiply two numeric variables much the same way. The following table shows how we would combine a day of the week and weather variable.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">dow</th>
+<th style="text-align: left;">weather</th>
+<th style="text-align: left;">dow_weather</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">monday</td>
+<td style="text-align: left;">sunny</td>
+<td style="text-align: left;">monday_sunny</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tuesday</td>
+<td style="text-align: left;">rainy</td>
+<td style="text-align: left;">tuesday_rainy</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">wednesday</td>
+<td style="text-align: left;">cloudy</td>
+<td style="text-align: left;">wednesday_cloudy</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">thursday</td>
+<td style="text-align: left;">sunny</td>
+<td style="text-align: left;">thursday_sunny</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">friday</td>
+<td style="text-align: left;">sunny</td>
+<td style="text-align: left;">friday_sunny</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>We noticed a couple of things during this interaction. The first thing is that the number of unique levels goes up multiplicatively, so the newly created variable will include many levels. Depending on what the original variables encode, you will get impossible combinations or rarely occurring levels. This can be handled partly using <a href="categorical-collapse.html" class="quarto-xref"><span>Chapter 35</span></a>.</p>
+<p>It is not guaranteed that the combination feature is going to be better than the individual features before. It can be beneficial to keep both the individual features as long as the combination feature. In the above example, you can imagine that Fridays and rainy Mondays are high signals. If that is the case, then keeping all variables would be the best decision.</p>
+<p>This method is not confined to just 2 variables, you could combine as many variables as you want. But the problems described with increased number of levels will be exacerbated.</p>
+<p>This method will be hard to automatically employ and will thus need to be done manually. Despite this, it can provide a good boost in performance when done right.</p>
 <section id="pros-and-cons" class="level2" data-number="36.2">
 <h2 data-number="36.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">36.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="36.2.1">
 <h3 data-number="36.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">36.2.1</span> Pros</h3>
+<ul>
+<li>Easy to perform</li>
+<li>Produces easily explanatory features</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="36.2.2">
 <h3 data-number="36.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">36.2.2</span> Cons</h3>
+<ul>
+<li>Can’t be done automatically</li>
+<li>Produces categorical variables with many levels</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="36.3">
 <h2 data-number="36.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">36.3</span> R Examples</h2>
+<p>To be implemented</p>
 </section>
 <section id="python-examples" class="level2" data-number="36.4">
 <h2 data-number="36.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">36.4</span> Python Examples</h2>
+<p>I haven’t looked yet.</p>
 
 
 </section>
