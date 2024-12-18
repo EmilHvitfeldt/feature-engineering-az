@@ -2,18 +2,131 @@
 pagetitle: "Feature Engineering A-Z | Multi-Dummy Encoding"
 ---
 
-# 🏗️ Multi-Dummy Encoding {#sec-categorical-multi-dummy}
+# Multi-Dummy Encoding {#sec-categorical-multi-dummy}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## Multi-Dummy Encoding
 :::
 
+This chapter will cover what I like to call **multi-dummy encoding**.
+When you are able to extract multiple entries from one categorical variable or combine entries from multiple categorical variables.
+
+I find that this is best explained by example.
+We will start with **combining entries** from multiple variables.
+Imagine that you see this subsection in your data, perhaps denoting some individual's language proficiencies.
+How would you encode it?
+
+```{r}
+#| echo: false
+data.frame(
+ first = c("english", "danish", "spanish", "spanish"),
+ second = c("danish", "english", "", "english"),
+ third = c("", "german", "", "")
+) |>
+ knitr::kable()
+```
+
+One could apply dummy variables @sec-categorical-dummy on each of them individually, but that could potentially create a lot of columns as you would expect a near-equal number of levels produced from each variable.
+You could target encode the variables @sec-categorical-target, but that too feels insufficient.
+What these methods don't take into account is that there is some shared information between these variables that isn't being picked up.
+
+We can use the shared information to our advantage.
+The levels used in these categorical variables are likely the same, so we can treat them combined.
+In practice, this means that we count over all selected columns, and add dummies or counts accordingly.
+
+```{r}
+#| echo: false
+data.frame(
+ danish = c(1, 1, 0, 0),
+ english = c(1, 1, 0, 1),
+ german = c(0, 1, 0, 0),
+ spanish = c(0, 0, 1, 1)
+) |>
+ knitr::kable()
+```
+
+This style of transformation often provides zero-one indicators rather than counts purely because of the construction of the data.
+But it doesn't mean that counts can't happen.
+Make sure that the implementation you are using matches the expectations you have for the data.
+
+::: callout-note
+This data configuration often contains missing values.
+Above is represented by emptiness.
+Be advised to make sure the tools you are using understand the designation.
+:::
+
+One thing that is lost in the method is the potential ordering of the variables.
+The above example has a natural ordering, indicative by the names of the variables.
+Depending on how important you think the ordering is, one could add a weighting scheme like below.
+
+```{r}
+#| echo: false
+data.frame(
+ danish = c(0.5, 1, 0, 0),
+ english = c(1, 0.5, 0, 0.5),
+ german = c(0, 0.25, 0, 0),
+ spanish = c(0, 0, 1, 1)
+) |>
+ knitr::kable()
+```
+
+::: callout-tip
+you need to remember what 0 means here.
+The weighting scheme should take that into account.
+One could opt to use a linear weight, but make sure that the first column has the highest value, instead of starting at 1 and going up.
+:::
+
+Next, we look at **extracting multiple entries**.
+This can be seen as a convenient shorthand for text extraction, as is discussed in @sec-text.
+I find that this pattern emerges enough by itself that it is worth denoting it as its own method.
+
+The above example could instead be structured so
+
+```{r}
+#| echo: false
+tibble::tribble(
+  ~languages,
+  "english, danish",
+  "danish, english, german",
+  "spanish",
+  "spanish, english"
+) |>
+ knitr::kable()
+```
+
+We can pull out the same counts as before, using regular expressions.
+One could pull out the entries in two main ways, by **splitting** or **extraction**.
+We could either split by `,` or extract sequences of characters `[a-z]*`.
+
+With splitting, you can sometimes extract a lot of signal if you have a carefully crafted regular expression.
+Consider the following list of materials and mediums for a number of art pieces.
+
+```{r}
+data("tate_text", package = "modeldata")
+tate_text[32:35, 4] |>
+ knitr::kable()
+```
+
+At first glance, they appear quite unstructured, but by splitting on `(, )|( and )|( on )` you get the following mediums and techniques `[canvas, etching, lithograph, oil paint, painted steel, paper, salt]`.
+
 ## Pros and Cons
 
 ### Pros
 
+-   Can provide increased signal
+
 ### Cons
+
+-   Less commonly occurring
+-   Requires careful eye and hand tuning
 
 ## R Examples
 
+https://recipes.tidymodels.org/reference/step_dummy_multi_choice.html https://recipes.tidymodels.org/reference/step_dummy_extract.html
+
+Wait for adoption data set
+
 ## Python Examples
+
+I'm not aware of a good way to do this in a scikit-learn way.
+Please file an [issue on github](https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new?assignees=&labels=&projects=&template=general-issue.md&title) if you know of a good way.
