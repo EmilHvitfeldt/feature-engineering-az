@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -71,6 +105,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <meta property="og:title" content="Feature Engineering A-Z | Multi-Dummy Encoding">
+<meta property="og:description" content="">
 <meta property="og:site_name" content="Feature Engineering A-Z">
 </head>
 
@@ -83,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./categorical.html">Categorical Features</a></li><li class="breadcrumb-item"><a href="./categorical-multi-dummy.html"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">🏗️ Multi-Dummy Encoding</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./categorical.html">Categorical Features</a></li><li class="breadcrumb-item"><a href="./categorical-multi-dummy.html"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Multi-Dummy Encoding</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -362,7 +397,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./categorical-multi-dummy.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">🏗️ Multi-Dummy Encoding</span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Multi-Dummy Encoding</span></span></a>
   </div>
 </li>
       </ul>
@@ -1216,9 +1251,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./categorical.html">Categorical Features</a></li><li class="breadcrumb-item"><a href="./categorical-multi-dummy.html"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">🏗️ Multi-Dummy Encoding</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./categorical.html">Categorical Features</a></li><li class="breadcrumb-item"><a href="./categorical-multi-dummy.html"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Multi-Dummy Encoding</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-categorical-multi-dummy" class="quarto-section-identifier"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">🏗️ Multi-Dummy Encoding</span></span></h1>
+<h1 class="title"><span id="sec-categorical-multi-dummy" class="quarto-section-identifier"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Multi-Dummy Encoding</span></span></h1>
 </div>
 
 
@@ -1238,20 +1273,235 @@ ul.task-list li input[type="checkbox"] {
 <section id="multi-dummy-encoding" class="level2" style="visibility: hidden; height: 0px;" data-number="37.1">
 <h2 data-number="37.1" class="anchored" data-anchor-id="multi-dummy-encoding"><span class="header-section-number">37.1</span> Multi-Dummy Encoding</h2>
 </section>
+<p>This chapter will cover what I like to call <strong>multi-dummy encoding</strong>. When you are able to extract multiple entries from one categorical variable or combine entries from multiple categorical variables.</p>
+<p>I find that this is best explained by example. We will start with <strong>combining entries</strong> from multiple variables. Imagine that you see this subsection in your data, perhaps denoting some individual’s language proficiencies. How would you encode it?</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">first</th>
+<th style="text-align: left;">second</th>
+<th style="text-align: left;">third</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">english</td>
+<td style="text-align: left;">danish</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">danish</td>
+<td style="text-align: left;">english</td>
+<td style="text-align: left;">german</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">spanish</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">spanish</td>
+<td style="text-align: left;">english</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>One could apply dummy variables <a href="categorical-dummy.html" class="quarto-xref"><span>Chapter 18</span></a> on each of them individually, but that could potentially create a lot of columns as you would expect a near-equal number of levels produced from each variable. You could target encode the variables <a href="categorical-target.html" class="quarto-xref"><span>Chapter 23</span></a>, but that too feels insufficient. What these methods don’t take into account is that there is some shared information between these variables that isn’t being picked up.</p>
+<p>We can use the shared information to our advantage. The levels used in these categorical variables are likely the same, so we can treat them combined. In practice, this means that we count over all selected columns, and add dummies or counts accordingly.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">danish</th>
+<th style="text-align: right;">english</th>
+<th style="text-align: right;">german</th>
+<th style="text-align: right;">spanish</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>This style of transformation often provides zero-one indicators rather than counts purely because of the construction of the data. But it doesn’t mean that counts can’t happen. Make sure that the implementation you are using matches the expectations you have for the data.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This data configuration often contains missing values. Above is represented by emptiness. Be advised to make sure the tools you are using understand the designation.</p>
+</div>
+</div>
+<p>One thing that is lost in the method is the potential ordering of the variables. The above example has a natural ordering, indicative by the names of the variables. Depending on how important you think the ordering is, one could add a weighting scheme like below.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">danish</th>
+<th style="text-align: right;">english</th>
+<th style="text-align: right;">german</th>
+<th style="text-align: right;">spanish</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.25</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>you need to remember what 0 means here. The weighting scheme should take that into account. One could opt to use a linear weight, but make sure that the first column has the highest value, instead of starting at 1 and going up.</p>
+</div>
+</div>
+<p>Next, we look at <strong>extracting multiple entries</strong>. This can be seen as a convenient shorthand for text extraction, as is discussed in <a href="text.html" class="quarto-xref"><span>Chapter 47</span></a>. I find that this pattern emerges enough by itself that it is worth denoting it as its own method.</p>
+<p>The above example could instead be structured so</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">languages</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">english, danish</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">danish, english, german</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">spanish</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">spanish, english</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>We can pull out the same counts as before, using regular expressions. One could pull out the entries in two main ways, by <strong>splitting</strong> or <strong>extraction</strong>. We could either split by <code>,</code> or extract sequences of characters <code>[a-z]*</code>.</p>
+<p>With splitting, you can sometimes extract a lot of signal if you have a carefully crafted regular expression. Consider the following list of materials and mediums for a number of art pieces.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"tate_text"</span>, <span class="at">package =</span> <span class="st">"modeldata"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>tate_text[<span class="dv">32</span><span class="sc">:</span><span class="dv">35</span>, <span class="dv">4</span>] <span class="sc">|&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a> knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">medium</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Oil paint on canvas</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Painted steel and salt</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Etching on paper</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lithograph on paper</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>At first glance, they appear quite unstructured, but by splitting on <code>(, )|( and )|( on )</code> you get the following mediums and techniques <code>[canvas, etching, lithograph, oil paint, painted steel, paper, salt]</code>.</p>
 <section id="pros-and-cons" class="level2" data-number="37.2">
 <h2 data-number="37.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">37.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="37.2.1">
 <h3 data-number="37.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">37.2.1</span> Pros</h3>
+<ul>
+<li>Can provide increased signal</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="37.2.2">
 <h3 data-number="37.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">37.2.2</span> Cons</h3>
+<ul>
+<li>Less commonly occurring</li>
+<li>Requires careful eye and hand tuning</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="37.3">
 <h2 data-number="37.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">37.3</span> R Examples</h2>
+<p>https://recipes.tidymodels.org/reference/step_dummy_multi_choice.html https://recipes.tidymodels.org/reference/step_dummy_extract.html</p>
+<p>Wait for adoption data set</p>
 </section>
 <section id="python-examples" class="level2" data-number="37.4">
 <h2 data-number="37.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">37.4</span> Python Examples</h2>
+<p>I’m not aware of a good way to do this in a scikit-learn way. Please file an <a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new?assignees=&amp;labels=&amp;projects=&amp;template=general-issue.md&amp;title">issue on github</a> if you know of a good way.</p>
 
 
 </section>
