@@ -216,13 +216,13 @@ statsmodels = ">=0.11.1"
 
 [[package]]
 name = "feazdata"
-version = "0.0.1"
+version = "0.0.2"
 description = "Data sets for Feature Enginering A-Z"
 optional = false
 python-versions = ">3.8"
 files = [
-    {file = "feazdata-0.0.1-py2.py3-none-any.whl", hash = "sha256:0f73462f2d4270faa6378fd837074eceaf3b9fb30bb39a9e6a14715d63f41ef8"},
-    {file = "feazdata-0.0.1.tar.gz", hash = "sha256:eba1ca4ebfb34154d3958d02190ce26dfd71b70bb16ca6401956a7f909f9ae01"},
+    {file = "feazdata-0.0.2-py2.py3-none-any.whl", hash = "sha256:533b5887dfb6324526f948d9b6857dc1d945445a2381f3e3dd34ec75fa298938"},
+    {file = "feazdata-0.0.2.tar.gz", hash = "sha256:342eb16583d514d41bef3d514dfc079d5bcefe840aaf50523b088ac1b44f8ecf"},
 ]
 
 [package.dependencies]
@@ -1142,4 +1142,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "8b3ccbfde881f3ba2a098898d67634444682df6bdb2c9be6f3711612c484d961"
+content-hash = "811a683e488fdaa63efcc37de9ce7112ed56172719de61824edbbd22e67177f0"
