@@ -24,6 +24,7 @@ The first issue can be quite a common one.
 See the below distribution as an example
 
 ```{r}
+#| label: dist-exterior_2nd
 #| message: false
 #| echo: false
 library(dplyr)
@@ -51,6 +52,7 @@ This is where collapsing can come into play.
 The method takes the most infrequent levels and combines them into one, typically called `"other"`.
 
 ```{r}
+#| label: dist-exterior_2nd-other
 #| echo: false
 ames |>
   mutate(Exterior_2nd = forcats::fct_lump_prop(Exterior_2nd, 0.025)) |>
@@ -88,6 +90,7 @@ then we let the decision tree run, and the way the tree splits the data is how w
 This is done below as an example:
 
 ```{r}
+#| label: step_collapse_cart
 #| message: false
 #| echo: false
 library(embed)
@@ -125,6 +128,7 @@ Also talk about min-hash encoder <https://arxiv.org/abs/1907.01860> <https://arx
 :::
 
 ```{r}
+#| label: step_collapse_stringdist
 #| echo: false
 library(embed)
 
@@ -186,11 +190,13 @@ find a better data set for examples
 Othering can be done using the `step_other()` function, it uses the argument `threshold` to determine the cutoff used to turn levels into `"other"` or not.
 
 ```{r}
+#| label: set-seed
 #| echo: false
 set.seed(1234)
 ```
 
 ```{r}
+#| label: step_other
 library(recipes)
 library(embed)
 
@@ -207,6 +213,7 @@ rec_other |>
 selecting a higher threshold turns more levels into `"other"`.
 
 ```{r}
+#| label: step_other-threshold-higher
 rec_other <- recipe(Sale_Price ~ Exterior_2nd, data = ames) |>
   step_other(Exterior_2nd, threshold = 0.5) |>
   prep()
@@ -220,6 +227,7 @@ To collapse levels by their string distance, we use the `step_collapse_stringdis
 By default, you control it with the `distance` argument.
 
 ```{r}
+#| label: step_collapse_stringdist-distance
 rec_stringdist <- recipe(Sale_Price ~ Exterior_2nd, data = ames) |>
   step_collapse_stringdist(Exterior_2nd, distance = 5) |>
   prep()
@@ -232,6 +240,7 @@ Unsurprisingly, there are almost a dozen different ways to calculate the distanc
 Most are supported and can be changed using the `method` argument, and further controlled using the `options` argument.
 
 ```{r}
+#| label: step_collapse_stringdist-options
 rec_stringdist <- recipe(Sale_Price ~ Exterior_2nd, data = ames) |>
   step_collapse_stringdist(Exterior_2nd, 
                            distance = 0.75, 
@@ -248,6 +257,7 @@ For this to work, you need to select an outcome variable using the `outcome` arg
 With `cost_complexity` and `min_n` as arguments to change the shape of the tree.
 
 ```{r}
+#| label: step_collapse_cart-example
 rec_cart <- recipe(Sale_Price ~ Exterior_2nd, data = ames) |>
   step_collapse_cart(Exterior_2nd, outcome = vars(Sale_Price)) |>
   prep()

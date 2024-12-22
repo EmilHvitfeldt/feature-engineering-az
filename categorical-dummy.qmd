@@ -15,6 +15,7 @@ This is nicely shown with an example.
 Considering this short categorical variable of animals, we observe there are 3 unique values "cat", "dog", and "horse".
 
 ```{r}
+#| label: cat-dog-vector
 #| echo: false
 c("dog", "cat", "horse", "dog", "cat")
 ```
@@ -23,6 +24,7 @@ With just this knowledge we can create the corresponding dummy variables.
 There should be 3 columns one for each of the levels
 
 ```{r}
+#| label: onehot-example
 #| echo: false
 dummy <- matrix(0L, nrow = 5, ncol = 3)
 colnames(dummy) <- c("cat", "dog", "horse")
@@ -49,6 +51,7 @@ This means that during the training step, the levels of each categorical variabl
 If we assumed that the above example data were used to train the preprocessor, and we passed in the values `["dog", "cat", "cat", "dog"]` during future applications, we would expect the following dummy variables
 
 ```{r}
+#| label: dummy-example
 #| echo: false
 dummy <- matrix(0L, nrow = 4, ncol = 3)
 colnames(dummy) <- c("cat", "dog", "horse")
@@ -76,6 +79,7 @@ One-hot encoding is when you return `k` variables when you have `k` different le
 Like we have shown above
 
 ```{r}
+#| label: onehot-example-two
 #| echo: false
 dummy <- matrix(0L, nrow = 5, ncol = 3)
 colnames(dummy) <- c("cat", "dog", "horse")
@@ -90,6 +94,7 @@ dummy
 Dummy encoding on the other hand returns `k-1` variables, where the excluded one typically is the first one.
 
 ```{r}
+#| label: dummy-example-two
 #| echo: false
 dummy <- matrix(0L, nrow = 5, ncol = 2)
 colnames(dummy) <- c("dog", "horse")
@@ -113,6 +118,7 @@ Even if you don't include an intercept you could still run into collinearity.
 Imagine that in addition to the `animal` variable also creates a one-hot encoding of the `home` variable taking the two values `"house"` and `"apartment"`, you would get the following indicator variables
 
 ```{r}
+#| label: dummy-animal-home
 #| echo: false
 animal <- matrix(0L, nrow = 5, ncol = 3)
 colnames(animal) <- c("cat", "dog", "horse")
@@ -177,12 +183,14 @@ We will be using the `ames` data set for these examples.
 The `step_dummy()` function allows us to perform dummy encoding and one-hot encoding.
 
 ```{r}
+#| label: set-seed
 #| echo: false
 set.seed(1234)
 # To avoid changing recipe ID columns
 ```
 
 ```{r}
+#| label: show-data
 #| message: false
 library(recipes)
 library(modeldata)
@@ -195,6 +203,7 @@ ames |>
 We can take a quick look at the possible values `MS_SubClass` takes
 
 ```{r}
+#| label: count-ms_subclass
 ames |>
   count(MS_SubClass, sort = TRUE)
 ```
@@ -202,12 +211,14 @@ ames |>
 And since `MS_SubClass` is a factor, we can verify that they match and that all the levels are observed
 
 ```{r}
+#| label: ms_subclass-levels
 ames |> pull(MS_SubClass) |> levels()
 ```
 
 We will be using the `step_dummy()` step for this, which defaults to creating dummy variables
 
 ```{r}
+#| label: step_dummy
 dummy_rec <- recipe(Sale_Price ~ ., data = ames) |>
   step_dummy(all_nominal_predictors()) |>
   prep()
@@ -221,6 +232,7 @@ We can pull the factor levels for each variable by using `tidy()`.
 If a character vector was present in the data set, it would record the observed variables.
 
 ```{r}
+#| label: tidy
 dummy_rec |>
   tidy(1)
 ```
@@ -228,6 +240,7 @@ dummy_rec |>
 setting `one_hot = TRUE` gives us the complete one-hot encoding results.
 
 ```{r}
+#| label: step_dummy-one_hot
 onehot_rec <- recipe(Sale_Price ~ ., data = ames) |>
   step_dummy(all_nominal_predictors(), one_hot = TRUE) |>
   prep()
@@ -240,6 +253,7 @@ onehot_rec |>
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -257,6 +271,7 @@ We are setting `sparse_output=False` in this example because we are having `tran
 :::
 
 ```{python}
+#| label: onehotencoder
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder
@@ -272,6 +287,7 @@ ct.transform(ames).filter(regex=("MS_Zoning.*"))
 By default `OneHotEncoder()` performs one-hot encoding, we can change this to dummy encoding by setting `drop='first'`.
 
 ```{python}
+#| label: onehotencoder-drop-first
 ct = ColumnTransformer(
     [('dummy', OneHotEncoder(sparse_output=False, drop='first'), ['MS_Zoning'])], 
     remainder="passthrough")

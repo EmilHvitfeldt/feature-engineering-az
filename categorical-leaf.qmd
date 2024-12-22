@@ -15,6 +15,7 @@ This should work in both classification and regression settings, but they serve 
 Suppose we use leaf encoding on the `MS_SubClass` predictor of the `ames` data set, using the numeric target `Sale_Price`. A possible fitted tree on that data would yield the following encoding table.
 
 ```{r}
+#| label: leaf-table-reg
 #| echo: false
 library(tidymodels)
 set.seed(1234)
@@ -38,6 +39,7 @@ This table has `r dplyr::n_distinct(res$leaf)` different values, meaning that th
 Instead, let's see what happens if we choose a categorical target. Using the same `MS_SubClass` predictor, but instead using the categorical variable `Lot_Shape` as the target.
 
 ```{r}
+#| label: leaf-table-class
 #| echo: false
 library(tidymodels)
 set.seed(1234)
@@ -86,6 +88,7 @@ To be implemented
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -98,6 +101,7 @@ We are using the `ames` data set for examples.
 {feature_engine} provided the `YeoJohnsonTransformer()` that we can use.
 
 ```{python}
+#| label: decisiontreeencoder
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from feature_engine.encoding import DecisionTreeEncoder

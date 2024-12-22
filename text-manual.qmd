@@ -52,6 +52,7 @@ find a better data set
 The [textfeatures]() package is one package in R that contains a bunch of general features that may or may not be useful.
 
 ```{r}
+#| label: textfeatures
 #| message: false
 library(textfeatures)
 library(modeldata)

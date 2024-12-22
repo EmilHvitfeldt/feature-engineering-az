@@ -45,6 +45,7 @@ The SMART stop word list contains `r length(stopwords::data_stopwords_smart$en)`
 The first 25 stop words alphabetically from the SMART list are shown here
 
 ```{r}
+#| label: data_stopwords_smart
 #| echo: false
 library(stopwords)
 
@@ -54,6 +55,7 @@ head(sort(stopwords::data_stopwords_smart$en), 25)
 with the first 25 words from the Snowball list shown here.
 
 ```{r}
+#| label: data_stopwords_snowball
 #| echo: false
 head(sort(stopwords::data_stopwords_snowball$en), 25)
 ```

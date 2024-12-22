@@ -23,6 +23,7 @@ Figure out how to properly reference https://twitter.com/camfassett/status/15755
 Look at the following vector of spellings of St Albans, the city in England.
 
 ```{r}
+#| label: example-vector
 #| echo: false
 st_albans <- c("St Albans", "St. Albans", "St  Alban", "st albans", "St. Alban", "St Albans ", "st Albans")
 st_albans
@@ -49,6 +50,7 @@ A common trick is to either turn everything upper-case or lower-case.
 I prefer to lower-casing as I find the results easier to read.
 
 ```{r}
+#| label: st_albons-tolower
 #| echo: false
 st_albans <- st_albans |>
   tolower() |>
@@ -61,6 +63,7 @@ Next, we see that some of these spellings include periods.
 For this example, I'm going to decide that they are safe to remove as well.
 
 ```{r}
+#| label: st_albons-str_remove
 #| echo: false
 st_albans <- st_albans |>
   stringr::str_remove("\\.") |>
@@ -76,6 +79,7 @@ Likewise, the last spelling has a trailing space.
 Let us fix this as well.
 
 ```{r}
+#| label: st_albans-str_squish
 #| echo: false
 st_albans <- st_albans |>
   stringr::str_squish() |>
@@ -120,6 +124,7 @@ Use janitor
 `textrecipes::step_clean_levels()`
 
 ```{r}
+#| label: elevators-dv_manufacturer-stringdist
 #| eval: false
 #| echo: false
 library(tidyverse)
@@ -142,6 +147,7 @@ elevators::elevators_raw |>
 ```
 
 ```{r}
+#| label: elevators-dv_manufacturer-table
 #| eval: false
 #| echo: false
 library(tidyverse)
@@ -157,6 +163,7 @@ elevators::elevators_raw |>
 ```
 
 ```{r}
+#| label: wine_ratings
 #| eval: false
 #| echo: false
 wine_ratings <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-05-28/winemag-data-130k-v2.csv")

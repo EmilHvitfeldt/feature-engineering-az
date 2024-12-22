@@ -45,12 +45,14 @@ We will be using the `ames` data set for these examples.
 The `step_encoding_frequency()` function from the [extrasteps](https://github.com/emilhvitfeldt/extrasteps) package allows us to perform frequency encoding.
 
 ```{r}
+#| label: set-seed
 #| echo: false
 set.seed(1234)
 # To avoid changing recipe ID columns
 ```
 
 ```{r}
+#| label: show-data
 #| message: false
 library(recipes)
 library(extrasteps)
@@ -64,6 +66,7 @@ ames |>
 We can take a quick look at the possible values `MS_SubClass` takes
 
 ```{r}
+#| label: count-ms_subclass
 ames |>
   count(MS_SubClass, sort = TRUE)
 ```
@@ -72,6 +75,7 @@ We can then apply frequency encoding using `step_encoding_frequency()`.
 Notice how we only get 1 numeric variable for each categorical variable
 
 ```{r}
+#| label: step_encoding_frequency
 dummy_rec <- recipe(Sale_Price ~ ., data = ames) |>
   step_encoding_frequency(all_nominal_predictors()) |>
   prep()
@@ -84,6 +88,7 @@ dummy_rec |>
 We can pull the frequencies for each level of each variable by using `tidy()`.
 
 ```{r}
+#| label: tidy
 dummy_rec |>
   tidy(1)
 ```
@@ -91,6 +96,7 @@ dummy_rec |>
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -104,6 +110,7 @@ We are using the `ames` data set for examples.
 This performs count encoding, which we know is functionally equivalent to frequency encoding.
 
 ```{python}
+#| label: countencoder
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from category_encoders.count import CountEncoder

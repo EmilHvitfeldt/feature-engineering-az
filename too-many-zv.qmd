@@ -82,11 +82,13 @@ find a good data set
 Below we are using the `step_zv()` function to remove
 
 ```{r}
-#| echo: false
+#| label: set-seed
+#| echo: false 
 set.seed(1234)
 ```
 
 ```{r}
+#| label: step_zv
 #| message: false
 library(recipes)
 
@@ -100,6 +102,7 @@ zv_rec <- recipe(Sale_Price ~ ., data = ames) |>
 We can use the `tidy()` method to find out which variables were removed
 
 ```{r}
+#| label: tidy
 zv_rec |>
   tidy(1)
 ```
@@ -107,6 +110,7 @@ zv_rec |>
 We can remove non-zero variance predictors in the same manner using `step_nzv()`
 
 ```{r}
+#| label: step_nzv
 nzv_rec <- recipe(Sale_Price ~ ., data = ames) |>
   step_nzv(all_predictors()) |>
   prep()
@@ -118,6 +122,7 @@ nzv_rec |>
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -132,6 +137,7 @@ With this, we can set the `threshold` argument to specify the threshold of when 
 The default `0` will remove zero-variance columns.
 
 ```{python}
+#| label: variancethreshold
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from sklearn.feature_selection import VarianceThreshold
@@ -149,6 +155,7 @@ ct.transform(ames)
 but we can change that threshold to remove near-zero variance columns.
 
 ```{python}
+#| label: variancethreshold-0.2
 ct = ColumnTransformer(
     [('onehot', VarianceThreshold(threshold=0.2), make_column_selector(dtype_include=np.number))], 
     remainder="passthrough")

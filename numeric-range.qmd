@@ -158,7 +158,8 @@ A PR is planned to allow users to turn off clipping in `step_range()`
 We will be using the `ames` data set for these examples.
 
 ```{r}
-library(recipes)
+#| label: show-data
+library(recipes)#| 
 library(modeldata)
 data("ames")
 
@@ -169,6 +170,7 @@ ames |>
 We will be using the `step_range()` step for this
 
 ```{r}
+#| label: step_range
 range_rec <- recipe(Sale_Price ~ ., data = ames) |>
   step_range(all_numeric_predictors()) |>
   prep()
@@ -180,6 +182,7 @@ range_rec |>
 We can also pull out what the min and max values were for each variable using `tidy()`
 
 ```{r}
+#| label: tidy
 range_rec |>
   tidy(1)
 ```
@@ -187,6 +190,7 @@ range_rec |>
 using the `min` and `max` arguments we can set different ranges
 
 ```{r}
+#| label: step_range-min-max
 range_rec <- recipe(Sale_Price ~ ., data = ames) |>
   step_range(all_numeric_predictors(), min = -2, max = 2) |>
   prep()
@@ -198,6 +202,7 @@ range_rec |>
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -211,6 +216,7 @@ We are using the `ames` data set for examples.
 By default we can use this method to perform both the centering and scaling.
 
 ```{python}
+#| label: minmaxscaler
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import MinMaxScaler
@@ -226,6 +232,7 @@ ct.transform(ames)
 `MinMaxScaler()` doesn't clip by default, we can turn this back on by setting `clip=True`.
 
 ```{python}
+#| label: minmaxscaler-clip-true
 ct = ColumnTransformer(
     [('minmax', MinMaxScaler(clip=True), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], 
     remainder="passthrough")
@@ -237,6 +244,7 @@ ct.transform(ames)
 We can also set a different range other than `(0, 1)` with the `feature_range` argument
 
 ```{python}
+#| label: minmaxscaler-feature_range
 ct = ColumnTransformer(
     [('minmax', MinMaxScaler(feature_range=(-1,1)), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], 
     remainder="passthrough")

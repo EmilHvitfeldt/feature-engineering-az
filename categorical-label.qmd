@@ -58,12 +58,14 @@ We will be using the `ames` data set for these examples.
 The `step_dummy()` function allows us to perform dummy encoding and one-hot encoding.
 
 ```{r}
+#| label: set-seed
 #| echo: false
 set.seed(1234)
 # To avoid changing recipe ID columns
 ```
 
 ```{r}
+#| label: show-data
 #| message: false
 library(recipes)
 library(modeldata)
@@ -78,12 +80,14 @@ It isn't alphabetical, but there isn't one clear order.
 No clarification of the ordering can be done in the data documentation <http://jse.amstat.org/v19n3/decock/DataDocumentation.txt>.
 
 ```{r}
+#| label: ms_subclass-levels
 ames |> pull(MS_SubClass) |> levels()
 ```
 
 We will be using the `step_integer()` step for this, which defaults to 1-based indexing
 
 ```{r}
+#| label: step_integer
 label_rec <- recipe(Sale_Price ~ ., data = ames) |>
   step_integer(all_nominal_predictors()) |>
   prep()
@@ -95,6 +99,7 @@ label_rec |>
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -109,6 +114,7 @@ Below we see how it can be used with the `MS_Zoning` columns.
 We call this method label encoding only when `categories='auto'` as it automatically labels `0` to `n_categories - 1`.
 
 ```{python}
+#| label: ordinalencoder
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OrdinalEncoder

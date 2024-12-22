@@ -39,12 +39,14 @@ In essense we have 2 hyper parameters for this style on encoding, one is $M$ whi
 Not yet implemented
 
 ```{r}
+#| label: tmp
 1 + 1
 ```
 
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -57,6 +59,7 @@ We are using the `ames` data set for examples.
 {category_encoders} provided the `QuantileEncoder()` method we can use.
 
 ```{python}
+#| label: quantileencoder
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from category_encoders.quantile_encoder import QuantileEncoder

@@ -37,12 +37,14 @@ The method by itself doesn't perform shrinkage so you run into issues associated
 Not yet implemented
 
 ```{r}
+#| label: tmp
 1+1
 ```
 
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -55,6 +57,7 @@ We are using the `ames` data set for examples.
 {category_encoders} provided the `MEstimateEncoder()` method we can use.
 
 ```{python}
+#| label: mestimateencoder
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from category_encoders.m_estimate import MEstimateEncoder
