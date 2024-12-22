@@ -65,8 +65,7 @@ animals |>
 
 From the above example, we notice 3 things.
 Firstly, once the calculations have been done, applying the encoding to new data is a fairly easy procedure as it amounts to a left join.
-Secondly, some classes have different numbers of observations associated with them.
-The `"horse"` class only has 1 observation in this data set, how confident are we that the mean calculated from this value is as valid as the mean that was calculated over the 3 values for the `"cat"` class?
+
 Lastly, how will this method handle unseen levels?
 
 Let us think about the unseen levels first.
@@ -82,100 +81,8 @@ So for our toy example, we have a mean cuteness of `r mean(animals$cuteness)`, w
 This value is by no means a good value, but it is an educated guess that can be calculated with ease.
 This also means that regardless of the distribution of the target, these values can be calculated.
 
-The way we handle unseen levels gives us a clue as to how we can deal with low-frequency counts.
-Knowing that the global mean of the target is our baseline when we have no information.
-We can combine the level mean with the global mean, in accordance with how many observations we observe.
-If we have a lot of observations at a level, we will let the global mean have little influence, and if there are fewer observations we will let the global mean have a higher influence.
-
-```{r}
-#| echo: false
-library(ggplot2)
-
-set.seed(1234)
-n <- 50
-data <- tibble(
-  size = ceiling(rlnorm(n, 1.5)),
-  value = runif(n, 50, 100)
-)
-
-weighted_mean <- weighted.mean(data$value, data$value)
-
-range <- range(data$value) 
-range <- range + diff(range) * c(-0.1, 0.1)
-```
-
-We can visualize this effect in the following charts.
-First, we have an example of what happens with a smaller amount of smoothing.
-The points are mostly along the diagonal.
-Remember that if we didn't do this, all the points would be along the diagonal regardless of their size.
-
-```{r}
-#| label: fig-target-smoothness-1
-#| echo: false
-#| message: false
-#| fig-cap: |
-#|   With a small amount of smoothing, the adjusted means are close to the 
-#|   original means, regardless of the number of observations.
-#| fig-alt: |
-#|   Scatter chart. A green line with slope 1 and intercept, and a blue line 
-#|   with slope 0 and an intercept equal to the global mean. The points are sized
-#|   according to the number of observations that were used to calculate the 
-#|   value. The points lie along the green line mostly, with some of the smaller
-#|   points getting closer to the blue line.
-smoothness <- 1
-
-data |>
-  mutate(new_value = (size * value + weighted_mean * smoothness) / (size + smoothness)) |>
-  ggplot(aes(value, new_value)) +
-  geom_abline(slope = 0, intercept = weighted_mean, color ="lightblue") +
-  geom_abline(slope = 1, intercept = 0, color = "lightgreen") +
-  geom_point(aes(size = size), alpha = 0.2) +
-  theme_minimal() +
-  xlim(range) +
-  ylim(range) +
-  labs(x = "Original mean value",
-       y = "Smoothed mean value",
-       size = "# observations",
-       title = "Small amount of smoothing")
-```
-
-In this next chart, we see the effect of a higher amount of smoothing, now the levels with fewer observations are pulled quite a bit closer to the global mean.
-
-```{r}
-#| label: fig-target-smoothness-5
-#| echo: false
-#| message: false
-#| fig-cap: |
-#|   With a large amount of smoothing, the adjusted means are not as close to
-#|   the original means, with smaller points getting quite close to the global
-#|   mean.
-#| fig-alt: |
-#|   Scatter chart. A green line with slope 1 and intercept, and a blue line 
-#|   with slope 0 and an intercept equal to the global mean. The points are sized
-#|   according to the number of observations that were used to calculate the 
-#|   value. The points lie between the green and blue lines, with the smaller
-#|   points being closer to the blue line than the larger points.
-smoothness <- 5
-
-data |>
-  mutate(new_value = (size * value + weighted_mean * smoothness) / (size + smoothness)) |>
-  ggplot(aes(value, new_value)) +
-  geom_abline(slope = 0, intercept = weighted_mean, color ="lightblue") +
-  geom_abline(slope = 1, intercept = 0, color = "lightgreen") +
-  geom_point(aes(size = size), alpha = 0.2) +
-  theme_minimal() +
-  xlim(range) +
-  ylim(range) +
-  labs(x = "Original mean value",
-       y = "Smoothed mean value",
-       size = "# observations",
-       title = "Large amount of smoothing")
-```
-
-The exact way this is done will vary from method to method, and the strength of this smoothing can and should properly be tuned as there isn't an empirical best way to choose it.
-
-This smoothing isn't required but it is often beneficial to include if you are dealing with low count levels.
-It is also recommended because if omitted, it would lead to overfitting since we are essentially using the outcome to guide the predictors.
+We talk about target encoding without smoothing, which isn't exactly required but it is often beneficial to include if you are dealing with low count levels.
+It is also recommended because if omitted, it would lead to overfitting since we are essentially using the outcome to guide the predictors. See @sec-categorical-glmm for one such way of doing it.
 
 We have so far talked about target encoding, from the perspective of a regression task.
 But target encoding is not limited to numeric outcomes, but can be used in classification settings as well.
@@ -209,11 +116,8 @@ So instead of adjusting by the global mean, you smooth by the level below it.
 
 ## R Examples
 
-The embed package comes with a couple of functions to do target encoding.
-`step_lencode_glm()`, `step_lencode_bayes()` and `step_lencode_mixed()`.
+The embed package comes with a couple of functions to do target encoding, we will look at `step_lencode_glm()` as it applied the method best described by this chapter.
 These functions are named such because they **l**ikelihood **encode** variables, and because the encodings can be calculated using no intercept models.
-
-`step_lencode_glm()` implements the no-smoothing method, so we will look at that one first using the ames data set.
 
 ::: callout-caution
 # TODO
