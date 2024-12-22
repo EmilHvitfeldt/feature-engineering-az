@@ -59,12 +59,43 @@ One method that would have been located here if it wasn't for the fact that it h
 The vast majority of the chapters in these chapters concern methods that take a categorical variable and produce one or more numerical variables suitable for modeling.
 There are quite a lot of different methods, all have upsides and downsides and they will all be explored in the remaining chapters.
 
-:::: {.callout-caution}
-# TODO
+These methods can further be categorized.
+This categorization allows us to better compare and contrast the methods to see how they are similar and different.
+The vast majority of methods are applied one column at a time.
+The notable exception is the combination multi-dummy extraction as seen in @sec-categorical-multi-dummy.
 
-further categorize these methods
+The one-column-at-a-time methods can be put into 3 groups; **dummy-based**, **target-based**, and **other**.
 
-- multiple columns
-- single columns
-- boils down to left-join
-:::
+The methods that are variations of dummy encoding as explained in @sec-categorical-dummy are:
+
+-   @sec-categorical-binary
+-   @sec-categorical-hashing
+-   @sec-categorical-thermometer
+-   @sec-categorical-multi-dummy
+
+The methods that are variations of target encoding as explained in @sec-categorical-target are:
+
+-   @sec-categorical-leave-one-out
+-   @sec-categorical-leaf
+-   @sec-categorical-glmm
+-   @sec-categorical-catboost
+-   @sec-categorical-james-stein
+-   @sec-categorical-m-estimator
+-   @sec-categorical-quantile
+-   @sec-categorical-summary
+
+The remaining methods don't neatly slot into the above categories:
+
+-   @sec-categorical-label
+-   @sec-categorical-ordinal
+-   @sec-categorical-frequency
+-   @sec-categorical-weight-of-evidence
+
+What you might notice is that many of these methods boil down to a left join when applied to new data.
+The difference is how you calculate the table, which we could consider an embedding table.
+
+This idea gives rise to another way to deal with categorical variables.
+This is done by manually creating enrichment tables and then using them with categorical variables.
+One could imagine having a `city` predictor.
+It could be effectively encoded by the methods seen in this section.
+But we might be able to add more signals by enriching with characteristics of the city, like `population`, `n_hospitals`, and `country` It can be seen as a simple version of relational methods as seen in @sec-relational.

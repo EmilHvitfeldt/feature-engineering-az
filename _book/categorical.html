@@ -1272,24 +1272,35 @@ TODO
 <section id="categorical-to-numerical" class="level2" data-number="15.3">
 <h2 data-number="15.3" class="anchored" data-anchor-id="categorical-to-numerical"><span class="header-section-number">15.3</span> Categorical to Numerical</h2>
 <p>The vast majority of the chapters in these chapters concern methods that take a categorical variable and produce one or more numerical variables suitable for modeling. There are quite a lot of different methods, all have upsides and downsides and they will all be explored in the remaining chapters.</p>
-<div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-TODO
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>further categorize these methods</p>
+<p>These methods can further be categorized. This categorization allows us to better compare and contrast the methods to see how they are similar and different. The vast majority of methods are applied one column at a time. The notable exception is the combination multi-dummy extraction as seen in <a href="categorical-multi-dummy.html" class="quarto-xref"><span>Chapter 37</span></a>.</p>
+<p>The one-column-at-a-time methods can be put into 3 groups; <strong>dummy-based</strong>, <strong>target-based</strong>, and <strong>other</strong>.</p>
+<p>The methods that are variations of dummy encoding as explained in <a href="categorical-dummy.html" class="quarto-xref"><span>Chapter 18</span></a> are:</p>
 <ul>
-<li>multiple columns</li>
-<li>single columns</li>
-<li>boils down to left-join</li>
+<li><a href="categorical-binary.html" class="quarto-xref"><span>Chapter 21</span></a></li>
+<li><a href="categorical-hashing.html" class="quarto-xref"><span>Chapter 24</span></a></li>
+<li><a href="categorical-thermometer.html" class="quarto-xref"><span>Chapter 32</span></a></li>
+<li><a href="categorical-multi-dummy.html" class="quarto-xref"><span>Chapter 37</span></a></li>
 </ul>
-</div>
-</div>
+<p>The methods that are variations of target encoding as explained in <a href="categorical-target.html" class="quarto-xref"><span>Chapter 23</span></a> are:</p>
+<ul>
+<li><a href="categorical-leaveoneout.html" class="quarto-xref"><span>Chapter 25</span></a></li>
+<li><a href="categorical-leaf.html" class="quarto-xref"><span>Chapter 26</span></a></li>
+<li><a href="categorical-glmm.html" class="quarto-xref"><span>Chapter 27</span></a></li>
+<li><a href="categorical-catboost.html" class="quarto-xref"><span>Chapter 28</span></a></li>
+<li><a href="categorical-jamesstein.html" class="quarto-xref"><span>Chapter 30</span></a></li>
+<li><a href="categorical-mestimator.html" class="quarto-xref"><span>Chapter 31</span></a></li>
+<li><a href="categorical-quantile.html" class="quarto-xref"><span>Chapter 33</span></a></li>
+<li><a href="categorical-summary.html" class="quarto-xref"><span>Chapter 34</span></a></li>
+</ul>
+<p>The remaining methods don’t neatly slot into the above categories:</p>
+<ul>
+<li><a href="categorical-label.html" class="quarto-xref"><span>Chapter 19</span></a></li>
+<li><a href="categorical-ordinal.html" class="quarto-xref"><span>Chapter 20</span></a></li>
+<li><a href="categorical-frequency.html" class="quarto-xref"><span>Chapter 22</span></a></li>
+<li><a href="categorical-woe.html" class="quarto-xref"><span>Chapter 29</span></a></li>
+</ul>
+<p>What you might notice is that many of these methods boil down to a left join when applied to new data. The difference is how you calculate the table, which we could consider an embedding table.</p>
+<p>This idea gives rise to another way to deal with categorical variables. This is done by manually creating enrichment tables and then using them with categorical variables. One could imagine having a <code>city</code> predictor. It could be effectively encoded by the methods seen in this section. But we might be able to add more signals by enriching with characteristics of the city, like <code>population</code>, <code>n_hospitals</code>, and <code>country</code> It can be seen as a simple version of relational methods as seen in <a href="relational.html" class="quarto-xref"><span>Chapter 136</span></a>.</p>
 
 
 </section>
