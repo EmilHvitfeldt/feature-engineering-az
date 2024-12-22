@@ -35,6 +35,7 @@ Not yet implemented
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -47,6 +48,7 @@ We are using the `ames` data set for examples.
 {category_encoders} provided the `SummaryEncoder()` method we can use.
 
 ```{python}
+#| label: summaryencoder
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from category_encoders.quantile_encoder import SummaryEncoder

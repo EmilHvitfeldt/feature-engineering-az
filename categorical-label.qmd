@@ -99,6 +99,7 @@ label_rec |>
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -113,6 +114,7 @@ Below we see how it can be used with the `MS_Zoning` columns.
 We call this method label encoding only when `categories='auto'` as it automatically labels `0` to `n_categories - 1`.
 
 ```{python}
+#| label: ordinalencoder
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OrdinalEncoder

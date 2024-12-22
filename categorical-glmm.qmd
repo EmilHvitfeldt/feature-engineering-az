@@ -165,6 +165,7 @@ rec_target_smooth |>
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -177,6 +178,7 @@ We are using the `ames` data set for examples.
 {category_encoders} provided the `GLMMEncoder()` method we can use.
 
 ```{python}
+#| label: glmmencoder
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from category_encoders.glmm import GLMMEncoder

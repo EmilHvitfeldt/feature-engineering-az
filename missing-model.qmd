@@ -73,6 +73,7 @@ I'm not aware of a good way to do this for models other than KNN in a scikit-lea
 Please file an [issue on github](https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new?assignees=&labels=&projects=&template=general-issue.md&title) if you know of a good way.
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -85,6 +86,7 @@ We are using the `ames` data set for examples.
 {sklearn} provided the `KNNImputer()` method we can use.
 
 ```{python}
+#| label: knnimputer
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import KNNImputer
@@ -100,6 +102,7 @@ ct.transform(ames)
 The argument `n_neighbors` is something you might have to tune to get good performance for this type of imputing method.
 
 ```{python}
+#| label: knnimputer-n_neighbors
 ct = ColumnTransformer(
     [('na_indicator', KNNImputer(n_neighbors=15), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], 
     remainder="passthrough")

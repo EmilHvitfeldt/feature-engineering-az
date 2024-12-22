@@ -221,6 +221,7 @@ log_rec |>
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -235,6 +236,7 @@ This transformer lets us set an offset `C` that is calculated before taking the 
 If we knew that there weren't any non-positive numbers then we could use the `LogTransformer` instead.
 
 ```{python}
+#| label: loccptransformer
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from feature_engine.transformation import LogCpTransformer

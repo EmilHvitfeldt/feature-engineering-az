@@ -147,6 +147,7 @@ yeojohnson_rec |>
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -159,6 +160,7 @@ We are using the `ames` data set for examples.
 {feature_engine} provided the `YeoJohnsonTransformer()` that we can use.
 
 ```{python}
+#| label: yeojohnsontransformer
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from feature_engine.transformation import YeoJohnsonTransformer

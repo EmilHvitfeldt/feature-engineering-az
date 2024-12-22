@@ -126,6 +126,7 @@ signed_sqrt_rec |>
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -138,6 +139,7 @@ We are using the `ames` data set for examples.
 Since there isn't a built-in transformer for square root, we can create our own using `FunctionTransformer()` and `numpy.sqrt()`.
 
 ```{python}
+#| label: functiontransformer-sqrt
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import FunctionTransformer
@@ -156,6 +158,7 @@ ct.transform(ames)
 We can also create and perform a signed square root transformation, by creating a function for `signed_sqrt()` and then using it in `FunctionTransformer()` as before
 
 ```{python}
+#| label: functiontransformer-signed-sqrt
 def signed_sqrt(x):
   return np.sqrt(np.abs(x)) * np.sign(x)
 

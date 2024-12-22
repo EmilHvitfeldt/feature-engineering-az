@@ -52,6 +52,7 @@ Has not yet been implemented.
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -65,6 +66,7 @@ We are using the `ames` data set for examples.
 For this to work, we need to remember to specify an outcome when we `fit()`.
 
 ```{python}
+#| label: leaveoneoutencoder
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from category_encoders.leave_one_out import LeaveOneOutEncoder

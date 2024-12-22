@@ -96,6 +96,7 @@ dummy_rec |>
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -109,6 +110,7 @@ We are using the `ames` data set for examples.
 This performs count encoding, which we know is functionally equivalent to frequency encoding.
 
 ```{python}
+#| label: countencoder
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from category_encoders.count import CountEncoder
