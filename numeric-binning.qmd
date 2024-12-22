@@ -15,6 +15,7 @@ Being able to transform a numeric variable that has a non-linear relationship wi
 Below is a toy example of one such variable
 
 ```{r}
+#| label: data_toy
 #| echo: false
 set.seed(1234)
 data_toy <- tibble::tibble(
@@ -50,6 +51,7 @@ We don't know.
 Below we see the way each of the new variables activates different areas of the domain.
 
 ```{r}
+#| label: data_bins
 #| echo: false
 #| message: false
 library(recipes)
@@ -156,6 +158,7 @@ map(
 ```
 
 ```{r}
+#| label: data_toy_dicont
 #| echo: false
 data_toy_discont <- data_toy |>
   mutate(outcome = (floor(predictor/40) %% 2) + outcome + predictor / 25) |>
@@ -271,6 +274,7 @@ Secondly, this type of data is not seen that much in the wild, and if you are se
 ## R Examples
 
 ```{r}
+#| label: ames
 #| echo: false
 #| message: false
 library(tidymodels)
@@ -280,6 +284,7 @@ data("ames")
 We will be using the `ames` data set for these examples.
 
 ```{r}
+#| label: show-data
 #| message: false
 library(recipes)
 library(modeldata)
@@ -291,6 +296,7 @@ ames |>
 {recipes} has the function `step_discretize()` for just this occasion.
 
 ```{r}
+#| label: step_discretize
 #| warning: false
 bin_rec <- recipe(~ Lot_Area + Year_Built, data = ames) |>
   step_discretize(Lot_Area, Year_Built)
@@ -304,6 +310,7 @@ bin_rec |>
 If you don't like the default number of breaks created, you can use the `num_breaks = 6` argument to change it.
 
 ```{r}
+#| label: step_discretize-num_breaks
 #| warning: false
 bin_rec <- recipe(~ Lot_Area + Year_Built, data = ames) |>
   step_discretize(Lot_Area, Year_Built, num_breaks = 6)
@@ -317,6 +324,7 @@ bin_rec |>
 This step technically creates a factor variable, but we can turn it into a series of indicator functions with `step_dummy()`
 
 ```{r}
+#| label: step_discretize-step_dummy
 #| warning: false
 bin_rec <- recipe(~ Lot_Area + Year_Built, data = ames) |>
   step_discretize(Lot_Area, Year_Built, num_breaks = 6) |>

@@ -26,7 +26,9 @@ x^* = \left\{
       - \log(-x + 1)                                      & \lambda =    2, x <    0
     \end{array}
   \right.
-$$ It is worth noting again, that what we are optimizing over is the value of $\lambda$.
+$$ 
+
+It is worth noting again, that what we are optimizing over is the value of $\lambda$.
 This is also a case of a trained preprocessing method when used on the predictors.
 We need to estimate the parameter $\lambda$ on the training data set, then use the estimated value to apply the transformation to the training and test data set to avoid data leakage.
 
@@ -37,6 +39,7 @@ Let us see some examples of Yeo-Johnson at work.
 Below is three different simulated distribution, before and after they have been transformed by Yeo-Johnson.
 
 ```{r}
+#| label: visualize_yeojohnson
 #| echo: false
 #| message: false
 library(recipes)
@@ -60,6 +63,7 @@ visualize_yeojohnson <- function(x) {
 ```
 
 ```{r}
+#| label: visualize_yeojohnson-normal
 #| echo: false
 #| message: false
 #| fig-cap: "Before and After Yeo-Johnson"
@@ -80,6 +84,7 @@ We also notice how these methods work, even when there are negative values.
 The Yeo-Johnson method isn't magic and will only give you something more normally distributed if the distribution can be made more normally distributed by applying the above formula would give you some more normally distributed values.
 
 ```{r}
+#| label: visualize_yeojohnson-non-normal
 #| echo: false
 #| message: false
 #| fig-cap: "Before and After Box-Cox"
@@ -110,6 +115,7 @@ We are seeing similar results with the bi-modal distributions.
 We will be using the `ames` data set for these examples.
 
 ```{r}
+#| label: show-data
 library(recipes)
 library(modeldata)
 data("ames")
@@ -121,6 +127,7 @@ ames |>
 {recipes} provides a step to perform Yeo-Johnson transformations, which out of the box uses $e$ as the base with an offset of 0.
 
 ```{r}
+#| label: step_yeojohnson
 yeojohnson_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) |>
   step_YeoJohnson(Lot_Area) |>
   prep()
@@ -132,6 +139,7 @@ yeojohnson_rec |>
 We can also pull out the value of the estimated $\lambda$ by using the `tidy()` method on the recipe step.
 
 ```{r}
+#| label: tidy
 yeojohnson_rec |>
   tidy(1)
 ```

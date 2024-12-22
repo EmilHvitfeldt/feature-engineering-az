@@ -16,6 +16,7 @@ Below is a histogram of the average daily rate of the number of hotel stays.
 It is clear to see that this is another case where the data is highly skewed, with many values close to zero, but a few in the thousands.
 
 ```{r}
+#| label: dist-adr
 #| echo: false
 #| message: false
 #| fig-cap: "Histogram of Average Daily Rate"
@@ -52,6 +53,7 @@ $$
 Below we see the results of applying the signed square root.
 
 ```{r}
+#| label: dist-signed-sqrt
 #| echo: false
 #| message: false
 #| fig-cap: "Histogram of squared Average Daily Rate"
@@ -90,6 +92,7 @@ It preserves the order of the numeric values, but it doesn't give us a good way 
 We will be using the `hotel_bookings` data set for these examples.
 
 ```{r}
+#| label: show-data
 library(recipes)
 
 hotel_bookings |>
@@ -99,6 +102,7 @@ hotel_bookings |>
 {recipes} provides a step to perform logarithms, which out of the box uses $e$ as the base with an offset of 0.
 
 ```{r}
+#| label: step_sqrt
 sqrt_rec <- recipe(lead_time ~ adr, data = hotel_bookings) |>
   step_sqrt(adr)
 
@@ -110,6 +114,7 @@ sqrt_rec |>
 if you want to do a signed square root instead, you can use `step_mutate()` which allows you to do any kind of transformations
 
 ```{r}
+#| label: signed-sqrt
 signed_sqrt_rec <- recipe(lead_time ~ adr, data = hotel_bookings) |>
   step_mutate(adr = sqrt(abs(adr)) * sign(adr))
 

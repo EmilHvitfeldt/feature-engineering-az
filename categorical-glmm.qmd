@@ -21,6 +21,7 @@ We can combine the level mean with the global mean, in accordance with how many 
 If we have a lot of observations at a level, we will let the global mean have little influence, and if there are fewer observations we will let the global mean have a higher influence.
 
 ```{r}
+#| label: weighted_mean-example
 #| echo: false
 library(tidyverse)
 
@@ -132,11 +133,13 @@ find a better data set
 We apply the smoothed GLMM encoder using the `step_lencode_mixed()` step.
 
 ```{r}
+#| label: set-seed
 #| echo: false
 set.seed(1234)
 ```
 
 ```{r}
+#| label: step_lencode_mixed
 #| message: false
 library(recipes)
 library(embed)
@@ -154,6 +157,7 @@ rec_target_smooth |>
 And we can pull out the values of the encoding like so.
 
 ```{r}
+#| label: tidy
 rec_target_smooth |>
   tidy(1)
 ```

@@ -121,6 +121,7 @@ plotting_data |>
 We will be using the `ames` data set for these examples.
 
 ```{r}
+#| label: show-data
 #| message: false
 library(recipes)
 library(modeldata)
@@ -136,6 +137,7 @@ They are called `step_scale()`, `step_center()` and `step_normalize()` respectiv
 Below is an example using `step_scale()`
 
 ```{r}
+#| label: step_scale
 scale_rec <- recipe(Sale_Price ~ ., data = ames) |>
   step_scale(all_numeric_predictors()) |>
   prep()
@@ -147,6 +149,7 @@ scale_rec |>
 We can also pull out the value of the standard deviation for each variable that was affected using `tidy()`
 
 ```{r}
+#| label: step_scale-tidy
 scale_rec |>
   tidy(1)
 ```
@@ -154,6 +157,7 @@ scale_rec |>
 We could also have used `step_center()` and `step_scale()` together in one recipe
 
 ```{r}
+#| label: step_center-step_scale
 center_scale_rec <- recipe(Sale_Price ~ ., data = ames) |>
   step_center(all_numeric_predictors()) |>
   step_scale(all_numeric_predictors()) |>
@@ -166,6 +170,7 @@ center_scale_rec |>
 Using `tidy()` we can see information about each step
 
 ```{r}
+#| label: step_center-step_scale-tidy
 center_scale_rec |>
   tidy()
 ```
@@ -173,6 +178,7 @@ center_scale_rec |>
 And we can pull out the means using `tidy(1)`
 
 ```{r}
+#| label: step_center-step_scale-tidy-one
 center_scale_rec |>
   tidy(1)
 ```
@@ -180,6 +186,7 @@ center_scale_rec |>
 and the standard deviation using `tidy(2)`
 
 ```{r}
+#| label: step_center-step-scale-tidy-two
 center_scale_rec |>
   tidy(2)
 ```
@@ -187,6 +194,7 @@ center_scale_rec |>
 Since these steps often follow each other, we often use the `step_normalize()` as a shortcut to do both operations in one step
 
 ```{r}
+#| label: step_normalize
 scale_rec <- recipe(Sale_Price ~ ., data = ames) |>
   step_normalize(all_numeric_predictors()) |>
   prep()
@@ -198,6 +206,7 @@ scale_rec |>
 And we can still pull out the means and standard deviations using `tidy()`
 
 ```{r}
+#| label: step_normatize-tidy
 scale_rec |>
   tidy(1) |>
   filter(terms %in% c("Lot_Area", "Wood_Deck_SF", "Mas_Vnr_Area"))

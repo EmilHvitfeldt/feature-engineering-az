@@ -23,7 +23,8 @@ For each chosen variable, create another Boolean variable that is 1 when a missi
 The following sample data set
 
 ```{r}
-#| echo: false
+#| label: example
+#| echo: false 
 library(tibble)
 example <- tribble(
   ~a, ~b, ~c,
@@ -39,6 +40,7 @@ example
 Will look like the data set below, once missing value indicators have been added.
 
 ```{r}
+#| label: example-na
 #| echo: false
 example <- tribble(
   ~a, ~b, ~c, ~a_na, ~b_na, ~c_na,
@@ -78,6 +80,7 @@ find a better data set
 From the recipes package, can we use the `step_indicate_na()` function to create indicator variables based on missing data
 
 ```{r}
+#| label: step_indicate_na
 #| message: false
 library(recipes)
 
@@ -87,6 +90,7 @@ na_ind_rec <- recipe(mpg ~ disp + vs + am, data = mtcars) |>
 ```
 
 ```{r}
+#| label: bake
 na_ind_rec |>
   bake(new_data = mtcars)
 ```

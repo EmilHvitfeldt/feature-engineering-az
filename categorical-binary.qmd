@@ -16,6 +16,7 @@ Suppose we have the following variable, and the values they take are (cat = 11, 
 We are using a subset to gain a better understanding of what is happening.
 
 ```{r}
+#| label: cat-and-dog-vector
 #| echo: false
 c("dog", "cat", "horse", "dog", "cat")
 ```
@@ -26,7 +27,8 @@ And we should do it to 5 digits since it is the highest we need in this hypothet
 We can then encode this in the following matrix
 
 ```{r}
-#| echo: false
+#| label: dummy-example
+#| echo: false 
 dummy <- matrix(0L, nrow = 5, ncol = 5)
 colnames(dummy) <- c(16, 8, 4, 2, 1)
 dummy[1, 5] <- 1L
@@ -87,12 +89,14 @@ We will be using the `ames` data set for these examples.
 The `step_encoding_binary()` function from the [extrasteps](https://github.com/emilhvitfeldt/extrasteps) package allows us to perform binary encoding.
 
 ```{r}
+#| label: set-seed
 #| echo: false
 set.seed(1234)
 # To avoid changing recipe ID columns
 ```
 
 ```{r}
+#| label: show-data
 #| message: false
 library(recipes)
 library(extrasteps)
@@ -106,6 +110,7 @@ ames |>
 We can take a quick look at the possible values `MS_SubClass` takes
 
 ```{r}
+#| label: count-MS_SubClass
 ames |>
   count(MS_SubClass, sort = TRUE)
 ```
@@ -114,6 +119,7 @@ We can then apply binary encoding using `step_encoding_binary()`.
 Notice how we only get 1 numeric variable for each categorical variable
 
 ```{r}
+#| label: step_encoding_binary
 dummy_rec <- recipe(Sale_Price ~ ., data = ames) |>
   step_encoding_binary(all_nominal_predictors()) |>
   prep()
@@ -126,6 +132,7 @@ dummy_rec |>
 We can pull the number of distinct levels of each variable by using `tidy()`.
 
 ```{r}
+#| label: tidy
 dummy_rec |>
   tidy(1)
 ```

@@ -105,7 +105,8 @@ Always use the conventions that are most appropriate to the culture you are work
 We will be using the `hotel_bookings` data set for these examples.
 
 ```{r}
-#| echo: false 
+#| label: hotel_bookings
+#| echo: false #| 
 #| message: false
 library(tidymodels)
 
@@ -113,6 +114,7 @@ hotel_bookings <- readr::read_csv("data/hotel_bookings.csv")
 ```
 
 ```{r}
+#| label: reservations_status_date
 library(recipes)
 
 hotel_bookings |>
@@ -125,6 +127,7 @@ The steps work the same way, so we will only show how `step_date()` works here.
 A couple of features are selected by default,
 
 ```{r}
+#| label: step_date
 date_rec <- recipe(is_canceled ~ reservation_status_date, 
                    data = hotel_bookings) |>
   step_date(reservation_status_date)
@@ -138,6 +141,7 @@ date_rec |>
 But you can use the `features` argument to specify other types as well
 
 ```{r}
+#| label: step_date-features
 date_rec <- recipe(is_canceled ~ reservation_status_date, 
                    data = hotel_bookings) |>
   step_date(reservation_status_date, 
@@ -153,6 +157,7 @@ date_rec |>
 features that can be categorical will be so by default, but can be turned off by setting `label = FALSE`.
 
 ```{r}
+#| label: step_date-label
 date_rec <- recipe(is_canceled ~ reservation_status_date, 
                    data = hotel_bookings) |>
   step_date(reservation_status_date, 
@@ -169,6 +174,7 @@ If we want to extract holiday features, we can use the `step_holiday()` function
 With known holidays listed in `timeDate::listHolidays()`.
 
 ```{r}
+#| label: step_holiday
 date_rec <- recipe(is_canceled ~ reservation_status_date, 
                    data = hotel_bookings) |>
   step_holiday(reservation_status_date, 

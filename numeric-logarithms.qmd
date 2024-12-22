@@ -19,7 +19,8 @@ Find a better data set for this example
 :::
 
 ```{r}
-#| echo: false
+#| label: dist-lot_area
+#| echo: false 
 #| message: false
 #| fig-cap: "Histogram of lot areas"
 #| fig-alt: "Highly right skewed histogram of lot areas"
@@ -72,6 +73,7 @@ We have essentially turned out predictors to work on doublings rather than addit
 Below is the same chart as before, but on a logarithmic scale using base 2.
 
 ```{r}
+#| label: dist-lot_area-100-bins
 #| echo: false
 #| message: false
 #| fig-cap: "Histogram of logarithmic lot areas"
@@ -110,6 +112,7 @@ The offset should generally be smaller than the smallest non-negative value you 
 Below we use an offset of 0.1, and the relationship we get out of this is that distance from 0 to 1, is roughly the same as multiplying by 10.
 
 ```{r}
+#| label: log-offset-0.1
 #| echo: false
 offset <- 0.1
 log(c(0, 1, 10, 100, 1000) + offset, base = 2) |> round(3)
@@ -118,6 +121,7 @@ log(c(0, 1, 10, 100, 1000) + offset, base = 2) |> round(3)
 On the other hand, if we set the offset to 0.001, we get that the difference from 0 to 1 is the same as the distance from 1 to 1000, or the same as multiplying by 1000.
 
 ```{r}
+#| label: log-offset-0.001
 #| echo: false
 offset <- 0.001
 log(c(0, 1, 10, 100, 1000) + offset, base = 2) |> round(3)
@@ -141,10 +145,12 @@ This is expected to have minimal effect on the final model.
 -   Is not a universal fix. While it can improve right-skewed distributions (where most of the data points are on lower values), it has the opposite effect on a distribution that isn't skewed or that is left-skewed. See the effect below on 10,000 uniformly distributed values:
 
 ```{r}
+#| label: hist-log-and-not
 #| echo: false
 #| layout-ncol: 2
 set.seed(1234)
-runif(10000) |> hist(breaks = 20)
+runif(10000) |> 
+  hist(breaks = 20)
 set.seed(1234)
 runif(10000) |>
   log10() |>
@@ -156,6 +162,7 @@ runif(10000) |>
 We will be using the `ames` data set for these examples.
 
 ```{r}
+#| label: show-data
 library(recipes)
 library(modeldata)
 
@@ -166,6 +173,7 @@ ames |>
 {recipes} provides a step to perform logarithms, which out of the box uses $e$ as the base with an offset of 0.
 
 ```{r}
+#| label: step_log
 log_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) |>
   step_log(Lot_Area)
 
@@ -177,6 +185,7 @@ log_rec |>
 The base can be changed by setting the `base` argument.
 
 ```{r}
+#| label: step_log-base-2
 log_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) |>
   step_log(Lot_Area, base = 2)
 
@@ -188,6 +197,7 @@ log_rec |>
 If we have non-positive values, which we do in the `Wood_Deck_SF` variable because it has quite a lot of zeroes, we get `-Inf` which isn't going to work.
 
 ```{r}
+#| label: step_log-two
 log_rec <- recipe(Sale_Price ~ Wood_Deck_SF, data = ames) |>
   step_log(Wood_Deck_SF)
 
@@ -199,6 +209,7 @@ log_rec |>
 Setting the `offset` argument helps us to deal with that problem.
 
 ```{r}
+#| label: step_log-offset-0.5
 log_rec <- recipe(Sale_Price ~ Wood_Deck_SF, data = ames) |>
   step_log(Wood_Deck_SF, offset = 0.5)
 

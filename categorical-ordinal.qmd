@@ -54,12 +54,14 @@ We will be using the `ames` data set for these examples.
 The `step_dummy()` function allows us to perform dummy encoding and one-hot encoding.
 
 ```{r}
+#| label: set-seed
 #| echo: false
 set.seed(1234)
 # To avoid changing recipe ID columns
 ```
 
 ```{r}
+#| label: show-data
 #| message: false
 library(recipes)
 library(modeldata)
@@ -73,6 +75,7 @@ Looking at the levels of `Lot_Shape` and `Land_Slope` we see that they match the
 Furthermore, these variables are listed as ordinal, they just aren't denoted like this in this data set.
 
 ```{r}
+#| label: show-levels
 ames |> pull(Lot_Shape) |> levels()
 ames |> pull(Land_Slope) |> levels()
 ```
@@ -80,6 +83,7 @@ ames |> pull(Land_Slope) |> levels()
 We will fix that by turning them into ordered factors.
 
 ```{r}
+#| label: as-ordered
 ames <- ames |>
   mutate(across(.cols = c(Lot_Shape, Land_Slope), .fns = as.ordered))
 ```
@@ -88,6 +92,7 @@ to perform ordinal encoding we will use the `step_ordinalscore()` step.
 This defaults to giving each level values between `1` and `n`, much like `step_integer()`.
 
 ```{r}
+#| label: step_ordinalscore
 ordinal_rec <- recipe(Sale_Price ~ ., data = ames) |>
   step_ordinalscore(Lot_Shape, Land_Slope) |>
   prep()
@@ -100,6 +105,7 @@ What we can do is define a special transformation function for each of the steps
 One way is to use the `case_when()` function
 
 ```{r}
+#| label: lot_shape_transformer
 Lot_Shape_transformer <- function(x) {
   case_when(
     x == "Regular" ~ 0, 
@@ -113,6 +119,7 @@ Lot_Shape_transformer <- function(x) {
 If you have the values for each of the levels as a vector or data, you can write the function to use that information as well.
 
 ```{r}
+#| label: land_slope_transformer
 Land_Slope_values <- c(Gtl = 0, Mod = 1, Sev = 5)
 
 Land_Slope_transformer <- function(x) {
@@ -123,6 +130,7 @@ Land_Slope_transformer <- function(x) {
 With these functions, we can now apply them to the respective columns by using the `convert` argument.
 
 ```{r}
+#| label: step_ordinalscore-twice
 ordinal_rec <- recipe(Sale_Price ~ ., data = ames) |>
   step_ordinalscore(Lot_Shape, convert = Lot_Shape_transformer) |>
   step_ordinalscore(Land_Slope, convert = Land_Slope_transformer) |>

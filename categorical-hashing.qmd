@@ -102,12 +102,14 @@ We will be using the `ames` data set for these examples.
 The `step_dummy_hash()` function from the [textrecipes](textrecipes.tidymodels.org) package allows us to perform hashing encoding.
 
 ```{r}
+#| label: set-seed
 #| echo: false
 set.seed(1234)
 # To avoid changing recipe ID columns
 ```
 
 ```{r}
+#| label: show-data
 #| message: false
 library(recipes)
 library(textrecipes)
@@ -122,6 +124,7 @@ We will be using the `step_dummy_hash()` step for this.
 For illustrative purposes, we will be creating `8` columns, where in practice you would likely want this value higher.
 
 ```{r}
+#| label: step_dummy_hash
 dummy_rec <- recipe(Sale_Price ~ Exterior_1st, data = ames) |>
   step_dummy_hash(Exterior_1st, num_terms = 8) |>
   prep()

@@ -82,11 +82,13 @@ find a good data set
 Below we are using the `step_zv()` function to remove
 
 ```{r}
-#| echo: false
+#| label: set-seed
+#| echo: false 
 set.seed(1234)
 ```
 
 ```{r}
+#| label: step_zv
 #| message: false
 library(recipes)
 
@@ -100,6 +102,7 @@ zv_rec <- recipe(Sale_Price ~ ., data = ames) |>
 We can use the `tidy()` method to find out which variables were removed
 
 ```{r}
+#| label: tidy
 zv_rec |>
   tidy(1)
 ```
@@ -107,6 +110,7 @@ zv_rec |>
 We can remove non-zero variance predictors in the same manner using `step_nzv()`
 
 ```{r}
+#| label: step_nzv
 nzv_rec <- recipe(Sale_Price ~ ., data = ames) |>
   step_nzv(all_predictors()) |>
   prep()

@@ -55,6 +55,7 @@ Below we are showing how we can impute using a K-nearest neighbor model using `s
 We specify the variable to impute on first, and then with `impute_with` we specify which variables are used as predictors in the model.
 
 ```{r}
+#| label: step_impute_knn
 #| message: false
 library(recipes)
 

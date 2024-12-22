@@ -18,6 +18,7 @@ Both methods are learned methods as they identify variables to be kept.
 I always find it useful to look at a correlation matrix first
 
 ```{r}
+#| label: set-seed
 #| echo: false
 #| message: false
 library(tidymodels)
@@ -110,6 +111,7 @@ We will use the `ames` data set from {modeldata} in this example.
 The {recipes} step `step_corrr()` performs the simple correlation filter described at the beginning of this chapter.
 
 ```{r}
+#| label: step_corr
 library(recipes)
 library(modeldata)
 
@@ -121,6 +123,7 @@ corr_rec <- recipe(Sale_Price ~ ., data = ames) |>
 We can see the variables that were removed with the `tidy()` method
 
 ```{r}
+#| label: tidy
 corr_rec |>
   tidy(1)
 ```
@@ -128,6 +131,7 @@ corr_rec |>
 We can see that when we lower this threshold to the extreme, more predictors are removed.
 
 ```{r}
+#| label: tidy-threshold
 recipe(Sale_Price ~ ., data = ames) |>
   step_corr(all_numeric_predictors(), threshold = 0.25) |>
   prep() |>

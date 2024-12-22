@@ -53,11 +53,13 @@ This is trivially true for all categorical methods but is not recommended as per
 ## R Examples
 
 ```{r}
+#| label: set-seed
 #| echo: false
 set.seed(1234)
 ```
 
 ```{r}
+#| label: step_woe
 #| message: false
 #| warning: false
 library(recipes)
@@ -76,6 +78,7 @@ rec_target |>
 And we see that it works as intended, we can pull out the exact levels using the `tidy()` method
 
 ```{r}
+#| label: tidy
 rec_target |>
   tidy(1)
 ```

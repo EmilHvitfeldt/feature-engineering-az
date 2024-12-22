@@ -11,7 +11,9 @@ pagetitle: "Feature Engineering A-Z | Robust Scaling"
 **Robust scaling**, is a scaling method that is typically done by removing the median and dividing by the interquartile range.
 As illustrated by @eq-robust-minimal
 
-$$X_{scaled} = \dfrac{X - \text{median}(X)}{\text{Q3}(X) - \text{Q1}(X)}$$ {#eq-robust-minimal}
+$$
+X_{scaled} = \dfrac{X - \text{median}(X)}{\text{Q3}(X) - \text{Q1}(X)} 
+$$ {#eq-robust-minimal}
 
 This is the most common formulation of this method.
 This method is a learned transformation.
@@ -43,12 +45,14 @@ This is fine if you want to ignore the outliers, however, it is conventionally n
 We will be using the `ames` data set for these examples.
 
 ```{r}
+#| label: set-seed
 #| echo: false
 set.seed(1234)
 # To avoid changing recipe ID columns
 ```
 
 ```{r}
+#| label: show-data
 #| message: false
 # remotes::install_github("emilhvitfeldt/extrasteps")
 library(recipes)
@@ -63,6 +67,7 @@ ames |>
 We will be using the `step_robust()` step for this, and it can be found in the [extrasteps extension package](https://github.com/EmilHvitfeldt/extrasteps/).
 
 ```{r}
+#| label: step_robust
 maxabs_rec <- recipe(Sale_Price ~ ., data = ames) |>
   step_robust(all_numeric_predictors()) |>
   prep()
@@ -74,6 +79,7 @@ maxabs_rec |>
 We can also pull out what the max values were for each variable using `tidy()`
 
 ```{r}
+#| label: tidy
 maxabs_rec |>
   tidy(1)
 ```
@@ -82,6 +88,7 @@ We can also change the default range to allow more of the distribution to affect
 This is done using the `range` argument.
 
 ```{r}
+#| label: step_robust-range
 maxabs_rec <- recipe(Sale_Price ~ ., data = ames) |>
   step_robust(all_numeric_predictors(), range = c(0.1, 0.9)) |>
   prep()
@@ -93,6 +100,7 @@ maxabs_rec |>
 when we pull out the ranges, we see that they are wider
 
 ```{r}
+#| label: tidy-range
 maxabs_rec |>
   tidy(1)
 ```

@@ -15,6 +15,7 @@ Being able to transform a numeric variable that has a non-linear relationship wi
 Below is a toy example of one such variable
 
 ```{r}
+#| label: data-toy
 #| echo: false
 set.seed(1234)
 data_toy <- tibble::tibble(
@@ -53,6 +54,7 @@ This is where splines come in.
 Imagine that instead of indicators for whether a value is within a range, we have a set of functions that gives each predictor value a set of values, related to its location in the distribution.
 
 ```{r}
+#| label: data-splines
 #| echo: false
 #| message: false
 library(recipes)
@@ -88,6 +90,7 @@ data_splines |>
 ```
 
 ```{r}
+#| label: spline_rounder
 #| echo: false
 spline_rounder <- function(value, name) {
   name <- paste0("predictor_bs_", name)
@@ -198,6 +201,7 @@ data_splines |>
 Lastly, the above spline functions you saw were called B-splines, but they are not the only kind of splines you can use.
 
 ```{r}
+#| label: plot_convex
 #| echo: false
 data_example <- data.frame(x = rnorm(10000))
 
@@ -334,6 +338,7 @@ map(
 ## R Examples
 
 ```{r}
+#| label: ames
 #| echo: false
 #| message: false
 library(tidymodels)
@@ -343,6 +348,7 @@ data("ames")
 We will be using the `ames` data set for these examples.
 
 ```{r}
+#| label: show-data
 library(recipes)
 library(modeldata)
 
@@ -354,6 +360,7 @@ ames |>
 Let us use a B-spline and a M-spline as examples here:
 
 ```{r}
+#| label: step_spline_
 log_rec <- recipe(~ Lot_Area + Year_Built, data = ames) |>
   step_spline_b(Lot_Area) |>
   step_spline_monotone(Year_Built)
@@ -367,6 +374,7 @@ log_rec |>
 We can set the `deg_free` argument to specify how many spline features we want for each of the splines.
 
 ```{r}
+#| label: step_spline-deg_free
 log_rec <- recipe(~ Lot_Area + Year_Built, data = ames) |>
   step_spline_b(Lot_Area, deg_free = 3) |>
   step_spline_monotone(Year_Built, deg_free = 4)
@@ -381,6 +389,7 @@ These steps have more arguments, so we can change other things.
 The B-splines created by `step_spline_b()` default to cubic splines, but we can change that by specifying which polynomial degree with want with the `degree` argument.
 
 ```{r}
+#| label: step_spline_b-degree
 log_rec <- recipe(~ Lot_Area + Year_Built, data = ames) |>
   step_spline_b(Lot_Area, deg_free = 3, degree = 1) |>
   step_spline_monotone(Year_Built, deg_free = 4)
