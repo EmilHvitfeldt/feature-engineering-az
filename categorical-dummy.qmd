@@ -253,6 +253,7 @@ onehot_rec |>
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -270,6 +271,7 @@ We are setting `sparse_output=False` in this example because we are having `tran
 :::
 
 ```{python}
+#| label: onehotencoder
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder
@@ -285,6 +287,7 @@ ct.transform(ames).filter(regex=("MS_Zoning.*"))
 By default `OneHotEncoder()` performs one-hot encoding, we can change this to dummy encoding by setting `drop='first'`.
 
 ```{python}
+#| label: onehotencoder-drop-first
 ct = ColumnTransformer(
     [('dummy', OneHotEncoder(sparse_output=False, drop='first'), ['MS_Zoning'])], 
     remainder="passthrough")

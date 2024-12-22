@@ -115,6 +115,7 @@ This is happening because some percentile has been collapsed to save space since
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -128,6 +129,7 @@ We are using the `ames` data set for examples.
 We can use the `n_quantiles` argument to change the number of quantiles to use.
 
 ```{python}
+#| label: quantiletransformer
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import QuantileTransformer

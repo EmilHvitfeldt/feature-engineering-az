@@ -215,6 +215,7 @@ scale_rec |>
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -228,6 +229,7 @@ We are using the `ames` data set for examples.
 By default we can use this method to perform both the centering and scaling.
 
 ```{python}
+#| label: standardscaler
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import StandardScaler
@@ -243,6 +245,7 @@ ct.transform(ames)
 To only perform scaling, you set `with_mean=False`.
 
 ```{python}
+#| label: standardscaler-with_means-false
 ct = ColumnTransformer(
     [('scaling', StandardScaler(with_mean=False, with_std=True), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], 
     remainder="passthrough")
@@ -254,6 +257,7 @@ ct.transform(ames)
 And to only perform centering you set `with_mean=True`.
 
 ```{python}
+#| label: standardscaler-with_mean-true
 ct = ColumnTransformer(
     [('centering', StandardScaler(with_mean=True, with_std=False), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], 
     remainder="passthrough")

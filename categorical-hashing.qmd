@@ -137,6 +137,7 @@ dummy_rec |>
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -150,6 +151,7 @@ We are using the `ames` data set for examples.
 For illustrative purposes, we will be creating `8` columns, where in practice you would likely want this value higher.
 
 ```{python}
+#| label: hashingencoder
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from category_encoders.hashing import HashingEncoder

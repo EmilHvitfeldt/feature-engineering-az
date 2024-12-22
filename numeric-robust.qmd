@@ -108,6 +108,7 @@ maxabs_rec |>
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -120,6 +121,7 @@ We are using the `ames` data set for examples.
 {sklearn} provided the `RobustScaler()` method we can use.
 
 ```{python}
+#| label: robustscaler
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import RobustScaler
@@ -136,6 +138,7 @@ We can also change the default range `(0.25, 0.75)` to allow more of the distrib
 This is done using the `quantile_range` argument.
 
 ```{python}
+#| label: robustscaler-quantile_range
 ct = ColumnTransformer(
     [('robust', RobustScaler(quantile_range=(10.0, 90.0)), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], 
     remainder="passthrough")

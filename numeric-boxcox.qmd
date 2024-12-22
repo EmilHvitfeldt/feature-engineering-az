@@ -148,6 +148,7 @@ boxcox_rec |>
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -161,6 +162,7 @@ We are using the `ames` data set for examples.
 We note that this transformer does not work on non-positive data.
 
 ```{python}
+#| label: boxcoxtransformer
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from feature_engine.transformation import BoxCoxTransformer

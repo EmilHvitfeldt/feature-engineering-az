@@ -140,6 +140,7 @@ dummy_rec |>
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -152,6 +153,7 @@ We are using the `ames` data set for examples.
 {category_encoders} provided the `BinaryEncoder()` method we can use.
 
 ```{python}
+#| label: binaryencoder
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from category_encoders.binary import BinaryEncoder
