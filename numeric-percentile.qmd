@@ -50,12 +50,14 @@ add color-coded pair of distribution, where the color map to the previous locati
 We will be using the `ames` data set for these examples.
 
 ```{r}
+#| label: set-seed
 #| echo: false
 set.seed(1234)
 # To avoid changing recipe ID columns
 ```
 
 ```{r}
+#| label: show-data
 #| message: false
 library(recipes)
 library(modeldata)
@@ -69,6 +71,7 @@ The {recipes} step to do this transformation is `step_percentile()`.
 It defaults to the calculation of 100 percentiles and uses those to transform the data
 
 ```{r}
+#| label: step_percentile
 percentile_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) |>
   step_percentile(Lot_Area) |>
   prep()
@@ -80,6 +83,7 @@ percentile_rec |>
 We can use the `tidy()` method to pull out what the specific values are for each percentile
 
 ```{r}
+#| label: tidy
 percentile_rec |>
   tidy(1)
 ```
@@ -88,6 +92,7 @@ You can change the granularity by using the `options` argument.
 In this example, we are calculating 500 points evenly spaced between 0 and 1, both inclusive.
 
 ```{r}
+#| label: step_percentile-options
 percentile500_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) |>
   step_percentile(Lot_Area, options = list(probs = (0:500)/500)) |>
   prep()
@@ -99,6 +104,7 @@ percentile500_rec |>
 And we can see the more precise numbers.
 
 ```{r}
+#| label: tidy-options
 percentile500_rec |>
   tidy(1)
 ```
@@ -109,6 +115,7 @@ This is happening because some percentile has been collapsed to save space since
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -122,6 +129,7 @@ We are using the `ames` data set for examples.
 We can use the `n_quantiles` argument to change the number of quantiles to use.
 
 ```{python}
+#| label: quantiletransformer
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import QuantileTransformer

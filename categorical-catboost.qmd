@@ -33,6 +33,7 @@ Notice the above formulation assumes a classification setting, regression is usu
 Below we have a worked example. We are using `color` as the categorical variable we are going to encode, using `target` as the target, and using `"yes"` as the target class we are looking for. The first row is the trivial case since it is the first occurrence of `"red"`. It will thus have the value of `prior` since `currentCount` and `totalCount` are both equal to 0. The next row is another `"red"`, so we just count how many previous values of `"red"` we have, which is 1, and set `totalCount` as that value. Then we count how many times `target` is equal to `"yes"` in those instances, which is also 1, and we set `currentCount` to 1 as well. This gives us `(1 + 0.05) / (1 + 1) = 525`. The third row is another trivial case. The fourth row has `totalCount = 1` and `currentCount = 0` since the previous value of `"green"` didn't have a target of `"yes"`. Follow rows are calculated using the same principles.
 
 ```{r}
+#| label: example-table
 tibble::tribble(
  ~color, ~target, ~currentCount, ~totalCount, ~catboost,
     "red",   "yes",             0,           0,      0.05,
@@ -68,6 +69,7 @@ Yet to be implemented.
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -80,6 +82,7 @@ We are using the `ames` data set for examples.
 {category_encoders} provided the `CatBoostEncoder()` method we can use.
 
 ```{python}
+#| label: catboostencoder
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from category_encoders.cat_boost import CatBoostEncoder

@@ -152,6 +152,7 @@ find a good data set with missing values
 :::
 
 ```{r}
+#| label: step_impute_
 library(recipes)
 library(modeldata)
 
@@ -165,6 +166,7 @@ impute_rec <- recipe(Sale_Price ~ ., data = ames) |>
 We can use the `tidy()` function to find the estimated mean
 
 ```{r}
+#| label: tidy-one
 impute_rec |>
   tidy(1)
 ```
@@ -172,6 +174,7 @@ impute_rec |>
 estimated median
 
 ```{r}
+#| label: tidy-two
 impute_rec |>
   tidy(2)
 ```
@@ -179,7 +182,8 @@ impute_rec |>
 and estimated mode
 
 ```{r}
-impute_rec |>
+#| label: tidy-three
+impute_rec |>#| 
   tidy(3)
 ```
 
@@ -192,6 +196,7 @@ wait for the distribution step
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -205,6 +210,7 @@ We are using the `ames` data set for examples.
 The main argument we will use is `strategy` which we can set to determine the type of imputing.
 
 ```{python}
+#| label: simpleimputer
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
@@ -220,6 +226,7 @@ ct.transform(ames)
 Setting `strategy='median'` switches the imputer to do median imputing.
 
 ```{python}
+#| label: simpleimputer-median
 ct = ColumnTransformer(
     [('median_impute', SimpleImputer(strategy='median'), ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',  'Mas_Vnr_Area'])], 
     remainder="passthrough")

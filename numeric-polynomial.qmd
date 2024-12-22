@@ -16,6 +16,7 @@ Being able to transform a numeric variable that has a non-linear relationship wi
 Below is a toy example of one such variable
 
 ```{r}
+#| label: data_toy
 #| echo: false
 #| message: false
 library(recipes)
@@ -145,6 +146,7 @@ With this, we deal with the two problems we had before.
 As seen in the figure below, the functions take smaller values within their ranges
 
 ```{r}
+#| label: data_poly
 #| echo: false
 #| message: false
 library(recipes)
@@ -279,6 +281,7 @@ map(
 ## R Examples
 
 ```{r}
+#| label: ames
 #| echo: false
 #| message: false
 library(tidymodels)
@@ -288,6 +291,7 @@ data("ames")
 We will be using the `ames` data set for these examples.
 
 ```{r}
+#| label: show-data
 library(recipes)
 library(modeldata)
 
@@ -298,6 +302,7 @@ ames |>
 {recipes} has the function `step_poly()` for just this occasion.
 
 ```{r}
+#| label: step_poly
 poly_rec <- recipe(~ Lot_Area + Year_Built, data = ames) |>
   step_poly(Lot_Area, Year_Built)
 
@@ -310,6 +315,7 @@ poly_rec |>
 If you don't like the default number of features created, you can use the `degree` argument to change it.
 
 ```{r}
+#| label: step_poly-degree-5
 poly_rec <- recipe(~ Lot_Area + Year_Built, data = ames) |>
   step_poly(Lot_Area, Year_Built, degree = 5)
 
@@ -322,6 +328,7 @@ poly_rec |>
 while you properly shouldn't, you can turn off the orthogonal polynomials by setting `options = list(raw = TRUE)`.
 
 ```{r}
+#| label: step_poly-raw
 poly_rec <- recipe(~ Lot_Area + Year_Built, data = ames) |>
   step_poly(Lot_Area, Year_Built, options = list(raw = TRUE))
 
@@ -334,6 +341,7 @@ poly_rec |>
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -347,6 +355,7 @@ We are using the `ames` data set for examples.
 We can use it out of the box.
 
 ```{python}
+#| label: polynomialfeatures
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import PolynomialFeatures
@@ -362,6 +371,7 @@ ct.transform(ames)
 Or we can change the degree using the `degree` argument
 
 ```{python}
+#| label: polynomialfeatures-degree
 ct = ColumnTransformer(
     [('polynomial', PolynomialFeatures(degree = 4), ['Lot_Area'])], 
     remainder="passthrough")

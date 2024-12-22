@@ -28,12 +28,14 @@ One of the downsides of quantile encoding is that you need to pick or tune to fi
 Not yet implemented
 
 ```{r}
+#| label: tmp
 1 + 1
 ```
 
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -46,6 +48,7 @@ We are using the `ames` data set for examples.
 {category_encoders} provided the `SummaryEncoder()` method we can use.
 
 ```{python}
+#| label: summaryencoder
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from category_encoders.quantile_encoder import SummaryEncoder

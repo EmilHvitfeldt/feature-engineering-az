@@ -94,6 +94,7 @@ Find a data set that isn't clean
 :::
 
 ```{r}
+#| label: set-seed
 #| echo: false
 set.seed(1234)
 ```
@@ -101,6 +102,7 @@ set.seed(1234)
 We will use the `step_text_normalization()` function from the {textrecipes} package to perform unicode normalization, which defaults to the NFC normalization form.
 
 ```{r}
+#| label: step_text_normalization
 library(textrecipes)
 
 sample_data <- tibble(text = c("sch\U00f6n", "scho\U0308n"))

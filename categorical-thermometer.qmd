@@ -15,6 +15,7 @@ Where one-hot encoding produces 1 for the current level and 0 for all other leve
 Considering this short ordinal variable of emotions, we observe there are 3 unique values "sad" < "neutral" < "happy". These values clearly have an order as listed.
 
 ```{r}
+#| label: emotions
 #| echo: false
 c("happy", "neutral", "neutral", "sad", "happy")
 ```
@@ -22,6 +23,7 @@ c("happy", "neutral", "neutral", "sad", "happy")
 There should be 3 columns one for each of the levels. 
 
 ```{r}
+#| label: emotion-encoding
 #| echo: false
 dummy <- matrix(0L, nrow = 5, ncol = 3)
 colnames(dummy) <- c("sad", "neutral", "happy")
@@ -53,12 +55,14 @@ While this method is often called rank hot encoding, you should use the dummy va
 Not implemented yet
 
 ```{r}
+#| label: tmp
 1 + 1
 ```
 
 ## Python Examples
 
 ```{python}
+#| label: python-setup
 #| echo: false
 import pandas as pd
 from sklearn import set_config
@@ -71,6 +75,7 @@ We are using the `ames` data set for examples.
 {category_encoders} provided the `RankHotEncoder()` method we can use.
 
 ```{python}
+#| label: rankhotencoder
 from feazdata import ames
 from sklearn.compose import ColumnTransformer
 from category_encoders.rankhot import RankHotEncoder
