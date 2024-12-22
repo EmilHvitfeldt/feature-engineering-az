@@ -21,6 +21,7 @@ It is straightforward to do and implemented in any modeling software you use.
 The downside to this is that if you are seeing a little bit of missing data, across your predictors, you end up throwing away a lot of data once you have a lot of columns.
 
 ```{r}
+#| label: dist-missing-rates
 #| message: false
 #| echo: false
 library(tidyverse)
@@ -87,6 +88,7 @@ find data set
 We can use the `step_naomit()` function from the recipes package to remove any observation that contains missing values.
 
 ```{r}
+#| label: step_naomit
 #| message: false
 library(recipes)
 
@@ -106,6 +108,7 @@ wait for thresholded observation removal
 There is the `step_filter_missing()` function from the recipes package that removes predictors with more missing values than the specified `threshold`
 
 ```{r}
+#| label: step_filter_missing
 library(recipes)
 
 filter_missing_rec <- recipe(~., data = mtcars) |>

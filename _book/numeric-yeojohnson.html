@@ -1314,14 +1314,15 @@ x^* = \left\{
       - \log(-x + 1)                                      &amp; \lambda =    2, x &lt;    0
     \end{array}
   \right.
-\]</span> It is worth noting again, that what we are optimizing over is the value of <span class="math inline">\(\lambda\)</span>. This is also a case of a trained preprocessing method when used on the predictors. We need to estimate the parameter <span class="math inline">\(\lambda\)</span> on the training data set, then use the estimated value to apply the transformation to the training and test data set to avoid data leakage.</p>
+\]</span></p>
+<p>It is worth noting again, that what we are optimizing over is the value of <span class="math inline">\(\lambda\)</span>. This is also a case of a trained preprocessing method when used on the predictors. We need to estimate the parameter <span class="math inline">\(\lambda\)</span> on the training data set, then use the estimated value to apply the transformation to the training and test data set to avoid data leakage.</p>
 <p>If the values of <span class="math inline">\(x\)</span> are strictly positive, then the Yeo-Johnson transformation is the same as the Box-Cox transformation of <span class="math inline">\(x + 1\)</span>, if the values of <span class="math inline">\(x\)</span> are strictly negative then the transformation is the Box-Cox transformation of <span class="math inline">\(-x + 1\)</span> with the power <span class="math inline">\(2 - \lambda\)</span>. The interpretation of <span class="math inline">\(\lambda\)</span> isn’t as easy as for the Box-Cox method.</p>
 <p>Let us see some examples of Yeo-Johnson at work. Below is three different simulated distribution, before and after they have been transformed by Yeo-Johnson.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="numeric-yeojohnson_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" alt="6 histograms of distribution, in 2 columns. The left column shows unaltered distributions. The right column shows the distribution of the Yeo-Johnson transformation of the left column. The right column is mostly normally distributed." width="672"></p>
+<p><img src="numeric-yeojohnson_files/figure-html/visualize_yeojohnson-normal-1.png" class="img-fluid figure-img" alt="6 histograms of distribution, in 2 columns. The left column shows unaltered distributions. The right column shows the distribution of the Yeo-Johnson transformation of the left column. The right column is mostly normally distributed." width="672"></p>
 <figcaption>Before and After Yeo-Johnson</figcaption>
 </figure>
 </div>
@@ -1333,7 +1334,7 @@ x^* = \left\{
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="numeric-yeojohnson_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" alt="6 histograms of distribution, in 2 columns. The left column shows unaltered distributions. The right column shows the distribution of the Box-Cox transformation of the left column. The right column has not benefitted from the Box-Cox transformation" width="672"></p>
+<p><img src="numeric-yeojohnson_files/figure-html/visualize_yeojohnson-non-normal-1.png" class="img-fluid figure-img" alt="6 histograms of distribution, in 2 columns. The left column shows unaltered distributions. The right column shows the distribution of the Box-Cox transformation of the left column. The right column has not benefitted from the Box-Cox transformation" width="672"></p>
 <figcaption>Before and After Box-Cox</figcaption>
 </figure>
 </div>

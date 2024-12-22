@@ -158,7 +158,8 @@ A PR is planned to allow users to turn off clipping in `step_range()`
 We will be using the `ames` data set for these examples.
 
 ```{r}
-library(recipes)
+#| label: show-data
+library(recipes)#| 
 library(modeldata)
 data("ames")
 
@@ -169,6 +170,7 @@ ames |>
 We will be using the `step_range()` step for this
 
 ```{r}
+#| label: step_range
 range_rec <- recipe(Sale_Price ~ ., data = ames) |>
   step_range(all_numeric_predictors()) |>
   prep()
@@ -180,6 +182,7 @@ range_rec |>
 We can also pull out what the min and max values were for each variable using `tidy()`
 
 ```{r}
+#| label: tidy
 range_rec |>
   tidy(1)
 ```
@@ -187,6 +190,7 @@ range_rec |>
 using the `min` and `max` arguments we can set different ranges
 
 ```{r}
+#| label: step_range-min-max
 range_rec <- recipe(Sale_Price ~ ., data = ames) |>
   step_range(all_numeric_predictors(), min = -2, max = 2) |>
   prep()

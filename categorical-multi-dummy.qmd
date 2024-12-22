@@ -17,6 +17,7 @@ Imagine that you see this subsection in your data, perhaps denoting some individ
 How would you encode it?
 
 ```{r}
+#| label: example-before
 #| echo: false
 data.frame(
  first = c("english", "danish", "spanish", "spanish"),
@@ -35,6 +36,7 @@ The levels used in these categorical variables are likely the same, so we can tr
 In practice, this means that we count over all selected columns, and add dummies or counts accordingly.
 
 ```{r}
+#| label: example-multi-dummy
 #| echo: false
 data.frame(
  danish = c(1, 1, 0, 0),
@@ -60,6 +62,7 @@ The above example has a natural ordering, indicative by the names of the variabl
 Depending on how important you think the ordering is, one could add a weighting scheme like below.
 
 ```{r}
+#| label: example-multi-dummy-weights
 #| echo: false
 data.frame(
  danish = c(0.5, 1, 0, 0),
@@ -83,6 +86,7 @@ I find that this pattern emerges enough by itself that it is worth denoting it a
 The above example could instead be structured so
 
 ```{r}
+#| label: example-before-extract
 #| echo: false
 tibble::tribble(
   ~languages,
@@ -102,6 +106,7 @@ With splitting, you can sometimes extract a lot of signal if you have a carefull
 Consider the following list of materials and mediums for a number of art pieces.
 
 ```{r}
+#| label: tate_text-example
 data("tate_text", package = "modeldata")
 tate_text[32:35, 4] |>
  knitr::kable()

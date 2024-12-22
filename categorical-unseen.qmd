@@ -44,6 +44,7 @@ We will be using the [nycflights13](https://github.com/tidyverse/nycflights13) d
 We are downsampling just a bit to only work on the first day and doing a test-train split.
 
 ```{r}
+#| label: flights-split
 #| message: false
 library(recipes)
 library(rsample)
@@ -62,6 +63,7 @@ Now we are doing the cardinal sin by looking at the testing data.
 But in this case, it is okay because we are doing it for educational purposes.
 
 ```{r}
+#| label: flights-uniques
 flights_train |> pull(carrier) |> unique() |> sort()
 flights_test |> pull(carrier) |> unique() |> sort()
 ```
@@ -70,6 +72,7 @@ Notice that the testing data includes the carrier `"AS"` and `"HA"` but the trai
 Let us see what would happen if we were to calculate dummy variables without doing any adjusting.
 
 ```{r}
+#| label: non-adjusted-step_dummy
 dummy_spec <- recipe(arr_delay ~ carrier, data = flights_train) |>
   step_dummy(carrier)
 
@@ -82,6 +85,7 @@ We get a warning, and if you look at the rows that were affected we see that it 
 Let us now use the function `step_novel()` that implements the above-described method.
 
 ```{r}
+#| label: adjusted-step_dummy
 novel_spec <- recipe(arr_delay ~ carrier, data = flights_train) |>
   step_novel(carrier) |>
   step_dummy(carrier) 

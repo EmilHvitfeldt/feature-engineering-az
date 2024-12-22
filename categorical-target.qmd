@@ -25,6 +25,7 @@ show motivated example of what happens when this method is applied to constant p
 Consider the following example data set
 
 ```{r}
+#| label: dog-cat-example
 #| echo: false
 animals <- tibble::tibble(
   cuteness = c(1, 5, 9, 3, 2, 4),
@@ -37,6 +38,7 @@ animals
 If we were to calculate target encoding on `animal` using `cuteness` as the target, we would first need to calculate the mean of `cuteness` within each
 
 ```{r}
+#| label: animals_means
 #| echo: false
 #| message: false
 library(dplyr)
@@ -56,6 +58,7 @@ animals_means
 Taking these means we can now use them as an encoding
 
 ```{r}
+#| label: example-table
 #| echo: false
 animals |>
   left_join(animals_means, by = join_by(animal)) |>
@@ -126,11 +129,13 @@ find a better data set
 :::
 
 ```{r}
+#| label: set-seed
 #| echo: false
 set.seed(1234)
 ```
 
 ```{r}
+#| label: step_lencode_glm
 #| message: false
 library(recipes)
 library(embed)
@@ -148,6 +153,7 @@ rec_target |>
 And we see that it works as intended, we can pull out the exact levels using the `tidy()` method
 
 ```{r}
+#| label: tidy
 rec_target |>
   tidy(1)
 ```

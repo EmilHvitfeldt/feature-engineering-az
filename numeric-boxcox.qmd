@@ -40,6 +40,7 @@ Let us see some examples of Box-Cox at work.
 Below is three different simulated distribution, before and after they have been transformed by Box-Cox.
 
 ```{r}
+#| label: visualize_boxcox
 #| echo: false
 #| message: false
 library(recipes)
@@ -63,6 +64,7 @@ visualize_boxcox <- function(x) {
 ```
 
 ```{r}
+#| label: visualize_boxcox-normal
 #| echo: false
 #| message: false
 #| fig-cap: "Before and After Box-Cox"
@@ -83,6 +85,7 @@ The next set of distributions wasn't so lucky.
 The Box-Cox method isn't magic and will only give you something more normally distributed if the distribution can be made more normally distributed by applying a power transformation.
 
 ```{r}
+#| label: visualize_boxcox-not-normal
 #| echo: false
 #| message: false
 #| fig-cap: "Before and After Box-Cox"
@@ -113,6 +116,7 @@ We are seeing similar results with the bi-modal distributions.
 We will be using the `ames` data set for these examples.
 
 ```{r}
+#| label: show-data
 library(recipes)
 library(modeldata)
 data("ames")
@@ -124,6 +128,7 @@ ames |>
 {recipes} provides a step to perform Box-Cox transformations.
 
 ```{r}
+#| label: step_boxcox
 boxcox_rec <- recipe(Sale_Price ~ Lot_Area, data = ames) |>
   step_BoxCox(Lot_Area) |>
   prep()
@@ -135,6 +140,7 @@ boxcox_rec |>
 We can also pull out the value of the estimated $\lambda$ by using the `tidy()` method on the recipe step.
 
 ```{r}
+#| label: tidy
 boxcox_rec |>
   tidy(1)
 ```

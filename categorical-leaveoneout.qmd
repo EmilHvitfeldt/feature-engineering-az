@@ -18,6 +18,7 @@ Consider a level that has the following target values `100, 10, 6, 5, 3, 8`.
 The target encoded value would be `22` and the leave one out values would be different, but the most different one is the outlier at 100.
 
 ```{r}
+#| label: example
 library(tidyverse)
 
 tibble(
