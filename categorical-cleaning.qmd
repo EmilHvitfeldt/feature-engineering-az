@@ -26,7 +26,10 @@ Look at the following vector of spellings of St Albans, the city in England.
 #| label: example-vector
 #| echo: false
 st_albans <- c("St Albans", "St. Albans", "St  Alban", "st albans", "St. Alban", "St Albans ", "st Albans")
-st_albans
+
+st_albans |>
+  glue::double_quote() |>
+  cat(sep = ", ")
 ```
 
 They all refer to the same city name, they don't just agree on the spelling.
@@ -55,7 +58,10 @@ I prefer to lower-casing as I find the results easier to read.
 st_albans <- st_albans |>
   tolower() |>
   unique()
-st_albans
+
+st_albans |>
+  glue::double_quote() |>
+  cat(sep = ", ")
 ```
 
 By turning everything into lower-case, we were able to remove 2 of the errors.
@@ -68,7 +74,10 @@ For this example, I'm going to decide that they are safe to remove as well.
 st_albans <- st_albans |>
   stringr::str_remove("\\.") |>
   unique()
-st_albans 
+
+st_albans |>
+  glue::double_quote() |>
+  cat(sep = ", ")
 ```
 
 This removes yet another of our problems.
@@ -85,7 +94,10 @@ st_albans <- st_albans |>
   stringr::str_squish() |>
   stringr::str_trim() |>
   unique()
-st_albans 
+
+st_albans |>
+  glue::double_quote() |>
+  cat(sep = ", ")
 ```
 
 Now we are left with two values, which we manually would have to deal with.
@@ -105,7 +117,7 @@ The method needed to fix this problem is called [Unicode Normalization](https://
 ::: callout-caution
 # TODO
 
-Pull nuggets from https://twitter.com/Emil_Hvitfeldt/status/1583466133977382912
+Pull nuggets from <https://twitter.com/Emil_Hvitfeldt/status/1583466133977382912>
 :::
 
 This chapter was not meant to scare you, what I hope you get away from this chapter is that it is very important that you look at your data carefully, especially categorical variables that can be varied in so many unexpected ways.

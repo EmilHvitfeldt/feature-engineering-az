@@ -1251,8 +1251,7 @@ TODO
 <p>Look at the following vector of spellings of St Albans, the city in England.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "St Albans"  "St. Albans" "St  Alban"  "st albans"  "St. Alban" 
-[6] "St Albans " "st Albans" </code></pre>
+<pre><code>"St Albans", "St. Albans", "St  Alban", "st albans", "St. Alban", "St Albans ", "st Albans"</code></pre>
 </div>
 </div>
 <p>They all refer to the same city name, they don’t just agree on the spelling. If we didn’t perform any cleaning, most of the following methods would assume that these spellings are completely different works and should be treated as such. Depending on the method this would vastly change the output and dilute any information you may have in your data.</p>
@@ -1261,19 +1260,19 @@ TODO
 <p>Back to the example at hand. The first thing we notice is that there is a difference in <strong>capitalization</strong>. In this case, since we presumably are working with a variable of city names, capitalization shouldn’t matter. A common trick is to either turn everything upper-case or lower-case. I prefer to lower-casing as I find the results easier to read.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "st albans"  "st. albans" "st  alban"  "st. alban"  "st albans "</code></pre>
+<pre><code>"st albans", "st. albans", "st  alban", "st. alban", "st albans "</code></pre>
 </div>
 </div>
 <p>By turning everything into lower-case, we were able to remove 2 of the errors. Next, we see that some of these spellings include periods. For this example, I’m going to decide that they are safe to remove as well.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "st albans"  "st  alban"  "st alban"   "st albans "</code></pre>
+<pre><code>"st albans", "st  alban", "st alban", "st albans "</code></pre>
 </div>
 </div>
 <p>This removes yet another of our problems. This next problem is horrible and is so easy to overlook. Notice how the second spelling has a double space between <code>st</code> and <code>alban</code>? At a glance that can be hard to see. Likewise, the last spelling has a trailing space. Let us fix this as well.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "st albans" "st alban" </code></pre>
+<pre><code>"st albans", "st alban"</code></pre>
 </div>
 </div>
 <p>Now we are left with two values, which we manually would have to deal with. But even if we had to manually write out the mapping, it is a lot easier to write it for 2 different spellings than 7.</p>
@@ -1289,7 +1288,7 @@ TODO
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Pull nuggets from https://twitter.com/Emil_Hvitfeldt/status/1583466133977382912</p>
+<p>Pull nuggets from <a href="https://twitter.com/Emil_Hvitfeldt/status/1583466133977382912" class="uri">https://twitter.com/Emil_Hvitfeldt/status/1583466133977382912</a></p>
 </div>
 </div>
 <p>This chapter was not meant to scare you, what I hope you get away from this chapter is that it is very important that you look at your data carefully, especially categorical variables that can be varied in so many unexpected ways. Nevertheless, using the above-described techniques, combined with some subject matter expertise should get you quite a long way.</p>

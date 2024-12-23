@@ -18,7 +18,9 @@ We are using a subset to gain a better understanding of what is happening.
 ```{r}
 #| label: cat-and-dog-vector
 #| echo: false
-c("dog", "cat", "horse", "dog", "cat")
+c("dog", "cat", "horse", "dog", "cat") |>
+  glue::double_quote() |>
+  cat(sep = ", ")
 ```
 
 The first thing we need to do is to calculate the binary representation of these numbers.
@@ -43,7 +45,8 @@ dummy[4, 4] <- 1L
 dummy[5, 5] <- 1L
 dummy[5, 4] <- 1L
 dummy[5, 2] <- 1L
-dummy
+
+knitr::kable(dummy)
 ```
 
 Each we would be able to uniquely encode `2^5=32` different values with just 5 columns compared to the 32 it would take if you used dummy encoding from @sec-categorical-dummy.

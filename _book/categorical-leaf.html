@@ -1277,27 +1277,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This should work in both classification and regression settings, but they serve different purposes. If used in a classification setting, we are replacing a categorial predictor with another categorical predictor with fewer levels. For regression settings, we have that the categorical predictor is replaced with a numeric variable. In some ways, this feels much like target encoding explored in <a href="categorical-target.html" class="quarto-xref"><span>Chapter 23</span></a>.</p>
 <p>Suppose we use leaf encoding on the <code>MS_SubClass</code> predictor of the <code>ames</code> data set, using the numeric target <code>Sale_Price</code>. A possible fitted tree on that data would yield the following encoding table.</p>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching packages ────────────────────────────────────── tidymodels 1.2.0 ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ broom        1.0.6          ✔ recipes      1.1.0.9000
-✔ dials        1.3.0          ✔ rsample      1.2.1     
-✔ dplyr        1.1.4          ✔ tibble       3.2.1     
-✔ ggplot2      3.5.1          ✔ tidyr        1.3.1     
-✔ infer        1.0.7          ✔ tune         1.2.1     
-✔ modeldata    1.4.0          ✔ workflows    1.1.4     
-✔ parsnip      1.2.1          ✔ workflowsets 1.1.0     
-✔ purrr        1.0.2          ✔ yardstick    1.3.1     </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Conflicts ───────────────────────────────────────── tidymodels_conflicts() ──
-✖ purrr::discard() masks scales::discard()
-✖ dplyr::filter()  masks stats::filter()
-✖ dplyr::lag()     masks stats::lag()
-✖ recipes::step()  masks stats::step()
-• Learn how to get started at https://www.tidymodels.org/start/</code></pre>
-</div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -1458,7 +1437,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>And we now have a mapping that takes 16 levels and compresses them into <code>n_distinct(res$leaf)</code> levels. We note two insights for the categorical target case. Firstly, the number of unique levels can’t exceed the number of levels in the target. Because it is not possible to predict a level that doesn’t exist for the target. Secondly, you will produce the same or fewer levels in your leaf. We saw earlier that it is possible to produce fewer. To produce the same about of levels, we would need a target with the same or more levels than the predictor and have each predictor level map to a different target level.</p>
 <p>Since we are fitting a tree, it has the opportunity to be hyper-parameter-tuned, as the size and shape tree will affect the encoding. You will be fitting a different tree for each of the categorical variables you are encoding, and they likely won’t have the same optimal tree size. Here you have to make a choice. Either meticulously tune each tree in the broader scope of the model, or use decent defaults. The latter choice is likely the best one.</p>
 <p>Lastly, this method doesn’t work with unseen levels as talked about in <a href="categorical-unseen.html" class="quarto-xref"><span>Chapter 17</span></a>, as decision trees generally don’t have a way to handle unseen levels.</p>
-<p>https://feature-engine.trainindata.com/en/1.7.x/user_guide/encoding/index.html#decision-tree-encoding</p>
+<p><a href="https://feature-engine.trainindata.com/en/1.7.x/user_guide/encoding/index.html#decision-tree-encoding" class="uri">https://feature-engine.trainindata.com/en/1.7.x/user_guide/encoding/index.html#decision-tree-encoding</a></p>
 <section id="pros-and-cons" class="level2" data-number="26.2">
 <h2 data-number="26.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">26.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="26.2.1">
@@ -1484,15 +1463,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="26.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">26.4</span> Python Examples</h2>
 <p>We are using the <code>ames</code> data set for examples. {feature_engine} provided the <code>YeoJohnsonTransformer()</code> that we can use.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> feazdata <span class="im">import</span> ames</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> feature_engine.encoding <span class="im">import</span> DecisionTreeEncoder</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>ct <span class="op">=</span> ColumnTransformer(</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">'treeEncoding'</span>, DecisionTreeEncoder(), [<span class="st">'MS_SubClass'</span>])], </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    remainder<span class="op">=</span><span class="st">"passthrough"</span>)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>ct.fit(ames, y<span class="op">=</span>ames[[<span class="st">"Sale_Price"</span>]].values.flatten())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> feazdata <span class="im">import</span> ames</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> feature_engine.encoding <span class="im">import</span> DecisionTreeEncoder</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>ct <span class="op">=</span> ColumnTransformer(</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">'treeEncoding'</span>, DecisionTreeEncoder(), [<span class="st">'MS_SubClass'</span>])], </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    remainder<span class="op">=</span><span class="st">"passthrough"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>ct.fit(ames, y<span class="op">=</span>ames[[<span class="st">"Sale_Price"</span>]].values.flatten())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <style>#sk-container-id-1 {
   /* Definition of color scheme common for light and dark mode */
@@ -1904,7 +1883,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                   transformers=[('treeEncoding', DecisionTreeEncoder(),
                                  ['MS_SubClass'])])</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox"><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">treeEncoding</label><div class="sk-toggleable__content fitted"><pre>['MS_SubClass']</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox"><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">DecisionTreeEncoder</label><div class="sk-toggleable__content fitted"><pre>DecisionTreeEncoder()</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox"><label for="sk-estimator-id-4" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">remainder</label><div class="sk-toggleable__content fitted"><pre>['MS_Zoning', 'Lot_Frontage', 'Lot_Area', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Year_Built', 'Year_Remod_Add', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Mas_Vnr_Area', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_SF_1', 'BsmtFin_Type_2', 'BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Total_Bsmt_SF', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'First_Flr_SF', 'Second_Flr_SF', 'Gr_Liv_Area', 'Bsmt_Full_Bath', 'Bsmt_Half_Bath', 'Full_Bath', 'Half_Bath', 'Bedroom_AbvGr', 'Kitchen_AbvGr', 'TotRms_AbvGrd', 'Functional', 'Fireplaces', 'Garage_Type', 'Garage_Finish', 'Garage_Cars', 'Garage_Area', 'Garage_Cond', 'Paved_Drive', 'Wood_Deck_SF', 'Open_Porch_SF', 'Enclosed_Porch', 'Three_season_porch', 'Screen_Porch', 'Pool_Area', 'Pool_QC', 'Fence', 'Misc_Feature', 'Misc_Val', 'Mo_Sold', 'Year_Sold', 'Sale_Type', 'Sale_Condition', 'Sale_Price', 'Longitude', 'Latitude']</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox"><label for="sk-estimator-id-5" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">passthrough</label><div class="sk-toggleable__content fitted"><pre>passthrough</pre></div> </div></div></div></div></div></div></div></div></div>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ct.transform(ames).<span class="bu">filter</span>(regex<span class="op">=</span><span class="st">"treeEncoding.*"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ct.transform(ames).<span class="bu">filter</span>(regex<span class="op">=</span><span class="st">"treeEncoding.*"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      treeEncoding__MS_SubClass
 0                    187355.694

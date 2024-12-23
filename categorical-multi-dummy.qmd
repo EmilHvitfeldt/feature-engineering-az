@@ -107,6 +107,7 @@ Consider the following list of materials and mediums for a number of art pieces.
 
 ```{r}
 #| label: tate_text-example
+#| echo: false
 data("tate_text", package = "modeldata")
 tate_text[32:35, 4] |>
  knitr::kable()
@@ -127,7 +128,8 @@ At first glance, they appear quite unstructured, but by splitting on `(, )|( and
 
 ## R Examples
 
-https://recipes.tidymodels.org/reference/step_dummy_multi_choice.html https://recipes.tidymodels.org/reference/step_dummy_extract.html
+- <https://recipes.tidymodels.org/reference/step_dummy_multi_choice.html>
+- <https://recipes.tidymodels.org/reference/step_dummy_extract.html>
 
 Wait for adoption data set
 

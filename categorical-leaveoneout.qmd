@@ -19,6 +19,7 @@ The target encoded value would be `22` and the leave one out values would be dif
 
 ```{r}
 #| label: example
+#| echo: false
 library(tidyverse)
 
 tibble(
@@ -26,7 +27,7 @@ tibble(
 ) |>
   mutate(target = mean(values)) |>
   mutate(`leave one out` = (sum(values) - values) / (n() - 1)) |>
- knitr::kable()
+  knitr::kable()
 ```
 
 Thus we have that target encoding is influenced differently than leave one out encoding is.

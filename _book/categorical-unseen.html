@@ -1345,11 +1345,6 @@ TODO
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>dummy_spec_prepped <span class="ot">&lt;-</span> <span class="fu">prep</span>(dummy_spec)</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">bake</span>(dummy_spec_prepped, <span class="at">new_data =</span> flights_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: ! There are new levels in `carrier`: "AS" and "HA".
-ℹ Consider using step_novel() (`?recipes::step_novel()`) before `step_dummy()`
-  to handle unseen values.</code></pre>
-</div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 211 × 12
    arr_delay carrier_AA carrier_B6 carrier_DL carrier_EV carrier_F9 carrier_FL
@@ -1371,13 +1366,13 @@ TODO
 </div>
 <p>We get a warning, and if you look at the rows that were affected we see that it produces NAs. Let us now use the function <code>step_novel()</code> that implements the above-described method.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>novel_spec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(arr_delay <span class="sc">~</span> carrier, <span class="at">data =</span> flights_train) <span class="sc">|&gt;</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_novel</span>(carrier) <span class="sc">|&gt;</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_dummy</span>(carrier) </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>novel_spec_prepped <span class="ot">&lt;-</span> <span class="fu">prep</span>(novel_spec)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">bake</span>(novel_spec_prepped, <span class="at">new_data =</span> flights_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>novel_spec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(arr_delay <span class="sc">~</span> carrier, <span class="at">data =</span> flights_train) <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_novel</span>(carrier) <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_dummy</span>(carrier) </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>novel_spec_prepped <span class="ot">&lt;-</span> <span class="fu">prep</span>(novel_spec)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">bake</span>(novel_spec_prepped, <span class="at">new_data =</span> flights_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 211 × 13
    arr_delay carrier_AA carrier_B6 carrier_DL carrier_EV carrier_F9 carrier_FL
