@@ -81,8 +81,7 @@ dummy_rec <- recipe(Sale_Price ~ ., data = ames) |>
   prep()
 
 dummy_rec |>
-  bake(new_data = NULL, starts_with("MS_SubClass"), starts_with("MS_Zoning")) |>
-  glimpse()
+  bake(new_data = NULL, starts_with("MS_SubClass"), starts_with("MS_Zoning"))
 ```
 
 We can pull the frequencies for each level of each variable by using `tidy()`.

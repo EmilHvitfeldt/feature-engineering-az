@@ -17,7 +17,9 @@ Considering this short ordinal variable of emotions, we observe there are 3 uniq
 ```{r}
 #| label: emotions
 #| echo: false
-c("happy", "neutral", "neutral", "sad", "happy")
+c("happy", "neutral", "neutral", "sad", "happy") |>
+  glue::double_quote() |>
+  cat(sep = ", ")
 ```
 
 There should be 3 columns one for each of the levels. 
@@ -32,7 +34,8 @@ dummy[2, seq_len(2)] <- 1L
 dummy[3, seq_len(2)] <- 1L
 dummy[4, seq_len(1)] <- 1L
 dummy[5, seq_len(3)] <- 1L
-dummy
+
+knitr::kable(dummy)
 ```
 
 Notice how the happy instances have 1s all across and sad only has 1. You can think of this encoding as making this cumulative. Asking the question "is this emotion at least this X". 
@@ -56,6 +59,8 @@ Not implemented yet
 
 ```{r}
 #| label: tmp
+#| eval: false
+#| echo: false
 1 + 1
 ```
 

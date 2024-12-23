@@ -23,6 +23,7 @@ If we have a lot of observations at a level, we will let the global mean have li
 ```{r}
 #| label: weighted_mean-example
 #| echo: false
+#| message: false
 library(tidyverse)
 
 set.seed(1234)

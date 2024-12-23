@@ -1367,13 +1367,22 @@ Note
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>dummy_rec <span class="sc">|&gt;</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>, <span class="fu">starts_with</span>(<span class="st">"MS_SubClass"</span>), <span class="fu">starts_with</span>(<span class="st">"MS_Zoning"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>, <span class="fu">starts_with</span>(<span class="st">"MS_SubClass"</span>), <span class="fu">starts_with</span>(<span class="st">"MS_Zoning"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Rows: 2,930
-Columns: 2
-$ MS_SubClass &lt;dbl&gt; 0.36825939, 0.36825939, 0.36825939, 0.36825939, 0.19624573…
-$ MS_Zoning   &lt;dbl&gt; 0.775767918, 0.009215017, 0.775767918, 0.775767918, 0.7757…</code></pre>
+<pre><code># A tibble: 2,930 × 2
+   MS_SubClass MS_Zoning
+         &lt;dbl&gt;     &lt;dbl&gt;
+ 1      0.368    0.776  
+ 2      0.368    0.00922
+ 3      0.368    0.776  
+ 4      0.368    0.776  
+ 5      0.196    0.776  
+ 6      0.196    0.776  
+ 7      0.0655   0.776  
+ 8      0.0655   0.776  
+ 9      0.0655   0.776  
+10      0.196    0.776  
+# ℹ 2,920 more rows</code></pre>
 </div>
 </div>
 <p>We can pull the frequencies for each level of each variable by using <code>tidy()</code>.</p>

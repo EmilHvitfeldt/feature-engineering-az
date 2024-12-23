@@ -17,6 +17,7 @@ Suppose we use leaf encoding on the `MS_SubClass` predictor of the `ames` data s
 ```{r}
 #| label: leaf-table-reg
 #| echo: false
+#| message: false
 library(tidymodels)
 set.seed(1234)
 
@@ -66,8 +67,7 @@ Since we are fitting a tree, it has the opportunity to be hyper-parameter-tuned,
 
 Lastly, this method doesn't work with unseen levels as talked about in @sec-categorical-unseen, as decision trees generally don't have a way to handle unseen levels.
 
-https://feature-engine.trainindata.com/en/1.7.x/user_guide/encoding/index.html#decision-tree-encoding
-
+<https://feature-engine.trainindata.com/en/1.7.x/user_guide/encoding/index.html#decision-tree-encoding>
 
 ## Pros and Cons
 

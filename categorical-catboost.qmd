@@ -34,6 +34,7 @@ Below we have a worked example. We are using `color` as the categorical variable
 
 ```{r}
 #| label: example-table
+#| echo: false
 tibble::tribble(
  ~color, ~target, ~currentCount, ~totalCount, ~catboost,
     "red",   "yes",             0,           0,      0.05,

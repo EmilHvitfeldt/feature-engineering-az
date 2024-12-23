@@ -73,6 +73,7 @@ Let us see what would happen if we were to calculate dummy variables without doi
 
 ```{r}
 #| label: non-adjusted-step_dummy
+#| warning: false
 dummy_spec <- recipe(arr_delay ~ carrier, data = flights_train) |>
   step_dummy(carrier)
 
