@@ -14,7 +14,8 @@ $link-color: $theme-purple;
 
 /*-- scss:rules --*/
 
-h1, h2 {
+h1,
+h2 {
   color: $theme-green;
 }
 
@@ -27,7 +28,12 @@ h1, h2 {
 }
 
 .sidebar-navigation li a {
-  overflow:hidden; 
-  white-space:nowrap; 
+  overflow: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.bi-arrows-collapse::before,
+.bi-arrows-expand::before {
+  color: rgb(52, 58, 64);
 }
