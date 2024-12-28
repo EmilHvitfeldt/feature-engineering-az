@@ -20,6 +20,7 @@ The target encoded value would be `22` and the leave one out values would be dif
 ```{r}
 #| label: example
 #| echo: false
+#| message: false
 library(tidyverse)
 
 tibble(
