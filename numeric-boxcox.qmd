@@ -13,7 +13,7 @@ This isn't that common of an assumption, and having a fairly non-skewed symmetri
 Linear Discriminant Analysis assumes Gaussian data, and that is about it (TODO add a reference here).
 Still, it is worthwhile to have more symmetric predictors, and this is where the Box-Cox transformation comes into play.
 
-In @sec-numeric-logarithms on logarithms, we saw how they could be used to change the distribution of a variable.
+In [Logarithms](@sec-numeric-logarithms) we saw how they could be used to change the distribution of a variable.
 One of the downsides is that if we want to get closer to normality, it doesn't do well unless applied to a log-normally distributed variable.
 The Box-Cox transformation tries to find an optimal power transformation.
 This method was originally intended to be used on the *outcome* of a model.
@@ -34,7 +34,7 @@ It is worth noting again, that what we are optimizing over is the value of $\lam
 This is also a case of a trained preprocessing method when used on the predictors.
 We need to estimate the parameter $\lambda$ on the training data set, then use the estimated value to apply the transformation to the training and test data set to avoid data leakage.
 Lastly, Box-Cox only works with positive numbers.
-Take a look at @sec-numeric-yeojohnson about the Yeo-Johnson method that tries to accomplish the same thing, and it works on positive as well as negative numbers.
+Take a look at the [Yeo-Johnson method](@sec-numeric-yeojohnson ) that tries to accomplish the same thing, and it works on positive as well as negative numbers.
 
 Let us see some examples of Box-Cox at work.
 Below is three different simulated distribution, before and after they have been transformed by Box-Cox.

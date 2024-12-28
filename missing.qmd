@@ -68,8 +68,8 @@ To make matters more complicated, there will also be times when different types 
 
 One of the most common ways of dealing with missing values is to fill them in with some values.
 The types of methods that do this can be split into two groups.
-Simple imputation in @sec-missing-simple is when you use the values in the variable to impute its missing values, which is where mean and mode imputation are found.
-Anything more complicated than this will be found in @sec-missing-model.
+[Simple Imputation](@sec-missing-simple) is when you use the values in the variable to impute its missing values, which is where mean and mode imputation are found.
+Anything more complicated than this will be found in the [Model Based Imputation](@sec-missing-model).
 This is where multiple columns are used to determine the type of imputation needed.
 
 ## Indication

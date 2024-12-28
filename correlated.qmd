@@ -73,5 +73,5 @@ This is one of the reasons why we sometimes want to do dimension reduction, as s
 We will see how we can use the correlation structure to figure out which variables we can eliminate, this is covered in @sec-correlated-filter.
 This is a more specialized version of the methods we cover in @sec-too-many-filter as we are looking at correlation to determine which variables to remove rather than their relationship to the outcome.
 
-Another set of methods that works well in anything PCA-related, which are covered in @sec-too-many-pca and @sec-too-many-pca-variants.
+Another set of methods that works well in anything PCA-related, which are split into two chapters, one explaining [PCA](@sec-too-many-pca) and one going over [PCA varients](@sec-too-many-pca-variants).
 The resulting data coming out of PCA will be uncorrelated.

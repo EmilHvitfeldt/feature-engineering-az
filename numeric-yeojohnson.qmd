@@ -13,7 +13,7 @@ This isn't that common of an assumption, and having a fairly non-skewed symmetri
 Linear Discriminant Analysis assumes Gaussian data, and that is about it (TODO add a reference here).
 Still, it is worthwhile to have more symmetric predictors, and this is where the Yeo-Johnson transformation comes into play.
 
-This method is very similar to the Box-Cox method in @sec-numeric-boxcox, except it doesn't have the restriction that the variable $x$ needs to be positive.
+This method is very similar to the [Box-Cox method](@sec-numeric-boxcox), except it doesn't have the restriction that the variable $x$ needs to be positive.
 
 It works by using maximum likelihood estimation to estimate a transformation parameter $\lambda$ in the following equation that would optimize the normality of $x^*$
 

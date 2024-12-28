@@ -1281,7 +1281,7 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </div>
 </div>
-<p>We noticed a couple of things during this interaction. The first thing is that the number of unique levels goes up multiplicatively, so the newly created variable will include many levels. Depending on what the original variables encode, you will get impossible combinations or rarely occurring levels. This can be handled partly using <a href="categorical-collapse.html" class="quarto-xref"><span>Chapter 35</span></a>.</p>
+<p>We noticed a couple of things during this interaction. The first thing is that the number of unique levels goes up multiplicatively, so the newly created variable will include many levels. Depending on what the original variables encode, you will get impossible combinations or rarely occurring levels. This can be handled partly by <a href="@sec-categorical-collapse">Collapsing Categories</a>.</p>
 <p>It is not guaranteed that the combination feature is going to be better than the individual features before. It can be beneficial to keep both the individual features as long as the combination feature. In the above example, you can imagine that Fridays and rainy Mondays are high signals. If that is the case, then keeping all variables would be the best decision.</p>
 <p>This method is not confined to just 2 variables, you could combine as many variables as you want. But the problems described with increased number of levels will be exacerbated.</p>
 <p>This method will be hard to automatically employ and will thus need to be done manually. Despite this, it can provide a good boost in performance when done right.</p>

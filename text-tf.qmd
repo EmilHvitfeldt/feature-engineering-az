@@ -28,8 +28,8 @@ This is another way of encoding `x > 0`.
 We can use this if we think that the number of times a token appears doesn't matter that much, just that it appears.
 If you have a mix of long and short text fields, you might be interested in calculating the frequency instead of the raw counts.
 Here we take the number of times a token appears, divided by the number of tokens in the observation.
-This is similar but not exactly the same as @sec-numeric-range, as we are making it so the values across the row sum to 1, not making it so each column has values between 0 and 1.
-Since we are working with counts, there are also times when log normalization is done, which means that we take the columns produced here, and take the logarithm of them as per @sec-numeric-logarithms, Typically with an offset because this method tends to produce a lot of zeroes.
+This is similar but not exactly the same as [Range Scaling](@sec-numeric-range), as we are making it so the values across the row sum to 1, not making it so each column has values between 0 and 1.
+Since we are working with counts, there are also times when log normalization is done, which means that we take the columns produced here, and take the [logarithm](@sec-numeric-logarithms) of them, Typically with an offset because this method tends to produce a lot of zeroes.
 Lastly, we also see people perform **double normalization**, which is done by taking the raw frequency divided by the raw frequency of the most occurring token in the observation.
 This is then multiplied by some offset and the offset is added to the result.
 This is again done to prevent a bias towards longer documents.
@@ -49,7 +49,7 @@ The above statement isn't true if we have applied n-grams to our tokens.
 You might run into what is known as unseen tokens.
 They typically won't show up in term frequency solutions.
 You could, in theory, add a column with `"<unseen token>"`, but for counting methods like this, it doesn't make much sense as it would only take the value `0`.
-Any such variable should properly be removed anyway as we further talk about in @sec-too-many-zv.
+Any such variable should properly be removed anyway as we further talk about in the [Zero Variance](@sec-too-many-zv) chapter.
 An efficient software solution wouldn't generate this column to begin with.
 
 ## Pros and Cons

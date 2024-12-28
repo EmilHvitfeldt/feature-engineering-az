@@ -9,7 +9,7 @@ pagetitle: "Feature Engineering A-Z | Binary Encoding"
 :::
 
 Binary encoding encodes each category by encoding it as its binary representation.
-From the categorical variables, you assign an integer value to each level, in the same way as in @sec-categorical-label.
+From the categorical variables, you assign an integer value to each level, in the same way as in [Label Encoding](@sec-categorical-label).
 That value will then be converted to its binary representation, and that value will be returned.
 
 Suppose we have the following variable, and the values they take are (cat = 11, dog = 3, horse = 20).

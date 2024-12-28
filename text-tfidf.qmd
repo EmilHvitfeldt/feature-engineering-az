@@ -8,14 +8,14 @@ pagetitle: "Feature Engineering A-Z | TF-IDF"
 ## TF-IDF
 :::
 
-**Term Frequency inverse document frequency** is the next iteration based on term frequency we explored in @sec-text-tf.
+**Term Frequency inverse document frequency** is the next iteration based on term frequency we explored in the [TF](@sec-text-tf) chapter.
 As the name implies, it is what happens when you take the term frequencies and multiply them by the inverse document frequency.
 
 $$
 TF-IDF(t, d) = TF(t, d) \times IDF(t)
 $$
 
-Conceptually, we start by creating the term frequency matrix we created in @sec-text-tf.
+Conceptually, we start by creating the term frequency matrix we created in [TF](@sec-text-tf).
 Then we Look at each term/token.
 We calculate the inverse document frequency by dividing the number of observations we have, by how many observations that token appears in.
 Once we have that number we take the logarithm of it.

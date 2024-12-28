@@ -8,7 +8,7 @@ pagetitle: "Feature Engineering A-Z | Text LDA"
 ## LDA
 :::
 
-The feature engineering methods we have seen so far, have been counting based or variations thereof as seen in @sec-text-tf, @sec-text-tfidf, and @sec-text-hashing.
+The feature engineering methods we have seen so far, have been counting based or variations thereof as seen in [TF](@sec-text-tf), [TF-IDF](@sec-text-tfidf), and [Token Hashing](@sec-text-hashing).
 Latent Dirichlet Allocation (LDA) is different because it is done by first fitting a model on the data, and then using this fitted model to define features for us.
 
 To understand this method, we should first learn what Latent Dirichlet Allocation[@lda2003, @chen2016warpldacacheefficiento1] is, and how it is used for topic modeling[^1].
@@ -29,7 +29,7 @@ We are in essence turning our tokens into `n` numerical features where `n` is th
 The number of topics is not set in stone and can act as a hyperparameter.
 
 Documents, which are the established terminology for the observations, are seen as a bag-of-words representation of tokens.
-Meaning that much like @sec-text-tfidf, the order doesn't matter.
+Meaning that much like [TF-IDF](@sec-text-tfidf), the order doesn't matter.
 We are simply looking at token counts.
 
 Words are the common term used, but we know that it is referring to tokens.

@@ -43,7 +43,7 @@ After all, it is not a free operation.
 This chapter talks about n-grams as a process that happens independently from tokenization.
 And in theory that should be possible.
 However many software implementations connect the tokenization action with the n-gramming procedure.
-If your tool allows you to create n-grams independently, you can create n-grams based on stemmed tokens @sec-text-stemming.
+If your tool allows you to create n-grams independently, you can create n-grams based on [stemmed tokens](@sec-text-stemming).
 
 N-grams work by looking at neighboring tokens.
 **skip-grams** on the other hand work by looking at nearby tokens.

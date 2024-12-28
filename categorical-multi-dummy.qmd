@@ -27,8 +27,8 @@ data.frame(
  knitr::kable()
 ```
 
-One could apply dummy variables @sec-categorical-dummy on each of them individually, but that could potentially create a lot of columns as you would expect a near-equal number of levels produced from each variable.
-You could target encode the variables @sec-categorical-target, but that too feels insufficient.
+One could apply [dummy variables](@sec-categorical-dummy) on each of them individually, but that could potentially create a lot of columns as you would expect a near-equal number of levels produced from each variable.
+You could apply [Target Encoding](@sec-categorical-target) to the variables, but that too feels insufficient.
 What these methods don't take into account is that there is some shared information between these variables that isn't being picked up.
 
 We can use the shared information to our advantage.

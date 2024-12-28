@@ -9,7 +9,7 @@ pagetitle: "Feature Engineering A-Z | Target Encoding"
 :::
 
 **Target encoding** (also called **mean encoding**, **likelihood encoding**, or **impact encoding**) is a method that maps the categorical levels to probabilities of your target variable [@micci2001].
-This method is in some ways quite similar to frequency encoding that we saw in @sec-categorical-frequency.
+This method is in some ways quite similar to [frequency encoding](@sec-categorical-frequency).
 We are taking a single categorical variable, and turning it into a single numeric categorical variable.
 
 This is a trained and supervised method since we are using the outcome of our modeling problem to guide the way this method is estimated.

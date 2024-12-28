@@ -9,7 +9,7 @@ pagetitle: "Feature Engineering A-Z | Collapsing Categories"
 :::
 
 There are times, especially when you have a lot of levels in a categorical variable, that it will be beneficial for you to combine some of them.
-This practice is in some ways similar to what we saw in @sec-categorical-cleaning, but here we are doing it for performance reasons.
+This practice is in some ways similar to what we saw in @sec-categorical-cleaning about cleaning categorical variables, but here we are doing it for performance reasons.
 
 Essentially what we are working on, is trying to combine many levels to get higher performance and interpretability
 
@@ -46,7 +46,7 @@ ames |>
 
 The proportion of how often each level appears is quite stark, to the point where 4 of them happen less than 10 times, which is not a lot considering the most frequent level occurs over 1000 times.
 
-For some methods such as @sec-categorical-dummy, having these infrequent levels would not do us much good, and may even make things worse.
+For some methods such as [Dummy Encoding](@sec-categorical-dummy), having these infrequent levels would not do us much good, and may even make things worse.
 Having a level be so infrequent increases its likelihood of being uninformative.
 This is where collapsing can come into play.
 The method takes the most infrequent levels and combines them into one, typically called `"other"`.
@@ -150,7 +150,7 @@ This doesn't use the data at all, and the results reflect that.
 The distance will again have to be used for best results, and there are quite a few different types of ways to calculate string distance.
 The choices will sometimes matter a lot and should be investigated before use for best results.
 
-The string distance collapsing method does in some ways feel like a cleaning method like we saw in @sec-categorical-cleaning.
+The string distance collapsing method does in some ways feel like a cleaning method like we saw in @sec-categorical-cleaning about cleaning categorical variables.
 Having many levels in a freeform state will often lead to misspellings or other slight variations.
 String distances are a great way to deal with those types of problems.
 It is recommended that you always look at the resulting mappings to make sure they are created correctly, or good enough.

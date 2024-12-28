@@ -41,7 +41,7 @@ The weight of evidence encoding has been reported to be effective for addressing
 
 ::: callout-note
 It is often stated that WOE can be used on numeric predictors by first discretizing the predictor and then applying this encoding.
-This is trivially true for all categorical methods but is not recommended as per @sec-numeric-binning.
+This is trivially true for all categorical methods but is not recommended as per chapter on [Binning](@sec-numeric-binning).
 :::
 
 ## Pros and Cons
