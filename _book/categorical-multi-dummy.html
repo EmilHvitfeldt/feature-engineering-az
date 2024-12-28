@@ -1276,7 +1276,7 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </div>
 </div>
-<p>One could apply dummy variables <a href="categorical-dummy.html" class="quarto-xref"><span>Chapter 18</span></a> on each of them individually, but that could potentially create a lot of columns as you would expect a near-equal number of levels produced from each variable. You could target encode the variables <a href="categorical-target.html" class="quarto-xref"><span>Chapter 23</span></a>, but that too feels insufficient. What these methods don’t take into account is that there is some shared information between these variables that isn’t being picked up.</p>
+<p>One could apply <a href="@sec-categorical-dummy">dummy variables</a> on each of them individually, but that could potentially create a lot of columns as you would expect a near-equal number of levels produced from each variable. You could apply <a href="@sec-categorical-target">Target Encoding</a> to the variables, but that too feels insufficient. What these methods don’t take into account is that there is some shared information between these variables that isn’t being picked up.</p>
 <p>We can use the shared information to our advantage. The levels used in these categorical variables are likely the same, so we can treat them combined. In practice, this means that we count over all selected columns, and add dummies or counts accordingly.</p>
 <div class="cell">
 <div class="cell-output-display">

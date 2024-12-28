@@ -1273,7 +1273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="collapsing-categories" class="level2" style="visibility: hidden; height: 0px;" data-number="35.1">
 <h2 data-number="35.1" class="anchored" data-anchor-id="collapsing-categories"><span class="header-section-number">35.1</span> Collapsing Categories</h2>
 </section>
-<p>There are times, especially when you have a lot of levels in a categorical variable, that it will be beneficial for you to combine some of them. This practice is in some ways similar to what we saw in <a href="categorical-cleaning.html" class="quarto-xref"><span>Chapter 16</span></a>, but here we are doing it for performance reasons.</p>
+<p>There are times, especially when you have a lot of levels in a categorical variable, that it will be beneficial for you to combine some of them. This practice is in some ways similar to what we saw in <a href="categorical-cleaning.html" class="quarto-xref"><span>Chapter 16</span></a> about cleaning categorical variables, but here we are doing it for performance reasons.</p>
 <p>Essentially what we are working on, is trying to combine many levels to get higher performance and interpretability</p>
 <p>this has two prongs</p>
 <ul>
@@ -1295,7 +1295,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>The proportion of how often each level appears is quite stark, to the point where 4 of them happen less than 10 times, which is not a lot considering the most frequent level occurs over 1000 times.</p>
-<p>For some methods such as <a href="categorical-dummy.html" class="quarto-xref"><span>Chapter 18</span></a>, having these infrequent levels would not do us much good, and may even make things worse. Having a level be so infrequent increases its likelihood of being uninformative. This is where collapsing can come into play. The method takes the most infrequent levels and combines them into one, typically called <code>"other"</code>.</p>
+<p>For some methods such as <a href="@sec-categorical-dummy">Dummy Encoding</a>, having these infrequent levels would not do us much good, and may even make things worse. Having a level be so infrequent increases its likelihood of being uninformative. This is where collapsing can come into play. The method takes the most infrequent levels and combines them into one, typically called <code>"other"</code>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -1406,7 +1406,7 @@ TODO
 </div>
 </div>
 <p>This doesn’t use the data at all, and the results reflect that. The distance will again have to be used for best results, and there are quite a few different types of ways to calculate string distance. The choices will sometimes matter a lot and should be investigated before use for best results.</p>
-<p>The string distance collapsing method does in some ways feel like a cleaning method like we saw in <a href="categorical-cleaning.html" class="quarto-xref"><span>Chapter 16</span></a>. Having many levels in a freeform state will often lead to misspellings or other slight variations. String distances are a great way to deal with those types of problems. It is recommended that you always look at the resulting mappings to make sure they are created correctly, or good enough.</p>
+<p>The string distance collapsing method does in some ways feel like a cleaning method like we saw in <a href="categorical-cleaning.html" class="quarto-xref"><span>Chapter 16</span></a> about cleaning categorical variables. Having many levels in a freeform state will often lead to misspellings or other slight variations. String distances are a great way to deal with those types of problems. It is recommended that you always look at the resulting mappings to make sure they are created correctly, or good enough.</p>
 <p>Some data is naturally hierarchical, and if we have this type of data and we want to collapse, we can take advantage of that and collapse according to the hierarchies.</p>
 <p>Collapsing categorical levels is not without risk, and each application should be monitored and checked to make sure we don’t do anything bad. In many ways, this is quite a manual process and luckily the results are very easy to validate.</p>
 <p>Unseen levels will have to be treated on a method-to-method basis. Tree-based collapsing will not be able to handle unseen levels as they are not part of the tree at all. On the other hand, it is possible to handle unseen levels on the string distance method as you just need to calculate the distances. With the caveat that some strings could be the same distance away from multiple levels.</p>

@@ -8,9 +8,9 @@ pagetitle: "Feature Engineering A-Z | Missing Values Indicators"
 ## Missing Values Indicators
 :::
 
-While imputation can be useful, as we saw in @sec-missing-simple and @sec-missing-model.
+While imputation can be useful, as we saw in the [Simple Imputation](@sec-missing-simple) and [Model Based Imputation](@sec-missing-model) chapters.
 That by itself isn't always enough to extract all the information.
-As was described in @sec-missing, missing values can come in different variants, and depending on the variant, imputation might not give enough information.
+As was described in [Missing section](@sec-missing), missing values can come in different variants, and depending on the variant, imputation might not give enough information.
 Suppose you are working with non-MCAR data (non Missing Completely At Random).
 Then we have some mechanism that determines when missing values occur.
 This mechanism might be known or unknown.
@@ -55,7 +55,7 @@ example
 
 From here on, you are potentially adding information, otherwise we are adding a lot of noise.
 The noise here can be filtered by other methods seen in this book.
-If variables with no missing data were used, then we create zero variance predictors, which we can deal with as seen in @sec-too-many-zv.
+If variables with no missing data were used, then we create zero variance predictors, which we can deal with as seen in [Zero Variance](@sec-too-many-zv) chapter.
 
 ## Pros and Cons
 

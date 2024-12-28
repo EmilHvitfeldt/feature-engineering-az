@@ -30,7 +30,7 @@ This variable contains `4! = 4 * 3 * 2 * 1 = 24` different orderings.
 And since the number of permutations is calculated with factorials, this number goes up fast.
 With just 10 levels we are looking at 3,628,800 different orderings.
 Even if some orders are better than others, It would be a very slow task to iterate through to find which ones are good.
-If you have prior information about the levels, then you should use @sec-categorical-ordinal.
+If you have prior information about the levels, then you should use [Ordinal Encoding](@sec-categorical-ordinal).
 
 If you are working on an implementation that works with factors, then they will be used.
 Otherwise, the ordering most likely will be alphabetical or in order of occurrence.

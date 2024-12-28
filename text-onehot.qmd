@@ -8,7 +8,7 @@ pagetitle: "Feature Engineering A-Z | Sequence Encoding"
 ## Sequence Encoding
 :::
 
-In @sec-text-tf, @sec-text-tfidf, and @sec-text-hashing we took a *bag of words* approach to encoding the tokens into numeric columns.
+In [TF](@sec-text-tf), [TF-IDF](@sec-text-tfidf), and [Token Hashing](@sec-text-hashing) we took a *bag of words* approach to encoding the tokens into numeric columns.
 This approach strips out the positional information of the text.
 For some tasks that is perfectly fine to do.
 One way to encode the sequence itself is presented in this chapter.
@@ -67,7 +67,7 @@ add diagram
 :::
 
 One of the nice things about this method is that you aren't restricted to a certain number of unique tokens as they just influence the number of unique values the columns can take, not the number of columns.
-That doesn't mean that filtering tokens shouldn't be done, just that it isn't a requirement as it often is for methods such as @sec-text-tf and @sec-text-tfidf.
+That doesn't mean that filtering tokens shouldn't be done, just that it isn't a requirement as it often is for methods such as [TF](@sec-text-tf) and [TF-IDF](@sec-text-tfidf).
 
 This method of embedding tokens relies on the positional information that we have.
 For this reason, we should have a way to encode unseen tokens.

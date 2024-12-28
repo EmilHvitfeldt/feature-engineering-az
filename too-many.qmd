@@ -14,7 +14,7 @@ but it could come with some drawbacks.
 Many models will have slower fit times at best, and worse performance at worst.
 Not all your variables are likely beneficial in your model.
 They could be uninformative, correlated or contain redundant information.
-We look at ways to deal with correlated features in @sec-correlated, but there will also be methods here to accomplish similar goals.
+We look at ways to deal with [correlated features](@sec-correlated), but there will also be methods here to accomplish similar goals.
 
 Suppose the same variable is included twice in your model.
 Both will not be able to be used in your model at the same time.
@@ -28,7 +28,7 @@ The overarching names for these types of methods are **dimensionality reduction*
 These types of methods are quite simple, we remove variables that take a few number of values.
 If the value is always 1 then it doesn't have any information in it and we should remove it.
 If the variables are almost always the same we might want to remove them.
-We look at these methods in @sec-too-many-zv.
+We look at these methods in the [Non-zero Variance filtering](@sec-too-many-zv) chapter.
 
 ## Dimensionality reduction
 
@@ -36,25 +36,25 @@ The bulk of the chapter will be in this category.
 This book categorizes dimensionality reduction methods as methods where a calculation is done on several features, with the same or fewer features being returned.
 Remember that we only look at methods that can be used in predictive settings, hence we won't be talking about t-distributed stochastic neighbor embedding [t-SNE](https://stats.stackexchange.com/a/584327).
 
--   Principal Component Analysis (PCA) @sec-too-many-pca
--   PCA variants @sec-too-many-pca-variants
--   Independent Component Analysis (ICA) @sec-too-many-ica
--   Non-negative matrix factorization (NMF) @sec-too-many-nmf
--   Linear discriminant analysis (LDA) @sec-too-many-lda
--   Generalized discriminant analysis (GDA) @sec-too-many-gda
--   Autoencoders @sec-too-many-autoencoder
--   Uniform Manifold Approximation and Projection (UMAP) @sec-too-many-umap
--   ISOMAP @sec-too-many-isomap
+-   [Principal Component Analysis (PCA)](@sec-too-many-pca)
+-   [PCA variants](@sec-too-many-pca-variants)
+-   [Independent Component Analysis (ICA)](@sec-too-many-ica)
+-   [Non-negative matrix factorization (NMF)](@sec-too-many-nmf)
+-   [Linear discriminant analysis (LDA)](@sec-too-many-lda)
+-   [Generalized discriminant analysis (GDA)](@sec-too-many-gda)
+-   [Autoencoders](@sec-too-many-autoencoder)
+-   [Uniform Manifold Approximation and Projection (UMAP)](@sec-too-many-umap)
+-   [ISOMAP](@sec-too-many-isomap)
 
 ## Feature selection
 
 Feature selection on the other hand finds which variables to keep or remove.
 And then you act on that.
 This can be done in a couple of different ways.
-Filter-based approaches are covered in @sec-too-many-filter, these methods give each feature a score or rank, and then you use this information to select variables.
+[Filter-based approaches](@sec-too-many-filter), these methods give each feature a score or rank, and then you use this information to select variables.
 There are many different ways to get these rankings and many will be covered in the chapter.
-Wrapper-based approaches are covered in @sec-too-many-wrapper.
+[Wrapper-based approaches](@sec-too-many-wrapper).
 These methods iteratively look at subsets of data to try to find the best set.
 Their main downside is they tend to add a lot of computational overhead as you need to fit your model many times.
-Lastly, we have embedded methods which will be covered in @sec-too-many-embedded.
+Lastly, we have [embedded methods](@sec-too-many-embedded).
 These methods use more advanced methods, sometimes other models, to do the feature selection.

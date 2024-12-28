@@ -46,7 +46,7 @@ Remember to always look at how many observations you are losing by doing the rem
 
 We are removing observations for one of two reasons.
 The first reason is that it messes with our model's ability to fit correctly.
-If this is the issue we should think about other methods in @sec-missing than removal.
+If this is the issue we should think about other methods in the [Missing section](@sec-missing) than removal.
 Another reason why we want to remove observations is because they don't have enough information in them because of their missingness.
 
 Imagine an observation where every single field is missing.
@@ -54,7 +54,7 @@ There is no information about the observation other than the fact that it is ful
 On the other end of the spectrum, we have observations with no missing values at all.
 Somewhere between these two extremes is a threshold that we imagine defines "too much missing".
 This is the basis behind **threshold-based missing value removal** we define a threshold and then remove observations once they have more than, say 50% missing values.
-This method by itself doesn't deal with all the missing values and would need to be accompanied by other methods as described in @sec-missing.
+This method by itself doesn't deal with all the missing values and would need to be accompanied by other methods as described in the [Missing section](@sec-missing).
 This threshold will need to be carefully selected, as you are still removing observations.
 
 In the same vein as above, we can look at removing predictors that have too many missing values.

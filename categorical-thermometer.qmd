@@ -8,7 +8,7 @@ pagetitle: "Feature Engineering A-Z | Thermometer Encoding"
 ## Thermometer Encoding
 :::
 
-**Thermometer encoding** (also called **Rank Hot Encoding**) is a variation of dummy encoding as seen in @sec-categorical-dummy. It is intended only for ordinal data.
+**Thermometer encoding** (also called **Rank Hot Encoding**) is a variation of [Dummy Encoding](@sec-categorical-dummy). It is intended only for ordinal data.
 
 Where one-hot encoding produces 1 for the current level and 0 for all other levels, thermometer encoding produces 1 for the current level and lesser levels and 0 for other levels.
 

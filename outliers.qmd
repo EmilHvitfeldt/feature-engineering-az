@@ -78,13 +78,13 @@ the first choice is to not.
 Some model types don't care about outliers that much.
 Anything that uses distances is very affected by outliers.
 Tree-based models don't.
-Some other preprocessing method such as @sec-numeric-robust also isn't affected by outliers.
+Some other preprocessing method such as [Robust Scaling](@sec-numeric-robust) also isn't affected by outliers.
 
 If you are planning on handling outliers you want to start by identifying them.
-In @sec-outliers-remove we look at how we can identify and remove outliers.
-In @sec-numeric-outliers-issues we cover numerical transformations that lessen the effect that outliers have on the distribution.
+In the [Outlier removal](@sec-outliers-remove) chapter we look at how we can identify and remove outliers.
+In the [outliers issues](@sec-numeric-outliers-issues) section we cover numerical transformations that lessen the effect that outliers have on the distribution.
 Instead of removing the specific observation that has outliers, or transforming the whole variable, we can choose to only modify the value of the outliers.
-We look at methods on how to do that in @sec-outliers-imputation.
-In addition to all of these methods, we can also add additional indicator variables to denote whether an observation is an outlier or not, this is covered in @sec-outliers-indicate.
+We look at methods on how to do that in the [Outliers Imputation](@sec-outliers-imputation) chapter.
+In addition to all of these methods, we can also add additional indicator variables to denote whether an observation is an outlier or not, this is covered in the [Outliers Indicate](@sec-outliers-indicate) chapter.
 
 Lastly, it might be appropriate to treat the outliers as a separate data set and fit a specific model to that part of the data.

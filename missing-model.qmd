@@ -14,7 +14,7 @@ This chapter will try to do it justice.
 
 We start with simpler methods.
 Remember, this chapter specifically refers to methods where more than one variable is being used for the imputation.
-So we could do grouped versions of the simple imputation methods seen in @sec-missing-simple.
+So we could do grouped versions of the simple imputation methods seen in [Simple Imputation](@sec-missing-simple) chapter.
 Instead of imputing with the mean, you impute with the mean within a given group as defined by another categorical variable.
 
 You could also fit a linear regression model with the target variable as the variable you intend to impute, and other complete variables as predictors.

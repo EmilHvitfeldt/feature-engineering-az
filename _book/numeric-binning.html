@@ -1321,7 +1321,7 @@ Figure&nbsp;11.3: Each part of the binning detects a part of the data set.
 </div>
 </div>
 <p>Ideally, we would want the region with the highest values of <code>outcome</code> to be in the same region. but It appears to be split between Bin 2 and Bin 3.</p>
-<p>Below is a chart of how well using evenly split binning works when using it on our toy example. We notice that using binning doesn’t work that well for this type of data. And it makes sense, binning will naturally create a step function like we see below, and if your predictor doesn’t have that shape, you are unlikely to see as good performance as with splines <a href="numeric-splines.html" class="quarto-xref"><span>Chapter 12</span></a> or polynomial expansion <a href="numeric-polynomial.html" class="quarto-xref"><span>Chapter 13</span></a>.</p>
+<p>Below is a chart of how well using evenly split binning works when using it on our toy example. We notice that using binning doesn’t work that well for this type of data. And it makes sense, binning will naturally create a step function like we see below, and if your predictor doesn’t have that shape, you are unlikely to see as good performance as with <a href="@sec-numeric-splines">Splines</a> or <a href="@sec-numeric-polynomial">Polynomial Expansion</a>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-binning-different-num_breaks" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. The data has some wiggliness to it, but it follows a curve. You would not be able to fit a straight line to this data.">
