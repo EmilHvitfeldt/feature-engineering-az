@@ -1258,13 +1258,14 @@ div.csl-indent {
    
   <ul>
   <li><a href="#target-encoding" id="toc-target-encoding" class="nav-link active" data-scroll-target="#target-encoding"><span class="header-section-number">23.1</span> Target Encoding</a></li>
-  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link" data-scroll-target="#pros-and-cons"><span class="header-section-number">23.2</span> Pros and Cons</a>
+  <li><a href="#sec-target-low-count-groups" id="toc-sec-target-low-count-groups" class="nav-link" data-scroll-target="#sec-target-low-count-groups"><span class="header-section-number">23.2</span> Low count groups</a></li>
+  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link" data-scroll-target="#pros-and-cons"><span class="header-section-number">23.3</span> Pros and Cons</a>
   <ul class="collapse">
-  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">23.2.1</span> Pros</a></li>
-  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">23.2.2</span> Cons</a></li>
+  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">23.3.1</span> Pros</a></li>
+  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">23.3.2</span> Cons</a></li>
   </ul></li>
-  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">23.3</span> R Examples</a></li>
-  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">23.4</span> Python Examples</a></li>
+  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">23.4</span> R Examples</a></li>
+  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">23.5</span> Python Examples</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/categorical-target.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/categorical-target.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
@@ -1421,7 +1422,6 @@ TODO
 <p>Lastly, how will this method handle unseen levels?</p>
 <p>Let us think about the unseen levels first. If we have no information about a given class. This could happen in at least two different ways. Because the level is truly unseen because the company was just started and wasn’t known in the training data set. Or because the known level wasn’t observed, e.i. no Sundays in the training data set. Regardless of the reason, we will want to give these levels a baseline number. For this, we can use the mean value of the target, across all of the training data set. So for our toy example, we have a mean cuteness of 4, which we will assign to any new animal.</p>
 <p>This value is by no means a good value, but it is an educated guess that can be calculated with ease. This also means that regardless of the distribution of the target, these values can be calculated.</p>
-<p>We talk about target encoding without smoothing, which isn’t exactly required but it is often beneficial to include if you are dealing with low count levels. It is also recommended because if omitted, it would lead to overfitting since we are essentially using the outcome to guide the predictors. See <a href="categorical-glmm.html" class="quarto-xref"><span>Chapter 27</span></a> for one such way of doing it.</p>
 <p>We have so far talked about target encoding, from the perspective of a regression task. But target encoding is not limited to numeric outcomes, but can be used in classification settings as well. In the classification setting, where we have a categorical outcome, instead of calculating the mean of the target variable, we need to figure something else out. It could be calculating the probability of the first level, or we could try to go more linear by converting them to log odds. Now everything works as before.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1438,24 +1438,117 @@ TODO
 </div>
 <p>A type of data that is sometimes seen is hierarchical categorical variables. Typical examples are city-state and region-subregion. With hierarchical categorical variables you often end up with many levels, and target encoding can be used on such data, and can even use the hierarchical structure.</p>
 <p>The encoding is calculated like normal, but the smoothing is done on a lower level than at the top. So instead of adjusting by the global mean, you smooth by the level below it.</p>
-<section id="pros-and-cons" class="level2" data-number="23.2">
-<h2 data-number="23.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">23.2</span> Pros and Cons</h2>
-<section id="pros" class="level3" data-number="23.2.1">
-<h3 data-number="23.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">23.2.1</span> Pros</h3>
+<section id="sec-target-low-count-groups" class="level2" data-number="23.2">
+<h2 data-number="23.2" class="anchored" data-anchor-id="sec-target-low-count-groups"><span class="header-section-number">23.2</span> Low count groups</h2>
+<p>Target encoding as described in this chapter, doesn’t apply smoothing to the statistics that are calculated. Depending on the data it won’t have too bad of a negative effect. This subsection goes over what happens if one or more of the groups have few counts. It will at the same time act as the main motivation, for why you shouldn’t be using the base form of target encoding as described in this chapter, and instead use one with smoothing as seen in <a href="categorical-glmm.html" class="quarto-xref"><span>Chapter 27</span></a>.</p>
+<p>Suppose we have the following data.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">target</th>
+<th style="text-align: right;">predictor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">0.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">0.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">0.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">0.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">0.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">0.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">0.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">0.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">0.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">0.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C</td>
+<td style="text-align: right;">0.1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Calculating the means gives us the following encoding.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">target</th>
+<th style="text-align: right;">predictor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">0.44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">0.34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C</td>
+<td style="text-align: right;">0.10</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>However, how much can we trust this encoding? <code>C</code> only has a single value and <code>A</code> and <code>C</code> both have 5. Maybe <code>0.1</code> is a good estimate of the target means under <code>C</code>, but it could also be an outlier of the distribution itself. Taking a single value of <code>A</code> would give a value between <code>0.2</code> and <code>0.6</code>.</p>
+<p>We are overfitting to the training data set, by having a single observation for <code>C</code> alone determine the encoding. Smoothing would take the global mean (here 0.36) into account by having the mean encoding deviate from the global mean. Target levels with many counts would use a mean close to the class mean, and target levels with few counts would use a mean close to the global mean.</p>
+<p>We see this in sports and online reviews. An athlete that scored 1 out of 1 goal isn’t a reliable statistic, as the athlete that scores 80 out of 100. Like-wise, 10 five-star reviews aren’t a good as 100 five-star reviews.</p>
+</section>
+<section id="pros-and-cons" class="level2" data-number="23.3">
+<h2 data-number="23.3" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">23.3</span> Pros and Cons</h2>
+<section id="pros" class="level3" data-number="23.3.1">
+<h3 data-number="23.3.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">23.3.1</span> Pros</h3>
 <ul>
 <li>Can deal with categorical variables with many levels</li>
 <li>Can deal with unseen levels in a sensible way</li>
 </ul>
 </section>
-<section id="cons" class="level3" data-number="23.2.2">
-<h3 data-number="23.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">23.2.2</span> Cons</h3>
+<section id="cons" class="level3" data-number="23.3.2">
+<h3 data-number="23.3.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">23.3.2</span> Cons</h3>
 <ul>
 <li>Can be prone to overfitting</li>
 </ul>
 </section>
 </section>
-<section id="r-examples" class="level2" data-number="23.3">
-<h2 data-number="23.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">23.3</span> R Examples</h2>
+<section id="r-examples" class="level2" data-number="23.4">
+<h2 data-number="23.4" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">23.4</span> R Examples</h2>
 <p>The embed package comes with a couple of functions to do target encoding, we will look at <code>step_lencode_glm()</code> as it applied the method best described by this chapter. These functions are named such because they <strong>l</strong>ikelihood <strong>encode</strong> variables, and because the encodings can be calculated using no intercept models.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1521,8 +1614,8 @@ TODO
 </div>
 </div>
 </section>
-<section id="python-examples" class="level2" data-number="23.4">
-<h2 data-number="23.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">23.4</span> Python Examples</h2>
+<section id="python-examples" class="level2" data-number="23.5">
+<h2 data-number="23.5" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">23.5</span> Python Examples</h2>
 <p>We are using the <code>ames</code> data set for examples. {sklearn} provided the <code>TargetEncoder()</code> method we can use. For this to work, we need to remember to specify an outcome when we <code>fit()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> feazdata <span class="im">import</span> ames</span>

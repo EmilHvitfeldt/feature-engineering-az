@@ -85,9 +85,6 @@ So for our toy example, we have a mean cuteness of `r mean(animals$cuteness)`, w
 This value is by no means a good value, but it is an educated guess that can be calculated with ease.
 This also means that regardless of the distribution of the target, these values can be calculated.
 
-We talk about target encoding without smoothing, which isn't exactly required but it is often beneficial to include if you are dealing with low count levels.
-It is also recommended because if omitted, it would lead to overfitting since we are essentially using the outcome to guide the predictors. See @sec-categorical-glmm for one such way of doing it.
-
 We have so far talked about target encoding, from the perspective of a regression task.
 But target encoding is not limited to numeric outcomes, but can be used in classification settings as well.
 In the classification setting, where we have a categorical outcome, instead of calculating the mean of the target variable, we need to figure something else out.
@@ -106,6 +103,67 @@ With hierarchical categorical variables you often end up with many levels, and t
 
 The encoding is calculated like normal, but the smoothing is done on a lower level than at the top.
 So instead of adjusting by the global mean, you smooth by the level below it.
+
+## Low count groups {#sec-target-low-count-groups}
+
+Target encoding as described in this chapter,
+doesn't apply smoothing to the statistics that are calculated. 
+Depending on the data it won't have too bad of a negative effect. 
+This subsection goes over what happens if one or more of the groups have few counts. 
+It will at the same time act as the main motivation,
+for why you shouldn't be using the base form of target encoding as described in this chapter,
+and instead use one with smoothing as seen in @sec-categorical-glmm.
+
+Suppose we have the following data.
+
+```{r}
+#| label: lwo-count-target
+#| echo: false
+low_count <- tibble::tribble(
+  ~target, ~predictor,
+  "A", 0.4,
+  "A", 0.6,
+  "A", 0.5,
+  "A", 0.2,
+  "A", 0.5,
+  "B", 0.2,
+  "B", 0.3,
+  "B", 0.2,
+  "B", 0.4,
+  "B", 0.6,
+  "C", 0.1
+)
+low_count |>
+ knitr::kable()
+```
+
+Calculating the means gives us the following encoding.
+
+```{r}
+#| label: low-count-target-means
+#| echo: false
+low_count |>
+ dplyr::summarise(predictor = mean(predictor), .by = target) |>
+ knitr::kable()
+```
+
+However, how much can we trust this encoding?
+`C` only has a single value and `A` and `C` both have 5.
+Maybe `0.1` is a good estimate of the target means under `C`,
+but it could also be an outlier of the distribution itself.
+Taking a single value of `A` would give a value between `0.2` and `0.6`.
+
+We are overfitting to the training data set, 
+by having a single observation for `C` alone determine the encoding.
+Smoothing would take the global mean (here `r round(mean(low_count$predictor), 2)`)
+into account by having the mean encoding deviate from the global mean.
+Target levels with many counts would use a mean close to the class mean,
+and target levels with few counts would use a mean close to the global mean.
+
+We see this in sports and online reviews.
+An athlete that scored 1 out of 1 goal isn't a reliable statistic,
+as the athlete that scores 80 out of 100.
+Like-wise, 10 five-star reviews aren't a good as 100 five-star reviews.
 
 ## Pros and Cons
 
