@@ -9,7 +9,7 @@ pagetitle: "Feature Engineering A-Z | Text Overview"
 :::
 
 Sometimes you have fields that are free long-form text.
-This cannot be dealt with using the methods we saw in the [Categorical secton](@sec-categorical), as the natural text will have enough variation that counting the full-text fields is not going to be fruitful.
+This cannot be dealt with using the methods we saw in the [Categorical secton](categorical), as the natural text will have enough variation that counting the full-text fields is not going to be fruitful.
 Imagine this fictitious short book reviews
 
 -   This book is excellent
@@ -40,7 +40,7 @@ You don't have to do everything in this list to get good results, and some off-t
 This is another reason why it is important to read the documentation of the implementation you are using.
 
 There is also the possibility that you know exactly what type of information is important in your text field.
-In that case, you will be better served by manually extracting the information with regular expression or related text processing tools, we look at examples of that in the [Manual Text Features](@sec-text-manual) chapter.
+In that case, you will be better served by manually extracting the information with regular expression or related text processing tools, we look at examples of that in the [Manual Text Features](text-manual) chapter.
 
 The coding portions of the following chapters will be focused on using text as features in addition to other features.
 This is unlike other modeling tasks where text is the whole input, such as in translation or text2image tasks.
@@ -58,31 +58,31 @@ create diagram of how the chapters work together in a flow chart kind of way
 
 ## Text cleaning
 
-In the [Text Cleaning](@sec-text-cleaning) chapter, we will look over the ways we take raw text and get it ready for later tasks.
+In the [Text Cleaning](text-cleaning) chapter, we will look over the ways we take raw text and get it ready for later tasks.
 This work deals with encoding issues, standardization, and cases and sometimes you need to get rid of a lot of unwanted chunks.
 
 ## Tokenization
 
-Once the text is cleaned, we need to split it into a smaller unit of information such that we can count it, this is called [tokenization](@sec-text-tokenization) and we will be explored in detail.
+Once the text is cleaned, we need to split it into a smaller unit of information such that we can count it, this is called [tokenization](text-tokenization) and we will be explored in detail.
 
 ## Modifying tokens
 
 Once you have the data as tokens, one of the things you might want to do is modify them in various ways.
 This could be things like changing the endings to words or changing the words entirely.
-We see examples of this in the [Stemming](@sec-text-stemming) and [N-grams](@sec-text-ngrams) chapters.
+We see examples of this in the [Stemming](text-stemming) and [N-grams](text-ngrams) chapters.
 
 ## Filtering tokens
 
 The tokens you create might not all be of the same quality.
 Depending on your choice of tokenizer, there will be reasons for you to remove some of the tokens you have created.
-We see examples of this in the [Stop words](@sec-text-stopwords) and [Token filter](@sec-text-filter) chapters.
+We see examples of this in the [Stop words](text-stopwords) and [Token filter](text-filter) chapters.
 
 ## Counting tokens
 
 We have gotten to the end of the line and we are ready to turn the tokens into numeric variables we can use.
-There are many different ways we look at them in the [TF](@sec-text-tf), [TF-IDF](@sec-text-tfidf), [Token Hashing](@sec-text-hashing), [Sequence Encoding](@sec-text-oneho), and [LDA](@sec-text-lda) chapters.
+There are many different ways we look at them in the [TF](text-tf), [TF-IDF](text-tfidf), [Token Hashing](text-hashing), [Sequence Encoding](text-oneho), and [LDA](text-lda) chapters.
 
 ## Embeddings
 
 Another way to use text is to work with embeddings, this is another powerful tool that can give you good performance.
-We look at some of them in the [word2vec](@sec-text-word2vec) and [BERT](@sec-text-bert) chapters.
+We look at some of them in the [word2vec](text-word2vec) and [BERT](text-bert) chapters.

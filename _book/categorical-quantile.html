@@ -1322,7 +1322,7 @@ window.Quarto = {
 <section id="quantile-encoding" class="level2" style="visibility: hidden; height: 0px;" data-number="33.1">
 <h2 data-number="33.1" class="anchored" data-anchor-id="quantile-encoding"><span class="header-section-number">33.1</span> Quantile Encoding</h2>
 </section>
-<p>Quantile encoding <span class="citation" data-cites="quantile2021">(<a href="references.html#ref-quantile2021" role="doc-biblioref">Mougan et al. 2021</a>)</span>, is a reimagined version of <a href="@sec-categorical-target">Target Encoding</a> and <a href="@sec-categorical-m-estimator">M-estimator Encoding</a> that uses quantiles instead of means and M regulatization from M-estimator.</p>
+<p>Quantile encoding <span class="citation" data-cites="quantile2021">(<a href="references.html#ref-quantile2021" role="doc-biblioref">Mougan et al. 2021</a>)</span>, is a reimagined version of <a href="categorical-target">Target Encoding</a> and <a href="categorical-m-estimator">M-estimator Encoding</a> that uses quantiles instead of means and M regulatization from M-estimator.</p>
 <p>Whereas target encoding uses the mean as an aggregation function, quantile encoding uses any quantile as its aggregation function. Most of the things we know about target encoding are also true for quantile encoding. The differences come with how quantiles differ from means. Quantiles are generally more robust to outliers, for quantiles away from the end. This same pattern is mirrored in quantile encoding.</p>
 <p>Quantile encoding is suggested to be paired with M-estimator style regularization to deal with the issue of having smaller groups.</p>
 <p>The following formula is used to calculate the quantile encodings.</p>

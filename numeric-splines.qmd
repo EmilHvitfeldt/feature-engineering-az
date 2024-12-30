@@ -48,7 +48,7 @@ Given that this is a toy example, we do not have any expert knowledge regarding 
 The trend could go back up, it could go down or flatten out.
 We don't know.
 
-As we saw in the [Binning](@sec-numeric-binning) chapter, one way to deal with this non-linearity is to chop up the predictor and emit indicators for which region the values take.
+As we saw in the [Binning](numeric-binning) chapter, one way to deal with this non-linearity is to chop up the predictor and emit indicators for which region the values take.
 While this works, we are losing quite a lot of detail by the rounding that occurs.
 This is where splines come in.
 Imagine that instead of indicators for whether a value is within a range, we have a set of functions that gives each predictor value a set of values, related to its location in the distribution.
@@ -179,7 +179,7 @@ Depending on which model we use, having these 6 variables is gonna give us highe
 One thing to note is that you will get back correlated features when using splines.
 Some values of the predictor will influence multiple of the spline features as the spline functions overlap.
 This is expected but is worth noting.
-If you are using a model type that doesn't handle correlated features well, then you should take a look at the methods outlined in the [Correlated section](@sec-correlated) for ways to deal with correlated features.
+If you are using a model type that doesn't handle correlated features well, then you should take a look at the methods outlined in the [Correlated section](correlated) for ways to deal with correlated features.
 
 ```{r}
 #| label: fig-splines-correlation

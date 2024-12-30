@@ -46,7 +46,7 @@ ames |>
 
 The proportion of how often each level appears is quite stark, to the point where 4 of them happen less than 10 times, which is not a lot considering the most frequent level occurs over 1000 times.
 
-For some methods such as [Dummy Encoding](@sec-categorical-dummy), having these infrequent levels would not do us much good, and may even make things worse.
+For some methods such as [Dummy Encoding](categorical-dummy), having these infrequent levels would not do us much good, and may even make things worse.
 Having a level be so infrequent increases its likelihood of being uninformative.
 This is where collapsing can come into play.
 The method takes the most infrequent levels and combines them into one, typically called `"other"`.

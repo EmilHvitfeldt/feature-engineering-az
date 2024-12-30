@@ -9,7 +9,7 @@ pagetitle: "Feature Engineering A-Z | Relational Overview"
 :::
 
 So far in this book, we have almost exclusively talked about tabular data.
-Except for [image data](@sec-image) and to some degree [time series data](@sec-time-series).
+Except for [image data](image) and to some degree [time series data](time-series).
 The latter doesn't quite count as is it typically stored in a tabular way.
 This section will talk about the scenario where you are working with more than 1 table.
 A situation that is quite common.
@@ -30,4 +30,4 @@ There will be tables of the individual store performances, who works there, the 
 As well as their past behavior.
 Using the knowledge of these cross tables can be very valuable.
 We will look at two ways to handle this.
-[Manually](@sec-relational-manual) and [automatically](@sec-relational-auto).
+[Manually](relational-manual) and [automatically](relational-auto).

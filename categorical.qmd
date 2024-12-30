@@ -11,7 +11,7 @@ pagetitle: "Feature Engineering A-Z | Categorical Overview"
 One of the most common types of data you can encounter is categorical variables.
 These variables take non-numeric values and are things like; `names`, `animal`, `housetype` `zipcode`, `mood`, and so on.
 We call these *qualitative* variables and you will have to find a way to deal with them as they are plentiful in most data sets you will encounter.
-You will, however, unlike [numerical variables](@sec-numeric), have to transform these variables into numeric variables as most models only work with numeric variables.
+You will, however, unlike [numerical variables](numeric), have to transform these variables into numeric variables as most models only work with numeric variables.
 The main exception to this is tree-based models such as decision trees, random forests, and boosted trees.
 This is of cause a theoretical fact, as some implementations of tree-based models don't support categorical variables.
 
@@ -52,7 +52,7 @@ The chapters in this section can be put into 2 categories:
 These methods take a categorical variable and *improve* them.
 Whether it means cleaning levels, collapsing levels, or making sure it handles new levels correctly.
 These Tasks as not always needed depending on the method you are using but they are generally helpful to apply.
-One method that would have been located here if it wasn't for the fact that it has a whole section by itself is dealing with [missing values](@sec-missing).
+One method that would have been located here if it wasn't for the fact that it has a whole section by itself is dealing with [missing values](missing).
 
 ## Categorical to Numerical
 
@@ -62,34 +62,34 @@ There are quite a lot of different methods, all have upsides and downsides and t
 These methods can further be categorized.
 This categorization allows us to better compare and contrast the methods to see how they are similar and different.
 The vast majority of methods are applied one column at a time.
-The notable exception is the [combination multi-dummy extraction](@sec-categorical-multi-dummy) method.
+The notable exception is the [combination multi-dummy extraction](categorical-multi-dummy) method.
 
 The one-column-at-a-time methods can be put into 3 groups; **dummy-based**, **target-based**, and **other**.
 
-The methods that are variations of [Dummy Encoding](@sec-categorical-dummy) are:
+The methods that are variations of [Dummy Encoding](categorical-dummy) are:
 
--   [Binary Encoding](@sec-categorical-binary)
--   [Hashing Encoding](@sec-categorical-hashing)
--   [Thermometer Encoding](@sec-categorical-thermometer)
--   [Multi-Dummy Encoding](@sec-categorical-multi-dummy)
+-   [Binary Encoding](categorical-binary)
+-   [Hashing Encoding](categorical-hashing)
+-   [Thermometer Encoding](categorical-thermometer)
+-   [Multi-Dummy Encoding](categorical-multi-dummy)
 
-The methods that are variations of [Target Encoding](@sec-categorical-target) are:
+The methods that are variations of [Target Encoding](categorical-target) are:
 
--   [Leave One Out Encoding](@sec-categorical-leave-one-out)
--   [Leaf Encoding](@sec-categorical-leaf)
--   [GLMM Encoding](@sec-categorical-glmm)
--   [CatBoost Encoding](@sec-categorical-catboost)
--   [James-Stein encoding](@sec-categorical-james-stein)
--   [M-Estimator Encoding](@sec-categorical-m-estimator)
--   [Quantile Encoding](@sec-categorical-quantile)
--   [Summary Encoding](@sec-categorical-summary)
+-   [Leave One Out Encoding](categorical-leave-one-out)
+-   [Leaf Encoding](categorical-leaf)
+-   [GLMM Encoding](categorical-glmm)
+-   [CatBoost Encoding](categorical-catboost)
+-   [James-Stein encoding](categorical-james-stein)
+-   [M-Estimator Encoding](categorical-m-estimator)
+-   [Quantile Encoding](categorical-quantile)
+-   [Summary Encoding](categorical-summary)
 
 The remaining methods don't neatly slot into the above categories:
 
--   [Label Encoding](@sec-categorical-label)
--   [Ordinal Encoding](@sec-categorical-ordinal)
--   [Frequency Encoding](@sec-categorical-frequency)
--   [Weight of Evidence Encoding](@sec-categorical-weight-of-evidence)
+-   [Label Encoding](categorical-label)
+-   [Ordinal Encoding](categorical-ordinal)
+-   [Frequency Encoding](categorical-frequency)
+-   [Weight of Evidence Encoding](categorical-weight-of-evidence)
 
 What you might notice is that many of these methods boil down to a left join when applied to new data.
 The difference is how you calculate the table, which we could consider an embedding table.

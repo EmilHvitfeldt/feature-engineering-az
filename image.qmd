@@ -11,7 +11,7 @@ pagetitle: "Feature Engineering A-Z | Image Overview"
 Image data is quite dissimilar to anything we have seen so far in this book.
 And will need a whole different set of techniques to deal with them.
 For Most of this book, the unit of data was 1 value, such as 4, 7, or 0.3562 for numeric, and "cat" and "dog" for categorical.
-Text data as seen in the [Text section](@sec-text), is being treated as a series of tokens.
+Text data as seen in the [Text section](text), is being treated as a series of tokens.
 
 Image data on the other hand is represented as an array of numbers, typically integers with varying dimensions.
 Each image is comprised of pixels, these pixels are laid out in a rectangular grid.
@@ -39,8 +39,8 @@ In the extraction setting, we take the images and try to extract smaller, hopefu
 These could be simple statistics or larger and more complicated methods.
 One does not need to do this right away, and sometimes it is beneficial to apply some of the image modification methods below before doing the extraction.
 
--   [Edge detection and corner detection](@sec-image-edge-corner)
--   [Texture Analysis](@sec-image-texture)
+-   [Edge detection and corner detection](image-edge-corner)
+-   [Texture Analysis](image-texture)
 
 ## Image Modification
 
@@ -50,11 +50,11 @@ Applying color changes of different kinds can help highlight the important parts
 Likewise, you might need to scale the data to help the model and well as reduce noise.
 Lastly, you will most likely need to resize your images as many deep-learning image modes work on fixed input sizes.
 
--   [Grayscale Conversion](@sec-image-grayscale)
--   [Color Modifications](@sec-image-colors)
--   [Noise Reduction](@sec-image-noise)
--   [Value Normalization](@sec-image-normalization)
--   [Resizing](@sec-image-resize)
+-   [Grayscale Conversion](image-grayscale)
+-   [Color Modifications](image-colors)
+-   [Noise Reduction](image-noise)
+-   [Value Normalization](image-normalization)
+-   [Resizing](image-resize)
 
 ## Augmentation
 
@@ -64,9 +64,9 @@ It creates a larger data set.
 With the hopes of increasing the performance and generalization.
 Being able to detect cat pictures regardless if they are centered in the image or not.
 
--   [Changing brightness](@sec-image-brightness)
--   [Shifting, Flipping, Rotation](@sec-image-shift-flip-rotate)
--   [Cropping and Scaling](@sec-image-crop-scale)
+-   [Changing brightness](image-brightness)
+-   [Shifting, Flipping, Rotation](image-shift-flip-rotate)
+-   [Cropping and Scaling](image-crop-scale)
 
 ## Embeddings
 

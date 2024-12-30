@@ -9,7 +9,7 @@ pagetitle: "Feature Engineering A-Z | Datetime Overview"
 :::
 
 Date and datetime variables are another type of data that can be quite common.
-This is different than time as we talked about in the [Time Series section](@sec-time-series), as when we talk about time series data, it is typically a series of data points that are related, and we use that inherent structure of the data as the basis for the modeling problem.
+This is different than time as we talked about in the [Time Series section](time-series), as when we talk about time series data, it is typically a series of data points that are related, and we use that inherent structure of the data as the basis for the modeling problem.
 Here we are talking about predictors, that happen be to expressed as a date or datetime field.
 
 These types of data could be the day where the sale took place, or when the taxi started and ended its trip.

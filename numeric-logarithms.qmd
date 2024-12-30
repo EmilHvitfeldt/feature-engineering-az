@@ -89,7 +89,7 @@ ggplot(ames, aes(log2(Lot_Area))) +
 
 it is important to note that we are not trying to make the variable normally distributed.
 What we are trying to accomplish is to remove the skewed nature of the variable.
-Likewise, this method should not be used as a variance reduction tool as that task is handled by doing normalization which we start exploring more in [Scaling issues section](@sec-numeric-scaling-issues).
+Likewise, this method should not be used as a variance reduction tool as that task is handled by doing normalization which we start exploring more in [Scaling issues section](numeric-scaling-issues).
 
 The full equation we use is
 

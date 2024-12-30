@@ -118,7 +118,7 @@ but It appears to be split between Bin 2 and Bin 3.
 
 Below is a chart of how well using evenly split binning works when using it on our toy example.
 We notice that using binning doesn't work that well for this type of data.
-And it makes sense, binning will naturally create a step function like we see below, and if your predictor doesn't have that shape, you are unlikely to see as good performance as with [Splines](@sec-numeric-splines) or [Polynomial Expansion](@sec-numeric-polynomial).
+And it makes sense, binning will naturally create a step function like we see below, and if your predictor doesn't have that shape, you are unlikely to see as good performance as with [Splines](numeric-splines) or [Polynomial Expansion](numeric-polynomial).
 
 ```{r}
 #| label: fig-binning-different-num_breaks

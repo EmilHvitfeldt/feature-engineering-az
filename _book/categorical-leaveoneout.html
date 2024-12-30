@@ -1273,7 +1273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="leave-one-out-encoding" class="level2" style="visibility: hidden; height: 0px;" data-number="25.1">
 <h2 data-number="25.1" class="anchored" data-anchor-id="leave-one-out-encoding"><span class="header-section-number">25.1</span> Leave One Out Encoding</h2>
 </section>
-<p>Leave One Out Encoding, is a variation on <a href="@sec-categorical-target">target encoding</a>. Where target encoding takes the mean of all rows within each target level, it instead excludes the value of the current row.</p>
+<p>Leave One Out Encoding, is a variation on <a href="categorical-target">target encoding</a>. Where target encoding takes the mean of all rows within each target level, it instead excludes the value of the current row.</p>
 <p>One of the main downsides to this approach is that since it needs the target which is most often the outcome and such not available for the test data set, it will thus not be able to do the row-wise adjustment and will behave exactly as the target encoding for the test data set.</p>
 <p>What this does in practice is that it shifts the influence of outliers within each level away from the whole group and onto the outlier itself. Consider a level that has the following target values <code>100, 10, 6, 5, 3, 8</code>. The target encoded value would be <code>22</code> and the leave one out values would be different, but the most different one is the outlier at 100.</p>
 <div class="cell">

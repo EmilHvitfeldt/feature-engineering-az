@@ -1238,7 +1238,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="text-overview" class="level2" style="visibility: hidden; height: 0px;" data-number="47.1">
 <h2 data-number="47.1" class="anchored" data-anchor-id="text-overview"><span class="header-section-number">47.1</span> Text Overview</h2>
 </section>
-<p>Sometimes you have fields that are free long-form text. This cannot be dealt with using the methods we saw in the <a href="@sec-categorical">Categorical secton</a>, as the natural text will have enough variation that counting the full-text fields is not going to be fruitful. Imagine this fictitious short book reviews</p>
+<p>Sometimes you have fields that are free long-form text. This cannot be dealt with using the methods we saw in the <a href="categorical">Categorical secton</a>, as the natural text will have enough variation that counting the full-text fields is not going to be fruitful. Imagine this fictitious short book reviews</p>
 <ul>
 <li>This book is excellent</li>
 <li>Best book I have read all year</li>
@@ -1251,7 +1251,7 @@ ul.task-list li input[type="checkbox"] {
 <p>In these chapters, we will be studying methods to work with text. Notably, text and language are different things, with many languages starting as spoken words, and a smaller number of these develop a writing system. This is important to remember, as the written text will almost always have less information than the language it is transcribing. You have seen examples of this when you send a text message that wasn’t received correctly, because of the missing non-verbal information.</p>
 <p>Text data, like all other types of data, isn’t guaranteed to contain information that helps your modeling data at hand. This is especially true with shorter text fields but can be true with just about anything.</p>
 <p>The types of operations you do to get text data into numeric data are various, but they can usually be split into several different tasks. You don’t have to do everything in this list to get good results, and some off-the-shelf methods will sometimes combine 2 or more of these steps into one. This is another reason why it is important to read the documentation of the implementation you are using.</p>
-<p>There is also the possibility that you know exactly what type of information is important in your text field. In that case, you will be better served by manually extracting the information with regular expression or related text processing tools, we look at examples of that in the <a href="@sec-text-manual">Manual Text Features</a> chapter.</p>
+<p>There is also the possibility that you know exactly what type of information is important in your text field. In that case, you will be better served by manually extracting the information with regular expression or related text processing tools, we look at examples of that in the <a href="text-manual">Manual Text Features</a> chapter.</p>
 <p>The coding portions of the following chapters will be focused on using text as features in addition to other features. This is unlike other modeling tasks where text is the whole input, such as in translation or text2image tasks. Despite this, they would still be a worthwhile read for practitioners working on those types of tasks.</p>
 <p>The chapters in this section read quite differently than the other chapters, as many of the chapters assume that preview chapters are used. This is because some of the chapters describe part of the text handling rather than a specific method. See the diagram below for possible workflows.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
@@ -1269,27 +1269,27 @@ TODO
 </div>
 <section id="text-cleaning" class="level2" data-number="47.2">
 <h2 data-number="47.2" class="anchored" data-anchor-id="text-cleaning"><span class="header-section-number">47.2</span> Text cleaning</h2>
-<p>In the <a href="@sec-text-cleaning">Text Cleaning</a> chapter, we will look over the ways we take raw text and get it ready for later tasks. This work deals with encoding issues, standardization, and cases and sometimes you need to get rid of a lot of unwanted chunks.</p>
+<p>In the <a href="text-cleaning">Text Cleaning</a> chapter, we will look over the ways we take raw text and get it ready for later tasks. This work deals with encoding issues, standardization, and cases and sometimes you need to get rid of a lot of unwanted chunks.</p>
 </section>
 <section id="tokenization" class="level2" data-number="47.3">
 <h2 data-number="47.3" class="anchored" data-anchor-id="tokenization"><span class="header-section-number">47.3</span> Tokenization</h2>
-<p>Once the text is cleaned, we need to split it into a smaller unit of information such that we can count it, this is called <a href="@sec-text-tokenization">tokenization</a> and we will be explored in detail.</p>
+<p>Once the text is cleaned, we need to split it into a smaller unit of information such that we can count it, this is called <a href="text-tokenization">tokenization</a> and we will be explored in detail.</p>
 </section>
 <section id="modifying-tokens" class="level2" data-number="47.4">
 <h2 data-number="47.4" class="anchored" data-anchor-id="modifying-tokens"><span class="header-section-number">47.4</span> Modifying tokens</h2>
-<p>Once you have the data as tokens, one of the things you might want to do is modify them in various ways. This could be things like changing the endings to words or changing the words entirely. We see examples of this in the <a href="@sec-text-stemming">Stemming</a> and <a href="@sec-text-ngrams">N-grams</a> chapters.</p>
+<p>Once you have the data as tokens, one of the things you might want to do is modify them in various ways. This could be things like changing the endings to words or changing the words entirely. We see examples of this in the <a href="text-stemming">Stemming</a> and <a href="text-ngrams">N-grams</a> chapters.</p>
 </section>
 <section id="filtering-tokens" class="level2" data-number="47.5">
 <h2 data-number="47.5" class="anchored" data-anchor-id="filtering-tokens"><span class="header-section-number">47.5</span> Filtering tokens</h2>
-<p>The tokens you create might not all be of the same quality. Depending on your choice of tokenizer, there will be reasons for you to remove some of the tokens you have created. We see examples of this in the <a href="@sec-text-stopwords">Stop words</a> and <a href="@sec-text-filter">Token filter</a> chapters.</p>
+<p>The tokens you create might not all be of the same quality. Depending on your choice of tokenizer, there will be reasons for you to remove some of the tokens you have created. We see examples of this in the <a href="text-stopwords">Stop words</a> and <a href="text-filter">Token filter</a> chapters.</p>
 </section>
 <section id="counting-tokens" class="level2" data-number="47.6">
 <h2 data-number="47.6" class="anchored" data-anchor-id="counting-tokens"><span class="header-section-number">47.6</span> Counting tokens</h2>
-<p>We have gotten to the end of the line and we are ready to turn the tokens into numeric variables we can use. There are many different ways we look at them in the <a href="@sec-text-tf">TF</a>, <a href="@sec-text-tfidf">TF-IDF</a>, <a href="@sec-text-hashing">Token Hashing</a>, <a href="@sec-text-oneho">Sequence Encoding</a>, and <a href="@sec-text-lda">LDA</a> chapters.</p>
+<p>We have gotten to the end of the line and we are ready to turn the tokens into numeric variables we can use. There are many different ways we look at them in the <a href="text-tf">TF</a>, <a href="text-tfidf">TF-IDF</a>, <a href="text-hashing">Token Hashing</a>, <a href="text-oneho">Sequence Encoding</a>, and <a href="text-lda">LDA</a> chapters.</p>
 </section>
 <section id="embeddings" class="level2" data-number="47.7">
 <h2 data-number="47.7" class="anchored" data-anchor-id="embeddings"><span class="header-section-number">47.7</span> Embeddings</h2>
-<p>Another way to use text is to work with embeddings, this is another powerful tool that can give you good performance. We look at some of them in the <a href="@sec-text-word2vec">word2vec</a> and <a href="@sec-text-bert">BERT</a> chapters.</p>
+<p>Another way to use text is to work with embeddings, this is another powerful tool that can give you good performance. We look at some of them in the <a href="text-word2vec">word2vec</a> and <a href="text-bert">BERT</a> chapters.</p>
 
 
 </section>

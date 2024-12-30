@@ -8,11 +8,11 @@ pagetitle: "Feature Engineering A-Z | Token Filter"
 ## Token Filter
 :::
 
-This chapter is going to be quite similar to the [stop word removal](@sec-text-stopwords) chapter.
+This chapter is going to be quite similar to the [stop word removal](text-stopwords) chapter.
 The difference is going to be how we go about doing things.
 When removing stop words we are hoping to remove words that don't contain enough information.
 Depending on our model, we might want to further reduce the number of tokens we are considering.
-For counting methods such as [TF](@sec-text-tf) and [TF-IDF](@sec-text-tfidf), each unique token leads to 1 column in the output.
+For counting methods such as [TF](text-tf) and [TF-IDF](text-tfidf), each unique token leads to 1 column in the output.
 Depending on your data set and model type, you can end up with tens of thousands of different tokens, which can be too much.
 
 We can do this filtering in 2 ways, thresholded and counted.
@@ -25,11 +25,11 @@ Both of these concepts can be used for the criterias explained below.
 The frequency of a token in the training data set is going to be an important factor as to whether we should keep it or not.
 Some tokens will only appear less than a handful of times, they are likely not to appear enough times to provide a signal to a model.
 On the same side, you could also filter away the most common words.
-This is very similar to what some people do as a proxy for [stop word removal](@sec-text-stopwords).
+This is very similar to what some people do as a proxy for [stop word removal](text-stopwords).
 This is less likely to be a success, especially if you have already done stop word removal.
 
 On the same coin, we could use IDF values to determine the cut-off.
-We will talk about [TF-IDF](@sec-text-tfidf), but that can also be helpful in finding noninformative words.
+We will talk about [TF-IDF](text-tfidf), but that can also be helpful in finding noninformative words.
 Calculating the IDF of all the words and sorting them lets us find tokens with low IDF that are good candidates for removal.
 
 Removal of tokens is rarely done to improve performance but is done as a tradeoff between speed and accuracy.

@@ -51,7 +51,7 @@ Given that this is a toy example, we do not have any expert knowledge regarding 
 The trend could go back up, it could go down or flatten out.
 We don't know.
 
-As we saw in the [Binning](@sec-numeric-binning), one way to deal with this non-linearity is to chop up the predictor and emit indicators for which region the values take.
+As we saw in the [Binning](numeric-binning), one way to deal with this non-linearity is to chop up the predictor and emit indicators for which region the values take.
 While this works, we are losing quite a lot of detail by the rounding that occurs.
 
 We know that we can fit a polynomial function to some data set.
@@ -200,7 +200,7 @@ recipe(outcome ~ predictor, data = data_toy) |>
   autoplot(method = "identity")
 ```
 
-The interpretation of these polynomial features is not as easy as with [Ninning](@sec-numeric-binning) or [Splines](@sec-numeric-splines), but the calculations are quite fast and versatile.
+The interpretation of these polynomial features is not as easy as with [Ninning](numeric-binning) or [Splines](numeric-splines), but the calculations are quite fast and versatile.
 
 ```{r}
 #| label: fig-poly-poly-curves-extrapolate

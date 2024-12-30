@@ -1319,7 +1319,7 @@ Figure&nbsp;13.1: Non-linear relationship between predictor and outcome.
 </div>
 </div>
 <p>Here we have a non-linear relationship. It is a fairly simple one, the outcome is high when the predictor takes values between 25 and 50, and outside the ranges, it takes over values. Given that this is a toy example, we do not have any expert knowledge regarding what we expect the relationship to be outside this range. The trend could go back up, it could go down or flatten out. We don’t know.</p>
-<p>As we saw in the <a href="@sec-numeric-binning">Binning</a>, one way to deal with this non-linearity is to chop up the predictor and emit indicators for which region the values take. While this works, we are losing quite a lot of detail by the rounding that occurs.</p>
+<p>As we saw in the <a href="numeric-binning">Binning</a>, one way to deal with this non-linearity is to chop up the predictor and emit indicators for which region the values take. While this works, we are losing quite a lot of detail by the rounding that occurs.</p>
 <p>We know that we can fit a polynomial function to some data set. And it would take the following format</p>
 <p><span class="math display">\[
 \text{poly}(x,\ \text{degree} = n) = a_0 + a_1 x + a_2 x ^ 2 + \cdots + a_n x ^ n
@@ -1462,7 +1462,7 @@ Figure&nbsp;13.5: No correlation to be found
 </div>
 </div>
 </div>
-<p>The interpretation of these polynomial features is not as easy as with <a href="@sec-numeric-binning">Ninning</a> or <a href="@sec-numeric-splines">Splines</a>, but the calculations are quite fast and versatile.</p>
+<p>The interpretation of these polynomial features is not as easy as with <a href="numeric-binning">Ninning</a> or <a href="numeric-splines">Splines</a>, but the calculations are quite fast and versatile.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-poly-poly-curves-extrapolate" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Facetted line chart. Predictor along the x-axis, value along the y-axis. Each of the curves has their endpoints go towards infinite or minus infinite depending on their degree.">

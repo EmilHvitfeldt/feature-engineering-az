@@ -57,7 +57,7 @@ g1 + g2
 ```
 
 The ordering of these ratios doesn't matter to the performance but can be helpful later on when we try to interpret the model later on.
-Another thing we often do is to take the [logarithm](@sec-numeric-logarithms) of the resulting ratio to give us some better intervals.
+Another thing we often do is to take the [logarithm](numeric-logarithms) of the resulting ratio to give us some better intervals.
 
 We can do some of the same tricks with multiplication as well.
 This is also known as *feature crosses*.
@@ -104,7 +104,7 @@ Using these simple arithmetic operations we can combine 2 or more variables in w
 One could imagine that you could try all possible combinations for a set of variables and operations.
 That is likely to be too much as the number of created variables would increase exponentially, with each newly created variable being a candidate for future combinations.
 This is not to say that it is an impossible task but should be used as a last resort.
-Methods in [Too Many section](@sec-too-many) should be tried first.
+Methods in [Too Many section](too-many) should be tried first.
 
 ## Pros and Cons
 

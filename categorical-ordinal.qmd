@@ -8,7 +8,7 @@ pagetitle: "Feature Engineering A-Z | Ordinal Encoding"
 ## Ordinal Encoding
 :::
 
-This method is similar to [Label Encoding](@sec-categorical-label), except that we manually specify the mapping.
+This method is similar to [Label Encoding](categorical-label), except that we manually specify the mapping.
 This method is generally used for *ordinal* variables as they are encoded with a natural ordering.
 Where this method shines compared to integer encoding is that we allow arbitrary values for encoding, thus we can have (cold = 1, warm = 5, hot = 20).
 But we might as well use (cold = -1, warm = 0, hot = 1) or (cold = 1.618, warm = 2.718, hot = 3.141).
