@@ -8,7 +8,7 @@ pagetitle: "Feature Engineering A-Z | Token Hashing"
 ## Token Hashing
 :::
 
-Token hashing is quite similar to [Hashing Encoding](@sec-categorical-hashing).
+Token hashing is quite similar to [Hashing Encoding](categorical-hashing).
 Instead of hashing the whole text string, we instead apply the hashing function to each token.
 This means that Token Hashing is to term frequency as hashing encoding is to dummy encoding.
 

@@ -1235,31 +1235,31 @@ ul.task-list li input[type="checkbox"] {
 <section id="too-many-overview" class="level2" style="visibility: hidden; height: 0px;" data-number="66.1">
 <h2 data-number="66.1" class="anchored" data-anchor-id="too-many-overview"><span class="header-section-number">66.1</span> Too Many Overview</h2>
 </section>
-<p>There will be times were you are given a lot of variables in your data set. This by itself may not be a problem. but it could come with some drawbacks. Many models will have slower fit times at best, and worse performance at worst. Not all your variables are likely beneficial in your model. They could be uninformative, correlated or contain redundant information. We look at ways to deal with <a href="@sec-correlated">correlated features</a>, but there will also be methods here to accomplish similar goals.</p>
+<p>There will be times were you are given a lot of variables in your data set. This by itself may not be a problem. but it could come with some drawbacks. Many models will have slower fit times at best, and worse performance at worst. Not all your variables are likely beneficial in your model. They could be uninformative, correlated or contain redundant information. We look at ways to deal with <a href="correlated">correlated features</a>, but there will also be methods here to accomplish similar goals.</p>
 <p>Suppose the same variable is included twice in your model. Both will not be able to be used in your model at the same time. Once one is included, the other becomes irrelevant. In essence, these two variables are completely correlated, thus we need to deal with this type of problem as well.</p>
 <p>The overarching names for these types of methods are <strong>dimensionality reduction</strong> and <strong>feature selection</strong>, and we will cover most of these methods here.</p>
 <section id="non-zero-variance-filtering" class="level2" data-number="66.2">
 <h2 data-number="66.2" class="anchored" data-anchor-id="non-zero-variance-filtering"><span class="header-section-number">66.2</span> Non-zero Variance filtering</h2>
-<p>These types of methods are quite simple, we remove variables that take a few number of values. If the value is always 1 then it doesn’t have any information in it and we should remove it. If the variables are almost always the same we might want to remove them. We look at these methods in the <a href="@sec-too-many-zv">Non-zero Variance filtering</a> chapter.</p>
+<p>These types of methods are quite simple, we remove variables that take a few number of values. If the value is always 1 then it doesn’t have any information in it and we should remove it. If the variables are almost always the same we might want to remove them. We look at these methods in the <a href="too-many-zv">Non-zero Variance filtering</a> chapter.</p>
 </section>
 <section id="dimensionality-reduction" class="level2" data-number="66.3">
 <h2 data-number="66.3" class="anchored" data-anchor-id="dimensionality-reduction"><span class="header-section-number">66.3</span> Dimensionality reduction</h2>
 <p>The bulk of the chapter will be in this category. This book categorizes dimensionality reduction methods as methods where a calculation is done on several features, with the same or fewer features being returned. Remember that we only look at methods that can be used in predictive settings, hence we won’t be talking about t-distributed stochastic neighbor embedding <a href="https://stats.stackexchange.com/a/584327">t-SNE</a>.</p>
 <ul>
-<li><a href="@sec-too-many-pca">Principal Component Analysis (PCA)</a></li>
-<li><a href="@sec-too-many-pca-variants">PCA variants</a></li>
-<li><a href="@sec-too-many-ica">Independent Component Analysis (ICA)</a></li>
-<li><a href="@sec-too-many-nmf">Non-negative matrix factorization (NMF)</a></li>
-<li><a href="@sec-too-many-lda">Linear discriminant analysis (LDA)</a></li>
-<li><a href="@sec-too-many-gda">Generalized discriminant analysis (GDA)</a></li>
-<li><a href="@sec-too-many-autoencoder">Autoencoders</a></li>
-<li><a href="@sec-too-many-umap">Uniform Manifold Approximation and Projection (UMAP)</a></li>
-<li><a href="@sec-too-many-isomap">ISOMAP</a></li>
+<li><a href="too-many-pca">Principal Component Analysis (PCA)</a></li>
+<li><a href="too-many-pca-variants">PCA variants</a></li>
+<li><a href="too-many-ica">Independent Component Analysis (ICA)</a></li>
+<li><a href="too-many-nmf">Non-negative matrix factorization (NMF)</a></li>
+<li><a href="too-many-lda">Linear discriminant analysis (LDA)</a></li>
+<li><a href="too-many-gda">Generalized discriminant analysis (GDA)</a></li>
+<li><a href="too-many-autoencoder">Autoencoders</a></li>
+<li><a href="too-many-umap">Uniform Manifold Approximation and Projection (UMAP)</a></li>
+<li><a href="too-many-isomap">ISOMAP</a></li>
 </ul>
 </section>
 <section id="feature-selection" class="level2" data-number="66.4">
 <h2 data-number="66.4" class="anchored" data-anchor-id="feature-selection"><span class="header-section-number">66.4</span> Feature selection</h2>
-<p>Feature selection on the other hand finds which variables to keep or remove. And then you act on that. This can be done in a couple of different ways. <a href="@sec-too-many-filter">Filter-based approaches</a>, these methods give each feature a score or rank, and then you use this information to select variables. There are many different ways to get these rankings and many will be covered in the chapter. <a href="@sec-too-many-wrapper">Wrapper-based approaches</a>. These methods iteratively look at subsets of data to try to find the best set. Their main downside is they tend to add a lot of computational overhead as you need to fit your model many times. Lastly, we have <a href="@sec-too-many-embedded">embedded methods</a>. These methods use more advanced methods, sometimes other models, to do the feature selection.</p>
+<p>Feature selection on the other hand finds which variables to keep or remove. And then you act on that. This can be done in a couple of different ways. <a href="too-many-filter">Filter-based approaches</a>, these methods give each feature a score or rank, and then you use this information to select variables. There are many different ways to get these rankings and many will be covered in the chapter. <a href="too-many-wrapper">Wrapper-based approaches</a>. These methods iteratively look at subsets of data to try to find the best set. Their main downside is they tend to add a lot of computational overhead as you need to fit your model many times. Lastly, we have <a href="too-many-embedded">embedded methods</a>. These methods use more advanced methods, sometimes other models, to do the feature selection.</p>
 
 
 </section>

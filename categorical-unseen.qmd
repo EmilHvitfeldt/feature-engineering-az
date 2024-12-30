@@ -21,7 +21,7 @@ add diagram here
 
 The reason why you need to think about this problem is that some methods and/or models will complain and even error if you are providing unseen levels.
 Some implementations will allow you to deal with this at the method level.
-Other methods such as [Hashing Encoding](@sec-categorical-hashing) don't care at all that you have unseen levels in your data.
+Other methods such as [Hashing Encoding](categorical-hashing) don't care at all that you have unseen levels in your data.
 
 One surefire way to deal with this issue is to add a step in your data preprocessing pipeline that will turn any unseen levels into `"unseen"`.
 What this method does in practice, is that it looks at your categorical variables during training, taking note of all the levels it sees and saving them.

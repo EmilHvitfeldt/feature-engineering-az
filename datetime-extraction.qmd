@@ -10,7 +10,7 @@ pagetitle: "Feature Engineering A-Z | Datetime Value Extraction"
 
 Sometimes date variables come in many data sets and problems.
 The presence of a date time variable doesn't mean that we are working with a time series data set.
-If you are, then read more about how to handle that in the [Time Series section](@sec-time-series).
+If you are, then read more about how to handle that in the [Time Series section](time-series).
 All the extract methods are not learned, as there isn't anything to estimate.
 
 Dates and date times are typically stored as integers.
@@ -76,8 +76,8 @@ From these we can also do things like `weekends`, `weekdays`, `morning` and holi
 Remember that there are libraries to extract these for you.
 
 Some of the measurements here can be extracted as categorical rather than numeric, things like `day of week` can either be extracted as `1, 2, 3` or `Monday, Tuesday, Wednesday` or `month` that can be extracted.
-We can think of the numeric extract as being an automatic [Label Encoding](@sec-categorical-label) of the categorical version.
-Sometimes it will be worth extracting the categorical version and using it directly or embedding it with other methods in the [Categorical section](@sec-categorical).
+We can think of the numeric extract as being an automatic [Label Encoding](categorical-label) of the categorical version.
+Sometimes it will be worth extracting the categorical version and using it directly or embedding it with other methods in the [Categorical section](categorical).
 It is worth noting that the categorical version of these variables is ordinal.
 
 ::: callout-note

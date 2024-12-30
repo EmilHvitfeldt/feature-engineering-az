@@ -1239,7 +1239,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="sequence-encoding" class="level2" style="visibility: hidden; height: 0px;" data-number="58.1">
 <h2 data-number="58.1" class="anchored" data-anchor-id="sequence-encoding"><span class="header-section-number">58.1</span> Sequence Encoding</h2>
 </section>
-<p>In <a href="@sec-text-tf">TF</a>, <a href="@sec-text-tfidf">TF-IDF</a>, and <a href="@sec-text-hashing">Token Hashing</a> we took a <em>bag of words</em> approach to encoding the tokens into numeric columns. This approach strips out the positional information of the text. For some tasks that is perfectly fine to do. One way to encode the sequence itself is presented in this chapter. Known as <em>sequence encoding</em> or <em>one-hot encoding</em>.</p>
+<p>In <a href="text-tf">TF</a>, <a href="text-tfidf">TF-IDF</a>, and <a href="text-hashing">Token Hashing</a> we took a <em>bag of words</em> approach to encoding the tokens into numeric columns. This approach strips out the positional information of the text. For some tasks that is perfectly fine to do. One way to encode the sequence itself is presented in this chapter. Known as <em>sequence encoding</em> or <em>one-hot encoding</em>.</p>
 <p>Each token in the dictionary is assigned an integer value. The tokens are then replaced with their dictionary value at their location. The sentence <code>"he", "was", "very", "happy"</code> could be encoded as the sequence <code>5, 205, 361, 663</code>.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1297,7 +1297,7 @@ TODO
 <p>add diagram</p>
 </div>
 </div>
-<p>One of the nice things about this method is that you aren’t restricted to a certain number of unique tokens as they just influence the number of unique values the columns can take, not the number of columns. That doesn’t mean that filtering tokens shouldn’t be done, just that it isn’t a requirement as it often is for methods such as <a href="@sec-text-tf">TF</a> and <a href="@sec-text-tfidf">TF-IDF</a>.</p>
+<p>One of the nice things about this method is that you aren’t restricted to a certain number of unique tokens as they just influence the number of unique values the columns can take, not the number of columns. That doesn’t mean that filtering tokens shouldn’t be done, just that it isn’t a requirement as it often is for methods such as <a href="text-tf">TF</a> and <a href="text-tfidf">TF-IDF</a>.</p>
 <p>This method of embedding tokens relies on the positional information that we have. For this reason, we should have a way to encode unseen tokens. This should be done as another integer value not used in the dictionary already.</p>
 <p>This is likely to work better with neural networks such as LSTMs as they can use this representation efficiently.</p>
 <section id="pros-and-cons" class="level2" data-number="58.2">

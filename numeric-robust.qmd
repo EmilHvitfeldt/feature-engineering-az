@@ -25,7 +25,7 @@ It is typically recommended that you pick a symmetric range like $[0.1, 0.9]$ or
 This method is normally showcased as a way to scale variables with outliers in them.
 That is true, so far that you don't take the outer quantiles into consideration.
 The default range means that only 50% of the observations are used to calculate the scaling statistics.
-This is fine if you want to ignore the outliers, however, it is conventionally not a good idea to outright ignore outliers, so you might want to take a look at [outlier issues](@sec-numeric-outliers-issues) before you throw away the information that is present in the outliers.
+This is fine if you want to ignore the outliers, however, it is conventionally not a good idea to outright ignore outliers, so you might want to take a look at [outlier issues](numeric-outliers-issues) before you throw away the information that is present in the outliers.
 
 ## Pros and Cons
 

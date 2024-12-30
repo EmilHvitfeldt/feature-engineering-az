@@ -1274,7 +1274,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="24.1" class="anchored" data-anchor-id="hashing-encoding"><span class="header-section-number">24.1</span> Hashing Encoding</h2>
 </section>
 <p>Hashing encoding, also known as the <strong>hashing trick</strong> and <strong>feature hashing</strong>, is a method where we take in the categorical values, run those values through a fast hashing function and let the resulting value determine how the encoding is done.</p>
-<p>There are a couple of things to unpack here. Hashing functions are one of them. But the first thing we will deal with is the motivation. Some categorical variables contain many unique levels, enough to make <a href="@sec-categorical-dummy">Dummy Encoding</a> unfeasible. This happens for a couple of reasons. Firstly, we are creating many columns and thus high sparsity. Secondly, high cardinality often comes with many new unseen levels. Feature hashing can be used to deal with both.</p>
+<p>There are a couple of things to unpack here. Hashing functions are one of them. But the first thing we will deal with is the motivation. Some categorical variables contain many unique levels, enough to make <a href="categorical-dummy">Dummy Encoding</a> unfeasible. This happens for a couple of reasons. Firstly, we are creating many columns and thus high sparsity. Secondly, high cardinality often comes with many new unseen levels. Feature hashing can be used to deal with both.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">

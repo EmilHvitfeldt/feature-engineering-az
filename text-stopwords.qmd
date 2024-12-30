@@ -79,7 +79,7 @@ We can create homemade lists in a few different ways.
 One of which is to take the training data set, count the tokens and sort the results.
 Then we can go through them and manually select which ones to put on the list.
 You don't have to pick the top 50, you can leave some in and some out, as some frequent words could be informative.
-We will talk about [TF-IDF](@sec-text-tfidf), but that can also be helpful in finding noninformative words.
+We will talk about [TF-IDF](text-tfidf), but that can also be helpful in finding noninformative words.
 Calculating the IDF of all the words and sorting them lets us find tokens with low IDF that are good candidates for removal.
 
 The final advice is to combine the two approaches you see above.

@@ -75,7 +75,7 @@ And we see that in the data.
 The average number of bedrooms is `r round(mean(ames$Bedroom_AbvGr), 2)`, and if we round, then it will be `r round(mean(ames$Bedroom_AbvGr), 0)`.
 That is perfectly fine for a house with an average number of rooms, but it will be impossible for small houses and quite inadequate for large houses.
 This is bad but can be seen as an improvement to the situation where the model didn't fit because a missing value was present.
-This scenario is part of the motivation for [Model Based Imputation](@sec-missing-model).
+This scenario is part of the motivation for [Model Based Imputation](missing-model).
 
 Other drawbacks of simple include; reducing the variance and standard deviation of the data.
 This happens because we are adding zero-variance information to the variables.

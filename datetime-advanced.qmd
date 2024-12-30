@@ -94,7 +94,7 @@ tibble(
 The exact effects shown here are just approximate to our story at hand.
 But they provide a useful illustration.
 There is a lot of bandwidth to be given if we look at date times from a distance perspective.
-We can play around with "distance from" and "distance to", different numerical transformations we saw in [Numeric Overview](@sec-numeric), and signs and indicators we talked about in @sec-datetime-extraction to tailor our feature engineering to our problem.
+We can play around with "distance from" and "distance to", different numerical transformations we saw in [Numeric Overview](numeric), and signs and indicators we talked about in @sec-datetime-extraction to tailor our feature engineering to our problem.
 
 What all these methods have in common is a reference point.
 For an extracted `day` feature, the reference point is "first of the month" and the **after**-function is `x`, or in other words "days since the time of day".

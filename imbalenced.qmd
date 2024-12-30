@@ -49,22 +49,22 @@ Adding observations is usually done by basing the new observations on the existi
 
 Over-sampling methods we will cover are:
 
--   [Up-sampling](@sec-imbalenced-upsample)
--   [ROSE](@sec-imbalenced-rose)
--   [SMOTE](@sec-imbalenced-smote)
--   [SMITE variants](@sec-imbalenced-smote-variants)
--   [Borderline Smote](@sec-imbalenced-borderline-smote)
--   [Adaptive Synthetic Algorithm](@sec-imbalenced-adasyn)
+-   [Up-sampling](imbalenced-upsample)
+-   [ROSE](imbalenced-rose)
+-   [SMOTE](imbalenced-smote)
+-   [SMITE variants](imbalenced-smote-variants)
+-   [Borderline Smote](imbalenced-borderline-smote)
+-   [Adaptive Synthetic Algorithm](imbalenced-adasyn)
 
 Under-sampling methods we will cover are:
 
--   [Down-sampling](@sec-imbalenced-downsample)
--   [NearMiss](@sec-imbalenced-nearmiss)
--   [Tomek Links](@sec-imbalenced-tomek)
--   [Condensed Nearest Neighbor](@sec-imbalenced-cnn)
--   [Edited Nearest Neighbor](@sec-imbalenced-enn)
--   [Instance Hardness Threshold](@sec-imbalenced-hardness-threshold)
--   [One-Sided Selection](@sec-imbalenced-one-sided)
+-   [Down-sampling](imbalenced-downsample)
+-   [NearMiss](imbalenced-nearmiss)
+-   [Tomek Links](imbalenced-tomek)
+-   [Condensed Nearest Neighbor](imbalenced-cnn)
+-   [Edited Nearest Neighbor](imbalenced-enn)
+-   [Instance Hardness Threshold](imbalenced-hardness-threshold)
+-   [One-Sided Selection](imbalenced-one-sided)
 
 Some methods do these methods together.
 We won't consider those methods by themselves and instead let you know that you can do over-sampling followed by under-sampling if you choose.

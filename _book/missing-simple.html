@@ -1294,7 +1294,7 @@ Figure&nbsp;43.1: All houses have fewer bedrooms than rooms themselves.
 </div>
 </div>
 </div>
-<p>There can’t be more bedrooms than the total number of rooms. And we see that in the data. The average number of bedrooms is 2.85, and if we round, then it will be 3. That is perfectly fine for a house with an average number of rooms, but it will be impossible for small houses and quite inadequate for large houses. This is bad but can be seen as an improvement to the situation where the model didn’t fit because a missing value was present. This scenario is part of the motivation for <a href="@sec-missing-model">Model Based Imputation</a>.</p>
+<p>There can’t be more bedrooms than the total number of rooms. And we see that in the data. The average number of bedrooms is 2.85, and if we round, then it will be 3. That is perfectly fine for a house with an average number of rooms, but it will be impossible for small houses and quite inadequate for large houses. This is bad but can be seen as an improvement to the situation where the model didn’t fit because a missing value was present. This scenario is part of the motivation for <a href="missing-model">Model Based Imputation</a>.</p>
 <p>Other drawbacks of simple include; reducing the variance and standard deviation of the data. This happens because we are adding zero-variance information to the variables. In the same vein, we are changing the distribution of our variables, which can also affect downstream modeling and feature engineering.</p>
 <p>Below we see this in effect, as more and more missing data, leads to a larger peak of the mean of the distribution.</p>
 <div class="cell">

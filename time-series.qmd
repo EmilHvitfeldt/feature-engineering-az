@@ -27,24 +27,24 @@ add a link to appropriate resources
 :::
 
 One area of work is modifying the sequence itself.
-Some of these transformations can be taken from the [Numeric section](@sec-numeric).
+Some of these transformations can be taken from the [Numeric section](numeric).
 However, some metrics are specific to time series data.
-Likewise, some metrics are similar to what we do in [Missing section](@sec-missing) and [Outliers section](@sec-outliers), but special care needs to be taken with time series data.
+Likewise, some metrics are similar to what we do in [Missing section](missing) and [Outliers section](outliers), but special care needs to be taken with time series data.
 
--   [Smoothing](@sec-time-series-smooth)
--   [Sliding window transformations](@sec-time-series-sliding)
--   [Log Interval Transformation](@sec-time-series-log-interval)
--   [Time series-specific handling of missing values](@sec-time-series-missing)
--   [Time series-specific handling of outliers](@sec-time-series-outliers)
+-   [Smoothing](time-series-smooth)
+-   [Sliding window transformations](time-series-sliding)
+-   [Log Interval Transformation](time-series-log-interval)
+-   [Time series-specific handling of missing values](time-series-missing)
+-   [Time series-specific handling of outliers](time-series-outliers)
 
 Another area of methods is where we extract or modify the sequence or its data to create new variables, this is done by considering the time component.
 This will result in breaking about the time component in a decomposition kind of way, or by getting information out of the values themselves.
-One such example of the latter is found in the [datetime section](@sec-datetime).
-Particularly [holiday extraction](@sec-datetime-extraction).
+One such example of the latter is found in the [datetime section](datetime).
+Particularly [holiday extraction](datetime-extraction).
 
--   [Differences](@sec-time-series-diff)
--   [Lagging features](@sec-time-series-lag)
--   [rolling window features](@sec-time-series-rolling-window)
--   [expanding window features](@sec-time-series-expanding-window)
--   [Fourier decomposition](@sec-time-series-fourier)
--   [Wavelet decomposition](@sec-time-series-wavelet)
+-   [Differences](time-series-diff)
+-   [Lagging features](time-series-lag)
+-   [rolling window features](time-series-rolling-window)
+-   [expanding window features](time-series-expanding-window)
+-   [Fourier decomposition](time-series-fourier)
+-   [Wavelet decomposition](time-series-wavelet)

@@ -8,7 +8,7 @@ pagetitle: "Feature Engineering A-Z | Quantile Encoding"
 ## Quantile Encoding
 :::
 
-Quantile encoding [@quantile2021], is a reimagined version of [Target Encoding](@sec-categorical-target) and [M-estimator Encoding](@sec-categorical-m-estimator) that uses quantiles instead of means and M regulatization from M-estimator.
+Quantile encoding [@quantile2021], is a reimagined version of [Target Encoding](categorical-target) and [M-estimator Encoding](categorical-m-estimator) that uses quantiles instead of means and M regulatization from M-estimator.
 
 Whereas target encoding uses the mean as an aggregation function, quantile encoding uses any quantile as its aggregation function. Most of the things we know about target encoding are also true for quantile encoding. The differences come with how quantiles differ from means. Quantiles are generally more robust to outliers, for quantiles away from the end. This same pattern is mirrored in quantile encoding.
 

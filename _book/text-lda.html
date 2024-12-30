@@ -1259,7 +1259,7 @@ div.csl-indent {
 <section id="lda" class="level2" style="visibility: hidden; height: 0px;" data-number="59.1">
 <h2 data-number="59.1" class="anchored" data-anchor-id="lda"><span class="header-section-number">59.1</span> LDA</h2>
 </section>
-<p>The feature engineering methods we have seen so far, have been counting based or variations thereof as seen in <a href="@sec-text-tf">TF</a>, <a href="@sec-text-tfidf">TF-IDF</a>, and <a href="@sec-text-hashing">Token Hashing</a>. Latent Dirichlet Allocation (LDA) is different because it is done by first fitting a model on the data, and then using this fitted model to define features for us.</p>
+<p>The feature engineering methods we have seen so far, have been counting based or variations thereof as seen in <a href="text-tf">TF</a>, <a href="text-tfidf">TF-IDF</a>, and <a href="text-hashing">Token Hashing</a>. Latent Dirichlet Allocation (LDA) is different because it is done by first fitting a model on the data, and then using this fitted model to define features for us.</p>
 <p>To understand this method, we should first learn what Latent Dirichlet Allocation<span class="citation" data-cites="lda2003">Chen et al. (<a href="references.html#ref-chen2016warpldacacheefficiento1" role="doc-biblioref">2016</a>)</span> is, and how it is used for topic modeling<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
 <p>Latent Dirichlet Allocation is a probabilistic generative model which in simple terms assumes that each document (observation in our case) is made up of a mixture of topics, and each topic is a distribution of words (tokens). Since we have the distributions of tokens for each document, we can use the LDA method to try to find the topics. The features we pull out of this are the topic memberships for each observation.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
@@ -1276,7 +1276,7 @@ TODO
 </div>
 </div>
 <p>We are in essence turning our tokens into <code>n</code> numerical features where <code>n</code> is the number of topics. The number of topics is not set in stone and can act as a hyperparameter.</p>
-<p>Documents, which are the established terminology for the observations, are seen as a bag-of-words representation of tokens. Meaning that much like <a href="@sec-text-tfidf">TF-IDF</a>, the order doesn’t matter. We are simply looking at token counts.</p>
+<p>Documents, which are the established terminology for the observations, are seen as a bag-of-words representation of tokens. Meaning that much like <a href="text-tfidf">TF-IDF</a>, the order doesn’t matter. We are simply looking at token counts.</p>
 <p>Words are the common term used, but we know that it is referring to tokens. Each token has a given probability for each topic, and it is assumed that when a document is generated, it samples the topics associated with it, and then samples a token from that topic. This is obviously not how writing is done, but together with the other assumptions in the model gives decent results at times.</p>
 <p>Topics, and latent structures over the documents. They are characterized by their distribution of words (tokens). the same word can appear in multiple topics, with the same or different weights. A document is associated with a given topic, proportional to how the document’s distribution of words aligns with the topic’s word distribution.</p>
 <div class="callout callout-style-default callout-caution callout-titled">

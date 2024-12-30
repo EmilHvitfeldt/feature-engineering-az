@@ -13,7 +13,7 @@ Hashing encoding, also known as the **hashing trick** and **feature hashing**, i
 There are a couple of things to unpack here.
 Hashing functions are one of them.
 But the first thing we will deal with is the motivation.
-Some categorical variables contain many unique levels, enough to make [Dummy Encoding](@sec-categorical-dummy) unfeasible.
+Some categorical variables contain many unique levels, enough to make [Dummy Encoding](categorical-dummy) unfeasible.
 This happens for a couple of reasons.
 Firstly, we are creating many columns and thus high sparsity.
 Secondly, high cardinality often comes with many new unseen levels.
