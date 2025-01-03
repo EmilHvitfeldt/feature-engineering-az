@@ -13,6 +13,7 @@ One of the most common ways of dealing with circular data is handled by applying
 TODO: add formulas about offset, cycle size and frequency
 
 I think that this is easier to see with some toy visualizations.
+The following toy data set contains highly significant circular effect.
 
 ```{r}
 library(tidyverse)
@@ -31,6 +32,26 @@ toy_data |>
   ggplot(aes(predictor, target)) +
   geom_point()
 ```
+
+If we were to take the `sin()` and `cos()` of the predictor,
+using appropiate cycle size and frequency we can overlay them on the previous chart
+
+```{r}
+library(recipes)
+recipe(target ~ predictor, toy_data) |>
+    step_harmonic(predictor, cycle_size = 365, frequency = 1, keep_original_cols = TRUE) |>
+    prep() |>
+    bake(new_data = NULL) |>
+    pivot_longer(-predictor) |>
+    ggplot(aes(predictor, value, color = name)) +
+    geom_point() +
+    theme(legend.position = "bottom")
+```
+
+We notice that the `sin()` transformation somehow captures the circular nature of the data.
+It obviously can't fully capture the effect since the relationship isn't a perfect sine curve.
+
+The effect might be more noticible if we change the way we visualize this effect.
 
 ```{r}
 library(recipes)
@@ -79,10 +100,23 @@ recipe(target ~ predictor, toy_data) |>
     scale_color_viridis_c()
 ```
 
-one of the issues with this approach is that each variable contains double information. e.i. you need both variable to detect "summer"
+Ene of the issues with this approach is that each variable contains double information.
+E.i. you need both variable to detect "summer".
+
+One of the downsides to taking both the `sin()` and `cos()` of a predictor,
+is that is is unlikely that both of them captures the effect well.
+You might get one good and one bad, or both decent.
+I find that you can eliminate this issue by only calculating `sin()`.
+For a sufficiently circular effect and proper placement,
+a single `sin()` is going to be more effective than both `sin()` and `cos()`.
+
+talk about how we technically could just do one, as sin and cos are shifted versions
 
 What do you do if there are multiple events of interest in the period? (summer and halloween)
 
+if we just do one then we can handle multiple signals at the same time
+
+talk about how the shape of the activation might not be ideal, and something we can handle in later chapters
 
 
 ```{r}
