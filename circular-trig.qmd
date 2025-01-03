@@ -109,15 +109,52 @@ You might get one good and one bad, or both decent.
 I find that you can eliminate this issue by only calculating `sin()`.
 For a sufficiently circular effect and proper placement,
 a single `sin()` is going to be more effective than both `sin()` and `cos()`.
+This is esspecially true since `cos()` is a shift of `sin()` by definition.
 
-talk about how we technically could just do one, as sin and cos are shifted versions
+Propose now we have multiple circular signals.
+They could be shifted versions of each other,
+think halloween, christmas, and valentines day.
+Or they chould have different periods.
+This would be hard to handle using a single set of curves,
+and we thus have to create one for each circular pattern.
+This is also where the decision to only do `sin()` instead of both helps,
+as we are trying to limit redundant or ineffective predictors from being created.
 
-What do you do if there are multiple events of interest in the period? (summer and halloween)
+```{r}
+toy_data_two <- tibble(
+  predictor = 1:1000
+) |>
+  mutate(target = pmax(sin(predictor / 365 * pi * 2), 0) ^ 4 + 
+                  rnorm(n(), sd = 0.1) - 0.5) |>
+  mutate(target = target + pmax(sin((predictor-125)/ 200 * pi * 2), 0) ^ 4 * 0.6) |>
+  arrange(target)
+```
 
-if we just do one then we can handle multiple signals at the same time
+```{r}
+toy_data_two |>
+  ggplot(aes(predictor, target)) +
+  geom_point()
+```
+
+```{r}
+recipe(target ~ predictor, toy_data_two) |>
+    step_harmonic(predictor, cycle_size = 365, frequency = 1, keep_original_cols = TRUE) |>
+    step_rename(predictor_sin_one = predictor_sin_1) |>
+    step_rm(predictor_cos_1) |>
+    step_harmonic(predictor, cycle_size = 200, frequency = 1, starting_val = 125, keep_original_cols = TRUE) |>
+    step_rename(predictor_sin_two = predictor_sin_1) |>
+    step_rm(predictor_cos_1) |>
+    prep() |>
+    bake(new_data = NULL) |>
+    pivot_longer(-predictor) |>
+    ggplot(aes(predictor, value, color = name)) +
+    geom_point() +
+    theme(legend.position = "bottom")
+```
+
+TODO: find way to see if we can capture how effective this model would be.
 
 talk about how the shape of the activation might not be ideal, and something we can handle in later chapters
-
 
 ```{r}
 library(animalshelter)
