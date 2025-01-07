@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.4.0",
+    "Version": "4.4.2",
     "Repositories": [
       {
         "Name": "CRAN",
@@ -264,6 +264,21 @@
         "utils"
       ],
       "Hash": "7fba3f587b0f3cb3232d03d540dbf772"
+    },
+    "animalshelter": {
+      "Package": "animalshelter",
+      "Version": "0.0.0.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "animalshelter",
+      "RemoteUsername": "emilhvitfeldt",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "ceee72f5a1ee567e47a84fe841d0037eb1c82670",
+      "Requirements": [
+        "R"
+      ],
+      "Hash": "8f9dc44bab9e359b8681a046dd3e8584"
     },
     "askpass": {
       "Package": "askpass",

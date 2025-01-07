@@ -4,6 +4,8 @@ version = "0.1.0"
 description = ""
 authors = ["Emil Hvitfeldt <emilhhvitfeldt@gmail.com>"]
 readme = "README.md"
+package-mode = false
+
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -13,6 +15,7 @@ pandas = "^2.1.4"
 feature-engine = "^1.6.2"
 category-encoders = "^2.6.3"
 ipykernel = "^6.29.2"
+setuptools = "^75.7.0"
 
 
 [build-system]
