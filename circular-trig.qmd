@@ -8,14 +8,15 @@ pagetitle: "Feature Engineering A-Z | Trigonometric"
 ## Trigonometric
 :::
 
-One of the most common ways of dealing with circular data is handled by applying the trigonometric funtions `sin()` and `cos()` to the circular variable. 
+One of the most common ways of dealing with circular data is by applying the trigonometric functions `sin()` and `cos()` to the circular variable. 
 
-TODO: add formulas about offset, cycle size and frequency
+TODO: add formulas about offset, cycle size, and frequency
 
 I think that this is easier to see with some toy visualizations.
-The following toy data set contains highly significant circular effect.
+The following toy data set contains a highly significant circular effect.
 
 ```{r}
+#| label: toy_data
 library(tidyverse)
 set.seed(1234)
 
@@ -28,99 +29,183 @@ toy_data <- tibble(
 ```
 
 ```{r}
+#| label: fig-trig-predictor-outcome
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Strong periodic signal every 365 values along predictor.
+#| fig-alt: |
+#|   Scatter chart. Predictor along the x-axis and outcome along the y-axis.
+#|   Points scatter around a constant low value of the target. At regular intervals,
+#|   the curve swings up and back down.
 toy_data |>
   ggplot(aes(predictor, target)) +
-  geom_point()
+  geom_point() +
+  theme_minimal()
 ```
 
 If we were to take the `sin()` and `cos()` of the predictor,
-using appropiate cycle size and frequency we can overlay them on the previous chart
+using appropriate cycle size and frequency we can overlay them on the previous chart
 
 ```{r}
+#| label: fig-trig-predictor-outcome-sin-cos
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Sin() curve perfectly captures peaks.
+#| fig-alt: |
+#|   Scatter and line chart. Predictor along the x-axis and outcome along the y-axis.
+#|   Points scatter around a constant low value of the target. At regular intervals,
+#|   the curve swings up and back down.
+#|   Two colored curves, one called sine and one called cosine. The sine curve
+#|   perfectly captures all the peaks of the data set. The cosine curves follows
+#|   behind by 1 forth cycle.
 library(recipes)
 recipe(target ~ predictor, toy_data) |>
     step_harmonic(predictor, cycle_size = 365, frequency = 1, keep_original_cols = TRUE) |>
     prep() |>
     bake(new_data = NULL) |>
-    pivot_longer(-predictor) |>
+    rename(`sin(predictor)` = predictor_sin_1, `cos(predictor)` = predictor_cos_1) |>
+    pivot_longer(-c(predictor, target)) |>
     ggplot(aes(predictor, value, color = name)) +
-    geom_point() +
+    geom_point(aes(predictor, target), color = "black") +
+    geom_line() +
+    labs(color = NULL) +
+    theme_minimal() +
     theme(legend.position = "bottom")
 ```
 
 We notice that the `sin()` transformation somehow captures the circular nature of the data.
 It obviously can't fully capture the effect since the relationship isn't a perfect sine curve.
 
-The effect might be more noticible if we change the way we visualize this effect.
+The effect might be more noticeable if we change the way we visualize this effect.
 
 ```{r}
+#| label: fig-trig-predictor-outcome-circle
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Strong singal for sin(predictor)
+#| fig-alt: |
+#|   Scatter chart. sin(predictor) along the x-axis and cos(predictor) along the
+#|   y-axis. Color is used to denote the target.
+#|   The points are laid out in a perfect circle, with a small amount of jittering,
+#|   artificially added to show overlapping points.
+#|   The points on the right side of the circle have high values of target, the rest
+#|   have low values.
 library(recipes)
 recipe(target ~ predictor, toy_data) |>
     step_harmonic(predictor, cycle_size = 365, frequency = 1) |>
     prep() |>
     bake(new_data = NULL) |>
     ggplot(aes(predictor_sin_1, predictor_cos_1, color = target)) +
-    geom_point() +
-    scale_color_viridis_c()
+    geom_jitter(width = 0.05, height = 0.05, alpha = 0.5) +
+    scale_color_viridis_c() +
+    labs(
+      x = "sin(predictor)", 
+      y = "cos(predictor)",
+      caption = "Jittering artificially added to show overlapping points"
+    ) +
+    theme_minimal()
 ```
 
-in this simple case, the `predictor_sin_1` becomes a ideal predictor.
-on the other hand, `predictor_cos_1` doesn't do as well since it doesn't allow for a clean seperation between high and low `target` values.
-All the high values appears when `predictor_cos_1` is close to 0, 
-but not all observations where `predictor_cos_1` is close to 0 have high target values.
+In this simple case, the `predictor_sin_1` becomes an ideal predictor.
+On the other hand, `predictor_cos_1` doesn't do as well since it doesn't allow for a clean separation between high and low `target` values.
+All the high values appear when `predictor_cos_1` is close to 0. 
+However, not all observations where `predictor_cos_1` is close to 0 have high target values.
 
 Above we got lucky that we picked the right cycle size and frequency,
 since we knew them, if you are off, even by a bit you can get uninformative transformations like the one below.
 
 ```{r}
+#| label: fig-trig-predictor-outcome-circle-wrong
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   No signal detected
+#| fig-alt: |
+#|   Scatter chart. sin(predictor) along the x-axis and cos(predictor) along the
+#|   y-axis. Color is used to denote the target.
+#|   The points are laid out in a perfect circle, with a small amount of jittering,
+#|   artificially added to show overlapping points.
+#|   There is no decernable signal.
 library(recipes)
 recipe(target ~ predictor, toy_data) |>
-    step_harmonic(predictor, cycle_size = 150, frequency = 1) |>
+    step_harmonic(predictor, cycle_size = 160, frequency = 1) |>
     prep() |>
     bake(new_data = NULL) |>
     ggplot(aes(predictor_sin_1, predictor_cos_1, color = target)) +
-    geom_point() +
-    scale_color_viridis_c()
+    geom_jitter(width = 0.05, height = 0.05, alpha = 0.5) +
+    scale_color_viridis_c() +
+    labs(
+      x = "sin(predictor)", 
+      y = "cos(predictor)",
+      caption = "Jittering artificially added to show overlapping points"
+    ) +
+    theme_minimal()
 ```
 
-there is also the importane of the starting point.
-We got lucky that that it gave 1 good predictor and one bad predictor.
+The starting point is also important.
+We got lucky that it gave 1 good predictor and one bad predictor.
 Even if the frequency is good, 
 but the starting point is off you end up with two decent predictors.
 These two predictors are still good enough, but they are less ideal than the first example we got.
 
 ```{r}
+#| label: fig-trig-predictor-outcome-circle-offset
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   No signal detected
+#| fig-alt: |
+#|   Scatter chart. sin(predictor) along the x-axis and cos(predictor) along the
+#|   y-axis. Color is used to denote the target.
+#|   The points are laid out in a perfect circle, with a small amount of jittering,
+#|   artificially added to show overlapping points.
+#|   The points on the top-right side of the circle have high values of target, 
+#|   the rest have low values.
 library(recipes)
 recipe(target ~ predictor, toy_data) |>
     step_harmonic(predictor, cycle_size = 365, frequency = 1, starting_val = 45) |>
     prep() |>
     bake(new_data = NULL) |>
     ggplot(aes(predictor_sin_1, predictor_cos_1, color = target)) +
-    geom_point() +
-    scale_color_viridis_c()
+    geom_jitter(width = 0.05, height = 0.05, alpha = 0.5) +
+    scale_color_viridis_c() +
+    labs(
+      x = "sin(predictor)", 
+      y = "cos(predictor)",
+      caption = "Jittering artificially added to show overlapping points"
+    ) +
+    theme_minimal()
 ```
 
-Ene of the issues with this approach is that each variable contains double information.
-E.i. you need both variable to detect "summer".
+One of the issues with this approach is that each variable contains double information.
+E.i. you need both variables to detect "summer".
 
 One of the downsides to taking both the `sin()` and `cos()` of a predictor,
-is that is is unlikely that both of them captures the effect well.
+is that it is unlikely that both of them capture the effect well.
 You might get one good and one bad, or both decent.
-I find that you can eliminate this issue by only calculating `sin()`.
+The good thing about calling both `sin()` and `cos()` is that you don't have to worry about the offset too much.
+As long as you get the period right you get a signal in at least one of the curves.
+
+If you spend some manual time finding the right period and offset,
+then you only need to calculate `sin()`.
 For a sufficiently circular effect and proper placement,
 a single `sin()` is going to be more effective than both `sin()` and `cos()`.
-This is esspecially true since `cos()` is a shift of `sin()` by definition.
+This is especially true since `cos()` is a shift of `sin()` by definition.
 
 Propose now we have multiple circular signals.
 They could be shifted versions of each other,
-think halloween, christmas, and valentines day.
-Or they chould have different periods.
+think Halloween, Christmas, and Valentine's day.
+Or they could have different periods.
 This would be hard to handle using a single set of curves,
 and we thus have to create one for each circular pattern.
 This is also where the decision to only do `sin()` instead of both helps,
 as we are trying to limit redundant or ineffective predictors from being created.
 
 ```{r}
+#| label: toy_data_two
 toy_data_two <- tibble(
   predictor = 1:1000
 ) |>
@@ -131,12 +216,34 @@ toy_data_two <- tibble(
 ```
 
 ```{r}
+#| label: fig-trig-predictor-outcome-two
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Strong periodic signal every 365 and 200 values along predictor.
+#| fig-alt: |
+#|   Scatter chart. Predictor along the x-axis and outcome along the y-axis.
+#|   Points scatter around a constant low value of the target. At regular intervals,
+#|   the curve swings up and back down.
 toy_data_two |>
   ggplot(aes(predictor, target)) +
-  geom_point()
+  geom_point() +
+  theme_minimal()
 ```
 
 ```{r}
+#| label: fig-trig-predictor-outcome-sin-cos-two
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   the two sin() curve perfectly captures peaks.
+#| fig-alt: |
+#|   Faceted Scatter and line chart. 
+#|   Predictor along the x-axis and outcomee along the y-axis, facets along sine curves.
+#|   Points scatter around a constant low value of the target. At regular intervals,
+#|   the curve swings up and back down.
+#|   Two colored curves one for each facet. Each curve capture the effect of a set of
+#|   peaks.
 recipe(target ~ predictor, toy_data_two) |>
     step_harmonic(predictor, cycle_size = 365, frequency = 1, keep_original_cols = TRUE) |>
     step_rename(predictor_sin_one = predictor_sin_1) |>
@@ -146,23 +253,21 @@ recipe(target ~ predictor, toy_data_two) |>
     step_rm(predictor_cos_1) |>
     prep() |>
     bake(new_data = NULL) |>
-    pivot_longer(-predictor) |>
+    rename(`sin(365)` = predictor_sin_one, `cos(200)` = predictor_sin_two) |>
+    pivot_longer(-c(predictor, target)) |>
     ggplot(aes(predictor, value, color = name)) +
-    geom_point() +
-    theme(legend.position = "bottom")
+    geom_point(aes(predictor, target), color = "black") +
+    geom_line() +
+    theme_minimal() +
+    theme(legend.position = "bottom") +
+    facet_grid(name ~ .)
 ```
 
-TODO: find way to see if we can capture how effective this model would be.
+These two newly created predictors now hit the peaks of each of the periods.
 
-talk about how the shape of the activation might not be ideal, and something we can handle in later chapters
-
-```{r}
-library(animalshelter)
-library(tidyverse)
-
-longbeach
-  glimpse()
-```
+A glaring issue right now is that all signals are not perfect sine curves.
+This method explained in this chapter will thus work less well for sharp spikes and asymmetric signals.
+The more advanced methods such as [circular splines](circular-splines) and [cicular indicators](circular-indicators) handle these types of data better.
 
 ## Pros and Cons
 
@@ -172,4 +277,8 @@ longbeach
 
 ## R Examples
 
+Find data set.
+
 ## Python Examples
+
+Find data set.
