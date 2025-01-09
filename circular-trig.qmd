@@ -8,15 +8,36 @@ pagetitle: "Feature Engineering A-Z | Trigonometric"
 ## Trigonometric
 :::
 
-One of the most common ways of dealing with circular data is by applying the trigonometric functions `sin()` and `cos()` to the circular variable. 
+One of the most common ways of dealing with circular or cyclical data is by applying the trigonometric functions `sin()` and `cos()` to these variables. This is not a trained method.
 
-TODO: add formulas about offset, cycle size, and frequency
+You will note that many occurrences of circular data are datetime variables in nature. 
+Please read the [Datetime Circular](datetime-circular) chapter,
+for the additional considerations to take into account when working with datetime variables specifically.
+
+The terminology we will be using in this chapter when talking about sine curves is **period** and **offset**.
+A sine curve normally has a period of $2\pi$.
+A period of $2\pi$ is unlikely to be useful,
+we can set this value to be an arbitrarily different value by dividing by both that value and by $2\pi$.
+
+$$
+\sin\left(\dfrac{x}{\text{period} \cdot 2 \pi}\right)
+$$
+
+This sine curve has a period of `period`.
+The second thing we might wanna do is to slide this curve one way or another.
+The offset handles that by sliding the sine curve that many units back or forwards.
+
+$$
+\sin\left(\dfrac{x - \text{offset}}{\text{period} \cdot 2 \pi}\right)
+$$
 
 I think that this is easier to see with some toy visualizations.
 The following toy data set contains a highly significant circular effect.
 
 ```{r}
 #| label: toy_data
+#| echo: false
+#| message: false
 library(tidyverse)
 set.seed(1234)
 
@@ -45,7 +66,7 @@ toy_data |>
 ```
 
 If we were to take the `sin()` and `cos()` of the predictor,
-using appropriate cycle size and frequency we can overlay them on the previous chart
+using appropriate period and offset we can overlay them on the previous chart
 
 ```{r}
 #| label: fig-trig-predictor-outcome-sin-cos
@@ -114,8 +135,8 @@ On the other hand, `predictor_cos_1` doesn't do as well since it doesn't allow f
 All the high values appear when `predictor_cos_1` is close to 0. 
 However, not all observations where `predictor_cos_1` is close to 0 have high target values.
 
-Above we got lucky that we picked the right cycle size and frequency,
-since we knew them, if you are off, even by a bit you can get uninformative transformations like the one below.
+Above we got lucky that we picked the period and offset.
+if you are offeven by a bit you can get uninformative transformations like the one below.
 
 ```{r}
 #| label: fig-trig-predictor-outcome-circle-wrong
@@ -145,10 +166,10 @@ recipe(target ~ predictor, toy_data) |>
     theme_minimal()
 ```
 
-The starting point is also important.
+The offset is also important.
 We got lucky that it gave 1 good predictor and one bad predictor.
-Even if the frequency is good, 
-but the starting point is off you end up with two decent predictors.
+Even if the period is good, 
+but the offset is off you end up with two decent predictors.
 These two predictors are still good enough, but they are less ideal than the first example we got.
 
 ```{r}
@@ -189,7 +210,7 @@ You might get one good and one bad, or both decent.
 The good thing about calling both `sin()` and `cos()` is that you don't have to worry about the offset too much.
 As long as you get the period right you get a signal in at least one of the curves.
 
-If you spend some manual time finding the right period and offset,
+If you spend some manual time finding the right period **and** offset,
 then you only need to calculate `sin()`.
 For a sufficiently circular effect and proper placement,
 a single `sin()` is going to be more effective than both `sin()` and `cos()`.
@@ -253,7 +274,7 @@ recipe(target ~ predictor, toy_data_two) |>
     step_rm(predictor_cos_1) |>
     prep() |>
     bake(new_data = NULL) |>
-    rename(`sin(365)` = predictor_sin_one, `cos(200)` = predictor_sin_two) |>
+    rename(`sin(365)` = predictor_sin_one, `sin(200)` = predictor_sin_two) |>
     pivot_longer(-c(predictor, target)) |>
     ggplot(aes(predictor, value, color = name)) +
     geom_point(aes(predictor, target), color = "black") +
@@ -273,12 +294,84 @@ The more advanced methods such as [circular splines](circular-splines) and [cicu
 
 ### Pros
 
+- Easy and fast to calculate
+- Calculating both `sin()` and `cos()` is fail-safe if you have the right period
+
 ### Cons
+
+- Doesn't fit all circular data shapes
+- Sensitive to should of period
 
 ## R Examples
 
-Find data set.
+We will be using the animalshelter data set for this.
+
+```{r}
+#| label: show-data
+library(recipes)
+library(animalshelter)
+
+longbeach |>
+  select(outcome_type, intake_date)
+```
+
+The `step_harmonic()` will caculate the
+
+```{r}
+#| label: step_harmonic
+trig_rec <- recipe(outcome_type ~ intake_date, data = longbeach) |>
+  step_harmonic(intake_date, 
+                cycle_size = 365, 
+                frequency = 1,
+                starting_val = 0,
+                keep_original_cols = TRUE)
+trig_rec |>
+  prep() |>
+  bake(new_data = NULL)
+```
 
 ## Python Examples
 
-Find data set.
+```{python}
+#| label: python-setup
+#| echo: false
+import pandas as pd
+from sklearn import set_config
+
+set_config(transform_output="pandas")
+pd.set_option('display.precision', 3)
+```
+
+We are using the `shelter_cats` data set for examples.
+Since there isn't a built-in transformer for this transformation, we can create our own using `FunctionTransformer()` and `numpy.sin()` and `numpy.cos()`.
+
+```{python}
+#| label: functiontransformer-sin-cos
+from feazdata import shelter_cats
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import FunctionTransformer
+import numpy as np
+import pandas as pd
+
+# transforming `intake_date` to integer.
+# Should properly be done in sin_transformer() and cos_transformer()
+shelter_cats["intake_date"] = pd.to_datetime(shelter_cats["intake_date"])
+shelter_cats["intake_date"] = shelter_cats["intake_date"].astype(int)
+
+def sin_transformer(period, offset):
+    return FunctionTransformer(lambda x: np.sin((x - offset) / period * 2 * np.pi))
+
+def cos_transformer(period, offset):
+    return FunctionTransformer(lambda x: np.cos((x - offset) / period * 2 * np.pi))
+
+ct = ColumnTransformer(
+    transformers=[
+        ("intake_sin", sin_transformer(365, 0), ["intake_date"]),
+        ("intake_cos", cos_transformer(365, 0), ["intake_date"]),
+    ],
+    remainder="passthrough"
+)
+
+ct.fit(shelter_cats)
+ct.transform(shelter_cats).filter(regex=("^intake_(sin|cos).*"))
+```
