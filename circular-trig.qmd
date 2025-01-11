@@ -42,7 +42,7 @@ library(tidyverse)
 set.seed(1234)
 
 toy_data <- tibble(
-  predictor = 1:1000
+  predictor = c(1, 1000, sample(1:1000, 300))
 ) |>
   mutate(target = pmax(sin(predictor / 365 * pi * 2), 0) ^ 4 + 
                   rnorm(n(), sd = 0.1) - 0.5) |>
@@ -227,8 +227,9 @@ as we are trying to limit redundant or ineffective predictors from being created
 
 ```{r}
 #| label: toy_data_two
+#| echo: false
 toy_data_two <- tibble(
-  predictor = 1:1000
+  predictor = c(1, 1000, sample(1:1000, 300))
 ) |>
   mutate(target = pmax(sin(predictor / 365 * pi * 2), 0) ^ 4 + 
                   rnorm(n(), sd = 0.1) - 0.5) |>
