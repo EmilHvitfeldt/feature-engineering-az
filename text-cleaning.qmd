@@ -30,8 +30,17 @@ The crudeness because a problem as it removes indiscriminately such that periods
 The crudeness of the last approach is what inspires some of the transformation actions we can take.
 If we are going to count different parts of the text for analysis, then we might benefit from some bucketing.
 We could replace all emojis with `EMOJI` to denote that an emoji was present.
-The same could be done with emails, hashtags, user names and URLs.
+The same could be done with emails, hashtags, user names, dates, datetimes, and URLs.
 Doing this will rob us of the information about which emojis were used, but it lets us count how many times and where they are used instead.
+
+```r
+# Before
+"I replied to example@email.com on 2020-05-01"
+
+# After
+"I replied to EMAIL on DATE"
+```
+
 Another case of bucketing is done by lower-casing all the text.
 By making all the characters lowercase we lose some information.
 In English, we lose proper nouns and the starts of sentences and in German, we lose all nouns.

@@ -1276,7 +1276,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>When working with unstructured data such as free-form text. You likely will need to do some cleaning. As with basically every method in this book, not all the steps in this chapter should be applied, and it will be up to you the practitioner to evaluate what is best for your data. It is also important that you formalize what these steps should be such that you can apply them consistently to new data that comes in.</p>
 <p>I’ll split this chapter into 2 major categories. It doesn’t mean that they are the only ones, but it helps to keep things clear in our minds. These two categories are <strong>removing things</strong> and <strong>transforming things</strong>.</p>
 <p>Removing things should be quite self-explanatory. This group of actions can be quite lengthy depending on how clean your data is when you get it. HTML tags, Markdown, and other artifacts are prime candidates for removal as they have less information about the words written and more about how they are displaced. You can also get malformed text for different reasons, with the most common being speech-to-text and optical character recognition (OCR). If you get this kind of malformed text, you should try your best to have that part of the process improved, to hopefully avoid the malformed text altogether, but the escape-hatch would be to remove it. Sometimes people will remove all non-alphanumeric values from the text. This is a quick and crude method of getting something decent and easy to work with. This is also popular because it can be done using a small regular expression. The crudeness because a problem as it removes indiscriminately such that periods, question marks, emojis, and non-Latin characters are removed.</p>
-<p>The crudeness of the last approach is what inspires some of the transformation actions we can take. If we are going to count different parts of the text for analysis, then we might benefit from some bucketing. We could replace all emojis with <code>EMOJI</code> to denote that an emoji was present. The same could be done with emails, hashtags, user names and URLs. Doing this will rob us of the information about which emojis were used, but it lets us count how many times and where they are used instead. Another case of bucketing is done by lower-casing all the text. By making all the characters lowercase we lose some information. In English, we lose proper nouns and the starts of sentences and in German, we lose all nouns. We do this when we work under the assumption that <code>Today</code> and <code>today</code> isn’t a meaningful difference to our analysis.</p>
+<p>The crudeness of the last approach is what inspires some of the transformation actions we can take. If we are going to count different parts of the text for analysis, then we might benefit from some bucketing. We could replace all emojis with <code>EMOJI</code> to denote that an emoji was present. The same could be done with emails, hashtags, user names, dates, datetimes, and URLs. Doing this will rob us of the information about which emojis were used, but it lets us count how many times and where they are used instead.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Before</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="st">"I replied to example@email.com on 2020-05-01"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># After</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="st">"I replied to EMAIL on DATE"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Another case of bucketing is done by lower-casing all the text. By making all the characters lowercase we lose some information. In English, we lose proper nouns and the starts of sentences and in German, we lose all nouns. We do this when we work under the assumption that <code>Today</code> and <code>today</code> isn’t a meaningful difference to our analysis.</p>
 <p>One thing that can happen when we lowercase is that some works we don’t want to combine are combined, <code>it</code> and <code>IT</code> make a good example. replacing <code>IT</code> with <code>information technology</code> is one way to solve this issue. As you can see, there are a lot of different ways to improve our data quality, and spending some time at this part of the process tends to give better results as it affects every part of the rest of the pipeline.</p>
 <p>The choices you make on the actions above will depend on where the text is supposed to end up. If we want to use the data as part of a supervised machine learning model then we will likely be counting tokens, and keeping periods will not be helpful. if we want text generation, we need the periods as it will try to replicate text.</p>
 <p>When working with text data you will inevitably run into encodings and their associated irregularities.</p>
@@ -1328,7 +1334,7 @@ TODO
 </div>
 <p>We will use the <code>step_text_normalization()</code> function from the {textrecipes} package to perform unicode normalization, which defaults to the NFC normalization form.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textrecipes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textrecipes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: recipes</code></pre>
 </div>
@@ -1358,10 +1364,10 @@ Attaching package: 'recipes'</code></pre>
 
     step</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sample_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">text =</span> <span class="fu">c</span>(<span class="st">"sch\U00f6n"</span>, <span class="st">"scho\U0308n"</span>))</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>sample_data <span class="sc">|&gt;</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sample_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">text =</span> <span class="fu">c</span>(<span class="st">"sch\U00f6n"</span>, <span class="st">"scho\U0308n"</span>))</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>sample_data <span class="sc">|&gt;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
   text      n
@@ -1369,13 +1375,13 @@ Attaching package: 'recipes'</code></pre>
 1 schön     1
 2 schön     1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(<span class="sc">~</span>., <span class="at">data =</span> sample_data) <span class="sc">|&gt;</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_text_normalization</span>(text) <span class="sc">|&gt;</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>rec <span class="sc">|&gt;</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(<span class="sc">~</span>., <span class="at">data =</span> sample_data) <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_text_normalization</span>(text) <span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>rec <span class="sc">|&gt;</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 2
   text      n
