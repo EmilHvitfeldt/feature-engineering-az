@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -84,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./circular.html">Circular Features</a></li><li class="breadcrumb-item"><a href="./circular-splines.html"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">🏗️ Periodic Splines</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./circular.html">Circular Features</a></li><li class="breadcrumb-item"><a href="./circular-splines.html"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">Periodic Splines</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -569,7 +603,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./circular-splines.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">🏗️ Periodic Splines</span></span></a>
+ <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">Periodic Splines</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1217,9 +1251,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./circular.html">Circular Features</a></li><li class="breadcrumb-item"><a href="./circular-splines.html"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">🏗️ Periodic Splines</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./circular.html">Circular Features</a></li><li class="breadcrumb-item"><a href="./circular-splines.html"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">Periodic Splines</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-circular-splines" class="quarto-section-identifier"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">🏗️ Periodic Splines</span></span></h1>
+<h1 class="title"><span id="sec-circular-splines" class="quarto-section-identifier"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">Periodic Splines</span></span></h1>
 </div>
 
 
@@ -1239,18 +1273,188 @@ ul.task-list li input[type="checkbox"] {
 <section id="periodic-splines" class="level2" style="visibility: hidden; height: 0px;" data-number="64.1">
 <h2 data-number="64.1" class="anchored" data-anchor-id="periodic-splines"><span class="header-section-number">64.1</span> Periodic Splines</h2>
 </section>
-<p>WIP</p>
+<p>This chapter expands the idea we saw in the <a href="./circular-trig.html">last chapter</a> with the use of <a href="./numeric-splines.html">splines</a>. These splines allow for different shapes of activation than we saw with trigonomic functions.</p>
+<p>We will be using the same toy data set and see if we can improve on it.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-spline-predictor-outcome" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. Points scatter around a constant low value of the target. At regular intervals, the curve swings up and back down.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-spline-predictor-outcome-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="circular-splines_files/figure-html/fig-spline-predictor-outcome-1.png" class="img-fluid figure-img" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. Points scatter around a constant low value of the target. At regular intervals, the curve swings up and back down." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-spline-predictor-outcome-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;64.1: Strong periodic signal every 365 values along predictor.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>This data has a very specific shape, and we will see if we can approcimate it with our splines.</p>
+<p>First we fit a number of spline terms to our data using default arguments.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-circular-spline-defaults" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Two charts one above another. Below: Scatter chart. Predictor along the x-axis and outcome along the y-axis. Points scatter around a constant low value of the target. At regular intervals, the curve swings up and back down. Above: Spline terms as curves. One curve for each term. Each curse goes up in an almost sine curve, and the back down to zero. Each peak is seperated.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-circular-spline-defaults-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="circular-splines_files/figure-html/fig-circular-spline-defaults-1.png" class="img-fluid figure-img" alt="Two charts one above another. Below: Scatter chart. Predictor along the x-axis and outcome along the y-axis. Points scatter around a constant low value of the target. At regular intervals, the curve swings up and back down. Above: Spline terms as curves. One curve for each term. Each curse goes up in an almost sine curve, and the back down to zero. Each peak is seperated." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-circular-spline-defaults-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;64.2: Strong periodic signal every 365 values along predictor below, spline values above.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>While it produces some fine splines they are neither well fitting or periodic. Let us make spline periodic and try to approcimate the period.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-circular-spline-period" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Two charts one above another. Below: Scatter chart. Predictor along the x-axis and outcome along the y-axis. Points scatter around a constant low value of the target. At regular intervals, the curve swings up and back down. Above: Spline terms as curves. One curve for each term. Each curse goes up in an almost sine curve, and the back down to zero. Each peak is seperated. The splines have been shortened and repeating with the same period.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-circular-spline-period-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="circular-splines_files/figure-html/fig-circular-spline-period-1.png" class="img-fluid figure-img" alt="Two charts one above another. Below: Scatter chart. Predictor along the x-axis and outcome along the y-axis. Points scatter around a constant low value of the target. At regular intervals, the curve swings up and back down. Above: Spline terms as curves. One curve for each term. Each curse goes up in an almost sine curve, and the back down to zero. Each peak is seperated. The splines have been shortened and repeating with the same period." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-circular-spline-period-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;64.3: Strong periodic signal every 365 values along predictor below, spline values above.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>We already see that something good is happening, The width of each bump is related to the number of degrees of freedom we have, lowering this value creates more wider bumps.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-circular-spline-calibrated" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Two charts one above another. Below: Scatter chart. Predictor along the x-axis and outcome along the y-axis. Points scatter around a constant low value of the target. At regular intervals, the curve swings up and back down. Above: Spline terms as curves. One curve for each term. Each curse goes up in an almost sine curve, and the back down to zero. Each peak is seperated. There are now fewer splines, with one of them being highlighted with color, to show is simularity with the below chart.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-circular-spline-calibrated-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="circular-splines_files/figure-html/fig-circular-spline-calibrated-1.png" class="img-fluid figure-img" alt="Two charts one above another. Below: Scatter chart. Predictor along the x-axis and outcome along the y-axis. Points scatter around a constant low value of the target. At regular intervals, the curve swings up and back down. Above: Spline terms as curves. One curve for each term. Each curse goes up in an almost sine curve, and the back down to zero. Each peak is seperated. There are now fewer splines, with one of them being highlighted with color, to show is simularity with the below chart." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-circular-spline-calibrated-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;64.4: Strong periodic signal every 365 values along predictor below, spline values above.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Now we got some pretty good traction. Pulling out the well performing spline term, we can translate it a bit to show how well it overlaps with our signal.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-circular-spline-fit" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. Points scatter around a constant low value of the target. At regular intervals, the curve swings up and back down. Spline term has been overlaid as a curve, almost perfectly following the trend.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-circular-spline-fit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="circular-splines_files/figure-html/fig-circular-spline-fit-1.png" class="img-fluid figure-img" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. Points scatter around a constant low value of the target. At regular intervals, the curve swings up and back down. Spline term has been overlaid as a curve, almost perfectly following the trend." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-circular-spline-fit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;64.5: Strong periodic signal every 365 values along predictor.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>While one spline term is highlighted here, It is important to note that the coverage of the splines makes sure that any signal is captured.</p>
+</div>
+</div>
+<p>There are obviously some signals that can’t be captured using splines. Compared to sine curves they are much more flexible, with a number of different kinds, each with some room for customization. Any purely circular signal can be captured in the <a href="./circular-indicators.html">next chapter</a>.</p>
 <section id="pros-and-cons" class="level2" data-number="64.2">
 <h2 data-number="64.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">64.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="64.2.1">
 <h3 data-number="64.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">64.2.1</span> Pros</h3>
+<ul>
+<li>More flexible than sine curves</li>
+<li>Fairly interpretable</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="64.2.2">
 <h3 data-number="64.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">64.2.2</span> Cons</h3>
+<ul>
+<li>Requires that you know the period</li>
+<li>Will create some unnecessary features</li>
+<li>Can’t capture all types of signal</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="64.3">
 <h2 data-number="64.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">64.3</span> R Examples</h2>
+<p>We will be using the animalshelter data set for this.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(animalshelter)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>longbeach <span class="sc">|&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(outcome_type, intake_date)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 29,787 × 2
+   outcome_type intake_date
+   &lt;chr&gt;        &lt;date&gt;     
+ 1 euthanasia   2023-02-20 
+ 2 rescue       2023-10-03 
+ 3 euthanasia   2020-01-01 
+ 4 transfer     2020-02-02 
+ 5 rescue       2018-12-18 
+ 6 adoption     2024-10-18 
+ 7 euthanasia   2020-07-25 
+ 8 rescue       2019-06-12 
+ 9 rescue       2017-09-21 
+10 rescue       2024-12-15 
+# ℹ 29,777 more rows</code></pre>
+</div>
+</div>
+<p>There are two steps in the recipes package that support periodic splines. Those are <code>step_spline_b()</code> and <code>step_spline_nonnegative()</code>, used for B-splines and Non-negative splines (also called M-Splines) respectively.</p>
+<p>These functions have 2 main arguments controlling the spline itself, and 2 main arguments controlling its periodic behavior.</p>
+<p><code>deg_free</code> and <code>degree</code> controls the spline, changing the number of spline terms that are created, and the degrees of the piecewise polynomials respectively. The defaults for these functions tend to be a good starting point. To make these steps periodic, we need to set <code>periodic = TRUE</code> in <code>options</code>. Lastly, we can control the period and its shift with <code>Boundary.knots</code> in <code>options</code>. I find the easiest way to set this like this: <code>c(0, period) + shift</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>spline_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(outcome_type <span class="sc">~</span> intake_date, <span class="at">data =</span> longbeach) <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_mutate</span>(<span class="at">intake_date =</span> <span class="fu">as.integer</span>(intake_date)) <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_spline_b</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    intake_date,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">options =</span> <span class="fu">list</span>(<span class="at">periodic =</span> <span class="cn">TRUE</span>, <span class="at">Boundary.knots =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">365</span>) <span class="sc">+</span> <span class="dv">50</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>spline_rec <span class="sc">|&gt;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 29,787 × 11
+   outcome_type intake_date_01 intake_date_02 intake_date_03 intake_date_04
+   &lt;fct&gt;                 &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;
+ 1 euthanasia            0             0               0             0     
+ 2 rescue                0             0               0             0     
+ 3 euthanasia            0             0               0             0     
+ 4 transfer              0             0               0             0     
+ 5 rescue                0             0               0             0     
+ 6 adoption              0             0               0             0     
+ 7 euthanasia            0             0.0154          0.437         0.512 
+ 8 rescue                0.176         0.682           0.142         0     
+ 9 rescue                0             0               0             0.0131
+10 rescue                0             0               0             0     
+# ℹ 29,777 more rows
+# ℹ 6 more variables: intake_date_05 &lt;dbl&gt;, intake_date_06 &lt;dbl&gt;,
+#   intake_date_07 &lt;dbl&gt;, intake_date_08 &lt;dbl&gt;, intake_date_09 &lt;dbl&gt;,
+#   intake_date_10 &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Find dataset where the predictor is naturally numeric.</p>
+</div>
+</div>
 </section>
 <section id="python-examples" class="level2" data-number="64.4">
 <h2 data-number="64.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">64.4</span> Python Examples</h2>
