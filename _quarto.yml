@@ -61,7 +61,7 @@ book:
         - datetime.qmd # draft
         - datetime-extraction.qmd # draft
         - datetime-advanced.qmd # draft
-        - datetime-circular.qmd # draft
+        - datetime-periodic.qmd # draft
     - part: "Missing Data"
       chapters:
         - missing.qmd # draft
@@ -86,12 +86,12 @@ book:
         - text-lda.qmd # draft
         - text-word2vec.qmd # draft
         - text-bert.qmd # draft
-    - part: "Circular Features"
+    - part: "Periodic Features"
       chapters:
-        - circular.qmd # draft
-        - circular-trig.qmd # draft
-        - circular-splines.qmd # draft
-        - circular-indicators.qmd # draft
+        - periodic.qmd # draft
+        - periodic-trig.qmd # draft
+        - periodic-splines.qmd # draft
+        - periodic-indicators.qmd # draft
     - part: "Too Many Variables"
       chapters:
         - too-many.qmd # draft

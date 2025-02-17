@@ -1,14 +1,16 @@
 ---
-pagetitle: "Feature Engineering A-Z | Priodic Splines"
+pagetitle: "Feature Engineering A-Z | Periodic Splines"
+aliases: 
+  - circular-splines.html
 ---
 
-# Periodic Splines {#sec-circular-splines}
+# Periodic Splines {#sec-periodic-splines}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## Periodic Splines
 :::
 
-This chapter expands the idea we saw in the [last chapter](circular-trig.qmd) with the use of [splines](numeric-splines.qmd). These splines allow for different shapes of activation than we saw with trigonomic functions.
+This chapter expands the idea we saw in the [last chapter](periodic-trig.qmd) with the use of [splines](numeric-splines.qmd). These splines allow for different shapes of activation than we saw with trigonomic functions.
 
 We will be using the same toy data set and see if we can improve on it.
 
@@ -54,7 +56,7 @@ and we will see if we can approcimate it with our splines.
 First we fit a number of spline terms to our data using default arguments.
 
 ```{r}
-#| label: fig-circular-spline-defaults
+#| label: fig-periodic-spline-defaults
 #| echo: false
 #| message: false
 #| fig-cap: |
@@ -95,7 +97,7 @@ While it produces some fine splines they are neither well fitting or periodic.
 Let us make spline periodic and try to approcimate the period.
 
 ```{r}
-#| label: fig-circular-spline-period
+#| label: fig-periodic-spline-period
 #| echo: false
 #| message: false
 #| fig-cap: |
@@ -138,7 +140,7 @@ The width of each bump is related to the number of degrees of freedom we have,
 lowering this value creates more wider bumps.
 
 ```{r}
-#| label: fig-circular-spline-calibrated
+#| label: fig-periodic-spline-calibrated
 #| echo: false
 #| message: false
 #| fig-cap: |
@@ -185,7 +187,7 @@ Pulling out the well performing spline term,
 we can translate it a bit to show how well it overlaps with our signal.
 
 ```{r}
-#| label: fig-circular-spline-fit
+#| label: fig-periodic-spline-fit
 #| echo: false
 #| message: false
 #| fig-cap: |
@@ -228,7 +230,7 @@ There are obviously some signals that can't be captured using splines.
 Compared to sine curves they are much more flexible, 
 with a number of different kinds,
 each with some room for customization.
-Any purely circular signal can be captured in the [next chapter](circular-indicators.qmd).
+Any purely periodic signal can be captured in the [next chapter](periodic-indicators.qmd).
 
 ## Pros and Cons
 
