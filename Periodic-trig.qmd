@@ -1,16 +1,18 @@
 ---
 pagetitle: "Feature Engineering A-Z | Trigonometric"
+aliases: 
+  - circular-trig.html
 ---
 
-# Trigonometric {#sec-circular-trig}
+# Trigonometric {#sec-periodic-trig}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## Trigonometric
 :::
 
-One of the most common ways of dealing with circular or cyclical data is by applying the trigonometric functions `sin()` and `cos()` to these variables. This is not a trained method.
+One of the most common ways of dealing with periodic or cyclical data is by applying the trigonometric functions `sin()` and `cos()` to these variables. This is not a trained method.
 
-You will note that many occurrences of circular data are datetime variables in nature. 
+You will note that many occurrences of periodic data are datetime variables in nature. 
 Please read the [Datetime Circular](datetime-circular) chapter,
 for the additional considerations to take into account when working with datetime variables specifically.
 
@@ -32,7 +34,7 @@ $$
 $$
 
 I think that this is easier to see with some toy visualizations.
-The following toy data set contains a highly significant circular effect.
+The following toy data set contains a highly significant periodic effect.
 
 ```{r}
 #| label: toy_data
@@ -96,7 +98,7 @@ recipe(target ~ predictor, toy_data) |>
     theme(legend.position = "bottom")
 ```
 
-We notice that the `sin()` transformation somehow captures the circular nature of the data.
+We notice that the `sin()` transformation somehow captures the periodic nature of the data.
 It obviously can't fully capture the effect since the relationship isn't a perfect sine curve.
 
 The effect might be more noticeable if we change the way we visualize this effect.
@@ -212,16 +214,16 @@ As long as you get the period right you get a signal in at least one of the curv
 
 If you spend some manual time finding the right period **and** offset,
 then you only need to calculate `sin()`.
-For a sufficiently circular effect and proper placement,
+For a sufficiently periodic effect and proper placement,
 a single `sin()` is going to be more effective than both `sin()` and `cos()`.
 This is especially true since `cos()` is a shift of `sin()` by definition.
 
-Propose now we have multiple circular signals.
+Propose now we have multiple periodic signals.
 They could be shifted versions of each other,
 think Halloween, Christmas, and Valentine's day.
 Or they could have different periods.
 This would be hard to handle using a single set of curves,
-and we thus have to create one for each circular pattern.
+and we thus have to create one for each periodic pattern.
 This is also where the decision to only do `sin()` instead of both helps,
 as we are trying to limit redundant or ineffective predictors from being created.
 
@@ -289,7 +291,7 @@ These two newly created predictors now hit the peaks of each of the periods.
 
 A glaring issue right now is that all signals are not perfect sine curves.
 This method explained in this chapter will thus work less well for sharp spikes and asymmetric signals.
-The more advanced methods such as [circular splines](circular-splines) and [cicular indicators](circular-indicators) handle these types of data better.
+The more advanced methods such as [periodic splines](periodic-splines) and [periodic indicators](periodic-indicators) handle these types of data better.
 
 ## Pros and Cons
 
@@ -300,7 +302,7 @@ The more advanced methods such as [circular splines](circular-splines) and [cicu
 
 ### Cons
 
-- Doesn't fit all circular data shapes
+- Doesn't fit all periodic data shapes
 - Sensitive to should of period
 
 ## R Examples

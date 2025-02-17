@@ -1,21 +1,23 @@
 ---
 pagetitle: "Feature Engineering A-Z | Periodic Indicators"
+aliases: 
+  - circular-indicators.html
 ---
 
-# Periodic Indicators {#sec-circular-indicators}
+# Periodic Indicators {#sec-periodic-indicators}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## Periodic Indicators
 :::
 
-There will be circular signals that can't be neatly modeled using [sine curves](circular-trig) or [splines](circular-splines).
+There will be periodic signals that can't be neatly modeled using [sine curves](periodic-trig) or [splines](periodic-splines).
 Our last chance to deal with this type of data is by writing custom indicator functions and applying them.
 
 This chapter is very similar in style to the [Advanced Datetime Features](datetime-advanced) chapter.
 With this chapter being the simpler case we don't have to deal with the added complexity that comes with datetime variables.
 
 ```{r}
-#| label: fig-circular-indicators
+#| label: fig-periodic-indicators
 #| warning: false
 #| echo: false
 #| message: false
@@ -44,14 +46,14 @@ tibble(
 Above we see a type of activation we might see in some data.
 
 Creating these features is mostly done by handcrafting.
-Making them circular is done using a [modulo](https://en.wikipedia.org/wiki/Modulo) operator,
+Making them periodic is done using a [modulo](https://en.wikipedia.org/wiki/Modulo) operator,
 using the period.
 
 ## Pros and Cons
 
 ### Pros
 
-- Can capture most a circular signal 
+- Can capture most a periodic signal 
 
 ### Cons
 

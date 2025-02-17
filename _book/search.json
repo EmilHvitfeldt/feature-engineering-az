@@ -277,7 +277,7 @@
     "href": "numeric-sqrt.html#python-examples",
     "title": "3  Square Root",
     "section": "3.4 Python Examples",
-    "text": "3.4 Python Examples\nWe are using the ames data set for examples. Since there isn’t a built-in transformer for square root, we can create our own using FunctionTransformer() and numpy.sqrt().\n\nfrom feazdata import ames\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.preprocessing import FunctionTransformer\nimport numpy as np\n\nsqrt_transformer = FunctionTransformer(np.sqrt)\n\nct = ColumnTransformer(\n    [('sqrt', sqrt_transformer, ['Wood_Deck_SF'])], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('sqrt',\n                                 FunctionTransformer(func=&lt;ufunc 'sqrt'&gt;),\n                                 ['Wood_Deck_SF'])])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('sqrt',\n                                 FunctionTransformer(func=&lt;ufunc 'sqrt'&gt;),\n                                 ['Wood_Deck_SF'])]) sqrt['Wood_Deck_SF']  FunctionTransformer?Documentation for FunctionTransformerFunctionTransformer(func=&lt;ufunc 'sqrt'&gt;) remainder['MS_SubClass', 'MS_Zoning', 'Lot_Frontage', 'Lot_Area', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Year_Built', 'Year_Remod_Add', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Mas_Vnr_Area', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_SF_1', 'BsmtFin_Type_2', 'BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Total_Bsmt_SF', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'First_Flr_SF', 'Second_Flr_SF', 'Gr_Liv_Area', 'Bsmt_Full_Bath', 'Bsmt_Half_Bath', 'Full_Bath', 'Half_Bath', 'Bedroom_AbvGr', 'Kitchen_AbvGr', 'TotRms_AbvGrd', 'Functional', 'Fireplaces', 'Garage_Type', 'Garage_Finish', 'Garage_Cars', 'Garage_Area', 'Garage_Cond', 'Paved_Drive', 'Open_Porch_SF', 'Enclosed_Porch', 'Three_season_porch', 'Screen_Porch', 'Pool_Area', 'Pool_QC', 'Fence', 'Misc_Feature', 'Misc_Val', 'Mo_Sold', 'Year_Sold', 'Sale_Type', 'Sale_Condition', 'Sale_Price', 'Longitude', 'Latitude'] passthroughpassthrough \n\nct.transform(ames)\n\n      sqrt__Wood_Deck_SF  ... remainder__Latitude\n0                 14.491  ...              42.054\n1                 11.832  ...              42.053\n2                 19.824  ...              42.053\n3                  0.000  ...              42.051\n4                 14.560  ...              42.061\n...                  ...  ...                 ...\n2925              10.954  ...              41.989\n2926              12.806  ...              41.988\n2927               8.944  ...              41.987\n2928              15.492  ...              41.991\n2929              13.784  ...              41.989\n\n[2930 rows x 74 columns]\n\n\nWe can also create and perform a signed square root transformation, by creating a function for signed_sqrt() and then using it in FunctionTransformer() as before\n\ndef signed_sqrt(x):\n  return np.sqrt(np.abs(x)) * np.sign(x)\n\nsigned_sqrt_transformer = FunctionTransformer(signed_sqrt)\n\nct = ColumnTransformer(\n    [('signed_sqrt', signed_sqrt_transformer, ['Wood_Deck_SF'])], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('signed_sqrt',\n                                 FunctionTransformer(func=&lt;function signed_sqrt at 0x34ee2efc0&gt;),\n                                 ['Wood_Deck_SF'])])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('signed_sqrt',\n                                 FunctionTransformer(func=&lt;function signed_sqrt at 0x34ee2efc0&gt;),\n                                 ['Wood_Deck_SF'])]) signed_sqrt['Wood_Deck_SF']  FunctionTransformer?Documentation for FunctionTransformerFunctionTransformer(func=&lt;function signed_sqrt at 0x34ee2efc0&gt;) remainder['MS_SubClass', 'MS_Zoning', 'Lot_Frontage', 'Lot_Area', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Year_Built', 'Year_Remod_Add', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Mas_Vnr_Area', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_SF_1', 'BsmtFin_Type_2', 'BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Total_Bsmt_SF', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'First_Flr_SF', 'Second_Flr_SF', 'Gr_Liv_Area', 'Bsmt_Full_Bath', 'Bsmt_Half_Bath', 'Full_Bath', 'Half_Bath', 'Bedroom_AbvGr', 'Kitchen_AbvGr', 'TotRms_AbvGrd', 'Functional', 'Fireplaces', 'Garage_Type', 'Garage_Finish', 'Garage_Cars', 'Garage_Area', 'Garage_Cond', 'Paved_Drive', 'Open_Porch_SF', 'Enclosed_Porch', 'Three_season_porch', 'Screen_Porch', 'Pool_Area', 'Pool_QC', 'Fence', 'Misc_Feature', 'Misc_Val', 'Mo_Sold', 'Year_Sold', 'Sale_Type', 'Sale_Condition', 'Sale_Price', 'Longitude', 'Latitude'] passthroughpassthrough \n\nct.transform(ames)\n\n      signed_sqrt__Wood_Deck_SF  ... remainder__Latitude\n0                        14.491  ...              42.054\n1                        11.832  ...              42.053\n2                        19.824  ...              42.053\n3                         0.000  ...              42.051\n4                        14.560  ...              42.061\n...                         ...  ...                 ...\n2925                     10.954  ...              41.989\n2926                     12.806  ...              41.988\n2927                      8.944  ...              41.987\n2928                     15.492  ...              41.991\n2929                     13.784  ...              41.989\n\n[2930 rows x 74 columns]",
+    "text": "3.4 Python Examples\nWe are using the ames data set for examples. Since there isn’t a built-in transformer for square root, we can create our own using FunctionTransformer() and numpy.sqrt().\n\nfrom feazdata import ames\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.preprocessing import FunctionTransformer\nimport numpy as np\n\nsqrt_transformer = FunctionTransformer(np.sqrt)\n\nct = ColumnTransformer(\n    [('sqrt', sqrt_transformer, ['Wood_Deck_SF'])], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('sqrt',\n                                 FunctionTransformer(func=&lt;ufunc 'sqrt'&gt;),\n                                 ['Wood_Deck_SF'])])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('sqrt',\n                                 FunctionTransformer(func=&lt;ufunc 'sqrt'&gt;),\n                                 ['Wood_Deck_SF'])]) sqrt['Wood_Deck_SF']  FunctionTransformer?Documentation for FunctionTransformerFunctionTransformer(func=&lt;ufunc 'sqrt'&gt;) remainder['MS_SubClass', 'MS_Zoning', 'Lot_Frontage', 'Lot_Area', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Year_Built', 'Year_Remod_Add', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Mas_Vnr_Area', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_SF_1', 'BsmtFin_Type_2', 'BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Total_Bsmt_SF', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'First_Flr_SF', 'Second_Flr_SF', 'Gr_Liv_Area', 'Bsmt_Full_Bath', 'Bsmt_Half_Bath', 'Full_Bath', 'Half_Bath', 'Bedroom_AbvGr', 'Kitchen_AbvGr', 'TotRms_AbvGrd', 'Functional', 'Fireplaces', 'Garage_Type', 'Garage_Finish', 'Garage_Cars', 'Garage_Area', 'Garage_Cond', 'Paved_Drive', 'Open_Porch_SF', 'Enclosed_Porch', 'Three_season_porch', 'Screen_Porch', 'Pool_Area', 'Pool_QC', 'Fence', 'Misc_Feature', 'Misc_Val', 'Mo_Sold', 'Year_Sold', 'Sale_Type', 'Sale_Condition', 'Sale_Price', 'Longitude', 'Latitude'] passthroughpassthrough \n\nct.transform(ames)\n\n      sqrt__Wood_Deck_SF  ... remainder__Latitude\n0                 14.491  ...              42.054\n1                 11.832  ...              42.053\n2                 19.824  ...              42.053\n3                  0.000  ...              42.051\n4                 14.560  ...              42.061\n...                  ...  ...                 ...\n2925              10.954  ...              41.989\n2926              12.806  ...              41.988\n2927               8.944  ...              41.987\n2928              15.492  ...              41.991\n2929              13.784  ...              41.989\n\n[2930 rows x 74 columns]\n\n\nWe can also create and perform a signed square root transformation, by creating a function for signed_sqrt() and then using it in FunctionTransformer() as before\n\ndef signed_sqrt(x):\n  return np.sqrt(np.abs(x)) * np.sign(x)\n\nsigned_sqrt_transformer = FunctionTransformer(signed_sqrt)\n\nct = ColumnTransformer(\n    [('signed_sqrt', signed_sqrt_transformer, ['Wood_Deck_SF'])], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('signed_sqrt',\n                                 FunctionTransformer(func=&lt;function signed_sqrt at 0x36072efc0&gt;),\n                                 ['Wood_Deck_SF'])])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('signed_sqrt',\n                                 FunctionTransformer(func=&lt;function signed_sqrt at 0x36072efc0&gt;),\n                                 ['Wood_Deck_SF'])]) signed_sqrt['Wood_Deck_SF']  FunctionTransformer?Documentation for FunctionTransformerFunctionTransformer(func=&lt;function signed_sqrt at 0x36072efc0&gt;) remainder['MS_SubClass', 'MS_Zoning', 'Lot_Frontage', 'Lot_Area', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Year_Built', 'Year_Remod_Add', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Mas_Vnr_Area', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_SF_1', 'BsmtFin_Type_2', 'BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Total_Bsmt_SF', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'First_Flr_SF', 'Second_Flr_SF', 'Gr_Liv_Area', 'Bsmt_Full_Bath', 'Bsmt_Half_Bath', 'Full_Bath', 'Half_Bath', 'Bedroom_AbvGr', 'Kitchen_AbvGr', 'TotRms_AbvGrd', 'Functional', 'Fireplaces', 'Garage_Type', 'Garage_Finish', 'Garage_Cars', 'Garage_Area', 'Garage_Cond', 'Paved_Drive', 'Open_Porch_SF', 'Enclosed_Porch', 'Three_season_porch', 'Screen_Porch', 'Pool_Area', 'Pool_QC', 'Fence', 'Misc_Feature', 'Misc_Val', 'Mo_Sold', 'Year_Sold', 'Sale_Type', 'Sale_Condition', 'Sale_Price', 'Longitude', 'Latitude'] passthroughpassthrough \n\nct.transform(ames)\n\n      signed_sqrt__Wood_Deck_SF  ... remainder__Latitude\n0                        14.491  ...              42.054\n1                        11.832  ...              42.053\n2                        19.824  ...              42.053\n3                         0.000  ...              42.051\n4                        14.560  ...              42.061\n...                         ...  ...                 ...\n2925                     10.954  ...              41.989\n2926                     12.806  ...              41.988\n2927                      8.944  ...              41.987\n2928                     15.492  ...              41.991\n2929                     13.784  ...              41.989\n\n[2930 rows x 74 columns]",
     "crumbs": [
       "Numeric Features",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Square Root</span>"
@@ -1890,47 +1890,47 @@
     ]
   },
   {
-    "objectID": "datetime-circular.html",
-    "href": "datetime-circular.html",
-    "title": "41  Circular Features",
+    "objectID": "datetime-periodic.html",
+    "href": "datetime-periodic.html",
+    "title": "41  Periodic Features",
     "section": "",
-    "text": "41.1 Circular Features",
+    "text": "41.1 Periodic Features",
     "crumbs": [
       "Datetime Features",
-      "<span class='chapter-number'>41</span>  <span class='chapter-title'>Circular Features</span>"
+      "<span class='chapter-number'>41</span>  <span class='chapter-title'>Periodic Features</span>"
     ]
   },
   {
-    "objectID": "datetime-circular.html#pros-and-cons",
-    "href": "datetime-circular.html#pros-and-cons",
-    "title": "41  Circular Features",
+    "objectID": "datetime-periodic.html#pros-and-cons",
+    "href": "datetime-periodic.html#pros-and-cons",
+    "title": "41  Periodic Features",
     "section": "41.2 Pros and Cons",
-    "text": "41.2 Pros and Cons\n\n41.2.1 Pros\n\nThe nature of datetime variables naturally leads to circular patterns\n\n\n\n41.2.2 Cons\n\nExtra care and work need to be done to find the right period",
+    "text": "41.2 Pros and Cons\n\n41.2.1 Pros\n\nThe nature of datetime variables naturally leads to periodic patterns\n\n\n\n41.2.2 Cons\n\nExtra care and work need to be done to find the right period",
     "crumbs": [
       "Datetime Features",
-      "<span class='chapter-number'>41</span>  <span class='chapter-title'>Circular Features</span>"
+      "<span class='chapter-number'>41</span>  <span class='chapter-title'>Periodic Features</span>"
     ]
   },
   {
-    "objectID": "datetime-circular.html#r-examples",
-    "href": "datetime-circular.html#r-examples",
-    "title": "41  Circular Features",
+    "objectID": "datetime-periodic.html#r-examples",
+    "href": "datetime-periodic.html#r-examples",
+    "title": "41  Periodic Features",
     "section": "41.3 R Examples",
     "text": "41.3 R Examples\n\n\n\n\n\n\nTODO\n\n\n\nAdd recipes steps",
     "crumbs": [
       "Datetime Features",
-      "<span class='chapter-number'>41</span>  <span class='chapter-title'>Circular Features</span>"
+      "<span class='chapter-number'>41</span>  <span class='chapter-title'>Periodic Features</span>"
     ]
   },
   {
-    "objectID": "datetime-circular.html#python-examples",
-    "href": "datetime-circular.html#python-examples",
-    "title": "41  Circular Features",
+    "objectID": "datetime-periodic.html#python-examples",
+    "href": "datetime-periodic.html#python-examples",
+    "title": "41  Periodic Features",
     "section": "41.4 Python Examples",
     "text": "41.4 Python Examples",
     "crumbs": [
       "Datetime Features",
-      "<span class='chapter-number'>41</span>  <span class='chapter-title'>Circular Features</span>"
+      "<span class='chapter-number'>41</span>  <span class='chapter-title'>Periodic Features</span>"
     ]
   },
   {
@@ -2880,145 +2880,145 @@
     ]
   },
   {
-    "objectID": "circular.html",
-    "href": "circular.html",
-    "title": "62  Circular Overview",
+    "objectID": "periodic.html",
+    "href": "periodic.html",
+    "title": "62  Periodic Overview",
     "section": "",
-    "text": "62.1 Circular Overview",
+    "text": "62.1 Periodic Overview",
     "crumbs": [
-      "Circular Features",
-      "<span class='chapter-number'>62</span>  <span class='chapter-title'>Circular Overview</span>"
+      "Periodic Features",
+      "<span class='chapter-number'>62</span>  <span class='chapter-title'>Periodic Overview</span>"
     ]
   },
   {
-    "objectID": "circular-trig.html",
-    "href": "circular-trig.html",
+    "objectID": "periodic-trig.html",
+    "href": "periodic-trig.html",
     "title": "63  Trigonometric",
     "section": "",
     "text": "63.1 Trigonometric",
     "crumbs": [
-      "Circular Features",
+      "Periodic Features",
       "<span class='chapter-number'>63</span>  <span class='chapter-title'>Trigonometric</span>"
     ]
   },
   {
-    "objectID": "circular-trig.html#pros-and-cons",
-    "href": "circular-trig.html#pros-and-cons",
+    "objectID": "periodic-trig.html#pros-and-cons",
+    "href": "periodic-trig.html#pros-and-cons",
     "title": "63  Trigonometric",
     "section": "63.2 Pros and Cons",
-    "text": "63.2 Pros and Cons\n\n63.2.1 Pros\n\nEasy and fast to calculate\nCalculating both sin() and cos() is fail-safe if you have the right period\n\n\n\n63.2.2 Cons\n\nDoesn’t fit all circular data shapes\nSensitive to should of period",
+    "text": "63.2 Pros and Cons\n\n63.2.1 Pros\n\nEasy and fast to calculate\nCalculating both sin() and cos() is fail-safe if you have the right period\n\n\n\n63.2.2 Cons\n\nDoesn’t fit all periodic data shapes\nSensitive to should of period",
     "crumbs": [
-      "Circular Features",
+      "Periodic Features",
       "<span class='chapter-number'>63</span>  <span class='chapter-title'>Trigonometric</span>"
     ]
   },
   {
-    "objectID": "circular-trig.html#r-examples",
-    "href": "circular-trig.html#r-examples",
+    "objectID": "periodic-trig.html#r-examples",
+    "href": "periodic-trig.html#r-examples",
     "title": "63  Trigonometric",
     "section": "63.3 R Examples",
     "text": "63.3 R Examples\nWe will be using the animalshelter data set for this.\n\nlibrary(recipes)\nlibrary(animalshelter)\n\nlongbeach |&gt;\n  select(outcome_type, intake_date)\n\n# A tibble: 29,787 × 2\n   outcome_type intake_date\n   &lt;chr&gt;        &lt;date&gt;     \n 1 euthanasia   2023-02-20 \n 2 rescue       2023-10-03 \n 3 euthanasia   2020-01-01 \n 4 transfer     2020-02-02 \n 5 rescue       2018-12-18 \n 6 adoption     2024-10-18 \n 7 euthanasia   2020-07-25 \n 8 rescue       2019-06-12 \n 9 rescue       2017-09-21 \n10 rescue       2024-12-15 \n# ℹ 29,777 more rows\n\n\nThe step_harmonic() will calculate the\n\ntrig_rec &lt;- recipe(outcome_type ~ intake_date, data = longbeach) |&gt;\n  step_harmonic(intake_date, \n                cycle_size = 365, \n                frequency = 1,\n                starting_val = 0,\n                keep_original_cols = TRUE)\ntrig_rec |&gt;\n  prep() |&gt;\n  bake(new_data = NULL)\n\n# A tibble: 29,787 × 4\n   intake_date outcome_type intake_date_sin_1 intake_date_cos_1\n   &lt;date&gt;      &lt;fct&gt;                    &lt;dbl&gt;             &lt;dbl&gt;\n 1 2023-02-20  euthanasia              0.884             0.467 \n 2 2023-10-03  rescue                 -0.970             0.243 \n 3 2020-01-01  euthanasia              0.205             0.979 \n 4 2020-02-02  transfer                0.687             0.727 \n 5 2018-12-18  rescue                 -0.0344            0.999 \n 6 2024-10-18  adoption               -0.867             0.498 \n 7 2020-07-25  euthanasia             -0.574            -0.819 \n 8 2019-06-12  rescue                  0.146            -0.989 \n 9 2017-09-21  rescue                 -1.00              0.0215\n10 2024-12-15  rescue                 -0.0516            0.999 \n# ℹ 29,777 more rows",
     "crumbs": [
-      "Circular Features",
+      "Periodic Features",
       "<span class='chapter-number'>63</span>  <span class='chapter-title'>Trigonometric</span>"
     ]
   },
   {
-    "objectID": "circular-trig.html#python-examples",
-    "href": "circular-trig.html#python-examples",
+    "objectID": "periodic-trig.html#python-examples",
+    "href": "periodic-trig.html#python-examples",
     "title": "63  Trigonometric",
     "section": "63.4 Python Examples",
-    "text": "63.4 Python Examples\nWe are using the shelter_cats data set for examples. Since there isn’t a built-in transformer for this transformation, we can create our own using FunctionTransformer() and numpy.sin() and numpy.cos().\n\nfrom feazdata import shelter_cats\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.preprocessing import FunctionTransformer\nimport numpy as np\nimport pandas as pd\n\n# transforming `intake_date` to integer.\n# Should properly be done in sin_transformer() and cos_transformer()\nshelter_cats[\"intake_date\"] = pd.to_datetime(shelter_cats[\"intake_date\"])\nshelter_cats[\"intake_date\"] = shelter_cats[\"intake_date\"].astype(int)\n\ndef sin_transformer(period, offset):\n    return FunctionTransformer(lambda x: np.sin((x - offset) / period * 2 * np.pi))\n\ndef cos_transformer(period, offset):\n    return FunctionTransformer(lambda x: np.cos((x - offset) / period * 2 * np.pi))\n\nct = ColumnTransformer(\n    transformers=[\n        (\"intake_sin\", sin_transformer(365, 0), [\"intake_date\"]),\n        (\"intake_cos\", cos_transformer(365, 0), [\"intake_date\"]),\n    ],\n    remainder=\"passthrough\"\n)\n\nct.fit(shelter_cats)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('intake_sin',\n                                 FunctionTransformer(func=&lt;function sin_transformer.&lt;locals&gt;.&lt;lambda&gt; at 0x3551f1580&gt;),\n                                 ['intake_date']),\n                                ('intake_cos',\n                                 FunctionTransformer(func=&lt;function cos_transformer.&lt;locals&gt;.&lt;lambda&gt; at 0x3551f0180&gt;),\n                                 ['intake_date'])])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('intake_sin',\n                                 FunctionTransformer(func=&lt;function sin_transformer.&lt;locals&gt;.&lt;lambda&gt; at 0x3551f1580&gt;),\n                                 ['intake_date']),\n                                ('intake_cos',\n                                 FunctionTransformer(func=&lt;function cos_transformer.&lt;locals&gt;.&lt;lambda&gt; at 0x3551f0180&gt;),\n                                 ['intake_date'])]) intake_sin['intake_date']  FunctionTransformer?Documentation for FunctionTransformerFunctionTransformer(func=&lt;function sin_transformer.&lt;locals&gt;.&lt;lambda&gt; at 0x3551f1580&gt;) intake_cos['intake_date']  FunctionTransformer?Documentation for FunctionTransformerFunctionTransformer(func=&lt;function cos_transformer.&lt;locals&gt;.&lt;lambda&gt; at 0x3551f0180&gt;) remainder['animal_id', 'animal_name', 'animal_type', 'primary_color', 'secondary_color', 'sex', 'dob', 'intake_condition', 'intake_type', 'intake_subtype', 'reason_for_intake', 'outcome_date', 'crossing', 'jurisdiction', 'outcome_type', 'outcome_subtype', 'latitude', 'longitude', 'intake_is_dead', 'outcome_is_dead', 'was_outcome_alive', 'geopoint'] passthroughpassthrough \n\nct.transform(shelter_cats).filter(regex=(\"^intake_(sin|cos).*\"))\n\n       intake_cos__intake_date  intake_cos__intake_date\n0                        0.515                    0.857\n1                       -0.713                   -0.701\n2                        0.722                    0.692\n3                        0.944                    0.331\n4                       -0.918                    0.397\n...                        ...                      ...\n13809                   -0.543                   -0.840\n13810                   -0.905                   -0.424\n13811                   -0.068                   -0.998\n13812                   -0.068                   -0.998\n13813                   -0.630                   -0.777\n\n[13814 rows x 2 columns]",
+    "text": "63.4 Python Examples\nWe are using the shelter_cats data set for examples. Since there isn’t a built-in transformer for this transformation, we can create our own using FunctionTransformer() and numpy.sin() and numpy.cos().\n\nfrom feazdata import shelter_cats\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.preprocessing import FunctionTransformer\nimport numpy as np\nimport pandas as pd\n\n# transforming `intake_date` to integer.\n# Should properly be done in sin_transformer() and cos_transformer()\nshelter_cats[\"intake_date\"] = pd.to_datetime(shelter_cats[\"intake_date\"])\nshelter_cats[\"intake_date\"] = shelter_cats[\"intake_date\"].astype(int)\n\ndef sin_transformer(period, offset):\n    return FunctionTransformer(lambda x: np.sin((x - offset) / period * 2 * np.pi))\n\ndef cos_transformer(period, offset):\n    return FunctionTransformer(lambda x: np.cos((x - offset) / period * 2 * np.pi))\n\nct = ColumnTransformer(\n    transformers=[\n        (\"intake_sin\", sin_transformer(365, 0), [\"intake_date\"]),\n        (\"intake_cos\", cos_transformer(365, 0), [\"intake_date\"]),\n    ],\n    remainder=\"passthrough\"\n)\n\nct.fit(shelter_cats)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('intake_sin',\n                                 FunctionTransformer(func=&lt;function sin_transformer.&lt;locals&gt;.&lt;lambda&gt; at 0x34cdb5580&gt;),\n                                 ['intake_date']),\n                                ('intake_cos',\n                                 FunctionTransformer(func=&lt;function cos_transformer.&lt;locals&gt;.&lt;lambda&gt; at 0x34cdb4180&gt;),\n                                 ['intake_date'])])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('intake_sin',\n                                 FunctionTransformer(func=&lt;function sin_transformer.&lt;locals&gt;.&lt;lambda&gt; at 0x34cdb5580&gt;),\n                                 ['intake_date']),\n                                ('intake_cos',\n                                 FunctionTransformer(func=&lt;function cos_transformer.&lt;locals&gt;.&lt;lambda&gt; at 0x34cdb4180&gt;),\n                                 ['intake_date'])]) intake_sin['intake_date']  FunctionTransformer?Documentation for FunctionTransformerFunctionTransformer(func=&lt;function sin_transformer.&lt;locals&gt;.&lt;lambda&gt; at 0x34cdb5580&gt;) intake_cos['intake_date']  FunctionTransformer?Documentation for FunctionTransformerFunctionTransformer(func=&lt;function cos_transformer.&lt;locals&gt;.&lt;lambda&gt; at 0x34cdb4180&gt;) remainder['animal_id', 'animal_name', 'animal_type', 'primary_color', 'secondary_color', 'sex', 'dob', 'intake_condition', 'intake_type', 'intake_subtype', 'reason_for_intake', 'outcome_date', 'crossing', 'jurisdiction', 'outcome_type', 'outcome_subtype', 'latitude', 'longitude', 'intake_is_dead', 'outcome_is_dead', 'was_outcome_alive', 'geopoint'] passthroughpassthrough \n\nct.transform(shelter_cats).filter(regex=(\"^intake_(sin|cos).*\"))\n\n       intake_cos__intake_date  intake_cos__intake_date\n0                        0.515                    0.857\n1                       -0.713                   -0.701\n2                        0.722                    0.692\n3                        0.944                    0.331\n4                       -0.918                    0.397\n...                        ...                      ...\n13809                   -0.543                   -0.840\n13810                   -0.905                   -0.424\n13811                   -0.068                   -0.998\n13812                   -0.068                   -0.998\n13813                   -0.630                   -0.777\n\n[13814 rows x 2 columns]",
     "crumbs": [
-      "Circular Features",
+      "Periodic Features",
       "<span class='chapter-number'>63</span>  <span class='chapter-title'>Trigonometric</span>"
     ]
   },
   {
-    "objectID": "circular-splines.html",
-    "href": "circular-splines.html",
+    "objectID": "periodic-splines.html",
+    "href": "periodic-splines.html",
     "title": "64  Periodic Splines",
     "section": "",
     "text": "64.1 Periodic Splines",
     "crumbs": [
-      "Circular Features",
+      "Periodic Features",
       "<span class='chapter-number'>64</span>  <span class='chapter-title'>Periodic Splines</span>"
     ]
   },
   {
-    "objectID": "circular-splines.html#pros-and-cons",
-    "href": "circular-splines.html#pros-and-cons",
+    "objectID": "periodic-splines.html#pros-and-cons",
+    "href": "periodic-splines.html#pros-and-cons",
     "title": "64  Periodic Splines",
     "section": "64.2 Pros and Cons",
     "text": "64.2 Pros and Cons\n\n64.2.1 Pros\n\nMore flexible than sine curves\nFairly interpretable\n\n\n\n64.2.2 Cons\n\nRequires that you know the period\nWill create some unnecessary features\nCan’t capture all types of signal",
     "crumbs": [
-      "Circular Features",
+      "Periodic Features",
       "<span class='chapter-number'>64</span>  <span class='chapter-title'>Periodic Splines</span>"
     ]
   },
   {
-    "objectID": "circular-splines.html#r-examples",
-    "href": "circular-splines.html#r-examples",
+    "objectID": "periodic-splines.html#r-examples",
+    "href": "periodic-splines.html#r-examples",
     "title": "64  Periodic Splines",
     "section": "64.3 R Examples",
     "text": "64.3 R Examples\nWe will be using the animalshelter data set for this.\n\nlibrary(recipes)\nlibrary(animalshelter)\n\nlongbeach |&gt;\n  select(outcome_type, intake_date)\n\n# A tibble: 29,787 × 2\n   outcome_type intake_date\n   &lt;chr&gt;        &lt;date&gt;     \n 1 euthanasia   2023-02-20 \n 2 rescue       2023-10-03 \n 3 euthanasia   2020-01-01 \n 4 transfer     2020-02-02 \n 5 rescue       2018-12-18 \n 6 adoption     2024-10-18 \n 7 euthanasia   2020-07-25 \n 8 rescue       2019-06-12 \n 9 rescue       2017-09-21 \n10 rescue       2024-12-15 \n# ℹ 29,777 more rows\n\n\nThere are two steps in the recipes package that support periodic splines. Those are step_spline_b() and step_spline_nonnegative(), used for B-splines and Non-negative splines (also called M-Splines) respectively.\nThese functions have 2 main arguments controlling the spline itself, and 2 main arguments controlling its periodic behavior.\ndeg_free and degree controls the spline, changing the number of spline terms that are created, and the degrees of the piecewise polynomials respectively. The defaults for these functions tend to be a good starting point. To make these steps periodic, we need to set periodic = TRUE in options. Lastly, we can control the period and its shift with Boundary.knots in options. I find the easiest way to set this like this: c(0, period) + shift.\n\nspline_rec &lt;- recipe(outcome_type ~ intake_date, data = longbeach) |&gt;\n  step_mutate(intake_date = as.integer(intake_date)) |&gt;\n  step_spline_b(\n    intake_date,\n    options = list(periodic = TRUE, Boundary.knots = c(0, 365) + 50)\n  )\n\nspline_rec |&gt;\n  prep() |&gt;\n  bake(new_data = NULL)\n\n# A tibble: 29,787 × 11\n   outcome_type intake_date_01 intake_date_02 intake_date_03 intake_date_04\n   &lt;fct&gt;                 &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;\n 1 euthanasia            0             0               0             0     \n 2 rescue                0             0               0             0     \n 3 euthanasia            0             0               0             0     \n 4 transfer              0             0               0             0     \n 5 rescue                0             0               0             0     \n 6 adoption              0             0               0             0     \n 7 euthanasia            0             0.0154          0.437         0.512 \n 8 rescue                0.176         0.682           0.142         0     \n 9 rescue                0             0               0             0.0131\n10 rescue                0             0               0             0     \n# ℹ 29,777 more rows\n# ℹ 6 more variables: intake_date_05 &lt;dbl&gt;, intake_date_06 &lt;dbl&gt;,\n#   intake_date_07 &lt;dbl&gt;, intake_date_08 &lt;dbl&gt;, intake_date_09 &lt;dbl&gt;,\n#   intake_date_10 &lt;dbl&gt;\n\n\n\n\n\n\n\n\nTODO\n\n\n\nFind dataset where the predictor is naturally numeric.",
     "crumbs": [
-      "Circular Features",
+      "Periodic Features",
       "<span class='chapter-number'>64</span>  <span class='chapter-title'>Periodic Splines</span>"
     ]
   },
   {
-    "objectID": "circular-splines.html#python-examples",
-    "href": "circular-splines.html#python-examples",
+    "objectID": "periodic-splines.html#python-examples",
+    "href": "periodic-splines.html#python-examples",
     "title": "64  Periodic Splines",
     "section": "64.4 Python Examples",
     "text": "64.4 Python Examples",
     "crumbs": [
-      "Circular Features",
+      "Periodic Features",
       "<span class='chapter-number'>64</span>  <span class='chapter-title'>Periodic Splines</span>"
     ]
   },
   {
-    "objectID": "circular-indicators.html",
-    "href": "circular-indicators.html",
+    "objectID": "periodic-indicators.html",
+    "href": "periodic-indicators.html",
     "title": "65  Periodic Indicators",
     "section": "",
     "text": "65.1 Periodic Indicators",
     "crumbs": [
-      "Circular Features",
+      "Periodic Features",
       "<span class='chapter-number'>65</span>  <span class='chapter-title'>Periodic Indicators</span>"
     ]
   },
   {
-    "objectID": "circular-indicators.html#pros-and-cons",
-    "href": "circular-indicators.html#pros-and-cons",
+    "objectID": "periodic-indicators.html#pros-and-cons",
+    "href": "periodic-indicators.html#pros-and-cons",
     "title": "65  Periodic Indicators",
     "section": "65.2 Pros and Cons",
-    "text": "65.2 Pros and Cons\n\n65.2.1 Pros\n\nCan capture most a circular signal\n\n\n\n65.2.2 Cons\n\nRequires hand-crafted features",
+    "text": "65.2 Pros and Cons\n\n65.2.1 Pros\n\nCan capture most a periodic signal\n\n\n\n65.2.2 Cons\n\nRequires hand-crafted features",
     "crumbs": [
-      "Circular Features",
+      "Periodic Features",
       "<span class='chapter-number'>65</span>  <span class='chapter-title'>Periodic Indicators</span>"
     ]
   },
   {
-    "objectID": "circular-indicators.html#r-examples",
-    "href": "circular-indicators.html#r-examples",
+    "objectID": "periodic-indicators.html#r-examples",
+    "href": "periodic-indicators.html#r-examples",
     "title": "65  Periodic Indicators",
     "section": "65.3 R Examples",
     "text": "65.3 R Examples",
     "crumbs": [
-      "Circular Features",
+      "Periodic Features",
       "<span class='chapter-number'>65</span>  <span class='chapter-title'>Periodic Indicators</span>"
     ]
   },
   {
-    "objectID": "circular-indicators.html#python-examples",
-    "href": "circular-indicators.html#python-examples",
+    "objectID": "periodic-indicators.html#python-examples",
+    "href": "periodic-indicators.html#python-examples",
     "title": "65  Periodic Indicators",
     "section": "65.4 Python Examples",
     "text": "65.4 Python Examples",
     "crumbs": [
-      "Circular Features",
+      "Periodic Features",
       "<span class='chapter-number'>65</span>  <span class='chapter-title'>Periodic Indicators</span>"
     ]
   },
@@ -3104,7 +3104,7 @@
     "href": "too-many-zv.html#python-examples",
     "title": "67  Zero Variance Filter",
     "section": "67.4 Python Examples",
-    "text": "67.4 Python Examples\nWe are using the ames data set for examples. {sklearn} provided the VarianceThreshold() method we can use. With this, we can set the threshold argument to specify the threshold of when to remove. The default 0 will remove zero-variance columns.\n\nfrom feazdata import ames\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.feature_selection import VarianceThreshold\nfrom sklearn.compose import make_column_selector\nimport numpy as np\n\nct = ColumnTransformer(\n    [('onehot', VarianceThreshold(threshold=0), make_column_selector(dtype_include=np.number))], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x342057fe0&gt;)])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x342057fe0&gt;)]) onehot&lt;sklearn.compose._column_transformer.make_column_selector object at 0x342057fe0&gt;  VarianceThreshold?Documentation for VarianceThresholdVarianceThreshold(threshold=0) remainder['MS_SubClass', 'MS_Zoning', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_Type_2', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'Functional', 'Garage_Type', 'Garage_Finish', 'Garage_Cond', 'Paved_Drive', 'Pool_QC', 'Fence', 'Misc_Feature', 'Sale_Type', 'Sale_Condition'] passthroughpassthrough \n\nct.transform(ames)\n\n      onehot__Lot_Frontage  ...  remainder__Sale_Condition\n0                      141  ...                     Normal\n1                       80  ...                     Normal\n2                       81  ...                     Normal\n3                       93  ...                     Normal\n4                       74  ...                     Normal\n...                    ...  ...                        ...\n2925                    37  ...                     Normal\n2926                     0  ...                     Normal\n2927                    62  ...                     Normal\n2928                    77  ...                     Normal\n2929                    74  ...                     Normal\n\n[2930 rows x 74 columns]\n\n\nbut we can change that threshold to remove near-zero variance columns.\n\nct = ColumnTransformer(\n    [('onehot', VarianceThreshold(threshold=0.2), make_column_selector(dtype_include=np.number))], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0.2),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x3420579e0&gt;)])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0.2),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x3420579e0&gt;)]) onehot&lt;sklearn.compose._column_transformer.make_column_selector object at 0x3420579e0&gt;  VarianceThreshold?Documentation for VarianceThresholdVarianceThreshold(threshold=0.2) remainder['MS_SubClass', 'MS_Zoning', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_Type_2', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'Functional', 'Garage_Type', 'Garage_Finish', 'Garage_Cond', 'Paved_Drive', 'Pool_QC', 'Fence', 'Misc_Feature', 'Sale_Type', 'Sale_Condition'] passthroughpassthrough \n\nct.transform(ames)\n\n      onehot__Lot_Frontage  ...  remainder__Sale_Condition\n0                      141  ...                     Normal\n1                       80  ...                     Normal\n2                       81  ...                     Normal\n3                       93  ...                     Normal\n4                       74  ...                     Normal\n...                    ...  ...                        ...\n2925                    37  ...                     Normal\n2926                     0  ...                     Normal\n2927                    62  ...                     Normal\n2928                    77  ...                     Normal\n2929                    74  ...                     Normal\n\n[2930 rows x 70 columns]",
+    "text": "67.4 Python Examples\nWe are using the ames data set for examples. {sklearn} provided the VarianceThreshold() method we can use. With this, we can set the threshold argument to specify the threshold of when to remove. The default 0 will remove zero-variance columns.\n\nfrom feazdata import ames\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.feature_selection import VarianceThreshold\nfrom sklearn.compose import make_column_selector\nimport numpy as np\n\nct = ColumnTransformer(\n    [('onehot', VarianceThreshold(threshold=0), make_column_selector(dtype_include=np.number))], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x35241c680&gt;)])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x35241c680&gt;)]) onehot&lt;sklearn.compose._column_transformer.make_column_selector object at 0x35241c680&gt;  VarianceThreshold?Documentation for VarianceThresholdVarianceThreshold(threshold=0) remainder['MS_SubClass', 'MS_Zoning', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_Type_2', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'Functional', 'Garage_Type', 'Garage_Finish', 'Garage_Cond', 'Paved_Drive', 'Pool_QC', 'Fence', 'Misc_Feature', 'Sale_Type', 'Sale_Condition'] passthroughpassthrough \n\nct.transform(ames)\n\n      onehot__Lot_Frontage  ...  remainder__Sale_Condition\n0                      141  ...                     Normal\n1                       80  ...                     Normal\n2                       81  ...                     Normal\n3                       93  ...                     Normal\n4                       74  ...                     Normal\n...                    ...  ...                        ...\n2925                    37  ...                     Normal\n2926                     0  ...                     Normal\n2927                    62  ...                     Normal\n2928                    77  ...                     Normal\n2929                    74  ...                     Normal\n\n[2930 rows x 74 columns]\n\n\nbut we can change that threshold to remove near-zero variance columns.\n\nct = ColumnTransformer(\n    [('onehot', VarianceThreshold(threshold=0.2), make_column_selector(dtype_include=np.number))], \n    remainder=\"passthrough\")\n\nct.fit(ames)\n\nColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0.2),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x35241f110&gt;)])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  ColumnTransformer?Documentation for ColumnTransformeriFittedColumnTransformer(remainder='passthrough',\n                  transformers=[('onehot', VarianceThreshold(threshold=0.2),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x35241f110&gt;)]) onehot&lt;sklearn.compose._column_transformer.make_column_selector object at 0x35241f110&gt;  VarianceThreshold?Documentation for VarianceThresholdVarianceThreshold(threshold=0.2) remainder['MS_SubClass', 'MS_Zoning', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_Type_2', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'Functional', 'Garage_Type', 'Garage_Finish', 'Garage_Cond', 'Paved_Drive', 'Pool_QC', 'Fence', 'Misc_Feature', 'Sale_Type', 'Sale_Condition'] passthroughpassthrough \n\nct.transform(ames)\n\n      onehot__Lot_Frontage  ...  remainder__Sale_Condition\n0                      141  ...                     Normal\n1                       80  ...                     Normal\n2                       81  ...                     Normal\n3                       93  ...                     Normal\n4                       74  ...                     Normal\n...                    ...  ...                        ...\n2925                    37  ...                     Normal\n2926                     0  ...                     Normal\n2927                    62  ...                     Normal\n2928                    77  ...                     Normal\n2929                    74  ...                     Normal\n\n[2930 rows x 70 columns]",
     "crumbs": [
       "Too Many Variables",
       "<span class='chapter-number'>67</span>  <span class='chapter-title'>Zero Variance Filter</span>"
