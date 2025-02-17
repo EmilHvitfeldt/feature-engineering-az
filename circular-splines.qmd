@@ -2,20 +2,295 @@
 pagetitle: "Feature Engineering A-Z | Priodic Splines"
 ---
 
-# 🏗️ Periodic Splines {#sec-circular-splines}
+# Periodic Splines {#sec-circular-splines}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## Periodic Splines
 :::
 
-WIP
+This chapter expands the idea we saw in the [last chapter](circular-trig.qmd) with the use of [splines](numeric-splines.qmd). These splines allow for different shapes of activation than we saw with trigonomic functions.
+
+We will be using the same toy data set and see if we can improve on it.
+
+```{r}
+#| label: toy_data
+#| echo: false
+#| message: false
+library(tidyverse)
+library(recipes)
+library(patchwork)
+set.seed(1234)
+
+toy_data <- tibble(
+  predictor = c(1, 1000, sample(1:1000, 300))
+) |>
+  mutate(
+    target = pmax(sin(predictor / 365 * pi * 2), 0)^4 +
+      rnorm(n(), sd = 0.1) -
+      0.5
+  ) |>
+  arrange(target)
+```
+
+```{r}
+#| label: fig-spline-predictor-outcome
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Strong periodic signal every 365 values along predictor.
+#| fig-alt: |
+#|   Scatter chart. Predictor along the x-axis and outcome along the y-axis.
+#|   Points scatter around a constant low value of the target. At regular intervals,
+#|   the curve swings up and back down.
+toy_data |>
+  ggplot(aes(predictor, target)) +
+  geom_point() +
+  theme_minimal()
+```
+
+This data has a very specific shape, 
+and we will see if we can approcimate it with our splines.
+
+First we fit a number of spline terms to our data using default arguments.
+
+```{r}
+#| label: fig-circular-spline-defaults
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Strong periodic signal every 365 values along predictor below, spline values above.
+#| fig-alt: |
+#|   Two charts one above another.
+#|   Below: Scatter chart.
+#|   Predictor along the x-axis and outcome along the y-axis.
+#|   Points scatter around a constant low value of the target. At regular intervals,
+#|   the curve swings up and back down.
+#|   Above: Spline terms as curves. One curve for each term. Each curse goes up
+#|   in an almost sine curve, and the back down to zero. Each peak is seperated.
+p1 <- recipe(~., data = toy_data) |>
+  step_spline_b(
+    predictor,
+    options = list(periodic = TRUE),
+    complete_set = TRUE,
+    keep_original_cols = TRUE
+  ) |>
+  prep() |>
+  bake(NULL) |>
+  pivot_longer(-c(predictor, target)) |>
+  ggplot(aes(predictor, value, color = name)) +
+  geom_line() +
+  theme_minimal() +
+  guides(color = "none") +
+  labs(x = NULL, y = "activation")
+
+p2 <- toy_data |>
+  ggplot(aes(predictor, target)) +
+  geom_point() +
+  theme_minimal()
+
+p1 / p2
+```
+
+While it produces some fine splines they are neither well fitting or periodic.
+Let us make spline periodic and try to approcimate the period.
+
+```{r}
+#| label: fig-circular-spline-period
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Strong periodic signal every 365 values along predictor below, spline values above.
+#| fig-alt: |
+#|   Two charts one above another.
+#|   Below: Scatter chart.
+#|   Predictor along the x-axis and outcome along the y-axis.
+#|   Points scatter around a constant low value of the target. At regular intervals,
+#|   the curve swings up and back down.
+#|   Above: Spline terms as curves. One curve for each term. Each curse goes up
+#|   in an almost sine curve, and the back down to zero. Each peak is seperated.
+#|   The splines have been shortened and repeating with the same period.
+p1 <- recipe(~., data = toy_data) |>
+  step_spline_b(
+    predictor,
+    options = list(periodic = TRUE, Boundary.knots = c(0, 365)),
+    complete_set = TRUE,
+    keep_original_cols = TRUE
+  ) |>
+  prep() |>
+  bake(NULL) |>
+  pivot_longer(-c(predictor, target)) |>
+  ggplot(aes(predictor, value, color = name)) +
+  geom_line() +
+  theme_minimal() +
+  guides(color = "none") +
+  labs(x = NULL, y = "activation")
+
+p2 <- toy_data |>
+  ggplot(aes(predictor, target)) +
+  geom_point() +
+  theme_minimal()
+
+p1 / p2
+```
+
+We already see that something good is happening,
+The width of each bump is related to the number of degrees of freedom we have,
+lowering this value creates more wider bumps.
+
+```{r}
+#| label: fig-circular-spline-calibrated
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Strong periodic signal every 365 values along predictor below, spline values above.
+#| fig-alt: |
+#|   Two charts one above another.
+#|   Below: Scatter chart.
+#|   Predictor along the x-axis and outcome along the y-axis.
+#|   Points scatter around a constant low value of the target. At regular intervals,
+#|   the curve swings up and back down.
+#|   Above: Spline terms as curves. One curve for each term. Each curse goes up
+#|   in an almost sine curve, and the back down to zero. Each peak is seperated.
+#|   There are now fewer splines, with one of them being highlighted with color,
+#|   to show is simularity with the below chart.
+p1 <- recipe(~., data = toy_data) |>
+  step_spline_b(
+    predictor,
+    degree = 3,
+    deg_free = 7,
+    options = list(periodic = TRUE, Boundary.knots = c(0, 365) + 50),
+    complete_set = TRUE,
+    keep_original_cols = TRUE
+  ) |>
+  prep() |>
+  bake(NULL) |>
+  pivot_longer(-c(predictor, target)) |>
+  ggplot(aes(predictor, value, color = name)) +
+  geom_line() +
+  theme_minimal() +
+  guides(color = "none") +
+  labs(x = NULL, y = "activation") +
+  scale_color_manual(values = c(rep("gray80", 6), "#643BA0"))
+
+p2 <- toy_data |>
+  ggplot(aes(predictor, target)) +
+  geom_point() +
+  theme_minimal()
+
+p1 / p2
+```
+
+Now we got some pretty good traction.
+Pulling out the well performing spline term,
+we can translate it a bit to show how well it overlaps with our signal.
+
+```{r}
+#| label: fig-circular-spline-fit
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Strong periodic signal every 365 values along predictor.
+#| fig-alt: |
+#|   Scatter chart. Predictor along the x-axis and outcome along the y-axis.
+#|   Points scatter around a constant low value of the target. At regular intervals,
+#|   the curve swings up and back down.
+#|   Spline term has been overlaid as a curve, almost perfectly following the trend.
+recipe(~., data = toy_data) |>
+  step_spline_b(
+    predictor,
+    degree = 3,
+    deg_free = 7,
+    options = list(periodic = TRUE, Boundary.knots = c(0, 365) + 50),
+    complete_set = TRUE,
+    keep_original_cols = TRUE
+  ) |>
+  prep() |>
+  bake(NULL) |>
+  select(predictor, target, spline = predictor_7) |>
+  mutate(spline = spline * 1.7 - 0.5) |>
+  ggplot(aes(predictor, target)) +
+  geom_point() +
+  geom_line(
+    aes(predictor, spline),
+    color = "#643BA0",
+    linewidth = 1,
+    alpha = 0.75
+  ) +
+  theme_minimal()
+```
+
+::: {.callout-note}
+While one spline term is highlighted here,
+It is important to note that the coverage of the splines makes sure that any signal is captured.
+:::
+
+There are obviously some signals that can't be captured using splines.
+Compared to sine curves they are much more flexible, 
+with a number of different kinds,
+each with some room for customization.
+Any purely circular signal can be captured in the [next chapter](circular-indicators.qmd).
 
 ## Pros and Cons
 
 ### Pros
 
+- More flexible than sine curves
+- Fairly interpretable
+
 ### Cons
 
+- Requires that you know the period
+- Will create some unnecessary features
+- Can't capture all types of signal
+
 ## R Examples
+
+We will be using the animalshelter data set for this.
+
+```{r}
+#| label: show-data
+library(recipes)
+library(animalshelter)
+
+longbeach |>
+  select(outcome_type, intake_date)
+```
+
+There are two steps in the recipes package that support periodic splines.
+Those are `step_spline_b()` and `step_spline_nonnegative()`,
+used for B-splines and Non-negative splines (also called M-Splines) respectively.
+
+These functions have 2 main arguments controlling the spline itself,
+and 2 main arguments controlling its periodic behavior.
+
+`deg_free` and `degree` controls the spline,
+changing the number of spline terms that are created,
+and the degrees of the piecewise polynomials respectively.
+The defaults for these functions tend to be a good starting point.
+To make these steps periodic,
+we need to set `periodic = TRUE` in `options`.
+Lastly, we can control the period and its shift with `Boundary.knots` in `options`.
+I find the easiest way to set this like this: `c(0, period) + shift`.
+
+```{r}
+#| label: step_spline_b
+spline_rec <- recipe(outcome_type ~ intake_date, data = longbeach) |>
+  step_mutate(intake_date = as.integer(intake_date)) |>
+  step_spline_b(
+    intake_date,
+    options = list(periodic = TRUE, Boundary.knots = c(0, 365) + 50)
+  )
+
+spline_rec |>
+  prep() |>
+  bake(new_data = NULL)
+```
+
+::: callout-caution
+# TODO
+
+Find dataset where the predictor is naturally numeric.
+:::
+
 
 ## Python Examples
