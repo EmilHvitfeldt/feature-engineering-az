@@ -2,21 +2,168 @@
 pagetitle: "Feature Engineering A-Z | Colors"
 ---
 
-# 🏗️ Colors {#sec-miscellaneous-color}
+# Colors {#sec-miscellaneous-color}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## Colors
 :::
 
-WIP
+Color is an interesting attribute that on the surface appears simple,
+but can be analyzed in many different ways.
+One could treat them like [categorical features](categorical.qmd),
+ignoring the inherent structure and connections that come with colors.
+
+Color names are strongly tied to language and culture,
+it is thus imperative that we know that when creating mappings between color names and a numerical representation.
+
+::: callout-caution
+# TODO
+
+Find good references for color and history.
+:::
+
+We also have that there can be a lot of ambiguity in color names.
+You see this most prominently when buying paint,
+with each store or chain having its own,
+sometimes humourous,
+names for each shade they can produce.
+These names try to help customers distinguish between small differences in shades.
+Color names can also be quite broadly used.
+The color "green" could in context mean an exact hue,
+and in another context refers to all the colors seen in a forest.
+The latter being akin to [categorical collapse](categorical-collapse.qmd).
+All of this is to say that we think about our data,
+to allow us to better extract the signal if it is there. 
+
+Assuming we want to use precise mapping,
+then we can construct a table of color names and their corresponding precise representation.
+When working with computers,
+a commonly used way to present colors is using [hex codes](https://en.wikipedia.org/wiki/Web_colors),
+which uses a six-digit hexadecimal number to represent a color.
+They are represented as `#a8662b` with the first 2 digits representing how red the color is, 
+the second 2 digits representing how green it is,
+and the last 2 digits representing how blue it is.
+This gives us `16^6 = 16,777,216` unique colors, 
+which isn't enough to specify all possible colors but good enough for our use cases.
+
+::: callout-caution
+# TODO
+
+Find examples of color lists, maybe even create data-base.
+:::
+
+```{r}
+library(prismatic)
+library(tidymodels)
+
+color_names <- c(
+    "black",
+    "brown",
+    "gray",
+    "white",
+    "orange",
+    "tan",
+    "blue",
+    "pink",
+    "yellow",
+    "chocolate"
+ )
+
+tibble(name = color_names) |>
+  mutate(hexcode = stringr::str_sub(color(name), 1, 7)) |>
+  mutate(
+ red = prismatic::clr_extract_red(hexcode),
+ green = prismatic::clr_extract_green(hexcode),
+ blue = prismatic::clr_extract_blue(hexcode)
+ )
+```
+
+Through these hex codes, we already have some numeric representations that we can use for modeling.
+However, they may not be the most effective representation depending on what question we are trying to answer.
+This is where the idea of [color spaces](https://developer.mozilla.org/en-US/docs/Glossary/Color_space) comes in.
+The one we have worked with is the RGB space,
+easy to use and understand but doesn't translate well to notions that we typically care about like "How dark is this color".
+Another color space that might be able to solve these problems better would be the HSL color space.
+This is a color space that uses 3 values to describe its color,
+by its hue (think rainbow) that takes values between 0 and 360,
+saturation which you can define as its colorfulness relative to its own brightness on a scale from 0 to 100,
+and lightness which tells you how bright it is compared to pure white on a scale from 0 to 100.
+
+```{r}
+tibble(name = color_names) |>
+  mutate(hexcode = stringr::str_sub(color(name), 1, 7)) |>
+  mutate(
+ hue = prismatic::clr_extract_hue(hexcode),
+ saturation = prismatic::clr_extract_saturation(hexcode),
+ lightness = prismatic::clr_extract_lightness(hexcode)
+ )
+```
+
+Viewing these colors in this color space allows us to create different features.
+We can now with relatively easy say if a color is close to blue,
+by looking at whether its hue is sufficiently close to 240.
+This could be expanded to any color on the hue wheel. 
+We can likewise ask straightforward questions about saturation and lightness.
+
+::: callout-caution
+# TODO
+
+This section would benefit from illustrations of the color spaces
+:::
+
+Imagine you wanted a feature to say "How close is this measured color to my reference color",
+then you would need something called a **perceptually uniform color space**.
+These color spaces try to make Euclidian distances makes sense,
+examples include [CIELAB](https://en.wikipedia.org/wiki/CIELAB_color_space) and [Oklab](https://bottosson.github.io/posts/oklab/).
+The downside of these spaces is that each of the axes doesn't contain any meaningful information.
+
+```{r}
+how <- function(x, y) {
+ x <- prismatic::color(x) |>
+ farver::decode_colour()
+
+ y <- prismatic::color(y) |>
+ farver::decode_colour()
+
+ farver::compare_colour(x, y, 'rgb', method = 'cie2000')[, 1]
+}
+
+tibble(name = color_names) |>
+  mutate(hexcode = stringr::str_sub(color(name), 1, 7)) |>
+  mutate(
+ red = how(hexcode, "red"),
+ green = how(hexcode, "green"),
+ blue = how(hexcode, "blue"),
+ orange = how(hexcode, "orange")
+ )
+```
+
+These are by no means all we can do with colors as predictors,
+but it might spark some helpful creativity.
 
 ## Pros and Cons
 
 ### Pros
 
+- Using color spaces to write creative features can provide a significant impact
+
 ### Cons
 
+-Creating the mappings between color words and their numerical representation can be challenging
+
 ## R Examples
+
+Wait for steps to do this.
+
+```{r}
+#| eval: false
+library(tidymodels)
+library(animalshelter)
+longbeach |>
+  mutate(primary_color = stringr::str_remove(primary_color, " .*")) |>
+  count(primary_color, sort = TRUE) |>
+  print(n = 20)
+```
 
 ## Python Examples
 
