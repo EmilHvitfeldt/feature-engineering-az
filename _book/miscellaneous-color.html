@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -84,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./miscellaneous.html">Miscellaneous</a></li><li class="breadcrumb-item"><a href="./miscellaneous-color.html"><span class="chapter-number">102</span>&nbsp; <span class="chapter-title">🏗️ Colors</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./miscellaneous.html">Miscellaneous</a></li><li class="breadcrumb-item"><a href="./miscellaneous-color.html"><span class="chapter-number">102</span>&nbsp; <span class="chapter-title">Colors</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -852,7 +886,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./miscellaneous-color.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">102</span>&nbsp; <span class="chapter-title">🏗️ Colors</span></span></a>
+ <span class="menu-text"><span class="chapter-number">102</span>&nbsp; <span class="chapter-title">Colors</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1217,9 +1251,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./miscellaneous.html">Miscellaneous</a></li><li class="breadcrumb-item"><a href="./miscellaneous-color.html"><span class="chapter-number">102</span>&nbsp; <span class="chapter-title">🏗️ Colors</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./miscellaneous.html">Miscellaneous</a></li><li class="breadcrumb-item"><a href="./miscellaneous-color.html"><span class="chapter-number">102</span>&nbsp; <span class="chapter-title">Colors</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-miscellaneous-color" class="quarto-section-identifier"><span class="chapter-number">102</span>&nbsp; <span class="chapter-title">🏗️ Colors</span></span></h1>
+<h1 class="title"><span id="sec-miscellaneous-color" class="quarto-section-identifier"><span class="chapter-number">102</span>&nbsp; <span class="chapter-title">Colors</span></span></h1>
 </div>
 
 
@@ -1239,18 +1273,196 @@ ul.task-list li input[type="checkbox"] {
 <section id="colors" class="level2" style="visibility: hidden; height: 0px;" data-number="102.1">
 <h2 data-number="102.1" class="anchored" data-anchor-id="colors"><span class="header-section-number">102.1</span> Colors</h2>
 </section>
-<p>WIP</p>
+<p>Color is an interesting attribute that on the surface appears simple, but can be analyzed in many different ways. One could treat them like <a href="./categorical.html">categorical features</a>, ignoring the inherent structure and connections that come with colors.</p>
+<p>Color names are strongly tied to language and culture, it is thus imperative that we know that when creating mappings between color names and a numerical representation.</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Find good references for color and history.</p>
+</div>
+</div>
+<p>We also have that there can be a lot of ambiguity in color names. You see this most prominently when buying paint, with each store or chain having its own, sometimes humourous, names for each shade they can produce. These names try to help customers distinguish between small differences in shades. Color names can also be quite broadly used. The color “green” could in context mean an exact hue, and in another context refers to all the colors seen in a forest. The latter being akin to <a href="./categorical-collapse.html">categorical collapse</a>. All of this is to say that we think about our data, to allow us to better extract the signal if it is there.</p>
+<p>Assuming we want to use precise mapping, then we can construct a table of color names and their corresponding precise representation. When working with computers, a commonly used way to present colors is using <a href="https://en.wikipedia.org/wiki/Web_colors">hex codes</a>, which uses a six-digit hexadecimal number to represent a color. They are represented as <code>#a8662b</code> with the first 2 digits representing how red the color is, the second 2 digits representing how green it is, and the last 2 digits representing how blue it is. This gives us <code>16^6 = 16,777,216</code> unique colors, which isn’t enough to specify all possible colors but good enough for our use cases.</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Find examples of color lists, maybe even create data-base.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prismatic)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching packages ────────────────────────────────────── tidymodels 1.2.0 ──</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>✔ broom        1.0.6          ✔ recipes      1.1.0.9000
+✔ dials        1.3.0          ✔ rsample      1.2.1     
+✔ dplyr        1.1.4          ✔ tibble       3.2.1     
+✔ ggplot2      3.5.1          ✔ tidyr        1.3.1     
+✔ infer        1.0.7          ✔ tune         1.2.1     
+✔ modeldata    1.4.0          ✔ workflows    1.1.4     
+✔ parsnip      1.2.1          ✔ workflowsets 1.1.0     
+✔ purrr        1.0.2          ✔ yardstick    1.3.1     </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Conflicts ───────────────────────────────────────── tidymodels_conflicts() ──
+✖ purrr::discard() masks scales::discard()
+✖ dplyr::filter()  masks stats::filter()
+✖ dplyr::lag()     masks stats::lag()
+✖ recipes::step()  masks stats::step()
+• Use tidymodels_prefer() to resolve common conflicts.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>color_names <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"black"</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"brown"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"gray"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"white"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"orange"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"tan"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"blue"</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"pink"</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"yellow"</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"chocolate"</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a> )</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">name =</span> color_names) <span class="sc">|&gt;</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hexcode =</span> stringr<span class="sc">::</span><span class="fu">str_sub</span>(<span class="fu">color</span>(name), <span class="dv">1</span>, <span class="dv">7</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a> <span class="at">red =</span> prismatic<span class="sc">::</span><span class="fu">clr_extract_red</span>(hexcode),</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a> <span class="at">green =</span> prismatic<span class="sc">::</span><span class="fu">clr_extract_green</span>(hexcode),</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a> <span class="at">blue =</span> prismatic<span class="sc">::</span><span class="fu">clr_extract_blue</span>(hexcode)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 5
+   name      hexcode   red green  blue
+   &lt;chr&gt;     &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;
+ 1 black     #000000     0     0     0
+ 2 brown     #A52A2A   165    42    42
+ 3 gray      #BEBEBE   190   190   190
+ 4 white     #FFFFFF   255   255   255
+ 5 orange    #FFA500   255   165     0
+ 6 tan       #D2B48C   210   180   140
+ 7 blue      #0000FF     0     0   255
+ 8 pink      #FFC0CB   255   192   203
+ 9 yellow    #FFFF00   255   255     0
+10 chocolate #D2691E   210   105    30</code></pre>
+</div>
+</div>
+<p>Through these hex codes, we already have some numeric representations that we can use for modeling. However, they may not be the most effective representation depending on what question we are trying to answer. This is where the idea of <a href="https://developer.mozilla.org/en-US/docs/Glossary/Color_space">color spaces</a> comes in. The one we have worked with is the RGB space, easy to use and understand but doesn’t translate well to notions that we typically care about like “How dark is this color”. Another color space that might be able to solve these problems better would be the HSL color space. This is a color space that uses 3 values to describe its color, by its hue (think rainbow) that takes values between 0 and 360, saturation which you can define as its colorfulness relative to its own brightness on a scale from 0 to 100, and lightness which tells you how bright it is compared to pure white on a scale from 0 to 100.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">name =</span> color_names) <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hexcode =</span> stringr<span class="sc">::</span><span class="fu">str_sub</span>(<span class="fu">color</span>(name), <span class="dv">1</span>, <span class="dv">7</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a> <span class="at">hue =</span> prismatic<span class="sc">::</span><span class="fu">clr_extract_hue</span>(hexcode),</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a> <span class="at">saturation =</span> prismatic<span class="sc">::</span><span class="fu">clr_extract_saturation</span>(hexcode),</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a> <span class="at">lightness =</span> prismatic<span class="sc">::</span><span class="fu">clr_extract_lightness</span>(hexcode)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 5
+   name      hexcode   hue saturation lightness
+   &lt;chr&gt;     &lt;chr&gt;   &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;
+ 1 black     #000000   0          0         0  
+ 2 brown     #A52A2A   0         59.4      40.6
+ 3 gray      #BEBEBE   0          0        74.5
+ 4 white     #FFFFFF   0          0       100  
+ 5 orange    #FFA500  38.8      100        50  
+ 6 tan       #D2B48C  34.3       43.7      68.6
+ 7 blue      #0000FF 240        100        50  
+ 8 pink      #FFC0CB 350.       100        87.6
+ 9 yellow    #FFFF00  60        100        50  
+10 chocolate #D2691E  25         75        47.1</code></pre>
+</div>
+</div>
+<p>Viewing these colors in this color space allows us to create different features. We can now with relatively easy say if a color is close to blue, by looking at whether its hue is sufficiently close to 240. This could be expanded to any color on the hue wheel. We can likewise ask straightforward questions about saturation and lightness.</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This section would benefit from illustrations of the color spaces</p>
+</div>
+</div>
+<p>Imagine you wanted a feature to say “How close is this measured color to my reference color”, then you would need something called a <strong>perceptually uniform color space</strong>. These color spaces try to make Euclidian distances makes sense, examples include <a href="https://en.wikipedia.org/wiki/CIELAB_color_space">CIELAB</a> and <a href="https://bottosson.github.io/posts/oklab/">Oklab</a>. The downside of these spaces is that each of the axes doesn’t contain any meaningful information.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>how <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a> x <span class="ot">&lt;-</span> prismatic<span class="sc">::</span><span class="fu">color</span>(x) <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a> farver<span class="sc">::</span><span class="fu">decode_colour</span>()</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a> y <span class="ot">&lt;-</span> prismatic<span class="sc">::</span><span class="fu">color</span>(y) <span class="sc">|&gt;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a> farver<span class="sc">::</span><span class="fu">decode_colour</span>()</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a> farver<span class="sc">::</span><span class="fu">compare_colour</span>(x, y, <span class="st">'rgb'</span>, <span class="at">method =</span> <span class="st">'cie2000'</span>)[, <span class="dv">1</span>]</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">name =</span> color_names) <span class="sc">|&gt;</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hexcode =</span> stringr<span class="sc">::</span><span class="fu">str_sub</span>(<span class="fu">color</span>(name), <span class="dv">1</span>, <span class="dv">7</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a> <span class="at">red =</span> <span class="fu">how</span>(hexcode, <span class="st">"red"</span>),</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a> <span class="at">green =</span> <span class="fu">how</span>(hexcode, <span class="st">"green"</span>),</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a> <span class="at">blue =</span> <span class="fu">how</span>(hexcode, <span class="st">"blue"</span>),</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a> <span class="at">orange =</span> <span class="fu">how</span>(hexcode, <span class="st">"orange"</span>)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 6
+   name      hexcode   red green  blue orange
+   &lt;chr&gt;     &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+ 1 black     #000000  50.4  87.9  39.7   69.9
+ 2 brown     #A52A2A  18.9  86.3  41.7   45.9
+ 3 gray      #BEBEBE  36.8  33.2  54.1   28.9
+ 4 white     #FFFFFF  45.8  33.3  64.2   33.1
+ 5 orange    #FFA500  33.8  48.4  78.1    0  
+ 6 tan       #D2B48C  34.4  36.6  66.1   17.1
+ 7 blue      #0000FF  52.9  83.2   0     78.1
+ 8 pink      #FFC0CB  34.9  63.8  56.8   35.8
+ 9 yellow    #FFFF00  64.3  23.4 103.    29.3
+10 chocolate #D2691E  15.5  64.4  58.6   20.3</code></pre>
+</div>
+</div>
+<p>These are by no means all we can do with colors as predictors, but it might spark some helpful creativity.</p>
 <section id="pros-and-cons" class="level2" data-number="102.2">
 <h2 data-number="102.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">102.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="102.2.1">
 <h3 data-number="102.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">102.2.1</span> Pros</h3>
+<ul>
+<li>Using color spaces to write creative features can provide a significant impact</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="102.2.2">
 <h3 data-number="102.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">102.2.2</span> Cons</h3>
+<p>-Creating the mappings between color words and their numerical representation can be challenging</p>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="102.3">
 <h2 data-number="102.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">102.3</span> R Examples</h2>
+<p>Wait for steps to do this.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(animalshelter)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>longbeach <span class="sc">|&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">primary_color =</span> stringr<span class="sc">::</span><span class="fu">str_remove</span>(primary_color, <span class="st">" .*"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(primary_color, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="python-examples" class="level2" data-number="102.4">
 <h2 data-number="102.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">102.4</span> Python Examples</h2>
