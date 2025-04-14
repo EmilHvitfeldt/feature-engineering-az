@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -69,10 +103,43 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <meta property="og:title" content="Feature Engineering A-Z | Principal Component Analysis">
 <meta property="og:description" content="">
+<meta property="og:image" content="https://example.com/too-many-pca_files/figure-html/ames-correlation-plot-1.png">
 <meta property="og:site_name" content="Feature Engineering A-Z">
+<meta property="og:image:alt" content="Correlation chart. Using a grid based visualization, color is used to indicate strength of correlations with color intensity and direction two different colors, one for positive correlation and one for negative. the chart can visually be split up into 2 sections. One section has columns that are significantly positive correlated, these have something to do with square footage or room counts. The other section of variables doens't have any noteworthy correlations.">
+<meta property="og:image:height" content="960">
+<meta property="og:image:width" content="1344">
 </head>
 
 <body class="nav-sidebar docked">
@@ -1239,22 +1306,208 @@ ul.task-list li input[type="checkbox"] {
 <section id="principal-component-analysis" class="level2" style="visibility: hidden; height: 0px;" data-number="68.1">
 <h2 data-number="68.1" class="anchored" data-anchor-id="principal-component-analysis"><span class="header-section-number">68.1</span> Principal Component Analysis</h2>
 </section>
-<p>WIP</p>
-<p>Try using MNIST data set here</p>
+<p>The first dimensionality reduction method most people are introduced to is Principal Component Analysis (PCA). There is a good reason for this, it is a dependable method that has stood the test of time. This chapter will cover what PCA is in its main form, with its varients described in next chapter on <a href="too-many-pca-variants">PCA variants</a>.</p>
+<p>The reason why we want to apply PCA in the first place, is because we expect that the information in the predictors could be more efficiently stored. Or in other words, because there is redundency in the data. This can also be seen in part using a correlation plot. Using the numeric variables of the <code>ames</code> data set, we can plot the correlation of it.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="too-many-pca_files/figure-html/ames-correlation-plot-1.png" class="img-fluid figure-img" alt="Correlation chart. Using a grid based visualization, color is used to indicate strength of correlations with color intensity and direction two different colors, one for positive correlation and one for negative. the chart can visually be split up into 2 sections. One section has columns that are significantly positive correlated, these have something to do with square footage or room counts. The other section of variables doens't have any noteworthy correlations." width="672"></p>
+<figcaption>Many of the variables are positively correlated with each other, which makes sense since bigger houses leads to bigger square footage and room counts.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>What we see is that many of the variables are corelated with eachother. This is expected since larger houses is more likely to have more bed rooms, larger basements, more fireplaces, etc etc. But it begs the question: are we efficiently storing this information? It Many of the variables store some varient of “large house” with something else mixed in.</p>
+<p>We will motivate what PCA does using the following simulated 2-dimensional data set.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="too-many-pca_files/figure-html/pca-example-1-1.png" class="img-fluid figure-img" alt="Scatter chart. Predictor 1 along the x-axis, predictor 2 along theh y-axis. #|   All the points follow the diagonal with little variation." width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>There is a clear correlation between these two variables. One way of thinking about what PCA does is that it rotates the data set, in order to maximize the variance along one dimension. visually we can find that line as seen below.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="too-many-pca_files/figure-html/pca-example-2-1.png" class="img-fluid figure-img" alt="Scatter chart. Predictor 1 along the x-axis, predictor 2 along theh y-axis. #|   All the points follow the diagonal with little variation. A line is overlaid along the points." width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Rotating the data gives us the following data set after applying PCA.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="too-many-pca_files/figure-html/pca-example-3-1.png" class="img-fluid figure-img" alt="Scatter chart. Predictor 1 along the x-axis, predictor 2 along theh y-axis. #|   All the points follow the diagonal with little variation. This data is the same as the data seen in the previous charts except rotation such that the variance is highest along the x-axis." width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In this adjusted data set, we would be able to drop the second predictor as the first contains most of the variance in the data set.</p>
+<p>We can extend this method to higher dimensional data sets as well. The first principle component was found by finding the hyperplane that maximized the variance along it, finding the second principle component is found by calculating the hyperplace that maximized the variance of any planes that are othogonal to the first principle component. The third is found by finding one that is othogonal to the first and second. This is repeated until you have a principle component for each variable in the original data set.</p>
+<p>In math terms this amounts to finding <span class="math inline">\(\phi_{ij}\)</span> that satisfy</p>
+<p><span class="math display">\[
+\sum_{j=1}^p  \phi_{ji}^2 = 1
+\]</span></p>
+<p>Where <span class="math inline">\(\phi_{ij}\)</span> indicates the value of the loading for the ith input predictor and jth outcome predictor. We can write out the full list of equations like so.</p>
+<p><span class="math display">\[
+\begin{align}
+&amp;Z_1 = \phi_{11} X_1 + \phi_{21} X_2 + ... + \phi_{p1}X_p \\
+&amp;Z_2 = \phi_{12} X_1 + \phi_{22} X_2 + ... + \phi_{p2}X_p \\
+&amp;... \\
+&amp;Z_p = \phi_{1p} X_1 + \phi_{2p} X_2 + ... + \phi_{pp}X_p
+\end{align}
+\]</span></p>
+<p>Luckily this is this can be found using linear algebra operations, hence why this opperation has the computational speed it has.</p>
+<p>The reason why this method works as a feature engineering method, is that the loadings <span class="math inline">\(\phi_{ij}\)</span> that are estimated can be saved and applied to new data.</p>
+<p>The astute reader will notice that the above description technically doesn’t reduce dimentions, it merely rotates the data in a way that maximizes variance for each variable, under the constraint that they are all othogonal. It becomes a dimensionality reduction method by selecting only a certain number of principle compoments. We are hoping that we can place a cutoff between that selects enough useful components without removing too much.</p>
+<p>One downside to PCA is that we are not able to completely stop the loss of signal, but it is used as we can often vastly decrease the number of columns in our data set. It is a trade-off between computational speed and performance. And can be hyperparameter tuned.</p>
+<p>In the below chart we have calculated the <strong>cumulative percent variance</strong> for 4 different data sets being processed by PCA.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="too-many-pca_files/figure-html/pca-cumulative-percent-variance-1.png" class="img-fluid figure-img" alt="Faceted bar chart chart. 4 bar charts in a 2 by 2 grid. Each one represents a different data set which has had PCA applied to it." width="672"></p>
+<figcaption>4 difference shapes of cumulative percent variance plots.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>These charts show how different datasets react differently by having PCA applied. Remember that we only want to select the top N components, such that it acts like a dimensionality reduction method. Both of the left charts shows a fast rise in the cumulative variance, with a fairly early plateu. Making a cutoff at the plateu is likely a good choice. The lower left data set captures 99% of the variance with 27 components, which amounts 50% decrease in predictors. On the other hand we have the bottom left data set which achives the same 99&amp; variance with the first 31 components, which only amounts to 10% decrease in predictors. A 99% threshold is quite high, and should be tuned for performance and speed.</p>
+<p>It is a common misconception that PCA is a computationally intensive for large data sets, that is only the case if you apply PCA to generate all the components. If you instead run your method such that is captures 90% of the variance, or only the first 10 compoments then your method should only calculate those and stop. Remember that this method is iterative over the components, so for optimal computational speed you just need to make sure the settings are correct before running.</p>
+<p>A benefit to using PCA is that the resulting predictors are uncorrelated by definition. For performance reasons this makes PCA a prime candidate for methods that have a hard time dealing with multicollinearity. Linear regression being one such model. Principal Component Regression (PCR) is a term for such a scenario. It is a model that applies PCA to the predictors before passing them to a linear regression model. However we don’t treat PCR as its own method, instead thinking of it as a workflow/pipeline with PCA as a preprocessor and linear regression as the model.</p>
+<p>Another common misconception is that PCA requires your predictors to be normally distributed. PCA operates over the correlation matrix which can be done with normality. That doesn’t mean that normally is bad, just that it isn’t required here.</p>
+<p>What might have been the cause of this misconception is the fact that PCA is sensitive to scaling (normalization). This should make sense intuitively since we are optimizing over variances. If one predictor is age and another is yearly income, then the first PC would overwhelming be yearly income almost exclusively because of the scale involved. It is therefore highly recommended to apply any type of <a href="sec-numeric-normalization">normalization</a>. You should further verify whether the PCA implementation you are using have a bundled normalization preprocessor.</p>
+<p>There are a number of limitations, with the first and foremost being that PCA is only able to extract effects that come from linear combinations of predictors, in other words, it won’t be able to detect non-linear relationships. The algorithms used will be determanistic, however they will only give identical results up to a sign flip for each variable. This should not be a big issue but it can be surpricing at first if you do not expect it to happen. PCA Makes for harder, but not impossible interprebility. The <a href="too-many-pca-variants">PCA variants</a> try to deal with this issue. This is esspecially true since the base case combines EVERY predictor in the input, to produce EVERY predictor in the output. Another limitation is that PCA doesn’t have a native way of dealing with missing data. However that doens’t mean you can’t use PCA with data with missing values, just that you have to be aware of what will happen if you try. Since PCA is calculated from a correlation matrix, missing values could simply be excluded during the construction of the correlation matrix. This will be imperfect but is sometimes done instead of dealing with the missing values first.</p>
+<p>Below is an example of the principle compoments in actions. We took the <a href="https://en.wikipedia.org/wiki/MNIST_database">MNIST database</a> and performed PCA on the pixel values as predictors. First We apply it to the entire data set.</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'keras'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:yardstick':
+
+    get_weights</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 60000    28    28</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="too-many-pca_files/figure-html/pca-mnist-1.png" class="img-fluid figure-img" alt="Faceted tile chart. Each chart corresponds to a different principal component. Early components show some shapes that might suggest numbers such as 3 or 8, later ones show less and less identifiable patterns." width="672"></p>
+<figcaption>PCA aplied to all of MNIST</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>We clearly see some effects here. Remember that it isn’t important whether something is positive or negative, just that something is different than something else. the first PC more or less detectif something is in the middle of the image, and maybe a faint outline of an 8 or 3. The second PC more or less looks for a diagonal like as we see in 2s and 7s. The third PC becomes harder to decipher, but it looks a little like 4s and 9s. As we go up in PCs it gets harder and harder to find the signal, which is fine as PCA here isn’t trying to make a representation of the data, it is simply finding the combination of values (pixels in this example) that leads to the highest variance.</p>
+<p>If we instead did what we did before but only included data for the number 2 we will see the following principle components.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="too-many-pca_files/figure-html/pca-mnist-2-1.png" class="img-fluid figure-img" alt="Faceted tile chart. Each chart corresponds to a different principal component. Each component clearly depicts 2s, with the first one capturing a normal 2, with each other one showing a shifted or distortion of a 2." width="672"></p>
+<figcaption>PCA aplied to all 2s in MNIST</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Here we can see that the PCs very much resemple what we would expect a 2 to look like. And you would honest get a pretty good performance if you just used the first PC as an input into a classifier.</p>
 <section id="pros-and-cons" class="level2" data-number="68.2">
 <h2 data-number="68.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">68.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="68.2.1">
 <h3 data-number="68.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">68.2.1</span> Pros</h3>
+<ul>
+<li>Fast and reliable performance</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="68.2.2">
 <h3 data-number="68.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">68.2.2</span> Cons</h3>
+<ul>
+<li>Can’t capture non-linear effects</li>
+<li>Only works with numeric data</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="68.3">
 <h2 data-number="68.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">68.3</span> R Examples</h2>
+<p>We will be using the <code>ames</code> data set for these examples.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modeldata)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>ames_num <span class="ot">&lt;-</span> ames <span class="sc">|&gt;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>{recipes} provides <code>step_pca()</code> which is the standard way to perform PCA.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pca_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(<span class="sc">~</span> ., <span class="at">data =</span> ames_num) <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_normalize</span>(<span class="fu">all_numeric_predictors</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_pca</span>(<span class="fu">all_numeric_predictors</span>(), <span class="at">threshold =</span> <span class="fl">0.75</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>pca_rec <span class="sc">|&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,930
+Columns: 15
+$ PC01 &lt;dbl&gt; -1.29302633, 2.44938542, 0.38867105, -2.83884535, -0.95000586, -1…
+$ PC02 &lt;dbl&gt; -1.4349755, -0.8954603, -0.6564163, -0.8245922, 0.4031128, 0.5472…
+$ PC03 &lt;dbl&gt; -2.73394709, -0.46555724, -2.60354922, -2.21540751, 1.84242862, 1…
+$ PC04 &lt;dbl&gt; -1.24130360, 0.45302075, -1.89476335, -0.09576065, -0.82419328, -…
+$ PC05 &lt;dbl&gt; -0.234670439, -1.158034467, 0.539299859, 0.108399390, -0.00465055…
+$ PC06 &lt;dbl&gt; -0.53071493, -0.74448291, 2.01605256, -1.63612239, 0.09178837, 0.…
+$ PC07 &lt;dbl&gt; -1.6667080, -0.9919920, 1.7271016, -1.6760806, -1.4437569, -0.644…
+$ PC08 &lt;dbl&gt; -0.3914627, -0.7070779, -8.0957831, -1.2322444, -1.3064689, -1.14…
+$ PC09 &lt;dbl&gt; 0.31653849, 0.26548666, -13.85439341, 0.18173142, 0.57359254, 0.6…
+$ PC10 &lt;dbl&gt; -0.25039814, 1.25638151, -7.81439719, 0.02538957, 0.02419863, -0.…
+$ PC11 &lt;dbl&gt; 0.27811935, 0.45201399, -5.43053271, -0.09578846, -0.06697844, -0…
+$ PC12 &lt;dbl&gt; 0.54106553, -0.13714522, -3.34354971, -0.10743242, -0.28789251, -…
+$ PC13 &lt;dbl&gt; -1.4797391, -0.9946868, -6.7879045, 0.4175475, -0.3688771, -0.327…
+$ PC14 &lt;dbl&gt; 0.0671268, 1.0330778, 4.6157955, -0.6283405, 0.1680150, 0.1357667…
+$ PC15 &lt;dbl&gt; 1.5901974, 0.9449574, 2.3581422, 0.5016875, 0.8524806, 1.2719532,…</code></pre>
+</div>
+</div>
+<p>You can either use <code>num_comp</code> or <code>threshold</code> to determine how many components to generate.</p>
+<p>If you have data with a lot of predictors in it, it can be time saving to only calculate the needed components, do to this we can use the <code>step_pca_truncated()</code> from the {embed} package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(embed)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>pca_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(<span class="sc">~</span> ., <span class="at">data =</span> ames_num) <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_normalize</span>(<span class="fu">all_numeric_predictors</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_pca_truncated</span>(<span class="fu">all_numeric_predictors</span>(), <span class="at">num_comp =</span> <span class="dv">10</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>pca_rec <span class="sc">|&gt;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,930
+Columns: 10
+$ PC01 &lt;dbl&gt; -1.29302633, 2.44938542, 0.38867105, -2.83884535, -0.95000586, -1…
+$ PC02 &lt;dbl&gt; 1.4349755, 0.8954603, 0.6564163, 0.8245922, -0.4031128, -0.547251…
+$ PC03 &lt;dbl&gt; 2.73394709, 0.46555724, 2.60354922, 2.21540751, -1.84242862, -1.8…
+$ PC04 &lt;dbl&gt; -1.24130360, 0.45302075, -1.89476335, -0.09576065, -0.82419328, -…
+$ PC05 &lt;dbl&gt; 0.234670439, 1.158034467, -0.539299859, -0.108399390, 0.004650556…
+$ PC06 &lt;dbl&gt; 0.53071562, 0.74448296, -2.01605044, 1.63612287, -0.09178812, -0.…
+$ PC07 &lt;dbl&gt; -1.6667076, -0.9919920, 1.7271030, -1.6760803, -1.4437567, -0.644…
+$ PC08 &lt;dbl&gt; 0.3914640, 0.7070780, 8.0957873, 1.2322452, 1.3064693, 1.1430527,…
+$ PC09 &lt;dbl&gt; -0.31660104, -0.26549832, 13.85418232, -0.18176164, -0.57361371, …
+$ PC10 &lt;dbl&gt; -0.25058066, 1.25634247, -7.81502802, 0.02531114, 0.02413794, -0.…</code></pre>
+</div>
+</div>
 </section>
 <section id="python-examples" class="level2" data-number="68.4">
 <h2 data-number="68.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">68.4</span> Python Examples</h2>
+<p>WIP</p>
 
 
 </section>

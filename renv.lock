@@ -96,7 +96,7 @@
     },
     "Matrix": {
       "Package": "Matrix",
-      "Version": "1.7-0",
+      "Version": "1.7-3",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -109,7 +109,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "1920b2f11133b12350024297d8a4ff4a"
+      "Hash": "fb578c2b5d796882c60e9f770352f7c4"
     },
     "MatrixExtra": {
       "Package": "MatrixExtra",
@@ -533,6 +533,16 @@
         "stats"
       ],
       "Hash": "d954cb1c57e8d8b756165d7ba18aa55a"
+    },
+    "config": {
+      "Package": "config",
+      "Version": "0.3.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "yaml"
+      ],
+      "Hash": "8b7222e9d9eb5178eea545c0c4d33fc2"
     },
     "conflicted": {
       "Package": "conflicted",
@@ -1468,13 +1478,33 @@
     },
     "jsonlite": {
       "Package": "jsonlite",
-      "Version": "1.8.8",
+      "Version": "2.0.0",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "CRAN",
       "Requirements": [
         "methods"
       ],
-      "Hash": "e1b9c55281c5adc4dd113652d9e26768"
+      "Hash": "b0776f526d36d8bd4a3344a88fe165c4"
+    },
+    "keras": {
+      "Package": "keras",
+      "Version": "2.15.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "R6",
+        "generics",
+        "glue",
+        "magrittr",
+        "methods",
+        "reticulate",
+        "rlang",
+        "tensorflow",
+        "tfruns",
+        "zeallot"
+      ],
+      "Hash": "f98205897f72de92a8ba318fd2d2808e"
     },
     "knitr": {
       "Package": "knitr",
@@ -2239,7 +2269,7 @@
     },
     "reticulate": {
       "Package": "reticulate",
-      "Version": "1.38.0",
+      "Version": "1.42.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -2257,7 +2287,7 @@
         "utils",
         "withr"
       ],
-      "Hash": "8810e64cfe0240afe926617a854a38a4"
+      "Hash": "92bc19ed4057a728ddbe09b804a3d84d"
     },
     "rlang": {
       "Package": "rlang",
@@ -2621,6 +2651,26 @@
       ],
       "Hash": "213b6b8ed5afbf934843e6c3b090d418"
     },
+    "tensorflow": {
+      "Package": "tensorflow",
+      "Version": "2.16.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "config",
+        "grDevices",
+        "lifecycle",
+        "processx",
+        "reticulate",
+        "rstudioapi",
+        "tfautograph",
+        "tfruns",
+        "utils",
+        "yaml"
+      ],
+      "Hash": "7ac4bb91e88d010d750a8cdf45914f7c"
+    },
     "text2vec": {
       "Package": "text2vec",
       "Version": "0.6.4",
@@ -2701,6 +2751,39 @@
         "systemfonts"
       ],
       "Hash": "5142f8bc78ed3d819d26461b641627ce"
+    },
+    "tfautograph": {
+      "Package": "tfautograph",
+      "Version": "0.3.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "backports",
+        "reticulate"
+      ],
+      "Hash": "f49f95df7561c477ac2370809fde9d61"
+    },
+    "tfruns": {
+      "Package": "tfruns",
+      "Version": "1.5.3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "base64enc",
+        "config",
+        "jsonlite",
+        "magrittr",
+        "reticulate",
+        "rlang",
+        "rstudioapi",
+        "tidyselect",
+        "utils",
+        "whisker",
+        "yaml"
+      ],
+      "Hash": "84569fd1acfb6c2744df727ab4a34591"
     },
     "tfse": {
       "Package": "tfse",
@@ -3107,6 +3190,13 @@
       ],
       "Hash": "fea474d578b1cbcb696ae6ac8bdcc439"
     },
+    "whisker": {
+      "Package": "whisker",
+      "Version": "0.4.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "c6abfa47a46d281a7d5159d0a8891e88"
+    },
     "withr": {
       "Package": "withr",
       "Version": "3.0.1",
@@ -3221,6 +3311,13 @@
         "withr"
       ],
       "Hash": "9ce4117141b326c4fffc7c42e56e0f88"
+    },
+    "zeallot": {
+      "Package": "zeallot",
+      "Version": "0.1.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "ee9b643aa8331c45d8d82eb3a137c9bc"
     }
   }
 }
