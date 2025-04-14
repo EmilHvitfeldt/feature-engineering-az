@@ -371,8 +371,67 @@ And you would honest get a pretty good performance if you just used the first PC
 
 ### Pros
 
+- Fast and reliable performance
+
 ### Cons
+
+- Can't capture non-linear effects
+- Only works with numeric data
 
 ## R Examples
 
+```{r}
+#| label: ames
+#| echo: false
+#| message: false
+library(tidymodels)
+data("ames")
+```
+
+We will be using the `ames` data set for these examples.
+
+```{r}
+#| label: show-data
+library(recipes)
+library(modeldata)
+
+ames_num <- ames |>
+  select(where(is.numeric))
+```
+
+{recipes} provides `step_pca()` which is the standard way to perform PCA.
+
+```{r}
+#| label: step_pca
+pca_rec <- recipe(~ ., data = ames_num) |>
+  step_normalize(all_numeric_predictors()) |>
+  step_pca(all_numeric_predictors(), threshold = 0.75)
+
+pca_rec |>
+  prep() |>
+  bake(new_data = NULL) |>
+  glimpse()
+```
+
+You can either use `num_comp` or `threshold` to determine how many components to generate.
+
+If you have data with a lot of predictors in it,
+it can be time saving to only calculate the needed components,
+do to this we can use the `step_pca_truncated()` from the {embed} package.
+
+```{r}
+#| label: step_pca_truncated
+library(embed)
+pca_rec <- recipe(~ ., data = ames_num) |>
+  step_normalize(all_numeric_predictors()) |>
+  step_pca_truncated(all_numeric_predictors(), num_comp = 10)
+
+pca_rec |>
+  prep() |>
+  bake(new_data = NULL) |>
+  glimpse()
+```
+
 ## Python Examples
+
+WIP
