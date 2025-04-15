@@ -12,12 +12,12 @@ The first dimensionality reduction method most people are introduced to is Princ
 There is a good reason for this,
 it is a dependable method that has stood the test of time.
 This chapter will cover what PCA is in its main form,
-with its varients described in next chapter on [PCA variants](too-many-pca-variants).
+with its variants described in next chapter on [PCA variants](too-many-pca-variants).
 
 The reason why we want to apply PCA in the first place,
 is because we expect that the information in the predictors could be more efficiently stored.
 Or in other words, 
-because there is redundency in the data.
+because there is redundancy in the data.
 This can also be seen in part using a correlation plot.
 Using the numeric variables of the `ames` data set, we can plot the correlation of it.
 
@@ -34,7 +34,7 @@ Using the numeric variables of the `ames` data set, we can plot the correlation 
 #|   two different colors, one for positive correlation and one for negative.
 #|   the chart can visually be split up into 2 sections. One section has columns
 #|   that are significantly positive correlated, these have something to do
-#|   with square footage or room counts. The other section of variables doens't
+#|   with square footage or room counts. The other section of variables doesn't
 #|   have any noteworthy correlations.
 library(tidymodels)
 ames |>
@@ -43,10 +43,10 @@ ames |>
   autoplot(method = "HC")
 ```
 
-What we see is that many of the variables are corelated with eachother. 
+What we see is that many of the variables are correlated with eachother. 
 This is expected since larger houses is more likely to have more bed rooms, larger basements, more fireplaces, etc etc.
 But it begs the question: are we efficiently storing this information?
-It Many of the variables store some varient of "large house" with something else mixed in.
+It Many of the variables store some variant of "large house" with something else mixed in.
 
 We will motivate what PCA does using the following simulated 2-dimensional data set.
 
@@ -135,8 +135,8 @@ we would be able to drop the second predictor as the first contains most of the 
 
 We can extend this method to higher dimensional data sets as well.
 The first principle component was found by finding the hyperplane that maximized the variance along it,
-finding the second principle component is found by calculating the hyperplace that maximized the variance of any planes that are othogonal to the first principle component.
-The third is found by finding one that is othogonal to the first and second.
+finding the second principle component is found by calculating the hyperplace that maximized the variance of any planes that are orthogonal to the first principle component.
+The third is found by finding one that is orthogonal to the first and second.
 This is repeated until you have a principle component for each variable in the original data set.
 
 In math terms this amounts to finding $\phi_{ij}$ that satisfy
@@ -157,15 +157,15 @@ $$
 \end{align}
 $$
 
-Luckily this is this can be found using linear algebra operations, hence why this opperation has the computational speed it has.
+Luckily this is this can be found using linear algebra operations, hence why this operation has the computational speed it has.
 
 The reason why this method works as a feature engineering method,
 is that the loadings $\phi_{ij}$ that are estimated can be saved and applied to new data.
 
-The astute reader will notice that the above description technically doesn't reduce dimentions, 
+The astute reader will notice that the above description technically doesn't reduce dimensions, 
 it merely rotates the data in a way that maximizes variance for each variable,
-under the constraint that they are all othogonal.
-It becomes a dimensionality reduction method by selecting only a certain number of principle compoments.
+under the constraint that they are all orthogonal.
+It becomes a dimensionality reduction method by selecting only a certain number of principle components.
 We are hoping that we can place a cutoff between that selects enough useful components without removing too much.
 
 One downside to PCA is that we are not able to completely stop the loss of signal,
@@ -217,11 +217,11 @@ These charts show how different datasets react differently by having PCA applied
 Remember that we only want to select the top N components,
 such that it acts like a dimensionality reduction method.
 Both of the left charts shows a fast rise in the cumulative variance,
-with a fairly early plateu.
-Making a cutoff at the plateu is likely a good choice.
+with a fairly early plateau.
+Making a cutoff at the plateau is likely a good choice.
 The lower left data set captures 99% of the variance with 27 components,
 which amounts 50% decrease in predictors.
-On the other hand we have the bottom left data set which achives the same 99& variance with the first 31 components,
+On the other hand we have the bottom left data set which achieves the same 99& variance with the first 31 components,
 which only amounts to 10% decrease in predictors.
 A 99% threshold is quite high,
 and should be tuned for performance and speed.
@@ -229,7 +229,7 @@ and should be tuned for performance and speed.
 It is a common misconception that PCA is a computationally intensive for large data sets,
 that is only the case if you apply PCA to generate all the components.
 If you instead run your method such that is captures 90% of the variance,
-or only the first 10 compoments then your method should only calculate those and stop.
+or only the first 10 components then your method should only calculate those and stop.
 Remember that this method is iterative over the components,
 so for optimal computational speed you just need to make sure the settings are correct before running. 
 
@@ -262,16 +262,16 @@ however they will only give identical results up to a sign flip for each variabl
 This should not be a big issue but it can be surpricing at first if you do not expect it to happen.
 PCA  Makes for harder, but not impossible interprebility. 
 The [PCA variants](too-many-pca-variants) try to deal with this issue.
-This is esspecially true since the base case combines EVERY predictor in the input, 
+This is especially true since the base case combines EVERY predictor in the input, 
 to produce EVERY predictor in the output.
 Another limitation is that PCA doesn't have a native way of dealing with missing data.
-However that doens't mean you can't use PCA with data with missing values,
+However that doesn't mean you can't use PCA with data with missing values,
 just that you have to be aware of what will happen if you try.
 Since PCA is calculated from a correlation matrix,
 missing values could simply be excluded during the construction of the correlation matrix.
 This will be imperfect but is sometimes done instead of dealing with the missing values first.
 
-Below is an example of the principle compoments in actions.
+Below is an example of the principle components in actions.
 We took the [MNIST database](https://en.wikipedia.org/wiki/MNIST_database) and performed PCA on the pixel values as predictors.
 First We apply it to the entire data set.
 
@@ -279,7 +279,7 @@ First We apply it to the entire data set.
 #| label: pca-mnist
 #| echo: false
 #| fig-cap: |
-#|   PCA aplied to all of MNIST
+#|   PCA applied to all of MNIST
 #| fig-alt: |
 #|   Faceted tile chart. Each chart corresponds to a different principal
 #|   component. Early components show some shapes that might suggest numbers
@@ -338,7 +338,7 @@ If we instead did what we did before but only included data for the number 2 we 
 #| label: pca-mnist-2
 #| echo: false
 #| fig-cap: |
-#|   PCA aplied to all 2s in MNIST
+#|   PCA applied to all 2s in MNIST
 #| fig-alt: |
 #|   Faceted tile chart. Each chart corresponds to a different principal
 #|   component. Each component clearly depicts 2s, with the first one
