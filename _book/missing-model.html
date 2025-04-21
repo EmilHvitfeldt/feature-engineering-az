@@ -2276,24 +2276,24 @@ Buuren, S. van. 2012. <em>Flexible Imputation of Missing Data</em>. Chapman &amp
   var button = document.createElement("button");
   button.style.border = "none";
   button.style.backgroundColor = "unset";
-  var icon = document.createElement("i");
-  icon.classList = "bi bi-arrows-collapse";
-  button.appendChild(icon);
+  var icon_collapse = document.createElement("i");
+  icon_collapse.classList = "bi bi-arrows-collapse";
+  button.appendChild(icon_collapse);
 
   button.onclick = onbuttonclicked;
   container.appendChild(button);
 
   function onbuttonclicked() {
-    if (icon.classList == "bi bi-arrows-collapse") {
+    if (icon_collapse.classList == "bi bi-arrows-collapse") {
       document.querySelectorAll(
         "a.sidebar-item-toggle:not(.collapsed)"
       ).forEach((x) => x.click());
-      icon.classList = "bi bi-arrows-expand";
+      icon_collapse.classList = "bi bi-arrows-expand";
     } else {
       document.querySelectorAll(
         "a.sidebar-item-toggle.collapsed"
       ).forEach((x) => x.click());
-      icon.classList = "bi bi-arrows-collapse";
+      icon_collapse.classList = "bi bi-arrows-collapse";
     }
   }
   // random button
@@ -2301,9 +2301,9 @@ Buuren, S. van. 2012. <em>Flexible Imputation of Missing Data</em>. Chapman &amp
   var button = document.createElement("button");
   button.style.border = "none";
   button.style.backgroundColor = "unset";
-  var icon = document.createElement("i");
-  icon.classList = "bi bi-dice-6";
-  button.appendChild(icon);
+  var icon_random = document.createElement("i");
+  icon_random.classList = "bi bi-dice-6";
+  button.appendChild(icon_random);
 
   button.onclick = onbuttonclicked_random;
   container.appendChild(button);
@@ -2320,7 +2320,6 @@ Buuren, S. van. 2012. <em>Flexible Imputation of Missing Data</em>. Chapman &amp
       const span = element.querySelector("span.chapter-title");
       return !(span && span.textContent.includes("🏗️"));
     });
-    debugger
     const link = links[Math.floor(Math.random() * links.length)];
     link.click();
   }
