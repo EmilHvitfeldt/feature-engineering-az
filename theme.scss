@@ -1,7 +1,51 @@
 /*-- scss:defaults --*/
 
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,400;0,600;1,200;1,400;1,600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Source+Code_Pro&display=swap');
+@font-face {
+  font-family: 'Raleway';
+  font-weight: 600;
+  src: url('assets/fonts/Raleway-SemiBold.woff2') format('woff2'),
+       url('assets/fonts/Raleway-SemiBold.woff') format('woff');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: italic;
+  font-weight: 600;
+  src: url('assets/fonts/Raleway-SemiBoldItalic.woff2') format('woff2'),
+       url('assets/fonts/Raleway-SemiBoldItalic.woff') format('woff');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-weight: 400;
+  src: url('assets/fonts/Raleway-Medium.woff2') format('woff2'),
+       url('assets/fonts/Raleway-Medium.woff') format('woff');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: italic;
+  font-weight: 400;
+  src: url('assets/fonts/Raleway-MediumItalic.woff2') format('woff2'),
+       url('assets/fonts/Raleway-MediumItalic.woff') format('woff');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-weight: 200;
+  src: url('assets/fonts/Raleway-ExtraLight.woff2') format('woff2'),
+       url('assets/fonts/Raleway-ExtraLight.woff') format('woff');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: italic;
+  font-weight: 200;
+  src: url('assets/fonts/Raleway-ExtraLightItalic.woff2') format('woff2'),
+       url('assets/fonts/Raleway-ExtraLightItalic.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Source Code Pro';
+  font-weight: 400;
+  src: url('assets/fonts/SourceCodePro-Medium.woff2') format('woff2'),
+       url('assets/fonts/SourceCodePro-Medium.woff') format('woff');
+}
 
 $font-family-sans-serif: 'Raleway', sans-serif;
 $font-family-monospace: 'Source Code Pro', monospace;
