@@ -52,6 +52,7 @@ $font-family-monospace: 'Source Code Pro', monospace;
 
 $theme-purple: #854ac8;
 $theme-green: #1EAF98;
+$theme-darkgreen: #01836e;
 
 $font-size-root: 20px;
 $link-color: $theme-purple;
@@ -60,7 +61,7 @@ $link-color: $theme-purple;
 
 h1,
 h2 {
-  color: $theme-green;
+  color: $theme-darkgreen;
 }
 
 .sidebar-title>a {
