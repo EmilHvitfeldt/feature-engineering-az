@@ -128,7 +128,7 @@ div.csl-indent {
 <meta property="og:description" content="">
 <meta property="og:image" content="https://example.com/categorical-glmm_files/figure-html/fig-target-smoothness-1-1.png">
 <meta property="og:site_name" content="Feature Engineering A-Z">
-<meta property="og:image:alt" content="Scatter chart. A green line with slope 1 and intercept, and a blue line with slope 0 and an intercept equal to the global mean. The points are sized according to the number of observations that were used to calculate the value. The points lie along the green line mostly, with some of the smaller points getting closer to the blue line.">
+<meta property="og:image:alt" content="Scatter chart. A green line with slope 1 and intercept, and a blue line  with slope 0 and an intercept equal to the global mean. The points are sized according to the number of observations that were used to calculate the  value. The points lie along the green line mostly, with some of the smaller points getting closer to the blue line.">
 <meta property="og:image:height" content="960">
 <meta property="og:image:width" content="1344">
 </head>
@@ -1305,10 +1305,10 @@ div.csl-indent {
 <p>We can visualize this effect in the following charts. First, we have an example of what happens with a smaller amount of smoothing. The points are mostly along the diagonal. Remember that if we didn’t do this, all the points would be along the diagonal regardless of their size.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-target-smoothness-1" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatter chart. A green line with slope 1 and intercept, and a blue line with slope 0 and an intercept equal to the global mean. The points are sized according to the number of observations that were used to calculate the value. The points lie along the green line mostly, with some of the smaller points getting closer to the blue line.">
+<div id="fig-target-smoothness-1" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatter chart. A green line with slope 1 and intercept, and a blue line  with slope 0 and an intercept equal to the global mean. The points are sized according to the number of observations that were used to calculate the  value. The points lie along the green line mostly, with some of the smaller points getting closer to the blue line.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-target-smoothness-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="categorical-glmm_files/figure-html/fig-target-smoothness-1-1.png" class="img-fluid figure-img" alt="Scatter chart. A green line with slope 1 and intercept, and a blue line with slope 0 and an intercept equal to the global mean. The points are sized according to the number of observations that were used to calculate the value. The points lie along the green line mostly, with some of the smaller points getting closer to the blue line." width="672">
+<img src="categorical-glmm_files/figure-html/fig-target-smoothness-1-1.png" class="img-fluid figure-img" alt="Scatter chart. A green line with slope 1 and intercept, and a blue line  with slope 0 and an intercept equal to the global mean. The points are sized according to the number of observations that were used to calculate the  value. The points lie along the green line mostly, with some of the smaller points getting closer to the blue line." width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-target-smoothness-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;27.1: With a small amount of smoothing, the adjusted means are close to the original means, regardless of the number of observations.
@@ -1320,10 +1320,10 @@ Figure&nbsp;27.1: With a small amount of smoothing, the adjusted means are close
 <p>In this next chart, we see the effect of a higher amount of smoothing, now the levels with fewer observations are pulled quite a bit closer to the global mean.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-target-smoothness-5" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatter chart. A green line with slope 1 and intercept, and a blue line with slope 0 and an intercept equal to the global mean. The points are sized according to the number of observations that were used to calculate the value. The points lie between the green and blue lines, with the smaller points being closer to the blue line than the larger points.">
+<div id="fig-target-smoothness-5" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatter chart. A green line with slope 1 and intercept, and a blue line  with slope 0 and an intercept equal to the global mean. The points are sized according to the number of observations that were used to calculate the  value. The points lie between the green and blue lines, with the smaller points being closer to the blue line than the larger points.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-target-smoothness-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="categorical-glmm_files/figure-html/fig-target-smoothness-5-1.png" class="img-fluid figure-img" alt="Scatter chart. A green line with slope 1 and intercept, and a blue line with slope 0 and an intercept equal to the global mean. The points are sized according to the number of observations that were used to calculate the value. The points lie between the green and blue lines, with the smaller points being closer to the blue line than the larger points." width="672">
+<img src="categorical-glmm_files/figure-html/fig-target-smoothness-5-1.png" class="img-fluid figure-img" alt="Scatter chart. A green line with slope 1 and intercept, and a blue line  with slope 0 and an intercept equal to the global mean. The points are sized according to the number of observations that were used to calculate the  value. The points lie between the green and blue lines, with the smaller points being closer to the blue line than the larger points." width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-target-smoothness-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;27.2: With a large amount of smoothing, the adjusted means are not as close to the original means, with smaller points getting quite close to the global mean.

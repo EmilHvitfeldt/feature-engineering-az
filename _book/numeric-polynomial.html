@@ -137,7 +137,7 @@ window.Quarto = {
 <meta property="og:description" content="">
 <meta property="og:image" content="https://example.com/numeric-polynomial_files/figure-html/fig-polynomial-predictor-outcome-1.png">
 <meta property="og:site_name" content="Feature Engineering A-Z">
-<meta property="og:image:alt" content="Scatter chart. Predictor along the x-axis and outcome along the y-axis. The data has some wiggliness to it, but it follows a curve. You would not be able to fit a straight line to this data.">
+<meta property="og:image:alt" content="Scatter chart. Predictor along the x-axis and outcome along the y-axis. The data has some wiggliness to it, but it follows a curve. You would not  be able to fit a straight line to this data.">
 <meta property="og:image:height" content="960">
 <meta property="og:image:width" content="1344">
 </head>
@@ -1310,10 +1310,10 @@ window.Quarto = {
 <p>Being able to transform a numeric variable that has a non-linear relationship with the outcome into one or more variables that do have linear relationships with the outcome is of great importance, as many models wouldn’t be able to work with these types of variables effectively themselves. Below is a toy example of one such variable</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-polynomial-predictor-outcome" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. The data has some wiggliness to it, but it follows a curve. You would not be able to fit a straight line to this data.">
+<div id="fig-polynomial-predictor-outcome" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. The data has some wiggliness to it, but it follows a curve. You would not  be able to fit a straight line to this data.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-polynomial-predictor-outcome-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="numeric-polynomial_files/figure-html/fig-polynomial-predictor-outcome-1.png" class="img-fluid figure-img" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. The data has some wiggliness to it, but it follows a curve. You would not be able to fit a straight line to this data." width="672">
+<img src="numeric-polynomial_files/figure-html/fig-polynomial-predictor-outcome-1.png" class="img-fluid figure-img" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. The data has some wiggliness to it, but it follows a curve. You would not  be able to fit a straight line to this data." width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-polynomial-predictor-outcome-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;13.1: Non-linear relationship between predictor and outcome.
@@ -1394,10 +1394,10 @@ Table&nbsp;13.1: Polynomial values for different values of the predictor, for co
 <p>In the above table, we see a small example of how this could be done, using a 4th-degree polynomial with coefficients of 1. If we were to look at the individual functions over the domain of our data we see the following</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-poly-poly-raw-curves" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Facetted line chart. Predictor along the x-axis, value along the y-axis. Each of the curves starts at 0, goes smoothly, and then down to zero. The highpoint for each curve goes further to the right for each curve shown.">
+<div id="fig-poly-poly-raw-curves" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Facetted line chart. Predictor along the x-axis, value along the y-axis. Each of the curves starts at 0, goes smoothly, and then down to zero. The highpoint for each curve goes further to the right for each curve  shown.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-poly-poly-raw-curves-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="numeric-polynomial_files/figure-html/fig-poly-poly-raw-curves-1.png" class="img-fluid figure-img" alt="Facetted line chart. Predictor along the x-axis, value along the y-axis. Each of the curves starts at 0, goes smoothly, and then down to zero. The highpoint for each curve goes further to the right for each curve shown." width="672">
+<img src="numeric-polynomial_files/figure-html/fig-poly-poly-raw-curves-1.png" class="img-fluid figure-img" alt="Facetted line chart. Predictor along the x-axis, value along the y-axis. Each of the curves starts at 0, goes smoothly, and then down to zero. The highpoint for each curve goes further to the right for each curve  shown." width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-poly-poly-raw-curves-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;13.2: Each part of the spline detects a part of the data set.
@@ -1454,10 +1454,10 @@ Figure&nbsp;13.4: Each part of the spline detects a part of the data set.
 <p>And since they are orthogonal by design, we won’t have to worry about correlated features.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-poly-otho-correlation" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Correlation chart. The polynomial features are lined up one after another. No correlation is found between any of the pairs.">
+<div id="fig-poly-otho-correlation" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Correlation chart. The polynomial features are lined up one after another.  No correlation is found between any of the pairs.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-poly-otho-correlation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="numeric-polynomial_files/figure-html/fig-poly-otho-correlation-1.png" class="img-fluid figure-img" alt="Correlation chart. The polynomial features are lined up one after another. No correlation is found between any of the pairs." width="672">
+<img src="numeric-polynomial_files/figure-html/fig-poly-otho-correlation-1.png" class="img-fluid figure-img" alt="Correlation chart. The polynomial features are lined up one after another.  No correlation is found between any of the pairs." width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-poly-otho-correlation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;13.5: No correlation to be found
@@ -1469,10 +1469,10 @@ Figure&nbsp;13.5: No correlation to be found
 <p>The interpretation of these polynomial features is not as easy as with <a href="numeric-binning">Ninning</a> or <a href="numeric-splines">Splines</a>, but the calculations are quite fast and versatile.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-poly-poly-curves-extrapolate" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Facetted line chart. Predictor along the x-axis, value along the y-axis. Each of the curves has their endpoints go towards infinite or minus infinite depending on their degree.">
+<div id="fig-poly-poly-curves-extrapolate" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Facetted line chart. Predictor along the x-axis, value along the y-axis. Each of the curves has their endpoints go towards infinite or minus  infinite depending on their degree.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-poly-poly-curves-extrapolate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="numeric-polynomial_files/figure-html/fig-poly-poly-curves-extrapolate-1.png" class="img-fluid figure-img" alt="Facetted line chart. Predictor along the x-axis, value along the y-axis. Each of the curves has their endpoints go towards infinite or minus infinite depending on their degree." width="672">
+<img src="numeric-polynomial_files/figure-html/fig-poly-poly-curves-extrapolate-1.png" class="img-fluid figure-img" alt="Facetted line chart. Predictor along the x-axis, value along the y-axis. Each of the curves has their endpoints go towards infinite or minus  infinite depending on their degree." width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-poly-poly-curves-extrapolate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;13.6: Polynomial features don’t handle extrapolation well and values outside the normal ranges can explode quite fast for higher degree polynomials.
@@ -1484,10 +1484,10 @@ Figure&nbsp;13.6: Polynomial features don’t handle extrapolation well and valu
 <p>Below is a chart of how well using polynomial expansion works when using it on our toy example. Since the data isn’t that complicated, having a <code>degree</code> larger than 1 will do the trick.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-poly-different-degrees" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. The data has some wiggliness to it, but it follows a curve. You would not be able to fit a straight line to this data. 4 polynomial curves are plotted to fit the data. The first degree polynomial doesn't fit the data, the other ones do.">
+<div id="fig-poly-different-degrees" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. The data has some wiggliness to it, but it follows a curve. You would not  be able to fit a straight line to this data. 4 polynomial curves are  plotted to fit the data. The first degree polynomial doesn't fit the data, the other ones do.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-poly-different-degrees-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="numeric-polynomial_files/figure-html/fig-poly-different-degrees-1.png" class="img-fluid figure-img" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. The data has some wiggliness to it, but it follows a curve. You would not be able to fit a straight line to this data. 4 polynomial curves are plotted to fit the data. The first degree polynomial doesn't fit the data, the other ones do." width="672">
+<img src="numeric-polynomial_files/figure-html/fig-poly-different-degrees-1.png" class="img-fluid figure-img" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. The data has some wiggliness to it, but it follows a curve. You would not  be able to fit a straight line to this data. 4 polynomial curves are  plotted to fit the data. The first degree polynomial doesn't fit the data, the other ones do." width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-poly-different-degrees-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;13.7: A first degree polynomial isn’t enough to fit this data, but second and higher does a good job.
