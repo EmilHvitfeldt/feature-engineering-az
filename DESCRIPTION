@@ -1,5 +1,6 @@
 Package: feature-engineering-az
 Imports: 
+    animalshelter,
     corrr,
     dapr,
     embed,
@@ -27,7 +28,7 @@ Imports:
     tidymodels,
     tidyverse
 Remotes:
-    emilhvitfeldt/extrasteps,
+    emilhvitfeldt/animalshelter,
     mkearney/dapr,
     mkearney/textfeatures,
     mkearney/tfse
