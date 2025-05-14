@@ -137,7 +137,7 @@ window.Quarto = {
 <meta property="og:description" content="">
 <meta property="og:image" content="https://example.com/numeric-range_files/figure-html/fig-range-clipping-1.png">
 <meta property="og:site_name" content="Feature Engineering A-Z">
-<meta property="og:image:alt" content="Scatter chart with &quot;original&quot; on the x-axis and &quot;transformed&quot; on the y-axis. The Scale of the x-axis is 0 to 50, and the scale of the y-axis is 0 to 1. A series of points are plotted along a line, starting at the value 0 for values x values less than 10, between 10 and 32 there is a linear line of point resulting in the point at (x = 32, y = 1), all remaining larger values of x has a y value of 1.">
+<meta property="og:image:alt" content="Scatter chart with &quot;original&quot; on the x-axis and &quot;transformed&quot; on the y-axis. The Scale of the  x-axis is 0 to 50, and the scale of the y-axis is 0 to 1. A series of points are plotted along a line, starting at the value 0 for values x values less than 10, between 10 and 32 there is a linear line of point resulting in the point at (x = 32, y = 1), all remaining larger values of x has a y value of 1.">
 <meta property="og:image:height" content="960">
 <meta property="og:image:width" content="1344">
 </head>
@@ -1322,10 +1322,10 @@ X_{scaled}=
 <p>The equation is a lot bigger, but what is different is that we specify that the transformation should be done using training data, and by adding a couple of branches to reflect the clipping. In practice, it will look something like <a href="#fig-range-clipping" class="quarto-xref">Figure&nbsp;<span>8.1</span></a> where the original data had a range of <span class="math inline">\([10, 32]\)</span>.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-range-clipping" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatter chart with &quot;original&quot; on the x-axis and &quot;transformed&quot; on the y-axis. The Scale of the x-axis is 0 to 50, and the scale of the y-axis is 0 to 1. A series of points are plotted along a line, starting at the value 0 for values x values less than 10, between 10 and 32 there is a linear line of point resulting in the point at (x = 32, y = 1), all remaining larger values of x has a y value of 1.">
+<div id="fig-range-clipping" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatter chart with &quot;original&quot; on the x-axis and &quot;transformed&quot; on the y-axis. The Scale of the  x-axis is 0 to 50, and the scale of the y-axis is 0 to 1. A series of points are plotted along a line, starting at the value 0 for values x values less than 10, between 10 and 32 there is a linear line of point resulting in the point at (x = 32, y = 1), all remaining larger values of x has a y value of 1.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-range-clipping-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="numeric-range_files/figure-html/fig-range-clipping-1.png" class="img-fluid figure-img" alt="Scatter chart with &quot;original&quot; on the x-axis and &quot;transformed&quot; on the y-axis. The Scale of the x-axis is 0 to 50, and the scale of the y-axis is 0 to 1. A series of points are plotted along a line, starting at the value 0 for values x values less than 10, between 10 and 32 there is a linear line of point resulting in the point at (x = 32, y = 1), all remaining larger values of x has a y value of 1." width="672">
+<img src="numeric-range_files/figure-html/fig-range-clipping-1.png" class="img-fluid figure-img" alt="Scatter chart with &quot;original&quot; on the x-axis and &quot;transformed&quot; on the y-axis. The Scale of the  x-axis is 0 to 50, and the scale of the y-axis is 0 to 1. A series of points are plotted along a line, starting at the value 0 for values x values less than 10, between 10 and 32 there is a linear line of point resulting in the point at (x = 32, y = 1), all remaining larger values of x has a y value of 1." width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-range-clipping-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;8.1: Using clipping in range scaling results in a piece-wise linear transformation of our original data.
@@ -1400,11 +1400,20 @@ Figure&nbsp;8.2: Outliers can have a big effect on the resulting distribution wh
 <p>We will be using the <code>ames</code> data set for these examples.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)<span class="co">#| </span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modeldata)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"ames"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>ames <span class="sc">|&gt;</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modeldata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'modeldata'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:datasets':
+
+    penguins</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"ames"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>ames <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2,930 × 4
    Sale_Price Lot_Area Wood_Deck_SF Mas_Vnr_Area
@@ -1424,12 +1433,12 @@ Figure&nbsp;8.2: Outliers can have a big effect on the resulting distribution wh
 </div>
 <p>We will be using the <code>step_range()</code> step for this</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>range_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> ., <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_range</span>(<span class="fu">all_numeric_predictors</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>range_rec <span class="sc">|&gt;</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>range_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> ., <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_range</span>(<span class="fu">all_numeric_predictors</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>range_rec <span class="sc">|&gt;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2,930 × 4
    Sale_Price Lot_Area Wood_Deck_SF Mas_Vnr_Area
@@ -1449,8 +1458,8 @@ Figure&nbsp;8.2: Outliers can have a big effect on the resulting distribution wh
 </div>
 <p>We can also pull out what the min and max values were for each variable using <code>tidy()</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>range_rec <span class="sc">|&gt;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>range_rec <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 33 × 4
    terms            min    max id         
@@ -1470,12 +1479,12 @@ Figure&nbsp;8.2: Outliers can have a big effect on the resulting distribution wh
 </div>
 <p>using the <code>min</code> and <code>max</code> arguments we can set different ranges</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>range_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> ., <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_range</span>(<span class="fu">all_numeric_predictors</span>(), <span class="at">min =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">max =</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>range_rec <span class="sc">|&gt;</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>range_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> ., <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_range</span>(<span class="fu">all_numeric_predictors</span>(), <span class="at">min =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">max =</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>range_rec <span class="sc">|&gt;</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>, Sale_Price, Lot_Area, Wood_Deck_SF, Mas_Vnr_Area)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2,930 × 4
    Sale_Price Lot_Area Wood_Deck_SF Mas_Vnr_Area
@@ -1498,15 +1507,15 @@ Figure&nbsp;8.2: Outliers can have a big effect on the resulting distribution wh
 <h2 data-number="8.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">8.4</span> Python Examples</h2>
 <p>We are using the <code>ames</code> data set for examples. {sklearn} provided the <code>MinMaxScaler()</code> method we can use. By default we can use this method to perform both the centering and scaling.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> feazdata <span class="im">import</span> ames</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> MinMaxScaler</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>ct <span class="op">=</span> ColumnTransformer(</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">'minmax'</span>, MinMaxScaler(), [<span class="st">'Sale_Price'</span>, <span class="st">'Lot_Area'</span>, <span class="st">'Wood_Deck_SF'</span>,  <span class="st">'Mas_Vnr_Area'</span>])], </span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    remainder<span class="op">=</span><span class="st">"passthrough"</span>)</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>ct.fit(ames)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> feazdata <span class="im">import</span> ames</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> MinMaxScaler</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>ct <span class="op">=</span> ColumnTransformer(</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">'minmax'</span>, MinMaxScaler(), [<span class="st">'Sale_Price'</span>, <span class="st">'Lot_Area'</span>, <span class="st">'Wood_Deck_SF'</span>,  <span class="st">'Mas_Vnr_Area'</span>])], </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    remainder<span class="op">=</span><span class="st">"passthrough"</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>ct.fit(ames)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <style>#sk-container-id-1 {
   /* Definition of color scheme common for light and dark mode */
@@ -1920,7 +1929,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                                  ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',
                                   'Mas_Vnr_Area'])])</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox"><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">minmax</label><div class="sk-toggleable__content fitted"><pre>['Sale_Price', 'Lot_Area', 'Wood_Deck_SF', 'Mas_Vnr_Area']</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox"><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;MinMaxScaler<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.4/modules/generated/sklearn.preprocessing.MinMaxScaler.html">?<span>Documentation for MinMaxScaler</span></a></label><div class="sk-toggleable__content fitted"><pre>MinMaxScaler()</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox"><label for="sk-estimator-id-4" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">remainder</label><div class="sk-toggleable__content fitted"><pre>['MS_SubClass', 'MS_Zoning', 'Lot_Frontage', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Year_Built', 'Year_Remod_Add', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_SF_1', 'BsmtFin_Type_2', 'BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Total_Bsmt_SF', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'First_Flr_SF', 'Second_Flr_SF', 'Gr_Liv_Area', 'Bsmt_Full_Bath', 'Bsmt_Half_Bath', 'Full_Bath', 'Half_Bath', 'Bedroom_AbvGr', 'Kitchen_AbvGr', 'TotRms_AbvGrd', 'Functional', 'Fireplaces', 'Garage_Type', 'Garage_Finish', 'Garage_Cars', 'Garage_Area', 'Garage_Cond', 'Paved_Drive', 'Open_Porch_SF', 'Enclosed_Porch', 'Three_season_porch', 'Screen_Porch', 'Pool_Area', 'Pool_QC', 'Fence', 'Misc_Feature', 'Misc_Val', 'Mo_Sold', 'Year_Sold', 'Sale_Type', 'Sale_Condition', 'Longitude', 'Latitude']</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox"><label for="sk-estimator-id-5" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">passthrough</label><div class="sk-toggleable__content fitted"><pre>passthrough</pre></div> </div></div></div></div></div></div></div></div></div>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ct.transform(ames)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ct.transform(ames)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      minmax__Sale_Price  ...  remainder__Latitude
 0                  0.272  ...               42.054
@@ -1940,11 +1949,11 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 <p><code>MinMaxScaler()</code> doesn’t clip by default, we can turn this back on by setting <code>clip=True</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>ct <span class="op">=</span> ColumnTransformer(</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">'minmax'</span>, MinMaxScaler(clip<span class="op">=</span><span class="va">True</span>), [<span class="st">'Sale_Price'</span>, <span class="st">'Lot_Area'</span>, <span class="st">'Wood_Deck_SF'</span>,  <span class="st">'Mas_Vnr_Area'</span>])], </span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    remainder<span class="op">=</span><span class="st">"passthrough"</span>)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>ct.fit(ames)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>ct <span class="op">=</span> ColumnTransformer(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">'minmax'</span>, MinMaxScaler(clip<span class="op">=</span><span class="va">True</span>), [<span class="st">'Sale_Price'</span>, <span class="st">'Lot_Area'</span>, <span class="st">'Wood_Deck_SF'</span>,  <span class="st">'Mas_Vnr_Area'</span>])], </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    remainder<span class="op">=</span><span class="st">"passthrough"</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>ct.fit(ames)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <style>#sk-container-id-2 {
   /* Definition of color scheme common for light and dark mode */
@@ -2358,7 +2367,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                                  ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',
                                   'Mas_Vnr_Area'])])</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox"><label for="sk-estimator-id-7" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">minmax</label><div class="sk-toggleable__content fitted"><pre>['Sale_Price', 'Lot_Area', 'Wood_Deck_SF', 'Mas_Vnr_Area']</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-8" type="checkbox"><label for="sk-estimator-id-8" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;MinMaxScaler<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.4/modules/generated/sklearn.preprocessing.MinMaxScaler.html">?<span>Documentation for MinMaxScaler</span></a></label><div class="sk-toggleable__content fitted"><pre>MinMaxScaler(clip=True)</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-9" type="checkbox"><label for="sk-estimator-id-9" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">remainder</label><div class="sk-toggleable__content fitted"><pre>['MS_SubClass', 'MS_Zoning', 'Lot_Frontage', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Year_Built', 'Year_Remod_Add', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_SF_1', 'BsmtFin_Type_2', 'BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Total_Bsmt_SF', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'First_Flr_SF', 'Second_Flr_SF', 'Gr_Liv_Area', 'Bsmt_Full_Bath', 'Bsmt_Half_Bath', 'Full_Bath', 'Half_Bath', 'Bedroom_AbvGr', 'Kitchen_AbvGr', 'TotRms_AbvGrd', 'Functional', 'Fireplaces', 'Garage_Type', 'Garage_Finish', 'Garage_Cars', 'Garage_Area', 'Garage_Cond', 'Paved_Drive', 'Open_Porch_SF', 'Enclosed_Porch', 'Three_season_porch', 'Screen_Porch', 'Pool_Area', 'Pool_QC', 'Fence', 'Misc_Feature', 'Misc_Val', 'Mo_Sold', 'Year_Sold', 'Sale_Type', 'Sale_Condition', 'Longitude', 'Latitude']</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-10" type="checkbox"><label for="sk-estimator-id-10" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">passthrough</label><div class="sk-toggleable__content fitted"><pre>passthrough</pre></div> </div></div></div></div></div></div></div></div></div>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ct.transform(ames)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>ct.transform(ames)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      minmax__Sale_Price  ...  remainder__Latitude
 0                  0.272  ...               42.054
@@ -2378,11 +2387,11 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 <p>We can also set a different range other than <code>(0, 1)</code> with the <code>feature_range</code> argument</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>ct <span class="op">=</span> ColumnTransformer(</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">'minmax'</span>, MinMaxScaler(feature_range<span class="op">=</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)), [<span class="st">'Sale_Price'</span>, <span class="st">'Lot_Area'</span>, <span class="st">'Wood_Deck_SF'</span>,  <span class="st">'Mas_Vnr_Area'</span>])], </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    remainder<span class="op">=</span><span class="st">"passthrough"</span>)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>ct.fit(ames)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>ct <span class="op">=</span> ColumnTransformer(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">'minmax'</span>, MinMaxScaler(feature_range<span class="op">=</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)), [<span class="st">'Sale_Price'</span>, <span class="st">'Lot_Area'</span>, <span class="st">'Wood_Deck_SF'</span>,  <span class="st">'Mas_Vnr_Area'</span>])], </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    remainder<span class="op">=</span><span class="st">"passthrough"</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>ct.fit(ames)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <style>#sk-container-id-3 {
   /* Definition of color scheme common for light and dark mode */
@@ -2796,7 +2805,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                                  ['Sale_Price', 'Lot_Area', 'Wood_Deck_SF',
                                   'Mas_Vnr_Area'])])</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-12" type="checkbox"><label for="sk-estimator-id-12" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">minmax</label><div class="sk-toggleable__content fitted"><pre>['Sale_Price', 'Lot_Area', 'Wood_Deck_SF', 'Mas_Vnr_Area']</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-13" type="checkbox"><label for="sk-estimator-id-13" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;MinMaxScaler<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.4/modules/generated/sklearn.preprocessing.MinMaxScaler.html">?<span>Documentation for MinMaxScaler</span></a></label><div class="sk-toggleable__content fitted"><pre>MinMaxScaler(feature_range=(-1, 1))</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-14" type="checkbox"><label for="sk-estimator-id-14" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">remainder</label><div class="sk-toggleable__content fitted"><pre>['MS_SubClass', 'MS_Zoning', 'Lot_Frontage', 'Street', 'Alley', 'Lot_Shape', 'Land_Contour', 'Utilities', 'Lot_Config', 'Land_Slope', 'Neighborhood', 'Condition_1', 'Condition_2', 'Bldg_Type', 'House_Style', 'Overall_Cond', 'Year_Built', 'Year_Remod_Add', 'Roof_Style', 'Roof_Matl', 'Exterior_1st', 'Exterior_2nd', 'Mas_Vnr_Type', 'Exter_Cond', 'Foundation', 'Bsmt_Cond', 'Bsmt_Exposure', 'BsmtFin_Type_1', 'BsmtFin_SF_1', 'BsmtFin_Type_2', 'BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Total_Bsmt_SF', 'Heating', 'Heating_QC', 'Central_Air', 'Electrical', 'First_Flr_SF', 'Second_Flr_SF', 'Gr_Liv_Area', 'Bsmt_Full_Bath', 'Bsmt_Half_Bath', 'Full_Bath', 'Half_Bath', 'Bedroom_AbvGr', 'Kitchen_AbvGr', 'TotRms_AbvGrd', 'Functional', 'Fireplaces', 'Garage_Type', 'Garage_Finish', 'Garage_Cars', 'Garage_Area', 'Garage_Cond', 'Paved_Drive', 'Open_Porch_SF', 'Enclosed_Porch', 'Three_season_porch', 'Screen_Porch', 'Pool_Area', 'Pool_QC', 'Fence', 'Misc_Feature', 'Misc_Val', 'Mo_Sold', 'Year_Sold', 'Sale_Type', 'Sale_Condition', 'Longitude', 'Latitude']</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-15" type="checkbox"><label for="sk-estimator-id-15" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">passthrough</label><div class="sk-toggleable__content fitted"><pre>passthrough</pre></div> </div></div></div></div></div></div></div></div></div>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>ct.transform(ames)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>ct.transform(ames)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      minmax__Sale_Price  ...  remainder__Latitude
 0                 -0.455  ...               42.054

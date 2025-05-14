@@ -108,7 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta property="og:description" content="">
 <meta property="og:image" content="https://example.com/numeric-splines_files/figure-html/fig-splines-predictor-outcome-1.png">
 <meta property="og:site_name" content="Feature Engineering A-Z">
-<meta property="og:image:alt" content="Scatter chart. Predictor along the x-axis and outcome along the y-axis. The data has some wiggliness to it, but it follows a curve. You would not be able to fit a straight line to this data.">
+<meta property="og:image:alt" content="Scatter chart. Predictor along the x-axis and outcome along the y-axis. The data has some wiggliness to it, but it follows a curve. You would not  be able to fit a straight line to this data.">
 <meta property="og:image:height" content="960">
 <meta property="og:image:width" content="1344">
 </head>
@@ -1281,10 +1281,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Being able to transform a numeric variable that has a non-linear relationship with the outcome into one or more variables that do have linear relationships with the outcome is of great importance, as many models wouldn’t be able to work with these types of variables effectively themselves. Below is a toy example of one such variable</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-splines-predictor-outcome" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. The data has some wiggliness to it, but it follows a curve. You would not be able to fit a straight line to this data.">
+<div id="fig-splines-predictor-outcome" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. The data has some wiggliness to it, but it follows a curve. You would not  be able to fit a straight line to this data.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-splines-predictor-outcome-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="numeric-splines_files/figure-html/fig-splines-predictor-outcome-1.png" class="img-fluid figure-img" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. The data has some wiggliness to it, but it follows a curve. You would not be able to fit a straight line to this data." width="672">
+<img src="numeric-splines_files/figure-html/fig-splines-predictor-outcome-1.png" class="img-fluid figure-img" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. The data has some wiggliness to it, but it follows a curve. You would not  be able to fit a straight line to this data." width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-splines-predictor-outcome-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;12.1: Non-linear relationship between predictor and outcome.
@@ -1297,10 +1297,10 @@ Figure&nbsp;12.1: Non-linear relationship between predictor and outcome.
 <p>As we saw in the <a href="numeric-binning">Binning</a> chapter, one way to deal with this non-linearity is to chop up the predictor and emit indicators for which region the values take. While this works, we are losing quite a lot of detail by the rounding that occurs. This is where splines come in. Imagine that instead of indicators for whether a value is within a range, we have a set of functions that gives each predictor value a set of values, related to its location in the distribution.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-splines-spline-curves" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Facetted line chart. Predictor along the x-axis, value along the y-axis. Each of the curves starts at 0, goes smoothly, and then down to zero. The highpoint for each curve goes further to the right for each curve shown.">
+<div id="fig-splines-spline-curves" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Facetted line chart. Predictor along the x-axis, value along the y-axis. Each of the curves starts at 0, goes smoothly, and then down to zero. The highpoint for each curve goes further to the right for each curve  shown.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-splines-spline-curves-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="numeric-splines_files/figure-html/fig-splines-spline-curves-1.png" class="img-fluid figure-img" alt="Facetted line chart. Predictor along the x-axis, value along the y-axis. Each of the curves starts at 0, goes smoothly, and then down to zero. The highpoint for each curve goes further to the right for each curve shown." width="672">
+<img src="numeric-splines_files/figure-html/fig-splines-spline-curves-1.png" class="img-fluid figure-img" alt="Facetted line chart. Predictor along the x-axis, value along the y-axis. Each of the curves starts at 0, goes smoothly, and then down to zero. The highpoint for each curve goes further to the right for each curve  shown." width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-splines-spline-curves-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;12.2: Each part of the spline detects a part of the data set.
@@ -1398,10 +1398,10 @@ Table&nbsp;12.1: Spline values for different values of the predictor
 <p>If we take a look at how this plays out when we bring back the outcome we can look at this visualization</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-splines-spline-highlight" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Facetted scatter chart. Predictor along the x-axis, outcome along the y-axis. Each of the facets shows the same non-linear relationship between predictor and outcome. Color is used to show how each spline term highlights a different part of the predictor. The highlight goes further to the right for each facet.">
+<div id="fig-splines-spline-highlight" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Facetted scatter chart. Predictor along the x-axis, outcome along the  y-axis. Each of the facets shows the same non-linear relationship between predictor and outcome. Color is used to show how each spline term  highlights a different part of the predictor. The highlight goes further  to the right for each facet.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-splines-spline-highlight-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="numeric-splines_files/figure-html/fig-splines-spline-highlight-1.png" class="img-fluid figure-img" alt="Facetted scatter chart. Predictor along the x-axis, outcome along the y-axis. Each of the facets shows the same non-linear relationship between predictor and outcome. Color is used to show how each spline term highlights a different part of the predictor. The highlight goes further to the right for each facet." width="672">
+<img src="numeric-splines_files/figure-html/fig-splines-spline-highlight-1.png" class="img-fluid figure-img" alt="Facetted scatter chart. Predictor along the x-axis, outcome along the  y-axis. Each of the facets shows the same non-linear relationship between predictor and outcome. Color is used to show how each spline term  highlights a different part of the predictor. The highlight goes further  to the right for each facet." width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-splines-spline-highlight-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;12.3: Each part of the spline detects a part of the data set.
@@ -1414,10 +1414,10 @@ Figure&nbsp;12.3: Each part of the spline detects a part of the data set.
 <p>It is important to point out that this transformation only uses the predictor variable to do its calculations. And the fact that it works in a modeling sense is that the outcome predictor relationship in this case, and many real-life cases, can helpfully be explained by “the predictor value has these values”.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-splines-spline-outcome" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Facetted scatter chart. Spline value along the x-axis, outcome along the y-axis. Each facet shows the relationship between one of the spline terms and the outcome. Some of them are non-linear, and a couple of them are fairly linear. A fitted line is overlaid in blue.">
+<div id="fig-splines-spline-outcome" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Facetted scatter chart. Spline value along the x-axis, outcome along the  y-axis. Each facet shows the relationship between one of the spline terms and the outcome. Some of them are non-linear, and a couple of them are  fairly linear. A fitted line is overlaid in blue.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-splines-spline-outcome-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="numeric-splines_files/figure-html/fig-splines-spline-outcome-1.png" class="img-fluid figure-img" alt="Facetted scatter chart. Spline value along the x-axis, outcome along the y-axis. Each facet shows the relationship between one of the spline terms and the outcome. Some of them are non-linear, and a couple of them are fairly linear. A fitted line is overlaid in blue." width="672">
+<img src="numeric-splines_files/figure-html/fig-splines-spline-outcome-1.png" class="img-fluid figure-img" alt="Facetted scatter chart. Spline value along the x-axis, outcome along the  y-axis. Each facet shows the relationship between one of the spline terms and the outcome. Some of them are non-linear, and a couple of them are  fairly linear. A fitted line is overlaid in blue." width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-splines-spline-outcome-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;12.4: Some spline terms have a better relationship to the outcome than others.
@@ -1445,10 +1445,10 @@ Figure&nbsp;12.5: Neighboring features are highly correlated and anti-correlated
 <p>Lastly, the above spline functions you saw were called B-splines, but they are not the only kind of splines you can use.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-splines-types-of-splines" class="quarto-float quarto-figure quarto-figure-center anchored" alt="4 charts in a grid. Each represents a different type of spline. The C-splines here are all increasing at different rates of change. The M-splines appear to have a sigmoidal shape, starting at 0 and ending at 1. The natural splines look very similar to the basic splines we saw earlier. And the last chart shows a periodic b-spline. These splines are the same kind as earlier, but they have been modified to repeat at a specific interval.">
+<div id="fig-splines-types-of-splines" class="quarto-float quarto-figure quarto-figure-center anchored" alt="4 charts in a grid. Each represents a different type of spline. The  C-splines here are all increasing at different rates of change. The  M-splines appear to have a sigmoidal shape, starting at 0 and ending  at 1. The natural splines look very similar to the basic splines we saw earlier. And the last chart shows a periodic b-spline. These splines are the same kind as earlier, but they have been modified to repeat at a specific interval.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-splines-types-of-splines-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="numeric-splines_files/figure-html/fig-splines-types-of-splines-1.png" class="img-fluid figure-img" alt="4 charts in a grid. Each represents a different type of spline. The C-splines here are all increasing at different rates of change. The M-splines appear to have a sigmoidal shape, starting at 0 and ending at 1. The natural splines look very similar to the basic splines we saw earlier. And the last chart shows a periodic b-spline. These splines are the same kind as earlier, but they have been modified to repeat at a specific interval." width="672">
+<img src="numeric-splines_files/figure-html/fig-splines-types-of-splines-1.png" class="img-fluid figure-img" alt="4 charts in a grid. Each represents a different type of spline. The  C-splines here are all increasing at different rates of change. The  M-splines appear to have a sigmoidal shape, starting at 0 and ending  at 1. The natural splines look very similar to the basic splines we saw earlier. And the last chart shows a periodic b-spline. These splines are the same kind as earlier, but they have been modified to repeat at a specific interval." width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-splines-types-of-splines-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;12.6: Neighboring features are highly correlated and anti-correlated with far away features.
@@ -1461,10 +1461,10 @@ Figure&nbsp;12.6: Neighboring features are highly correlated and anti-correlated
 <p>Below is a chart of how well using splines works when using it on our toy example. Since the data isn’t that complicated, a small <code>deg_free</code> is sufficient to fit the data well.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-splines-different-degrees" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. The data has some wiggliness to it, but it follows a curve. You would not be able to fit a straight line to this data. 4 spline fits are plotted to fit the data. deg_free = 5 appears to fit well without overfitting, the rest are overfitting the data.">
+<div id="fig-splines-different-degrees" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. The data has some wiggliness to it, but it follows a curve. You would not  be able to fit a straight line to this data. 4 spline fits are  plotted to fit the data. deg_free = 5 appears to fit well without  overfitting, the rest are overfitting the data.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-splines-different-degrees-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="numeric-splines_files/figure-html/fig-splines-different-degrees-1.png" class="img-fluid figure-img" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. The data has some wiggliness to it, but it follows a curve. You would not be able to fit a straight line to this data. 4 spline fits are plotted to fit the data. deg_free = 5 appears to fit well without overfitting, the rest are overfitting the data." width="672">
+<img src="numeric-splines_files/figure-html/fig-splines-different-degrees-1.png" class="img-fluid figure-img" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. The data has some wiggliness to it, but it follows a curve. You would not  be able to fit a straight line to this data. 4 spline fits are  plotted to fit the data. deg_free = 5 appears to fit well without  overfitting, the rest are overfitting the data." width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-splines-different-degrees-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;12.7: All the splines follow the data well, the higher degrees appear to overfit quite a bit.
