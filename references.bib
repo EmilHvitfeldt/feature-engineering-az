@@ -460,3 +460,50 @@
   pages     = {168--180},
   isbn      = {978-3-030-85529-1}
 }
+
+@article{sparsePCA2006,
+  issn      = {10618600},
+  url       = {http://www.jstor.org/stable/27594179},
+  abstract  = {Principal component analysis (PCA) is widely used in data processing and dimensionality reduction. However, PCA suffers from the fact that each principal component is a linear combination of all the original variables, thus it is often difficult to interpret the results. We introduce a new method called sparse principal component analysis (SPCA) using the lasso (elastic net) to produce modified principal components with sparse loadings. We first show that PCA can be formulated as a regression-type optimization problem; sparse loadings are then obtained by imposing the lasso (elastic net) constraint on the regression coefficients. Efficient algorithms are proposed to fit our SPCA models for both regular multivariate data and gene expression arrays. We also give a new formula to compute the total variance of modified principal components. As illustrations, SPCA is applied to real and simulated data with encouraging results.},
+  author    = {Hui Zou and Trevor Hastie and Robert Tibshirani},
+  journal   = {Journal of Computational and Graphical Statistics},
+  number    = {2},
+  pages     = {265--286},
+  publisher = {[American Statistical Association, Taylor & Francis, Ltd., Institute of Mathematical Statistics, Interface Foundation of America]},
+  title     = {Sparse Principal Component Analysis},
+  urldate   = {2025-06-16},
+  volume    = {15},
+  year      = {2006}
+}
+
+@article{robustpca2011,
+  author     = {Cand\`{e}s, Emmanuel J. and Li, Xiaodong and Ma, Yi and Wright, John},
+  title      = {Robust principal component analysis?},
+  year       = {2011},
+  issue_date = {May 2011},
+  publisher  = {Association for Computing Machinery},
+  address    = {New York, NY, USA},
+  volume     = {58},
+  number     = {3},
+  issn       = {0004-5411},
+  url        = {https://doi.org/10.1145/1970392.1970395},
+  doi        = {10.1145/1970392.1970395},
+  abstract   = {This article is about a curious phenomenon. Suppose we have a data matrix, which is the superposition of a low-rank component and a sparse component. Can we recover each component individually? We prove that under some suitable assumptions, it is possible to recover both the low-rank and the sparse components exactly by solving a very convenient convex program called Principal Component Pursuit; among all feasible decompositions, simply minimize a weighted combination of the nuclear norm and of the ℓ1 norm. This suggests the possibility of a principled approach to robust principal component analysis since our methodology and results assert that one can recover the principal components of a data matrix even though a positive fraction of its entries are arbitrarily corrupted. This extends to the situation where a fraction of the entries are missing as well. We discuss an algorithm for solving this optimization problem, and present applications in the area of video surveillance, where our methodology allows for the detection of objects in a cluttered background, and in the area of face recognition, where it offers a principled way of removing shadows and specularities in images of faces.},
+  journal    = {J. ACM},
+  month      = jun,
+  articleno  = {11},
+  numpages   = {37},
+  keywords   = {video surveillance, sparsity, robustness vis-a-vis outliers, nuclear-norm minimization, low-rank matrices, duality, Principal components, ℓ1-norm minimization}
+}
+
+@inproceedings{kernalpca1998,
+  author    = {Mika, Sebastian and Sch\"{o}lkopf, Bernhard and Smola, Alex and M\"{u}ller, Klaus-Robert and Scholz, Matthias and R\"{a}tsch, Gunnar},
+  booktitle = {Advances in Neural Information Processing Systems},
+  editor    = {M. Kearns and S. Solla and D. Cohn},
+  pages     = {},
+  publisher = {MIT Press},
+  title     = {Kernel PCA and De-Noising in Feature Spaces},
+  url       = {https://proceedings.neurips.cc/paper_files/paper/1998/file/226d1f15ecd35f784d2a20c3ecf56d7f-Paper.pdf},
+  volume    = {11},
+  year      = {1998}
+}

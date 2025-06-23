@@ -2,22 +2,125 @@
 pagetitle: "Feature Engineering A-Z | Principal Component Analysis Variants"
 ---
 
-# 🏗️ Principal Component Analysis Variants {#sec-too-many-pca-variants}
+# Principal Component Analysis Variants {#sec-too-many-pca-variants}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## Principal Component Analysis Variants
 :::
 
-WIP
+This chapter goes over some of the variants of [PCA](too-many-pca.qmd).
+It is highly encouraged that you read that chapter before reading this one, as all of the following sections will be described as different from the main implementation.
+The variants presented in this chapter are the ones I feel are the most relevant and truly feel like variants.
+Some would argue that [Non-negative Matrix Factorization (NMF)](too-many-nmf.qmd) is a variant of PCA, however, this book treats it as a separate method.
 
-https://www.youtube.com/watch?v=9iol3Lk6kyU&t=3s
+### Sparse PCA
 
-## Pros and Cons
+**Sparse PCA**[@sparsePCA2006] is a variant of PCA where regularization is used to force some of the loadings to be zero.
+One of the downsides to regular PCA is that each resulting vector is a linear combination of all the input variables.
+This leads to harder interpretability, especially for data sets with many columns.
+By forcing some of the loadings to be zero you then limit how many input input variables are used in each output.
 
-### Pros
+::: {.callout-note}
+Remember that sparse here refers to the loading values, not the data.
+:::
 
-### Cons
+The amount of zeros would either be controlled with a regularization amount or as a proportion of zeros.
+And it doesn't really matter which way, As long as you find the right tradeoff.
+With no regularization, you are left with regular PCA.
+With too much regularization you only allow 1 non-zero loading, meaning that each output vector will be a scaled version of 1 input vector.
+This end technically doesn't do anything we want to do.
+With no regularization we go with the most optimal compression of the data, with too much regularization we don't do any compression.
+The hope is that there is a good tradeoff between compression and interpretability.
+
+::: callout-note
+The prediction of a regularized PCA will technically be faster as it requires fewer calculations.
+:::
+
+If you use PCA as a dimensionality reduction method, then regularizing your PCA will help to eliminate noisy input features as they will show up less or not at all.
+
+### Robust PCA
+
+**Robust PCA**[@robustpca2011] is used when you suspect that there are large amounts of outliers in your data set.
+It does this by decomposing the data into two parts,
+one is the assumed clean data set that works well with PCA,
+and the other is a sparse data set of the outliers and corruption.
+The hope is that this decomposition filters off the unwanted outliers.
+
+Please see the [outliers section](outliers.qmd) for more methods of how to handle outliers in your data.
+
+### Kernel PCA
+
+**Kernal PCA**[@kernalpca1998] is a variation of PCA for when the assumption of linear relationship no longer holds.
+We want to keep the PCA framework and do that by extending it to better handle non-linear relationships.
+
+The standard implementation of PCA resolves around using inner product calculations to transform the data into a new dimension.
+What we can do instead is to use a kernel function in place of the inner product to allow for distance calculations in the higher dimensional feature space without transforming all of the data set into that space.
+This is the same trick used for Kernel Support Vector Machines.
+
+These calculations allow the user to explore non-linear trends if there are any.
+There isn't a way to reverse the transformation like there is with traditional PCA,
+which is similar to why interpretability is worse for kernel PCA.
+It also introduces a hyperparameter that would need to be tuned.
 
 ## R Examples
+
+```{r}
+#| label: ames
+#| echo: false
+#| message: false
+library(tidymodels)
+data("ames")
+```
+
+We will be using the `ames` data set for these examples.
+
+```{r}
+#| label: show-data
+library(recipes)
+library(embed)
+library(modeldata)
+
+ames_num <- ames |>
+  select(where(is.numeric))
+```
+
+{embed} provides `step_pca_sparse()` to perform sparse PCA and {recipes} provides `step_kpca()`, `step_kpca_poly()`, `step_kpca_rbf()` to perform kernel PCA with different kernels.
+
+For `step_pca_sparse()` the `predictor_prop` argument is used to determine the maximum proportion of non-zero coefficients. 
+
+```{r}
+#| label: step_pca_sparse
+pca_sparse_rec <- recipe(~ ., data = ames_num) |>
+  step_normalize(all_numeric_predictors()) |>
+  step_pca_sparse(all_numeric_predictors(), predictor_prop = 0.2)
+
+pca_sparse_rec_prepped <- prep(pca_sparse_rec)
+  
+pca_sparse_rec_prepped |>
+  bake(new_data = NULL) |>
+  glimpse()
+```
+
+It works the same as `step_pca()`, but if we take a look at the coefficients there are more zeroes.
+
+```{r}
+#| label: step_pca_sparse_tidy
+pca_sparse_rec_prepped |>
+  tidy(2)
+```
+
+All the kernel pca steps work the same way.
+
+```{r}
+#| label: step_kpca
+pca_kpca_rec <- recipe(~ ., data = ames_num) |>
+  step_normalize(all_numeric_predictors()) |>
+  step_kpca(all_numeric_predictors())
+
+pca_sparse_rec |>
+  prep() |>
+  bake(new_data = NULL) |>
+  glimpse()
+```
 
 ## Python Examples
