@@ -20,7 +20,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -84,7 +138,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./too-many.html">Too Many Variables</a></li><li class="breadcrumb-item"><a href="./too-many-pca-variants.html"><span class="chapter-number">69</span>&nbsp; <span class="chapter-title">🏗️ Principal Component Analysis Variants</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./too-many.html">Too Many Variables</a></li><li class="breadcrumb-item"><a href="./too-many-pca-variants.html"><span class="chapter-number">69</span>&nbsp; <span class="chapter-title">Principal Component Analysis Variants</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -610,7 +664,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./too-many-pca-variants.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">69</span>&nbsp; <span class="chapter-title">🏗️ Principal Component Analysis Variants</span></span></a>
+ <span class="menu-text"><span class="chapter-number">69</span>&nbsp; <span class="chapter-title">Principal Component Analysis Variants</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1204,22 +1258,20 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#principal-component-analysis-variants" id="toc-principal-component-analysis-variants" class="nav-link active" data-scroll-target="#principal-component-analysis-variants"><span class="header-section-number">69.1</span> Principal Component Analysis Variants</a></li>
-  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link" data-scroll-target="#pros-and-cons"><span class="header-section-number">69.2</span> Pros and Cons</a>
-  <ul class="collapse">
-  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">69.2.1</span> Pros</a></li>
-  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">69.2.2</span> Cons</a></li>
-  </ul></li>
-  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">69.3</span> R Examples</a></li>
-  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">69.4</span> Python Examples</a></li>
+  <li><a href="#sparse-pca" id="toc-sparse-pca" class="nav-link" data-scroll-target="#sparse-pca"><span class="header-section-number">69.1.1</span> Sparse PCA</a></li>
+  <li><a href="#robust-pca" id="toc-robust-pca" class="nav-link" data-scroll-target="#robust-pca"><span class="header-section-number">69.1.2</span> Robust PCA</a></li>
+  <li><a href="#kernel-pca" id="toc-kernel-pca" class="nav-link" data-scroll-target="#kernel-pca"><span class="header-section-number">69.1.3</span> Kernel PCA</a></li>
+  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">69.2</span> R Examples</a></li>
+  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">69.3</span> Python Examples</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/too-many-pca-variants.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/too-many-pca-variants.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./too-many.html">Too Many Variables</a></li><li class="breadcrumb-item"><a href="./too-many-pca-variants.html"><span class="chapter-number">69</span>&nbsp; <span class="chapter-title">🏗️ Principal Component Analysis Variants</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./too-many.html">Too Many Variables</a></li><li class="breadcrumb-item"><a href="./too-many-pca-variants.html"><span class="chapter-number">69</span>&nbsp; <span class="chapter-title">Principal Component Analysis Variants</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-too-many-pca-variants" class="quarto-section-identifier"><span class="chapter-number">69</span>&nbsp; <span class="chapter-title">🏗️ Principal Component Analysis Variants</span></span></h1>
+<h1 class="title"><span id="sec-too-many-pca-variants" class="quarto-section-identifier"><span class="chapter-number">69</span>&nbsp; <span class="chapter-title">Principal Component Analysis Variants</span></span></h1>
 </div>
 
 
@@ -1239,24 +1291,140 @@ ul.task-list li input[type="checkbox"] {
 <section id="principal-component-analysis-variants" class="level2" style="visibility: hidden; height: 0px;" data-number="69.1">
 <h2 data-number="69.1" class="anchored" data-anchor-id="principal-component-analysis-variants"><span class="header-section-number">69.1</span> Principal Component Analysis Variants</h2>
 </section>
-<p>WIP</p>
-<p>https://www.youtube.com/watch?v=9iol3Lk6kyU&amp;t=3s</p>
-<section id="pros-and-cons" class="level2" data-number="69.2">
-<h2 data-number="69.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">69.2</span> Pros and Cons</h2>
-<section id="pros" class="level3" data-number="69.2.1">
-<h3 data-number="69.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">69.2.1</span> Pros</h3>
+<p>This chapter goes over some of the variants of <a href="./too-many-pca.html">PCA</a>. It is highly encouraged that you read that chapter before reading this one, as all of the following sections will be described as different from the main implementation. The variants presented in this chapter are the ones I feel are the most relevant and truly feel like variants. Some would argue that <a href="./too-many-nmf.html">Non-negative Matrix Factorization (NMF)</a> is a variant of PCA, however, this book treats it as a separate method.</p>
+<section id="sparse-pca" class="level3" data-number="69.1.1">
+<h3 data-number="69.1.1" class="anchored" data-anchor-id="sparse-pca"><span class="header-section-number">69.1.1</span> Sparse PCA</h3>
+<p><strong>Sparse PCA</strong><span class="citation" data-cites="sparsePCA2006">(<a href="references.html#ref-sparsePCA2006" role="doc-biblioref">Zou, Hastie, and Tibshirani 2006</a>)</span> is a variant of PCA where regularization is used to force some of the loadings to be zero. One of the downsides to regular PCA is that each resulting vector is a linear combination of all the input variables. This leads to harder interpretability, especially for data sets with many columns. By forcing some of the loadings to be zero you then limit how many input input variables are used in each output.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Remember that sparse here refers to the loading values, not the data.</p>
+</div>
+</div>
+<p>The amount of zeros would either be controlled with a regularization amount or as a proportion of zeros. And it doesn’t really matter which way, As long as you find the right tradeoff. With no regularization, you are left with regular PCA. With too much regularization you only allow 1 non-zero loading, meaning that each output vector will be a scaled version of 1 input vector. This end technically doesn’t do anything we want to do. With no regularization we go with the most optimal compression of the data, with too much regularization we don’t do any compression. The hope is that there is a good tradeoff between compression and interpretability.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The prediction of a regularized PCA will technically be faster as it requires fewer calculations.</p>
+</div>
+</div>
+<p>If you use PCA as a dimensionality reduction method, then regularizing your PCA will help to eliminate noisy input features as they will show up less or not at all.</p>
 </section>
-<section id="cons" class="level3" data-number="69.2.2">
-<h3 data-number="69.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">69.2.2</span> Cons</h3>
+<section id="robust-pca" class="level3" data-number="69.1.2">
+<h3 data-number="69.1.2" class="anchored" data-anchor-id="robust-pca"><span class="header-section-number">69.1.2</span> Robust PCA</h3>
+<p><strong>Robust PCA</strong><span class="citation" data-cites="robustpca2011">(<a href="references.html#ref-robustpca2011" role="doc-biblioref">Candès et al. 2011</a>)</span> is used when you suspect that there are large amounts of outliers in your data set. It does this by decomposing the data into two parts, one is the assumed clean data set that works well with PCA, and the other is a sparse data set of the outliers and corruption. The hope is that this decomposition filters off the unwanted outliers.</p>
+<p>Please see the <a href="./outliers.html">outliers section</a> for more methods of how to handle outliers in your data.</p>
 </section>
+<section id="kernel-pca" class="level3" data-number="69.1.3">
+<h3 data-number="69.1.3" class="anchored" data-anchor-id="kernel-pca"><span class="header-section-number">69.1.3</span> Kernel PCA</h3>
+<p><strong>Kernal PCA</strong><span class="citation" data-cites="kernalpca1998">(<a href="references.html#ref-kernalpca1998" role="doc-biblioref">Mika et al. 1998</a>)</span> is a variation of PCA for when the assumption of linear relationship no longer holds. We want to keep the PCA framework and do that by extending it to better handle non-linear relationships.</p>
+<p>The standard implementation of PCA resolves around using inner product calculations to transform the data into a new dimension. What we can do instead is to use a kernel function in place of the inner product to allow for distance calculations in the higher dimensional feature space without transforming all of the data set into that space. This is the same trick used for Kernel Support Vector Machines.</p>
+<p>These calculations allow the user to explore non-linear trends if there are any. There isn’t a way to reverse the transformation like there is with traditional PCA, which is similar to why interpretability is worse for kernel PCA. It also introduces a hyperparameter that would need to be tuned.</p>
 </section>
-<section id="r-examples" class="level2" data-number="69.3">
-<h2 data-number="69.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">69.3</span> R Examples</h2>
+<section id="r-examples" class="level2" data-number="69.2">
+<h2 data-number="69.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">69.2</span> R Examples</h2>
+<p>We will be using the <code>ames</code> data set for these examples.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(embed)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modeldata)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>ames_num <span class="ot">&lt;-</span> ames <span class="sc">|&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>{embed} provides <code>step_pca_sparse()</code> to perform sparse PCA and {recipes} provides <code>step_kpca()</code>, <code>step_kpca_poly()</code>, <code>step_kpca_rbf()</code> to perform kernel PCA with different kernels.</p>
+<p>For <code>step_pca_sparse()</code> the <code>predictor_prop</code> argument is used to determine the maximum proportion of non-zero coefficients.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pca_sparse_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(<span class="sc">~</span> ., <span class="at">data =</span> ames_num) <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_normalize</span>(<span class="fu">all_numeric_predictors</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_pca_sparse</span>(<span class="fu">all_numeric_predictors</span>(), <span class="at">predictor_prop =</span> <span class="fl">0.2</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>pca_sparse_rec_prepped <span class="ot">&lt;-</span> <span class="fu">prep</span>(pca_sparse_rec)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>pca_sparse_rec_prepped <span class="sc">|&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,930
+Columns: 5
+$ PC1 &lt;dbl&gt; -0.928277538, 1.121799088, 0.766999671, -2.465148494, -0.098799277…
+$ PC2 &lt;dbl&gt; -0.42651536, -2.05092903, -0.27170407, 0.85236446, 0.99100986, 1.2…
+$ PC3 &lt;dbl&gt; -1.2169854, -1.1145117, -0.9661340, -0.5375621, 1.1432034, 1.16141…
+$ PC4 &lt;dbl&gt; -1.4916224, 0.3556418, -0.7108605, -0.6941959, -0.5099111, -0.3670…
+$ PC5 &lt;dbl&gt; 0.62934269, 0.89542998, 0.07696528, 0.60312896, 0.25551665, 0.2227…</code></pre>
+</div>
+</div>
+<p>It works the same as <code>step_pca()</code>, but if we take a look at the coefficients there are more zeroes.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pca_sparse_rec_prepped <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 170 × 4
+   terms           value component id              
+   &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;           
+ 1 Lot_Frontage    0     PC1       pca_sparse_jMybd
+ 2 Lot_Area        0     PC1       pca_sparse_jMybd
+ 3 Year_Built      0     PC1       pca_sparse_jMybd
+ 4 Year_Remod_Add  0     PC1       pca_sparse_jMybd
+ 5 Mas_Vnr_Area    0     PC1       pca_sparse_jMybd
+ 6 BsmtFin_SF_1    0     PC1       pca_sparse_jMybd
+ 7 BsmtFin_SF_2    0     PC1       pca_sparse_jMybd
+ 8 Bsmt_Unf_SF     0     PC1       pca_sparse_jMybd
+ 9 Total_Bsmt_SF  -0.268 PC1       pca_sparse_jMybd
+10 First_Flr_SF   -0.303 PC1       pca_sparse_jMybd
+# ℹ 160 more rows</code></pre>
+</div>
+</div>
+<p>All the kernel pca steps work the same way.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pca_kpca_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(<span class="sc">~</span> ., <span class="at">data =</span> ames_num) <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_normalize</span>(<span class="fu">all_numeric_predictors</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_kpca</span>(<span class="fu">all_numeric_predictors</span>())</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>pca_sparse_rec <span class="sc">|&gt;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,930
+Columns: 5
+$ PC1 &lt;dbl&gt; 0.928277538, -1.121799088, -0.766999671, 2.465148494, 0.098799277,…
+$ PC2 &lt;dbl&gt; 0.42651536, 2.05092903, 0.27170407, -0.85236446, -0.99100986, -1.2…
+$ PC3 &lt;dbl&gt; 1.2169854, 1.1145117, 0.9661340, 0.5375621, -1.1432034, -1.1614148…
+$ PC4 &lt;dbl&gt; 1.4916224, -0.3556418, 0.7108605, 0.6941959, 0.5099111, 0.3670430,…
+$ PC5 &lt;dbl&gt; -0.62934150, -0.89546560, -0.07688815, -0.60311144, -0.25548742, -…</code></pre>
+</div>
+</div>
 </section>
-<section id="python-examples" class="level2" data-number="69.4">
-<h2 data-number="69.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">69.4</span> Python Examples</h2>
+<section id="python-examples" class="level2" data-number="69.3">
+<h2 data-number="69.3" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">69.3</span> Python Examples</h2>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-robustpca2011" class="csl-entry" role="listitem">
+Candès, Emmanuel J., Xiaodong Li, Yi Ma, and John Wright. 2011. <span>“Robust Principal Component Analysis?”</span> <em>J. ACM</em> 58 (3). <a href="https://doi.org/10.1145/1970392.1970395">https://doi.org/10.1145/1970392.1970395</a>.
+</div>
+<div id="ref-kernalpca1998" class="csl-entry" role="listitem">
+Mika, Sebastian, Bernhard Schölkopf, Alex Smola, Klaus-Robert Müller, Matthias Scholz, and Gunnar Rätsch. 1998. <span>“Kernel PCA and de-Noising in Feature Spaces.”</span> In <em>Advances in Neural Information Processing Systems</em>, edited by M. Kearns, S. Solla, and D. Cohn. Vol. 11. MIT Press. <a href="https://proceedings.neurips.cc/paper_files/paper/1998/file/226d1f15ecd35f784d2a20c3ecf56d7f-Paper.pdf">https://proceedings.neurips.cc/paper_files/paper/1998/file/226d1f15ecd35f784d2a20c3ecf56d7f-Paper.pdf</a>.
+</div>
+<div id="ref-sparsePCA2006" class="csl-entry" role="listitem">
+Zou, Hui, Trevor Hastie, and Robert Tibshirani. 2006. <span>“Sparse Principal Component Analysis.”</span> <em>Journal of Computational and Graphical Statistics</em> 15 (2): 265–86. <a href="http://www.jstor.org/stable/27594179">http://www.jstor.org/stable/27594179</a>.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
