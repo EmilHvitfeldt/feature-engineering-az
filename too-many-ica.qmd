@@ -2,20 +2,73 @@
 pagetitle: "Feature Engineering A-Z | Independent Component Analysis"
 ---
 
-# 🏗️ Independent Component Analysis {#sec-too-many-ica}
+# Independent Component Analysis {#sec-too-many-ica}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## Independent Component Analysis
 :::
 
-WIP
+Independent Component Analysis (ICA) is a method quite similar to [Principal Component Analysis](too-many-pca.qmd).
+PCA aims to create a transformation that maximizes the variance of the resulting variables, 
+while making them uncorrelated.
+ICA, on the other hand, aims to create variables that are statistically independent.
+Note that the ICA components are not assumed to be uncorrelated or orthogonal.
+
+This allows ICA to pull out stronger signals in your data.
+It also doesn't assume that the data is Gaussian.
+
+One way to think about the difference between PCA and ICA,
+PCA can be used more effectively as a data compression technique,
+On the other hand, ICA helps uncover and separate the structure in the data itself.
+
+The notion that ICA is a dimensionality reduction method is because the implementation of fastICA, which is commonly used, works incrementally.
+
+ICA, much like PCA, requires that your data be normalized before it is applied.
 
 ## Pros and Cons
 
 ### Pros
 
+- Can identify stronger signals
+
 ### Cons
 
+- Sensitive to noise and outliers
+- Computationally Intensive
+
 ## R Examples
+
+```{r}
+#| label: ames
+#| echo: false
+#| message: false
+library(tidymodels)
+data("ames")
+```
+
+We will be using the `ames` data set for these examples.
+
+```{r}
+#| label: show-data
+library(recipes)
+library(modeldata)
+
+ames_num <- ames |>
+  select(where(is.numeric))
+```
+
+{recipes} provides `step_ica()`, which is the standard way to perform PCA.
+
+```{r}
+#| label: step_ica
+pca_rec <- recipe(~ ., data = ames_num) |>
+  step_normalize(all_numeric_predictors()) |>
+  step_ica(all_numeric_predictors())
+
+pca_rec |>
+  prep() |>
+  bake(new_data = NULL) |>
+  glimpse()
+```
 
 ## Python Examples
