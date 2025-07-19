@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -84,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./too-many.html">Too Many Variables</a></li><li class="breadcrumb-item"><a href="./too-many-ica.html"><span class="chapter-number">70</span>&nbsp; <span class="chapter-title">🏗️ Independent Component Analysis</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./too-many.html">Too Many Variables</a></li><li class="breadcrumb-item"><a href="./too-many-ica.html"><span class="chapter-number">70</span>&nbsp; <span class="chapter-title">Independent Component Analysis</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -616,7 +650,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./too-many-ica.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">70</span>&nbsp; <span class="chapter-title">🏗️ Independent Component Analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">70</span>&nbsp; <span class="chapter-title">Independent Component Analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1217,9 +1251,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./too-many.html">Too Many Variables</a></li><li class="breadcrumb-item"><a href="./too-many-ica.html"><span class="chapter-number">70</span>&nbsp; <span class="chapter-title">🏗️ Independent Component Analysis</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./too-many.html">Too Many Variables</a></li><li class="breadcrumb-item"><a href="./too-many-ica.html"><span class="chapter-number">70</span>&nbsp; <span class="chapter-title">Independent Component Analysis</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-too-many-ica" class="quarto-section-identifier"><span class="chapter-number">70</span>&nbsp; <span class="chapter-title">🏗️ Independent Component Analysis</span></span></h1>
+<h1 class="title"><span id="sec-too-many-ica" class="quarto-section-identifier"><span class="chapter-number">70</span>&nbsp; <span class="chapter-title">Independent Component Analysis</span></span></h1>
 </div>
 
 
@@ -1239,18 +1273,57 @@ ul.task-list li input[type="checkbox"] {
 <section id="independent-component-analysis" class="level2" style="visibility: hidden; height: 0px;" data-number="70.1">
 <h2 data-number="70.1" class="anchored" data-anchor-id="independent-component-analysis"><span class="header-section-number">70.1</span> Independent Component Analysis</h2>
 </section>
-<p>WIP</p>
+<p>Independent Component Analysis (ICA) is a method quite similar to <a href="./too-many-pca.html">Principal Component Analysis</a>. PCA aims to create a transformation that maximizes the variance of the resulting variables, while making them uncorrelated. ICA, on the other hand, aims to create variables that are statistically independent. Note that the ICA components are not assumed to be uncorrelated or orthogonal.</p>
+<p>This allows ICA to pull out stronger signals in your data. It also doesn’t assume that the data is Gaussian.</p>
+<p>One way to think about the difference between PCA and ICA, PCA can be used more effectively as a data compression technique, On the other hand, ICA helps uncover and separate the structure in the data itself.</p>
+<p>The notion that ICA is a dimensionality reduction method is because the implementation of fastICA, which is commonly used, works incrementally.</p>
+<p>ICA, much like PCA, requires that your data be normalized before it is applied.</p>
 <section id="pros-and-cons" class="level2" data-number="70.2">
 <h2 data-number="70.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">70.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="70.2.1">
 <h3 data-number="70.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">70.2.1</span> Pros</h3>
+<ul>
+<li>Can identify stronger signals</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="70.2.2">
 <h3 data-number="70.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">70.2.2</span> Cons</h3>
+<ul>
+<li>Sensitive to noise and outliers</li>
+<li>Computationally Intensive</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="70.3">
 <h2 data-number="70.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">70.3</span> R Examples</h2>
+<p>We will be using the <code>ames</code> data set for these examples.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modeldata)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>ames_num <span class="ot">&lt;-</span> ames <span class="sc">|&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>{recipes} provides <code>step_ica()</code>, which is the standard way to perform PCA.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pca_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(<span class="sc">~</span> ., <span class="at">data =</span> ames_num) <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_normalize</span>(<span class="fu">all_numeric_predictors</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_ica</span>(<span class="fu">all_numeric_predictors</span>())</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>pca_rec <span class="sc">|&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,930
+Columns: 5
+$ IC1 &lt;dbl&gt; -0.37052169, 0.51413974, -0.80280637, 0.12280549, -0.65078105, -0.…
+$ IC2 &lt;dbl&gt; -0.104340006, 0.924875720, -0.778555091, -0.433058679, 0.391229969…
+$ IC3 &lt;dbl&gt; -1.99091152, 0.20060881, -1.53014169, -1.70455188, 0.41543549, 0.3…
+$ IC4 &lt;dbl&gt; 0.7762583, 0.9242792, 1.3091516, -0.1819816, -0.6325621, -0.748529…
+$ IC5 &lt;dbl&gt; 0.81982434, 0.57624587, 0.44016790, 0.81289679, -1.01678079, -1.06…</code></pre>
+</div>
+</div>
 </section>
 <section id="python-examples" class="level2" data-number="70.4">
 <h2 data-number="70.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">70.4</span> Python Examples</h2>
