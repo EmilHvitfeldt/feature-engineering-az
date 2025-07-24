@@ -656,7 +656,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./too-many-nmf.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">71</span>&nbsp; <span class="chapter-title">🏗️ Non-Negative Matrix Factorization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">71</span>&nbsp; <span class="chapter-title">Non-Negative Matrix Factorization</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1278,6 +1278,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>One way to think about the difference between PCA and ICA, PCA can be used more effectively as a data compression technique, On the other hand, ICA helps uncover and separate the structure in the data itself.</p>
 <p>The notion that ICA is a dimensionality reduction method is because the implementation of fastICA, which is commonly used, works incrementally.</p>
 <p>ICA, much like PCA, requires that your data be normalized before it is applied.</p>
+<p>TODO: add examples of results with NMIST</p>
+<p>TODO: show correlation chart</p>
 <section id="pros-and-cons" class="level2" data-number="70.2">
 <h2 data-number="70.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">70.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="70.2.1">
@@ -1304,7 +1306,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>ames_num <span class="ot">&lt;-</span> ames <span class="sc">|&gt;</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>{recipes} provides <code>step_ica()</code>, which is the standard way to perform PCA.</p>
+<p>{recipes} provides <code>step_ica()</code>, which is the standard way to perform ICA.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pca_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(<span class="sc">~</span> ., <span class="at">data =</span> ames_num) <span class="sc">|&gt;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_normalize</span>(<span class="fu">all_numeric_predictors</span>()) <span class="sc">|&gt;</span></span>
@@ -1317,11 +1319,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 2,930
 Columns: 5
-$ IC1 &lt;dbl&gt; -0.37052169, 0.51413974, -0.80280637, 0.12280549, -0.65078105, -0.…
-$ IC2 &lt;dbl&gt; -0.104340006, 0.924875720, -0.778555091, -0.433058679, 0.391229969…
-$ IC3 &lt;dbl&gt; -1.99091152, 0.20060881, -1.53014169, -1.70455188, 0.41543549, 0.3…
-$ IC4 &lt;dbl&gt; 0.7762583, 0.9242792, 1.3091516, -0.1819816, -0.6325621, -0.748529…
-$ IC5 &lt;dbl&gt; 0.81982434, 0.57624587, 0.44016790, 0.81289679, -1.01678079, -1.06…</code></pre>
+$ IC1 &lt;dbl&gt; -0.7780474, -0.9251098, -1.3103153, 0.1804196, 0.6340903, 0.750151…
+$ IC2 &lt;dbl&gt; 0.36962359, -0.51209261, 0.80137331, -0.12279102, 0.64776160, 0.54…
+$ IC3 &lt;dbl&gt; 1.99053412, -0.20227176, 1.53084140, 1.70334187, -0.41284838, -0.3…
+$ IC4 &lt;dbl&gt; 0.81940034, 0.57660209, 0.43657160, 0.81555524, -1.01862980, -1.06…
+$ IC5 &lt;dbl&gt; -0.104729910, 0.924596800, -0.778723217, -0.433478794, 0.391695632…</code></pre>
 </div>
 </div>
 </section>
@@ -1818,8 +1820,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./too-many-nmf.html" class="pagination-link" aria-label="🏗️ Non-Negative Matrix Factorization">
-        <span class="nav-page-text"><span class="chapter-number">71</span>&nbsp; <span class="chapter-title">🏗️ Non-Negative Matrix Factorization</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./too-many-nmf.html" class="pagination-link" aria-label="Non-Negative Matrix Factorization">
+        <span class="nav-page-text"><span class="chapter-number">71</span>&nbsp; <span class="chapter-title">Non-Negative Matrix Factorization</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
