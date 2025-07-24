@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -72,7 +106,11 @@ ul.task-list li input[type="checkbox"] {
 
 <meta property="og:title" content="Feature Engineering A-Z | Non-Negative Matrix Factorization">
 <meta property="og:description" content="">
+<meta property="og:image" content="https://example.com/too-many-nmf_files/figure-html/nmf-mnist-1.png">
 <meta property="og:site_name" content="Feature Engineering A-Z">
+<meta property="og:image:alt" content="Faceted tile chart. Each chart corresponds to a different factorization. In order for each component to look for the numbers 9, 0, 7, and 3. with The 7 mostly capturing the diagonal line.">
+<meta property="og:image:height" content="960">
+<meta property="og:image:width" content="1344">
 </head>
 
 <body class="nav-sidebar docked">
@@ -84,7 +122,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./too-many.html">Too Many Variables</a></li><li class="breadcrumb-item"><a href="./too-many-nmf.html"><span class="chapter-number">71</span>&nbsp; <span class="chapter-title">🏗️ Non-Negative Matrix Factorization</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./too-many.html">Too Many Variables</a></li><li class="breadcrumb-item"><a href="./too-many-nmf.html"><span class="chapter-number">71</span>&nbsp; <span class="chapter-title">Non-Negative Matrix Factorization</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -622,7 +660,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./too-many-nmf.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">71</span>&nbsp; <span class="chapter-title">🏗️ Non-Negative Matrix Factorization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">71</span>&nbsp; <span class="chapter-title">Non-Negative Matrix Factorization</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1217,9 +1255,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./too-many.html">Too Many Variables</a></li><li class="breadcrumb-item"><a href="./too-many-nmf.html"><span class="chapter-number">71</span>&nbsp; <span class="chapter-title">🏗️ Non-Negative Matrix Factorization</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./too-many.html">Too Many Variables</a></li><li class="breadcrumb-item"><a href="./too-many-nmf.html"><span class="chapter-number">71</span>&nbsp; <span class="chapter-title">Non-Negative Matrix Factorization</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-too-many-nmf" class="quarto-section-identifier"><span class="chapter-number">71</span>&nbsp; <span class="chapter-title">🏗️ Non-Negative Matrix Factorization</span></span></h1>
+<h1 class="title"><span id="sec-too-many-nmf" class="quarto-section-identifier"><span class="chapter-number">71</span>&nbsp; <span class="chapter-title">Non-Negative Matrix Factorization</span></span></h1>
 </div>
 
 
@@ -1239,18 +1277,143 @@ ul.task-list li input[type="checkbox"] {
 <section id="non-negative-matrix-factorization" class="level2" style="visibility: hidden; height: 0px;" data-number="71.1">
 <h2 data-number="71.1" class="anchored" data-anchor-id="non-negative-matrix-factorization"><span class="header-section-number">71.1</span> Non-Negative Matrix Factorization</h2>
 </section>
-<p>WIP</p>
+<p>Non-Negative Matrix Factorization (NMF) is a method quite similar to <a href="./too-many-pca.html">Principal Component Analysis</a>. PCA aims to create a transformation that maximizes the variance of the resulting variables, while making them uncorrelated. NMF, on the other hand, is a decomposition where the loadings are required to be non-negative.</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Add a diagram showing the matrix decomposition.</p>
+</div>
+</div>
+<p>All the factor loadings are calculated at once, which is in contrast to PCA, where each component is calculated one by one. This difference comes with some different effects. It means that there isn’t an ordering or ranking in the resulting features. In PCA, the first output feature will be the same (up to a sign) no matter if you ask for 1 PC or 10 PCs. This is not the case for NMF, as the signal is spread across all the output features. The amount of signal contained in each feature will be quasi-reversely correlated with the number of features. The number of components is thus a hyperparameter you want to tune, trying to find a number that pulls out useful signals in the data without trying to pack too much information into too few components.</p>
+<p>Below is an example where we apply NMF to the MNIST data set, asking for 4 components. Each pixel is treated as a predictor, and the colors show the factor loadings for each component. Visually showing which part of the image it is activated from.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 60000    28    28</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching packages ────────────────────────────────────── tidymodels 1.3.0 ──</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>✔ broom        1.0.8     ✔ recipes      1.3.0
+✔ dials        1.4.0     ✔ rsample      1.3.0
+✔ dplyr        1.1.4     ✔ tibble       3.2.1
+✔ ggplot2      3.5.2     ✔ tidyr        1.3.1
+✔ infer        1.0.8     ✔ tune         1.3.0
+✔ modeldata    1.4.0     ✔ workflows    1.2.0
+✔ parsnip      1.3.1     ✔ workflowsets 1.1.0
+✔ purrr        1.0.4     ✔ yardstick    1.3.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Conflicts ───────────────────────────────────────── tidymodels_conflicts() ──
+✖ purrr::discard()         masks scales::discard()
+✖ dplyr::filter()          masks stats::filter()
+✖ yardstick::get_weights() masks keras::get_weights()
+✖ dplyr::lag()             masks stats::lag()
+✖ recipes::step()          masks stats::step()</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="too-many-nmf_files/figure-html/nmf-mnist-1.png" class="img-fluid figure-img" alt="Faceted tile chart. Each chart corresponds to a different factorization. In order for each component to look for the numbers 9, 0, 7, and 3. with The 7 mostly capturing the diagonal line." width="672"></p>
+<figcaption>NMF applied to all of MNIST</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>If we instead increase the number of components to 9, We see that each component pulls more and different shapes than before.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="too-many-nmf_files/figure-html/nmf-mnist-nine-1.png" class="img-fluid figure-img" alt="Faceted tile chart. Each chart corresponds to a different factorization. The numbers emerging from each component are a little harder to pinpoint." width="672"></p>
+<figcaption>NMF applied to all of MNIST</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>This is also a good time to note that many implementations of NMF depend on the initialization,</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="too-many-nmf_files/figure-html/nmf-mnist-nine-new-seed-1.png" class="img-fluid figure-img" alt="Faceted tile chart. Each chart corresponds to a different factorization. The components capture similar things to the last time, just in different ways components. " width="672"></p>
+<figcaption>NMF applied to all of MNIST</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Note that the features are correlated, as it wasn’t a restriction that they would be.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-nmf-correlation" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Correlation chart. The NMF features are lined up one after another.  All correlations appear to be non-zero. Mostly positive.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-nmf-correlation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="too-many-nmf_files/figure-html/fig-nmf-correlation-1.png" class="img-fluid figure-img" alt="Correlation chart. The NMF features are lined up one after another.  All correlations appear to be non-zero. Mostly positive." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-nmf-correlation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;71.1: Non-zero correlation between all features.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Creating the decomposition is computationally harder, and more computationally expensive than PCA, An approximate implementation is often used to mitigate those facts. which sadly means that the algorithms are able to find local maxima, But not guaranteed to find global maxima. This leads to the solutions not being unique and may need to run multiple times with different seeds to find a better maximum.</p>
+<p>There are a couple of restrictions on the data to which NMF can be applied. It only accepts numeric data, with no missing values, and no negative values. No missing values isn’t that bad of a restriction, as it is shared with most other dimensionality reduction methods. The non-negative restriction can be much more impactful. While the requirement that the input data is non-negative is a downside, it isn’t that big of a downside for many use cases, as non-negative data is quite common in many fields, as it represents counts and measurements quite well.</p>
+<p>Since all the data is required to be non-negative and all the loading values are non-negative, We get quite nice interpretability as the different features don’t cancel each other out. Furthermore, some implementations are done to produce sparse loadings, making the interpretability even easier. The main downside of turning on sparsity is that we will need to find the right amount of sparsity to avoid decreases in performance.</p>
 <section id="pros-and-cons" class="level2" data-number="71.2">
 <h2 data-number="71.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">71.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="71.2.1">
 <h3 data-number="71.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">71.2.1</span> Pros</h3>
+<ul>
+<li>More interpretable results</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="71.2.2">
 <h3 data-number="71.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">71.2.2</span> Cons</h3>
+<ul>
+<li>Data must be non-negative</li>
+<li>Computationally expensive</li>
+<li>Training depends on the seed</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="71.3">
 <h2 data-number="71.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">71.3</span> R Examples</h2>
+<p>We will be using the <code>ames</code> data set for these examples.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modeldata)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>ames_num <span class="ot">&lt;-</span> ames <span class="sc">|&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>{recipes} provides <code>step_nnmf_sparse()</code>, which performs sparse NMF.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pca_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(<span class="sc">~</span> ., <span class="at">data =</span> ames_num) <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_normalize</span>(<span class="fu">all_numeric_predictors</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_nnmf_sparse</span>(<span class="fu">all_numeric_predictors</span>(), <span class="at">num_comp =</span> <span class="dv">5</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>pca_rec <span class="sc">|&gt;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,930
+Columns: 5
+$ NNMF1 &lt;dbl&gt; 0.50223943, -0.43176151, -0.10637692, 0.75264746, 0.11416976, 0.…
+$ NNMF2 &lt;dbl&gt; -0.24278764, -0.80251541, -0.23614126, 0.33140894, 0.32912945, 0…
+$ NNMF3 &lt;dbl&gt; 0.021457403, 1.224688164, -0.294556573, 0.002563484, -0.19606363…
+$ NNMF4 &lt;dbl&gt; 0.26255964, -0.10950662, 14.45899374, 0.01378767, -0.03785448, -…
+$ NNMF5 &lt;dbl&gt; -0.07046248, -0.06248286, -0.06310062, -0.07464162, -0.09602224,…</code></pre>
+</div>
+</div>
 </section>
 <section id="python-examples" class="level2" data-number="71.4">
 <h2 data-number="71.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">71.4</span> Python Examples</h2>

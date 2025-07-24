@@ -25,6 +25,10 @@ The notion that ICA is a dimensionality reduction method is because the implemen
 
 ICA, much like PCA, requires that your data be normalized before it is applied.
 
+TODO: add examples of results with NMIST
+
+TODO: show correlation chart
+
 ## Pros and Cons
 
 ### Pros
@@ -57,7 +61,7 @@ ames_num <- ames |>
   select(where(is.numeric))
 ```
 
-{recipes} provides `step_ica()`, which is the standard way to perform PCA.
+{recipes} provides `step_ica()`, which is the standard way to perform ICA.
 
 ```{r}
 #| label: step_ica

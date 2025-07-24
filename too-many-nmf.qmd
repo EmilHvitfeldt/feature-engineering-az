@@ -2,20 +2,223 @@
 pagetitle: "Feature Engineering A-Z | Non-Negative Matrix Factorization"
 ---
 
-# 🏗️ Non-Negative Matrix Factorization {#sec-too-many-nmf}
+# Non-Negative Matrix Factorization {#sec-too-many-nmf}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## Non-Negative Matrix Factorization
 :::
 
-WIP
+Non-Negative Matrix Factorization (NMF) is a method quite similar to [Principal Component Analysis](too-many-pca.qmd).
+PCA aims to create a transformation that maximizes the variance of the resulting variables, 
+while making them uncorrelated.
+NMF, on the other hand, is a decomposition where the loadings are required to be non-negative.
+
+::: callout-caution
+# TODO
+
+Add a diagram showing the matrix decomposition.
+:::
+
+All the factor loadings are calculated at once,
+which is in contrast to PCA, where each component is calculated one by one.
+This difference comes with some different effects.
+It means that there isn't an ordering or ranking in the resulting features.
+In PCA, the first output feature will be the same (up to a sign) no matter if you ask for 1 PC or 10 PCs.
+This is not the case for NMF, as the signal is spread across all the output features.
+The amount of signal contained in each feature will be quasi-reversely correlated with the number of features.
+The number of components is thus a hyperparameter you want to tune,
+trying to find a number that pulls out useful signals in the data without trying to pack too much information into too few components.
+
+Below is an example where we apply NMF to the MNIST data set, asking for 4 components.
+Each pixel is treated as a predictor, and the colors show the factor loadings for each component.
+Visually showing which part of the image it is activated from.
+
+```{r}
+#| label: nmf-mnist
+#| echo: false
+#| fig-cap: |
+#|   NMF applied to all of MNIST
+#| fig-alt: |
+#|   Faceted tile chart. Each chart corresponds to a different factorization.
+#|   In order for each component to look for the numbers 9, 0, 7, and 3. with
+#|   The 7 mostly capturing the diagonal line.
+library(keras)
+
+mnist <- keras::dataset_mnist()
+
+set.seed(1234)
+mnist$train$x |> dim()
+
+out <- list()
+
+for (x in 1:28) {
+ for (y in 1:28) {
+ out[[paste0(x, ",", y)]] <- mnist$train$x[, y, x]
+ }
+}
+
+library(tidymodels)
+
+mnist_tbl <- bind_cols(out)
+
+rec <- recipe(~., data = mnist_tbl[1:1000, ]) |>
+  step_nnmf_sparse(all_predictors(), num_comp = 4) |>
+  prep()
+
+rec |>
+  tidy(1) |>
+  separate(terms, c("x", "y"), ",") |>
+  mutate(x = factor(x, 1:28)) |>
+  mutate(y = factor(y, 28:1)) |>
+  ggplot(aes(x, y, fill = value)) +
+  geom_raster() +
+  facet_wrap(~component) +
+  scale_fill_gradient2() +
+  theme(axis.ticks = element_blank(), axis.text = element_blank()) +
+  labs(x = NULL, y = NULL, fill = NULL)
+```
+
+If we instead increase the number of components to 9,
+We see that each component pulls more and different shapes than before.
+
+```{r}
+#| label: nmf-mnist-nine
+#| echo: false
+#| fig-cap: |
+#|   NMF applied to all of MNIST
+#| fig-alt: |
+#|   Faceted tile chart. Each chart corresponds to a different factorization.
+#|   The numbers emerging from each component are a little harder to pinpoint.
+set.seed(1234)
+rec <- recipe(~., data = mnist_tbl[1:1000, ]) |>
+  step_nnmf_sparse(all_predictors(), num_comp = 9) |>
+  prep()
+
+rec |>
+  tidy(1) |>
+  separate(terms, c("x", "y"), ",") |>
+  mutate(x = factor(x, 1:28)) |>
+  mutate(y = factor(y, 28:1)) |>
+  ggplot(aes(x, y, fill = value)) +
+  geom_raster() +
+  facet_wrap(~component) +
+  scale_fill_gradient2() +
+  theme(axis.ticks = element_blank(), axis.text = element_blank()) +
+  labs(x = NULL, y = NULL, fill = NULL)
+```
+
+This is also a good time to note that many implementations of NMF depend on the initialization, 
+
+```{r}
+#| label: nmf-mnist-nine-new-seed
+#| echo: false
+#| fig-cap: |
+#|   NMF applied to all of MNIST
+#| fig-alt: |
+#|   Faceted tile chart. Each chart corresponds to a different factorization.
+#|   The components capture similar things to the last time, just in different ways
+#|   components. 
+set.seed(12347)
+rec <- recipe(~., data = mnist_tbl[1:1000, ]) |>
+  step_nnmf_sparse(all_predictors(), num_comp = 9) |>
+  prep()
+
+rec |>
+  tidy(1) |>
+  filter(component %in% paste0("NNMF", 1:9)) |>
+  separate(terms, c("x", "y"), ",") |>
+  mutate(x = factor(x, 1:28)) |>
+  mutate(y = factor(y, 28:1)) |>
+  ggplot(aes(x, y, fill = value)) +
+  geom_raster() +
+  facet_wrap(~component) +
+  scale_fill_gradient2() +
+  theme(axis.ticks = element_blank(), axis.text = element_blank()) +
+  labs(x = NULL, y = NULL, fill = NULL)
+```
+
+Note that the features are correlated, as it wasn't a restriction that they would be.
+
+```{r}
+#| label: fig-nmf-correlation
+#| echo: false
+#| message: false
+#| fig-cap: |
+#|   Non-zero correlation between all features.
+#| fig-alt: |
+#|   Correlation chart. The NMF features are lined up one after another. 
+#|   All correlations appear to be non-zero. Mostly positive.
+rec |> 
+  bake(NULL) |> 
+ corrr::correlate(quiet = TRUE) |> 
+  autoplot(method = "identity")
+```
+
+Creating the decomposition is computationally harder,
+and more computationally expensive than PCA,
+An approximate implementation is often used to mitigate those facts. 
+which sadly means that the algorithms are able to find local maxima,
+But not guaranteed to find global maxima.
+This leads to the solutions not being unique and may need to run multiple times with different seeds to find a better maximum.
+
+There are a couple of restrictions on the data to which NMF can be applied.
+It only accepts numeric data, with no missing values, and no negative values.
+No missing values isn't that bad of a restriction, as it is shared with most other dimensionality reduction methods.
+The non-negative restriction can be much more impactful.
+While the requirement that the input data is non-negative is a downside,
+it isn't that big of a downside for many use cases, as non-negative data is quite common in many fields,
+as it represents counts and measurements quite well.
+
+Since all the data is required to be non-negative and all the loading values are non-negative,
+We get quite nice interpretability as the different features don't cancel each other out.
+Furthermore, some implementations are done to produce sparse loadings, making the interpretability even easier.
+The main downside of turning on sparsity is that we will need to find the right amount of sparsity to avoid decreases in performance.
 
 ## Pros and Cons
 
 ### Pros
 
+- More interpretable results
+
 ### Cons
 
+- Data must be non-negative
+- Computationally expensive
+- Training depends on the seed
+
 ## R Examples
+
+```{r}
+#| label: ames
+#| echo: false
+#| message: false
+library(tidymodels)
+data("ames")
+```
+
+We will be using the `ames` data set for these examples.
+
+```{r}
+#| label: show-data
+library(recipes)
+library(modeldata)
+
+ames_num <- ames |>
+  select(where(is.numeric))
+```
+
+{recipes} provides `step_nnmf_sparse()`, which performs sparse NMF.
+
+```{r}
+#| label: step_nnmf_sparse
+pca_rec <- recipe(~ ., data = ames_num) |>
+  step_normalize(all_numeric_predictors()) |>
+  step_nnmf_sparse(all_numeric_predictors(), num_comp = 5)
+
+pca_rec |>
+  prep() |>
+  bake(new_data = NULL) |>
+  glimpse()
+```
 
 ## Python Examples
