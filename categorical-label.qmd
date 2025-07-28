@@ -38,7 +38,7 @@ You should check the documentation of your implementation to figure out which.
 
 The performance of this method will depend a lot on the model.
 If you are working with a linear model, then you most likely are out of luck as it wouldn't be able to use a variable where the values 2, 6, and 10 provide evidence one way, and the rest provide evidence the other way.
-Three-based models will be able to do better but would do even better if label encoding was applied to begin with.
+Tree-based models will be able to do better but would do even better if label encoding was applied to begin with.
 
 ## Pros and Cons
 
