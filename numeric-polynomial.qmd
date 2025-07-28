@@ -200,7 +200,7 @@ recipe(outcome ~ predictor, data = data_toy) |>
   autoplot(method = "identity")
 ```
 
-The interpretation of these polynomial features is not as easy as with [Ninning](numeric-binning) or [Splines](numeric-splines), but the calculations are quite fast and versatile.
+The interpretation of these polynomial features is not as easy as with [Binning](numeric-binning) or [Splines](numeric-splines), but the calculations are quite fast and versatile.
 
 ```{r}
 #| label: fig-poly-poly-curves-extrapolate
