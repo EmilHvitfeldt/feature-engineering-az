@@ -263,13 +263,13 @@ Secondly, this type of data is not seen that much in the wild, and if you are se
 -   Behaves predictably outside the range of the predictors
 -   If cuts are placed well, it can handle sudden changes in distributions
 -   Interpretable
--   doesn't create correlated features
+-   Doesn't create correlated features
 
 ### Cons
 
 -   The inherent rounding that happens, can lead to loss of performance and interpretations
--   arguably less interpretable than binning
--   can produce a lot of variables
+-   Arguably less interpretable than binning
+-   Can produce a lot of variables
 
 ## R Examples
 
