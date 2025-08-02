@@ -1369,9 +1369,9 @@ Note
 Columns: 5
 $ PC1 &lt;dbl&gt; 0.928277538, -1.121799088, -0.766999671, 2.465148494, 0.098799277,…
 $ PC2 &lt;dbl&gt; 0.42651536, 2.05092903, 0.27170407, -0.85236446, -0.99100986, -1.2…
-$ PC3 &lt;dbl&gt; 1.2169854, 1.1145117, 0.9661340, 0.5375621, -1.1432034, -1.1614148…
+$ PC3 &lt;dbl&gt; -1.2169854, -1.1145117, -0.9661340, -0.5375621, 1.1432034, 1.16141…
 $ PC4 &lt;dbl&gt; 1.4916224, -0.3556418, 0.7108605, 0.6941959, 0.5099111, 0.3670430,…
-$ PC5 &lt;dbl&gt; -0.62935367, -0.89547859, -0.07695464, -0.60315207, -0.25551596, -…</code></pre>
+$ PC5 &lt;dbl&gt; -0.62934967, -0.89544509, -0.07693662, -0.60313368, -0.25550919, -…</code></pre>
 </div>
 </div>
 <p>It works the same as <code>step_pca()</code>, but if we take a look at the coefficients there are more zeroes.</p>
@@ -1382,16 +1382,16 @@ $ PC5 &lt;dbl&gt; -0.62935367, -0.89547859, -0.07695464, -0.60315207, -0.2555159
 <pre><code># A tibble: 170 × 4
    terms          value component id              
    &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;           
- 1 Lot_Frontage   0     PC1       pca_sparse_BZMa1
- 2 Lot_Area       0     PC1       pca_sparse_BZMa1
- 3 Year_Built     0     PC1       pca_sparse_BZMa1
- 4 Year_Remod_Add 0     PC1       pca_sparse_BZMa1
- 5 Mas_Vnr_Area   0     PC1       pca_sparse_BZMa1
- 6 BsmtFin_SF_1   0     PC1       pca_sparse_BZMa1
- 7 BsmtFin_SF_2   0     PC1       pca_sparse_BZMa1
- 8 Bsmt_Unf_SF    0     PC1       pca_sparse_BZMa1
- 9 Total_Bsmt_SF  0.268 PC1       pca_sparse_BZMa1
-10 First_Flr_SF   0.303 PC1       pca_sparse_BZMa1
+ 1 Lot_Frontage   0     PC1       pca_sparse_6xkBL
+ 2 Lot_Area       0     PC1       pca_sparse_6xkBL
+ 3 Year_Built     0     PC1       pca_sparse_6xkBL
+ 4 Year_Remod_Add 0     PC1       pca_sparse_6xkBL
+ 5 Mas_Vnr_Area   0     PC1       pca_sparse_6xkBL
+ 6 BsmtFin_SF_1   0     PC1       pca_sparse_6xkBL
+ 7 BsmtFin_SF_2   0     PC1       pca_sparse_6xkBL
+ 8 Bsmt_Unf_SF    0     PC1       pca_sparse_6xkBL
+ 9 Total_Bsmt_SF  0.268 PC1       pca_sparse_6xkBL
+10 First_Flr_SF   0.303 PC1       pca_sparse_6xkBL
 # ℹ 160 more rows</code></pre>
 </div>
 </div>
@@ -1408,11 +1408,11 @@ $ PC5 &lt;dbl&gt; -0.62935367, -0.89547859, -0.07695464, -0.60315207, -0.2555159
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 2,930
 Columns: 5
-$ PC1 &lt;dbl&gt; 0.928277538, -1.121799088, -0.766999671, 2.465148494, 0.098799277,…
+$ PC1 &lt;dbl&gt; -0.928277538, 1.121799088, 0.766999671, -2.465148494, -0.098799277…
 $ PC2 &lt;dbl&gt; -0.42651536, -2.05092903, -0.27170407, 0.85236446, 0.99100986, 1.2…
 $ PC3 &lt;dbl&gt; -1.2169854, -1.1145117, -0.9661340, -0.5375621, 1.1432034, 1.16141…
 $ PC4 &lt;dbl&gt; 1.4916224, -0.3556418, 0.7108605, 0.6941959, 0.5099111, 0.3670430,…
-$ PC5 &lt;dbl&gt; -0.62933291, -0.89554228, -0.07679741, -0.60308803, -0.25544819, -…</code></pre>
+$ PC5 &lt;dbl&gt; -0.62933511, -0.89548839, -0.07689376, -0.60310871, -0.25548538, -…</code></pre>
 </div>
 </div>
 </section>
