@@ -1368,10 +1368,10 @@ Note
 <pre><code>Rows: 2,930
 Columns: 5
 $ PC1 &lt;dbl&gt; -0.928277538, 1.121799088, 0.766999671, -2.465148494, -0.098799277…
-$ PC2 &lt;dbl&gt; -0.42651536, -2.05092903, -0.27170407, 0.85236446, 0.99100986, 1.2…
-$ PC3 &lt;dbl&gt; 1.2169854, 1.1145117, 0.9661340, 0.5375621, -1.1432034, -1.1614148…
+$ PC2 &lt;dbl&gt; 0.42651536, 2.05092903, 0.27170407, -0.85236446, -0.99100986, -1.2…
+$ PC3 &lt;dbl&gt; -1.2169854, -1.1145117, -0.9661340, -0.5375621, 1.1432034, 1.16141…
 $ PC4 &lt;dbl&gt; -1.4916224, 0.3556418, -0.7108605, -0.6941959, -0.5099111, -0.3670…
-$ PC5 &lt;dbl&gt; 0.62935292, 0.89549336, 0.07690588, 0.60313939, 0.25549784, 0.2227…</code></pre>
+$ PC5 &lt;dbl&gt; 0.62934921, 0.89549849, 0.07690062, 0.60313353, 0.25549402, 0.2227…</code></pre>
 </div>
 </div>
 <p>It works the same as <code>step_pca()</code>, but if we take a look at the coefficients there are more zeroes.</p>
@@ -1382,16 +1382,16 @@ $ PC5 &lt;dbl&gt; 0.62935292, 0.89549336, 0.07690588, 0.60313939, 0.25549784, 0.
 <pre><code># A tibble: 170 × 4
    terms           value component id              
    &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;           
- 1 Lot_Frontage    0     PC1       pca_sparse_xfV41
- 2 Lot_Area        0     PC1       pca_sparse_xfV41
- 3 Year_Built      0     PC1       pca_sparse_xfV41
- 4 Year_Remod_Add  0     PC1       pca_sparse_xfV41
- 5 Mas_Vnr_Area    0     PC1       pca_sparse_xfV41
- 6 BsmtFin_SF_1    0     PC1       pca_sparse_xfV41
- 7 BsmtFin_SF_2    0     PC1       pca_sparse_xfV41
- 8 Bsmt_Unf_SF     0     PC1       pca_sparse_xfV41
- 9 Total_Bsmt_SF  -0.268 PC1       pca_sparse_xfV41
-10 First_Flr_SF   -0.303 PC1       pca_sparse_xfV41
+ 1 Lot_Frontage    0     PC1       pca_sparse_kVLP4
+ 2 Lot_Area        0     PC1       pca_sparse_kVLP4
+ 3 Year_Built      0     PC1       pca_sparse_kVLP4
+ 4 Year_Remod_Add  0     PC1       pca_sparse_kVLP4
+ 5 Mas_Vnr_Area    0     PC1       pca_sparse_kVLP4
+ 6 BsmtFin_SF_1    0     PC1       pca_sparse_kVLP4
+ 7 BsmtFin_SF_2    0     PC1       pca_sparse_kVLP4
+ 8 Bsmt_Unf_SF     0     PC1       pca_sparse_kVLP4
+ 9 Total_Bsmt_SF  -0.268 PC1       pca_sparse_kVLP4
+10 First_Flr_SF   -0.303 PC1       pca_sparse_kVLP4
 # ℹ 160 more rows</code></pre>
 </div>
 </div>
@@ -1409,10 +1409,10 @@ $ PC5 &lt;dbl&gt; 0.62935292, 0.89549336, 0.07690588, 0.60313939, 0.25549784, 0.
 <pre><code>Rows: 2,930
 Columns: 5
 $ PC1 &lt;dbl&gt; 0.928277538, -1.121799088, -0.766999671, 2.465148494, 0.098799277,…
-$ PC2 &lt;dbl&gt; -0.42651536, -2.05092903, -0.27170407, 0.85236446, 0.99100986, 1.2…
+$ PC2 &lt;dbl&gt; 0.42651536, 2.05092903, 0.27170407, -0.85236446, -0.99100986, -1.2…
 $ PC3 &lt;dbl&gt; -1.2169854, -1.1145117, -0.9661340, -0.5375621, 1.1432034, 1.16141…
 $ PC4 &lt;dbl&gt; -1.4916224, 0.3556418, -0.7108605, -0.6941959, -0.5099111, -0.3670…
-$ PC5 &lt;dbl&gt; -0.62934345, -0.89547756, -0.07690459, -0.60312190, -0.25549362, -…</code></pre>
+$ PC5 &lt;dbl&gt; 0.62934601, 0.89550271, 0.07688326, 0.60312453, 0.25548623, 0.2227…</code></pre>
 </div>
 </div>
 </section>
