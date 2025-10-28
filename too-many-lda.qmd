@@ -2,19 +2,52 @@
 pagetitle: "Feature Engineering A-Z | Linear Discriminant Analysis"
 ---
 
-# 🏗️ Linear Discriminant Analysis {#sec-too-many-lda}
+# Linear Discriminant Analysis {#sec-too-many-lda}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## Linear Discriminant Analysis
 :::
 
-WIP
+This feature engineering method is heavily inspired by the supervised modeling method of the same name.
+Linear Discriminant Analysis (LDA) is a supervised model for classification
+that tries to separate the classes by converting the higher-dimensional data into a lower-dimensional space.
+In this process, we find linear combinations of features that best separate the classes.
+We turn this supervised classification model into a dimensionality reduction method by returning the lower-dimensional representation instead of the predictions.
+
+One thing that is worth noting is that this method does compared to many other methods in this section,
+It uses the outcome and is thus a *supervised* method.
+The overall goal of the method is to find features that distinguish the classes of the outcome well.
+Hence, we need to provide the outcome to the method.
+It isn't strictly necessary to pass the modeling outcome to the method.
+It could be any categorical predictors;
+however, it is often not ideal to use anything other than the direct modeling response,
+as that represents most clearly what we are trying to find a signal about.
+
+This method, like most everything else in this chapter, 
+is constrained to only work on numeric input with no missing values.
+In addition to these constraints, 
+we need to remember that LDA comes with a couple of assumptions.
+
+1. Data within each class must be normally distributed
+2. Equal covariance matrices across classes
+3. The classes are linearly separable
+
+It is worth remembering what it would mean if these assumptions are violated.
+It is likely that the code that implements them will run without error;
+however if the assumptions are not being upheld, it will likely not work very well,
+giving us subpar performance.
+
 
 ## Pros and Cons
 
 ### Pros
 
+- good computational speed
+- can handle multicolinearity 
+
 ### Cons
+
+- Will perform poorly if assumptions are not met
 
 ## R Examples
 
