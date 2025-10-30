@@ -693,7 +693,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./too-many-lda.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">73</span>&nbsp; <span class="chapter-title">🏗️ Linear Discriminant Analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">73</span>&nbsp; <span class="chapter-title">Linear Discriminant Analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1376,7 +1376,7 @@ $ PC1 &lt;dbl&gt; 0.928277538, -1.121799088, -0.766999671, 2.465148494, 0.098799
 $ PC2 &lt;dbl&gt; -0.42651536, -2.05092903, -0.27170407, 0.85236446, 0.99100986, 1.2…
 $ PC3 &lt;dbl&gt; 1.2169854, 1.1145117, 0.9661340, 0.5375621, -1.1432034, -1.1614148…
 $ PC4 &lt;dbl&gt; 1.4916224, -0.3556418, 0.7108605, 0.6941959, 0.5099111, 0.3670430,…
-$ PC5 &lt;dbl&gt; -0.62934712, -0.89549012, -0.07689629, -0.60312738, -0.25549188, -…</code></pre>
+$ PC5 &lt;dbl&gt; 0.62934647, 0.89548160, 0.07692720, 0.60313406, 0.25550284, 0.2227…</code></pre>
 </div>
 </div>
 <p>It works the same as <code>step_pca()</code>, but if we take a look at the coefficients there are more zeroes.</p>
@@ -1387,16 +1387,16 @@ $ PC5 &lt;dbl&gt; -0.62934712, -0.89549012, -0.07689629, -0.60312738, -0.2554918
 <pre><code># A tibble: 170 × 4
    terms          value component id              
    &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;           
- 1 Lot_Frontage   0     PC1       pca_sparse_dCJz8
- 2 Lot_Area       0     PC1       pca_sparse_dCJz8
- 3 Year_Built     0     PC1       pca_sparse_dCJz8
- 4 Year_Remod_Add 0     PC1       pca_sparse_dCJz8
- 5 Mas_Vnr_Area   0     PC1       pca_sparse_dCJz8
- 6 BsmtFin_SF_1   0     PC1       pca_sparse_dCJz8
- 7 BsmtFin_SF_2   0     PC1       pca_sparse_dCJz8
- 8 Bsmt_Unf_SF    0     PC1       pca_sparse_dCJz8
- 9 Total_Bsmt_SF  0.268 PC1       pca_sparse_dCJz8
-10 First_Flr_SF   0.303 PC1       pca_sparse_dCJz8
+ 1 Lot_Frontage   0     PC1       pca_sparse_qSpeG
+ 2 Lot_Area       0     PC1       pca_sparse_qSpeG
+ 3 Year_Built     0     PC1       pca_sparse_qSpeG
+ 4 Year_Remod_Add 0     PC1       pca_sparse_qSpeG
+ 5 Mas_Vnr_Area   0     PC1       pca_sparse_qSpeG
+ 6 BsmtFin_SF_1   0     PC1       pca_sparse_qSpeG
+ 7 BsmtFin_SF_2   0     PC1       pca_sparse_qSpeG
+ 8 Bsmt_Unf_SF    0     PC1       pca_sparse_qSpeG
+ 9 Total_Bsmt_SF  0.268 PC1       pca_sparse_qSpeG
+10 First_Flr_SF   0.303 PC1       pca_sparse_qSpeG
 # ℹ 160 more rows</code></pre>
 </div>
 </div>
@@ -1414,10 +1414,10 @@ $ PC5 &lt;dbl&gt; -0.62934712, -0.89549012, -0.07689629, -0.60312738, -0.2554918
 <pre><code>Rows: 2,930
 Columns: 5
 $ PC1 &lt;dbl&gt; -0.928277538, 1.121799088, 0.766999671, -2.465148494, -0.098799277…
-$ PC2 &lt;dbl&gt; 0.42651536, 2.05092903, 0.27170407, -0.85236446, -0.99100986, -1.2…
-$ PC3 &lt;dbl&gt; -1.2169854, -1.1145117, -0.9661340, -0.5375621, 1.1432034, 1.16141…
+$ PC2 &lt;dbl&gt; -0.42651536, -2.05092903, -0.27170407, 0.85236446, 0.99100986, 1.2…
+$ PC3 &lt;dbl&gt; 1.2169854, 1.1145117, 0.9661340, 0.5375621, -1.1432034, -1.1614148…
 $ PC4 &lt;dbl&gt; 1.4916224, -0.3556418, 0.7108605, 0.6941959, 0.5099111, 0.3670430,…
-$ PC5 &lt;dbl&gt; 0.62934983, 0.89546545, 0.07695374, 0.60314353, 0.25551443, 0.2227…</code></pre>
+$ PC5 &lt;dbl&gt; -0.62933611, -0.89545838, -0.07687902, -0.60309933, -0.25548201, -…</code></pre>
 </div>
 </div>
 </section>

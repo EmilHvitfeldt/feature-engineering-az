@@ -86,7 +86,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./too-many.html">Too Many Variables</a></li><li class="breadcrumb-item"><a href="./too-many-lda.html"><span class="chapter-number">73</span>&nbsp; <span class="chapter-title">🏗️ Linear Discriminant Analysis</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./too-many.html">Too Many Variables</a></li><li class="breadcrumb-item"><a href="./too-many-lda.html"><span class="chapter-number">73</span>&nbsp; <span class="chapter-title">Linear Discriminant Analysis</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -638,7 +638,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./too-many-lda.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">73</span>&nbsp; <span class="chapter-title">🏗️ Linear Discriminant Analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">73</span>&nbsp; <span class="chapter-title">Linear Discriminant Analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1227,9 +1227,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./too-many.html">Too Many Variables</a></li><li class="breadcrumb-item"><a href="./too-many-lda.html"><span class="chapter-number">73</span>&nbsp; <span class="chapter-title">🏗️ Linear Discriminant Analysis</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./too-many.html">Too Many Variables</a></li><li class="breadcrumb-item"><a href="./too-many-lda.html"><span class="chapter-number">73</span>&nbsp; <span class="chapter-title">Linear Discriminant Analysis</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-too-many-lda" class="quarto-section-identifier"><span class="chapter-number">73</span>&nbsp; <span class="chapter-title">🏗️ Linear Discriminant Analysis</span></span></h1>
+<h1 class="title"><span id="sec-too-many-lda" class="quarto-section-identifier"><span class="chapter-number">73</span>&nbsp; <span class="chapter-title">Linear Discriminant Analysis</span></span></h1>
 </div>
 
 
@@ -1249,14 +1249,29 @@ ul.task-list li input[type="checkbox"] {
 <section id="linear-discriminant-analysis" class="level2" style="visibility: hidden; height: 0px;" data-number="73.1">
 <h2 data-number="73.1" class="anchored" data-anchor-id="linear-discriminant-analysis"><span class="header-section-number">73.1</span> Linear Discriminant Analysis</h2>
 </section>
-<p>WIP</p>
+<p>This feature engineering method is heavily inspired by the supervised modeling method of the same name. Linear Discriminant Analysis (LDA) is a supervised model for classification that tries to separate the classes by converting the higher-dimensional data into a lower-dimensional space. In this process, we find linear combinations of features that best separate the classes. We turn this supervised classification model into a dimensionality reduction method by returning the lower-dimensional representation instead of the predictions.</p>
+<p>One thing that is worth noting is that this method does compared to many other methods in this section, It uses the outcome and is thus a <em>supervised</em> method. The overall goal of the method is to find features that distinguish the classes of the outcome well. Hence, we need to provide the outcome to the method. It isn’t strictly necessary to pass the modeling outcome to the method. It could be any categorical predictors; however, it is often not ideal to use anything other than the direct modeling response, as that represents most clearly what we are trying to find a signal about.</p>
+<p>This method, like most everything else in this chapter, is constrained to only work on numeric input with no missing values. In addition to these constraints, we need to remember that LDA comes with a couple of assumptions.</p>
+<ol type="1">
+<li>Data within each class must be normally distributed</li>
+<li>Equal covariance matrices across classes</li>
+<li>The classes are linearly separable</li>
+</ol>
+<p>It is worth remembering what it would mean if these assumptions are violated. It is likely that the code that implements them will run without error; however if the assumptions are not being upheld, it will likely not work very well, giving us subpar performance.</p>
 <section id="pros-and-cons" class="level2" data-number="73.2">
 <h2 data-number="73.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">73.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="73.2.1">
 <h3 data-number="73.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">73.2.1</span> Pros</h3>
+<ul>
+<li>good computational speed</li>
+<li>can handle multicolinearity</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="73.2.2">
 <h3 data-number="73.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">73.2.2</span> Cons</h3>
+<ul>
+<li>Will perform poorly if assumptions are not met</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="73.3">
