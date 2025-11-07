@@ -2,19 +2,47 @@
 pagetitle: "Feature Engineering A-Z | LDA Variants"
 ---
 
-# 🏗️ LDA Variants{#sec-too-many-gda}
+# LDA Variants{#sec-too-many-gda}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## LDA Variants
 :::
 
-WIP
+This chapter goes over some of the variants of [LDA](too-many-lda.qmd).
+It is highly encouraged that you read that chapter before reading this one, as all of the following sections will be described as different from the main implementation.
 
-## Pros and Cons
+### Quadratic Discriminant Analysis 
 
-### Pros
+Quadratic Discriminant Analysis (QDA) is the non-linear extension of linear discriminant analysis.
 
-### Cons
+We can see how QDA is different from LDA by looking at the different assumptions it has, and these changes affect things.
+While LDA assumes that the covariance matrix is the same across all the classes,
+QDA doesn't assume this.
+Allowing for each class to have its own covariance matrix.
+This allows the distributions to have different sizes and shapes.
+This has two implications;
+The first one is that the decision boundary becomes non-linear due to the changes in distributions.
+The second one is that the model becomes quite a bit more complex due to the relaxed assumptions.
+Keeping in mind that LDA is a very simple model.
+
+### Flexible Discriminant Analysis
+
+Flexible Discriminant Analysis (FDA) expects linear discriminant analysis in a different direction than QDA.
+We can think of LDA as a sequence of linear regressions followed by a classification done using class boundaries.
+We can make this more flexible by using a more flexible model than linear regression.
+
+A typical choice for these is generalized additive fits, 
+use of spline terms in linear regression models or multivariate adaptive regression splines (MARS) models.
+
+This has the same effect as QDA by giving up non-linear decision boundaries,
+with the hope that these more complex models better capture the signal that couldn't be captured by LDA.
+
+### Regularized Discriminant Analysis
+
+Regularized Discriminant Analysis (RDA) is a middle ground between LDA and QDA.
+This is done using a tuning parameter to decide how to blend the models from LDA and QDA.
+
+This can give the best of both worlds, with the downside that we are adding a tuning parameter.
 
 ## R Examples
 
