@@ -2,19 +2,32 @@
 pagetitle: "Feature Engineering A-Z | Partial Least Squares"
 ---
 
-# 🏗️ Partial Least Squares {#sec-too-many-pls}
+# Partial Least Squares {#sec-too-many-pls}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## Partial Least Squares
 :::
 
-WIP
+We can think of partial least squares (PLS) as a variant of [PCA](too-many-pca.qmd).
+What makes it different than PCA is that we are using the outcome to guide the method,
+unlike what happens in classical PCA.
+
+One maximizes the variance of each principal component,
+regardless of whether the principal component has any relation to the outcome.
+This means that we could throw away a highly predictive low-variance component by using traditional PCA.
+
+PLS works by extracting components that maximize the covariance between the predictors and the outcome.
+This makes it so it has the same structure as PCA, but the loadings will be different to account for this additional constraint. 
 
 ## Pros and Cons
 
 ### Pros
 
+- Can give better results than PCA
+
 ### Cons
+
+- Computationally slower
 
 ## R Examples
 

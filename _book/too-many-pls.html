@@ -86,7 +86,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./too-many.html">Too Many Variables</a></li><li class="breadcrumb-item"><a href="./too-many-pls.html"><span class="chapter-number">72</span>&nbsp; <span class="chapter-title">🏗️ Partial Least Squares</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./too-many.html">Too Many Variables</a></li><li class="breadcrumb-item"><a href="./too-many-pls.html"><span class="chapter-number">72</span>&nbsp; <span class="chapter-title">Partial Least Squares</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -632,7 +632,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./too-many-pls.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">72</span>&nbsp; <span class="chapter-title">🏗️ Partial Least Squares</span></span></a>
+ <span class="menu-text"><span class="chapter-number">72</span>&nbsp; <span class="chapter-title">Partial Least Squares</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1227,9 +1227,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./too-many.html">Too Many Variables</a></li><li class="breadcrumb-item"><a href="./too-many-pls.html"><span class="chapter-number">72</span>&nbsp; <span class="chapter-title">🏗️ Partial Least Squares</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./too-many.html">Too Many Variables</a></li><li class="breadcrumb-item"><a href="./too-many-pls.html"><span class="chapter-number">72</span>&nbsp; <span class="chapter-title">Partial Least Squares</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-too-many-pls" class="quarto-section-identifier"><span class="chapter-number">72</span>&nbsp; <span class="chapter-title">🏗️ Partial Least Squares</span></span></h1>
+<h1 class="title"><span id="sec-too-many-pls" class="quarto-section-identifier"><span class="chapter-number">72</span>&nbsp; <span class="chapter-title">Partial Least Squares</span></span></h1>
 </div>
 
 
@@ -1249,14 +1249,22 @@ ul.task-list li input[type="checkbox"] {
 <section id="partial-least-squares" class="level2" style="visibility: hidden; height: 0px;" data-number="72.1">
 <h2 data-number="72.1" class="anchored" data-anchor-id="partial-least-squares"><span class="header-section-number">72.1</span> Partial Least Squares</h2>
 </section>
-<p>WIP</p>
+<p>We can think of partial least squares (PLS) as a variant of <a href="./too-many-pca.html">PCA</a>. What makes it different than PCA is that we are using the outcome to guide the method, unlike what happens in classical PCA.</p>
+<p>One maximizes the variance of each principal component, regardless of whether the principal component has any relation to the outcome. This means that we could throw away a highly predictive low-variance component by using traditional PCA.</p>
+<p>PLS works by extracting components that maximize the covariance between the predictors and the outcome. This makes it so it has the same structure as PCA, but the loadings will be different to account for this additional constraint.</p>
 <section id="pros-and-cons" class="level2" data-number="72.2">
 <h2 data-number="72.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">72.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="72.2.1">
 <h3 data-number="72.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">72.2.1</span> Pros</h3>
+<ul>
+<li>Can give better results than PCA</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="72.2.2">
 <h3 data-number="72.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">72.2.2</span> Cons</h3>
+<ul>
+<li>Computationally slower</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="72.3">
