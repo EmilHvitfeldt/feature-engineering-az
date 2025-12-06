@@ -86,7 +86,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./too-many.html">Too Many Variables</a></li><li class="breadcrumb-item"><a href="./too-many-autoencoder.html"><span class="chapter-number">75</span>&nbsp; <span class="chapter-title">🏗️ Autoencoders</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./too-many.html">Too Many Variables</a></li><li class="breadcrumb-item"><a href="./too-many-autoencoder.html"><span class="chapter-number">75</span>&nbsp; <span class="chapter-title">Autoencoders</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -650,7 +650,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./too-many-autoencoder.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">75</span>&nbsp; <span class="chapter-title">🏗️ Autoencoders</span></span></a>
+ <span class="menu-text"><span class="chapter-number">75</span>&nbsp; <span class="chapter-title">Autoencoders</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1227,9 +1227,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./too-many.html">Too Many Variables</a></li><li class="breadcrumb-item"><a href="./too-many-autoencoder.html"><span class="chapter-number">75</span>&nbsp; <span class="chapter-title">🏗️ Autoencoders</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./too-many.html">Too Many Variables</a></li><li class="breadcrumb-item"><a href="./too-many-autoencoder.html"><span class="chapter-number">75</span>&nbsp; <span class="chapter-title">Autoencoders</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-too-many-autoencoder" class="quarto-section-identifier"><span class="chapter-number">75</span>&nbsp; <span class="chapter-title">🏗️ Autoencoders</span></span></h1>
+<h1 class="title"><span id="sec-too-many-autoencoder" class="quarto-section-identifier"><span class="chapter-number">75</span>&nbsp; <span class="chapter-title">Autoencoders</span></span></h1>
 </div>
 
 
@@ -1249,14 +1249,41 @@ ul.task-list li input[type="checkbox"] {
 <section id="autoencoders" class="level2" style="visibility: hidden; height: 0px;" data-number="75.1">
 <h2 data-number="75.1" class="anchored" data-anchor-id="autoencoders"><span class="header-section-number">75.1</span> Autoencoders</h2>
 </section>
-<p>WIP</p>
+<p>Autoencoders are a broad group of neural network models. This model structure has 3 main components: the <strong>encoder</strong>, the <strong>bottleneck</strong>, and the <strong>decoder</strong>. The encoder takes the input through a series of encoding layers that make the shape of the data smaller. The bottleneck is the layer between the encoder and the decoder. This layer is the smallest of all the layers and tries to capture a compressed representation of the dataset. At the end of the encoder, we have the latent space, a compressed representation of the data. The decoder then has a symmetric set of decoding layers that makes the shape of the data bigger.</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Caution</span>TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Add the classic diagram.</p>
+</div>
+</div>
+<p>The hope is that the data coming out of the decoder closely resembles the input data. While at the same time having the data in the latent space be highly compressed.</p>
+<p>This is the structure of the network as we are training it on new data. Once we want to apply the transformation to do dimensionality reduction, we only use the encoder, turning the data into a compressed state with the hope that it retains as much information as possible. The reason why we explain the whole process is that it is crucial to how the method works. Fitting the whole thing is a step to ensure that we don’t compress the data too much.</p>
+<p>This is a stochastic trained method, and lots of things can go wrong. As with any neural network model training, there isn’t a way to automatically train it. You will need to determine a number of different parameters regarding the shape of the network. The size of the bottleneck layer, if it is too big, then you don’t compress the data as much as you could. If it is too small, you will lose information, as we have made the representation too small. The number of layers and the number of nodes also play a big role. More layers and more nodes allow you to model more complex relationships in the data, with the tradeoff that the model will take longer to train and will be harder to get right.</p>
+<p>You also have to remember that most neural networks are quite a rigid structure. Needing a complete reparameterization depending on the number of features you are applying the method to. This is one of the reasons why you rarely see off-the-shelf modules to do dimensionality reduction with autoencoders, as they often will have to be tailored to your modeling problem.</p>
+<p>Autoencoders offer some of the best-performing dimensionality reduction methods purely based on performance, as they allow you to model non-linear relationships that are tailored pretty close to your modeling problem. It comes with the same downside as most non-linear transformations and neural networks: they have next to no explainability.</p>
 <section id="pros-and-cons" class="level2" data-number="75.2">
 <h2 data-number="75.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">75.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="75.2.1">
 <h3 data-number="75.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">75.2.1</span> Pros</h3>
+<ul>
+<li>High performance</li>
+<li>Can handle non-linear relationships</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="75.2.2">
 <h3 data-number="75.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">75.2.2</span> Cons</h3>
+<ul>
+<li>Can be hard to configure</li>
+<li>Computationally expensive</li>
+<li>Low explainability</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="75.3">
