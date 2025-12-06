@@ -2,19 +2,68 @@
 pagetitle: "Feature Engineering A-Z | Autoencoders"
 ---
 
-# 🏗️ Autoencoders {#sec-too-many-autoencoder}
+# Autoencoders {#sec-too-many-autoencoder}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## Autoencoders
 :::
 
-WIP
+Autoencoders are a broad group of neural network models.
+This model structure has 3 main components:
+the **encoder**, the **bottleneck**, and the **decoder**.
+The encoder takes the input through a series of encoding layers that make the shape of the data smaller.
+The bottleneck is the layer between the encoder and the decoder.
+This layer is the smallest of all the layers and tries to capture a compressed representation of the dataset.
+At the end of the encoder, we have the latent space,
+a compressed representation of the data.
+The decoder then has a symmetric set of decoding layers that makes the shape of the data bigger.
+
+::: callout-caution
+# TODO
+
+Add the classic diagram.
+:::
+
+The hope is that the data coming out of the decoder closely resembles the input data.
+While at the same time having the data in the latent space be highly compressed.
+
+This is the structure of the network as we are training it on new data.
+Once we want to apply the transformation to do dimensionality reduction,
+we only use the encoder,
+turning the data into a compressed state with the hope that it retains as much information as possible.
+The reason why we explain the whole process is that it is crucial to how the method works.
+Fitting the whole thing is a step to ensure that we don't compress the data too much.
+
+This is a stochastic trained method, and lots of things can go wrong.
+As with any neural network model training, there isn't a way to automatically train it.
+You will need to determine a number of different parameters regarding the shape of the network.
+The size of the bottleneck layer, 
+if it is too big, then you don't compress the data as much as you could.
+If it is too small, you will lose information, as we have made the representation too small.
+The number of layers and the number of nodes also play a big role.
+More layers and more nodes allow you to model more complex relationships in the data,
+with the tradeoff that the model will take longer to train and will be harder to get right.
+
+You also have to remember that most neural networks are quite a rigid structure.
+Needing a complete reparameterization depending on the number of features you are applying the method to. 
+This is one of the reasons why you rarely see off-the-shelf modules to do dimensionality reduction with autoencoders, as they often will have to be tailored to your modeling problem.
+
+Autoencoders offer some of the best-performing dimensionality reduction methods purely based on performance,
+as they allow you to model non-linear relationships that are tailored pretty close to your modeling problem.
+It comes with the same downside as most non-linear transformations and neural networks: they have next to no explainability.
 
 ## Pros and Cons
 
 ### Pros
 
+- High performance
+- Can handle non-linear relationships
+
 ### Cons
+
+- Can be hard to configure
+- Computationally expensive
+- Low explainability
 
 ## R Examples
 
