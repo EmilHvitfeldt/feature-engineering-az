@@ -2,21 +2,161 @@
 pagetitle: "Feature Engineering A-Z | UMAP"
 ---
 
-# 🏗️ Uniform Manifold Approximation and Projection {#sec-too-many-umap}
+# Uniform Manifold Approximation and Projection {#sec-too-many-umap}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## UMAP
 :::
 
+Uniform Manifold Approximation and Projection (UMAP) is another method that takes high-dimensional data and embeds it into a lower-dimensional space.
+This method is in the same category of encoders as [autoencoders](too-many-autoencoder.qmd) and [ISOMAP](too-many-isomap.qmd), 
+as they allow for non-linear compression of the data.
+This method got popular in part because of how fast it runs,
+and because people tend to like the visualization it provides.
 
-WIP
+UMAP is an iterative stochastic method.
+It works by doing the following steps:
+
+1. Use spectral embedding to embed points in a low-dimensional space
+1. Calculate similarity scores between all pairs of points based on the original data set
+1. Randomly samples a pair of points based on their similarity scores
+1. Flips a coin to decide which of the pair of points to focus on
+1. Randomly picks a non-neighbor point to move away from
+1. Moves the selected point towards its neighbor and away from its non-neighbor
+1. Repeat 3-6
+
+Beyond arguments such as `n_epochs`, which would determine how long to run this algorithm for,
+and `n_components` to determine the number of components to return.
+There are 3 main hyperparameters: `n_neighbors`, `min_dist`, and `metric`.
+`n_neighbors` determines how many points are considered neighbors.
+A point counts as its own neighbor.
+Lower values lead to a local view.
+`min_dist` determines how close points are allowed to be to each other in the low-dimensional space.
+`metric` determines how distances are calculated in the input data: 
+euclidean, manhattan, jaccard, etc.
+There are many more arguments for UMAP,
+It is quite a flexible method that has been used in many fields.
+
+One of the consequences of the algorithm is that only local distances matter in our embedding.
+That is to say that points that are close together in our embedding are also close together in the original data,
+but each component doesn't carry any actionable information beyond its ability to separate points.
+
+While UMAP is very popular, you need to be very careful when using it.
+The flexibility of UMAP is both its greatest strength and greatest weakness in feature engineering.
+Take a look at the figure below:
+
+```{r}
+#| label: umap-unknown
+#| echo: false
+#| fig-alt: |
+#|   Faceted scatter plot. X and Y each contain a UMAP component, and the 
+#|   facets are the number of neighbors. The facets values are 2, 3, 5, and 10.
+#|   When neighbors = 2 the points cluster in around 5 tight clusters.
+#|   When neighbors = 3 the points appear evenly distributed in a large blob shape.
+#|   When neighbors = 5 the points appear distrubuted in a circular shape.
+#|   When neighbors = 10 the points appear distributed in a ring, 
+#|   with few points in the middle.
+library(tidymodels)
+library(embed)
+set.seed(2)
+data_random <- rnorm(1000 * 100) |>
+  matrix(ncol = 1000) |>
+  as_tibble()
+
+umap_2 <- recipe(~., data_random) |>
+  step_umap(all_predictors(), neighbors = 2) |>
+  prep() |>
+  bake(NULL)
+
+umap_3 <- recipe(~., data_random) |>
+  step_umap(all_predictors(), neighbors = 3) |>
+  prep() |>
+  bake(NULL)
+
+umap_5 <- recipe(~., data_random) |>
+  step_umap(all_predictors(), neighbors = 5) |>
+  prep() |>
+  bake(NULL)
+
+umap_10 <- recipe(~., data_random) |>
+  step_umap(all_predictors(), neighbors = 10) |>
+  prep() |>
+  bake(NULL)
+  
+umap_all <- bind_rows(
+ umap_2 |> mutate(type = "A", neighbors = 2),
+ umap_3 |> mutate(type = "B", neighbors = 3),
+ umap_5 |> mutate(type = "C", neighbors = 5),
+ umap_10 |> mutate(type = "D", neighbors = 10)
+)
+
+umap_all |>
+  mutate(neighbors = factor(paste0("neighbors: ", neighbors), paste0("neighbors: ",c(2, 3, 5, 10)))) |>
+  ggplot(aes(UMAP1, UMAP2)) +
+  geom_point() +
+  facet_wrap(~neighbors, scales = "free") +
+  theme_minimal()
+```
+
+Here we have 4 different applications of UMAP with different values of `n_neighbors`.
+Depending on the value, we either see clusters, structure, or no structure at all.
+This figure used the exact same data in all 4 applications,
+with the original data being normally distributed.
+
+You are discouraged from using small values of `n_neighbors` for similar reasons,
+but it is worth noting that you might fool yourself into finding relationships in your data that aren't there.
+This is even more important for feature engineering, as it can be harder to visually validate the results in higher dimensions.
+
+You use UMAP more to extract separation between clusters in the data,
+and to preserve local structure, than to generate components that in and of themselves contain valuable information.
+This is one of the reasons why UMAP is so popular in clustering projects.
 
 ## Pros and Cons
 
 ### Pros
 
+- Fairly fast
+
 ### Cons
+
+- Very little explainability
+- Has a lot of hyperparameters
 
 ## R Examples
 
+```{r}
+#| label: ames
+#| echo: false
+#| message: false
+library(tidymodels)
+data("ames")
+```
+
+We will be using the `ames` data set for these examples.
+
+```{r}
+#| label: show-data
+library(recipes)
+library(modeldata)
+
+ames_num <- ames |>
+  select(where(is.numeric))
+```
+
+{embed} provides `step_umap()`, which is the standard way to perform UMAP.
+
+```{r}
+#| label: step_pca
+umap_rec <- recipe(~ ., data = ames_num) |>
+  step_normalize(all_numeric_predictors()) |>
+  step_umap(all_numeric_predictors(), num_comp = 5)
+
+umap_rec |>
+  prep() |>
+  bake(new_data = NULL) |>
+  glimpse()
+```
+
 ## Python Examples
+
+WIP

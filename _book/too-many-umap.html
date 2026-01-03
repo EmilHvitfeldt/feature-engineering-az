@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -74,7 +109,11 @@ ul.task-list li input[type="checkbox"] {
 
 <meta property="og:title" content="Feature Engineering A-Z | UMAP">
 <meta property="og:description" content="">
+<meta property="og:image" content="https://example.com/too-many-umap_files/figure-html/umap-unknown-1.png">
 <meta property="og:site_name" content="Feature Engineering A-Z">
+<meta property="og:image:alt" content="Faceted scatter plot. X and Y each contain a UMAP component, and the  facets are the number of neighbors. The facets values are 2, 3, 5, and 10. When neighbors = 2 the points cluster in around 5 tight clusters. When neighbors = 3 the points appear evenly distributed in a large blob shape. When neighbors = 5 the points appear distrubuted in a circular shape. When neighbors = 10 the points appear distributed in a ring,  with few points in the middle.">
+<meta property="og:image:height" content="960">
+<meta property="og:image:width" content="1344">
 </head>
 
 <body class="nav-sidebar docked quarto-light">
@@ -86,7 +125,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./too-many.html">Too Many Variables</a></li><li class="breadcrumb-item"><a href="./too-many-umap.html"><span class="chapter-number">76</span>&nbsp; <span class="chapter-title">🏗️ Uniform Manifold Approximation and Projection</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./too-many.html">Too Many Variables</a></li><li class="breadcrumb-item"><a href="./too-many-umap.html"><span class="chapter-number">76</span>&nbsp; <span class="chapter-title">Uniform Manifold Approximation and Projection</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -656,7 +695,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./too-many-umap.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">76</span>&nbsp; <span class="chapter-title">🏗️ Uniform Manifold Approximation and Projection</span></span></a>
+ <span class="menu-text"><span class="chapter-number">76</span>&nbsp; <span class="chapter-title">Uniform Manifold Approximation and Projection</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1227,9 +1266,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./too-many.html">Too Many Variables</a></li><li class="breadcrumb-item"><a href="./too-many-umap.html"><span class="chapter-number">76</span>&nbsp; <span class="chapter-title">🏗️ Uniform Manifold Approximation and Projection</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./too-many.html">Too Many Variables</a></li><li class="breadcrumb-item"><a href="./too-many-umap.html"><span class="chapter-number">76</span>&nbsp; <span class="chapter-title">Uniform Manifold Approximation and Projection</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-too-many-umap" class="quarto-section-identifier"><span class="chapter-number">76</span>&nbsp; <span class="chapter-title">🏗️ Uniform Manifold Approximation and Projection</span></span></h1>
+<h1 class="title"><span id="sec-too-many-umap" class="quarto-section-identifier"><span class="chapter-number">76</span>&nbsp; <span class="chapter-title">Uniform Manifold Approximation and Projection</span></span></h1>
 </div>
 
 
@@ -1249,21 +1288,107 @@ ul.task-list li input[type="checkbox"] {
 <section id="umap" class="level2" style="visibility: hidden; height: 0px;" data-number="76.1">
 <h2 data-number="76.1" class="anchored" data-anchor-id="umap"><span class="header-section-number">76.1</span> UMAP</h2>
 </section>
-<p>WIP</p>
+<p>Uniform Manifold Approximation and Projection (UMAP) is another method that takes high-dimensional data and embeds it into a lower-dimensional space. This method is in the same category of encoders as <a href="./too-many-autoencoder.html">autoencoders</a> and <a href="./too-many-isomap.html">ISOMAP</a>, as they allow for non-linear compression of the data. This method got popular in part because of how fast it runs, and because people tend to like the visualization it provides.</p>
+<p>UMAP is an iterative stochastic method. It works by doing the following steps:</p>
+<ol type="1">
+<li>Use spectral embedding to embed points in a low-dimensional space</li>
+<li>Calculate similarity scores between all pairs of points based on the original data set</li>
+<li>Randomly samples a pair of points based on their similarity scores</li>
+<li>Flips a coin to decide which of the pair of points to focus on</li>
+<li>Randomly picks a non-neighbor point to move away from</li>
+<li>Moves the selected point towards its neighbor and away from its non-neighbor</li>
+<li>Repeat 3-6</li>
+</ol>
+<p>Beyond arguments such as <code>n_epochs</code>, which would determine how long to run this algorithm for, and <code>n_components</code> to determine the number of components to return. There are 3 main hyperparameters: <code>n_neighbors</code>, <code>min_dist</code>, and <code>metric</code>. <code>n_neighbors</code> determines how many points are considered neighbors. A point counts as its own neighbor. Lower values lead to a local view. <code>min_dist</code> determines how close points are allowed to be to each other in the low-dimensional space. <code>metric</code> determines how distances are calculated in the input data: euclidean, manhattan, jaccard, etc. There are many more arguments for UMAP, It is quite a flexible method that has been used in many fields.</p>
+<p>One of the consequences of the algorithm is that only local distances matter in our embedding. That is to say that points that are close together in our embedding are also close together in the original data, but each component doesn’t carry any actionable information beyond its ability to separate points.</p>
+<p>While UMAP is very popular, you need to be very careful when using it. The flexibility of UMAP is both its greatest strength and greatest weakness in feature engineering. Take a look at the figure below:</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching packages ────────────────────────────────────── tidymodels 1.4.1 ──</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>✔ broom        1.0.10     ✔ recipes      1.3.1 
+✔ dials        1.4.2      ✔ rsample      1.3.1 
+✔ dplyr        1.1.4      ✔ tailor       0.1.0 
+✔ ggplot2      4.0.0      ✔ tidyr        1.3.1 
+✔ infer        1.0.9      ✔ tune         2.0.0 
+✔ modeldata    1.5.1      ✔ workflows    1.3.0 
+✔ parsnip      1.3.3      ✔ workflowsets 1.1.1 
+✔ purrr        1.1.0      ✔ yardstick    1.3.2 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Conflicts ───────────────────────────────────────── tidymodels_conflicts() ──
+✖ purrr::discard() masks scales::discard()
+✖ dplyr::filter()  masks stats::filter()
+✖ dplyr::lag()     masks stats::lag()
+✖ recipes::step()  masks stats::step()</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: The `x` argument of `as_tibble.matrix()` must have unique column names if
+`.name_repair` is omitted as of tibble 2.0.0.
+ℹ Using compatibility `.name_repair`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="too-many-umap_files/figure-html/umap-unknown-1.png" class="img-fluid figure-img" alt="Faceted scatter plot. X and Y each contain a UMAP component, and the  facets are the number of neighbors. The facets values are 2, 3, 5, and 10. When neighbors = 2 the points cluster in around 5 tight clusters. When neighbors = 3 the points appear evenly distributed in a large blob shape. When neighbors = 5 the points appear distrubuted in a circular shape. When neighbors = 10 the points appear distributed in a ring,  with few points in the middle." width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Here we have 4 different applications of UMAP with different values of <code>n_neighbors</code>. Depending on the value, we either see clusters, structure, or no structure at all. This figure used the exact same data in all 4 applications, with the original data being normally distributed.</p>
+<p>You are discouraged from using small values of <code>n_neighbors</code> for similar reasons, but it is worth noting that you might fool yourself into finding relationships in your data that aren’t there. This is even more important for feature engineering, as it can be harder to visually validate the results in higher dimensions.</p>
+<p>You use UMAP more to extract separation between clusters in the data, and to preserve local structure, than to generate components that in and of themselves contain valuable information. This is one of the reasons why UMAP is so popular in clustering projects.</p>
 <section id="pros-and-cons" class="level2" data-number="76.2">
 <h2 data-number="76.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">76.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="76.2.1">
 <h3 data-number="76.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">76.2.1</span> Pros</h3>
+<ul>
+<li>Fairly fast</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="76.2.2">
 <h3 data-number="76.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">76.2.2</span> Cons</h3>
+<ul>
+<li>Very little explainability</li>
+<li>Has a lot of hyperparameters</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="76.3">
 <h2 data-number="76.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">76.3</span> R Examples</h2>
+<p>We will be using the <code>ames</code> data set for these examples.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modeldata)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>ames_num <span class="ot">&lt;-</span> ames <span class="sc">|&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>{embed} provides <code>step_umap()</code>, which is the standard way to perform UMAP.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>umap_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(<span class="sc">~</span> ., <span class="at">data =</span> ames_num) <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_normalize</span>(<span class="fu">all_numeric_predictors</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_umap</span>(<span class="fu">all_numeric_predictors</span>(), <span class="at">num_comp =</span> <span class="dv">5</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>umap_rec <span class="sc">|&gt;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,930
+Columns: 5
+$ UMAP1 &lt;dbl&gt; -0.43740699, -2.45369506, -2.92550945, 0.08030959, 1.12957335, 1…
+$ UMAP2 &lt;dbl&gt; 0.4267507, -1.6785691, -1.4495940, 1.0937077, 2.6854937, 2.63307…
+$ UMAP3 &lt;dbl&gt; 0.06459869, 1.45441735, 2.00685763, -0.44243026, -1.05284834, -1…
+$ UMAP4 &lt;dbl&gt; -1.578369260, 0.139115691, -0.001287348, -2.074141502, 2.9047153…
+$ UMAP5 &lt;dbl&gt; 0.403661758, 0.813153148, 0.216809466, 0.318011522, -1.913434148…</code></pre>
+</div>
+</div>
 </section>
 <section id="python-examples" class="level2" data-number="76.4">
 <h2 data-number="76.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">76.4</span> Python Examples</h2>
+<p>WIP</p>
 
 
 </section>
