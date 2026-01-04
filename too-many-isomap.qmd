@@ -8,13 +8,69 @@ pagetitle: "Feature Engineering A-Z | ISOMAP"
 ## ISOMAP
 :::
 
+Isometric mapping (ISOMAP) is a non-linear dimensionality reduction method,
+much like [UMAP](too-many-umap.qmd).
+It is another method that uses distances between points to produce graphs of neighboring points. 
+What diffirentiate this method from the others is that it uses **geodesic distances** as opposed to straight-line distances.
+where the geodesic distance is the sum of edge weights along the shortest path between two points.
+
+The eigenvectors of the deodesic distance metric are then used to represent the new coordinates.
+
+A very high-level description of the Isomap algorithm is given below:
+
+1. Find the neighbors for each point
+1. Construct the neighborhood graph, using Euclidean distance as edge length
+1. Calculate the shortest path between each pair of points
+1. Use Multidimensional scaling to compute a lower-dimensional embedding
+
 ## Pros and Cons
 
 ### Pros
 
+Captures non-linear effects
+Captures long-range structure, not just local structure
+No parameters to set other than neighbors
+
 ### Cons
 
+Computationally expensive
+Assumes a single connected manifold
+
 ## R Examples
+
+
+```{r}
+#| label: ames
+#| echo: false
+#| message: false
+library(tidymodels)
+data("ames")
+```
+
+We will be using the `ames` data set for these examples.
+
+```{r}
+#| label: show-data
+library(recipes)
+library(modeldata)
+
+ames_num <- ames |>
+  select(where(is.numeric))
+```
+
+{embed} provides `step_isomap()`, which is the standard way to perform isomap.
+
+```{r}
+#| label: step_isomap
+isomap_rec <- recipe(~ ., data = ames_num) |>
+  step_normalize(all_numeric_predictors()) |>
+  step_isomap(all_numeric_predictors(), num_terms = 5)
+
+isomap_rec |>
+  prep() |>
+  bake(new_data = NULL) |>
+  glimpse()
+```
 
 ## Python Examples
 
