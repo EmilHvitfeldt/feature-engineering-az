@@ -26,6 +26,24 @@
       "Maintainer": "Dirk Eddelbuettel <edd@debian.org>",
       "Repository": "CRAN"
     },
+    "CVST": {
+      "Package": "CVST",
+      "Version": "0.2-3",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Fast Cross-Validation via Sequential Testing",
+      "Date": "2022-02-19",
+      "Depends": [
+        "kernlab",
+        "Matrix"
+      ],
+      "Author": "Tammo Krueger, Mikio Braun",
+      "Maintainer": "Tammo Krueger <tammokrueger@googlemail.com>",
+      "Description": "The fast cross-validation via sequential testing (CVST) procedure is an improved cross-validation procedure which uses non-parametric testing coupled with sequential analysis to determine the best parameter set on linearly increasing subsets of the data. By eliminating under-performing candidates quickly and keeping promising candidates as long as possible, the method speeds up the computation while preserving the capability of a full cross-validation. Additionally to the CVST the package contains an implementation of the ordinary k-fold cross-validation with a flexible and powerful set of helper objects and methods to handle the overall model selection process. The implementations of the Cochran's Q test with permutations and the sequential testing framework of Wald are generic and can therefore also be used in other contexts.",
+      "License": "GPL (>= 2.0)",
+      "NeedsCompilation": "no",
+      "Repository": "CRAN"
+    },
     "DBI": {
       "Package": "DBI",
       "Version": "1.2.3",
@@ -73,6 +91,37 @@
       "NeedsCompilation": "no",
       "Author": "R Special Interest Group on Databases (R-SIG-DB) [aut], Hadley Wickham [aut], Kirill Müller [aut, cre] (<https://orcid.org/0000-0002-1416-3412>), R Consortium [fnd]",
       "Maintainer": "Kirill Müller <kirill@cynkra.com>",
+      "Repository": "CRAN"
+    },
+    "DRR": {
+      "Package": "DRR",
+      "Version": "0.0.4",
+      "Source": "Repository",
+      "Title": "Dimensionality Reduction via Regression",
+      "Authors@R": "person(\"Guido\", \"Kraemer\", email = \"gkraemer@bgc-jena.mpg.de\", role = c(\"aut\",\"cre\"))",
+      "Description": "An Implementation of Dimensionality Reduction via Regression using Kernel Ridge Regression.",
+      "License": "GPL-3 | file LICENSE",
+      "URL": "https://github.com/gdkrmr/DRR",
+      "BugReports": "https://github.com/gdkrmr/DRR/issues",
+      "Imports": [
+        "stats",
+        "methods"
+      ],
+      "Suggests": [
+        "knitr",
+        "rmarkdown"
+      ],
+      "VignetteBuilder": "knitr",
+      "LazyData": "true",
+      "Depends": [
+        "kernlab",
+        "CVST",
+        "Matrix"
+      ],
+      "RoxygenNote": "7.0.2",
+      "NeedsCompilation": "no",
+      "Author": "Guido Kraemer [aut, cre]",
+      "Maintainer": "Guido Kraemer <gkraemer@bgc-jena.mpg.de>",
       "Repository": "CRAN"
     },
     "DiceDesign": {
@@ -327,6 +376,26 @@
       "NeedsCompilation": "no",
       "Author": "Winston Chang [aut, cre], Posit Software, PBC [cph, fnd]",
       "Maintainer": "Winston Chang <winston@posit.co>",
+      "Repository": "CRAN"
+    },
+    "RANN": {
+      "Package": "RANN",
+      "Version": "2.6.2",
+      "Source": "Repository",
+      "Title": "Fast Nearest Neighbour Search (Wraps ANN Library) Using L2 Metric",
+      "Authors@R": "c( person(\"Gregory\",\"Jefferis\", email=\"jefferis@gmail.com\",  role = c(\"aut\", \"cre\"), comment = c(ORCID = \"0000-0002-0587-9355\")), person(given = c(\"Samuel\", \"E.\"), family = \"Kemp\", role = \"aut\"), person(given = \"Kirill\", family = \"M\\u00fcller\", role = \"ctb\", comment = c(ORCID = \"0000-0002-1416-3412\")), person(\"Sunil\",\"Arya\", role=c(\"aut\", \"cph\"), comment = c(ORCID = \"0000-0003-0939-4192\")), person(\"David\",\"Mount\", role=c(\"aut\", \"cph\"),  comment = c(ORCID = \"0000-0002-3290-8932\")), person(\"University of Maryland\", role=\"cph\", comment = \"ANN library is copyright University of Maryland and Sunil Arya and David Mount. See file COPYRIGHT for details\") )",
+      "Description": "Finds the k nearest neighbours for every point in a given dataset in O(N log N) time using Arya and Mount's ANN library (v1.1.3). There is support for approximate as well as exact searches, fixed radius searches and 'bd' as well as 'kd' trees. The distance is computed using the L2 (Euclidean) metric. Please see package 'RANN.L1' for the same functionality using the L1 (Manhattan, taxicab) metric.",
+      "License": "GPL (>= 3)",
+      "URL": "https://github.com/jefferislab/RANN, https://jefferislab.github.io/RANN/",
+      "BugReports": "https://github.com/jefferislab/RANN/issues",
+      "Suggests": [
+        "testthat"
+      ],
+      "Encoding": "UTF-8",
+      "RoxygenNote": "7.3.2",
+      "NeedsCompilation": "yes",
+      "Author": "Gregory Jefferis [aut, cre] (<https://orcid.org/0000-0002-0587-9355>), Samuel E. Kemp [aut], Kirill Müller [ctb] (<https://orcid.org/0000-0002-1416-3412>), Sunil Arya [aut, cph] (<https://orcid.org/0000-0003-0939-4192>), David Mount [aut, cph] (<https://orcid.org/0000-0002-3290-8932>), University of Maryland [cph] (ANN library is copyright University of Maryland and Sunil Arya and David Mount. See file COPYRIGHT for details)",
+      "Maintainer": "Gregory Jefferis <jefferis@gmail.com>",
       "Repository": "CRAN"
     },
     "RColorBrewer": {
@@ -1993,6 +2062,67 @@
       "NeedsCompilation": "yes",
       "Author": "Dirk Eddelbuettel [aut, cre] (<https://orcid.org/0000-0001-6419-907X>), Antoine Lucas [ctb], Jarek Tuszynski [ctb], Henrik Bengtsson [ctb] (<https://orcid.org/0000-0002-7579-5165>), Simon Urbanek [ctb] (<https://orcid.org/0000-0003-2297-1732>), Mario Frasca [ctb], Bryan Lewis [ctb], Murray Stokely [ctb], Hannes Muehleisen [ctb], Duncan Murdoch [ctb], Jim Hester [ctb], Wush Wu [ctb] (<https://orcid.org/0000-0001-5180-0567>), Qiang Kou [ctb] (<https://orcid.org/0000-0001-6786-5453>), Thierry Onkelinx [ctb] (<https://orcid.org/0000-0001-8804-4216>), Michel Lang [ctb] (<https://orcid.org/0000-0001-9754-0393>), Viliam Simko [ctb], Kurt Hornik [ctb] (<https://orcid.org/0000-0003-4198-9911>), Radford Neal [ctb] (<https://orcid.org/0000-0002-2473-3407>), Kendon Bell [ctb] (<https://orcid.org/0000-0002-9093-8312>), Matthew de Queljoe [ctb], Dmitry Selivanov [ctb], Ion Suruceanu [ctb], Bill Denney [ctb], Dirk Schumacher [ctb], András Svraka [ctb], Sergey Fedorov [ctb], Will Landau [ctb] (<https://orcid.org/0000-0003-1878-3253>), Floris Vanderhaeghe [ctb] (<https://orcid.org/0000-0002-6378-6229>), Kevin Tappe [ctb], Harris McGehee [ctb], Tim Mastny [ctb], Aaron Peikert [ctb] (<https://orcid.org/0000-0001-7813-818X>), Mark van der Loo [ctb] (<https://orcid.org/0000-0002-9807-4686>), Chris Muir [ctb] (<https://orcid.org/0000-0003-2555-3878>), Moritz Beller [ctb] (<https://orcid.org/0000-0003-4852-0526>), Sebastian Campbell [ctb], Winston Chang [ctb] (<https://orcid.org/0000-0002-1576-2126>), Dean Attali [ctb] (<https://orcid.org/0000-0002-5645-3493>), Michael Chirico [ctb] (<https://orcid.org/0000-0003-0787-087X>), Kevin Ushey [ctb]",
       "Maintainer": "Dirk Eddelbuettel <edd@debian.org>",
+      "Repository": "CRAN"
+    },
+    "dimRed": {
+      "Package": "dimRed",
+      "Version": "0.2.7",
+      "Source": "Repository",
+      "Title": "A Framework for Dimensionality Reduction",
+      "Authors@R": "c( person(\"Guido\", \"Kraemer\", email = \"guido.kraemer@uni-leipzig.de\", role = c(\"aut\",\"cre\"), comment = c(ORCID = \"0000-0003-4865-5041\") ) )",
+      "Description": "A collection of dimensionality reduction techniques from R packages and a common interface for calling the methods.",
+      "Depends": [
+        "R (>= 3.0.0)",
+        "DRR"
+      ],
+      "Imports": [
+        "magrittr",
+        "methods"
+      ],
+      "Suggests": [
+        "NMF",
+        "MASS",
+        "Matrix",
+        "RANN",
+        "RSpectra",
+        "Rtsne",
+        "cccd",
+        "coRanking",
+        "diffusionMap",
+        "energy",
+        "fastICA",
+        "ggplot2",
+        "graphics",
+        "igraph",
+        "keras",
+        "kernlab",
+        "knitr",
+        "optimx",
+        "pcaL1",
+        "pcaPP",
+        "reticulate",
+        "rgl",
+        "scales",
+        "scatterplot3d",
+        "stats",
+        "tensorflow",
+        "testthat",
+        "tidyr",
+        "tinytex",
+        "umap",
+        "vegan"
+      ],
+      "VignetteBuilder": "knitr",
+      "License": "GPL-3 | file LICENSE",
+      "BugReports": "https://github.com/gdkrmr/dimRed/issues",
+      "URL": "https://www.guido-kraemer.com/software/dimred/",
+      "Encoding": "UTF-8",
+      "Collate": "'autoencoder.R' 'misc.R' 'dimRedData-class.R' 'dataSets.R' 'dimRedMethod-class.R' 'dimRedResult-class.R' 'diffmap.R' 'dimRed.R' 'drr.R' 'embed.R' 'fastica.R' 'get_info.R' 'graph_embed.R' 'hlle.R' 'isomap.R' 'kpca.R' 'l1pca.R' 'leim.R' 'lle.R' 'loe.R' 'mds.R' 'mixColorSpaces.R' 'nmds.R' 'nnmf.R' 'pca.R' 'plot.R' 'quality.R' 'rotate.R' 'soe.R' 'tsne.R' 'umap.R'",
+      "RoxygenNote": "7.3.2",
+      "Config/testthat/edition": "3",
+      "NeedsCompilation": "yes",
+      "Author": "Guido Kraemer [aut, cre] (<https://orcid.org/0000-0003-4865-5041>)",
+      "Maintainer": "Guido Kraemer <guido.kraemer@uni-leipzig.de>",
       "Repository": "CRAN"
     },
     "dplyr": {
