@@ -1249,14 +1249,46 @@ ul.task-list li input[type="checkbox"] {
 <section id="filter-based-feature-selection" class="level2" style="visibility: hidden; height: 0px;" data-number="78.1">
 <h2 data-number="78.1" class="anchored" data-anchor-id="filter-based-feature-selection"><span class="header-section-number">78.1</span> Filter based feature selection</h2>
 </section>
-<p>WIP</p>
+<p>The general idea behind filter-based feature selection is quite simple. The choices you need to make are what make this method hard. In essence, you calculate a value for each predictor, its feature importance, and then use that value to determine which features to keep.</p>
+<p>There is a lot to unpack from this idea. What counts as a good feature importance metric? Can we have more than one feature importance metric? How do we actually use the feature importance score to delete and keep predictors?</p>
+<p>First and foremost, we want the feature importance metric to produce a singular value. So a metric like variance is to be preferred over a combination of <code>[min, max]</code> as there is no obvious way to combine them. This is a bit of an over-simplification, as there technically are ways to combine these metrics, But it serves to highlight that we want to be mindful about the metrics that we are using. We can split up the metrics into two main camps: supervised and unsupervised.</p>
+<p>Unsupervised metrics calculate the feature importance without involving the outcome. These methods are generally all intuitively easy to understand, but since they don’t use the outcome, they tend to be less performant than their supervised counterparts.</p>
+<p>Examples of unsupervised filters are variance, entropy, or sparsity-based. Under the variance category, we also see calculations such as interquartile range (IQR) and Median absolute deviation (MAD). What they all have in common is that they all have different ways to quantify how spread out the values are. We need to take two things into account when using these. Firstly, while larger spreads might seem good, there is no guarantee that the outcome is related to the spread at all. Secondly, this metric is highly dependent on the previous feature engineering steps that were performed. Applying the plain variance filter after doing <a href="./numeric-normalization.html">normalization</a> is useless, as the normalization makes it so that all the variables have the same variance.</p>
+<p>The sparsity-based metrics typically filter for a range of accepted percentages of zeros in each variable. Note that using this filter in a data set with a lot of sparse data could remove all the variables if the range is not set correctly.</p>
+<p>The metrics so far have all been numeric-based. We are not constrained to that and could devise metrics that work on categorical, datetime, or other types of predictors. Although it is typically easier to do feature selection just on one type of variable at a time, as it can be hard to derive a metric that equally weights the importance of multiple types of variables.</p>
+<p>TODO: list common importance scores</p>
+<p>For the reasons outlined above, It is typically recommended that we focus on supervised metrics. The supervised metrics will use the outcome as part of the calculation. Instead of calculating the variance of a numeric feature, we could calculate the correlation between the numeric feature and the numeric outcome. The correlation is a bit more costly to calculate, but it is vastly outweighed by the signal it is likely to extract by also including information from the outcome. This way, we can find predictors that seemingly are related to the outcome, and thus pick those that have the highest apparent signal.</p>
+<p>Since these supervised metrics require the outcome, We now have the constraint that the metric we choose has the right input types. Correlation can only be used if both the predictor and outcome are numeric, ANOVA F-test can only be used for numeric predictors and categorical outcomes. and so on and so forth.</p>
+<p>TODO: Add a table of some sort outlining some of the metrics</p>
+<p>We have mostly been talking about these metrics in the univariate form. That is partly because they tend to perform reasonably well, and they are much faster to do than multivariate filters. By not having the calculations happen one at a time, you invite in a lot of complexity, which counteracts some of the benefits of filter-based feature selection.</p>
+<p>The main algorithm used for filter-based feature selection will thus be</p>
+<ol type="1">
+<li>Calculate the feature importance metric for each proposed predictor</li>
+<li>Identify predictors to be removed using a threshold</li>
+<li>Remove predictors that didn’t pass the threshold</li>
+</ol>
+<p>Remember that we only do this step the first time around; On any future application, we just remove the predictors that were selected to be removed. Also note here that the threshold can be taken as a hyperparameter, as could the importance metric.</p>
+<p>One of the neat things about filter-based feature selection is that it scales linearly with the number of predictors. This can come in very handy when you have a lot of predictors.</p>
+<p>We can technically combine multiple univariate performance metrics using <strong>desireability functions</strong>. On the one hand, this could lead to increased performance, but on the other hand, it also increases the complexity as you now are selecting multiple metrics, selection thresholds, and how to combine them.</p>
+<p>Not only is feature selection not limited to numeric predictors, but you also don’t have to include all your predictors in the feature selection process. If you have one or more predictors that you have reasons to keep in your model, then you can exclude them from the feature selection methods so they don’t get removed. In some ways, I find it easier to think of feature selection as a feature removal method.</p>
+<p>It is important to note that this part of the model workflow affects the models being fit. Typically, filter-based feature selection is done as part of the preprocessing.</p>
+<p>One of the main downsides of filter-based feature selection, Besides the increased computational load that comes with the tuning often required, It is not able to handle colinearity well at all. You can imagine two identical features. Any metric will give them identical scores, forcing you to keep both or remove both. You would not want to keep both as they contain the same information, but this is a limitation of this method. You could stop this by removing duplicate features, But this limitation still holds true for highly correlated features.</p>
 <section id="pros-and-cons" class="level2" data-number="78.2">
 <h2 data-number="78.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">78.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="78.2.1">
 <h3 data-number="78.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">78.2.1</span> Pros</h3>
+<ul>
+<li>Conceptually simple</li>
+<li>Computationally fast</li>
+<li>Scales linearly with the number of predictors</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="78.2.2">
 <h3 data-number="78.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">78.2.2</span> Cons</h3>
+<ul>
+<li>Is unable to take interactions between predictors into account</li>
+<li>Very sensitive to the choice of threshold</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="78.3">
@@ -1264,6 +1296,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="python-examples" class="level2" data-number="78.4">
 <h2 data-number="78.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">78.4</span> Python Examples</h2>
+<p>WIP</p>
 
 
 </section>

@@ -8,14 +8,122 @@ pagetitle: "Feature Engineering A-Z | Filter based feature selection"
 ## Filter based feature selection
 :::
 
-WIP
+The general idea behind filter-based feature selection is quite simple.
+The choices you need to make are what make this method hard.
+In essence, you calculate a value for each predictor,
+its feature importance,
+and then use that value to determine which features to keep.
+
+There is a lot to unpack from this idea.
+What counts as a good feature importance metric?
+Can we have more than one feature importance metric?
+How do we actually use the feature importance score to delete and keep predictors?
+
+First and foremost, we want the feature importance metric to produce a singular value.
+So a metric like variance is to be preferred over a combination of `[min, max]` as there is no obvious way to combine them.
+This is a bit of an over-simplification, as there technically are ways to combine these metrics,
+But it serves to highlight that we want to be mindful about the metrics that we are using.
+We can split up the metrics into two main camps: supervised and unsupervised.
+
+Unsupervised metrics calculate the feature importance without involving the outcome.
+These methods are generally all intuitively easy to understand,
+but since they don't use the outcome, they tend to be less performant than their supervised counterparts.
+
+Examples of unsupervised filters are variance, entropy, or sparsity-based.
+Under the variance category, we also see calculations such as interquartile range (IQR) and Median absolute deviation (MAD).
+What they all have in common is that they all have different ways to quantify how spread out the values are.
+We need to take two things into account when using these.
+Firstly, while larger spreads might seem good, there is no guarantee that the outcome is related to the spread at all.
+Secondly, this metric is highly dependent on the previous feature engineering steps that were performed.
+Applying the plain variance filter after doing [normalization](numeric-normalization.qmd) is useless, as the normalization makes it so that all the variables have the same variance.
+
+The sparsity-based metrics typically filter for a range of accepted percentages of zeros in each variable.
+Note that using this filter in a data set with a lot of sparse data could remove all the variables if the range is not set correctly.
+
+The metrics so far have all been numeric-based.
+We are not constrained to that and could devise metrics that work on categorical, datetime, or other types of predictors.
+Although it is typically easier to do feature selection just on one type of variable at a time,
+as it can be hard to derive a metric that equally weights the importance of multiple types of variables.
+
+TODO: list common importance scores
+
+For the reasons outlined above,
+It is typically recommended that we focus on supervised metrics.
+The supervised metrics will use the outcome as part of the calculation.
+Instead of calculating the variance of a numeric feature,
+we could calculate the correlation between the numeric feature and the numeric outcome.
+The correlation is a bit more costly to calculate,
+but it is vastly outweighed by the signal it is likely to extract by also including information from the outcome.
+This way, we can find predictors that seemingly are related to the outcome,
+and thus pick those that have the highest apparent signal.
+
+Since these supervised metrics require the outcome,
+We now have the constraint that the metric we choose has the right input types.
+Correlation can only be used if both the predictor and outcome are numeric,
+ANOVA F-test can only be used for numeric predictors and categorical outcomes.
+and so on and so forth.
+
+TODO: Add a table of some sort outlining some of the metrics
+
+We have mostly been talking about these metrics in the univariate form.
+That is partly because they tend to perform reasonably well,
+and they are much faster to do than multivariate filters.
+By not having the calculations happen one at a time, you invite in a lot of complexity,
+which counteracts some of the benefits of filter-based feature selection.
+
+The main algorithm used for filter-based feature selection will thus be
+
+1. Calculate the feature importance metric for each proposed predictor
+2. Identify predictors to be removed using a threshold
+3. Remove predictors that didn't pass the threshold
+
+Remember that we only do this step the first time around;
+On any future application, we just remove the predictors that were selected to be removed.
+Also note here that the threshold can be taken as a hyperparameter,
+as could the importance metric.
+
+One of the neat things about filter-based feature selection is that it scales linearly with the number of predictors.
+This can come in very handy when you have a lot of predictors.
+
+We can technically combine multiple univariate performance metrics using **desireability functions**.
+On the one hand, this could lead to increased performance, 
+but on the other hand, it also increases the complexity as you now are selecting multiple metrics,
+selection thresholds, and how to combine them.
+
+Not only is feature selection not limited to numeric predictors,
+but you also don't have to include all your predictors in the feature selection process.
+If you have one or more predictors that you have reasons to keep in your model,
+then you can exclude them from the feature selection methods so they don't get removed.
+In some ways, I find it easier to think of feature selection as a feature removal method.
+
+It is important to note that this part of the model workflow affects the models being fit.
+Typically, filter-based feature selection is done as part of the preprocessing.
+
+One of the main downsides of filter-based feature selection,
+Besides the increased computational load that comes with the tuning often required,
+It is not able to handle colinearity well at all.
+You can imagine two identical features.
+Any metric will give them identical scores, forcing you to keep both or remove both.
+You would not want to keep both as they contain the same information,
+but this is a limitation of this method.
+You could stop this by removing duplicate features,
+But this limitation still holds true for highly correlated features.
 
 ## Pros and Cons
 
 ### Pros
 
+- Conceptually simple
+- Computationally fast
+- Scales linearly with the number of predictors
+
 ### Cons
+
+- Is unable to take interactions between predictors into account
+- Very sensitive to the choice of threshold
 
 ## R Examples
 
 ## Python Examples
+
+WIP

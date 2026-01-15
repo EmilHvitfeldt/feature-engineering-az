@@ -1372,11 +1372,11 @@ Note
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 2,930
 Columns: 5
-$ PC1 &lt;dbl&gt; 0.928277538, -1.121799088, -0.766999671, 2.465148494, 0.098799277,…
+$ PC1 &lt;dbl&gt; -0.928277538, 1.121799088, 0.766999671, -2.465148494, -0.098799277…
 $ PC2 &lt;dbl&gt; 0.42651536, 2.05092903, 0.27170407, -0.85236446, -0.99100986, -1.2…
 $ PC3 &lt;dbl&gt; 1.2169854, 1.1145117, 0.9661340, 0.5375621, -1.1432034, -1.1614148…
 $ PC4 &lt;dbl&gt; -1.4916224, 0.3556418, -0.7108605, -0.6941959, -0.5099111, -0.3670…
-$ PC5 &lt;dbl&gt; -0.62934723, -0.89552149, -0.07687342, -0.60312736, -0.25548253, -…</code></pre>
+$ PC5 &lt;dbl&gt; 0.62934517, 0.89551942, 0.07687514, 0.60312447, 0.25548227, 0.2227…</code></pre>
 </div>
 </div>
 <p>It works the same as <code>step_pca()</code>, but if we take a look at the coefficients there are more zeroes.</p>
@@ -1385,18 +1385,18 @@ $ PC5 &lt;dbl&gt; -0.62934723, -0.89552149, -0.07687342, -0.60312736, -0.2554825
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 170 × 4
-   terms          value component id              
-   &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;           
- 1 Lot_Frontage   0     PC1       pca_sparse_UtiVG
- 2 Lot_Area       0     PC1       pca_sparse_UtiVG
- 3 Year_Built     0     PC1       pca_sparse_UtiVG
- 4 Year_Remod_Add 0     PC1       pca_sparse_UtiVG
- 5 Mas_Vnr_Area   0     PC1       pca_sparse_UtiVG
- 6 BsmtFin_SF_1   0     PC1       pca_sparse_UtiVG
- 7 BsmtFin_SF_2   0     PC1       pca_sparse_UtiVG
- 8 Bsmt_Unf_SF    0     PC1       pca_sparse_UtiVG
- 9 Total_Bsmt_SF  0.268 PC1       pca_sparse_UtiVG
-10 First_Flr_SF   0.303 PC1       pca_sparse_UtiVG
+   terms           value component id              
+   &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;           
+ 1 Lot_Frontage    0     PC1       pca_sparse_DeVae
+ 2 Lot_Area        0     PC1       pca_sparse_DeVae
+ 3 Year_Built      0     PC1       pca_sparse_DeVae
+ 4 Year_Remod_Add  0     PC1       pca_sparse_DeVae
+ 5 Mas_Vnr_Area    0     PC1       pca_sparse_DeVae
+ 6 BsmtFin_SF_1    0     PC1       pca_sparse_DeVae
+ 7 BsmtFin_SF_2    0     PC1       pca_sparse_DeVae
+ 8 Bsmt_Unf_SF     0     PC1       pca_sparse_DeVae
+ 9 Total_Bsmt_SF  -0.268 PC1       pca_sparse_DeVae
+10 First_Flr_SF   -0.303 PC1       pca_sparse_DeVae
 # ℹ 160 more rows</code></pre>
 </div>
 </div>
@@ -1415,9 +1415,9 @@ $ PC5 &lt;dbl&gt; -0.62934723, -0.89552149, -0.07687342, -0.60312736, -0.2554825
 Columns: 5
 $ PC1 &lt;dbl&gt; -0.928277538, 1.121799088, 0.766999671, -2.465148494, -0.098799277…
 $ PC2 &lt;dbl&gt; -0.42651536, -2.05092903, -0.27170407, 0.85236446, 0.99100986, 1.2…
-$ PC3 &lt;dbl&gt; -1.2169854, -1.1145117, -0.9661340, -0.5375621, 1.1432034, 1.16141…
-$ PC4 &lt;dbl&gt; 1.4916224, -0.3556418, 0.7108605, 0.6941959, 0.5099111, 0.3670430,…
-$ PC5 &lt;dbl&gt; 0.62934525, 0.89549371, 0.07688927, 0.60312332, 0.25548838, 0.2227…</code></pre>
+$ PC3 &lt;dbl&gt; 1.2169854, 1.1145117, 0.9661340, 0.5375621, -1.1432034, -1.1614148…
+$ PC4 &lt;dbl&gt; -1.4916224, 0.3556418, -0.7108605, -0.6941959, -0.5099111, -0.3670…
+$ PC5 &lt;dbl&gt; -0.62933185, -0.89545996, -0.07686587, -0.60308949, -0.25547529, -…</code></pre>
 </div>
 </div>
 </section>
