@@ -1467,7 +1467,7 @@ Graphical Statistics</em> 15 (2): 265–86. <a href="http://www.jstor.org/stable
   // Collapse button
   var container = document.querySelector(".sidebar-title");
   var button = document.createElement("button");
-  button.textContent = "collapse";
+  button.setAttribute("aria-label", "collapse");
   button.style.border = "none";
   button.style.backgroundColor = "unset";
   var icon_collapse = document.createElement("i");
@@ -1493,7 +1493,7 @@ Graphical Statistics</em> 15 (2): 265–86. <a href="http://www.jstor.org/stable
   // random button
   var container = document.querySelector(".sidebar-title");
   var button = document.createElement("button");
-  button.textContent = "random";
+  button.setAttribute("aria-label", "random");
   button.style.border = "none";
   button.style.backgroundColor = "unset";
   var icon_random = document.createElement("i");

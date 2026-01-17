@@ -1330,11 +1330,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 2,930
 Columns: 5
-$ IC1 &lt;dbl&gt; -0.82079215, -0.57720851, -0.43866164, -0.81557041, 1.01886870, 1.…
-$ IC2 &lt;dbl&gt; 0.37768529, -0.51372834, 0.80647237, -0.11534832, 0.64741072, 0.54…
-$ IC3 &lt;dbl&gt; -1.98797895, 0.19685637, -1.52370941, -1.70223663, 0.41414813, 0.3…
-$ IC4 &lt;dbl&gt; -0.7780544, -0.9250896, -1.3101782, 0.1813985, 0.6320439, 0.748180…
-$ IC5 &lt;dbl&gt; -0.113207440, 0.924500080, -0.786464523, -0.439387407, 0.393585099…</code></pre>
+$ IC1 &lt;dbl&gt; 1.9898008, -0.1981270, 1.5285726, 1.7024011, -0.4147747, -0.348577…
+$ IC2 &lt;dbl&gt; -0.3759203, 0.5122686, -0.8065854, 0.1182729, -0.6471562, -0.54773…
+$ IC3 &lt;dbl&gt; 0.108419331, -0.924522810, 0.782423528, 0.435716066, -0.392315022,…
+$ IC4 &lt;dbl&gt; 0.82091611, 0.57588024, 0.43851490, 0.81637785, -1.01835120, -1.06…
+$ IC5 &lt;dbl&gt; -0.7747965, -0.9264319, -1.3069083, 0.1831867, 0.6335157, 0.749619…</code></pre>
 </div>
 </div>
 </section>
@@ -1355,7 +1355,7 @@ $ IC5 &lt;dbl&gt; -0.113207440, 0.924500080, -0.786464523, -0.439387407, 0.39358
   // Collapse button
   var container = document.querySelector(".sidebar-title");
   var button = document.createElement("button");
-  button.textContent = "collapse";
+  button.setAttribute("aria-label", "collapse");
   button.style.border = "none";
   button.style.backgroundColor = "unset";
   var icon_collapse = document.createElement("i");
@@ -1381,7 +1381,7 @@ $ IC5 &lt;dbl&gt; -0.113207440, 0.924500080, -0.786464523, -0.439387407, 0.39358
   // random button
   var container = document.querySelector(".sidebar-title");
   var button = document.createElement("button");
-  button.textContent = "random";
+  button.setAttribute("aria-label", "random");
   button.style.border = "none";
   button.style.backgroundColor = "unset";
   var icon_random = document.createElement("i");

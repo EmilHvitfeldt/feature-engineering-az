@@ -1324,7 +1324,7 @@ RUBIN, DONALD B. 1976. <span>“<span class="nocase">Inference and missing data<
   // Collapse button
   var container = document.querySelector(".sidebar-title");
   var button = document.createElement("button");
-  button.textContent = "collapse";
+  button.setAttribute("aria-label", "collapse");
   button.style.border = "none";
   button.style.backgroundColor = "unset";
   var icon_collapse = document.createElement("i");
@@ -1350,7 +1350,7 @@ RUBIN, DONALD B. 1976. <span>“<span class="nocase">Inference and missing data<
   // random button
   var container = document.querySelector(".sidebar-title");
   var button = document.createElement("button");
-  button.textContent = "random";
+  button.setAttribute("aria-label", "random");
   button.style.border = "none";
   button.style.backgroundColor = "unset";
   var icon_random = document.createElement("i");

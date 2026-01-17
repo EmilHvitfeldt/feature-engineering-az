@@ -1352,7 +1352,7 @@ Chen, Jianfei, Kaiwei Li, Jun Zhu, and Wenguang Chen. 2016. <span>“WarpLDA: A 
   // Collapse button
   var container = document.querySelector(".sidebar-title");
   var button = document.createElement("button");
-  button.textContent = "collapse";
+  button.setAttribute("aria-label", "collapse");
   button.style.border = "none";
   button.style.backgroundColor = "unset";
   var icon_collapse = document.createElement("i");
@@ -1378,7 +1378,7 @@ Chen, Jianfei, Kaiwei Li, Jun Zhu, and Wenguang Chen. 2016. <span>“WarpLDA: A 
   // random button
   var container = document.querySelector(".sidebar-title");
   var button = document.createElement("button");
-  button.textContent = "random";
+  button.setAttribute("aria-label", "random");
   button.style.border = "none";
   button.style.backgroundColor = "unset";
   var icon_random = document.createElement("i");
