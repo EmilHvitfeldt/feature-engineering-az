@@ -1372,11 +1372,11 @@ Note
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 2,930
 Columns: 5
-$ PC1 &lt;dbl&gt; 0.928277538, -1.121799088, -0.766999671, 2.465148494, 0.098799277,…
+$ PC1 &lt;dbl&gt; -0.928277538, 1.121799088, 0.766999671, -2.465148494, -0.098799277…
 $ PC2 &lt;dbl&gt; -0.42651536, -2.05092903, -0.27170407, 0.85236446, 0.99100986, 1.2…
 $ PC3 &lt;dbl&gt; -1.2169854, -1.1145117, -0.9661340, -0.5375621, 1.1432034, 1.16141…
 $ PC4 &lt;dbl&gt; 1.4916224, -0.3556418, 0.7108605, 0.6941959, 0.5099111, 0.3670430,…
-$ PC5 &lt;dbl&gt; 0.62934097, 0.89550175, 0.07687275, 0.60311386, 0.25548023, 0.2227…</code></pre>
+$ PC5 &lt;dbl&gt; 0.62934615, 0.89548939, 0.07690501, 0.60312848, 0.25549453, 0.2227…</code></pre>
 </div>
 </div>
 <p>It works the same as <code>step_pca()</code>, but if we take a look at the coefficients there are more zeroes.</p>
@@ -1385,18 +1385,18 @@ $ PC5 &lt;dbl&gt; 0.62934097, 0.89550175, 0.07687275, 0.60311386, 0.25548023, 0.
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 170 × 4
-   terms          value component id              
-   &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;           
- 1 Lot_Frontage   0     PC1       pca_sparse_gR4AK
- 2 Lot_Area       0     PC1       pca_sparse_gR4AK
- 3 Year_Built     0     PC1       pca_sparse_gR4AK
- 4 Year_Remod_Add 0     PC1       pca_sparse_gR4AK
- 5 Mas_Vnr_Area   0     PC1       pca_sparse_gR4AK
- 6 BsmtFin_SF_1   0     PC1       pca_sparse_gR4AK
- 7 BsmtFin_SF_2   0     PC1       pca_sparse_gR4AK
- 8 Bsmt_Unf_SF    0     PC1       pca_sparse_gR4AK
- 9 Total_Bsmt_SF  0.268 PC1       pca_sparse_gR4AK
-10 First_Flr_SF   0.303 PC1       pca_sparse_gR4AK
+   terms           value component id              
+   &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;           
+ 1 Lot_Frontage    0     PC1       pca_sparse_HZO3L
+ 2 Lot_Area        0     PC1       pca_sparse_HZO3L
+ 3 Year_Built      0     PC1       pca_sparse_HZO3L
+ 4 Year_Remod_Add  0     PC1       pca_sparse_HZO3L
+ 5 Mas_Vnr_Area    0     PC1       pca_sparse_HZO3L
+ 6 BsmtFin_SF_1    0     PC1       pca_sparse_HZO3L
+ 7 BsmtFin_SF_2    0     PC1       pca_sparse_HZO3L
+ 8 Bsmt_Unf_SF     0     PC1       pca_sparse_HZO3L
+ 9 Total_Bsmt_SF  -0.268 PC1       pca_sparse_HZO3L
+10 First_Flr_SF   -0.303 PC1       pca_sparse_HZO3L
 # ℹ 160 more rows</code></pre>
 </div>
 </div>
@@ -1414,10 +1414,10 @@ $ PC5 &lt;dbl&gt; 0.62934097, 0.89550175, 0.07687275, 0.60311386, 0.25548023, 0.
 <pre><code>Rows: 2,930
 Columns: 5
 $ PC1 &lt;dbl&gt; -0.928277538, 1.121799088, 0.766999671, -2.465148494, -0.098799277…
-$ PC2 &lt;dbl&gt; -0.42651536, -2.05092903, -0.27170407, 0.85236446, 0.99100986, 1.2…
-$ PC3 &lt;dbl&gt; 1.2169854, 1.1145117, 0.9661340, 0.5375621, -1.1432034, -1.1614148…
+$ PC2 &lt;dbl&gt; 0.42651536, 2.05092903, 0.27170407, -0.85236446, -0.99100986, -1.2…
+$ PC3 &lt;dbl&gt; -1.2169854, -1.1145117, -0.9661340, -0.5375621, 1.1432034, 1.16141…
 $ PC4 &lt;dbl&gt; -1.4916224, 0.3556418, -0.7108605, -0.6941959, -0.5099111, -0.3670…
-$ PC5 &lt;dbl&gt; -0.62934589, -0.89550589, -0.07688580, -0.60312581, -0.25548693, -…</code></pre>
+$ PC5 &lt;dbl&gt; -0.62932621, -0.89553450, -0.07682463, -0.60308472, -0.25545489, -…</code></pre>
 </div>
 </div>
 </section>
@@ -1446,60 +1446,67 @@ Zou, Hui, Trevor Hastie, and Robert Tibshirani. 2006. <span>“Sparse Principal 
 </script>
 <!-- collapse buttons -->
 <script>
-  // Collapse button
-  var container = document.querySelector(".sidebar-title");
-  var button = document.createElement("button");
-  button.setAttribute("aria-label", "collapse");
-  button.style.border = "none";
-  button.style.backgroundColor = "unset";
-  var icon_collapse = document.createElement("i");
-  icon_collapse.classList = "bi bi-arrows-collapse";
-  button.appendChild(icon_collapse);
+  (function () {
+    "use strict";
 
-  button.onclick = onbuttonclicked;
-  container.appendChild(button);
+    const container = document.querySelector(".sidebar-title");
 
-  function onbuttonclicked() {
-    if (icon_collapse.classList == "bi bi-arrows-collapse") {
-      document.querySelectorAll(
-        "a.sidebar-item-toggle:not(.collapsed)"
-      ).forEach((x) => x.click());
-      icon_collapse.classList = "bi bi-arrows-expand";
-    } else {
-      document.querySelectorAll(
-        "a.sidebar-item-toggle.collapsed"
-      ).forEach((x) => x.click());
-      icon_collapse.classList = "bi bi-arrows-collapse";
-    }
-  }
-  // random button
-  var container = document.querySelector(".sidebar-title");
-  var button = document.createElement("button");
-  button.setAttribute("aria-label", "random");
-  button.style.border = "none";
-  button.style.backgroundColor = "unset";
-  var icon_random = document.createElement("i");
-  icon_random.classList = "bi bi-dice-6";
-  button.appendChild(icon_random);
+    // Collapse button
+    const collapseButton = document.createElement("button");
+    collapseButton.setAttribute("aria-label", "collapse");
+    collapseButton.style.border = "none";
+    collapseButton.style.backgroundColor = "unset";
 
-  button.onclick = onbuttonclicked_random;
-  container.appendChild(button);
+    const iconCollapse = document.createElement("i");
+    iconCollapse.classList.add("bi", "bi-arrows-collapse");
+    collapseButton.appendChild(iconCollapse);
 
-  function onbuttonclicked_random() {
-    // All sidebar links
-    links = document.querySelectorAll(".sidebar-item-text.sidebar-link");
-    // Only keep chapters
-    links = Array.from(links).filter(element =>
-      element.querySelector(".chapter-number")
-    );
-    // Remove WIP chapters
-    links = links.filter(element => {
-      const span = element.querySelector("span.chapter-title");
-      return !(span && span.textContent.includes("🏗️"));
+    collapseButton.addEventListener("click", function () {
+      if (iconCollapse.classList.contains("bi-arrows-collapse")) {
+        document
+          .querySelectorAll("a.sidebar-item-toggle:not(.collapsed)")
+          .forEach((x) => x.click());
+        iconCollapse.classList.replace("bi-arrows-collapse", "bi-arrows-expand");
+      } else {
+        document
+          .querySelectorAll("a.sidebar-item-toggle.collapsed")
+          .forEach((x) => x.click());
+        iconCollapse.classList.replace("bi-arrows-expand", "bi-arrows-collapse");
+      }
     });
-    const link = links[Math.floor(Math.random() * links.length)];
-    link.click();
-  }
+
+    container.appendChild(collapseButton);
+
+    // Random button
+    const randomButton = document.createElement("button");
+    randomButton.setAttribute("aria-label", "random");
+    randomButton.style.border = "none";
+    randomButton.style.backgroundColor = "unset";
+
+    const iconRandom = document.createElement("i");
+    iconRandom.classList.add("bi", "bi-dice-6");
+    randomButton.appendChild(iconRandom);
+
+    randomButton.addEventListener("click", function () {
+      const allLinks = document.querySelectorAll(
+        ".sidebar-item-text.sidebar-link"
+      );
+
+      // Only keep chapters, excluding WIP
+      const chapters = Array.from(allLinks).filter((element) => {
+        if (!element.querySelector(".chapter-number")) {
+          return false;
+        }
+        const span = element.querySelector("span.chapter-title");
+        return !(span && span.textContent.includes("🏗️"));
+      });
+
+      const randomLink = chapters[Math.floor(Math.random() * chapters.length)];
+      randomLink.click();
+    });
+
+    container.appendChild(randomButton);
+  })();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
