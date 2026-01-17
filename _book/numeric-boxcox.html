@@ -1894,60 +1894,67 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </script>
 <!-- collapse buttons -->
 <script>
-  // Collapse button
-  var container = document.querySelector(".sidebar-title");
-  var button = document.createElement("button");
-  button.setAttribute("aria-label", "collapse");
-  button.style.border = "none";
-  button.style.backgroundColor = "unset";
-  var icon_collapse = document.createElement("i");
-  icon_collapse.classList = "bi bi-arrows-collapse";
-  button.appendChild(icon_collapse);
+  (function () {
+    "use strict";
 
-  button.onclick = onbuttonclicked;
-  container.appendChild(button);
+    const container = document.querySelector(".sidebar-title");
 
-  function onbuttonclicked() {
-    if (icon_collapse.classList == "bi bi-arrows-collapse") {
-      document.querySelectorAll(
-        "a.sidebar-item-toggle:not(.collapsed)"
-      ).forEach((x) => x.click());
-      icon_collapse.classList = "bi bi-arrows-expand";
-    } else {
-      document.querySelectorAll(
-        "a.sidebar-item-toggle.collapsed"
-      ).forEach((x) => x.click());
-      icon_collapse.classList = "bi bi-arrows-collapse";
-    }
-  }
-  // random button
-  var container = document.querySelector(".sidebar-title");
-  var button = document.createElement("button");
-  button.setAttribute("aria-label", "random");
-  button.style.border = "none";
-  button.style.backgroundColor = "unset";
-  var icon_random = document.createElement("i");
-  icon_random.classList = "bi bi-dice-6";
-  button.appendChild(icon_random);
+    // Collapse button
+    const collapseButton = document.createElement("button");
+    collapseButton.setAttribute("aria-label", "collapse");
+    collapseButton.style.border = "none";
+    collapseButton.style.backgroundColor = "unset";
 
-  button.onclick = onbuttonclicked_random;
-  container.appendChild(button);
+    const iconCollapse = document.createElement("i");
+    iconCollapse.classList.add("bi", "bi-arrows-collapse");
+    collapseButton.appendChild(iconCollapse);
 
-  function onbuttonclicked_random() {
-    // All sidebar links
-    links = document.querySelectorAll(".sidebar-item-text.sidebar-link");
-    // Only keep chapters
-    links = Array.from(links).filter(element =>
-      element.querySelector(".chapter-number")
-    );
-    // Remove WIP chapters
-    links = links.filter(element => {
-      const span = element.querySelector("span.chapter-title");
-      return !(span && span.textContent.includes("🏗️"));
+    collapseButton.addEventListener("click", function () {
+      if (iconCollapse.classList.contains("bi-arrows-collapse")) {
+        document
+          .querySelectorAll("a.sidebar-item-toggle:not(.collapsed)")
+          .forEach((x) => x.click());
+        iconCollapse.classList.replace("bi-arrows-collapse", "bi-arrows-expand");
+      } else {
+        document
+          .querySelectorAll("a.sidebar-item-toggle.collapsed")
+          .forEach((x) => x.click());
+        iconCollapse.classList.replace("bi-arrows-expand", "bi-arrows-collapse");
+      }
     });
-    const link = links[Math.floor(Math.random() * links.length)];
-    link.click();
-  }
+
+    container.appendChild(collapseButton);
+
+    // Random button
+    const randomButton = document.createElement("button");
+    randomButton.setAttribute("aria-label", "random");
+    randomButton.style.border = "none";
+    randomButton.style.backgroundColor = "unset";
+
+    const iconRandom = document.createElement("i");
+    iconRandom.classList.add("bi", "bi-dice-6");
+    randomButton.appendChild(iconRandom);
+
+    randomButton.addEventListener("click", function () {
+      const allLinks = document.querySelectorAll(
+        ".sidebar-item-text.sidebar-link"
+      );
+
+      // Only keep chapters, excluding WIP
+      const chapters = Array.from(allLinks).filter((element) => {
+        if (!element.querySelector(".chapter-number")) {
+          return false;
+        }
+        const span = element.querySelector("span.chapter-title");
+        return !(span && span.textContent.includes("🏗️"));
+      });
+
+      const randomLink = chapters[Math.floor(Math.random() * chapters.length)];
+      randomLink.click();
+    });
+
+    container.appendChild(randomButton);
+  })();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

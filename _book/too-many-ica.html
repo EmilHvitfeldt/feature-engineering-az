@@ -1330,11 +1330,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 2,930
 Columns: 5
-$ IC1 &lt;dbl&gt; 1.9898008, -0.1981270, 1.5285726, 1.7024011, -0.4147747, -0.348577…
-$ IC2 &lt;dbl&gt; -0.3759203, 0.5122686, -0.8065854, 0.1182729, -0.6471562, -0.54773…
-$ IC3 &lt;dbl&gt; 0.108419331, -0.924522810, 0.782423528, 0.435716066, -0.392315022,…
-$ IC4 &lt;dbl&gt; 0.82091611, 0.57588024, 0.43851490, 0.81637785, -1.01835120, -1.06…
-$ IC5 &lt;dbl&gt; -0.7747965, -0.9264319, -1.3069083, 0.1831867, 0.6335157, 0.749619…</code></pre>
+$ IC1 &lt;dbl&gt; 0.81980463, 0.57628394, 0.44017413, 0.81285064, -1.01679079, -1.06…
+$ IC2 &lt;dbl&gt; -0.104389189, 0.924873734, -0.778596833, -0.433095968, 0.391244573…
+$ IC3 &lt;dbl&gt; -1.99089405, 0.20060882, -1.53007676, -1.70456947, 0.41543060, 0.3…
+$ IC4 &lt;dbl&gt; -0.37049688, 0.51418887, -0.80274889, 0.12278272, -0.65081174, -0.…
+$ IC5 &lt;dbl&gt; -0.7763292, -0.9242301, -1.3092358, 0.1819496, 0.6325086, 0.748477…</code></pre>
 </div>
 </div>
 </section>
@@ -1352,60 +1352,67 @@ $ IC5 &lt;dbl&gt; -0.7747965, -0.9264319, -1.3069083, 0.1831867, 0.6335157, 0.74
 </script>
 <!-- collapse buttons -->
 <script>
-  // Collapse button
-  var container = document.querySelector(".sidebar-title");
-  var button = document.createElement("button");
-  button.setAttribute("aria-label", "collapse");
-  button.style.border = "none";
-  button.style.backgroundColor = "unset";
-  var icon_collapse = document.createElement("i");
-  icon_collapse.classList = "bi bi-arrows-collapse";
-  button.appendChild(icon_collapse);
+  (function () {
+    "use strict";
 
-  button.onclick = onbuttonclicked;
-  container.appendChild(button);
+    const container = document.querySelector(".sidebar-title");
 
-  function onbuttonclicked() {
-    if (icon_collapse.classList == "bi bi-arrows-collapse") {
-      document.querySelectorAll(
-        "a.sidebar-item-toggle:not(.collapsed)"
-      ).forEach((x) => x.click());
-      icon_collapse.classList = "bi bi-arrows-expand";
-    } else {
-      document.querySelectorAll(
-        "a.sidebar-item-toggle.collapsed"
-      ).forEach((x) => x.click());
-      icon_collapse.classList = "bi bi-arrows-collapse";
-    }
-  }
-  // random button
-  var container = document.querySelector(".sidebar-title");
-  var button = document.createElement("button");
-  button.setAttribute("aria-label", "random");
-  button.style.border = "none";
-  button.style.backgroundColor = "unset";
-  var icon_random = document.createElement("i");
-  icon_random.classList = "bi bi-dice-6";
-  button.appendChild(icon_random);
+    // Collapse button
+    const collapseButton = document.createElement("button");
+    collapseButton.setAttribute("aria-label", "collapse");
+    collapseButton.style.border = "none";
+    collapseButton.style.backgroundColor = "unset";
 
-  button.onclick = onbuttonclicked_random;
-  container.appendChild(button);
+    const iconCollapse = document.createElement("i");
+    iconCollapse.classList.add("bi", "bi-arrows-collapse");
+    collapseButton.appendChild(iconCollapse);
 
-  function onbuttonclicked_random() {
-    // All sidebar links
-    links = document.querySelectorAll(".sidebar-item-text.sidebar-link");
-    // Only keep chapters
-    links = Array.from(links).filter(element =>
-      element.querySelector(".chapter-number")
-    );
-    // Remove WIP chapters
-    links = links.filter(element => {
-      const span = element.querySelector("span.chapter-title");
-      return !(span && span.textContent.includes("🏗️"));
+    collapseButton.addEventListener("click", function () {
+      if (iconCollapse.classList.contains("bi-arrows-collapse")) {
+        document
+          .querySelectorAll("a.sidebar-item-toggle:not(.collapsed)")
+          .forEach((x) => x.click());
+        iconCollapse.classList.replace("bi-arrows-collapse", "bi-arrows-expand");
+      } else {
+        document
+          .querySelectorAll("a.sidebar-item-toggle.collapsed")
+          .forEach((x) => x.click());
+        iconCollapse.classList.replace("bi-arrows-expand", "bi-arrows-collapse");
+      }
     });
-    const link = links[Math.floor(Math.random() * links.length)];
-    link.click();
-  }
+
+    container.appendChild(collapseButton);
+
+    // Random button
+    const randomButton = document.createElement("button");
+    randomButton.setAttribute("aria-label", "random");
+    randomButton.style.border = "none";
+    randomButton.style.backgroundColor = "unset";
+
+    const iconRandom = document.createElement("i");
+    iconRandom.classList.add("bi", "bi-dice-6");
+    randomButton.appendChild(iconRandom);
+
+    randomButton.addEventListener("click", function () {
+      const allLinks = document.querySelectorAll(
+        ".sidebar-item-text.sidebar-link"
+      );
+
+      // Only keep chapters, excluding WIP
+      const chapters = Array.from(allLinks).filter((element) => {
+        if (!element.querySelector(".chapter-number")) {
+          return false;
+        }
+        const span = element.querySelector("span.chapter-title");
+        return !(span && span.textContent.includes("🏗️"));
+      });
+
+      const randomLink = chapters[Math.floor(Math.random() * chapters.length)];
+      randomLink.click();
+    });
+
+    container.appendChild(randomButton);
+  })();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
