@@ -25,9 +25,62 @@ The notion that ICA is a dimensionality reduction method is because the implemen
 
 ICA, much like PCA, requires that your data be normalized before it is applied.
 
-TODO: add examples of results with NMIST
+Below is an example of the principle components in actions.
+We took the [MNIST database](https://en.wikipedia.org/wiki/MNIST_database) and performed ICA on the pixel values as predictors.
+First We apply it to the entire data set.
 
-TODO: show correlation chart
+```{r}
+#| label: ica-mnist
+#| echo: false
+#| fig-cap: |
+#|   ICA applied to all of MNIST
+#| fig-alt: |
+#|   Faceted tile chart. Each chart corresponds to a different
+#|   component. Early components show some shapes that might suggest numbers
+#|   such as 6 or 7, later ones show less and less identifiable patterns.
+library(keras)
+
+mnist <- keras::dataset_mnist()
+
+set.seed(1234)
+mnist$train$x |> dim()
+
+out <- list()
+
+for (x in 1:28) {
+  for (y in 1:28) {
+    out[[paste0(x, ",", y)]] <- mnist$train$x[, y, x]
+  }
+}
+
+library(tidymodels)
+
+mnist_tbl <- bind_cols(out)
+
+rec <- recipe(~., data = mnist_tbl[1:1000, ]) |>
+  step_ica(all_predictors()) |>
+  prep()
+
+rec |>
+  tidy(1) |>
+  filter(component %in% paste0("IC", 1:4)) |>
+  separate(terms, c("x", "y"), ",") |>
+  mutate(x = factor(x, 1:28)) |>
+  mutate(y = factor(y, 28:1)) |>
+  ggplot(aes(x, y, fill = value)) +
+  geom_raster() +
+  facet_wrap(~component) +
+  scale_fill_gradient2() +
+  theme(axis.ticks = element_blank(), axis.text = element_blank()) +
+  labs(x = NULL, y = NULL, fill = NULL)
+```
+
+We clearly see some effects here.
+Remember that it isn't important whether something is positive or negative,
+just that something is different than something else.
+there isn't super strong signals,
+but it appears that we are capturing 7-ness in the first IC and 6-ness in the third IC.
+We notice that each IC appears 
 
 ## Pros and Cons
 

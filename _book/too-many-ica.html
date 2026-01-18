@@ -109,7 +109,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <meta property="og:title" content="Feature Engineering A-Z | Independent Component Analysis">
 <meta property="og:description" content="">
+<meta property="og:image" content="https://example.com/too-many-ica_files/figure-html/ica-mnist-1.png">
 <meta property="og:site_name" content="Feature Engineering A-Z">
+<meta property="og:image:alt" content="Faceted tile chart. Each chart corresponds to a different component. Early components show some shapes that might suggest numbers such as 6 or 7, later ones show less and less identifiable patterns.">
+<meta property="og:image:height" content="960">
+<meta property="og:image:width" content="1344">
 </head>
 
 <body class="nav-sidebar docked quarto-light">
@@ -1277,8 +1281,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>One way to think about the difference between PCA and ICA, PCA can be used more effectively as a data compression technique, On the other hand, ICA helps uncover and separate the structure in the data itself.</p>
 <p>The notion that ICA is a dimensionality reduction method is because the implementation of fastICA, which is commonly used, works incrementally.</p>
 <p>ICA, much like PCA, requires that your data be normalized before it is applied.</p>
-<p>TODO: add examples of results with NMIST</p>
-<p>TODO: show correlation chart</p>
+<p>Below is an example of the principle components in actions. We took the <a href="https://en.wikipedia.org/wiki/MNIST_database">MNIST database</a> and performed ICA on the pixel values as predictors. First We apply it to the entire data set.</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>The keras package is deprecated. Use the keras3 package instead.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 60000    28    28</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching packages ────────────────────────────────────── tidymodels 1.4.1 ──</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>✔ broom        1.0.10     ✔ recipes      1.3.1 
+✔ dials        1.4.2      ✔ rsample      1.3.1 
+✔ dplyr        1.1.4      ✔ tailor       0.1.0 
+✔ ggplot2      4.0.0      ✔ tidyr        1.3.1 
+✔ infer        1.0.9      ✔ tune         2.0.0 
+✔ modeldata    1.5.1      ✔ workflows    1.3.0 
+✔ parsnip      1.3.3      ✔ workflowsets 1.1.1 
+✔ purrr        1.1.0      ✔ yardstick    1.3.2 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Conflicts ───────────────────────────────────────── tidymodels_conflicts() ──
+✖ purrr::discard()         masks scales::discard()
+✖ dplyr::filter()          masks stats::filter()
+✖ yardstick::get_weights() masks keras::get_weights()
+✖ dplyr::lag()             masks stats::lag()
+✖ recipes::step()          masks stats::step()</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="too-many-ica_files/figure-html/ica-mnist-1.png" class="img-fluid figure-img" alt="Faceted tile chart. Each chart corresponds to a different component. Early components show some shapes that might suggest numbers such as 6 or 7, later ones show less and less identifiable patterns." width="672"></p>
+<figcaption>ICA applied to all of MNIST</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>We clearly see some effects here. Remember that it isn’t important whether something is positive or negative, just that something is different than something else. there isn’t super strong signals, but it appears that we are capturing 7-ness in the first IC and 6-ness in the third IC. We notice that each IC appears</p>
 <section id="pros-and-cons" class="level2" data-number="70.2">
 <h2 data-number="70.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">70.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="70.2.1">
@@ -1299,30 +1340,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="70.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">70.3</span> R Examples</h2>
 <p>We will be using the <code>ames</code> data set for these examples.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modeldata)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>ames_num <span class="ot">&lt;-</span> ames <span class="sc">|&gt;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modeldata)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>ames_num <span class="ot">&lt;-</span> ames <span class="sc">|&gt;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>{recipes} provides <code>step_ica()</code>, which is the standard way to perform ICA.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pca_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(<span class="sc">~</span> ., <span class="at">data =</span> ames_num) <span class="sc">|&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_normalize</span>(<span class="fu">all_numeric_predictors</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_ica</span>(<span class="fu">all_numeric_predictors</span>())</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>pca_rec <span class="sc">|&gt;</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pca_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(<span class="sc">~</span> ., <span class="at">data =</span> ames_num) <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_normalize</span>(<span class="fu">all_numeric_predictors</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_ica</span>(<span class="fu">all_numeric_predictors</span>())</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>pca_rec <span class="sc">|&gt;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 2,930
 Columns: 5
-$ IC1 &lt;dbl&gt; 0.7745382, 0.9242289, 1.3078617, -0.1835483, -0.6317657, -0.747762…
-$ IC2 &lt;dbl&gt; -0.37008424, 0.51463937, -0.80253948, 0.12331625, -0.65176848, -0.…
-$ IC3 &lt;dbl&gt; 0.104661390, -0.925241239, 0.779047690, 0.433129564, -0.390774547,…
-$ IC4 &lt;dbl&gt; 0.82253540, 0.57545649, 0.44346834, 0.81458889, -1.01704569, -1.06…
-$ IC5 &lt;dbl&gt; -1.99052769, 0.20013940, -1.53018110, -1.70352089, 0.41487915, 0.3…</code></pre>
+$ IC1 &lt;dbl&gt; 1.98722112, -0.19544103, 1.52173527, 1.70182755, -0.41432529, -0.3…
+$ IC2 &lt;dbl&gt; 0.7781170, 0.9250619, 1.3102098, -0.1816165, -0.6315028, -0.747662…
+$ IC3 &lt;dbl&gt; 0.37976490, -0.51412721, 0.80773773, -0.11337596, 0.64724658, 0.54…
+$ IC4 &lt;dbl&gt; -0.115604620, 0.924486173, -0.788614494, -0.441096097, 0.394126431…
+$ IC5 &lt;dbl&gt; 0.82127411, 0.57740102, 0.43923180, 0.81572982, -1.01902720, -1.06…</code></pre>
 </div>
 </div>
 </section>
