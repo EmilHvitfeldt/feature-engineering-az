@@ -59,8 +59,20 @@ And then you act on that.
 This can be done in a couple of different ways.
 [Filter-based approaches](too-many-filter), these methods give each feature a score or rank, and then you use this information to select variables.
 There are many different ways to get these rankings and many will be covered in the chapter.
-[Wrapper-based approaches](too-many-wrapper).
+
+Wrapper-based approaches,
 These methods iteratively look at subsets of data to try to find the best set.
-Their main downside is they tend to add a lot of computational overhead as you need to fit your model many times.
-Lastly, we have [embedded methods](too-many-embedded).
-These methods use more advanced methods, sometimes other models, to do the feature selection.
+Methods in this category are **Forward Selection**, **Backward Elimination**, **Recursive Feature Elimination**, and the use of **genetic algorithms**.
+These methods revolve around fitting your model with a set of predictors,
+Then, depending on the method, we remove or add other predictors.
+Look at the performance of the new set of predictors and pick the one that meets some criteria.
+This is then repeated for some number of iterations or until a stopping criterion is reached.
+Their main downside is that they tend to add a lot of computational overhead as you need to fit your model many times.
+
+Lastly, we have embedded methods.
+These methods are not so much methods as they are a collection of models that have feature selection built into them.
+You cannot add an embedded method to your pipeline if you have issues with your many predictors;
+You instead swap your model to one that handles many predictors better.
+These models include but are not limited to: any model with regularization, decision trees, and boosted trees.
+
+Only filter-based approaches are truly considered feature engineering and will be covered here.
