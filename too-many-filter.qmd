@@ -70,6 +70,8 @@ That is partly because they tend to perform reasonably well,
 and they are much faster to do than multivariate filters.
 By not having the calculations happen one at a time, you invite in a lot of complexity,
 which counteracts some of the benefits of filter-based feature selection.
+We can steal a little bit from embedded methods and use a model that calculate variable importance as a multivariate filter.
+
 
 The main algorithm used for filter-based feature selection will thus be
 
