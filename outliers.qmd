@@ -81,7 +81,9 @@ Tree-based models don't.
 Some other preprocessing method such as [Robust Scaling](numeric-robust) also isn't affected by outliers.
 
 If you are planning on handling outliers you want to start by identifying them.
-In the [Outlier removal](outliers-remove) chapter we look at how we can identify and remove outliers.
+This will very briefly be covered in the [outliers identify](outliers-identify.qmd) chapter.
+The remaining chapters will cover how we can deal with the outliers once we find them.
+In the chapter [Outlier removal](outliers-remove) we look at how we can remove outliers.
 In the [outliers issues](numeric-outliers-issues) section we cover numerical transformations that lessen the effect that outliers have on the distribution.
 Instead of removing the specific observation that has outliers, or transforming the whole variable, we can choose to only modify the value of the outliers.
 We look at methods on how to do that in the [Outliers Imputation](outliers-imputation) chapter.

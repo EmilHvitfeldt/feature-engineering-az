@@ -1,0 +1,53 @@
+---
+pagetitle: "Feature Engineering A-Z | Outlier Identify"
+---
+
+# Identify {#sec-outliers-remove}
+
+::: {style="visibility: hidden; height: 0px;"}
+## Identify
+:::
+
+Identifying outliers is a very big topic and could be a whole book by itself.
+This chapter will contain the briefest overview,
+and it encouraged that you read up more about outliers before you do anything about them.
+
+To identify outliers we need to think about how outliers come into existance.
+In this book we will vastly oversimplify things and state that there are 2 major types of outliers,
+**meassurement outliers** and **natural outliers**.
+This binary split happens to align neatly with our advice of how you should treat outliers.
+
+To understand **measssurement outliers** we need to remind ourselves that data really is.
+It is a digital representation of something real.
+Some phisical attribute, a signal, a relationship, a location.
+Meassurement outliers happen when there is a mismatch between the real value and the recorded value.
+This could be an OCR error, 
+cat walking across the keyboard doing data entry,
+or the wrong observation being included in the data base query.
+All of these outliers should either be fixed or be treated as missing values.
+Because we know that they are not the real value there is no information to be gained from it.
+We need to remember that outlier-ness can be happening on a specific value or on a whole observation.
+
+1 value vs 1 observation
+
+should focus about on fixing the data over omitting the data
+
+should be dealt with by talking to people
+
+natural outliers
+
+should avoid touching at all cost
+as it changes the domain we are modeling
+think about using specific methods or models. WITH CARE
+
+
+## Pros and Cons
+
+### Pros
+
+### Cons
+
+## R Examples
+
+## Python Examples
+
