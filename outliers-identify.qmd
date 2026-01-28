@@ -10,44 +10,52 @@ pagetitle: "Feature Engineering A-Z | Outlier Identify"
 
 Identifying outliers is a very big topic and could be a whole book by itself.
 This chapter will contain the briefest overview,
-and it encouraged that you read up more about outliers before you do anything about them.
+and it is encouraged that you read up more about outliers before you do anything about them.
 
-To identify outliers we need to think about how outliers come into existance.
-In this book we will vastly oversimplify things and state that there are 2 major types of outliers,
+To identify outliers, we need to think about how outliers come into existence.
+In this book, we will vastly oversimplify things and state that there are 2 major types of outliers,
 **meassurement outliers** and **natural outliers**.
-This binary split happens to align neatly with our advice of how you should treat outliers.
+This binary split happens to align neatly with our advice on how you should treat outliers.
 
-To understand **measssurement outliers** we need to remind ourselves that data really is.
+To understand **measurement outliers**, we need to remind ourselves that data really is.
 It is a digital representation of something real.
-Some phisical attribute, a signal, a relationship, a location.
-Meassurement outliers happen when there is a mismatch between the real value and the recorded value.
+Some physical attribute, a signal, a relationship, a location.
+Measurement outliers happen when there is a mismatch between the real value and the recorded value.
 This could be an OCR error, 
-cat walking across the keyboard doing data entry,
-or the wrong observation being included in the data base query.
-All of these outliers should either be fixed or be treated as missing values.
-Because we know that they are not the real value there is no information to be gained from it.
-We need to remember that outlier-ness can be happening on a specific value or on a whole observation.
+a cat walking across the keyboard doing data entry,
+or the wrong observation being included in the database query.
+All of these outliers should either be fixed or treated as missing values.
+Because we know that they are not the real value, there is no information to be gained from them.
+We need to remember that outlier-ness can happen on a specific value or on a whole observation.
 
-1 value vs 1 observation
+We need to think about the notion that we can have outliers that affect the whole observation or a single value.
+And how we choose to deal with them will depend on the type of outlier we are seeing.
+Our main focus at all times should be fixing the data rather than omitting it.
+If we are seeing a lot of measurement outliers, the first thing we should do is talk to the owners of the data processes to see if we can fix it.
+Which we know is easier said than done,
+But having high-quality data typically is the best thing.
 
-should focus about on fixing the data over omitting the data
+The other type of outliers is what we call natural outliers.
+These types of outliers mathematically look like measurement outliers in the sense that they contain values that are far away from the rest of the population,
+but they are nevertheless correctly inputted.
+If you have a dataset of American youth and you see Broc Brown in it.
+Then he will likely be categorized as an outlier due to his astounding height of 7 ft 9 in.
+This is far outside the standard height, but nevertheless, it is real.
+These types of outliers should generally not be touched with as they represent the domain you are working with.
+By removing them or altering them, you make it so your model doesn't know how to handle them if new observations come in.
 
-should be dealt with by talking to people
+It is worth noting that outliers typically refer to values of the outcomes of regression tests.
+However, the methods used are agnostic to whether the values are part of the outcome or predictors.
 
-natural outliers
+TODO: I think I need to rewrite a bit about the observation vs value
 
-should avoid touching at all cost
-as it changes the domain we are modeling
-think about using specific methods or models. WITH CARE
+The simplest form of algorithmic outlier detection is done by a thresholding mechanism.
+Depending on the assumed distribution of the data, use that.
+If the outcome is assumed to be normally distributed,
+then we could label observations as outliers by checking if they are a specific number of standard deviations away from the mean.
+You would need to select this threshold carefully,
+as any threshold is bound to be exceeded even by chance from observations drawn from the correct distribution.
+If the distribution is unknown, you could use something like IQR and pick anything a certain number of IQRs away from the mean.
 
-
-## Pros and Cons
-
-### Pros
-
-### Cons
-
-## R Examples
-
-## Python Examples
-
+There are also a number of unsupervised methods that can be used to identify outliers.
+These methods include, but are not limited to, One-Class SVM and Isolation Forest.
