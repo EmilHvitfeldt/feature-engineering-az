@@ -86,7 +86,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./outliers.html">Outliers</a></li><li class="breadcrumb-item"><a href="./outliers-remove.html"><span class="chapter-number">83</span>&nbsp; <span class="chapter-title">Removal</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./outliers.html">Outliers</a></li><li class="breadcrumb-item"><a href="./outliers-remove.html"><span class="chapter-number">83</span>&nbsp; <span class="chapter-title">Outlier Removal</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -720,7 +720,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./outliers-remove.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">83</span>&nbsp; <span class="chapter-title">Removal</span></span></a>
+ <span class="menu-text"><span class="chapter-number">83</span>&nbsp; <span class="chapter-title">Outlier Removal</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1207,23 +1207,16 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#removal" id="toc-removal" class="nav-link active" data-scroll-target="#removal"><span class="header-section-number">83.1</span> Removal</a></li>
-  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link" data-scroll-target="#pros-and-cons"><span class="header-section-number">83.2</span> Pros and Cons</a>
-  <ul class="collapse">
-  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">83.2.1</span> Pros</a></li>
-  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">83.2.2</span> Cons</a></li>
-  </ul></li>
-  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">83.3</span> R Examples</a></li>
-  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">83.4</span> Python Examples</a></li>
+  <li><a href="#outlier-removal" id="toc-outlier-removal" class="nav-link active" data-scroll-target="#outlier-removal"><span class="header-section-number">83.1</span> Outlier Removal</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/outliers-remove.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/outliers-remove.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./outliers.html">Outliers</a></li><li class="breadcrumb-item"><a href="./outliers-remove.html"><span class="chapter-number">83</span>&nbsp; <span class="chapter-title">Removal</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./outliers.html">Outliers</a></li><li class="breadcrumb-item"><a href="./outliers-remove.html"><span class="chapter-number">83</span>&nbsp; <span class="chapter-title">Outlier Removal</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-outliers-remove" class="quarto-section-identifier"><span class="chapter-number">83</span>&nbsp; <span class="chapter-title">Removal</span></span></h1>
+<h1 class="title"><span id="sec-outliers-remove" class="quarto-section-identifier"><span class="chapter-number">83</span>&nbsp; <span class="chapter-title">Outlier Removal</span></span></h1>
 </div>
 
 
@@ -1240,27 +1233,14 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="removal" class="level2" style="visibility: hidden; height: 0px;" data-number="83.1">
-<h2 data-number="83.1" class="anchored" data-anchor-id="removal"><span class="header-section-number">83.1</span> Removal</h2>
+<section id="outlier-removal" class="level2" style="visibility: hidden; height: 0px;" data-number="83.1">
+<h2 data-number="83.1" class="anchored" data-anchor-id="outlier-removal"><span class="header-section-number">83.1</span> Outlier Removal</h2>
 </section>
-<p>WIP</p>
-<section id="pros-and-cons" class="level2" data-number="83.2">
-<h2 data-number="83.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">83.2</span> Pros and Cons</h2>
-<section id="pros" class="level3" data-number="83.2.1">
-<h3 data-number="83.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">83.2.1</span> Pros</h3>
-</section>
-<section id="cons" class="level3" data-number="83.2.2">
-<h3 data-number="83.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">83.2.2</span> Cons</h3>
-</section>
-</section>
-<section id="r-examples" class="level2" data-number="83.3">
-<h2 data-number="83.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">83.3</span> R Examples</h2>
-</section>
-<section id="python-examples" class="level2" data-number="83.4">
-<h2 data-number="83.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">83.4</span> Python Examples</h2>
+<p>Once you have tagged an observation as an outlier you have to decide how to deal with it. One of the ways is to remove the observation from the data set. This is not recommended in this book, but is included as this book describes what can be done, not just what should be done.</p>
+<p>If we do it, we have to think about a couple of things. The first of these is when we remove the observations. This should happen before the data splitting phase, as removing observations after that point can lead to issues when trying to fit the models or when calculating performance. The goal of this action is to remove the observations, and they should thus be removed before the modeling phase.</p>
+<p>Secondly, and more importantly, once you remove the outliers, you change the distribution of the data set that your model works on. Essentially, making the modeling problem easier by removing hard-to-predict observations. You have to think about how you want to be able to handle this for new data.</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <!-- PostHog -->
