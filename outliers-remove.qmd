@@ -2,21 +2,23 @@
 pagetitle: "Feature Engineering A-Z | Outlier Removal"
 ---
 
-# Removal {#sec-outliers-remove}
+# Outlier Removal {#sec-outliers-remove}
 
 ::: {style="visibility: hidden; height: 0px;"}
-## Removal
+## Outlier Removal
 :::
 
-WIP
+Once you have tagged an observation as an outlier you have to decide how to deal with it.
+One of the ways is to remove the observation from the data set.
+This is not recommended in this book,
+but is included as this book describes what can be done,
+not just what should be done.
 
-## Pros and Cons
+If we do it, we have to think about a couple of things.
+The first of these is when we remove the observations. 
+This should happen before the data splitting phase, as removing observations after that point can lead to issues when trying to fit the models or when calculating performance.
+The goal of this action is to remove the observations, and they should thus be removed before the modeling phase.
 
-### Pros
-
-### Cons
-
-## R Examples
-
-## Python Examples
-
+Secondly, and more importantly, once you remove the outliers, you change the distribution of the data set that your model works on.
+Essentially, making the modeling problem easier by removing hard-to-predict observations.
+You have to think about how you want to be able to handle this for new data.
