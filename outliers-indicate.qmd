@@ -8,15 +8,9 @@ pagetitle: "Feature Engineering A-Z | Outlier Indicate"
 ## Indicate
 :::
 
-WIP
+A nondestructive way of handling outliers is to not remove or impute them,
+but to add indicators that they are there.
+This is similar in style to how we do [missing value indicators](missing-indicator.qmd) but without the need to modify the outlier values themselves.
 
-## Pros and Cons
-
-### Pros
-
-### Cons
-
-## R Examples
-
-## Python Examples
-
+The method works by identifying the predictor values that are outliers,
+then creating indicator variables denoting whether that predictor has an outlier or not.
