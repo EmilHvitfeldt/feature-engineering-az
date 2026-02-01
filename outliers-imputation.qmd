@@ -2,21 +2,18 @@
 pagetitle: "Feature Engineering A-Z | Outlier Imputation"
 ---
 
-# 🏗️ Imputation {#sec-outliers-imputation}
+# Imputation {#sec-outliers-imputation}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## Imputation
 :::
 
-WIP
+If we are thinking of outliers in the predictor scenario,
+then we could treat the outliers as missing values and use imputation methods from [our missing value section](missing.qmd).
+If we believe an outlier value is a measurement outlier,
+then we have assumed that the value doesn't contain any valuable information,
+Treating it as a missing value that is then imputed.
 
-## Pros and Cons
-
-### Pros
-
-### Cons
-
-## R Examples
-
-## Python Examples
-
+As we have mentioned earlier,
+this should be avoided at all costs by trying to fix the data retrieval process that caused the outliers instead.
+Nevertheless, this is a method that is being used.
