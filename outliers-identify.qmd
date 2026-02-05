@@ -28,8 +28,7 @@ All of these outliers should either be fixed or treated as missing values.
 Because we know that they are not the real value, there is no information to be gained from them.
 We need to remember that outlier-ness can happen on a specific value or on a whole observation.
 
-We need to think about the notion that we can have outliers that affect the whole observation or a single value.
-And how we choose to deal with them will depend on the type of outlier we are seeing.
+How we choose to deal with them will depend on the type of outlier we are seeing.
 Our main focus at all times should be fixing the data rather than omitting it.
 If we are seeing a lot of measurement outliers, the first thing we should do is talk to the owners of the data processes to see if we can fix it.
 Which we know is easier said than done,
@@ -46,8 +45,13 @@ By removing them or altering them, you make it so your model doesn't know how to
 
 It is worth noting that outliers typically refer to values of the outcomes of regression tests.
 However, the methods used are agnostic to whether the values are part of the outcome or predictors.
-
-TODO: I think I need to rewrite a bit about the observation vs value
+Some might call outliers that take values in predictors for extreme values.
+The main difference is how we deal with them.
+And we see this in the following chapters,
+[Outlier removal](outliers-remove.qmd) is the only thing we can do for outliers in the classical sense,
+where we are talking about the outcome.
+And we would only be able to do it in the training data set, as we don't have outcomes in the testing data set.
+On the other hand, if we think of outliers as extreme values in the predictors, then we can talk about [outlier removal](outliers-remove.qmd), [outlier imputation](outliers-imputation.qmd), and [outlier indicators](outliers-indicate.qmd) as those actions can all be done on training and testing data sets alike.
 
 The simplest form of algorithmic outlier detection is done by a thresholding mechanism.
 Depending on the assumed distribution of the data, use that.
