@@ -8,15 +8,18 @@ pagetitle: "Feature Engineering A-Z | IDs"
 ## IDs
 :::
 
-WIP
+The way we deal with ID variables greatly depends on how they are created and what they represent.
+Id variables are typically integer-valued and denote the rows or observations in a data set.
 
-## Pros and Cons
+While id variables are typically integers,
+it is common practice to parse them as strings.
+This means that you won't run into any issues with rounding or overflow issues.
 
-### Pros
+Typically, you don't want to touch ID variables at all.
+If they are sequentially created, they act as a proxy for time,
+but if that is the case, you should have a proper predictor created that represents time more clearly.
 
-### Cons
+If the ID variables are non-sequential, then there should be no information to gather from the variable at all.
+If you are having duplicates in your ID variable, then it can be a sign of an error.
 
-## R Examples
-
-## Python Examples
 
