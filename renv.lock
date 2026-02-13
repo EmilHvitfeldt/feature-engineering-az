@@ -415,6 +415,26 @@
       "NeedsCompilation": "no",
       "Repository": "CRAN"
     },
+    "ROSE": {
+      "Package": "ROSE",
+      "Version": "0.0-4",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Random Over-Sampling Examples",
+      "Date": "2021-06-14",
+      "Author": "Nicola Lunardon, Giovanna Menardi, Nicola Torelli",
+      "Maintainer": "Nicola Lunardon <nicola.lunardon@unimib.it>",
+      "Suggests": [
+        "MASS",
+        "nnet",
+        "rpart",
+        "tree"
+      ],
+      "Description": "Functions to deal with binary classification problems in the presence of imbalanced classes. Synthetic balanced samples are   generated according to ROSE (Menardi and Torelli, 2013).   Functions that implement more traditional remedies to the class imbalance are also provided, as well as different metrics to evaluate a learner accuracy. These are estimated by holdout, bootstrap or cross-validation methods.",
+      "License": "GPL-2",
+      "NeedsCompilation": "no",
+      "Repository": "CRAN"
+    },
     "RSpectra": {
       "Package": "RSpectra",
       "Version": "0.16-2",
@@ -7581,6 +7601,53 @@
       "RemoteRepo": "tfse",
       "RemoteRef": "master",
       "RemoteSha": "67676489c93c621da5dabee721066b59732e5a9f"
+    },
+    "themis": {
+      "Package": "themis",
+      "Version": "1.0.3",
+      "Source": "Repository",
+      "Title": "Extra Recipes Steps for Dealing with Unbalanced Data",
+      "Authors@R": "c( person(\"Emil\", \"Hvitfeldt\", , \"emil.hvitfeldt@posit.co\", role = c(\"aut\", \"cre\"), comment = c(ORCID = \"0000-0002-0679-1945\")), person(given = \"Posit Software, PBC\", role = c(\"cph\", \"fnd\")) )",
+      "Description": "A dataset with an uneven number of cases in each class is said to be unbalanced. Many models produce a subpar performance on unbalanced datasets. A dataset can be balanced by increasing the number of minority cases using SMOTE 2011 <doi:10.48550/arXiv.1106.1813>, BorderlineSMOTE 2005 <doi:10.1007/11538059_91> and ADASYN 2008 <https://ieeexplore.ieee.org/document/4633969>. Or by decreasing the number of majority cases using NearMiss 2003 <https://www.site.uottawa.ca/~nat/Workshop2003/jzhang.pdf> or Tomek link removal 1976 <https://ieeexplore.ieee.org/document/4309452>.",
+      "License": "MIT + file LICENSE",
+      "URL": "https://github.com/tidymodels/themis, https://themis.tidymodels.org",
+      "BugReports": "https://github.com/tidymodels/themis/issues",
+      "Depends": [
+        "R (>= 3.6)",
+        "recipes (>= 1.1.0)"
+      ],
+      "Imports": [
+        "cli",
+        "gower",
+        "lifecycle (>= 1.0.3)",
+        "dplyr",
+        "generics (>= 0.1.0)",
+        "purrr",
+        "RANN",
+        "rlang (>= 1.1.0)",
+        "ROSE",
+        "tibble",
+        "withr",
+        "glue",
+        "hardhat",
+        "vctrs"
+      ],
+      "Suggests": [
+        "covr",
+        "dials (>= 1.2.0)",
+        "ggplot2",
+        "modeldata",
+        "testthat (>= 3.0.0)"
+      ],
+      "Config/Needs/website": "tidyverse/tidytemplate",
+      "Config/testthat/edition": "3",
+      "Encoding": "UTF-8",
+      "LazyData": "true",
+      "RoxygenNote": "7.3.2",
+      "NeedsCompilation": "no",
+      "Author": "Emil Hvitfeldt [aut, cre] (<https://orcid.org/0000-0002-0679-1945>), Posit Software, PBC [cph, fnd]",
+      "Maintainer": "Emil Hvitfeldt <emil.hvitfeldt@posit.co>",
+      "Repository": "CRAN"
     },
     "tibble": {
       "Package": "tibble",
