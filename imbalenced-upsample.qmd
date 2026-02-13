@@ -8,15 +8,95 @@ pagetitle: "Feature Engineering A-Z | Up-Sampling"
 ## Up-Sampling
 :::
 
-WIP
+Upsampling is one of the conceptually easiest ways to handle imbalanced data.
+Like all other methods in this section, it is a supervised method,
+since it requires knowledge of the outcome.
+This also means that it can only be applied to the training data set,
+since we need the outcome.
+See also [down-dampling](imbalenced-downsample.qmd), which is the opposite action.
+
+The algorithm is quite simple.
+Tally the number of observations within each class, as well as keep track of which observations are associated with each class.
+The class with the most observations is then denoted as the majority class,
+The remaining classes are denoted as the minority classes.
+The observations of each minority class are then sampled with replacement to increase the number of observations in the class.
+Typically, to align with the number of observations with that of the majority class.
+
+One could also modify this for a different threshold,
+say 80%, which would make all minority classes with less than 80% of the number of observations of the majority class,
+upsample until they have at least 80% of that of the majority class.
+
+This action can drastically increase the number of observations depending on the number of minority classes and the ratio between them.
+A 90-10 split would result in a 80% increase in data, and a 90-5-5 split would result in a 170% increase.
+No data is being deleted in this modification as we are just adding more rows, which are duplicates of existing rows.
+
+You could think of this as a stochastic version of case weights without the compactness.
 
 ## Pros and Cons
 
 ### Pros
 
+- Computationally fast and simple.
+
 ### Cons
 
+- Could give issues with space for large data sets.
+- Solves tasks that could be better handled with other methods.
+
 ## R Examples
+
+```{r}
+#| label: ames
+#| echo: false
+#| message: false
+library(tidymodels)
+set.seed(1234)
+data("ames")
+```
+
+We will be using the `ames` data set for these examples.
+
+```{r}
+#| label: show-data
+library(recipes)
+library(themis)
+library(modeldata)
+
+ames
+```
+
+{themis} provides `step_upsampel()`, which has the implementation for up-sampling.
+
+```{r}
+#| label: step_pca
+
+ames |>
+  count(MS_Zoning)
+
+upsample_rec <- recipe(MS_Zoning ~ ., data = ames) |>
+  step_upsample(MS_Zoning)
+
+upsample_res <- upsample_rec |>
+  prep() |>
+  bake(new_data = NULL) 
+
+upsample_res
+
+upsample_res |>
+  count(MS_Zoning)
+```
+
+It includes the `over_ratio` to only partially update the data set.
+
+```{r}
+upsample_rec <- recipe(MS_Zoning ~ ., data = ames) |>
+  step_upsample(MS_Zoning, over_ratio = 0.5)
+
+upsample_rec |>
+  prep() |>
+  bake(new_data = NULL) |>
+  count(MS_Zoning)
+```
 
 ## Python Examples
 
