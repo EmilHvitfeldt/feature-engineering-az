@@ -65,10 +65,10 @@ library(modeldata)
 ames
 ```
 
-{themis} provides `step_upsampel()`, which has the implementation for up-sampling.
+{themis} provides `step_upsample()`, which has the implementation for up-sampling.
 
 ```{r}
-#| label: step_pca
+#| label: step_upsample
 
 ames |>
   count(MS_Zoning)

@@ -8,15 +8,93 @@ pagetitle: "Feature Engineering A-Z | Down-Sampling"
 ## Down-Sampling
 :::
 
-WIP
+Downsampling is one of the conceptually easiest ways to handle imbalanced data.
+Like all other methods in this section, it is a supervised method,
+since it requires knowledge of the outcome.
+This also means that it can only be applied to the training data set,
+since we need the outcome.
+See also [up-dampling](imbalenced-upsample.qmd), which is the opposite action.
+
+The algorithm is quite simple.
+Tally the number of observations within each class, as well as keep track of which observations are associated with each class.
+The class with the fewest observations is then denoted as the minority class,
+The remaining classes are denoted as the majority classes.
+The observations of each majority class are then sampled without replacement to decrease the number of observations in the class.
+Typically, to align with the number of observations with that of the minority class.
+
+One could also modify this for a different threshold,
+say 300%, which would make all majority classes with more than 30% of the number of observations of the minority class,
+downsample until they have at most 300% of that of the minority class.
+
+When using downsampling we are deleting data completely.
+And there is a definite risk that we are throwing away the signal when we do this.
+This is even more drastic when we have a sharp imbalance between the majority and minority classes.
+Having a 99-1 split in the data would have you remove 98% of the data set, which is not a wise choice.
 
 ## Pros and Cons
 
 ### Pros
 
+- Computationally fast and simple.
+
 ### Cons
+
+- This could give issues if there is a big imbalance, causing us to remove almost all the data.
+- Solves tasks that could be better handled with other methods.
 
 ## R Examples
 
-## Python Examples
+```{r}
+#| label: ames
+#| echo: false
+#| message: false
+library(tidymodels)
+set.seed(1234)
+data("ames")
+```
 
+We will be using the `ames` data set for these examples.
+
+```{r}
+#| label: show-data
+library(recipes)
+library(themis)
+library(modeldata)
+
+ames
+```
+
+{themis} provides `step_downsample()`, which has the implementation for up-sampling.
+
+```{r}
+#| label: step_downsample
+
+ames |>
+  count(MS_Zoning)
+
+upsample_rec <- recipe(MS_Zoning ~ ., data = ames) |>
+  step_downsample(MS_Zoning)
+
+upsample_res <- upsample_rec |>
+  prep() |>
+  bake(new_data = NULL) 
+
+upsample_res
+
+upsample_res |>
+  count(MS_Zoning)
+```
+
+It includes the `over_ratio` to only partially update the data set.
+
+```{r}
+upsample_rec <- recipe(MS_Zoning ~ ., data = ames) |>
+  step_downsample(MS_Zoning, under_ratio = 10)
+
+upsample_rec |>
+  prep() |>
+  bake(new_data = NULL) |>
+  count(MS_Zoning)
+```
+
+## Python Examples

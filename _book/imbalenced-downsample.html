@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -1243,18 +1278,145 @@ ul.task-list li input[type="checkbox"] {
 <section id="down-sampling" class="level2" style="visibility: hidden; height: 0px;" data-number="93.1">
 <h2 data-number="93.1" class="anchored" data-anchor-id="down-sampling"><span class="header-section-number">93.1</span> Down-Sampling</h2>
 </section>
-<p>WIP</p>
+<p>Downsampling is one of the conceptually easiest ways to handle imbalanced data. Like all other methods in this section, it is a supervised method, since it requires knowledge of the outcome. This also means that it can only be applied to the training data set, since we need the outcome. See also <a href="./imbalenced-upsample.html">up-dampling</a>, which is the opposite action.</p>
+<p>The algorithm is quite simple. Tally the number of observations within each class, as well as keep track of which observations are associated with each class. The class with the fewest observations is then denoted as the minority class, The remaining classes are denoted as the majority classes. The observations of each majority class are then sampled without replacement to decrease the number of observations in the class. Typically, to align with the number of observations with that of the minority class.</p>
+<p>One could also modify this for a different threshold, say 300%, which would make all majority classes with more than 30% of the number of observations of the minority class, downsample until they have at most 300% of that of the minority class.</p>
+<p>When using downsampling we are deleting data completely. And there is a definite risk that we are throwing away the signal when we do this. This is even more drastic when we have a sharp imbalance between the majority and minority classes. Having a 99-1 split in the data would have you remove 98% of the data set, which is not a wise choice.</p>
 <section id="pros-and-cons" class="level2" data-number="93.2">
 <h2 data-number="93.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">93.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="93.2.1">
 <h3 data-number="93.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">93.2.1</span> Pros</h3>
+<ul>
+<li>Computationally fast and simple.</li>
+</ul>
 </section>
 <section id="cons" class="level3" data-number="93.2.2">
 <h3 data-number="93.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">93.2.2</span> Cons</h3>
+<ul>
+<li>This could give issues if there is a big imbalance, causing us to remove almost all the data.</li>
+<li>Solves tasks that could be better handled with other methods.</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="93.3">
 <h2 data-number="93.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">93.3</span> R Examples</h2>
+<p>We will be using the <code>ames</code> data set for these examples.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(themis)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modeldata)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>ames</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,930 × 74
+   MS_SubClass            MS_Zoning Lot_Frontage Lot_Area Street Alley Lot_Shape
+ * &lt;fct&gt;                  &lt;fct&gt;            &lt;dbl&gt;    &lt;int&gt; &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt;    
+ 1 One_Story_1946_and_Ne… Resident…          141    31770 Pave   No_A… Slightly…
+ 2 One_Story_1946_and_Ne… Resident…           80    11622 Pave   No_A… Regular  
+ 3 One_Story_1946_and_Ne… Resident…           81    14267 Pave   No_A… Slightly…
+ 4 One_Story_1946_and_Ne… Resident…           93    11160 Pave   No_A… Regular  
+ 5 Two_Story_1946_and_Ne… Resident…           74    13830 Pave   No_A… Slightly…
+ 6 Two_Story_1946_and_Ne… Resident…           78     9978 Pave   No_A… Slightly…
+ 7 One_Story_PUD_1946_an… Resident…           41     4920 Pave   No_A… Regular  
+ 8 One_Story_PUD_1946_an… Resident…           43     5005 Pave   No_A… Slightly…
+ 9 One_Story_PUD_1946_an… Resident…           39     5389 Pave   No_A… Slightly…
+10 Two_Story_1946_and_Ne… Resident…           60     7500 Pave   No_A… Regular  
+# ℹ 2,920 more rows
+# ℹ 67 more variables: Land_Contour &lt;fct&gt;, Utilities &lt;fct&gt;, Lot_Config &lt;fct&gt;,
+#   Land_Slope &lt;fct&gt;, Neighborhood &lt;fct&gt;, Condition_1 &lt;fct&gt;, Condition_2 &lt;fct&gt;,
+#   Bldg_Type &lt;fct&gt;, House_Style &lt;fct&gt;, Overall_Cond &lt;fct&gt;, Year_Built &lt;int&gt;,
+#   Year_Remod_Add &lt;int&gt;, Roof_Style &lt;fct&gt;, Roof_Matl &lt;fct&gt;,
+#   Exterior_1st &lt;fct&gt;, Exterior_2nd &lt;fct&gt;, Mas_Vnr_Type &lt;fct&gt;,
+#   Mas_Vnr_Area &lt;dbl&gt;, Exter_Cond &lt;fct&gt;, Foundation &lt;fct&gt;, Bsmt_Cond &lt;fct&gt;, …</code></pre>
+</div>
+</div>
+<p>{themis} provides <code>step_downsample()</code>, which has the implementation for up-sampling.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ames <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(MS_Zoning)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 2
+  MS_Zoning                        n
+  &lt;fct&gt;                        &lt;int&gt;
+1 Floating_Village_Residential   139
+2 Residential_High_Density        27
+3 Residential_Low_Density       2273
+4 Residential_Medium_Density     462
+5 A_agr                            2
+6 C_all                           25
+7 I_all                            2</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>upsample_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(MS_Zoning <span class="sc">~</span> ., <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_downsample</span>(MS_Zoning)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>upsample_res <span class="ot">&lt;-</span> upsample_rec <span class="sc">|&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>upsample_res</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 14 × 74
+   MS_SubClass         Lot_Frontage Lot_Area Street Alley Lot_Shape Land_Contour
+   &lt;fct&gt;                      &lt;dbl&gt;    &lt;int&gt; &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;       
+ 1 One_Story_1946_and…           73     7321 Pave   Paved Slightly… Lvl         
+ 2 Two_Story_PUD_1946…           30     3182 Pave   Paved Regular   Lvl         
+ 3 One_Story_1945_and…           70     4270 Pave   No_A… Regular   Bnk         
+ 4 One_Story_PUD_1946…           33     4113 Pave   No_A… Slightly… Lvl         
+ 5 Split_Foyer                   54     7244 Pave   No_A… Regular   Lvl         
+ 6 One_Story_1946_and…            0    36500 Pave   No_A… Slightly… Low         
+ 7 One_Story_1946_and…           70    12702 Pave   No_A… Regular   Lvl         
+ 8 One_and_Half_Story…           51     6120 Pave   No_A… Regular   Lvl         
+ 9 One_Story_1946_and…           80    14584 Pave   No_A… Regular   Low         
+10 One_Story_1946_and…          125    31250 Pave   No_A… Regular   Lvl         
+11 One_Story_1945_and…          120    18000 Grvl   No_A… Regular   Low         
+12 Two_Story_1945_and…            0     6449 Pave   No_A… Slightly… Lvl         
+13 One_Story_1945_and…          109    21780 Grvl   No_A… Regular   Lvl         
+14 Two_Story_1945_and…            0    56600 Pave   No_A… Slightly… Low         
+# ℹ 67 more variables: Utilities &lt;fct&gt;, Lot_Config &lt;fct&gt;, Land_Slope &lt;fct&gt;,
+#   Neighborhood &lt;fct&gt;, Condition_1 &lt;fct&gt;, Condition_2 &lt;fct&gt;, Bldg_Type &lt;fct&gt;,
+#   House_Style &lt;fct&gt;, Overall_Cond &lt;fct&gt;, Year_Built &lt;int&gt;,
+#   Year_Remod_Add &lt;int&gt;, Roof_Style &lt;fct&gt;, Roof_Matl &lt;fct&gt;,
+#   Exterior_1st &lt;fct&gt;, Exterior_2nd &lt;fct&gt;, Mas_Vnr_Type &lt;fct&gt;,
+#   Mas_Vnr_Area &lt;dbl&gt;, Exter_Cond &lt;fct&gt;, Foundation &lt;fct&gt;, Bsmt_Cond &lt;fct&gt;,
+#   Bsmt_Exposure &lt;fct&gt;, BsmtFin_Type_1 &lt;fct&gt;, BsmtFin_SF_1 &lt;dbl&gt;, …</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>upsample_res <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(MS_Zoning)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 2
+  MS_Zoning                        n
+  &lt;fct&gt;                        &lt;int&gt;
+1 Floating_Village_Residential     2
+2 Residential_High_Density         2
+3 Residential_Low_Density          2
+4 Residential_Medium_Density       2
+5 A_agr                            2
+6 C_all                            2
+7 I_all                            2</code></pre>
+</div>
+</div>
+<p>It includes the <code>over_ratio</code> to only partially update the data set.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>upsample_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(MS_Zoning <span class="sc">~</span> ., <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_downsample</span>(MS_Zoning, <span class="at">under_ratio =</span> <span class="dv">10</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>upsample_rec <span class="sc">|&gt;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(MS_Zoning)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 2
+  MS_Zoning                        n
+  &lt;fct&gt;                        &lt;int&gt;
+1 Floating_Village_Residential    20
+2 Residential_High_Density        20
+3 Residential_Low_Density         20
+4 Residential_Medium_Density      20
+5 A_agr                            2
+6 C_all                           20
+7 I_all                            2</code></pre>
+</div>
+</div>
 </section>
 <section id="python-examples" class="level2" data-number="93.4">
 <h2 data-number="93.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">93.4</span> Python Examples</h2>
