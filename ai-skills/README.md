@@ -4,7 +4,7 @@ This folder contains AI-powered skills that readers can use to interact with the
 
 ## Available Skills
 
-- `empty-skill.md` - Template skill (placeholder)
+- `ask-feaz.md` - Ask questions about feature engineering methods
 
 ## Usage
 
