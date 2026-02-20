@@ -1243,7 +1243,20 @@ ul.task-list li input[type="checkbox"] {
 <section id="smote" class="level2" style="visibility: hidden; height: 0px;" data-number="89.1">
 <h2 data-number="89.1" class="anchored" data-anchor-id="smote"><span class="header-section-number">89.1</span> SMOTE</h2>
 </section>
-<p>WIP</p>
+<p>The goal of the Synthetic minority oversampling technique (SMOTE) is to deal with imbalanced data using synthetically generated samples.</p>
+<p>this method is in a way similar to <a href="./imbalenced-upsample.html">up-sampling</a>, But there is a twist. Instead of sampling observations from the minority classes, We instead generate new observations based on the characteristics of the data set.</p>
+<p>Generally works for categorical outcomes (hence imbalance), and the base case only works with numeric data with no missingness.</p>
+<p>We start by identifying the minority classes and the majority class. counting how many observations are in each, as this will be used as a target for how many observations to generate.</p>
+<p>Between each minority class, you calculate all the nearest neighbors. Then, for each observation, you are randomly picking one of its close neighbors (typically <code>k= 5</code>) as its designated neighbor for the task. Then a synthetic observation is generated at random on the line between these two points. This is typically done for every observation. With multiple runs, depending on how many observations will need to be created. A different random neighbor is picked each time, as well as a random point on the spanning line.</p>
+<p>You generally have a ratio threshold, determining how many observations you need. If you want a precise match for the counts of observations, you can randomly select observations to generate during the last run for a precise number of generated observations.</p>
+<p>TODO: this would really benefit from diagrams</p>
+<p>One of the major shortcomings is that the base algorithm is limited to numeric predictors with no missing values, making it hard to use in many cases.</p>
+<p>This algorithm has no notion of data quality, meaning that bad data quality can make for some really unfortunate samples. especially for lone outliers, TODO add diagram</p>
+<p>It also treats the observations of each class by itself. While this is computationally and conceptually faster, it is a much simpler data representation, one that doesn’t use any information about their interactions. Furthermore, it includes no information about the majority class, which may otherwise be helpful to guide the method.</p>
+<p>TODO diagram</p>
+<p>Since we are using a nearest neighbor search, We have a hyperparameter <code>k</code> that is used to denote how many observations should be considered for pairs.</p>
+<p>The nearest neighbor search is central to the SMOTE method and thus responsible for many of the downsides associated with the method. One of the problems is that the idea of nearest neighbors becomes more fuzzy as we enter higher dimensions. This will naturally extend to how SMOTE becomes applicable. Similarly, the nearest neighbor search is also responsible for the high computational cost that can occur when the data becomes larger. computational cost</p>
+<p>Many of the different issues are addressed by some of the <a href="./imbalenced-smote-variants.html">SMOTE variants</a>.</p>
 <section id="pros-and-cons" class="level2" data-number="89.2">
 <h2 data-number="89.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">89.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="89.2.1">
