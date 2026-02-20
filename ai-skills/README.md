@@ -5,6 +5,7 @@ This folder contains AI-powered skills that readers can use to interact with the
 ## Available Skills
 
 - `ask-feaz.md` - Ask questions about feature engineering methods
+- `workflow-builder.md` - Design a feature engineering pipeline for your data
 
 ## Usage
 
