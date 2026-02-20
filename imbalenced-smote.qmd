@@ -8,7 +8,57 @@ pagetitle: "Feature Engineering A-Z | SMOTE"
 ## SMOTE
 :::
 
-WIP
+The goal of the Synthetic minority oversampling technique (SMOTE) is to deal with imbalanced data using synthetically generated samples.
+
+this method is in a way similar to [up-sampling](imbalenced-upsample.qmd),
+But there is a twist.
+Instead of sampling observations from the minority classes,
+We instead generate new observations based on the characteristics of the data set.
+
+Generally works for categorical outcomes (hence imbalance),
+and the base case only works with numeric data with no missingness.
+
+We start by identifying the minority classes and the majority class.
+counting how many observations are in each, as this will be used as a target for how many observations to generate.
+
+Between each minority class, you calculate all the nearest neighbors.
+Then, for each observation, you are randomly picking one of its close neighbors (typically `k= 5`) as its designated neighbor for the task.
+Then a synthetic observation is generated at random on the line between these two points. 
+This is typically done for every observation.
+With multiple runs, depending on how many observations will need to be created.
+A different random neighbor is picked each time, as well as a random point on the spanning line.
+
+You generally have a ratio threshold,
+determining how many observations you need.
+If you want a precise match for the counts of observations, you can randomly select observations to generate during the last run for a precise number of generated observations.
+
+TODO: this would really benefit from diagrams
+
+One of the major shortcomings is that the base algorithm is limited to numeric predictors with no missing values,
+making it hard to use in many cases.
+
+This algorithm has no notion of data quality,
+meaning that bad data quality can make for some really unfortunate samples. especially for lone outliers, TODO add diagram
+
+It also treats the observations of each class by itself.
+While this is computationally and conceptually faster,
+it is a much simpler data representation,
+one that doesn't use any information about their interactions.
+Furthermore, it includes no information about the majority class,
+which may otherwise be helpful to guide the method.
+
+TODO diagram
+
+Since we are using a nearest neighbor search,
+We have a hyperparameter `k` that is used to denote how many observations should be considered for pairs.
+
+The nearest neighbor search is central to the SMOTE method and thus responsible for many of the downsides associated with the method.
+One of the problems is that the idea of nearest neighbors becomes more fuzzy as we enter higher dimensions.
+This will naturally extend to how SMOTE becomes applicable. 
+Similarly, the nearest neighbor search is also responsible for the high computational cost that can occur when the data becomes larger.
+computational cost
+
+Many of the different issues are addressed by some of the [SMOTE variants](imbalenced-smote-variants.qmd).
 
 ## Pros and Cons
 
