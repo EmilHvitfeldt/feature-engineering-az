@@ -1,5 +1,8 @@
 project:
   type: book
+  render:
+    - "*.qmd"
+    - "!ai-skills/"
 
 book:
   title: "Feature Engineering A-Z"

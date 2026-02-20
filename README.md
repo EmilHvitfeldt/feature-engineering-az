@@ -13,3 +13,16 @@ This book shows examples in both R and Python, with [renv](https://rstudio.githu
 You do this by calling `renv::restore()` from R, and `poetry build` from the terminal.
 
 The book is rendered using [Quarto](https://quarto.org/). For this to work smoothly, the environment variable `RETICULATE_PYTHON` has been specified in [.Renviron](.Renviron).
+
+## AI Skills
+
+I'm going to try something new,
+which is to write some custom AI skills that lets you use the information in this book with your AI agent of choice.
+
+### Available Skills
+
+| Skill | Description |
+|-------|-------------|
+| [Empty Skill](https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/ai-skills/empty-skill.md) | Template skill (placeholder) |
+
+Browse all skills in the [ai-skills folder](https://github.com/EmilHvitfeldt/feature-engineering-az/tree/main/ai-skills).
