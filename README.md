@@ -27,3 +27,13 @@ which is to write some custom AI skills that lets you use the information in thi
 | [Workflow Builder](https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/ai-skills/workflow-builder.md) | Design a feature engineering pipeline for your data |
 
 Browse all skills in the [ai-skills folder](https://github.com/EmilHvitfeldt/feature-engineering-az/tree/main/ai-skills).
+
+## AI Was not Used to Create Content
+
+AI tools were not used to generate any of the definitions, descriptions, discussions, references, or other textual materials.
+All prose and code is hand crafted.
+
+AI tools were used for:
+
+- Copy editing/spelling/grammar (e.g., Grammarly)
+- Creation of AI skills
