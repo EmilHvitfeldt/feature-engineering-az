@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./imbalenced-nearmiss.html" rel="next">
-<link href="./imbalenced-adasyn.html" rel="prev">
+<link href="./imbalenced-smote-variants.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -121,7 +121,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./imbalenced.html">Imbalanced Data</a></li><li class="breadcrumb-item"><a href="./imbalenced-downsample.html"><span class="chapter-number">93</span>&nbsp; <span class="chapter-title">Down-Sampling</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./imbalenced.html">Imbalanced Data</a></li><li class="breadcrumb-item"><a href="./imbalenced-downsample.html"><span class="chapter-number">91</span>&nbsp; <span class="chapter-title">Down-Sampling</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -813,56 +813,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./imbalenced-borderline-smote.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">91</span>&nbsp; <span class="chapter-title">🏗️ Borderline SMOTE</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./imbalenced-adasyn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">92</span>&nbsp; <span class="chapter-title">🏗️ Adaptive Synthetic Algorithm</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./imbalenced-downsample.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">93</span>&nbsp; <span class="chapter-title">Down-Sampling</span></span></a>
+ <span class="menu-text"><span class="chapter-number">91</span>&nbsp; <span class="chapter-title">Down-Sampling</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./imbalenced-nearmiss.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">94</span>&nbsp; <span class="chapter-title">🏗️ Near-Miss</span></span></a>
+ <span class="menu-text"><span class="chapter-number">92</span>&nbsp; <span class="chapter-title">🏗️ Near-Miss</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./imbalenced-tomek.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">95</span>&nbsp; <span class="chapter-title">🏗️ Tomek Links</span></span></a>
+ <span class="menu-text"><span class="chapter-number">93</span>&nbsp; <span class="chapter-title">🏗️ Tomek Links</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./imbalenced-cnn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">96</span>&nbsp; <span class="chapter-title">🏗️ Condensed Nearest Neighbor</span></span></a>
+ <span class="menu-text"><span class="chapter-number">94</span>&nbsp; <span class="chapter-title">🏗️ Condensed Nearest Neighbor</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./imbalenced-enn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">97</span>&nbsp; <span class="chapter-title">🏗️ Edited Nearest Neighbor</span></span></a>
+ <span class="menu-text"><span class="chapter-number">95</span>&nbsp; <span class="chapter-title">🏗️ Edited Nearest Neighbor</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./imbalenced-hardness-threshold.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">98</span>&nbsp; <span class="chapter-title">🏗️ Instance Hardness Threshold</span></span></a>
+ <span class="menu-text"><span class="chapter-number">96</span>&nbsp; <span class="chapter-title">🏗️ Instance Hardness Threshold</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./imbalenced-one-sided.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">99</span>&nbsp; <span class="chapter-title">🏗️ One Sided Selection</span></span></a>
+ <span class="menu-text"><span class="chapter-number">97</span>&nbsp; <span class="chapter-title">🏗️ One Sided Selection</span></span></a>
   </div>
 </li>
       </ul>
@@ -879,31 +867,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./miscellaneous.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">100</span>&nbsp; <span class="chapter-title">Miscellaneous Overview</span></span></a>
+ <span class="menu-text"><span class="chapter-number">98</span>&nbsp; <span class="chapter-title">Miscellaneous Overview</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./miscellaneous-id.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">101</span>&nbsp; <span class="chapter-title">IDs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">99</span>&nbsp; <span class="chapter-title">IDs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./miscellaneous-color.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">102</span>&nbsp; <span class="chapter-title">Colors</span></span></a>
+ <span class="menu-text"><span class="chapter-number">100</span>&nbsp; <span class="chapter-title">Colors</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./miscellaneous-zipcodes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">103</span>&nbsp; <span class="chapter-title">🏗️ Zip Codes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">101</span>&nbsp; <span class="chapter-title">🏗️ Zip Codes</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./miscellaneous-email.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">104</span>&nbsp; <span class="chapter-title">🏗️ Emails</span></span></a>
+ <span class="menu-text"><span class="chapter-number">102</span>&nbsp; <span class="chapter-title">🏗️ Emails</span></span></a>
   </div>
 </li>
       </ul>
@@ -920,43 +908,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./spatial.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">105</span>&nbsp; <span class="chapter-title">Spatial Overview</span></span></a>
+ <span class="menu-text"><span class="chapter-number">103</span>&nbsp; <span class="chapter-title">Spatial Overview</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./spatial-distance.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">106</span>&nbsp; <span class="chapter-title">🏗️ Spatial Distance</span></span></a>
+ <span class="menu-text"><span class="chapter-number">104</span>&nbsp; <span class="chapter-title">🏗️ Spatial Distance</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./spatial-nearest.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">107</span>&nbsp; <span class="chapter-title">🏗️ Spatial Nearest</span></span></a>
+ <span class="menu-text"><span class="chapter-number">105</span>&nbsp; <span class="chapter-title">🏗️ Spatial Nearest</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./spatial-count.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">108</span>&nbsp; <span class="chapter-title">🏗️ Spatial Count</span></span></a>
+ <span class="menu-text"><span class="chapter-number">106</span>&nbsp; <span class="chapter-title">🏗️ Spatial Count</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./spatial-query.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">109</span>&nbsp; <span class="chapter-title">🏗️ Spatial Query</span></span></a>
+ <span class="menu-text"><span class="chapter-number">107</span>&nbsp; <span class="chapter-title">🏗️ Spatial Query</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./spatial-embedding.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">110</span>&nbsp; <span class="chapter-title">🏗️ Spatial Embedding</span></span></a>
+ <span class="menu-text"><span class="chapter-number">108</span>&nbsp; <span class="chapter-title">🏗️ Spatial Embedding</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./spatial-characteristics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">111</span>&nbsp; <span class="chapter-title">🏗️ Spatial Characteristics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">109</span>&nbsp; <span class="chapter-title">🏗️ Spatial Characteristics</span></span></a>
   </div>
 </li>
       </ul>
@@ -973,73 +961,73 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./time-series.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">112</span>&nbsp; <span class="chapter-title">Time-series Overview</span></span></a>
+ <span class="menu-text"><span class="chapter-number">110</span>&nbsp; <span class="chapter-title">Time-series Overview</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./time-series-smooth.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">113</span>&nbsp; <span class="chapter-title">🏗️ Smoothing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">111</span>&nbsp; <span class="chapter-title">🏗️ Smoothing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./time-series-sliding.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">114</span>&nbsp; <span class="chapter-title">🏗️ Sliding</span></span></a>
+ <span class="menu-text"><span class="chapter-number">112</span>&nbsp; <span class="chapter-title">🏗️ Sliding</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./time-series-log-interval.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">115</span>&nbsp; <span class="chapter-title">🏗️ Log Interval</span></span></a>
+ <span class="menu-text"><span class="chapter-number">113</span>&nbsp; <span class="chapter-title">🏗️ Log Interval</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./time-series-missing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">116</span>&nbsp; <span class="chapter-title">🏗️ Time series Missing values</span></span></a>
+ <span class="menu-text"><span class="chapter-number">114</span>&nbsp; <span class="chapter-title">🏗️ Time series Missing values</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./time-series-outliers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">117</span>&nbsp; <span class="chapter-title">🏗️ Time Series outliers</span></span></a>
+ <span class="menu-text"><span class="chapter-number">115</span>&nbsp; <span class="chapter-title">🏗️ Time Series outliers</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./time-series-diff.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">118</span>&nbsp; <span class="chapter-title">🏗️ Differences</span></span></a>
+ <span class="menu-text"><span class="chapter-number">116</span>&nbsp; <span class="chapter-title">🏗️ Differences</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./time-series-lag.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">119</span>&nbsp; <span class="chapter-title">🏗️ Lagging Features</span></span></a>
+ <span class="menu-text"><span class="chapter-number">117</span>&nbsp; <span class="chapter-title">🏗️ Lagging Features</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./time-series-rolling-window.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">120</span>&nbsp; <span class="chapter-title">🏗️ Rolling Window</span></span></a>
+ <span class="menu-text"><span class="chapter-number">118</span>&nbsp; <span class="chapter-title">🏗️ Rolling Window</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./time-series-expanding-window.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">121</span>&nbsp; <span class="chapter-title">🏗️ Expanding Window</span></span></a>
+ <span class="menu-text"><span class="chapter-number">119</span>&nbsp; <span class="chapter-title">🏗️ Expanding Window</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./time-series-fourier.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">122</span>&nbsp; <span class="chapter-title">🏗️ Fourier Features</span></span></a>
+ <span class="menu-text"><span class="chapter-number">120</span>&nbsp; <span class="chapter-title">🏗️ Fourier Features</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./time-series-wavelet.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">123</span>&nbsp; <span class="chapter-title">🏗️ Wavelet</span></span></a>
+ <span class="menu-text"><span class="chapter-number">121</span>&nbsp; <span class="chapter-title">🏗️ Wavelet</span></span></a>
   </div>
 </li>
       </ul>
@@ -1056,73 +1044,73 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./image.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">124</span>&nbsp; <span class="chapter-title">Image Overview</span></span></a>
+ <span class="menu-text"><span class="chapter-number">122</span>&nbsp; <span class="chapter-title">Image Overview</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./image-edge-corner.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">125</span>&nbsp; <span class="chapter-title">🏗️ Edge and corner detection</span></span></a>
+ <span class="menu-text"><span class="chapter-number">123</span>&nbsp; <span class="chapter-title">🏗️ Edge and corner detection</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./image-texture.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">126</span>&nbsp; <span class="chapter-title">🏗️ Texture Analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">124</span>&nbsp; <span class="chapter-title">🏗️ Texture Analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./image-grayscale.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">127</span>&nbsp; <span class="chapter-title">🏗️ Greyscale conversion</span></span></a>
+ <span class="menu-text"><span class="chapter-number">125</span>&nbsp; <span class="chapter-title">🏗️ Greyscale conversion</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./image-colors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">128</span>&nbsp; <span class="chapter-title">🏗️ Color Modifications</span></span></a>
+ <span class="menu-text"><span class="chapter-number">126</span>&nbsp; <span class="chapter-title">🏗️ Color Modifications</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./image-noise.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">129</span>&nbsp; <span class="chapter-title">🏗️ Noise Reduction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">127</span>&nbsp; <span class="chapter-title">🏗️ Noise Reduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./image-normalization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">130</span>&nbsp; <span class="chapter-title">🏗️ Value Normalization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">128</span>&nbsp; <span class="chapter-title">🏗️ Value Normalization</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./image-resize.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">131</span>&nbsp; <span class="chapter-title">🏗️ Resizing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">129</span>&nbsp; <span class="chapter-title">🏗️ Resizing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./image-brightness.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">132</span>&nbsp; <span class="chapter-title">🏗️ Changing Brightness</span></span></a>
+ <span class="menu-text"><span class="chapter-number">130</span>&nbsp; <span class="chapter-title">🏗️ Changing Brightness</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./image-shift-flip-rotate.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">133</span>&nbsp; <span class="chapter-title">🏗️ Shifting, Flipping, and Rotation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">131</span>&nbsp; <span class="chapter-title">🏗️ Shifting, Flipping, and Rotation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./image-crop-scale.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">134</span>&nbsp; <span class="chapter-title">🏗️ Cropping and Scaling</span></span></a>
+ <span class="menu-text"><span class="chapter-number">132</span>&nbsp; <span class="chapter-title">🏗️ Cropping and Scaling</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./image-embeddings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">135</span>&nbsp; <span class="chapter-title">🏗️ Image embeddings</span></span></a>
+ <span class="menu-text"><span class="chapter-number">133</span>&nbsp; <span class="chapter-title">🏗️ Image embeddings</span></span></a>
   </div>
 </li>
       </ul>
@@ -1139,19 +1127,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./relational.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">136</span>&nbsp; <span class="chapter-title">Relational Overview</span></span></a>
+ <span class="menu-text"><span class="chapter-number">134</span>&nbsp; <span class="chapter-title">Relational Overview</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./relational-manual.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">137</span>&nbsp; <span class="chapter-title">🏗️ Manual</span></span></a>
+ <span class="menu-text"><span class="chapter-number">135</span>&nbsp; <span class="chapter-title">🏗️ Manual</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./relational-auto.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">138</span>&nbsp; <span class="chapter-title">🏗️ Automatic</span></span></a>
+ <span class="menu-text"><span class="chapter-number">136</span>&nbsp; <span class="chapter-title">🏗️ Automatic</span></span></a>
   </div>
 </li>
       </ul>
@@ -1168,13 +1156,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./video.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">139</span>&nbsp; <span class="chapter-title">Video Overview</span></span></a>
+ <span class="menu-text"><span class="chapter-number">137</span>&nbsp; <span class="chapter-title">Video Overview</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./video-tmp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">140</span>&nbsp; <span class="chapter-title">🏗️ Temporary</span></span></a>
+ <span class="menu-text"><span class="chapter-number">138</span>&nbsp; <span class="chapter-title">🏗️ Temporary</span></span></a>
   </div>
 </li>
       </ul>
@@ -1191,13 +1179,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sound.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">141</span>&nbsp; <span class="chapter-title">Sound Overview</span></span></a>
+ <span class="menu-text"><span class="chapter-number">139</span>&nbsp; <span class="chapter-title">Sound Overview</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sound-tmp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">142</span>&nbsp; <span class="chapter-title">🏗️ Temporary</span></span></a>
+ <span class="menu-text"><span class="chapter-number">140</span>&nbsp; <span class="chapter-title">🏗️ Temporary</span></span></a>
   </div>
 </li>
       </ul>
@@ -1205,25 +1193,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./order.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">143</span>&nbsp; <span class="chapter-title">🏗️ Order of transformations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">141</span>&nbsp; <span class="chapter-title">🏗️ Order of transformations</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sparse.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">144</span>&nbsp; <span class="chapter-title">🏗️ What should you do if you have sparse data?</span></span></a>
+ <span class="menu-text"><span class="chapter-number">142</span>&nbsp; <span class="chapter-title">🏗️ What should you do if you have sparse data?</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">145</span>&nbsp; <span class="chapter-title">🏗️ How Different Models Deal With Input</span></span></a>
+ <span class="menu-text"><span class="chapter-number">143</span>&nbsp; <span class="chapter-title">🏗️ How Different Models Deal With Input</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">146</span>&nbsp; <span class="chapter-title">🏗️ Summary</span></span></a>
+ <span class="menu-text"><span class="chapter-number">144</span>&nbsp; <span class="chapter-title">🏗️ Summary</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -1242,23 +1230,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#down-sampling" id="toc-down-sampling" class="nav-link active" data-scroll-target="#down-sampling"><span class="header-section-number">93.1</span> Down-Sampling</a></li>
-  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link" data-scroll-target="#pros-and-cons"><span class="header-section-number">93.2</span> Pros and Cons</a>
+  <li><a href="#down-sampling" id="toc-down-sampling" class="nav-link active" data-scroll-target="#down-sampling"><span class="header-section-number">91.1</span> Down-Sampling</a></li>
+  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link" data-scroll-target="#pros-and-cons"><span class="header-section-number">91.2</span> Pros and Cons</a>
   <ul class="collapse">
-  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">93.2.1</span> Pros</a></li>
-  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">93.2.2</span> Cons</a></li>
+  <li><a href="#pros" id="toc-pros" class="nav-link" data-scroll-target="#pros"><span class="header-section-number">91.2.1</span> Pros</a></li>
+  <li><a href="#cons" id="toc-cons" class="nav-link" data-scroll-target="#cons"><span class="header-section-number">91.2.2</span> Cons</a></li>
   </ul></li>
-  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">93.3</span> R Examples</a></li>
-  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">93.4</span> Python Examples</a></li>
+  <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">91.3</span> R Examples</a></li>
+  <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">91.4</span> Python Examples</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/imbalenced-downsample.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/imbalenced-downsample.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./imbalenced.html">Imbalanced Data</a></li><li class="breadcrumb-item"><a href="./imbalenced-downsample.html"><span class="chapter-number">93</span>&nbsp; <span class="chapter-title">Down-Sampling</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./imbalenced.html">Imbalanced Data</a></li><li class="breadcrumb-item"><a href="./imbalenced-downsample.html"><span class="chapter-number">91</span>&nbsp; <span class="chapter-title">Down-Sampling</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-imbalenced-downsample" class="quarto-section-identifier"><span class="chapter-number">93</span>&nbsp; <span class="chapter-title">Down-Sampling</span></span></h1>
+<h1 class="title"><span id="sec-imbalenced-downsample" class="quarto-section-identifier"><span class="chapter-number">91</span>&nbsp; <span class="chapter-title">Down-Sampling</span></span></h1>
 </div>
 
 
@@ -1275,31 +1263,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="down-sampling" class="level2" style="visibility: hidden; height: 0px;" data-number="93.1">
-<h2 data-number="93.1" class="anchored" data-anchor-id="down-sampling"><span class="header-section-number">93.1</span> Down-Sampling</h2>
+<section id="down-sampling" class="level2" style="visibility: hidden; height: 0px;" data-number="91.1">
+<h2 data-number="91.1" class="anchored" data-anchor-id="down-sampling"><span class="header-section-number">91.1</span> Down-Sampling</h2>
 </section>
 <p>Downsampling is one of the conceptually easiest ways to handle imbalanced data. Like all other methods in this section, it is a supervised method, since it requires knowledge of the outcome. This also means that it can only be applied to the training data set, since we need the outcome. See also <a href="./imbalenced-upsample.html">up-dampling</a>, which is the opposite action.</p>
 <p>The algorithm is quite simple. Tally the number of observations within each class, as well as keep track of which observations are associated with each class. The class with the fewest observations is then denoted as the minority class, The remaining classes are denoted as the majority classes. The observations of each majority class are then sampled without replacement to decrease the number of observations in the class. Typically, to align with the number of observations with that of the minority class.</p>
 <p>One could also modify this for a different threshold, say 300%, which would make all majority classes with more than 30% of the number of observations of the minority class, downsample until they have at most 300% of that of the minority class.</p>
 <p>When using downsampling we are deleting data completely. And there is a definite risk that we are throwing away the signal when we do this. This is even more drastic when we have a sharp imbalance between the majority and minority classes. Having a 99-1 split in the data would have you remove 98% of the data set, which is not a wise choice.</p>
-<section id="pros-and-cons" class="level2" data-number="93.2">
-<h2 data-number="93.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">93.2</span> Pros and Cons</h2>
-<section id="pros" class="level3" data-number="93.2.1">
-<h3 data-number="93.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">93.2.1</span> Pros</h3>
+<section id="pros-and-cons" class="level2" data-number="91.2">
+<h2 data-number="91.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">91.2</span> Pros and Cons</h2>
+<section id="pros" class="level3" data-number="91.2.1">
+<h3 data-number="91.2.1" class="anchored" data-anchor-id="pros"><span class="header-section-number">91.2.1</span> Pros</h3>
 <ul>
 <li>Computationally fast and simple.</li>
 </ul>
 </section>
-<section id="cons" class="level3" data-number="93.2.2">
-<h3 data-number="93.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">93.2.2</span> Cons</h3>
+<section id="cons" class="level3" data-number="91.2.2">
+<h3 data-number="91.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">91.2.2</span> Cons</h3>
 <ul>
 <li>This could give issues if there is a big imbalance, causing us to remove almost all the data.</li>
 <li>Solves tasks that could be better handled with other methods.</li>
 </ul>
 </section>
 </section>
-<section id="r-examples" class="level2" data-number="93.3">
-<h2 data-number="93.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">93.3</span> R Examples</h2>
+<section id="r-examples" class="level2" data-number="91.3">
+<h2 data-number="91.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">91.3</span> R Examples</h2>
 <p>We will be using the <code>ames</code> data set for these examples.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
@@ -1418,8 +1406,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="python-examples" class="level2" data-number="93.4">
-<h2 data-number="93.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">93.4</span> Python Examples</h2>
+<section id="python-examples" class="level2" data-number="91.4">
+<h2 data-number="91.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">91.4</span> Python Examples</h2>
 
 
 </section>
@@ -1896,13 +1884,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./imbalenced-adasyn.html" class="pagination-link" aria-label="🏗️ Adaptive Synthetic Algorithm">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">92</span>&nbsp; <span class="chapter-title">🏗️ Adaptive Synthetic Algorithm</span></span>
+      <a href="./imbalenced-smote-variants.html" class="pagination-link" aria-label="SMOTE Variants">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">90</span>&nbsp; <span class="chapter-title">SMOTE Variants</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./imbalenced-nearmiss.html" class="pagination-link" aria-label="🏗️ Near-Miss">
-        <span class="nav-page-text"><span class="chapter-number">94</span>&nbsp; <span class="chapter-title">🏗️ Near-Miss</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">92</span>&nbsp; <span class="chapter-title">🏗️ Near-Miss</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

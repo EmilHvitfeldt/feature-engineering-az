@@ -8,12 +8,76 @@ pagetitle: "Feature Engineering A-Z | SMOTE Variants"
 ## SMOTE Variants
 :::
 
-WIP
+While [SMOTE](imbalenced-smote.qmd) provides the basis of method,
+it is often not good enough by itself as it has a long list of issues and constraints.
+Each of these variants builds on the base SMOTE algorithm by changing or adding parts of it to handle a specific usecase.
 
-- SMOTEN
-- SMOTENC
-- K-means SMOTE
+### Non-numeric variants
+
+The first constraint that is often found with SMOTE is that you are limited to using numeric predictors.
+The **SMOTEN** and **SMOTENC** tries to handle this in two different ways.
+**Synthetic minority oversampling technique for Nominal** (SMOTEN) is an modification of SMOTE that works with categorical data.
+since the method os focused on categorcial input we can't use the tradional nearest neighbor,
+insteda we use the Value Difference Matric (VDM) as a way to calculate categorical distances.
+Where SMOTE samples random points on the line between points and their neighbor,
+SMOTEN calculates the most frequent category for each feature between the pair of points.
+
+The obvious biggest constraint with this method is that it requires all the predictors to be categorical.
+Argueably even more rare then having all numeric predictors.
+
+While each predictor able to generate invalid values,
+as they are taken directly from the training data.
+We are not garenteed that the combinations of the most frequent level within each predictor combines to a plasuble observation.
+
+Another variant **Synthetic Minority Over-sampling Technique for Nominal and Continuous** (SMOTENC) tries to combine SMOTE and SMOTEN.
+A combined distance metric is used to calculate neighbors and numeric predictors are generated with the SMOTE way,
+and categorical predictors are generated with the SMOTEN way.
+
+### Boundary-focused variants
+
+The orginal SMOTE method generated new synthetic samples from all the observations within the class.
+The worry is that this will generate a lot of points in the "safe" areas of the distribution where they aren't as useful.
+Instead we should generate obsevations near the border of the distribution of the class itself,
+as those are the observations that acrually matter for our decision boundaries.
+
+To determine whether an observation is considered borderline or not,
+we calculate the nearest neighbors of each observation in the data set.
+And we look to see whether the neighbors are of the same class or not.
+If all the neighbors of an observation are of different classes then the observation is labeld as "noise".
+Likewise if too many of the neighbors of an observation is of the same class as itself the observation is labeled "safe" otherwise it is labeled "borderline".
+the threshold of too many is typically 50%.
+
+We will generate new synthetic obsevations around the neighbors of all the borderline observations.
+And we have two major ways to do it.
+Either we do it like we did in standard SMOTE where we generate points between an observations and neighbors of the same class,
+or we could generate points between any of the neighbors, regardless of whether they are of the same class or not.
+This is refered to as variant 1 and 2 respectively.
+
+Variant 1 is more aggressive,
+as it produces points closer to the decision boundary,
+and the choice to label fully enclosed points as noise is a way to avoid having issues here.
+
+TODO: this would do really well with a graphic
+
+### Distribution
+
+- Adasyn
+
+### Distance/Neighborhood-based variants
+
 - SVM SMOTE
+- SMOTE-Cosine (basically just a different distance metric)
+
+Diffrent types of distance metrics
+
+### Dimensionaly reduction methods
+
+THis also fall intot he below methods, as a chained method that we don't consider its own method in this book.
+
+What we don't consider methods
+- KMeansSMOTE (as it applies K-means before SMOTE, we think of this as two chained methods)
+- SMOTEENN (combines, SMOTE with Edited nearest neighbors)
+- SMOTETomek (combines SMOTE with Tomek link removal)
 
 ## Pros and Cons
 
