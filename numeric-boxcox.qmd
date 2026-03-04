@@ -64,7 +64,7 @@ visualize_boxcox <- function(x) {
 ```
 
 ```{r}
-#| label: visualize_boxcox-normal
+#| label: fig-boxcox-normal
 #| echo: false
 #| message: false
 #| fig-cap: "Before and After Box-Cox"
@@ -85,7 +85,7 @@ The next set of distributions wasn't so lucky.
 The Box-Cox method isn't magic and will only give you something more normally distributed if the distribution can be made more normally distributed by applying a power transformation.
 
 ```{r}
-#| label: visualize_boxcox-not-normal
+#| label: fig-boxcox-non-normal
 #| echo: false
 #| message: false
 #| fig-cap: "Before and After Box-Cox"

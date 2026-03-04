@@ -16,7 +16,7 @@ Below is a histogram of the average daily rate of the number of hotel stays.
 It is clear to see that this is another case where the data is highly skewed, with many values close to zero, but a few in the thousands.
 
 ```{r}
-#| label: dist-adr
+#| label: fig-adr
 #| echo: false
 #| message: false
 #| fig-cap: "Histogram of Average Daily Rate"
@@ -53,7 +53,7 @@ $$
 Below we see the results of applying the signed square root.
 
 ```{r}
-#| label: dist-signed-sqrt
+#| label: fig-adr-sqrt
 #| echo: false
 #| message: false
 #| fig-cap: "Histogram of squared Average Daily Rate"

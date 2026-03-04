@@ -34,7 +34,7 @@ Each pixel is treated as a predictor, and the colors show the factor loadings fo
 Visually showing which part of the image it is activated from.
 
 ```{r}
-#| label: nmf-mnist
+#| label: fig-nmf-mnist
 #| echo: false
 #| fig-cap: |
 #|   NMF applied to all of MNIST
@@ -82,7 +82,7 @@ If we instead increase the number of components to 9,
 We see that each component pulls more and different shapes than before.
 
 ```{r}
-#| label: nmf-mnist-nine
+#| label: fig-nmf-mnist-nine
 #| echo: false
 #| fig-cap: |
 #|   NMF applied to all of MNIST
@@ -110,7 +110,7 @@ rec |>
 This is also a good time to note that many implementations of NMF depend on the initialization, 
 
 ```{r}
-#| label: nmf-mnist-nine-new-seed
+#| label: fig-nmf-mnist-nine-new-seed
 #| echo: false
 #| fig-cap: |
 #|   NMF applied to all of MNIST

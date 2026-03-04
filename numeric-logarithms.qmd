@@ -19,7 +19,7 @@ Find a better data set for this example
 :::
 
 ```{r}
-#| label: dist-lot_area
+#| label: fig-lot-area
 #| echo: false 
 #| message: false
 #| fig-cap: "Histogram of lot areas"
@@ -73,7 +73,7 @@ We have essentially turned out predictors to work on doublings rather than addit
 Below is the same chart as before, but on a logarithmic scale using base 2.
 
 ```{r}
-#| label: dist-lot_area-100-bins
+#| label: fig-lot-area-log
 #| echo: false
 #| message: false
 #| fig-cap: "Histogram of logarithmic lot areas"

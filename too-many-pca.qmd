@@ -22,7 +22,7 @@ This can also be seen in part using a correlation plot.
 Using the numeric variables of the `ames` data set, we can plot the correlation of it.
 
 ```{r}
-#| label: ames-correlation-plot
+#| label: fig-ames-correlation-plot
 #| echo: false
 #| message: false
 #| fig-cap: |
@@ -51,7 +51,7 @@ It Many of the variables store some variant of "large house" with something else
 We will motivate what PCA does using the following simulated 2-dimensional data set.
 
 ```{r}
-#| label: pca-example-1
+#| label: fig-pca-example-1
 #| echo: false
 #| fig-alt: |
 #|   Scatter chart. Predictor 1 along the x-axis, predictor 2 along theh y-axis. #|   All the points follow the diagonal with little variation.
@@ -80,7 +80,7 @@ in order to maximize the variance along one dimension.
 visually we can find that line as seen below.
 
 ```{r}
-#| label: pca-example-2
+#| label: fig-pca-example-2
 #| echo: false
 #| fig-alt: |
 #|   Scatter chart. Predictor 1 along the x-axis, predictor 2 along theh y-axis. #|   All the points follow the diagonal with little variation. A line is overlaid
@@ -105,7 +105,7 @@ whale |>
 Rotating the data gives us the following data set after applying PCA.
 
 ```{r}
-#| label: pca-example-3
+#| label: fig-pca-example-3
 #| echo: false
 #| fig-alt: |
 #|   Scatter chart. Predictor 1 along the x-axis, predictor 2 along theh y-axis. #|   All the points follow the diagonal with little variation. This data is the
@@ -176,7 +176,7 @@ And can be hyperparameter tuned.
 In the below chart we have calculated the **cumulative percent variance** for 4 different data sets being processed by PCA.
 
 ```{r}
-#| label: pca-cumulative-percent-variance
+#| label: fig-pca-cumulative-percent-variance
 #| echo: false
 #| fig-cap: |
 #|   4 difference shapes of cumulative percent variance plots.
@@ -276,7 +276,7 @@ We took the [MNIST database](https://en.wikipedia.org/wiki/MNIST_database) and p
 First We apply it to the entire data set.
 
 ```{r}
-#| label: pca-mnist
+#| label: fig-pca-mnist
 #| echo: false
 #| fig-cap: |
 #|   PCA applied to all of MNIST
@@ -335,7 +335,7 @@ it is simply finding the combination of values (pixels in this example) that lea
 If we instead did what we did before but only included data for the number 2 we will see the following principle components.
 
 ```{r}
-#| label: pca-mnist-2
+#| label: fig-pca-mnist-2
 #| echo: false
 #| fig-cap: |
 #|   PCA applied to all 2s in MNIST
