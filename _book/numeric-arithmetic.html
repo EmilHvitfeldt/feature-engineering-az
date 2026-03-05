@@ -76,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
 <meta property="og:description" content="">
 <meta property="og:image" content="https://example.com/numeric-arithmetic_files/figure-html/fig-numeric-ratios-1.png">
 <meta property="og:site_name" content="Feature Engineering A-Z">
-<meta property="og:image:alt" content="2 scatter charts. The left chart has points evenly scattered along the x (deposits) and y (withdrawals) axis. A color scale is used to indicate the outcome variable, which appears to have high values when deposits are high and withdrawals are low. The right chart shows the ratio of these two variables plotted along the x-axis and the outcome plotted along the y-axis. They appear to follow each other linearly with some noise.">
+<meta property="og:image:alt" content="Two scatter charts side by side. Left: deposits vs withdrawals with color encoding outcome - high outcome (yellow) appears when deposits are high and withdrawals are low. Right: ratio (deposits/withdrawals) vs outcome shows a clear linear relationship.">
 <meta property="og:image:height" content="960">
 <meta property="og:image:width" content="1344">
 </head>
@@ -1240,10 +1240,10 @@ ul.task-list li input[type="checkbox"] {
 <p>Below we are seeing such a ratio in action. This fictitious data set contains the number of deposits and withdrawals from some customers. There is a clear effect between the predictors <code>deposits</code> and <code>withdrawals</code> and the outcome variable, but they contribute to the outcome together. By taking the ratio between these two variables we get a singular variable that has a linear relationship with the outcome.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-numeric-ratios" class="quarto-float quarto-figure quarto-figure-center anchored" alt="2 scatter charts. The left chart has points evenly scattered along the x (deposits) and y (withdrawals) axis. A color scale is used to indicate the outcome variable, which appears to have high values when deposits are high and withdrawals are low. The right chart shows the ratio of these two variables plotted along the x-axis and the outcome plotted along the y-axis. They appear to follow each other linearly with some noise.">
+<div id="fig-numeric-ratios" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Two scatter charts side by side. Left: deposits vs withdrawals with color encoding outcome - high outcome (yellow) appears when deposits are high and withdrawals are low. Right: ratio (deposits/withdrawals) vs outcome shows a clear linear relationship.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-numeric-ratios-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="numeric-arithmetic_files/figure-html/fig-numeric-ratios-1.png" class="img-fluid figure-img" alt="2 scatter charts. The left chart has points evenly scattered along the x (deposits) and y (withdrawals) axis. A color scale is used to indicate the outcome variable, which appears to have high values when deposits are high and withdrawals are low. The right chart shows the ratio of these two variables plotted along the x-axis and the outcome plotted along the y-axis. They appear to follow each other linearly with some noise." width="672">
+<img src="numeric-arithmetic_files/figure-html/fig-numeric-ratios-1.png" class="img-fluid figure-img" alt="Two scatter charts side by side. Left: deposits vs withdrawals with color encoding outcome - high outcome (yellow) appears when deposits are high and withdrawals are low. Right: ratio (deposits/withdrawals) vs outcome shows a clear linear relationship." width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-numeric-ratios-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;14.1: Some relationships can be detangled using ratios.
@@ -1256,10 +1256,10 @@ Figure&nbsp;14.1: Some relationships can be detangled using ratios.
 <p>We can do some of the same tricks with multiplication as well. This is also known as <em>feature crosses</em>. Again we can have features that jointly contain information that relates to the outcome, in a way that combining them multiplicatively is better explained.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-numeric-crosses" class="quarto-float quarto-figure quarto-figure-center anchored" alt="2 scatter charts. The left chart has points evenly scattered along the x (deposits) and y (withdrawals) axis. A color scale is used to indicate the outcome variable, which appears to have high values when deposits are high and withdrawals are high. The right chart shows the ratio of these two variables plotted along the x-axis and the outcome plotted along the y-axis. They appear to follow each other linearly with some noise.">
+<div id="fig-numeric-crosses" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Two scatter charts side by side. Left: deposits vs withdrawals with color encoding outcome - high outcome (yellow) appears when both deposits AND withdrawals are high. Right: product (deposits*withdrawals) vs outcome shows a clear linear relationship.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-numeric-crosses-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="numeric-arithmetic_files/figure-html/fig-numeric-crosses-1.png" class="img-fluid figure-img" alt="2 scatter charts. The left chart has points evenly scattered along the x (deposits) and y (withdrawals) axis. A color scale is used to indicate the outcome variable, which appears to have high values when deposits are high and withdrawals are high. The right chart shows the ratio of these two variables plotted along the x-axis and the outcome plotted along the y-axis. They appear to follow each other linearly with some noise." width="672">
+<img src="numeric-arithmetic_files/figure-html/fig-numeric-crosses-1.png" class="img-fluid figure-img" alt="Two scatter charts side by side. Left: deposits vs withdrawals with color encoding outcome - high outcome (yellow) appears when both deposits AND withdrawals are high. Right: product (deposits*withdrawals) vs outcome shows a clear linear relationship." width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-numeric-crosses-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;14.2: Some relationships can be detangled using crosses.

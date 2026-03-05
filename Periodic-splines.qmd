@@ -41,9 +41,9 @@ toy_data <- tibble(
 #| fig-cap: |
 #|   Strong periodic signal every 365 values along predictor.
 #| fig-alt: |
-#|   Scatter chart. Predictor along the x-axis and outcome along the y-axis.
-#|   Points scatter around a constant low value of the target. At regular intervals,
-#|   the curve swings up and back down.
+#|   Scatter chart. Predictor (0-2000) on x-axis, target on y-axis. Data shows
+#|   clear periodic pattern with period 365: target stays near -0.5 most of
+#|   the time, with sharp peaks rising to about 0.5 occurring every 365 units.
 toy_data |>
   ggplot(aes(predictor, target)) +
   geom_point() +
@@ -62,13 +62,11 @@ First we fit a number of spline terms to our data using default arguments.
 #| fig-cap: |
 #|   Strong periodic signal every 365 values along predictor below, spline values above.
 #| fig-alt: |
-#|   Two charts one above another.
-#|   Below: Scatter chart.
-#|   Predictor along the x-axis and outcome along the y-axis.
-#|   Points scatter around a constant low value of the target. At regular intervals,
-#|   the curve swings up and back down.
-#|   Above: Spline terms as curves. One curve for each term. Each curse goes up
-#|   in an almost sine curve, and the back down to zero. Each peak is seperated.
+#|   Two stacked charts. Bottom: scatter plot showing periodic target data
+#|   with peaks every 365 units. Top: default periodic B-spline basis
+#|   functions - multiple overlapping curves that span the entire predictor
+#|   range but don't match the data's period. The splines are too wide and
+#|   not aligned with the 365-unit cycle.
 p1 <- recipe(~., data = toy_data) |>
   step_spline_b(
     predictor,
@@ -103,14 +101,11 @@ Let us make spline periodic and try to approcimate the period.
 #| fig-cap: |
 #|   Strong periodic signal every 365 values along predictor below, spline values above.
 #| fig-alt: |
-#|   Two charts one above another.
-#|   Below: Scatter chart.
-#|   Predictor along the x-axis and outcome along the y-axis.
-#|   Points scatter around a constant low value of the target. At regular intervals,
-#|   the curve swings up and back down.
-#|   Above: Spline terms as curves. One curve for each term. Each curse goes up
-#|   in an almost sine curve, and the back down to zero. Each peak is seperated.
-#|   The splines have been shortened and repeating with the same period.
+#|   Two stacked charts. Bottom: scatter plot showing periodic target data.
+#|   Top: periodic B-spline basis with Boundary.knots set to [0, 365]. The
+#|   spline curves now repeat every 365 units, matching the data's period.
+#|   Multiple bell-shaped curves tile the space, each activating for a
+#|   different phase of the cycle.
 p1 <- recipe(~., data = toy_data) |>
   step_spline_b(
     predictor,
@@ -146,15 +141,11 @@ lowering this value creates more wider bumps.
 #| fig-cap: |
 #|   Strong periodic signal every 365 values along predictor below, spline values above.
 #| fig-alt: |
-#|   Two charts one above another.
-#|   Below: Scatter chart.
-#|   Predictor along the x-axis and outcome along the y-axis.
-#|   Points scatter around a constant low value of the target. At regular intervals,
-#|   the curve swings up and back down.
-#|   Above: Spline terms as curves. One curve for each term. Each curse goes up
-#|   in an almost sine curve, and the back down to zero. Each peak is seperated.
-#|   There are now fewer splines, with one of them being highlighted with color,
-#|   to show is simularity with the below chart.
+#|   Two stacked charts. Bottom: scatter plot showing periodic target peaks.
+#|   Top: calibrated periodic B-spline with deg_free=7 and shifted boundary
+#|   knots. One spline term highlighted in purple aligns almost perfectly
+#|   with the peak locations in the data below. Other terms shown in gray
+#|   cover different phases of the cycle.
 p1 <- recipe(~., data = toy_data) |>
   step_spline_b(
     predictor,
@@ -193,10 +184,9 @@ we can translate it a bit to show how well it overlaps with our signal.
 #| fig-cap: |
 #|   Strong periodic signal every 365 values along predictor.
 #| fig-alt: |
-#|   Scatter chart. Predictor along the x-axis and outcome along the y-axis.
-#|   Points scatter around a constant low value of the target. At regular intervals,
-#|   the curve swings up and back down.
-#|   Spline term has been overlaid as a curve, almost perfectly following the trend.
+#|   Scatter chart with fitted spline overlay. Points show periodic target
+#|   data with peaks every 365 units. A purple curve (scaled and shifted
+#|   spline term) traces through the peaks.
 recipe(~., data = toy_data) |>
   step_spline_b(
     predictor,

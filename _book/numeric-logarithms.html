@@ -138,9 +138,9 @@ window.Quarto = {
 
 <meta property="og:title" content="Feature Engineering A-Z | Logarithms">
 <meta property="og:description" content="">
-<meta property="og:image" content="https://example.com/numeric-logarithms_files/figure-html/dist-lot_area-1.png">
+<meta property="og:image" content="https://example.com/numeric-logarithms_files/figure-html/fig-lot-area-1.png">
 <meta property="og:site_name" content="Feature Engineering A-Z">
-<meta property="og:image:alt" content="Highly right skewed histogram of lot areas">
+<meta property="og:image:alt" content="Histogram of lot area from the Ames housing dataset. Highly right-skewed with most values below 20,000 square feet. A long tail extends past 100,000, with one extreme value over 200,000.">
 <meta property="og:image:height" content="960">
 <meta property="og:image:width" content="1344">
 </head>
@@ -1315,10 +1315,14 @@ window.Quarto = {
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="numeric-logarithms_files/figure-html/dist-lot_area-1.png" class="img-fluid figure-img" alt="Highly right skewed histogram of lot areas" width="672"></p>
-<figcaption>Histogram of lot areas</figcaption>
+<div id="fig-lot-area" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Histogram of lot area from the Ames housing dataset. Highly right-skewed with most values below 20,000 square feet. A long tail extends past 100,000, with one extreme value over 200,000.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-lot-area-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="numeric-logarithms_files/figure-html/fig-lot-area-1.png" class="img-fluid figure-img" alt="Histogram of lot area from the Ames housing dataset. Highly right-skewed with most values below 20,000 square feet. A long tail extends past 100,000, with one extreme value over 200,000." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lot-area-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.1: Histogram of lot areas
+</figcaption>
 </figure>
 </div>
 </div>
@@ -1340,10 +1344,14 @@ window.Quarto = {
 <p>The logarithmic transformation is perfect for such a scenario. If we take a <code>log2()</code> transformation on our data, then we get a new interpretation of our model. Now each doubling (because we used log<strong>2</strong>) of the lot area is going to result in the same predicted increase in sale price. We have essentially turned out predictors to work on doublings rather than additions. Below is the same chart as before, but on a logarithmic scale using base 2.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="numeric-logarithms_files/figure-html/dist-lot_area-100-bins-1.png" class="img-fluid figure-img" alt="histogram of logarithmic lot areas. This time not skewed" width="672"></p>
-<figcaption>Histogram of logarithmic lot areas</figcaption>
+<div id="fig-lot-area-log" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Histogram of log2-transformed lot area. The distribution is now roughly symmetric and bell-shaped, centered around 9-10 (corresponding to 500-1000 square feet on the original scale). The extreme right skew has been eliminated.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-lot-area-log-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="numeric-logarithms_files/figure-html/fig-lot-area-log-1.png" class="img-fluid figure-img" alt="Histogram of log2-transformed lot area. The distribution is now roughly symmetric and bell-shaped, centered around 9-10 (corresponding to 500-1000 square feet on the original scale). The extreme right skew has been eliminated." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lot-area-log-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.2: Histogram of logarithmic lot areas
+</figcaption>
 </figure>
 </div>
 </div>

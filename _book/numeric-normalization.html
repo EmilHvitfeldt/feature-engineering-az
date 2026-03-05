@@ -140,7 +140,7 @@ window.Quarto = {
 <meta property="og:description" content="">
 <meta property="og:image" content="https://example.com/numeric-normalization_files/figure-html/fig-normalization-not-normal-1.png">
 <meta property="og:site_name" content="Feature Engineering A-Z">
-<meta property="og:image:alt" content="2 histograms of distribution one above the other. The top distribution shows a bimodal distribution. Below is the same distribution after being normalized. Both appear clearly non-normally distributed. The green curve is overlaid lower histogram. It doesn't follow.">
+<meta property="og:image:alt" content="Faceted histogram with two panels stacked vertically. Top panel shows original bimodal distribution from a beta distribution. Bottom panel shows the same data after normalization (mean=0, sd=1), retaining the bimodal shape. A green normal curve overlay on the bottom panel clearly does not match.">
 <meta property="og:image:height" content="960">
 <meta property="og:image:width" content="1344">
 </head>
@@ -1304,10 +1304,10 @@ window.Quarto = {
 <p>Performing this transformation means that the resulting variable will have a mean of 0 and a standard deviation and variance of 1. This method is a learned transformation. So we use the training data to derive the right values of <span class="math inline">\(\text{sd}(X)\)</span> and <span class="math inline">\(\text{mean}(X)\)</span> and then these values are used to perform the transformations when applied to new data. It is a common misconception that this transformation is done to make the data normally distributed. This transformation doesn’t change the distribution, it scales the values. Below is a figure <a href="#fig-normalization-not-normal" class="quarto-xref">Figure&nbsp;<span>7.1</span></a> that illustrates that point</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-normalization-not-normal" class="quarto-float quarto-figure quarto-figure-center anchored" alt="2 histograms of distribution one above the other. The top distribution shows a bimodal distribution. Below is the same distribution after being normalized. Both appear clearly non-normally distributed. The green curve is overlaid lower histogram. It doesn't follow.">
+<div id="fig-normalization-not-normal" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Faceted histogram with two panels stacked vertically. Top panel shows original bimodal distribution from a beta distribution. Bottom panel shows the same data after normalization (mean=0, sd=1), retaining the bimodal shape. A green normal curve overlay on the bottom panel clearly does not match.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-normalization-not-normal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="numeric-normalization_files/figure-html/fig-normalization-not-normal-1.png" class="img-fluid figure-img" alt="2 histograms of distribution one above the other. The top distribution shows a bimodal distribution. Below is the same distribution after being normalized. Both appear clearly non-normally distributed. The green curve is overlaid lower histogram. It doesn't follow." width="672">
+<img src="numeric-normalization_files/figure-html/fig-normalization-not-normal-1.png" class="img-fluid figure-img" alt="Faceted histogram with two panels stacked vertically. Top panel shows original bimodal distribution from a beta distribution. Bottom panel shows the same data after normalization (mean=0, sd=1), retaining the bimodal shape. A green normal curve overlay on the bottom panel clearly does not match." width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-normalization-not-normal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7.1: Normalization doesn’t make data more normal. The green curve indicates the density of the unit normal distribution.
@@ -1337,10 +1337,10 @@ Figure&nbsp;7.1: Normalization doesn’t make data more normal. The green curve 
 <p>Below is the figure <a href="#fig-normalization-outlier" class="quarto-xref">Figure&nbsp;<span>7.2</span></a> is an illustration of the effect of having a single high value. In this case, a single observation with the value <code>10000</code> moved the transformed distribution much tighter around zero. And all but removed the variance of the non-outliers.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-normalization-outlier" class="quarto-float quarto-figure quarto-figure-center anchored" alt="4 histograms of distribution in 2 columns. The top distribution shows the same bimodal distribution. Below are the same distributions after being normalized. The right column shows the effect of having one outlier at 10000, which in this case made the transformed distribution about a fifth of the width.">
+<div id="fig-normalization-outlier" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Four histograms in a 2x2 grid. Rows: Original and Transformed. Columns: No outlier and One outlier. Left column shows normal normalization of bimodal data. Right column shows the same data with one extreme outlier added, which compresses the transformed distribution to about one-fifth the width.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-normalization-outlier-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="numeric-normalization_files/figure-html/fig-normalization-outlier-1.png" class="img-fluid figure-img" alt="4 histograms of distribution in 2 columns. The top distribution shows the same bimodal distribution. Below are the same distributions after being normalized. The right column shows the effect of having one outlier at 10000, which in this case made the transformed distribution about a fifth of the width." width="672">
+<img src="numeric-normalization_files/figure-html/fig-normalization-outlier-1.png" class="img-fluid figure-img" alt="Four histograms in a 2x2 grid. Rows: Original and Transformed. Columns: No outlier and One outlier. Left column shows normal normalization of bimodal data. Right column shows the same data with one extreme outlier added, which compresses the transformed distribution to about one-fifth the width." width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-normalization-outlier-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7.2: Outliers can have a big effect on the resulting distribution when applying normalization.

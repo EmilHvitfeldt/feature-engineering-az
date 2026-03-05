@@ -111,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta property="og:description" content="">
 <meta property="og:image" content="https://example.com/periodic-splines_files/figure-html/fig-spline-predictor-outcome-1.png">
 <meta property="og:site_name" content="Feature Engineering A-Z">
-<meta property="og:image:alt" content="Scatter chart. Predictor along the x-axis and outcome along the y-axis. Points scatter around a constant low value of the target. At regular intervals, the curve swings up and back down.">
+<meta property="og:image:alt" content="Scatter chart. Predictor (0-2000) on x-axis, target on y-axis. Data shows clear periodic pattern with period 365: target stays near -0.5 most of the time, with sharp peaks rising to about 0.5 occurring every 365 units.">
 <meta property="og:image:height" content="960">
 <meta property="og:image:width" content="1344">
 </head>
@@ -1274,10 +1274,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We will be using the same toy data set and see if we can improve on it.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-spline-predictor-outcome" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. Points scatter around a constant low value of the target. At regular intervals, the curve swings up and back down.">
+<div id="fig-spline-predictor-outcome" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatter chart. Predictor (0-2000) on x-axis, target on y-axis. Data shows clear periodic pattern with period 365: target stays near -0.5 most of the time, with sharp peaks rising to about 0.5 occurring every 365 units.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-spline-predictor-outcome-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="periodic-splines_files/figure-html/fig-spline-predictor-outcome-1.png" class="img-fluid figure-img" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. Points scatter around a constant low value of the target. At regular intervals, the curve swings up and back down." width="672">
+<img src="periodic-splines_files/figure-html/fig-spline-predictor-outcome-1.png" class="img-fluid figure-img" alt="Scatter chart. Predictor (0-2000) on x-axis, target on y-axis. Data shows clear periodic pattern with period 365: target stays near -0.5 most of the time, with sharp peaks rising to about 0.5 occurring every 365 units." width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-spline-predictor-outcome-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;64.1: Strong periodic signal every 365 values along predictor.
@@ -1290,10 +1290,10 @@ Figure&nbsp;64.1: Strong periodic signal every 365 values along predictor.
 <p>First we fit a number of spline terms to our data using default arguments.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-periodic-spline-defaults" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Two charts one above another. Below: Scatter chart. Predictor along the x-axis and outcome along the y-axis. Points scatter around a constant low value of the target. At regular intervals, the curve swings up and back down. Above: Spline terms as curves. One curve for each term. Each curse goes up in an almost sine curve, and the back down to zero. Each peak is seperated.">
+<div id="fig-periodic-spline-defaults" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Two stacked charts. Bottom: scatter plot showing periodic target data with peaks every 365 units. Top: default periodic B-spline basis functions - multiple overlapping curves that span the entire predictor range but don't match the data's period. The splines are too wide and not aligned with the 365-unit cycle.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-periodic-spline-defaults-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="periodic-splines_files/figure-html/fig-periodic-spline-defaults-1.png" class="img-fluid figure-img" alt="Two charts one above another. Below: Scatter chart. Predictor along the x-axis and outcome along the y-axis. Points scatter around a constant low value of the target. At regular intervals, the curve swings up and back down. Above: Spline terms as curves. One curve for each term. Each curse goes up in an almost sine curve, and the back down to zero. Each peak is seperated." width="672">
+<img src="periodic-splines_files/figure-html/fig-periodic-spline-defaults-1.png" class="img-fluid figure-img" alt="Two stacked charts. Bottom: scatter plot showing periodic target data with peaks every 365 units. Top: default periodic B-spline basis functions - multiple overlapping curves that span the entire predictor range but don't match the data's period. The splines are too wide and not aligned with the 365-unit cycle." width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-periodic-spline-defaults-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;64.2: Strong periodic signal every 365 values along predictor below, spline values above.
@@ -1305,10 +1305,10 @@ Figure&nbsp;64.2: Strong periodic signal every 365 values along predictor below,
 <p>While it produces some fine splines they are neither well fitting or periodic. Let us make spline periodic and try to approcimate the period.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-periodic-spline-period" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Two charts one above another. Below: Scatter chart. Predictor along the x-axis and outcome along the y-axis. Points scatter around a constant low value of the target. At regular intervals, the curve swings up and back down. Above: Spline terms as curves. One curve for each term. Each curse goes up in an almost sine curve, and the back down to zero. Each peak is seperated. The splines have been shortened and repeating with the same period.">
+<div id="fig-periodic-spline-period" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Two stacked charts. Bottom: scatter plot showing periodic target data. Top: periodic B-spline basis with Boundary.knots set to [0, 365]. The spline curves now repeat every 365 units, matching the data's period. Multiple bell-shaped curves tile the space, each activating for a different phase of the cycle.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-periodic-spline-period-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="periodic-splines_files/figure-html/fig-periodic-spline-period-1.png" class="img-fluid figure-img" alt="Two charts one above another. Below: Scatter chart. Predictor along the x-axis and outcome along the y-axis. Points scatter around a constant low value of the target. At regular intervals, the curve swings up and back down. Above: Spline terms as curves. One curve for each term. Each curse goes up in an almost sine curve, and the back down to zero. Each peak is seperated. The splines have been shortened and repeating with the same period." width="672">
+<img src="periodic-splines_files/figure-html/fig-periodic-spline-period-1.png" class="img-fluid figure-img" alt="Two stacked charts. Bottom: scatter plot showing periodic target data. Top: periodic B-spline basis with Boundary.knots set to [0, 365]. The spline curves now repeat every 365 units, matching the data's period. Multiple bell-shaped curves tile the space, each activating for a different phase of the cycle." width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-periodic-spline-period-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;64.3: Strong periodic signal every 365 values along predictor below, spline values above.
@@ -1320,10 +1320,10 @@ Figure&nbsp;64.3: Strong periodic signal every 365 values along predictor below,
 <p>We already see that something good is happening, The width of each bump is related to the number of degrees of freedom we have, lowering this value creates more wider bumps.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-periodic-spline-calibrated" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Two charts one above another. Below: Scatter chart. Predictor along the x-axis and outcome along the y-axis. Points scatter around a constant low value of the target. At regular intervals, the curve swings up and back down. Above: Spline terms as curves. One curve for each term. Each curse goes up in an almost sine curve, and the back down to zero. Each peak is seperated. There are now fewer splines, with one of them being highlighted with color, to show is simularity with the below chart.">
+<div id="fig-periodic-spline-calibrated" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Two stacked charts. Bottom: scatter plot showing periodic target peaks. Top: calibrated periodic B-spline with deg_free=7 and shifted boundary knots. One spline term highlighted in purple aligns almost perfectly with the peak locations in the data below. Other terms shown in gray cover different phases of the cycle.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-periodic-spline-calibrated-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="periodic-splines_files/figure-html/fig-periodic-spline-calibrated-1.png" class="img-fluid figure-img" alt="Two charts one above another. Below: Scatter chart. Predictor along the x-axis and outcome along the y-axis. Points scatter around a constant low value of the target. At regular intervals, the curve swings up and back down. Above: Spline terms as curves. One curve for each term. Each curse goes up in an almost sine curve, and the back down to zero. Each peak is seperated. There are now fewer splines, with one of them being highlighted with color, to show is simularity with the below chart." width="672">
+<img src="periodic-splines_files/figure-html/fig-periodic-spline-calibrated-1.png" class="img-fluid figure-img" alt="Two stacked charts. Bottom: scatter plot showing periodic target peaks. Top: calibrated periodic B-spline with deg_free=7 and shifted boundary knots. One spline term highlighted in purple aligns almost perfectly with the peak locations in the data below. Other terms shown in gray cover different phases of the cycle." width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-periodic-spline-calibrated-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;64.4: Strong periodic signal every 365 values along predictor below, spline values above.
@@ -1335,10 +1335,10 @@ Figure&nbsp;64.4: Strong periodic signal every 365 values along predictor below,
 <p>Now we got some pretty good traction. Pulling out the well performing spline term, we can translate it a bit to show how well it overlaps with our signal.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-periodic-spline-fit" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. Points scatter around a constant low value of the target. At regular intervals, the curve swings up and back down. Spline term has been overlaid as a curve, almost perfectly following the trend.">
+<div id="fig-periodic-spline-fit" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatter chart with fitted spline overlay. Points show periodic target data with peaks every 365 units. A purple curve (scaled and shifted spline term) traces through the peaks.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-periodic-spline-fit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="periodic-splines_files/figure-html/fig-periodic-spline-fit-1.png" class="img-fluid figure-img" alt="Scatter chart. Predictor along the x-axis and outcome along the y-axis. Points scatter around a constant low value of the target. At regular intervals, the curve swings up and back down. Spline term has been overlaid as a curve, almost perfectly following the trend." width="672">
+<img src="periodic-splines_files/figure-html/fig-periodic-spline-fit-1.png" class="img-fluid figure-img" alt="Scatter chart with fitted spline overlay. Points show periodic target data with peaks every 365 units. A purple curve (scaled and shifted spline term) traces through the peaks." width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-periodic-spline-fit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;64.5: Strong periodic signal every 365 values along predictor.

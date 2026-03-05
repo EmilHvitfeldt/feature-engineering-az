@@ -109,9 +109,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <meta property="og:title" content="Feature Engineering A-Z | Non-Negative Matrix Factorization">
 <meta property="og:description" content="">
-<meta property="og:image" content="https://example.com/too-many-nmf_files/figure-html/nmf-mnist-1.png">
+<meta property="og:image" content="https://example.com/too-many-nmf_files/figure-html/fig-nmf-mnist-1.png">
 <meta property="og:site_name" content="Feature Engineering A-Z">
-<meta property="og:image:alt" content="Faceted tile chart. Each chart corresponds to a different factorization. In order for each component to look for the numbers 9, 0, 7, and 3. with The 7 mostly capturing the diagonal line.">
+<meta property="og:image:alt" content="Faceted tile chart showing 4 NMF components from MNIST as 28x28 images. Each component captures a different digit pattern: roughly resembling 9, 0, 7, and 3. Unlike PCA, NMF produces strictly non-negative loadings so patterns are additive &quot;parts&quot; that combine to form digits.">
 <meta property="og:image:height" content="960">
 <meta property="og:image:width" content="1344">
 </head>
@@ -1315,10 +1315,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ✖ recipes::step()          masks stats::step()</code></pre>
 </div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="too-many-nmf_files/figure-html/nmf-mnist-1.png" class="img-fluid figure-img" alt="Faceted tile chart. Each chart corresponds to a different factorization. In order for each component to look for the numbers 9, 0, 7, and 3. with The 7 mostly capturing the diagonal line." width="672"></p>
-<figcaption>NMF applied to all of MNIST</figcaption>
+<div id="fig-nmf-mnist" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Faceted tile chart showing 4 NMF components from MNIST as 28x28 images. Each component captures a different digit pattern: roughly resembling 9, 0, 7, and 3. Unlike PCA, NMF produces strictly non-negative loadings so patterns are additive &quot;parts&quot; that combine to form digits.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-nmf-mnist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="too-many-nmf_files/figure-html/fig-nmf-mnist-1.png" class="img-fluid figure-img" alt="Faceted tile chart showing 4 NMF components from MNIST as 28x28 images. Each component captures a different digit pattern: roughly resembling 9, 0, 7, and 3. Unlike PCA, NMF produces strictly non-negative loadings so patterns are additive &quot;parts&quot; that combine to form digits." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-nmf-mnist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;71.1: NMF applied to all of MNIST
+</figcaption>
 </figure>
 </div>
 </div>
@@ -1326,10 +1330,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>If we instead increase the number of components to 9, We see that each component pulls more and different shapes than before.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="too-many-nmf_files/figure-html/nmf-mnist-nine-1.png" class="img-fluid figure-img" alt="Faceted tile chart. Each chart corresponds to a different factorization. The numbers emerging from each component are a little harder to pinpoint." width="672"></p>
-<figcaption>NMF applied to all of MNIST</figcaption>
+<div id="fig-nmf-mnist-nine" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Faceted tile chart showing 9 NMF components from MNIST. With more components, each captures more specific stroke patterns rather than whole digits. Components show curves, diagonals, and loops that combine to reconstruct handwritten digits.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-nmf-mnist-nine-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="too-many-nmf_files/figure-html/fig-nmf-mnist-nine-1.png" class="img-fluid figure-img" alt="Faceted tile chart showing 9 NMF components from MNIST. With more components, each captures more specific stroke patterns rather than whole digits. Components show curves, diagonals, and loops that combine to reconstruct handwritten digits." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-nmf-mnist-nine-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;71.2: NMF applied to all of MNIST
+</figcaption>
 </figure>
 </div>
 </div>
@@ -1337,10 +1345,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This is also a good time to note that many implementations of NMF depend on the initialization,</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="too-many-nmf_files/figure-html/nmf-mnist-nine-new-seed-1.png" class="img-fluid figure-img" alt="Faceted tile chart. Each chart corresponds to a different factorization. The components capture similar things to the last time, just in different ways components. " width="672"></p>
-<figcaption>NMF applied to all of MNIST</figcaption>
+<div id="fig-nmf-mnist-nine-new-seed" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Faceted tile chart showing 9 NMF components with different random seed. Similar stroke patterns emerge but in different components, demonstrating NMF's sensitivity to initialization. The decomposition is not unique - multiple runs may find different local optima. ">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-nmf-mnist-nine-new-seed-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="too-many-nmf_files/figure-html/fig-nmf-mnist-nine-new-seed-1.png" class="img-fluid figure-img" alt="Faceted tile chart showing 9 NMF components with different random seed. Similar stroke patterns emerge but in different components, demonstrating NMF's sensitivity to initialization. The decomposition is not unique - multiple runs may find different local optima. " width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-nmf-mnist-nine-new-seed-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;71.3: NMF applied to all of MNIST
+</figcaption>
 </figure>
 </div>
 </div>
@@ -1354,13 +1366,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   Please report the issue at &lt;https://github.com/tidymodels/corrr/issues&gt;.</code></pre>
 </div>
 <div class="cell-output-display">
-<div id="fig-nmf-correlation" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Correlation chart. The NMF features are lined up one after another.  All correlations appear to be non-zero. Mostly positive.">
+<div id="fig-nmf-correlation" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Correlation matrix heatmap of 9 NMF features. The components show non-zero correlations with each other, mostly positive.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-nmf-correlation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="too-many-nmf_files/figure-html/fig-nmf-correlation-1.png" class="img-fluid figure-img" alt="Correlation chart. The NMF features are lined up one after another.  All correlations appear to be non-zero. Mostly positive." width="672">
+<img src="too-many-nmf_files/figure-html/fig-nmf-correlation-1.png" class="img-fluid figure-img" alt="Correlation matrix heatmap of 9 NMF features. The components show non-zero correlations with each other, mostly positive." width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-nmf-correlation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;71.1: Non-zero correlation between all features.
+Figure&nbsp;71.4: Non-zero correlation between all features.
 </figcaption>
 </figure>
 </div>

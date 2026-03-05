@@ -33,7 +33,11 @@ set.seed(1234)
 #| fig-cap: |
 #|   Some clusters of correlated features.
 #| fig-alt: |
-#|   Correlation chart. 
+#|   Correlation matrix heatmap of numeric variables from Ames housing data.
+#|   Variables arranged in grid with color indicating correlation strength
+#|   (blue positive, red negative). Visible clusters of correlated features
+#|   appear, particularly among size-related variables like living area,
+#|   garage area, and room counts. 
 ames |>
   select(where(is.numeric)) |>
   correlate(method = "pearson", quiet = TRUE) |>

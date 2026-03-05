@@ -47,11 +47,10 @@ In practice, it will look something like @fig-range-clipping where the original 
 #| fig-cap: |
 #|   Using clipping in range scaling results in a piece-wise linear transformation of our original data.
 #| fig-alt: |
-#|   Scatter chart with "original" on the x-axis and "transformed" on the y-axis. The Scale of the 
-#|   x-axis is 0 to 50, and the scale of the y-axis is 0 to 1. A series of points are plotted along a
-#|   line, starting at the value 0 for values x values less than 10, between 10 and 32 there is a linear
-#|   line of point resulting in the point at (x = 32, y = 1), all remaining larger values of x has a y
-#|   value of 1.
+#|   Scatter chart showing range scaling with clipping. Original values on
+#|   x-axis (0-50), transformed values on y-axis (0-1). Three distinct regions:
+#|   values below 10 map to 0 (left plateau), values 10-32 follow a linear
+#|   diagonal, values above 32 map to 1 (right plateau).
 library(recipes)
 library(ggplot2)
 
@@ -99,10 +98,11 @@ And all but removed the variance of the non-outliers.
 #| fig-cap: |
 #|   Outliers can have a big effect on the resulting distribution when applying range scaling
 #| fig-alt: |
-#|   4 histograms of distribution in 2 columns. The left distribution shows the same bimodal
-#|   distribution. To the left are the same distributions after being normalized. The bottom row
-#|   shows the effect of having one outlier at 10000, which in this case made the transformed
-#|   distribution has almost no width.
+#|   Four histograms in a 2x2 grid. Rows: Original and Transformed. Columns:
+#|   No outlier and One outlier. Left column shows normal range scaling of
+#|   bimodal data to [0,1]. Right column shows same data with one extreme
+#|   outlier, which compresses the transformed distribution to near-zero
+#|   width since the outlier dominates the range calculation.
 library(ggplot2)
 library(dplyr)
 library(tidyr)

@@ -58,9 +58,9 @@ toy_data <- tibble(
 #| fig-cap: |
 #|   Strong periodic signal every 365 values along predictor.
 #| fig-alt: |
-#|   Scatter chart. Predictor along the x-axis and outcome along the y-axis.
-#|   Points scatter around a constant low value of the target. At regular intervals,
-#|   the curve swings up and back down.
+#|   Scatter chart. Predictor (0-1000) on x-axis, target on y-axis. Data shows
+#|   periodic pattern with peaks every 365 units. Target stays near -0.5 between
+#|   peaks, rising sharply to about 0.5 at regular intervals.
 toy_data |>
   ggplot(aes(predictor, target)) +
   geom_point() +
@@ -77,12 +77,10 @@ using appropriate period and offset we can overlay them on the previous chart
 #| fig-cap: |
 #|   Sin() curve perfectly captures peaks.
 #| fig-alt: |
-#|   Scatter and line chart. Predictor along the x-axis and outcome along the y-axis.
-#|   Points scatter around a constant low value of the target. At regular intervals,
-#|   the curve swings up and back down.
-#|   Two colored curves, one called sine and one called cosine. The sine curve
-#|   perfectly captures all the peaks of the data set. The cosine curves follows
-#|   behind by 1 forth cycle.
+#|   Scatter chart with sine and cosine curves overlaid. Black points show
+#|   periodic target data. The sine curve (period 365) peaks align perfectly
+#|   with the data peaks. The cosine curve is phase-shifted by 1/4 cycle,
+#|   reaching zero when sine peaks.
 library(recipes)
 recipe(target ~ predictor, toy_data) |>
     step_harmonic(predictor, cycle_size = 365, frequency = 1, keep_original_cols = TRUE) |>
@@ -110,12 +108,10 @@ The effect might be more noticeable if we change the way we visualize this effec
 #| fig-cap: |
 #|   Strong singal for sin(predictor)
 #| fig-alt: |
-#|   Scatter chart. sin(predictor) along the x-axis and cos(predictor) along the
-#|   y-axis. Color is used to denote the target.
-#|   The points are laid out in a perfect circle, with a small amount of jittering,
-#|   artificially added to show overlapping points.
-#|   The points on the right side of the circle have high values of target, the rest
-#|   have low values.
+#|   Scatter chart in sin-cos space forming a circle. Points colored by target
+#|   value. High target values cluster on the right side of the circle where
+#|   sin(predictor) is high. Low values fill the rest. Jitter added to show
+#|   overlapping points. Demonstrates that sin alone captures the signal.
 library(recipes)
 recipe(target ~ predictor, toy_data) |>
     step_harmonic(predictor, cycle_size = 365, frequency = 1) |>
@@ -147,11 +143,9 @@ if you are offeven by a bit you can get uninformative transformations like the o
 #| fig-cap: |
 #|   No signal detected
 #| fig-alt: |
-#|   Scatter chart. sin(predictor) along the x-axis and cos(predictor) along the
-#|   y-axis. Color is used to denote the target.
-#|   The points are laid out in a perfect circle, with a small amount of jittering,
-#|   artificially added to show overlapping points.
-#|   There is no decernable signal.
+#|   Scatter chart in sin-cos space with wrong period (160 instead of 365).
+#|   Points form a circle but target colors are scattered randomly around it
+#|   with no spatial pattern.
 library(recipes)
 recipe(target ~ predictor, toy_data) |>
     step_harmonic(predictor, cycle_size = 160, frequency = 1) |>
@@ -181,12 +175,9 @@ These two predictors are still good enough, but they are less ideal than the fir
 #| fig-cap: |
 #|   No signal detected
 #| fig-alt: |
-#|   Scatter chart. sin(predictor) along the x-axis and cos(predictor) along the
-#|   y-axis. Color is used to denote the target.
-#|   The points are laid out in a perfect circle, with a small amount of jittering,
-#|   artificially added to show overlapping points.
-#|   The points on the top-right side of the circle have high values of target, 
-#|   the rest have low values.
+#|   Scatter chart in sin-cos space with correct period but offset starting_val.
+#|   Points form a circle with high target values (yellow) concentrated in
+#|   the upper-right quadrant rather than purely on the right.
 library(recipes)
 recipe(target ~ predictor, toy_data) |>
     step_harmonic(predictor, cycle_size = 365, frequency = 1, starting_val = 45) |>
@@ -246,9 +237,10 @@ toy_data_two <- tibble(
 #| fig-cap: |
 #|   Strong periodic signal every 365 and 200 values along predictor.
 #| fig-alt: |
-#|   Scatter chart. Predictor along the x-axis and outcome along the y-axis.
-#|   Points scatter around a constant low value of the target. At regular intervals,
-#|   the curve swings up and back down.
+#|   Scatter chart showing data with two overlapping periodic signals. Predictor
+#|   on x-axis, target on y-axis. Peaks occur at two different frequencies:
+#|   every 365 units (larger peaks) and every 200 units (smaller peaks, offset
+#|   by 125). Some peaks overlap, creating higher combined values.
 toy_data_two |>
   ggplot(aes(predictor, target)) +
   geom_point() +
@@ -262,12 +254,10 @@ toy_data_two |>
 #| fig-cap: |
 #|   the two sin() curve perfectly captures peaks.
 #| fig-alt: |
-#|   Faceted Scatter and line chart. 
-#|   Predictor along the x-axis and outcomee along the y-axis, facets along sine curves.
-#|   Points scatter around a constant low value of the target. At regular intervals,
-#|   the curve swings up and back down.
-#|   Two colored curves one for each facet. Each curve capture the effect of a set of
-#|   peaks.
+#|   Faceted chart with two panels, one per sine wave frequency. Black points
+#|   show the dual-periodic target data in both panels. Top panel: sin(365)
+#|   curve captures the larger, slower periodic peaks. Bottom panel: sin(200)
+#|   curve (offset by 125) captures the smaller, faster peaks.
 recipe(target ~ predictor, toy_data_two) |>
     step_harmonic(predictor, cycle_size = 365, frequency = 1, keep_original_cols = TRUE) |>
     step_rename(predictor_sin_one = predictor_sin_1) |>

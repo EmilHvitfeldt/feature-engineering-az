@@ -39,9 +39,10 @@ Visually showing which part of the image it is activated from.
 #| fig-cap: |
 #|   NMF applied to all of MNIST
 #| fig-alt: |
-#|   Faceted tile chart. Each chart corresponds to a different factorization.
-#|   In order for each component to look for the numbers 9, 0, 7, and 3. with
-#|   The 7 mostly capturing the diagonal line.
+#|   Faceted tile chart showing 4 NMF components from MNIST as 28x28 images.
+#|   Each component captures a different digit pattern: roughly resembling
+#|   9, 0, 7, and 3. Unlike PCA, NMF produces strictly non-negative loadings
+#|   so patterns are additive "parts" that combine to form digits.
 library(keras)
 
 mnist <- keras::dataset_mnist()
@@ -87,8 +88,10 @@ We see that each component pulls more and different shapes than before.
 #| fig-cap: |
 #|   NMF applied to all of MNIST
 #| fig-alt: |
-#|   Faceted tile chart. Each chart corresponds to a different factorization.
-#|   The numbers emerging from each component are a little harder to pinpoint.
+#|   Faceted tile chart showing 9 NMF components from MNIST. With more
+#|   components, each captures more specific stroke patterns rather than
+#|   whole digits. Components show curves, diagonals, and loops that combine
+#|   to reconstruct handwritten digits.
 set.seed(1234)
 rec <- recipe(~., data = mnist_tbl[1:1000, ]) |>
   step_nnmf_sparse(all_predictors(), num_comp = 9) |>
@@ -115,9 +118,10 @@ This is also a good time to note that many implementations of NMF depend on the 
 #| fig-cap: |
 #|   NMF applied to all of MNIST
 #| fig-alt: |
-#|   Faceted tile chart. Each chart corresponds to a different factorization.
-#|   The components capture similar things to the last time, just in different ways
-#|   components. 
+#|   Faceted tile chart showing 9 NMF components with different random seed.
+#|   Similar stroke patterns emerge but in different components, demonstrating
+#|   NMF's sensitivity to initialization. The decomposition is not unique -
+#|   multiple runs may find different local optima. 
 set.seed(12347)
 rec <- recipe(~., data = mnist_tbl[1:1000, ]) |>
   step_nnmf_sparse(all_predictors(), num_comp = 9) |>
@@ -146,8 +150,8 @@ Note that the features are correlated, as it wasn't a restriction that they woul
 #| fig-cap: |
 #|   Non-zero correlation between all features.
 #| fig-alt: |
-#|   Correlation chart. The NMF features are lined up one after another. 
-#|   All correlations appear to be non-zero. Mostly positive.
+#|   Correlation matrix heatmap of 9 NMF features. The components show
+#|   non-zero correlations with each other, mostly positive.
 rec |> 
   bake(NULL) |> 
  corrr::correlate(quiet = TRUE) |> 

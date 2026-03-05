@@ -138,9 +138,9 @@ window.Quarto = {
 
 <meta property="og:title" content="Feature Engineering A-Z | Yeo-Johnson">
 <meta property="og:description" content="">
-<meta property="og:image" content="https://example.com/numeric-yeojohnson_files/figure-html/visualize_yeojohnson-normal-1.png">
+<meta property="og:image" content="https://example.com/numeric-yeojohnson_files/figure-html/fig-yeojohnson-normal-1.png">
 <meta property="og:site_name" content="Feature Engineering A-Z">
-<meta property="og:image:alt" content="6 histograms of distribution, in 2 columns. The left column shows unaltered distributions. The right column shows the distribution of the Yeo-Johnson transformation of the left column. The right column is mostly normally distributed.">
+<meta property="og:image:alt" content="Six histograms in 2 columns, 3 rows. Left column shows original distributions: right-skewed chi-squared, right-skewed mixture of normals, and left-skewed distribution. Right column shows Yeo-Johnson transformed versions, all roughly symmetric and bell-shaped. Demonstrates successful normalization including data with negative values.">
 <meta property="og:image:height" content="960">
 <meta property="og:image:width" content="1344">
 </head>
@@ -1317,10 +1317,14 @@ x^* = \left\{
 <p>Let us see some examples of Yeo-Johnson at work. Below is three different simulated distribution, before and after they have been transformed by Yeo-Johnson.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="numeric-yeojohnson_files/figure-html/visualize_yeojohnson-normal-1.png" class="img-fluid figure-img" alt="6 histograms of distribution, in 2 columns. The left column shows unaltered distributions. The right column shows the distribution of the Yeo-Johnson transformation of the left column. The right column is mostly normally distributed." width="672"></p>
-<figcaption>Before and After Yeo-Johnson</figcaption>
+<div id="fig-yeojohnson-normal" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Six histograms in 2 columns, 3 rows. Left column shows original distributions: right-skewed chi-squared, right-skewed mixture of normals, and left-skewed distribution. Right column shows Yeo-Johnson transformed versions, all roughly symmetric and bell-shaped. Demonstrates successful normalization including data with negative values.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-yeojohnson-normal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="numeric-yeojohnson_files/figure-html/fig-yeojohnson-normal-1.png" class="img-fluid figure-img" alt="Six histograms in 2 columns, 3 rows. Left column shows original distributions: right-skewed chi-squared, right-skewed mixture of normals, and left-skewed distribution. Right column shows Yeo-Johnson transformed versions, all roughly symmetric and bell-shaped. Demonstrates successful normalization including data with negative values." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-yeojohnson-normal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.1: Before and After Yeo-Johnson
+</figcaption>
 </figure>
 </div>
 </div>
@@ -1329,10 +1333,14 @@ x^* = \left\{
 <p>The Yeo-Johnson method isn’t magic and will only give you something more normally distributed if the distribution can be made more normally distributed by applying the above formula would give you some more normally distributed values.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="numeric-yeojohnson_files/figure-html/visualize_yeojohnson-non-normal-1.png" class="img-fluid figure-img" alt="6 histograms of distribution, in 2 columns. The left column shows unaltered distributions. The right column shows the distribution of the Box-Cox transformation of the left column. The right column has not benefitted from the Box-Cox transformation" width="672"></p>
-<figcaption>Before and After Box-Cox</figcaption>
+<div id="fig-yeojohnson-non-normal" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Six histograms in 2 columns, 3 rows. Left column shows original distributions: uniform, bimodal (two normal peaks), and U-shaped beta. Right column shows Yeo-Johnson transformed versions that remain non-normal. Demonstrates that Yeo-Johnson cannot fix distributions that aren't amenable to power transformations.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-yeojohnson-non-normal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="numeric-yeojohnson_files/figure-html/fig-yeojohnson-non-normal-1.png" class="img-fluid figure-img" alt="Six histograms in 2 columns, 3 rows. Left column shows original distributions: uniform, bimodal (two normal peaks), and U-shaped beta. Right column shows Yeo-Johnson transformed versions that remain non-normal. Demonstrates that Yeo-Johnson cannot fix distributions that aren't amenable to power transformations." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-yeojohnson-non-normal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.2: Before and After Box-Cox
+</figcaption>
 </figure>
 </div>
 </div>

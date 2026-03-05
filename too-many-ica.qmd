@@ -35,9 +35,10 @@ First We apply it to the entire data set.
 #| fig-cap: |
 #|   ICA applied to all of MNIST
 #| fig-alt: |
-#|   Faceted tile chart. Each chart corresponds to a different
-#|   component. Early components show some shapes that might suggest numbers
-#|   such as 6 or 7, later ones show less and less identifiable patterns.
+#|   Faceted tile chart showing 4 ICA components from MNIST as 28x28 images.
+#|   ICA seeks statistically independent (not just uncorrelated) components.
+#|   Patterns show localized stroke features - edges, curves, and line
+#|   segments that represent independent sources of variation in digit images.
 library(keras)
 
 mnist <- keras::dataset_mnist()

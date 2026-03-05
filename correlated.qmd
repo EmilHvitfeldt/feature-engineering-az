@@ -23,10 +23,11 @@ Below we see such examples
 #| fig-cap: |
 #|   uncorrelated features and correlated feature
 #| fig-alt: |
-#|   4 Scatter charts. All present the relationship between predictor_1 and 
-#|   predictor_2. The first chart shows points uniformly spread. With each of
-#|   the following charts have stronger and stronger trends between the two
-#|   predictors.
+#|   Four scatter charts in a 2x2 grid showing increasing correlation levels.
+#|   Top-left "zero correlation": random scatter with no pattern. Top-right
+#|   "mild correlation": slight diagonal trend with high variance. Bottom-left
+#|   "medium correlation": clear diagonal trend, moderate scatter. Bottom-right
+#|   "strong correlation": tight diagonal line with minimal scatter.
 library(ggplot2)
 library(dplyr)
 library(patchwork)

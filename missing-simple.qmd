@@ -55,10 +55,11 @@ Below is the classic ames data set
 #| fig-cap: |
 #|   All houses have fewer bedrooms than rooms themselves.
 #| fig-alt: |
-#|   Tile chart. Total number of rooms along the x-axis, number of bedrooms
-#|   along the y-axis. All of the observations have more rooms than bedrooms
-#|   with most of the observations having around 3 bedrooms and 6 rooms in
-#|   total.
+#|   Tile heatmap. Total rooms (x-axis) vs bedrooms (y-axis) from Ames data.
+#|   Color intensity shows count (log scale). A diagonal line marks where
+#|   bedrooms equal total rooms. All observations fall below this line (fewer
+#|   bedrooms than total rooms). Most houses cluster around 6 total rooms
+#|   and 3 bedrooms.
 library(tidymodels)
 ames |>
   count(TotRms_AbvGrd, Bedroom_AbvGr) |>
@@ -90,10 +91,9 @@ Below we see this in effect, as more and more missing data, leads to a larger pe
 #| fig-cap: |
 #|   Same distribution with a longer and longer spike at the mean.
 #| fig-alt: |
-#|   Facetted histogram chart. Predictor along the x-axis, count along the 
-#|   y-axis. facetted along 0%, 5%, 10%, and 15%. All of the distributions
-#|   appear identical, with the the 5%, 10%, and 15% having a simple spike at
-#|   the mean value, each being higher than the previous.
+#|   Faceted histogram with 4 panels showing mean imputation effects. 0%:
+#|   original bimodal distribution (peaks at 100 and 150). 5%, 10%, 15%:
+#|   same distribution but with progressively taller spike at the mean (~117).
 set.seed(1234)
 x <- c(rnorm(1000, mean = 100, sd = 20), rnorm(600, mean = 150, sd = 10))
 x <- sample(x)

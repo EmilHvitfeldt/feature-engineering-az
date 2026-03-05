@@ -20,7 +20,10 @@ It is clear to see that this is another case where the data is highly skewed, wi
 #| echo: false
 #| message: false
 #| fig-cap: "Histogram of Average Daily Rate"
-#| fig-alt: "Highly right skewed histogram of Average Daily Rate"
+#| fig-alt: |
+#|   Histogram of average daily rate from hotel bookings data. Highly
+#|   right-skewed with most values clustered near zero, but a long tail
+#|   extending into the thousands. Contains some negative values.
 
 library(tidymodels)
 
@@ -57,7 +60,11 @@ Below we see the results of applying the signed square root.
 #| echo: false
 #| message: false
 #| fig-cap: "Histogram of squared Average Daily Rate"
-#| fig-alt: "Histogram of squared Average Daily Rate, less skewed"
+#| fig-alt: |
+#|   Histogram after applying signed square root transformation. The
+#|   distribution is much less skewed, with the bulk of values now more
+#|   spread out and the extreme tail compressed. Negative values are
+#|   preserved through the signed transformation.
 
 hotel_bookings |>
   mutate(adr = sign(adr) * sqrt(abs(adr))) |>

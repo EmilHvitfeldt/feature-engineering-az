@@ -27,9 +27,11 @@ Below is a figure @fig-normalization-not-normal that illustrates that point
 #|   Normalization doesn't make data more normal. The green curve indicates the density of the unit normal
 #|   distribution. 
 #| fig-alt: |
-#|   2 histograms of distribution one above the other. The top distribution shows a bimodal
-#|   distribution. Below is the same distribution after being normalized. Both appear clearly
-#|   non-normally distributed. The green curve is overlaid lower histogram. It doesn't follow.
+#|   Faceted histogram with two panels stacked vertically. Top panel shows
+#|   original bimodal distribution from a beta distribution. Bottom panel shows
+#|   the same data after normalization (mean=0, sd=1), retaining the
+#|   bimodal shape. A green normal curve overlay on the bottom panel clearly
+#|   does not match.
 library(ggplot2)
 library(dplyr)
 library(tidyr)
@@ -84,10 +86,11 @@ And all but removed the variance of the non-outliers.
 #| fig-cap: |
 #|   Outliers can have a big effect on the resulting distribution when applying normalization.
 #| fig-alt: |
-#|   4 histograms of distribution in 2 columns. The top distribution shows the same bimodal
-#|   distribution. Below are the same distributions after being normalized. The right column
-#|   shows the effect of having one outlier at 10000, which in this case made the transformed
-#|   distribution about a fifth of the width.
+#|   Four histograms in a 2x2 grid. Rows: Original and Transformed. Columns:
+#|   No outlier and One outlier. Left column shows normal normalization of
+#|   bimodal data. Right column shows the same data with one extreme outlier
+#|   added, which compresses the transformed distribution to about one-fifth
+#|   the width.
 library(ggplot2)
 library(dplyr)
 library(tidyr)

@@ -23,7 +23,10 @@ Find a better data set for this example
 #| echo: false 
 #| message: false
 #| fig-cap: "Histogram of lot areas"
-#| fig-alt: "Highly right skewed histogram of lot areas"
+#| fig-alt: |
+#|   Histogram of lot area from the Ames housing dataset. Highly right-skewed
+#|   with most values below 20,000 square feet. A long tail extends past
+#|   100,000, with one extreme value over 200,000.
 
 library(tidymodels)
 data("ames")
@@ -77,7 +80,11 @@ Below is the same chart as before, but on a logarithmic scale using base 2.
 #| echo: false
 #| message: false
 #| fig-cap: "Histogram of logarithmic lot areas"
-#| fig-alt: "histogram of logarithmic lot areas. This time not skewed"
+#| fig-alt: |
+#|   Histogram of log2-transformed lot area. The distribution is now roughly
+#|   symmetric and bell-shaped, centered around 9-10 (corresponding to
+#|   500-1000 square feet on the original scale). The extreme right skew
+#|   has been eliminated.
 
 library(tidymodels)
 data("ames")

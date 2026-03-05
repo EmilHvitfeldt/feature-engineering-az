@@ -111,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta property="og:description" content="">
 <meta property="og:image" content="https://example.com/missing-simple_files/figure-html/fig-missing-simple-heatmap-1.png">
 <meta property="og:site_name" content="Feature Engineering A-Z">
-<meta property="og:image:alt" content="Tile chart. Total number of rooms along the x-axis, number of bedrooms along the y-axis. All of the observations have more rooms than bedrooms with most of the observations having around 3 bedrooms and 6 rooms in total.">
+<meta property="og:image:alt" content="Tile heatmap. Total rooms (x-axis) vs bedrooms (y-axis) from Ames data. Color intensity shows count (log scale). A diagonal line marks where bedrooms equal total rooms. All observations fall below this line (fewer bedrooms than total rooms). Most houses cluster around 6 total rooms and 3 bedrooms.">
 <meta property="og:image:height" content="960">
 <meta property="og:image:width" content="1344">
 </head>
@@ -1279,10 +1279,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>One of the main downsides to simple imputation is that it can lead to impossible configurations in the data. Imagine that the total square area is missing, but we know the number of rooms and number of bedrooms. Certain combinations are more likely than others. Below is the classic ames data set</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-missing-simple-heatmap" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Tile chart. Total number of rooms along the x-axis, number of bedrooms along the y-axis. All of the observations have more rooms than bedrooms with most of the observations having around 3 bedrooms and 6 rooms in total.">
+<div id="fig-missing-simple-heatmap" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Tile heatmap. Total rooms (x-axis) vs bedrooms (y-axis) from Ames data. Color intensity shows count (log scale). A diagonal line marks where bedrooms equal total rooms. All observations fall below this line (fewer bedrooms than total rooms). Most houses cluster around 6 total rooms and 3 bedrooms.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-missing-simple-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="missing-simple_files/figure-html/fig-missing-simple-heatmap-1.png" class="img-fluid figure-img" alt="Tile chart. Total number of rooms along the x-axis, number of bedrooms along the y-axis. All of the observations have more rooms than bedrooms with most of the observations having around 3 bedrooms and 6 rooms in total." width="672">
+<img src="missing-simple_files/figure-html/fig-missing-simple-heatmap-1.png" class="img-fluid figure-img" alt="Tile heatmap. Total rooms (x-axis) vs bedrooms (y-axis) from Ames data. Color intensity shows count (log scale). A diagonal line marks where bedrooms equal total rooms. All observations fall below this line (fewer bedrooms than total rooms). Most houses cluster around 6 total rooms and 3 bedrooms." width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-missing-simple-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;43.1: All houses have fewer bedrooms than rooms themselves.
@@ -1296,10 +1296,10 @@ Figure&nbsp;43.1: All houses have fewer bedrooms than rooms themselves.
 <p>Below we see this in effect, as more and more missing data, leads to a larger peak of the mean of the distribution.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-missing-simple-mean" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Facetted histogram chart. Predictor along the x-axis, count along the  y-axis. facetted along 0%, 5%, 10%, and 15%. All of the distributions appear identical, with the the 5%, 10%, and 15% having a simple spike at the mean value, each being higher than the previous.">
+<div id="fig-missing-simple-mean" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Faceted histogram with 4 panels showing mean imputation effects. 0%: original bimodal distribution (peaks at 100 and 150). 5%, 10%, 15%: same distribution but with progressively taller spike at the mean (~117).">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-missing-simple-mean-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="missing-simple_files/figure-html/fig-missing-simple-mean-1.png" class="img-fluid figure-img" alt="Facetted histogram chart. Predictor along the x-axis, count along the  y-axis. facetted along 0%, 5%, 10%, and 15%. All of the distributions appear identical, with the the 5%, 10%, and 15% having a simple spike at the mean value, each being higher than the previous." width="672">
+<img src="missing-simple_files/figure-html/fig-missing-simple-mean-1.png" class="img-fluid figure-img" alt="Faceted histogram with 4 panels showing mean imputation effects. 0%: original bimodal distribution (peaks at 100 and 150). 5%, 10%, 15%: same distribution but with progressively taller spike at the mean (~117)." width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-missing-simple-mean-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;43.2: Same distribution with a longer and longer spike at the mean.

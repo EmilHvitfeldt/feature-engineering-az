@@ -34,8 +34,9 @@ In the extraction since we have a single indicator for the day of Black Friday
 #| fig-cap: |
 #|   We only see the effect of a single Day
 #| fig-alt: |
-#|   Bar chart. Dates along the x-axis, numeric effect along the y-axis. A
-#|   Single bar on Nov 24 with a value of 1 is shown.
+#|   Bar chart. Dates (Nov 19-29, 2023) on x-axis, effect on y-axis. Single bar
+#|   of height 1 on Nov 24 (Black Friday), all other days are zero. Represents
+#|   a simple binary indicator for the holiday.
 tibble(
   day = as_date("2023-11-24") + c(-5:5),
   black_friday = c(rep(0, 5), 1, rep(0, 5))
@@ -54,10 +55,10 @@ But it would make sense that since we know the day of Black Friday, that the sal
 #| fig-cap: |
 #|   Negative before effects can capture hesitancy to buy before a big sale.
 #| fig-alt: |
-#|   Bar chart. Dates along the x-axis, numeric effect along the y-axis. A
-#|   single bar on Nov 24 with a value of 1 is shown, the columns before the 
-#|   24ths takes negative values, with the 23 having the highest value, 22 less
-#|   and so on.
+#|   Bar chart. Dates (Nov 19-29, 2023) on x-axis, effect on y-axis. showing 
+#|   Black Friday with "before" effects. Nov 24 has value 1. Days before have 
+#|   negative values that decay exponentially (Nov 23 around -0.5, Nov 22
+#|   around -0.25, etc.). Days after are zero.
 tibble(
   day = as_date("2023-11-24") + c(-5:5),
   black_friday = c(-0.5 ^ (5:1), 1, rep(0, 5))
@@ -78,10 +79,11 @@ Since this is the last big sale before the Holidays, shoppers are free to buy th
 #|   Positive affects effects can capture the ease of mind that no other sale will
 #|   come.
 #| fig-alt: |
-#|   Bar chart. Dates along the x-axis, numeric effect along the y-axis. A
-#|   single bar on Nov 24 with a value of 1 is shown, the columns before the 
-#|   24ths takes negative values, with the 23 having the highest value, 22 less
-#|   and so on. The values after Nov 24 have decreasing values. 
+#|   Bar chart. Dates (Nov 19-29, 2023) on x-axis, effect on y-axis. 
+#|   Showing Black Friday with both before and after effects. Nov 24
+#|   peaks at 1. Days before have negative values. Days after have
+#|   positive but decaying values, creating an asymmetric pattern around
+#|   the holiday. 
 tibble(
   day = as_date("2023-11-24") + c(-5:5),
   black_friday = c(-0.5 ^ (5:1), 1, 0.25 ^ (1:5/2))
@@ -108,16 +110,10 @@ Almost all extracted functions follow this formula
 #| fig-cap: |
 #|   Repeated increasing values.
 #| fig-alt: |
-#|   Bar chart. Dates along the x-axis, numeric effect along the y-axis. Values
-#|   start at 1 and the first of the month, and increase by 1 for each day. A
-#|   Triangle pattern appears.
-tibble(
-  day = as_date("2023-11-24") + c(-5:5),
-  black_friday = c(-0.5 ^ (5:1), 1, 0.25 ^ (1:5/2))
-) |>
-  ggplot(aes(day, black_friday)) +
-  geom_col() +
-  theme_minimal()
+#|   Bar chart showing day-of-month extraction over ~3 months. Each month forms
+#|   a sawtooth pattern: values increase from 1 to ~30, then reset to 1. The
+#|   pattern represents "days since start of month" - a simple extracted
+#|   datetime feature.
 tibble(
   date = as_date("2023-11-24") + seq(-90, 0)
 ) |>
@@ -137,10 +133,10 @@ This would have a **before**-function of `x` as well.
 #| fig-cap: |
 #|   Repeated increasing values.
 #| fig-alt: |
-#|   Bar chart. Dates along the x-axis, numeric effect along the y-axis. Values
-#|   start at 1 and the last of the month, and increase by 1 for each day going 
-#|   backwards. A Triangle pattern appears. The starting value is different for
-#|   each month as each month has a different number of days.
+#|   Bar chart showing "days until end of month" over ~3 months. Inverted
+#|   sawtooth pattern: values start high (varying by month length - 30, 31,
+#|   etc.) and decrease to 1 at month end, then jump back up. Represents
+#|   "days remaining in month" feature.
 tibble(
   date = as_date("2023-11-24") + seq(-90, 0)
 ) |>
@@ -163,9 +159,10 @@ Here it isn't too interesting as it is quite periodic, but using the same measur
 #| fig-cap: |
 #|   Repeated 
 #| fig-alt: |
-#|   Bar chart. Dates along the x-axis, numeric effect along the y-axis. Values
-#|   are zero for both Saturdays and Sundays. 1 for Mondays and Fridays, 2 for
-#|   Tuesdays and Thursdays, and 3 for Wednesdays.
+#|   Bar chart showing "days from nearest weekend" over ~1 month. Repeating
+#|   weekly pattern: Saturday and Sunday are 0, Monday and Friday are 1,
+#|   Tuesday and Thursday are 2, Wednesday peaks at 3. Creates a symmetric
+#|   tent pattern each week.
 tibble(
   date = as_date("2023-11-24") + seq(-30, 0)
 ) |>
@@ -185,11 +182,10 @@ A few examples are shown below for inspiration.
 #| fig-cap: |
 #|   Repeated 
 #| fig-alt: |
-#|   Faceted bar chart. Dates along the x-axis, numeric effect along the y-axis.
-#|   Each of the charts represents the day of the month for a couple of months.
-#|   One shows the logarithmic transformation, one shows the untransformed data
-#|   one looks at the square transformation, and one looks at the untransformed
-#|   data that has been rounded down to 10, creating a plateau.
+#|   Faceted bar chart with 4 panels showing different transformations of
+#|   day-of-month. "x": linear sawtooth (1-30). "log(x)": compressed, flattens
+#|   after first week. "x^2": exponential growth within each month. "pmin(x,10)":
+#|   capped at 10, creating plateaus in the second half of each month.
 tibble(
   date = as_date("2023-11-24") + seq(-90, 0)
 ) |>

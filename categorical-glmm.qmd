@@ -52,11 +52,11 @@ Remember that if we didn't do this, all the points would be along the diagonal r
 #|   With a small amount of smoothing, the adjusted means are close to the 
 #|   original means, regardless of the number of observations.
 #| fig-alt: |
-#|   Scatter chart. A green line with slope 1 and intercept, and a blue line 
-#|   with slope 0 and an intercept equal to the global mean. The points are sized
-#|   according to the number of observations that were used to calculate the 
-#|   value. The points lie along the green line mostly, with some of the smaller
-#|   points getting closer to the blue line.
+#|   Scatter chart showing effect of small smoothing. Green diagonal line 
+#|   (slope=1): no shrinkage. Blue horizontal line: global mean. Points sized 
+#|   by observation count. Most points cluster along the green line (original 
+#|   means preserved). Only smallest points are slightly pulled toward the 
+#|   global mean.
 smoothness <- 1
 
 data |>
@@ -85,11 +85,10 @@ In this next chart, we see the effect of a higher amount of smoothing, now the l
 #|   the original means, with smaller points getting quite close to the global
 #|   mean.
 #| fig-alt: |
-#|   Scatter chart. A green line with slope 1 and intercept, and a blue line 
-#|   with slope 0 and an intercept equal to the global mean. The points are sized
-#|   according to the number of observations that were used to calculate the 
-#|   value. The points lie between the green and blue lines, with the smaller
-#|   points being closer to the blue line than the larger points.
+#|   Scatter chart showing effect of larger smoothing. Same reference lines as
+#|   before. Points now fan out between the green and blue lines: large points
+#|   (many observations) stay near diagonal, small points (few observations) 
+#|   are pulled strongly toward global mean.
 smoothness <- 5
 
 data |>

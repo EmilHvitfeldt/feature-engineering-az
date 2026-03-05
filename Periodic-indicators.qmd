@@ -24,10 +24,11 @@ With this chapter being the simpler case we don't have to deal with the added co
 #| fig-cap: |
 #|   Non-trivial activation
 #| fig-alt: |
-#|   Bar chart. Balues along along the x-axis, numeric effect along the y-axis. 
-#|   The activation takes negative values before 0, with larger and larger values
-#|   as it gets closer. Only it hits zero it flips and becomes positive, and then
-#|   goes back down. 
+#|   Bar chart. X values (-10 to 10) on x-axis, activation on y-axis. Asymmetric
+#|   pattern: negative x values have negative activation (increasing toward zero),
+#|   x=0 has maximum activation of 5, positive x values have positive but
+#|   decreasing activation. This non-sinusoidal shape requires custom indicator
+#|   functions rather than simple trig transforms. 
 library(tidyverse)
 
 tibble(

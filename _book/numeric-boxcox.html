@@ -138,9 +138,9 @@ window.Quarto = {
 
 <meta property="og:title" content="Feature Engineering A-Z | Box-Cox">
 <meta property="og:description" content="">
-<meta property="og:image" content="https://example.com/numeric-boxcox_files/figure-html/visualize_boxcox-normal-1.png">
+<meta property="og:image" content="https://example.com/numeric-boxcox_files/figure-html/fig-boxcox-normal-1.png">
 <meta property="og:site_name" content="Feature Engineering A-Z">
-<meta property="og:image:alt" content="6 histograms of distribution, in 2 columns. The left column shows unaltered distributions. The right column shows the distribution of the Box-Cox transformation of the left column. The right column is mostly normally distributed.">
+<meta property="og:image:alt" content="Six histograms in 2 columns, 3 rows. Left column shows original distributions: chi-squared (right-skewed), half-normal (right-skewed), and left-skewed t-distribution. Right column shows Box-Cox transformed versions, all roughly symmetric and bell-shaped. Demonstrates successful normalization of skewed distributions.">
 <meta property="og:image:height" content="960">
 <meta property="og:image:width" content="1344">
 </head>
@@ -1314,10 +1314,14 @@ x^* = \left\{
 <p>Let us see some examples of Box-Cox at work. Below is three different simulated distribution, before and after they have been transformed by Box-Cox.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="numeric-boxcox_files/figure-html/visualize_boxcox-normal-1.png" class="img-fluid figure-img" alt="6 histograms of distribution, in 2 columns. The left column shows unaltered distributions. The right column shows the distribution of the Box-Cox transformation of the left column. The right column is mostly normally distributed." width="672"></p>
-<figcaption>Before and After Box-Cox</figcaption>
+<div id="fig-boxcox-normal" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Six histograms in 2 columns, 3 rows. Left column shows original distributions: chi-squared (right-skewed), half-normal (right-skewed), and left-skewed t-distribution. Right column shows Box-Cox transformed versions, all roughly symmetric and bell-shaped. Demonstrates successful normalization of skewed distributions.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-boxcox-normal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="numeric-boxcox_files/figure-html/fig-boxcox-normal-1.png" class="img-fluid figure-img" alt="Six histograms in 2 columns, 3 rows. Left column shows original distributions: chi-squared (right-skewed), half-normal (right-skewed), and left-skewed t-distribution. Right column shows Box-Cox transformed versions, all roughly symmetric and bell-shaped. Demonstrates successful normalization of skewed distributions." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-boxcox-normal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.1: Before and After Box-Cox
+</figcaption>
 </figure>
 </div>
 </div>
@@ -1326,10 +1330,14 @@ x^* = \left\{
 <p>The Box-Cox method isn’t magic and will only give you something more normally distributed if the distribution can be made more normally distributed by applying a power transformation.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="numeric-boxcox_files/figure-html/visualize_boxcox-not-normal-1.png" class="img-fluid figure-img" alt="6 histograms of distribution, in 2 columns. The left column shows unaltered distributions. The right column shows the distribution of the Box-Cox transformation of the left column. The right column has not benefitted from the Box-Cox transformation" width="672"></p>
-<figcaption>Before and After Box-Cox</figcaption>
+<div id="fig-boxcox-non-normal" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Six histograms in 2 columns, 3 rows. Left column shows original distributions: uniform, bimodal (two normal peaks), and U-shaped beta. Right column shows Box-Cox transformed versions that remain non-normal. The uniform becomes slightly skewed, bimodal stays bimodal, U-shape persists. Demonstrates Box-Cox limitations with non-skewed distributions.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-boxcox-non-normal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="numeric-boxcox_files/figure-html/fig-boxcox-non-normal-1.png" class="img-fluid figure-img" alt="Six histograms in 2 columns, 3 rows. Left column shows original distributions: uniform, bimodal (two normal peaks), and U-shaped beta. Right column shows Box-Cox transformed versions that remain non-normal. The uniform becomes slightly skewed, bimodal stays bimodal, U-shape persists. Demonstrates Box-Cox limitations with non-skewed distributions." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-boxcox-non-normal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.2: Before and After Box-Cox
+</figcaption>
 </figure>
 </div>
 </div>

@@ -31,9 +31,9 @@ data_toy <- tibble::tibble(
 #| fig-cap: |
 #|   Non-linear relationship between predictor and outcome.
 #| fig-alt: |
-#|   Scatter chart. Predictor along the x-axis and outcome along the y-axis.
-#|   The data has some wiggliness to it, but it follows a curve. You would not 
-#|   be able to fit a straight line to this data.
+#|   Scatter chart. Predictor (0-100) on x-axis, outcome on y-axis. Data
+#|   follows a sinusoidal curve: low at extremes, peaking around predictor
+#|   values 25-50.
 library(ggplot2)
 
 data_toy |>
@@ -74,9 +74,10 @@ data_bins <- rec_bins |>
 #| fig-cap: |
 #|   Binning gives us a series of indicators of different regions
 #| fig-alt: |
-#|   Facetted line chart. Predictor along the x-axis, value along the y-axis.
-#|   Each of the curves is either 0 or 1, with each bin taking up a 4th of the
-#|   region where it returns 1 with 0 otherwise.
+#|   Faceted line chart with 4 panels, one per bin. Predictor on x-axis,
+#|   binary indicator (0 or 1) on y-axis. Each bin activates (value=1) for
+#|   approximately one quarter of the predictor range and is zero elsewhere.
+#|   Bins progress left to right: Bin 1 covers lowest values, Bin 4 highest.
 data_bins |>
   select(-outcome) |>
   tidyr::pivot_longer(cols = -predictor) |>
@@ -99,11 +100,10 @@ See below for such an example
 #| fig-cap: |
 #|   Each part of the binning detects a part of the data set.
 #| fig-alt: |
-#|   Facetted scatter chart. Predictor along the x-axis, outcome along the 
-#|   y-axis. Each of the facets shows the same non-linear relationship between
-#|   predictor and outcome. Color is used to show how each bin highlights a 
-#|   different part of the predictor. The highlight goes further to the right 
-#|   for each facet.
+#|   Faceted scatter chart with 4 panels, one per bin. Each shows the same
+#|   sinusoidal predictor-outcome relationship. Color intensity (white to
+#|   dark blue) shows bin activation. The peak outcome region (predictor
+#|   25-50) is split between Bin 2 and Bin 3.
 data_bins |>
   tidyr::pivot_longer(cols = -c(outcome, predictor)) |>
   ggplot(aes(predictor, outcome, color = value)) +
@@ -127,9 +127,11 @@ And it makes sense, binning will naturally create a step function like we see be
 #| fig-cap: |
 #|   Increasing the number of bins makes for a better fit.
 #| fig-alt: |
-#|   Scatter chart. Predictor along the x-axis and outcome along the y-axis.
-#|   The data has some wiggliness to it, but it follows a curve. You would not 
-#|   be able to fit a straight line to this data.
+#|   Scatter chart with step function overlays. Points show sinusoidal
+#|   predictor-outcome relationship. Four step functions (3, 5, 7, 9 bins)
+#|   attempt to fit the data. More bins produce finer steps that better
+#|   approximate the smooth curve, but all show characteristic staircase
+#|   pattern that cannot perfectly match the continuous relationship.
 library(tidymodels)
 
 num_breaks <- c(3, 5, 7, 9)
@@ -175,10 +177,10 @@ Imagine we have a different data set, where the relationship between predictor a
 #|   The evenly spaced cuts do not perform well when the breaks in the data
 #|   set aren't evenly spaced.
 #| fig-alt: |
-#|   Scatter chart. Predictor along the x-axis and outcome along the y-axis.
-#|   The data has some wiggliness to it with two big breaks in the curve. Both 
-#|   of the fitted lines doesn't match the data, as the breaks don't align
-#|   with the data set.
+#|   Scatter chart showing data with two clear discontinuities around
+#|   predictor values 40 and 80. Step function fits with 3 and 4 evenly-spaced
+#|   bins are overlaid but perform poorly because the bin boundaries don't
+#|   align with the actual breaks in the data.
 library(tidymodels)
 
 num_breaks <- c(3, 4)
@@ -220,9 +222,10 @@ Below is an example where we use a CARt model.
 #|   Cuts are played using a fitted CART model. The y are played exactly at the
 #|   right places.
 #| fig-alt: |
-#|   Scatter chart. Predictor along the x-axis and outcome along the y-axis.
-#|   The data has some wiggliness to it with two big breaks in the curve. The
-#|   functions now correctly split the data at the breaks in the data.
+#|   Scatter chart with same discontinuous data. CART-based discretization
+#|   finds optimal cut points that align with the natural breaks in the data.
+#|   The step functions now correctly capture the three distinct levels,
+#|   demonstrating the advantage of supervised binning over equal-width bins.
 library(tidymodels)
 library(embed)
 

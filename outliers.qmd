@@ -21,12 +21,12 @@ We have plotted the living area against the sale price.
 #| fig-cap: |
 #|   Two groups of points don't appear close to the main group of points.
 #| fig-alt: |
-#|   Scatter chart. Above grade (ground) living area square feet along the 
-#|   x-axis, Sale price in USD along the y-axis. The data forms a fairly
-#|   dense cloud, with the majority of houses being below a diagonal.
-#|   Two groups of points are away from the main cluster. 3 points have a higher
-#|   living area than anything else, but quite low sale prices. The other group 
-#|   includes 2 points with a high living area and sale price.
+#|   Scatter chart of Ames housing data. Living area (sq ft) on x-axis, sale
+#|   price (USD) on y-axis. Main cluster shows positive correlation along a
+#|   diagonal. Two outlier groups are highlighted with rectangles: three points
+#|   at far right with very large living area but unusually low prices (partial
+#|   sales), and two points with both high living area and high prices (large
+#|   but appropriately priced homes).
 library(modeldata)
 library(dplyr)
 library(ggplot2)

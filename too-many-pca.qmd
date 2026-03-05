@@ -29,13 +29,11 @@ Using the numeric variables of the `ames` data set, we can plot the correlation 
 #|   Many of the variables are positively correlated with each other, which makes
 #|   sense since bigger houses leads to bigger square footage and room counts.
 #| fig-alt: |
-#|   Correlation chart. Using a grid based visualization, color is used to
-#|   indicate strength of correlations with color intensity and direction 
-#|   two different colors, one for positive correlation and one for negative.
-#|   the chart can visually be split up into 2 sections. One section has columns
-#|   that are significantly positive correlated, these have something to do
-#|   with square footage or room counts. The other section of variables doesn't
-#|   have any noteworthy correlations.
+#|   Correlation matrix heatmap of Ames numeric variables with hierarchical
+#|   clustering. Two distinct groups visible: size-related variables (living
+#|   area, garage, rooms) show strong positive correlations (blue cluster).
+#|   Other variables (year, lot frontage, etc.) show weak or no correlation.
+#|   Demonstrates redundancy in size-related features.
 library(tidymodels)
 ames |>
   select(where(is.numeric)) |>
@@ -54,7 +52,10 @@ We will motivate what PCA does using the following simulated 2-dimensional data 
 #| label: fig-pca-example-1
 #| echo: false
 #| fig-alt: |
-#|   Scatter chart. Predictor 1 along the x-axis, predictor 2 along theh y-axis. #|   All the points follow the diagonal with little variation.
+#|   Scatter chart showing simulated correlated data. Predictor 1 on x-axis,
+#|   Predictor 2 on y-axis. Points form a tight diagonal band from bottom-left
+#|   to top-right, demonstrating strong positive correlation. Most variance
+#|   lies along the diagonal direction.
 set.seed(1234)
 whale <- tibble(
   x1 = rnorm(250)
@@ -83,8 +84,10 @@ visually we can find that line as seen below.
 #| label: fig-pca-example-2
 #| echo: false
 #| fig-alt: |
-#|   Scatter chart. Predictor 1 along the x-axis, predictor 2 along theh y-axis. #|   All the points follow the diagonal with little variation. A line is overlaid
-#|   along the points.
+#|   Same scatter as before with a purple line overlaid along the diagonal
+#|   direction of maximum variance. This line represents the first principal
+#|   component direction - the axis that PCA will rotate the data onto to
+#|   capture maximum variance.
 rot <- prcomp(whale, scale. = FALSE, center = FALSE)$rotation
 whale |>
   ggplot(aes(x1, x2)) +
@@ -108,9 +111,10 @@ Rotating the data gives us the following data set after applying PCA.
 #| label: fig-pca-example-3
 #| echo: false
 #| fig-alt: |
-#|   Scatter chart. Predictor 1 along the x-axis, predictor 2 along theh y-axis. #|   All the points follow the diagonal with little variation. This data is the
-#|   same as the data seen in the previous charts except rotation such that
-#|   the variance is highest along the x-axis.
+#|   Scatter chart after PCA rotation. PC1 on x-axis, PC2 on y-axis. The same
+#|   data is now rotated so variance is maximized horizontally. Points spread
+#|   widely along PC1 (-3 to 3) but are compressed vertically along PC2 (-0.5
+#|   to 0.5). PC2 could be dropped with minimal information loss.
 whale |>
   recipe(~.) |>
   step_pca(all_predictors()) |>
@@ -181,8 +185,11 @@ In the below chart we have calculated the **cumulative percent variance** for 4 
 #| fig-cap: |
 #|   4 difference shapes of cumulative percent variance plots.
 #| fig-alt: |
-#|   Faceted bar chart chart. 4 bar charts in a 2 by 2 grid. Each one represents
-#|   a different data set which has had PCA applied to it. 
+#|   Faceted bar chart showing cumulative percent variance for 4 datasets
+#|   (mtcars, ames, Chicago, concrete). Top charts show rapid rise and early
+#|   plateau (variance concentrated in few PCs). Bottom charts show slower
+#|   rise requiring more components to capture variance. Demonstrates how
+#|   different datasets compress differently under PCA. 
 set.seed(1234)
 
 data_cumpervar <- function(data) {
@@ -281,9 +288,11 @@ First We apply it to the entire data set.
 #| fig-cap: |
 #|   PCA applied to all of MNIST
 #| fig-alt: |
-#|   Faceted tile chart. Each chart corresponds to a different principal
-#|   component. Early components show some shapes that might suggest numbers
-#|   such as 3 or 8, later ones show less and less identifiable patterns.
+#|   Faceted tile chart showing first 4 principal components from MNIST as
+#|   28x28 pixel images. PC1 shows a central blob pattern (detects centered
+#|   digits). PC2 shows diagonal structure (differentiates slanted digits).
+#|   PC3 and PC4 capture subtler variations. Color scale shows positive (blue)
+#|   and negative (red) loadings.
 library(keras)
 
 mnist <- keras::dataset_mnist()
@@ -340,10 +349,10 @@ If we instead did what we did before but only included data for the number 2 we 
 #| fig-cap: |
 #|   PCA applied to all 2s in MNIST
 #| fig-alt: |
-#|   Faceted tile chart. Each chart corresponds to a different principal
-#|   component. Each component clearly depicts 2s, with the first one
-#|   capturing a normal 2, with each other one showing a shifted or distortion
-#|   of a 2.
+#|   Faceted tile chart showing first 4 PCs from MNIST filtered to only 2s.
+#|   PC1 shows clear "2" shape - the average 2. PC2-PC4 capture variations:
+#|   different slants, loop sizes, and stroke widths. Demonstrates how PCA
+#|   finds meaningful variation within a single digit class.
 mnist_tbl$outcome <- mnist$train$y
 
 rec <- recipe(outcome ~., data = mnist_tbl |> filter(outcome == 2)) |>

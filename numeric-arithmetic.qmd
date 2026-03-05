@@ -29,7 +29,10 @@ By taking the ratio between these two variables we get a singular variable that 
 #| fig-cap: |
 #|   Some relationships can be detangled using ratios.
 #| fig-alt: |
-#|   2 scatter charts. The left chart has points evenly scattered along the x (deposits) and y (withdrawals) axis. A color scale is used to indicate the outcome variable, which appears to have high values when deposits are high and withdrawals are low. The right chart shows the ratio of these two variables plotted along the x-axis and the outcome plotted along the y-axis. They appear to follow each other linearly with some noise.
+#|   Two scatter charts side by side. Left: deposits vs withdrawals with color
+#|   encoding outcome - high outcome (yellow) appears when deposits are high
+#|   and withdrawals are low. Right: ratio (deposits/withdrawals) vs outcome
+#|   shows a clear linear relationship.
 set.seed(1234)
 library(tidyverse)
 library(patchwork)
@@ -70,7 +73,10 @@ Again we can have features that jointly contain information that relates to the 
 #| fig-cap: |
 #|   Some relationships can be detangled using crosses.
 #| fig-alt: |
-#|   2 scatter charts. The left chart has points evenly scattered along the x (deposits) and y (withdrawals) axis. A color scale is used to indicate the outcome variable, which appears to have high values when deposits are high and withdrawals are high. The right chart shows the ratio of these two variables plotted along the x-axis and the outcome plotted along the y-axis. They appear to follow each other linearly with some noise.
+#|   Two scatter charts side by side. Left: deposits vs withdrawals with color
+#|   encoding outcome - high outcome (yellow) appears when both deposits AND
+#|   withdrawals are high. Right: product (deposits*withdrawals) vs outcome
+#|   shows a clear linear relationship.
 set.seed(12345)
 library(tidyverse)
 library(patchwork)
