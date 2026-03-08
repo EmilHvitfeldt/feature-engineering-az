@@ -109,7 +109,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <meta property="og:title" content="Feature Engineering A-Z | ISOMAP">
 <meta property="og:description" content="">
+<meta property="og:image" content="https://feaz-book.com/social-cards/too-many-isomap.png">
 <meta property="og:site_name" content="Feature Engineering A-Z">
+<meta property="og:image:height" content="1260">
+<meta property="og:image:width" content="2400">
 </head>
 
 <body class="nav-sidebar docked quarto-light">
@@ -1307,16 +1310,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>2026-03-04 20:25:50.234481: Isomap START</code></pre>
+<pre><code>2026-03-08 13:08:41.003115: Isomap START</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>2026-03-04 20:25:50.234708: constructing knn graph</code></pre>
+<pre><code>2026-03-08 13:08:41.00336: constructing knn graph</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>2026-03-04 20:25:50.57705: calculating geodesic distances</code></pre>
+<pre><code>2026-03-08 13:08:41.36219: calculating geodesic distances</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>2026-03-04 20:25:54.719491: Classical Scaling</code></pre>
+<pre><code>2026-03-08 13:08:45.675782: Classical Scaling</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 2,930
@@ -1479,7 +1482,7 @@ $ Isomap5 &lt;dbl&gt; -3.063345784, -2.047834184, 6.769161285, -3.951998366, -0.
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/example\.com");
+        var filterRegex = new RegExp("https:\/\/feaz-book\.com\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
