@@ -849,7 +849,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./imbalenced-tomek.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">93</span>&nbsp; <span class="chapter-title">🏗️ Tomek Links</span></span></a>
+ <span class="menu-text"><span class="chapter-number">93</span>&nbsp; <span class="chapter-title">Tomek Links</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1357,11 +1357,11 @@ Note
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 2,930
 Columns: 5
-$ PC1 &lt;dbl&gt; 0.928277538, -1.121799088, -0.766999671, 2.465148494, 0.098799277,…
+$ PC1 &lt;dbl&gt; -0.928277538, 1.121799088, 0.766999671, -2.465148494, -0.098799277…
 $ PC2 &lt;dbl&gt; -0.42651536, -2.05092903, -0.27170407, 0.85236446, 0.99100986, 1.2…
-$ PC3 &lt;dbl&gt; -1.2169854, -1.1145117, -0.9661340, -0.5375621, 1.1432034, 1.16141…
+$ PC3 &lt;dbl&gt; 1.2169854, 1.1145117, 0.9661340, 0.5375621, -1.1432034, -1.1614148…
 $ PC4 &lt;dbl&gt; -1.4916224, 0.3556418, -0.7108605, -0.6941959, -0.5099111, -0.3670…
-$ PC5 &lt;dbl&gt; -0.62934644, -0.89550576, -0.07688539, -0.60312643, -0.25548705, -…</code></pre>
+$ PC5 &lt;dbl&gt; 0.62935853, 0.89551121, 0.07691088, 0.60315299, 0.25550149, 0.2227…</code></pre>
 </div>
 </div>
 <p>It works the same as <code>step_pca()</code>, but if we take a look at the coefficients there are more zeroes.</p>
@@ -1370,18 +1370,18 @@ $ PC5 &lt;dbl&gt; -0.62934644, -0.89550576, -0.07688539, -0.60312643, -0.2554870
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 170 × 4
-   terms          value component id              
-   &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;           
- 1 Lot_Frontage   0     PC1       pca_sparse_5IQgp
- 2 Lot_Area       0     PC1       pca_sparse_5IQgp
- 3 Year_Built     0     PC1       pca_sparse_5IQgp
- 4 Year_Remod_Add 0     PC1       pca_sparse_5IQgp
- 5 Mas_Vnr_Area   0     PC1       pca_sparse_5IQgp
- 6 BsmtFin_SF_1   0     PC1       pca_sparse_5IQgp
- 7 BsmtFin_SF_2   0     PC1       pca_sparse_5IQgp
- 8 Bsmt_Unf_SF    0     PC1       pca_sparse_5IQgp
- 9 Total_Bsmt_SF  0.268 PC1       pca_sparse_5IQgp
-10 First_Flr_SF   0.303 PC1       pca_sparse_5IQgp
+   terms           value component id              
+   &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;           
+ 1 Lot_Frontage    0     PC1       pca_sparse_yi2Ls
+ 2 Lot_Area        0     PC1       pca_sparse_yi2Ls
+ 3 Year_Built      0     PC1       pca_sparse_yi2Ls
+ 4 Year_Remod_Add  0     PC1       pca_sparse_yi2Ls
+ 5 Mas_Vnr_Area    0     PC1       pca_sparse_yi2Ls
+ 6 BsmtFin_SF_1    0     PC1       pca_sparse_yi2Ls
+ 7 BsmtFin_SF_2    0     PC1       pca_sparse_yi2Ls
+ 8 Bsmt_Unf_SF     0     PC1       pca_sparse_yi2Ls
+ 9 Total_Bsmt_SF  -0.268 PC1       pca_sparse_yi2Ls
+10 First_Flr_SF   -0.303 PC1       pca_sparse_yi2Ls
 # ℹ 160 more rows</code></pre>
 </div>
 </div>
@@ -1399,10 +1399,10 @@ $ PC5 &lt;dbl&gt; -0.62934644, -0.89550576, -0.07688539, -0.60312643, -0.2554870
 <pre><code>Rows: 2,930
 Columns: 5
 $ PC1 &lt;dbl&gt; 0.928277538, -1.121799088, -0.766999671, 2.465148494, 0.098799277,…
-$ PC2 &lt;dbl&gt; 0.42651536, 2.05092903, 0.27170407, -0.85236446, -0.99100986, -1.2…
-$ PC3 &lt;dbl&gt; 1.2169854, 1.1145117, 0.9661340, 0.5375621, -1.1432034, -1.1614148…
+$ PC2 &lt;dbl&gt; -0.42651536, -2.05092903, -0.27170407, 0.85236446, 0.99100986, 1.2…
+$ PC3 &lt;dbl&gt; -1.2169854, -1.1145117, -0.9661340, -0.5375621, 1.1432034, 1.16141…
 $ PC4 &lt;dbl&gt; -1.4916224, 0.3556418, -0.7108605, -0.6941959, -0.5099111, -0.3670…
-$ PC5 &lt;dbl&gt; -0.62934555, -0.89550402, -0.07689451, -0.60312759, -0.25548993, -…</code></pre>
+$ PC5 &lt;dbl&gt; -0.62935804, -0.89535977, -0.07703212, -0.60315655, -0.25555044, -…</code></pre>
 </div>
 </div>
 </section>
