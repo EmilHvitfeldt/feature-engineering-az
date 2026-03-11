@@ -1,15 +1,32 @@
 ---
-pagetitle: "Feature Engineering A-Z | Tomel Links"
+pagetitle: "Feature Engineering A-Z | Tomel Link Removal"
 image: social-cards/imbalenced-tomek.png
 ---
 
-# Tomek Links {#sec-imbalenced-tomek}
+# Tomek Link Removal {#sec-imbalenced-tomek}
 
 ::: {style="visibility: hidden; height: 0px;"}
-## Tomek Links
+## Tomek Link Removal
 :::
 
-WIP
+Tomek link removal is the practice of identifying Tomek links and removing them from the data set.
+A **Tomek Link** is a pair of observations from different classes that have eachother as their nearest neighbor.
+The Tomek link is typically handled by removing the majority observation of the pair instead of removing both observations.
+
+TODO: Diagram
+
+The traditional implementation assumes Euclidean distances,
+which in turn assumes you have all numeric predictors and no missing values.
+
+This method is computationally quite fast, as we are only doing one pass of nearest neighbor search.
+And that is used to identify observations that could be removed. We aren't doing any sampling.
+However, on the other side, we don't have many levers to pull for this method.
+It is un uncommon to have few or no points removed when applying Tomek Link removal.
+
+The method also makes the assumption that the noise happens at the border between two classes,
+However, that is not true for all data sets.
+There is also no notion of importance,
+A point deep inside another class may or may not be removed purely based on how close it is to its nearest point.
 
 ## Pros and Cons
 
