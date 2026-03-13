@@ -864,7 +864,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./imbalenced-cnn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">94</span>&nbsp; <span class="chapter-title">🏗️ Condensed Nearest Neighbor</span></span></a>
+ <span class="menu-text"><span class="chapter-number">94</span>&nbsp; <span class="chapter-title">Condensed Nearest Neighbor</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1324,7 +1324,7 @@ Figure&nbsp;68.1: Many of the variables are positively correlated with each othe
 <p>We will motivate what PCA does using the following simulated 2-dimensional data set.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-pca-example-1" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatter chart showing simulated correlated data. Predictor 1 on x-axis, Predictor 2 on y-axis. Points form a tight diagonal band from bottom-left to top-right, demonstrating strong positive correlation. Most variance lies along the diagonal direction." width="672">
+<div id="fig-pca-example-1" class="quarto-float quarto-figure quarto-figure-center anchored" width="672" alt="Scatter chart showing simulated correlated data. Predictor 1 on x-axis, Predictor 2 on y-axis. Points form a tight diagonal band from bottom-left to top-right, demonstrating strong positive correlation. Most variance lies along the diagonal direction.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pca-example-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="too-many-pca_files/figure-html/fig-pca-example-1-1.png" id="fig-pca-example-1" class="img-fluid figure-img" alt="Scatter chart showing simulated correlated data. Predictor 1 on x-axis, Predictor 2 on y-axis. Points form a tight diagonal band from bottom-left to top-right, demonstrating strong positive correlation. Most variance lies along the diagonal direction." width="672">
@@ -1339,7 +1339,7 @@ Figure&nbsp;68.2
 <p>There is a clear correlation between these two variables. One way of thinking about what PCA does is that it rotates the data set, in order to maximize the variance along one dimension. visually we can find that line as seen below.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-pca-example-2" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Same scatter as before with a purple line overlaid along the diagonal direction of maximum variance. This line represents the first principal component direction - the axis that PCA will rotate the data onto to capture maximum variance." width="672">
+<div id="fig-pca-example-2" class="quarto-float quarto-figure quarto-figure-center anchored" width="672" alt="Same scatter as before with a purple line overlaid along the diagonal direction of maximum variance. This line represents the first principal component direction - the axis that PCA will rotate the data onto to capture maximum variance.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pca-example-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="too-many-pca_files/figure-html/fig-pca-example-2-1.png" id="fig-pca-example-2" class="img-fluid figure-img" alt="Same scatter as before with a purple line overlaid along the diagonal direction of maximum variance. This line represents the first principal component direction - the axis that PCA will rotate the data onto to capture maximum variance." width="672">
@@ -1354,7 +1354,7 @@ Figure&nbsp;68.3
 <p>Rotating the data gives us the following data set after applying PCA.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-pca-example-3" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatter chart after PCA rotation. PC1 on x-axis, PC2 on y-axis. The same data is now rotated so variance is maximized horizontally. Points spread widely along PC1 (-3 to 3) but are compressed vertically along PC2 (-0.5 to 0.5). PC2 could be dropped with minimal information loss." width="672">
+<div id="fig-pca-example-3" class="quarto-float quarto-figure quarto-figure-center anchored" width="672" alt="Scatter chart after PCA rotation. PC1 on x-axis, PC2 on y-axis. The same data is now rotated so variance is maximized horizontally. Points spread widely along PC1 (-3 to 3) but are compressed vertically along PC2 (-0.5 to 0.5). PC2 could be dropped with minimal information loss.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pca-example-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="too-many-pca_files/figure-html/fig-pca-example-3-1.png" id="fig-pca-example-3" class="img-fluid figure-img" alt="Scatter chart after PCA rotation. PC1 on x-axis, PC2 on y-axis. The same data is now rotated so variance is maximized horizontally. Points spread widely along PC1 (-3 to 3) but are compressed vertically along PC2 (-0.5 to 0.5). PC2 could be dropped with minimal information loss." width="672">
