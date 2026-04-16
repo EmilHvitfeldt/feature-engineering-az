@@ -860,7 +860,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./imbalenced-enn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">95</span>&nbsp; <span class="chapter-title">🏗️ Edited Nearest Neighbor</span></span></a>
+ <span class="menu-text"><span class="chapter-number">95</span>&nbsp; <span class="chapter-title">Edited Nearest Neighbor</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1356,11 +1356,11 @@ Note
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 2,930
 Columns: 5
-$ PC1 &lt;dbl&gt; 0.928277538, -1.121799088, -0.766999671, 2.465148494, 0.098799277,…
+$ PC1 &lt;dbl&gt; -0.928277538, 1.121799088, 0.766999671, -2.465148494, -0.098799277…
 $ PC2 &lt;dbl&gt; -0.42651536, -2.05092903, -0.27170407, 0.85236446, 0.99100986, 1.2…
-$ PC3 &lt;dbl&gt; 1.2169854, 1.1145117, 0.9661340, 0.5375621, -1.1432034, -1.1614148…
+$ PC3 &lt;dbl&gt; -1.2169854, -1.1145117, -0.9661340, -0.5375621, 1.1432034, 1.16141…
 $ PC4 &lt;dbl&gt; -1.4916224, 0.3556418, -0.7108605, -0.6941959, -0.5099111, -0.3670…
-$ PC5 &lt;dbl&gt; -0.62934175, -0.89555995, -0.07683761, -0.60311675, -0.25546569, -…</code></pre>
+$ PC5 &lt;dbl&gt; 0.62934789, 0.89550961, 0.07689608, 0.60313263, 0.25549133, 0.2227…</code></pre>
 </div>
 </div>
 <p>It works the same as <code>step_pca()</code>, but if we take a look at the coefficients there are more zeroes.</p>
@@ -1369,18 +1369,18 @@ $ PC5 &lt;dbl&gt; -0.62934175, -0.89555995, -0.07683761, -0.60311675, -0.2554656
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 170 × 4
-   terms          value component id              
-   &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;           
- 1 Lot_Frontage   0     PC1       pca_sparse_Wg0V2
- 2 Lot_Area       0     PC1       pca_sparse_Wg0V2
- 3 Year_Built     0     PC1       pca_sparse_Wg0V2
- 4 Year_Remod_Add 0     PC1       pca_sparse_Wg0V2
- 5 Mas_Vnr_Area   0     PC1       pca_sparse_Wg0V2
- 6 BsmtFin_SF_1   0     PC1       pca_sparse_Wg0V2
- 7 BsmtFin_SF_2   0     PC1       pca_sparse_Wg0V2
- 8 Bsmt_Unf_SF    0     PC1       pca_sparse_Wg0V2
- 9 Total_Bsmt_SF  0.268 PC1       pca_sparse_Wg0V2
-10 First_Flr_SF   0.303 PC1       pca_sparse_Wg0V2
+   terms           value component id              
+   &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;           
+ 1 Lot_Frontage    0     PC1       pca_sparse_1RxWI
+ 2 Lot_Area        0     PC1       pca_sparse_1RxWI
+ 3 Year_Built      0     PC1       pca_sparse_1RxWI
+ 4 Year_Remod_Add  0     PC1       pca_sparse_1RxWI
+ 5 Mas_Vnr_Area    0     PC1       pca_sparse_1RxWI
+ 6 BsmtFin_SF_1    0     PC1       pca_sparse_1RxWI
+ 7 BsmtFin_SF_2    0     PC1       pca_sparse_1RxWI
+ 8 Bsmt_Unf_SF     0     PC1       pca_sparse_1RxWI
+ 9 Total_Bsmt_SF  -0.268 PC1       pca_sparse_1RxWI
+10 First_Flr_SF   -0.303 PC1       pca_sparse_1RxWI
 # ℹ 160 more rows</code></pre>
 </div>
 </div>
@@ -1397,11 +1397,11 @@ $ PC5 &lt;dbl&gt; -0.62934175, -0.89555995, -0.07683761, -0.60311675, -0.2554656
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 2,930
 Columns: 5
-$ PC1 &lt;dbl&gt; 0.928277538, -1.121799088, -0.766999671, 2.465148494, 0.098799277,…
-$ PC2 &lt;dbl&gt; 0.42651536, 2.05092903, 0.27170407, -0.85236446, -0.99100986, -1.2…
+$ PC1 &lt;dbl&gt; -0.928277538, 1.121799088, 0.766999671, -2.465148494, -0.098799277…
+$ PC2 &lt;dbl&gt; -0.42651536, -2.05092903, -0.27170407, 0.85236446, 0.99100986, 1.2…
 $ PC3 &lt;dbl&gt; 1.2169854, 1.1145117, 0.9661340, 0.5375621, -1.1432034, -1.1614148…
-$ PC4 &lt;dbl&gt; -1.4916224, 0.3556418, -0.7108605, -0.6941959, -0.5099111, -0.3670…
-$ PC5 &lt;dbl&gt; -0.62933286, -0.89554032, -0.07681615, -0.60309299, -0.25545478, -…</code></pre>
+$ PC4 &lt;dbl&gt; 1.4916224, -0.3556418, 0.7108605, 0.6941959, 0.5099111, 0.3670430,…
+$ PC5 &lt;dbl&gt; -0.62936845, -0.89536327, -0.07699124, -0.60316003, -0.25554082, -…</code></pre>
 </div>
 </div>
 </section>
