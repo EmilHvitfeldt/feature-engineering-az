@@ -9,7 +9,45 @@ image: social-cards/imbalenced-cnn.png
 ## Condensed Nearest Neighbor
 :::
 
-WIP
+Condensed Nearest Neighbor (CNN) uses an iterative approach to decide which observations to remove.
+This makes the method an undersampling/downsampling method.
+
+[Downsampling](imbalenced-downsample.qmd) by itself can remove informative observations as that method doesn't the method indiscriminately removes observations.
+CNN is based on trying to avoid this mistake.
+By trying to create a subset of the majority class that keeps enough information in it to correctly classify all the observations in the original data set.
+Or said differently,
+CNN tries to remove only observations from the majority class that can be removed without influencing the performance.
+
+This method is another method that cares about the decision boundary.
+The rationale is that we can remove observations from inside each class distribution,
+leaving the boundary points.
+This method can be seen as a data reduction method.
+We make it into an undersampling method by only applying it to the majority classes,
+but the method itself doesn't actually care whether it is working with a majority or minority class.
+
+The method works on a class-by-class basis,
+Typically, only affecting the majority (missing: class), and the general algorithm goes like this:
+
+Start by setting up two buckets, **store** and **grabbag**.
+
+1. You place a single observation into the store.
+2. Then you look at the remaining samples and try to classify them using the observations in store as a reference set using a 1-nearest neighbour classifier. If an observation is missclassified, then it is moved into the store; it is moved to the grabbag.
+3. Now loop through the grabbag, and try to classify them using the store as the reference set. Any misclassified observations are moved into the store.
+4. Repeat 3 until either grabbag is empty or a complete run of 3. Doesn't move any observation from grabbag to store.
+5. Discard any observation in the grabbag. The observations in store are the consistent subset.
+
+What is important from this algorithm is that it produces a consistent subset of the data set.
+This doesn't mean that it is the smallest possible one,
+just that it can generate it consistently.
+However, the set is order dependent as the algorithm will produce different results depending on which observations are first put in the store.
+
+What we notice is that points that are deeply inside a given class will be correctly classified by their neighbors,
+and will thus be discarded.
+On the other hand, points near the decision boundaries are more likely to be misclassified,
+and thus more likely to be kept.
+
+If the classes overlap a lot, then we won't be able to discard that many points,
+And if the classes cleanly separate, then we should be able to discard most of the observations.
 
 ## Pros and Cons
 

@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.9.35">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Feature Engineering A-Z | Condensed Nearest Neighbor – Feature Engineering A-Z</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -34,15 +37,14 @@ ul.task-list li input[type="checkbox"] {
 <link href="./imbalenced-tomek.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-919c7ec90743d9b1e9761dff04b41dfc.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-10a99e03521ec9ce62a914b0d4603325.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-b145c712f15d1b5ff486e9f16ac38563.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-610d181a0ab4ada5c64699cd16bfef5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -102,9 +104,7 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="./index.html" class="sidebar-logo-link">
-      </a>
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Feature Engineering A-Z</a> 
         <div class="sidebar-tools-main">
@@ -1234,7 +1234,21 @@ ul.task-list li input[type="checkbox"] {
 <section id="condensed-nearest-neighbor" class="level2" style="visibility: hidden; height: 0px;" data-number="94.1">
 <h2 data-number="94.1" class="anchored" data-anchor-id="condensed-nearest-neighbor"><span class="header-section-number">94.1</span> Condensed Nearest Neighbor</h2>
 </section>
-<p>WIP</p>
+<p>Condensed Nearest Neighbor (CNN) uses an iterative approach to decide which observations to remove. This makes the method an undersampling/downsampling method.</p>
+<p><a href="./imbalenced-downsample.html">Downsampling</a> by itself can remove informative observations as that method doesn’t the method indiscriminately removes observations. CNN is based on trying to avoid this mistake. By trying to create a subset of the majority class that keeps enough information in it to correctly classify all the observations in the original data set. Or said differently, CNN tries to remove only observations from the majority class that can be removed without influencing the performance.</p>
+<p>This method is another method that cares about the decision boundary. The rationale is that we can remove observations from inside each class distribution, leaving the boundary points. This method can be seen as a data reduction method. We make it into an undersampling method by only applying it to the majority classes, but the method itself doesn’t actually care whether it is working with a majority or minority class.</p>
+<p>The method works on a class-by-class basis, Typically, only affecting the majority (missing: class), and the general algorithm goes like this:</p>
+<p>Start by setting up two buckets, <strong>store</strong> and <strong>grabbag</strong>.</p>
+<ol type="1">
+<li>You place a single observation into the store.</li>
+<li>Then you look at the remaining samples and try to classify them using the observations in store as a reference set using a 1-nearest neighbour classifier. If an observation is missclassified, then it is moved into the store; it is moved to the grabbag.</li>
+<li>Now loop through the grabbag, and try to classify them using the store as the reference set. Any misclassified observations are moved into the store.</li>
+<li>Repeat 3 until either grabbag is empty or a complete run of 3. Doesn’t move any observation from grabbag to store.</li>
+<li>Discard any observation in the grabbag. The observations in store are the consistent subset.</li>
+</ol>
+<p>What is important from this algorithm is that it produces a consistent subset of the data set. This doesn’t mean that it is the smallest possible one, just that it can generate it consistently. However, the set is order dependent as the algorithm will produce different results depending on which observations are first put in the store.</p>
+<p>What we notice is that points that are deeply inside a given class will be correctly classified by their neighbors, and will thus be discarded. On the other hand, points near the decision boundaries are more likely to be misclassified, and thus more likely to be kept.</p>
+<p>If the classes overlap a lot, then we won’t be able to discard that many points, And if the classes cleanly separate, then we should be able to discard most of the observations.</p>
 <section id="pros-and-cons" class="level2" data-number="94.2">
 <h2 data-number="94.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">94.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="94.2.1">

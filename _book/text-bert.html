@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.9.35">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Feature Engineering A-Z | BERT – Feature Engineering A-Z</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -24,7 +27,6 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -54,15 +56,14 @@ div.csl-indent {
 <link href="./text-word2vec.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-919c7ec90743d9b1e9761dff04b41dfc.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-10a99e03521ec9ce62a914b0d4603325.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-b145c712f15d1b5ff486e9f16ac38563.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-610d181a0ab4ada5c64699cd16bfef5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -122,9 +123,7 @@ div.csl-indent {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="./index.html" class="sidebar-logo-link">
-      </a>
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Feature Engineering A-Z</a> 
         <div class="sidebar-tools-main">
@@ -1289,11 +1288,11 @@ Important
 <p>BERT as a model is very useful, and a number of spin-off models have been added. <span class="citation" data-cites="lan2020albertlitebertselfsupervised">(<a href="references.html#ref-lan2020albertlitebertselfsupervised" role="doc-biblioref">Lan et al. 2020</a>)</span> and DistilBERT<span class="citation" data-cites="sanh2020distilbertdistilledversionbert">(<a href="references.html#ref-sanh2020distilbertdistilledversionbert" role="doc-biblioref">Sanh et al. 2020</a>)</span> are a smaller version that has comparable speed, with a smaller computational cost. RoBERTa<span class="citation" data-cites="liu2019robertarobustlyoptimizedbert">(<a href="references.html#ref-liu2019robertarobustlyoptimizedbert" role="doc-biblioref">Liu et al. 2019</a>)</span> is trained using more data and other data structures allowing for more capabilities.</p>
 <p>Since we are able to finetune a BERT to a specific data set. People have also been doing that to release domain and language-specific models:</p>
 <ul>
-<li>SciBERT<span class="citation" data-cites="beltagy2019scibertpretrainedlanguagemodel">(<a href="references.html#ref-beltagy2019scibertpretrainedlanguagemodel" role="doc-biblioref">Beltagy, Lo, and Cohan 2019</a>)</span> (biomedical and computer science literature corpus)</li>
+<li>SciBERT<span class="citation" data-cites="beltagy2019scibertpretrainedlanguagemodel">(<a href="references.html#ref-beltagy2019scibertpretrainedlanguagemodel" role="doc-biblioref">Beltagy et al. 2019</a>)</span> (biomedical and computer science literature corpus)</li>
 <li>FinBERT<span class="citation" data-cites="araci2019finbertfinancialsentimentanalysis">(<a href="references.html#ref-araci2019finbertfinancialsentimentanalysis" role="doc-biblioref">Araci 2019</a>)</span> (financial services corpus)</li>
-<li>BioBERT<span class="citation" data-cites="Lee_2019">(<a href="references.html#ref-Lee_2019" role="doc-biblioref">J. Lee et al. 2019</a>)</span> (biomedical literature corpus)</li>
-<li>ClinicalBERT<span class="citation" data-cites="huang2020clinicalbertmodelingclinicalnotes">(<a href="references.html#ref-huang2020clinicalbertmodelingclinicalnotes" role="doc-biblioref">Huang, Altosaar, and Ranganath 2020</a>)</span> (clinical notes corpus)</li>
-<li>patentBERT<span class="citation" data-cites="lee2019patentbertpatentclassificationfinetuning">(<a href="references.html#ref-lee2019patentbertpatentclassificationfinetuning" role="doc-biblioref">J.-S. Lee and Hsiang 2019</a>)</span> (patent corpus)</li>
+<li>BioBERT<span class="citation" data-cites="Lee_2019">(<a href="references.html#ref-Lee_2019" role="doc-biblioref">Lee et al. 2019</a>)</span> (biomedical literature corpus)</li>
+<li>ClinicalBERT<span class="citation" data-cites="huang2020clinicalbertmodelingclinicalnotes">(<a href="references.html#ref-huang2020clinicalbertmodelingclinicalnotes" role="doc-biblioref">Huang et al. 2020</a>)</span> (clinical notes corpus)</li>
+<li>patentBERT<span class="citation" data-cites="lee2019patentbertpatentclassificationfinetuning">(<a href="references.html#ref-lee2019patentbertpatentclassificationfinetuning" role="doc-biblioref">Lee and Hsiang 2019</a>)</span> (patent corpus)</li>
 <li><a href="https://github.com/certainlyio/nordic_bert">Nordic BERT</a> (Danish, Norwegian, Swedish)</li>
 <li>SpanBERTa<span class="citation" data-cites="canete2023spanishpretrainedbertmodel">(<a href="references.html#ref-canete2023spanishpretrainedbertmodel" role="doc-biblioref">Cañete et al. 2023</a>)</span> (RoBERTa for Spanish)</li>
 </ul>
@@ -1325,36 +1324,36 @@ Important
 <h2 data-number="61.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">61.4</span> Python Examples</h2>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-araci2019finbertfinancialsentimentanalysis" class="csl-entry" role="listitem">
-Araci, Dogu. 2019. <span>“FinBERT: Financial Sentiment Analysis with Pre-Trained Language Models.”</span> <a href="https://arxiv.org/abs/1908.10063">https://arxiv.org/abs/1908.10063</a>.
+Araci, Dogu. 2019. <em>FinBERT: Financial Sentiment Analysis with Pre-Trained Language Models</em>. <a href="https://arxiv.org/abs/1908.10063">https://arxiv.org/abs/1908.10063</a>.
 </div>
 <div id="ref-beltagy2019scibertpretrainedlanguagemodel" class="csl-entry" role="listitem">
-Beltagy, Iz, Kyle Lo, and Arman Cohan. 2019. <span>“SciBERT: A Pretrained Language Model for Scientific Text.”</span> <a href="https://arxiv.org/abs/1903.10676">https://arxiv.org/abs/1903.10676</a>.
+Beltagy, Iz, Kyle Lo, and Arman Cohan. 2019. <em>SciBERT: A Pretrained Language Model for Scientific Text</em>. <a href="https://arxiv.org/abs/1903.10676">https://arxiv.org/abs/1903.10676</a>.
 </div>
 <div id="ref-canete2023spanishpretrainedbertmodel" class="csl-entry" role="listitem">
-Cañete, José, Gabriel Chaperon, Rodrigo Fuentes, Jou-Hui Ho, Hojin Kang, and Jorge Pérez. 2023. <span>“Spanish Pre-Trained BERT Model and Evaluation Data.”</span> <a href="https://arxiv.org/abs/2308.02976">https://arxiv.org/abs/2308.02976</a>.
+Cañete, José, Gabriel Chaperon, Rodrigo Fuentes, Jou-Hui Ho, Hojin Kang, and Jorge Pérez. 2023. <em>Spanish Pre-Trained BERT Model and Evaluation Data</em>. <a href="https://arxiv.org/abs/2308.02976">https://arxiv.org/abs/2308.02976</a>.
 </div>
 <div id="ref-devlin-etal-2019-bert" class="csl-entry" role="listitem">
-Devlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2019. <span>“<span>BERT</span>: Pre-Training of Deep Bidirectional Transformers for Language Understanding.”</span> In <em>Proceedings of the 2019 Conference of the North <span>A</span>merican Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)</em>, edited by Jill Burstein, Christy Doran, and Thamar Solorio, 4171–86. Minneapolis, Minnesota: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/N19-1423">https://doi.org/10.18653/v1/N19-1423</a>.
+Devlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2019. <span>“<span>BERT</span>: Pre-Training of Deep Bidirectional Transformers for Language Understanding.”</span> In <em>Proceedings of the 2019 Conference of the North <span>A</span>merican Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)</em>, edited by Jill Burstein, Christy Doran, and Thamar Solorio. Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/N19-1423">https://doi.org/10.18653/v1/N19-1423</a>.
 </div>
 <div id="ref-huang2020clinicalbertmodelingclinicalnotes" class="csl-entry" role="listitem">
-Huang, Kexin, Jaan Altosaar, and Rajesh Ranganath. 2020. <span>“ClinicalBERT: Modeling Clinical Notes and Predicting Hospital Readmission.”</span> <a href="https://arxiv.org/abs/1904.05342">https://arxiv.org/abs/1904.05342</a>.
+Huang, Kexin, Jaan Altosaar, and Rajesh Ranganath. 2020. <em>ClinicalBERT: Modeling Clinical Notes and Predicting Hospital Readmission</em>. <a href="https://arxiv.org/abs/1904.05342">https://arxiv.org/abs/1904.05342</a>.
 </div>
 <div id="ref-lan2020albertlitebertselfsupervised" class="csl-entry" role="listitem">
-Lan, Zhenzhong, Mingda Chen, Sebastian Goodman, Kevin Gimpel, Piyush Sharma, and Radu Soricut. 2020. <span>“ALBERT: A Lite BERT for Self-Supervised Learning of Language Representations.”</span> <a href="https://arxiv.org/abs/1909.11942">https://arxiv.org/abs/1909.11942</a>.
+Lan, Zhenzhong, Mingda Chen, Sebastian Goodman, Kevin Gimpel, Piyush Sharma, and Radu Soricut. 2020. <em>ALBERT: A Lite BERT for Self-Supervised Learning of Language Representations</em>. <a href="https://arxiv.org/abs/1909.11942">https://arxiv.org/abs/1909.11942</a>.
 </div>
 <div id="ref-lee2019patentbertpatentclassificationfinetuning" class="csl-entry" role="listitem">
-Lee, Jieh-Sheng, and Jieh Hsiang. 2019. <span>“PatentBERT: Patent Classification with Fine-Tuning a Pre-Trained BERT Model.”</span> <a href="https://arxiv.org/abs/1906.02124">https://arxiv.org/abs/1906.02124</a>.
+Lee, Jieh-Sheng, and Jieh Hsiang. 2019. <em>PatentBERT: Patent Classification with Fine-Tuning a Pre-Trained BERT Model</em>. <a href="https://arxiv.org/abs/1906.02124">https://arxiv.org/abs/1906.02124</a>.
 </div>
 <div id="ref-Lee_2019" class="csl-entry" role="listitem">
-Lee, Jinhyuk, Wonjin Yoon, Sungdong Kim, Donghyeon Kim, Sunkyu Kim, Chan Ho So, and Jaewoo Kang. 2019. <span>“BioBERT: A Pre-Trained Biomedical Language Representation Model for Biomedical Text Mining.”</span> Edited by Jonathan Wren. <em>Bioinformatics</em> 36 (4): 1234–40. <a href="https://doi.org/10.1093/bioinformatics/btz682">https://doi.org/10.1093/bioinformatics/btz682</a>.
+Lee, Jinhyuk, Wonjin Yoon, Sungdong Kim, et al. 2019. <span>“BioBERT: A Pre-Trained Biomedical Language Representation Model for Biomedical Text Mining.”</span> <em>Bioinformatics</em> 36 (4): 1234–40. <a href="https://doi.org/10.1093/bioinformatics/btz682">https://doi.org/10.1093/bioinformatics/btz682</a>.
 </div>
 <div id="ref-liu2019robertarobustlyoptimizedbert" class="csl-entry" role="listitem">
-Liu, Yinhan, Myle Ott, Naman Goyal, Jingfei Du, Mandar Joshi, Danqi Chen, Omer Levy, Mike Lewis, Luke Zettlemoyer, and Veselin Stoyanov. 2019. <span>“RoBERTa: A Robustly Optimized BERT Pretraining Approach.”</span> <a href="https://arxiv.org/abs/1907.11692">https://arxiv.org/abs/1907.11692</a>.
+Liu, Yinhan, Myle Ott, Naman Goyal, et al. 2019. <em>RoBERTa: A Robustly Optimized BERT Pretraining Approach</em>. <a href="https://arxiv.org/abs/1907.11692">https://arxiv.org/abs/1907.11692</a>.
 </div>
 <div id="ref-sanh2020distilbertdistilledversionbert" class="csl-entry" role="listitem">
-Sanh, Victor, Lysandre Debut, Julien Chaumond, and Thomas Wolf. 2020. <span>“DistilBERT, a Distilled Version of BERT: Smaller, Faster, Cheaper and Lighter.”</span> <a href="https://arxiv.org/abs/1910.01108">https://arxiv.org/abs/1910.01108</a>.
+Sanh, Victor, Lysandre Debut, Julien Chaumond, and Thomas Wolf. 2020. <em>DistilBERT, a Distilled Version of BERT: Smaller, Faster, Cheaper and Lighter</em>. <a href="https://arxiv.org/abs/1910.01108">https://arxiv.org/abs/1910.01108</a>.
 </div>
 </div>
 </section>

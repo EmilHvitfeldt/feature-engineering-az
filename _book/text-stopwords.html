@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.9.35">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Feature Engineering A-Z | Stop words – Feature Engineering A-Z</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -24,7 +27,6 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -54,15 +56,14 @@ div.csl-indent {
 <link href="./text-ngrams.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-919c7ec90743d9b1e9761dff04b41dfc.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-10a99e03521ec9ce62a914b0d4603325.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-b145c712f15d1b5ff486e9f16ac38563.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-610d181a0ab4ada5c64699cd16bfef5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -122,9 +123,7 @@ div.csl-indent {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="./index.html" class="sidebar-logo-link">
-      </a>
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Feature Engineering A-Z</a> 
         <div class="sidebar-tools-main">
@@ -1290,7 +1289,7 @@ div.csl-indent {
 </div>
 </div>
 <p>We notice that the SMART list contains a lot more words, some of which may feel on the verge of importance in certain cases. And there may be a reason for that. The Snowball list is meticulously constructed by looking at words by their classes as <a href="http://snowball.tartarus.org/algorithms/english/stop.txt">seen here</a>. On the other hand, is it not known how the SMART list was constructed. But there are hints, we can look at the words that are included as well as those which aren’t included. By digging around for a little bit, we notice that the word <code>"he's"</code> is in the list but <code>"she's"</code> isn’t. One explanation for this is that this list is partly frequency-based. And it wouldn’t be surprising to see, especially with some of the other words in the list like <code>"wish"</code> and <code>"thanx"</code>. But there is some evidence of this list being manually curated as well, as all the letters of the alphabet are in there, which is quite unlikely to all have been frequent enough in the original corpus.</p>
-<p>All of this is to say that it is important to thoroughly investigate the stop word list you are using, as they can have unexpected results. <span class="citation" data-cites="nothman2018">Nothman, Qin, and Yurchak (<a href="references.html#ref-nothman2018" role="doc-biblioref">2018</a>)</span> explores a selection of 52 stop word lists with alarming results. Among some of the more grave issues were misspellings (<code>“fify”</code> instead of <code>“fifty”</code>), the inclusion of clearly informative words such as <code>“computer”</code> and <code>“cry”</code> and internal inconsistencies, such as including the word <code>“has”</code> but not the word <code>“does”</code>. Some of these mistakes have crept into <a href="https://github.com/scikit-learn/scikit-learn/issues/10834#issuecomment-375328981">popular libraries</a> without notice for several years.</p>
+<p>All of this is to say that it is important to thoroughly investigate the stop word list you are using, as they can have unexpected results. <span class="citation" data-cites="nothman2018">Nothman et al. (<a href="references.html#ref-nothman2018" role="doc-biblioref">2018</a>)</span> explores a selection of 52 stop word lists with alarming results. Among some of the more grave issues were misspellings (<code>“fify”</code> instead of <code>“fifty”</code>), the inclusion of clearly informative words such as <code>“computer”</code> and <code>“cry”</code> and internal inconsistencies, such as including the word <code>“has”</code> but not the word <code>“does”</code>. Some of these mistakes have crept into <a href="https://github.com/scikit-learn/scikit-learn/issues/10834#issuecomment-375328981">popular libraries</a> without notice for several years.</p>
 <p>We can create homemade lists in a few different ways. One of which is to take the training data set, count the tokens and sort the results. Then we can go through them and manually select which ones to put on the list. You don’t have to pick the top 50, you can leave some in and some out, as some frequent words could be informative. We will talk about <a href="text-tfidf">TF-IDF</a>, but that can also be helpful in finding noninformative words. Calculating the IDF of all the words and sorting them lets us find tokens with low IDF that are good candidates for removal.</p>
 <p>The final advice is to combine the two approaches you see above. Pick a premade list, and make modifications to it, based on your domain expertise and the data set you are working with.</p>
 <section id="pros-and-cons" class="level2" data-number="53.2">
@@ -1316,7 +1315,7 @@ div.csl-indent {
 <h2 data-number="53.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">53.4</span> Python Examples</h2>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-Lewis2004" class="csl-entry" role="listitem">
 Lewis, David D., Yiming Yang, Tony G. Rose, and Fan Li. 2004. <span>“<span>RCV1</span>: A New Benchmark Collection for Text Categorization Research.”</span> <em>Journal of Machine Learning Research</em> 5: 361–97. <a href="https://www.jmlr.org/papers/volume5/lewis04a/lewis04a.pdf">https://www.jmlr.org/papers/volume5/lewis04a/lewis04a.pdf</a>.
 </div>
@@ -1324,10 +1323,10 @@ Lewis, David D., Yiming Yang, Tony G. Rose, and Fan Li. 2004. <span>“<span>RCV
 Luhn, H. P. 1960. <span>“Key Word-in-Context Index for Technical Literature (Kwic Index).”</span> <em>American Documentation</em> 11 (4): 288–95. https://doi.org/<a href="https://doi.org/10.1002/asi.5090110403">https://doi.org/10.1002/asi.5090110403</a>.
 </div>
 <div id="ref-nothman2018" class="csl-entry" role="listitem">
-Nothman, Joel, Hanmin Qin, and Roman Yurchak. 2018. <span>“Stop Word Lists in Free Open-Source Software Packages.”</span> In <em>Proceedings of Workshop for <span>NLP</span> Open Source Software (<span>NLP</span>-<span>OSS</span>)</em>, edited by Eunjeong L. Park, Masato Hagiwara, Dmitrijs Milajevs, and Liling Tan, 7–12. Melbourne, Australia: Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/W18-2502">https://doi.org/10.18653/v1/W18-2502</a>.
+Nothman, Joel, Hanmin Qin, and Roman Yurchak. 2018. <span>“Stop Word Lists in Free Open-Source Software Packages.”</span> In <em>Proceedings of Workshop for <span>NLP</span> Open Source Software (<span>NLP</span>-<span>OSS</span>)</em>, edited by Eunjeong L. Park, Masato Hagiwara, Dmitrijs Milajevs, and Liling Tan. Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/W18-2502">https://doi.org/10.18653/v1/W18-2502</a>.
 </div>
 <div id="ref-porter2001snowball" class="csl-entry" role="listitem">
-Porter, Martin F. 2001. <span>“Snowball: A Language for Stemming Algorithms.”</span> <a href="https://snowballstem.org">https://snowballstem.org</a>.
+Porter, Martin F. 2001. <em>Snowball: A Language for Stemming Algorithms</em>. <a href="https://snowballstem.org">https://snowballstem.org</a>.
 </div>
 </div>
 </section>
