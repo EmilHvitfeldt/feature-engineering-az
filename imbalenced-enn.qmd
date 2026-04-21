@@ -9,13 +9,54 @@ image: social-cards/imbalenced-enn.png
 ## Edited Nearest Neighbor
 :::
 
-WIP
+This method is another undersampling method,
+it works by removing observations close to the decision boundary between classes.
+This method tries to remove observations that would otherwise be hard to classify.
 
-This includes Repeated Edited Nearest Neighbor
+The algorithm goes as follows:
 
-And AllKNN
+1. Compute the k nearest neighbors for each observation in the data set.
+2. Remove observations from the majority class if the removal criteria are satisfied.
 
-And Neighborhood Cleaning Rule
+The removal criteria is something we can choose different options for.
+A typical implementation will either remove an observation if the majority of the neighbors are of a different class,
+but you could also tighten this and remove an observation if any of the neighbors are of a different class.
+
+The idea is that we are able to remove noisy observations this way.
+And depending on which criteria you choose, you could see how that would be.
+By only allowing us to keep all the observations that have neighbors all of the same class,
+we can end up removing a lot of the decision boundary,
+especially any area where there is overlap.
+
+The general framework is based on 2 classes,
+but we can expand it to a multi-class setting by doing a 1-vs-rest.
+This is fairly standard for all of these types of methods.
+However, it does change a little bit how things will happen.
+In the two-class example,
+any majority point deeply embedded in the minority class will most likely be removed.
+However, if we are using a multiple-class implementation,
+where a single observation from one majority class is deeply embedded into another majority class,
+then we will not only delete the single point,
+but we will also delete all the points around it that are its neighbors if we use the "any" criterion.
+This feels less ideal and is something we have to think about when applying this method.
+
+By itself, this method is simple,
+and there have been a couple of method that expands on the foundation of this method.
+The first one is **Repeated Edited Nearest Neighbor**.
+And it does what it says,
+it repeats Edited Nearest Neighbor a number of times.
+You can either set it up such that it runs a fixed number of times
+or until no observations are removed during an iteration.
+
+Another named variant **AllKNN**.
+This is a variant of Edited Nearest Neighbors,
+where you select a value of `k`, then apply ENN with neighbors `1` through `k`.
+Both of these variants result in more observations being removed.
+
+The last extension we will talk about is the **Neighborhood Cleaning Rule**.
+This method starts by running Edited Nearest Neighbor.
+Then we run a K Nearest Neighbors on the minority observations.
+Any majority class observations that misclassify a minority observation will be removed as well.
 
 ## Pros and Cons
 
@@ -26,4 +67,3 @@ And Neighborhood Cleaning Rule
 ## R Examples
 
 ## Python Examples
-
