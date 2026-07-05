@@ -50,22 +50,20 @@ Adding observations is usually done by basing the new observations on the existi
 
 Over-sampling methods we will cover are:
 
--   [Up-sampling](imbalenced-upsample)
--   [ROSE](imbalenced-rose)
--   [SMOTE](imbalenced-smote)
--   [SMITE variants](imbalenced-smote-variants)
--   [Borderline Smote](imbalenced-borderline-smote)
--   [Adaptive Synthetic Algorithm](imbalenced-adasyn)
+-   [Up-sampling](imbalenced-upsample.qmd)
+-   [ROSE](imbalenced-rose.qmd)
+-   [SMOTE](imbalenced-smote.qmd)
+-   [SMOTE variants](imbalenced-smote-variants.qmd)
 
 Under-sampling methods we will cover are:
 
--   [Down-sampling](imbalenced-downsample)
--   [NearMiss](imbalenced-nearmiss)
--   [Tomek Links](imbalenced-tomek)
--   [Condensed Nearest Neighbor](imbalenced-cnn)
--   [Edited Nearest Neighbor](imbalenced-enn)
--   [Instance Hardness Threshold](imbalenced-hardness-threshold)
--   [One-Sided Selection](imbalenced-one-sided)
+-   [Down-sampling](imbalenced-downsample.qmd)
+-   [NearMiss](imbalenced-nearmiss.qmd)
+-   [Tomek Links](imbalenced-tomek.qmd)
+-   [Condensed Nearest Neighbor](imbalenced-cnn.qmd)
+-   [Edited Nearest Neighbor](imbalenced-enn.qmd)
+-   [Instance Hardness Threshold](imbalenced-hardness-threshold.qmd)
+-   [One-Sided Selection](imbalenced-one-sided.qmd)
 
 Some methods do these methods together.
 We won't consider those methods by themselves and instead let you know that you can do over-sampling followed by under-sampling if you choose.
