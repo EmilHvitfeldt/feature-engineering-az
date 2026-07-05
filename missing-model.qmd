@@ -65,7 +65,7 @@ impute_knn_rec <- recipe(mpg ~ ., data = mtcars) |>
 
 impute_knn_rec |>
   prep() |>
-  juice()
+  bake(new_data = NULL)
 ```
 
 ## Python Examples
