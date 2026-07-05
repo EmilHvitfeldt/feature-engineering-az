@@ -97,7 +97,7 @@ pd.set_option('display.precision', 3)
 ```
 
 We are using the `ames` data set for examples.
-{category_encoders} provided the `CatBoostEncoder()` method we can use.
+{category_encoders} provided the `WOEEncoder()` method we can use.
 
 ```{python}
 #| label: woeencoder
