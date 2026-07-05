@@ -36,14 +36,14 @@ Chapters follow the pattern `{section}-{method}.qmd`:
 |-------|----------------|---------|
 | Numeric transformations | `numeric-*` | `numeric-normalization.qmd` |
 | Categorical encoding | `categorical-*` | `categorical-target.qmd` |
-| Missing data | `missing-*` | `missing-imputation.qmd` |
+| Missing data | `missing-*` | `missing-simple.qmd` |
 | Text features | `text-*` | `text-tokenization.qmd` |
 | Dimensionality reduction | `too-many-*` | `too-many-pca.qmd` |
 | Class imbalance | `imbalenced-*` | `imbalenced-smote.qmd` |
-| Outliers | `outliers-*` | `outliers-capping.qmd` |
+| Outliers | `outliers-*` | `outliers-identify.qmd` |
 | Datetime | `datetime-*` | `datetime-extraction.qmd` |
-| Time series | `time-series-*` | `time-series-lags.qmd` |
-| Spatial/geographic | `spatial-*` | `spatial-coordinates.qmd` |
+| Time series | `time-series-*` | `time-series-lag.qmd` |
+| Spatial/geographic | `spatial-*` | `spatial-distance.qmd` |
 
 ## Not Covered
 
