@@ -1,4 +1,5 @@
 Package: feature-engineering-az
+Version: 0.1.0
 Imports: 
     animalshelter,
     corrr,
@@ -33,9 +34,18 @@ Imports:
     tfse,
     themis,
     tidymodels,
+    cpp11,
+    dqrng,
+    progress,
+    RcppArmadillo,
+    RcppEigen,
+    RcppProgress,
+    BH,
+    sitmo,
     tidyverse
 Remotes:
     emilhvitfeldt/animalshelter,
+    emilhvitfeldt/elevators,
     mkearney/dapr,
     mkearney/textfeatures,
     mkearney/tfse
