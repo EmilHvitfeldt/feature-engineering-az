@@ -9,7 +9,30 @@ image: social-cards/imbalenced-nearmiss.png
 ## Near-Miss
 :::
 
-The NearMiss method is an method that is used to remove observations from the majority classes.
+The NearMiss method is a method that is used to remove observations from the majority classes.
+Like with many of the other methods in this section,
+we are going to focus on points based on their distance to instances of other classes.
+
+What we are doing is that we are removing points from the majority class that are far away from the minority class.
+We are keeping points from the majority class that are close to the minority class.
+In other words, we are only keeping the "near misses".
+While the idea is fairly straightforward,
+it has 3 different recognized variants based on how we define a near miss.
+
+NearMiss-1: Selects majority class observations with the smallest average distance to the three **closest** minority class observations.
+NearMiss-2: Selects majority class observations with the smallest average distance to the three **furthest** minority class observations.
+NearMiss-3: It is a two-stage method, first for each minority class, their nearest neighbors are kept, and then we select the majority class observations with the smallest distance to each minority class observation.
+
+While the distinction between the 1 and 2 variants might seem small,
+what you are getting is that with NearMiss-1, you are preserving samples that are most similar to the minority class,
+and with NearMiss-2, you are preserving samples that are least similar to the minority class.
+NearMiss-3 is trying to have a more blended selection.
+
+This method, like many of the other methods, is technically not restricted to be used on the majority class,
+and could, in theory, be used on any number of classes in the data set.
+
+One of the convenient things about this method is that it technically works by giving the observations an ordering,
+And we just have to find the cut point that determines how many points to retain.
 
 ## Pros and Cons
 
