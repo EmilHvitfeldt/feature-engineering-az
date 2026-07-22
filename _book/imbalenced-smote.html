@@ -23,7 +23,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -1228,7 +1247,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="smote" class="level2" style="visibility: hidden; height: 0px;" data-number="88.1">
 <h2 data-number="88.1" class="anchored" data-anchor-id="smote"><span class="header-section-number">88.1</span> SMOTE</h2>
 </section>
-<p>The goal of the Synthetic minority oversampling technique (SMOTE) is to deal with imbalanced data using synthetically generated samples.</p>
+<p>The goal of the Synthetic minority oversampling technique (SMOTE) is to deal with imbalanced data using synthetically generated samples <span class="citation" data-cites="chawla2002smote">(<a href="references.html#ref-chawla2002smote" role="doc-biblioref">Chawla et al. 2002</a>)</span>.</p>
 <p>this method is in a way similar to <a href="./imbalenced-upsample.html">up-sampling</a>, But there is a twist. Instead of sampling observations from the minority classes, We instead generate new observations based on the characteristics of the data set.</p>
 <p>Generally works for categorical outcomes (hence imbalance), and the base case only works with numeric data with no missingness.</p>
 <p>We start by identifying the minority classes and the majority class. counting how many observations are in each, as this will be used as a target for how many observations to generate.</p>
@@ -1258,6 +1277,11 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="88.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">88.4</span> Python Examples</h2>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-chawla2002smote" class="csl-entry" role="listitem">
+Chawla, N. V., K. W. Bowyer, L. O. Hall, and W. P. Kegelmeyer. 2002. <span>“<span>SMOTE</span>: Synthetic Minority over-Sampling Technique.”</span> <em>Journal of Artificial Intelligence Research</em> 16: 321–57. <a href="https://doi.org/10.1613/jair.953">https://doi.org/10.1613/jair.953</a>.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->

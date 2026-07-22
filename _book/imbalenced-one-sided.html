@@ -23,7 +23,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -1229,6 +1248,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="96.1" class="anchored" data-anchor-id="one-sided-selection"><span class="header-section-number">96.1</span> One Sided Selection</h2>
 </section>
 <p>WIP</p>
+<p>One Sided Selection was introduced by <span class="citation" data-cites="kubat1997oss">Kubat and Matwin (<a href="references.html#ref-kubat1997oss" role="doc-biblioref">1997</a>)</span>.</p>
 <section id="pros-and-cons" class="level2" data-number="96.2">
 <h2 data-number="96.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">96.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="96.2.1">
@@ -1245,6 +1265,11 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="96.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">96.4</span> Python Examples</h2>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-kubat1997oss" class="csl-entry" role="listitem">
+Kubat, Miroslav, and Stan Matwin. 1997. <span>“Addressing the Curse of Imbalanced Training Sets: One-Sided Selection.”</span> <em>Proceedings of the Fourteenth International Conference on Machine Learning (ICML)</em> 97: 179–86.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->

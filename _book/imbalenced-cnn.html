@@ -23,7 +23,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -1228,7 +1247,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="condensed-nearest-neighbor" class="level2" style="visibility: hidden; height: 0px;" data-number="93.1">
 <h2 data-number="93.1" class="anchored" data-anchor-id="condensed-nearest-neighbor"><span class="header-section-number">93.1</span> Condensed Nearest Neighbor</h2>
 </section>
-<p>Condensed Nearest Neighbor (CNN) uses an iterative approach to decide which observations to remove. This makes the method an undersampling/downsampling method.</p>
+<p>Condensed Nearest Neighbor (CNN) uses an iterative approach to decide which observations to remove <span class="citation" data-cites="hart1968cnn">(<a href="references.html#ref-hart1968cnn" role="doc-biblioref">Hart 1968</a>)</span>. This makes the method an undersampling/downsampling method.</p>
 <p><a href="./imbalenced-downsample.html">Downsampling</a> by itself can remove informative observations as that method doesn’t the method indiscriminately removes observations. CNN is based on trying to avoid this mistake. By trying to create a subset of the majority class that keeps enough information in it to correctly classify all the observations in the original data set. Or said differently, CNN tries to remove only observations from the majority class that can be removed without influencing the performance.</p>
 <p>This method is another method that cares about the decision boundary. The rationale is that we can remove observations from inside each class distribution, leaving the boundary points. This method can be seen as a data reduction method. We make it into an undersampling method by only applying it to the majority classes, but the method itself doesn’t actually care whether it is working with a majority or minority class.</p>
 <p>The method works on a class-by-class basis, Typically, only affecting the majority (missing: class), and the general algorithm goes like this:</p>
@@ -1259,6 +1278,11 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="93.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">93.4</span> Python Examples</h2>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-hart1968cnn" class="csl-entry" role="listitem">
+Hart, Peter. 1968. <span>“The Condensed Nearest Neighbor Rule.”</span> <em>IEEE Transactions on Information Theory</em> 14 (3): 515–16. <a href="https://doi.org/10.1109/TIT.1968.1054155">https://doi.org/10.1109/TIT.1968.1054155</a>.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->

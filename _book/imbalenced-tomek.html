@@ -23,7 +23,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -1228,7 +1247,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="tomek-link-removal" class="level2" style="visibility: hidden; height: 0px;" data-number="92.1">
 <h2 data-number="92.1" class="anchored" data-anchor-id="tomek-link-removal"><span class="header-section-number">92.1</span> Tomek Link Removal</h2>
 </section>
-<p>Tomek link removal is the practice of identifying Tomek links and removing them from the data set. A <strong>Tomek Link</strong> is a pair of observations from different classes that have eachother as their nearest neighbor. The Tomek link is typically handled by removing the majority observation of the pair instead of removing both observations.</p>
+<p>Tomek link removal is the practice of identifying Tomek links and removing them from the data set. A <strong>Tomek Link</strong> is a pair of observations from different classes that have eachother as their nearest neighbor <span class="citation" data-cites="tomek1976cnn">(<a href="references.html#ref-tomek1976cnn" role="doc-biblioref">Tomek 1976</a>)</span>. The Tomek link is typically handled by removing the majority observation of the pair instead of removing both observations.</p>
 <p>TODO: Diagram</p>
 <p>The traditional implementation assumes Euclidean distances, which in turn assumes you have all numeric predictors and no missing values.</p>
 <p>This method is computationally quite fast, as we are only doing one pass of nearest neighbor search. And that is used to identify observations that could be removed. We aren’t doing any sampling. However, on the other side, we don’t have many levers to pull for this method. It is un uncommon to have few or no points removed when applying Tomek Link removal.</p>
@@ -1249,6 +1268,11 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="92.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">92.4</span> Python Examples</h2>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-tomek1976cnn" class="csl-entry" role="listitem">
+Tomek, Ivan. 1976. <span>“Two Modifications of <span>CNN</span>.”</span> <em>IEEE Transactions on Systems, Man, and Cybernetics</em> SMC-6 (11): 769–72. <a href="https://doi.org/10.1109/TSMC.1976.4309452">https://doi.org/10.1109/TSMC.1976.4309452</a>.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->

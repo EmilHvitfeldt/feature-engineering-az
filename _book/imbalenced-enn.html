@@ -23,7 +23,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -1228,7 +1247,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="edited-nearest-neighbor" class="level2" style="visibility: hidden; height: 0px;" data-number="94.1">
 <h2 data-number="94.1" class="anchored" data-anchor-id="edited-nearest-neighbor"><span class="header-section-number">94.1</span> Edited Nearest Neighbor</h2>
 </section>
-<p>This method is another undersampling method, it works by removing observations close to the decision boundary between classes. This method tries to remove observations that would otherwise be hard to classify.</p>
+<p>This method is another undersampling method, it works by removing observations close to the decision boundary between classes <span class="citation" data-cites="wilson1972enn">(<a href="references.html#ref-wilson1972enn" role="doc-biblioref">Wilson 1972</a>)</span>. This method tries to remove observations that would otherwise be hard to classify.</p>
 <p>The algorithm goes as follows:</p>
 <ol type="1">
 <li>Compute the k nearest neighbors for each observation in the data set.</li>
@@ -1237,9 +1256,9 @@ ul.task-list li input[type="checkbox"] {
 <p>The removal criteria is something we can choose different options for. A typical implementation will either remove an observation if the majority of the neighbors are of a different class, but you could also tighten this and remove an observation if any of the neighbors are of a different class.</p>
 <p>The idea is that we are able to remove noisy observations this way. And depending on which criteria you choose, you could see how that would be. By only allowing us to keep all the observations that have neighbors all of the same class, we can end up removing a lot of the decision boundary, especially any area where there is overlap.</p>
 <p>The general framework is based on 2 classes, but we can expand it to a multi-class setting by doing a 1-vs-rest. This is fairly standard for all of these types of methods. However, it does change a little bit how things will happen. In the two-class example, any majority point deeply embedded in the minority class will most likely be removed. However, if we are using a multiple-class implementation, where a single observation from one majority class is deeply embedded into another majority class, then we will not only delete the single point, but we will also delete all the points around it that are its neighbors if we use the “any” criterion. This feels less ideal and is something we have to think about when applying this method.</p>
-<p>By itself, this method is simple, and there have been a couple of method that expands on the foundation of this method. The first one is <strong>Repeated Edited Nearest Neighbor</strong>. And it does what it says, it repeats Edited Nearest Neighbor a number of times. You can either set it up such that it runs a fixed number of times or until no observations are removed during an iteration.</p>
+<p>By itself, this method is simple, and there have been a couple of method that expands on the foundation of this method. The first one is <strong>Repeated Edited Nearest Neighbor</strong> <span class="citation" data-cites="tomek1976enn">(<a href="references.html#ref-tomek1976enn" role="doc-biblioref">Tomek 1976</a>)</span>. And it does what it says, it repeats Edited Nearest Neighbor a number of times. You can either set it up such that it runs a fixed number of times or until no observations are removed during an iteration.</p>
 <p>Another named variant <strong>AllKNN</strong>. This is a variant of Edited Nearest Neighbors, where you select a value of <code>k</code>, then apply ENN with neighbors <code>1</code> through <code>k</code>. Both of these variants result in more observations being removed.</p>
-<p>The last extension we will talk about is the <strong>Neighborhood Cleaning Rule</strong>. This method starts by running Edited Nearest Neighbor. Then we run a K Nearest Neighbors on the minority observations. Any majority class observations that misclassify a minority observation will be removed as well.</p>
+<p>The last extension we will talk about is the <strong>Neighborhood Cleaning Rule</strong> <span class="citation" data-cites="laurikkala2001ncl">(<a href="references.html#ref-laurikkala2001ncl" role="doc-biblioref">Laurikkala 2001</a>)</span>. This method starts by running Edited Nearest Neighbor. Then we run a K Nearest Neighbors on the minority observations. Any majority class observations that misclassify a minority observation will be removed as well.</p>
 <section id="pros-and-cons" class="level2" data-number="94.2">
 <h2 data-number="94.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">94.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="94.2.1">
@@ -1256,6 +1275,17 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="94.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">94.4</span> Python Examples</h2>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-laurikkala2001ncl" class="csl-entry" role="listitem">
+Laurikkala, Jorma. 2001. <span>“Improving Identification of Difficult Small Classes by Balancing Class Distribution.”</span> <em>Artificial Intelligence in Medicine (AIME 2001)</em>, Lecture notes in computer science, vol. 2101: 63–66. <a href="https://doi.org/10.1007/3-540-48229-6_9">https://doi.org/10.1007/3-540-48229-6_9</a>.
+</div>
+<div id="ref-tomek1976enn" class="csl-entry" role="listitem">
+Tomek, Ivan. 1976. <span>“An Experiment with the Edited Nearest-Neighbor Rule.”</span> <em>IEEE Transactions on Systems, Man, and Cybernetics</em> SMC-6 (6): 448–52. <a href="https://doi.org/10.1109/TSMC.1976.4309523">https://doi.org/10.1109/TSMC.1976.4309523</a>.
+</div>
+<div id="ref-wilson1972enn" class="csl-entry" role="listitem">
+Wilson, Dennis L. 1972. <span>“Asymptotic Properties of Nearest Neighbor Rules Using Edited Data.”</span> <em>IEEE Transactions on Systems, Man, and Cybernetics</em> SMC-2 (3): 408–21. <a href="https://doi.org/10.1109/TSMC.1972.4309137">https://doi.org/10.1109/TSMC.1972.4309137</a>.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->

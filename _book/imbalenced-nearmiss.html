@@ -23,7 +23,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -1228,7 +1247,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="near-miss" class="level2" style="visibility: hidden; height: 0px;" data-number="91.1">
 <h2 data-number="91.1" class="anchored" data-anchor-id="near-miss"><span class="header-section-number">91.1</span> Near-Miss</h2>
 </section>
-<p>The NearMiss method is a method that is used to remove observations from the majority classes. Like with many of the other methods in this section, we are going to focus on points based on their distance to instances of other classes.</p>
+<p>The NearMiss method is a method that is used to remove observations from the majority classes <span class="citation" data-cites="mani2003nearmiss">(<a href="references.html#ref-mani2003nearmiss" role="doc-biblioref">Mani and Zhang 2003</a>)</span>. Like with many of the other methods in this section, we are going to focus on points based on their distance to instances of other classes.</p>
 <p>What we are doing is that we are removing points from the majority class that are far away from the minority class. We are keeping points from the majority class that are close to the minority class. In other words, we are only keeping the “near misses”. While the idea is fairly straightforward, it has 3 different recognized variants based on how we define a near miss.</p>
 <p>NearMiss-1: Selects majority class observations with the smallest average distance to the three <strong>closest</strong> minority class observations. NearMiss-2: Selects majority class observations with the smallest average distance to the three <strong>furthest</strong> minority class observations. NearMiss-3: It is a two-stage method, first for each minority class, their nearest neighbors are kept, and then we select the majority class observations with the smallest distance to each minority class observation.</p>
 <p>While the distinction between the 1 and 2 variants might seem small, what you are getting is that with NearMiss-1, you are preserving samples that are most similar to the minority class, and with NearMiss-2, you are preserving samples that are least similar to the minority class. NearMiss-3 is trying to have a more blended selection.</p>
@@ -1250,6 +1269,11 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="91.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">91.4</span> Python Examples</h2>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-mani2003nearmiss" class="csl-entry" role="listitem">
+Mani, Inderjeet, and I Zhang. 2003. <span>“<span class="nocase">kNN</span> Approach to Unbalanced Data Distributions: A Case Study Involving Information Extraction.”</span> <em>Proceedings of the Workshop on Learning from Imbalanced Datasets</em>.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
