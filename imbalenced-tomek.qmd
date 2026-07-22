@@ -10,7 +10,7 @@ image: social-cards/imbalenced-tomek.png
 :::
 
 Tomek link removal is the practice of identifying Tomek links and removing them from the data set.
-A **Tomek Link** is a pair of observations from different classes that have eachother as their nearest neighbor.
+A **Tomek Link** is a pair of observations from different classes that have eachother as their nearest neighbor [@tomek1976cnn].
 The Tomek link is typically handled by removing the majority observation of the pair instead of removing both observations.
 
 TODO: Diagram

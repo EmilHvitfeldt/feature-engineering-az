@@ -16,7 +16,7 @@ Each of these variants builds on the base SMOTE algorithm by changing or adding 
 ### Non-numeric variants
 
 The first constraint that is often found with SMOTE is that you are limited to using numeric predictors.
-The **SMOTEN** and **SMOTENC** try to handle this in two different ways.
+The **SMOTEN** and **SMOTENC** try to handle this in two different ways. Both were introduced alongside the original SMOTE method [@chawla2002smote].
 **Synthetic minority oversampling technique for Nominal** (SMOTEN) is a modification of SMOTE that works with categorical data.
 Since the method is focused on categorical input we can't use the traditional nearest neighbor,
 instead we use the Value Difference Metric (VDM) as a way to calculate categorical distances.
@@ -40,6 +40,7 @@ The original SMOTE method generated new synthetic samples from all the observati
 The worry is that this will generate a lot of points in the "safe" areas of the distribution where they aren't as useful.
 Instead, we should generate observations near the border of the distribution of the class itself,
 as those are the observations that actually matter for our decision boundaries.
+This idea is known as **Borderline-SMOTE** [@han2005borderline].
 
 To determine whether an observation is considered borderline or not,
 we calculate the nearest neighbors of each observation in the data set.
@@ -64,7 +65,7 @@ TODO: this would do really well with a graphic
 
 Borderline SMOTE, as seen before, focused on sampling observations near the border.
 Having a hard rule to decide which observation should be included.
-**Adaptive Synthetic Sampling** (ADASYN) asks a different question. 
+**Adaptive Synthetic Sampling** (ADASYN) asks a different question [@he2008adasyn].
 
 Each observation is given a score based on how many neighbours it shares with the majority class.
 Instead of generating a threshold based on this score,
@@ -83,7 +84,7 @@ Instead of calculating the nearest neighbors to find borders,
 we fit an SVM model.
 Then we identify the support vectors from the minority classes,
 and finally generate synthetic observations around those support vectors.
-This method is typically called **SVM SMOTE**.
+This method is typically called **SVM SMOTE** [@nguyen2011svmsmote].
 
 ### Distance/Neighborhood-based variants
 

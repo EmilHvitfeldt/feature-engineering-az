@@ -10,7 +10,7 @@ image: social-cards/imbalenced-enn.png
 :::
 
 This method is another undersampling method,
-it works by removing observations close to the decision boundary between classes.
+it works by removing observations close to the decision boundary between classes [@wilson1972enn].
 This method tries to remove observations that would otherwise be hard to classify.
 
 The algorithm goes as follows:
@@ -42,7 +42,7 @@ This feels less ideal and is something we have to think about when applying this
 
 By itself, this method is simple,
 and there have been a couple of method that expands on the foundation of this method.
-The first one is **Repeated Edited Nearest Neighbor**.
+The first one is **Repeated Edited Nearest Neighbor** [@tomek1976enn].
 And it does what it says,
 it repeats Edited Nearest Neighbor a number of times.
 You can either set it up such that it runs a fixed number of times
@@ -53,7 +53,7 @@ This is a variant of Edited Nearest Neighbors,
 where you select a value of `k`, then apply ENN with neighbors `1` through `k`.
 Both of these variants result in more observations being removed.
 
-The last extension we will talk about is the **Neighborhood Cleaning Rule**.
+The last extension we will talk about is the **Neighborhood Cleaning Rule** [@laurikkala2001ncl].
 This method starts by running Edited Nearest Neighbor.
 Then we run a K Nearest Neighbors on the minority observations.
 Any majority class observations that misclassify a minority observation will be removed as well.

@@ -9,7 +9,7 @@ image: social-cards/imbalenced-cnn.png
 ## Condensed Nearest Neighbor
 :::
 
-Condensed Nearest Neighbor (CNN) uses an iterative approach to decide which observations to remove.
+Condensed Nearest Neighbor (CNN) uses an iterative approach to decide which observations to remove [@hart1968cnn].
 This makes the method an undersampling/downsampling method.
 
 [Downsampling](imbalenced-downsample.qmd) by itself can remove informative observations as that method doesn't the method indiscriminately removes observations.
