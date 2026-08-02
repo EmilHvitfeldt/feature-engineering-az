@@ -1247,7 +1247,9 @@ div.csl-indent {
 <section id="instance-hardness-threshold" class="level2" style="visibility: hidden; height: 0px;" data-number="95.1">
 <h2 data-number="95.1" class="anchored" data-anchor-id="instance-hardness-threshold"><span class="header-section-number">95.1</span> Instance Hardness Threshold</h2>
 </section>
-<p>The Instance Hardness Threshold method is based on the notion of instance hardness <span class="citation" data-cites="smith2014hardness">(<a href="references.html#ref-smith2014hardness" role="doc-biblioref">Smith et al. 2014</a>)</span>.</p>
+<p>The Instance Hardness Threshold method is based on the notion of instance hardness <span class="citation" data-cites="smith2014hardness">(<a href="references.html#ref-smith2014hardness" role="doc-biblioref">Smith et al. 2014</a>)</span>. The general idea behind this method is that we operate under an assumption that each observation has a value associated with it, that signals how hard it is to classify correctly. Then removing the hard-to-classify observation, thereby giving the model an easier data set to work with [SMGC14].</p>
+<p>We are essentially fitting an additional model, only letting through observations that this new model was able to work with easily. How exactly this is done in practice will depend on the implementation. Since each observation is given a value, typically the probability estimate of the model, we can remove how many or how few observations we want by setting a threshold. We can either remove a specific number of observations, a proportion of the data, or anything below a certain threshold value. Using the threshold value is somewhat tricky as it assumes that the model that we used is properly calibrated.</p>
+<p>Some implementations allow for any classification model to be used, while other implementations pick a predefined method.</p>
 <section id="pros-and-cons" class="level2" data-number="95.2">
 <h2 data-number="95.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">95.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="95.2.1">
@@ -1255,6 +1257,10 @@ div.csl-indent {
 </section>
 <section id="cons" class="level3" data-number="95.2.2">
 <h3 data-number="95.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">95.2.2</span> Cons</h3>
+<ul>
+<li>The choice of model matters</li>
+<li>Potentially long fitting time depending on model choice</li>
+</ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="95.3">

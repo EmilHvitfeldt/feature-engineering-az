@@ -10,12 +10,34 @@ image: social-cards/imbalenced-hardness-threshold.png
 :::
 
 The Instance Hardness Threshold method is based on the notion of instance hardness [@smith2014hardness].
+The general idea behind this method
+is that we operate under an assumption that each observation has a value associated with it,
+that signals how hard it is to classify correctly.
+Then removing the hard-to-classify observation,
+thereby giving the model an easier data set to work with [SMGC14]. 
+
+We are essentially fitting an additional model,
+only letting through observations that this new model was able to work with easily.
+How exactly this is done in practice will depend on the implementation.
+Since each observation is given a value,
+typically the probability estimate of the model,
+we can remove how many or how few observations we want by setting a threshold.
+We can either remove a specific number of observations,
+a proportion of the data,
+or anything below a certain threshold value.
+Using the threshold value is somewhat tricky as it assumes that the model that we used is properly calibrated.
+
+Some implementations allow for any classification model to be used,
+while other implementations pick a predefined method.
 
 ## Pros and Cons
 
 ### Pros
 
 ### Cons
+
+- The choice of model matters
+- Potentially long fitting time depending on model choice
 
 ## R Examples
 
