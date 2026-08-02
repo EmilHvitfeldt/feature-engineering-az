@@ -62,9 +62,10 @@ Under-sampling methods we will cover are:
 -   [Condensed Nearest Neighbor](imbalenced-cnn.qmd)
 -   [Edited Nearest Neighbor](imbalenced-enn.qmd)
 -   [Instance Hardness Threshold](imbalenced-hardness-threshold.qmd)
--   [One-Sided Selection](imbalenced-one-sided.qmd)
 
 Some methods do these methods together.
 We won't consider those methods by themselves and instead let you know that you can do over-sampling followed by under-sampling if you choose.
+One sided selection @kubat1997oss is one of those methods,
+that combines tomek link removal with condensed nearest neighbors. 
 
 TODO: I think we would be able to add some kind of list, regarding what the under sampling methods tries to do. Some tries to remove hard to classify observations, other try to remove easy to classify observations.
