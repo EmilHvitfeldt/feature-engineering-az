@@ -14,21 +14,38 @@ The general idea behind this method
 is that we operate under an assumption that each observation has a value associated with it,
 that signals how hard it is to classify correctly.
 Then removing the hard-to-classify observation,
-thereby giving the model an easier data set to work with [SMGC14]. 
+thereby giving the model an easier data set to work with.
 
-We are essentially fitting an additional model,
-only letting through observations that this new model was able to work with easily.
-How exactly this is done in practice will depend on the implementation.
-Since each observation is given a value,
-typically the probability estimate of the model,
-we can remove how many or how few observations we want by setting a threshold.
+Once each observation has a hardness value,
+the rest is straightforward.
+We sort by that value and cut,
+and we can remove as many or as few observations as we like.
 We can either remove a specific number of observations,
 a proportion of the data,
-or anything below a certain threshold value.
-Using the threshold value is somewhat tricky as it assumes that the model that we used is properly calibrated.
+or anything above a certain threshold value.
 
-Some implementations allow for any classification model to be used,
-while other implementations pick a predefined method.
+What the method does not settle is how the hardness value itself is calculated,
+and this is where implementations part ways.
+It is best to think of instance hardness as a family of methods rather than a single algorithm.
+Two strategies are common.
+
+The first is to **fit a model** and use its predicted probability for the correct class as the hardness value.
+An observation the model confidently gets right is easy, and one it gets wrong is hard.
+This is usually done with cross-validation, so that each observation is scored by a model that did not see it during training.
+Some implementations let you supply any classification model, while others pick one for you.
+Reading the threshold as a probability is somewhat tricky here, as it assumes the model is properly calibrated.
+
+The second is to use a **neighborhood measure** and skip the model entirely.
+The k-Disagreeing Neighbors measure takes the proportion of an observation's nearest neighbors that belong to a different class.
+An observation surrounded by its own class scores 0, and one surrounded entirely by other classes scores 1.
+
+The two strategies do not have the same properties.
+The model-based approach is slower, since it fits a model, sometimes many times over,
+and its answer depends on which model you chose.
+The neighborhood approach is faster and has no model to choose,
+but it is a local measure, and it makes this method a close relative of [Edited Nearest Neighbors](imbalenced-enn.qmd),
+which also removes observations based on the classes of their neighbors.
+The difference is mostly that this method gives you a threshold to tune, where Edited Nearest Neighbors gives you a rule.
 
 ## Pros and Cons
 
@@ -36,10 +53,84 @@ while other implementations pick a predefined method.
 
 ### Cons
 
-- The choice of model matters
+- The choice of model matters, when a model-based hardness measure is used
 - Potentially long fitting time depending on model choice
+- A neighborhood-based hardness measure is only as good as the distance metric it is built on, and inherits the usual problems distances have in higher dimensions
 
 ## R Examples
 
+```{r}
+#| label: ames
+#| echo: false
+#| message: false
+set.seed(1234)
+```
+
+We will be using the same subset of the `ames` data set as in the [up-sampling](imbalenced-upsample.qmd) chapter.
+
+```{r}
+#| label: show-data
+#| message: false
+library(recipes)
+library(themis)
+library(modeldata)
+library(dplyr)
+data("ames")
+
+ames_imbalance <- ames |>
+  filter(MS_Zoning %in% c("Residential_Low_Density", "Residential_Medium_Density")) |>
+  mutate(MS_Zoning = droplevels(MS_Zoning)) |>
+  select(MS_Zoning, Lot_Area, Year_Built, Gr_Liv_Area, Full_Bath)
+
+ames_imbalance |>
+  count(MS_Zoning)
+```
+
+{themis} provides `step_instance_hardness()`.
+This is the neighborhood-based version described above, using the k-Disagreeing Neighbors measure, so there is no model to specify.
+
+```{r}
+#| label: step_instance_hardness
+recipe(MS_Zoning ~ ., data = ames_imbalance) |>
+  step_instance_hardness(MS_Zoning) |>
+  prep() |>
+  bake(new_data = NULL) |>
+  count(MS_Zoning)
+```
+
+The `under_ratio` argument controls how far the majority class is taken, in the same way as the other under-sampling steps.
+
+```{r}
+#| label: step_instance_hardness-under_ratio
+recipe(MS_Zoning ~ ., data = ames_imbalance) |>
+  step_instance_hardness(MS_Zoning, under_ratio = 2) |>
+  prep() |>
+  bake(new_data = NULL) |>
+  count(MS_Zoning)
+```
+
+The `neighbors` argument sets how many neighbors go into the hardness measure.
+Using fewer neighbors makes the measure more local, and more sensitive to individual points.
+
+```{r}
+#| label: step_instance_hardness-neighbors
+recipe(MS_Zoning ~ ., data = ames_imbalance) |>
+  step_instance_hardness(MS_Zoning, neighbors = 10) |>
+  prep() |>
+  bake(new_data = NULL) |>
+  count(MS_Zoning)
+```
+
 ## Python Examples
+
+{imblearn} provides `InstanceHardnessThreshold()`, which is the model-based version described above.
+It takes an `estimator` argument, so you can choose which model produces the hardness values, and it defaults to a random forest.
+
+We are unable to show it running here.
+At the versions this book is built against, `InstanceHardnessThreshold()` raises an error when the outcome is a character or factor column, which is how the class labels are stored throughout this book.
+It works when the labels are integer-coded.
+
+This is a version incompatibility rather than a property of the method.
+It comes from a change in {scipy}, which no longer accepts non-numeric input in the routine {imblearn} uses internally, and it may well be fixed by the time you read this.
+It is worth checking against your own installed versions rather than assuming the limitation still applies.
 
