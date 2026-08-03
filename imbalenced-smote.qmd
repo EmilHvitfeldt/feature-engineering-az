@@ -69,5 +69,152 @@ Many of the different issues are addressed by some of the [SMOTE variants](imbal
 
 ## R Examples
 
+```{r}
+#| label: ames
+#| echo: false
+#| message: false
+set.seed(1234)
+```
+
+We will be using the same subset of the `ames` data set as in the [up-sampling](imbalenced-upsample.qmd) chapter.
+Note that all the predictors are numeric, which SMOTE requires.
+
+```{r}
+#| label: show-data
+#| message: false
+library(recipes)
+library(themis)
+library(modeldata)
+library(dplyr)
+data("ames")
+
+ames_imbalance <- ames |>
+  filter(MS_Zoning %in% c("Residential_Low_Density", "Residential_Medium_Density")) |>
+  mutate(MS_Zoning = droplevels(MS_Zoning)) |>
+  select(MS_Zoning, Lot_Area, Year_Built, Gr_Liv_Area, Full_Bath)
+
+ames_imbalance |>
+  count(MS_Zoning)
+```
+
+{themis} provides `step_smote()`, which has the implementation for SMOTE.
+
+```{r}
+#| label: step_smote
+smote_rec <- recipe(MS_Zoning ~ ., data = ames_imbalance) |>
+  step_smote(MS_Zoning)
+
+smote_res <- smote_rec |>
+  prep() |>
+  bake(new_data = NULL)
+
+smote_res |>
+  count(MS_Zoning)
+```
+
+The counts match what [up-sampling](imbalenced-upsample.qmd) produced, but the rows themselves are different.
+Up-sampling duplicated existing rows, whereas SMOTE interpolated new ones.
+We can see this by looking at `Full_Bath`, which only ever takes whole numbers in the original data.
+
+```{r}
+#| label: step_smote-interpolated
+smote_res |>
+  filter(MS_Zoning == "Residential_Medium_Density") |>
+  count(Full_Bath)
+```
+
+The generated values land between the observed ones, which is a direct consequence of placing new points along the line between an observation and one of its neighbors.
+This is worth being aware of, because SMOTE has no notion of which values are valid.
+A count variable can come back fractional, and a variable that was never negative can be given a negative value.
+
+The `neighbors` argument sets how many nearest neighbors are considered when picking the partner to interpolate against.
+
+```{r}
+#| label: step_smote-neighbors
+recipe(MS_Zoning ~ ., data = ames_imbalance) |>
+  step_smote(MS_Zoning, neighbors = 2) |>
+  prep() |>
+  bake(new_data = NULL) |>
+  count(MS_Zoning)
+```
+
+Like the other sampling steps, `over_ratio` controls how far the minority class is taken.
+
+```{r}
+#| label: step_smote-over_ratio
+recipe(MS_Zoning ~ ., data = ames_imbalance) |>
+  step_smote(MS_Zoning, over_ratio = 0.5) |>
+  prep() |>
+  bake(new_data = NULL) |>
+  count(MS_Zoning)
+```
+
 ## Python Examples
+
+```{python}
+#| label: python-setup
+#| echo: false
+import pandas as pd
+from sklearn import set_config
+
+set_config(transform_output="pandas")
+pd.set_option('display.precision', 3)
+```
+
+We are using the same subset of the `ames` data set as above.
+
+```{python}
+#| label: show-data-py
+from feazdata import ames
+
+ames_imbalance = ames[ames["MS_Zoning"].isin(
+    ["Residential_Low_Density", "Residential_Medium_Density"])]
+
+X = ames_imbalance[["Lot_Area", "Year_Built", "Gr_Liv_Area", "Full_Bath"]]
+y = ames_imbalance["MS_Zoning"]
+
+y.value_counts()
+```
+
+{imblearn} provides `SMOTE()`.
+
+```{python}
+#| label: smote
+from imblearn.over_sampling import SMOTE
+
+X_res, y_res = SMOTE(random_state=1234).fit_resample(X, y)
+
+y_res.value_counts()
+```
+
+The interpolation is happening here too, but it is hidden by default.
+{imblearn} returns each column with the same data type it was given, and `Full_Bath` came in as an integer column, so the generated values are truncated back to whole numbers.
+
+```{python}
+#| label: smote-interpolated
+X_res[y_res == "Residential_Medium_Density"]["Full_Bath"].value_counts().head()
+```
+
+Passing the predictors in as floating point instead lets the interpolated values through.
+
+```{python}
+#| label: smote-interpolated-float
+X_float, y_float = SMOTE(random_state=1234).fit_resample(X.astype(float), y)
+
+X_float[y_float == "Residential_Medium_Density"]["Full_Bath"].value_counts().head()
+```
+
+This is a difference worth knowing about between the two implementations.
+{themis} returns doubles, so the fractional values are visible immediately, whereas {imblearn} quietly rounds them away whenever the input was integer.
+Neither is more correct than the other, but they will not give you the same data set.
+
+`k_neighbors` is the equivalent of the `neighbors` argument in {themis}, and `sampling_strategy` again controls how far the minority class is taken.
+
+```{python}
+#| label: smote-arguments
+X_res, y_res = SMOTE(
+    k_neighbors=2, sampling_strategy=0.5, random_state=1234).fit_resample(X, y)
+
+y_res.value_counts()
+```
 
