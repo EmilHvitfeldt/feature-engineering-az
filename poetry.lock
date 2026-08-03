@@ -352,22 +352,26 @@ tests = ["asttokens (>=2.1.0)", "coverage", "coverage-enable-subprocess", "ipyth
 
 [[package]]
 name = "feature-engine"
-version = "1.6.2"
-description = "Feature engineering package with Scikit-learn's fit transform functionality"
+version = "1.9.4"
+description = "Feature engineering and selection package with Scikit-learn's fit transform functionality"
 optional = false
-python-versions = ">=3.8.0"
+python-versions = ">=3.9.0"
 groups = ["main"]
 files = [
-    {file = "feature_engine-1.6.2-py2.py3-none-any.whl", hash = "sha256:1ebf790bb156f565f487f1658f4d2d4f323d013a0ed2665538b3fe0154c4a2b6"},
-    {file = "feature_engine-1.6.2.tar.gz", hash = "sha256:d365941d41f4dca1a83d021b0444df2db2230d843f943f0959aa21082d353e26"},
+    {file = "feature_engine-1.9.4-py3-none-any.whl", hash = "sha256:a1181dcb25fc906cc74dd4f2947c49a71012a727d30a4505f2418419c83ace9e"},
+    {file = "feature_engine-1.9.4.tar.gz", hash = "sha256:4ee817b9a557f9670636deb417689645e54fc2391c2f14fbe0ef4f185fd1ab17"},
 ]
 
 [package.dependencies]
 numpy = ">=1.18.2"
-pandas = ">=1.0.3"
-scikit-learn = ">=1.0.0"
+pandas = ">=2.2.0"
+scikit-learn = ">=1.4.0"
 scipy = ">=1.4.1"
 statsmodels = ">=0.11.1"
+
+[package.extras]
+docs = ["Sphinx (>=4.3.2)", "docutils (==0.16)", "numpydoc (>=0.9.2)", "pydata_sphinx_theme (>=0.7.2)", "sphinx_autodoc_typehints (>=1.11.1,<=1.21.3)"]
+tests = ["black (>=21.5b1)", "coverage (>=6.4.4)", "flake8 (>=3.9.2)", "isort (>=5.8.0)", "mypy (>=0.740)", "pytest (>=5.4.1)", "tzdata"]
 
 [[package]]
 name = "feazdata"
@@ -2276,4 +2280,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.12"
-content-hash = "dcbb24d50e96367472c062af8499fc7c11b4f82888a896a665e6da4d0560e363"
+content-hash = "07068df53e97a5d099da83f4070ad8daf3e88d10963fbc117cbb1e84ea783e78"
