@@ -62,21 +62,21 @@ wheel = ">=0.23.0,<1.0"
 
 [[package]]
 name = "category-encoders"
-version = "2.6.3"
-description = "A collection of sklearn transformers to encode categorical variables as numeric"
+version = "2.10.0"
+description = "A package for encoding categorical variables for machine learning"
 optional = false
-python-versions = "*"
+python-versions = ">=3.11"
 groups = ["main"]
 files = [
-    {file = "category_encoders-2.6.3-py2.py3-none-any.whl", hash = "sha256:117775f1775e53a67c9e91842ac9100bc364cddc9f4058188796532bc5b11f1c"},
-    {file = "category_encoders-2.6.3.tar.gz", hash = "sha256:d9f14705ed4b536eaf9cfc81b76d67a50b2f16f8f3eda498c57d7da19655530c"},
+    {file = "category_encoders-2.10.0-py3-none-any.whl", hash = "sha256:e1b9e4e489af72fb2da1bc07c92b9d8ff9bba330a9e8483d39346461decf0a8b"},
+    {file = "category_encoders-2.10.0.tar.gz", hash = "sha256:28e28a01813ac56d4ed068bb8561f523a527b04abf4261be890ab9adbc5fd143"},
 ]
 
 [package.dependencies]
 numpy = ">=1.14.0"
 pandas = ">=1.0.5"
 patsy = ">=0.5.1"
-scikit-learn = ">=0.20.0"
+scikit-learn = ">=1.6.0"
 scipy = ">=1.0.0"
 statsmodels = ">=0.9.0"
 
@@ -2276,4 +2276,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.12"
-content-hash = "f89e04858a594faf993eebf3fffb7e55f0b73aa7e0b521cf3e913ff647b29b0a"
+content-hash = "dcbb24d50e96367472c062af8499fc7c11b4f82888a896a665e6da4d0560e363"
