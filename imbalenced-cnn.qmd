@@ -57,5 +57,131 @@ And if the classes cleanly separate, then we should be able to discard most of t
 
 ## R Examples
 
+```{r}
+#| label: ames
+#| echo: false
+#| message: false
+set.seed(1234)
+```
+
+We will be using the same subset of the `ames` data set as in the [up-sampling](imbalenced-upsample.qmd) chapter.
+
+```{r}
+#| label: show-data
+#| message: false
+library(recipes)
+library(themis)
+library(modeldata)
+library(dplyr)
+data("ames")
+
+ames_imbalance <- ames |>
+  filter(MS_Zoning %in% c("Residential_Low_Density", "Residential_Medium_Density")) |>
+  mutate(MS_Zoning = droplevels(MS_Zoning)) |>
+  select(MS_Zoning, Lot_Area, Year_Built, Gr_Liv_Area, Full_Bath)
+
+ames_imbalance |>
+  count(MS_Zoning)
+```
+
+{themis} provides `step_cnn()`.
+
+```{r}
+#| label: step_cnn
+recipe(MS_Zoning ~ ., data = ames_imbalance) |>
+  step_cnn(MS_Zoning) |>
+  prep() |>
+  bake(new_data = NULL) |>
+  count(MS_Zoning)
+```
+
+The majority class was cut down sharply, from more than two thousand observations to a few hundred.
+The minority class was left alone, which is what we want from an under-sampling method.
+
+Recall from the description above that the result depends on which observation is seeded into the store first, and on the order in which the remaining observations are scanned.
+Both are random, so running the step with a different seed gives a different answer.
+
+```{r}
+#| label: step_cnn-seeds
+cnn_with_seed <- function(seed) {
+  recipe(MS_Zoning ~ ., data = ames_imbalance) |>
+    step_cnn(MS_Zoning, seed = seed) |>
+    prep() |>
+    bake(new_data = NULL) |>
+    count(MS_Zoning) |>
+    mutate(seed = seed)
+}
+
+bind_rows(cnn_with_seed(1), cnn_with_seed(2), cnn_with_seed(3))
+```
+
+The counts move around between runs.
+This is worth keeping in mind, because it means the size of the data set you get out is not something you can set in advance the way you can with the sampling methods.
+It is a consequence of the algorithm rather than a parameter.
+
 ## Python Examples
+
+```{python}
+#| label: python-setup
+#| echo: false
+import pandas as pd
+from sklearn import set_config
+
+set_config(transform_output="pandas")
+pd.set_option('display.precision', 3)
+```
+
+We are using the same subset of the `ames` data set as above.
+
+```{python}
+#| label: show-data-py
+from feazdata import ames
+
+ames_imbalance = ames[ames["MS_Zoning"].isin(
+    ["Residential_Low_Density", "Residential_Medium_Density"])]
+
+X = ames_imbalance[["Lot_Area", "Year_Built", "Gr_Liv_Area", "Full_Bath"]]
+y = ames_imbalance["MS_Zoning"]
+
+y.value_counts()
+```
+
+{imblearn} provides `CondensedNearestNeighbour()`.
+
+```{python}
+#| label: condensednearestneighbour
+from imblearn.under_sampling import CondensedNearestNeighbour
+
+X_res, y_res = CondensedNearestNeighbour(random_state=1234).fit_resample(X, y)
+
+y_res.value_counts()
+```
+
+The order dependence is present here as well, but it is much less pronounced.
+Rather than comparing counts, we look at which rows were kept, using the `sample_indices_` attribute.
+
+```{python}
+#| label: condensednearestneighbour-seeds
+import pandas as pd
+
+kept = {}
+for seed in [1, 2, 3]:
+    cnn = CondensedNearestNeighbour(random_state=seed)
+    cnn.fit_resample(X, y)
+    kept[seed] = set(cnn.sample_indices_)
+
+pd.DataFrame([
+    {"seed": seed, "n_kept": len(rows),
+     "shared_with_seed_1": len(rows & kept[1])}
+    for seed, rows in kept.items()
+])
+```
+
+The selected rows do change from seed to seed, so the method is order dependent in both implementations.
+But where {themis} swings by a dozen or more observations, {imblearn} settles on the same number every time and differs by only a row or two in which ones it picks.
+The two packages are making different choices about how the store is seeded and scanned, and those choices are not part of the published algorithm.
+If the size of the resulting data set matters to you, this is a good reason to check it rather than assume it.
+
+This method is also noticeably slower than the others in this section.
+It is iterative, and each pass runs a nearest neighbor search against a store that keeps growing, so the cost climbs quickly with the size of the data set.
 
