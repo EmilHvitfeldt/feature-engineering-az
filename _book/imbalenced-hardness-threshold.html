@@ -23,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -1241,9 +1276,12 @@ div.csl-indent {
 <section id="instance-hardness-threshold" class="level2" style="visibility: hidden; height: 0px;" data-number="95.1">
 <h2 data-number="95.1" class="anchored" data-anchor-id="instance-hardness-threshold"><span class="header-section-number">95.1</span> Instance Hardness Threshold</h2>
 </section>
-<p>The Instance Hardness Threshold method is based on the notion of instance hardness <span class="citation" data-cites="smith2014hardness">(<a href="references.html#ref-smith2014hardness" role="doc-biblioref">Smith et al. 2014</a>)</span>. The general idea behind this method is that we operate under an assumption that each observation has a value associated with it, that signals how hard it is to classify correctly. Then removing the hard-to-classify observation, thereby giving the model an easier data set to work with [SMGC14].</p>
-<p>We are essentially fitting an additional model, only letting through observations that this new model was able to work with easily. How exactly this is done in practice will depend on the implementation. Since each observation is given a value, typically the probability estimate of the model, we can remove how many or how few observations we want by setting a threshold. We can either remove a specific number of observations, a proportion of the data, or anything below a certain threshold value. Using the threshold value is somewhat tricky as it assumes that the model that we used is properly calibrated.</p>
-<p>Some implementations allow for any classification model to be used, while other implementations pick a predefined method.</p>
+<p>The Instance Hardness Threshold method is based on the notion of instance hardness <span class="citation" data-cites="smith2014hardness">(<a href="references.html#ref-smith2014hardness" role="doc-biblioref">Smith et al. 2014</a>)</span>. The general idea behind this method is that we operate under an assumption that each observation has a value associated with it, that signals how hard it is to classify correctly. Then removing the hard-to-classify observation, thereby giving the model an easier data set to work with.</p>
+<p>Once each observation has a hardness value, the rest is straightforward. We sort by that value and cut, and we can remove as many or as few observations as we like. We can either remove a specific number of observations, a proportion of the data, or anything above a certain threshold value.</p>
+<p>What the method does not settle is how the hardness value itself is calculated, and this is where implementations part ways. It is best to think of instance hardness as a family of methods rather than a single algorithm. Two strategies are common.</p>
+<p>The first is to <strong>fit a model</strong> and use its predicted probability for the correct class as the hardness value. An observation the model confidently gets right is easy, and one it gets wrong is hard. This is usually done with cross-validation, so that each observation is scored by a model that did not see it during training. Some implementations let you supply any classification model, while others pick one for you. Reading the threshold as a probability is somewhat tricky here, as it assumes the model is properly calibrated.</p>
+<p>The second is to use a <strong>neighborhood measure</strong> and skip the model entirely. The k-Disagreeing Neighbors measure takes the proportion of an observation’s nearest neighbors that belong to a different class. An observation surrounded by its own class scores 0, and one surrounded entirely by other classes scores 1.</p>
+<p>The two strategies do not have the same properties. The model-based approach is slower, since it fits a model, sometimes many times over, and its answer depends on which model you chose. The neighborhood approach is faster and has no model to choose, but it is a local measure, and it makes this method a close relative of <a href="./imbalenced-enn.html">Edited Nearest Neighbors</a>, which also removes observations based on the classes of their neighbors. The difference is mostly that this method gives you a threshold to tune, where Edited Nearest Neighbors gives you a rule.</p>
 <section id="pros-and-cons" class="level2" data-number="95.2">
 <h2 data-number="95.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">95.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="95.2.1">
@@ -1252,16 +1290,88 @@ div.csl-indent {
 <section id="cons" class="level3" data-number="95.2.2">
 <h3 data-number="95.2.2" class="anchored" data-anchor-id="cons"><span class="header-section-number">95.2.2</span> Cons</h3>
 <ul>
-<li>The choice of model matters</li>
+<li>The choice of model matters, when a model-based hardness measure is used</li>
 <li>Potentially long fitting time depending on model choice</li>
+<li>A neighborhood-based hardness measure is only as good as the distance metric it is built on, and inherits the usual problems distances have in higher dimensions</li>
 </ul>
 </section>
 </section>
 <section id="r-examples" class="level2" data-number="95.3">
 <h2 data-number="95.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">95.3</span> R Examples</h2>
+<p>We will be using the same subset of the <code>ames</code> data set as in the <a href="./imbalenced-upsample.html">up-sampling</a> chapter.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(themis)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modeldata)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"ames"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>ames_imbalance <span class="ot">&lt;-</span> ames <span class="sc">|&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(MS_Zoning <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Residential_Low_Density"</span>, <span class="st">"Residential_Medium_Density"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">MS_Zoning =</span> <span class="fu">droplevels</span>(MS_Zoning)) <span class="sc">|&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(MS_Zoning, Lot_Area, Year_Built, Gr_Liv_Area, Full_Bath)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>ames_imbalance <span class="sc">|&gt;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(MS_Zoning)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  MS_Zoning                      n
+  &lt;fct&gt;                      &lt;int&gt;
+1 Residential_Low_Density     2273
+2 Residential_Medium_Density   462</code></pre>
+</div>
+</div>
+<p>{themis} provides <code>step_instance_hardness()</code>. This is the neighborhood-based version described above, using the k-Disagreeing Neighbors measure, so there is no model to specify.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">recipe</span>(MS_Zoning <span class="sc">~</span> ., <span class="at">data =</span> ames_imbalance) <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_instance_hardness</span>(MS_Zoning) <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(MS_Zoning)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  MS_Zoning                      n
+  &lt;fct&gt;                      &lt;int&gt;
+1 Residential_Low_Density      462
+2 Residential_Medium_Density   462</code></pre>
+</div>
+</div>
+<p>The <code>under_ratio</code> argument controls how far the majority class is taken, in the same way as the other under-sampling steps.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">recipe</span>(MS_Zoning <span class="sc">~</span> ., <span class="at">data =</span> ames_imbalance) <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_instance_hardness</span>(MS_Zoning, <span class="at">under_ratio =</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(MS_Zoning)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  MS_Zoning                      n
+  &lt;fct&gt;                      &lt;int&gt;
+1 Residential_Low_Density      924
+2 Residential_Medium_Density   462</code></pre>
+</div>
+</div>
+<p>The <code>neighbors</code> argument sets how many neighbors go into the hardness measure. Using fewer neighbors makes the measure more local, and more sensitive to individual points.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">recipe</span>(MS_Zoning <span class="sc">~</span> ., <span class="at">data =</span> ames_imbalance) <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_instance_hardness</span>(MS_Zoning, <span class="at">neighbors =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(MS_Zoning)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  MS_Zoning                      n
+  &lt;fct&gt;                      &lt;int&gt;
+1 Residential_Low_Density      462
+2 Residential_Medium_Density   462</code></pre>
+</div>
+</div>
 </section>
 <section id="python-examples" class="level2" data-number="95.4">
 <h2 data-number="95.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">95.4</span> Python Examples</h2>
+<p>{imblearn} provides <code>InstanceHardnessThreshold()</code>, which is the model-based version described above. It takes an <code>estimator</code> argument, so you can choose which model produces the hardness values, and it defaults to a random forest.</p>
+<p>We are unable to show it running here. At the versions this book is built against, <code>InstanceHardnessThreshold()</code> raises an error when the outcome is a character or factor column, which is how the class labels are stored throughout this book. It works when the labels are integer-coded.</p>
+<p>This is a version incompatibility rather than a property of the method. It comes from a change in {scipy}, which no longer accepts non-numeric input in the routine {imblearn} uses internally, and it may well be fixed by the time you read this. It is worth checking against your own installed versions rather than assuming the limitation still applies.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">

@@ -23,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -1243,7 +1278,11 @@ div.csl-indent {
 </section>
 <p>The NearMiss method is a method that is used to remove observations from the majority classes <span class="citation" data-cites="mani2003nearmiss">(<a href="references.html#ref-mani2003nearmiss" role="doc-biblioref">Mani and Zhang 2003</a>)</span>. Like with many of the other methods in this section, we are going to focus on points based on their distance to instances of other classes.</p>
 <p>What we are doing is that we are removing points from the majority class that are far away from the minority class. We are keeping points from the majority class that are close to the minority class. In other words, we are only keeping the “near misses”. While the idea is fairly straightforward, it has 3 different recognized variants based on how we define a near miss.</p>
-<p>NearMiss-1: Selects majority class observations with the smallest average distance to the three <strong>closest</strong> minority class observations. NearMiss-2: Selects majority class observations with the smallest average distance to the three <strong>furthest</strong> minority class observations. NearMiss-3: It is a two-stage method, first for each minority class, their nearest neighbors are kept, and then we select the majority class observations with the smallest distance to each minority class observation.</p>
+<ul>
+<li><strong>NearMiss-1</strong>: Selects majority class observations with the smallest average distance to the three <strong>closest</strong> minority class observations.</li>
+<li><strong>NearMiss-2</strong>: Selects majority class observations with the smallest average distance to the three <strong>furthest</strong> minority class observations.</li>
+<li><strong>NearMiss-3</strong>: It is a two-stage method, first for each minority class, their nearest neighbors are kept, and then we select the majority class observations with the smallest distance to each minority class observation.</li>
+</ul>
 <p>While the distinction between the 1 and 2 variants might seem small, what you are getting is that with NearMiss-1, you are preserving samples that are most similar to the minority class, and with NearMiss-2, you are preserving samples that are least similar to the minority class. NearMiss-3 is trying to have a more blended selection.</p>
 <p>This method, like many of the other methods, is technically not restricted to be used on the majority class, and could, in theory, be used on any number of classes in the data set.</p>
 <p>One of the convenient things about this method is that it technically works by giving the observations an ordering, And we just have to find the cut point that determines how many points to retain.</p>
@@ -1258,9 +1297,128 @@ div.csl-indent {
 </section>
 <section id="r-examples" class="level2" data-number="91.3">
 <h2 data-number="91.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">91.3</span> R Examples</h2>
+<p>We will be using the same subset of the <code>ames</code> data set as in the <a href="./imbalenced-upsample.html">up-sampling</a> chapter.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(themis)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modeldata)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"ames"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>ames_imbalance <span class="ot">&lt;-</span> ames <span class="sc">|&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(MS_Zoning <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Residential_Low_Density"</span>, <span class="st">"Residential_Medium_Density"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">MS_Zoning =</span> <span class="fu">droplevels</span>(MS_Zoning)) <span class="sc">|&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(MS_Zoning, Lot_Area, Year_Built, Gr_Liv_Area, Full_Bath)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>ames_imbalance <span class="sc">|&gt;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(MS_Zoning)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  MS_Zoning                      n
+  &lt;fct&gt;                      &lt;int&gt;
+1 Residential_Low_Density     2273
+2 Residential_Medium_Density   462</code></pre>
+</div>
+</div>
+<p>{themis} provides <code>step_nearmiss()</code>, and the <code>version</code> argument selects which of the three variants to use.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>nearmiss_res <span class="ot">&lt;-</span> <span class="fu">recipe</span>(MS_Zoning <span class="sc">~</span> ., <span class="at">data =</span> ames_imbalance) <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_nearmiss</span>(MS_Zoning, <span class="at">version =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>nearmiss_res <span class="sc">|&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(MS_Zoning)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  MS_Zoning                      n
+  &lt;fct&gt;                      &lt;int&gt;
+1 Residential_Low_Density      462
+2 Residential_Medium_Density   462</code></pre>
+</div>
+</div>
+<p>Unlike <a href="./imbalenced-tomek.html">Tomek link removal</a>, this method does give you a target to aim at. The majority class was brought all the way down to the size of the minority class, and <code>under_ratio</code> adjusts how far it goes.</p>
+<p>The three variants all return the same number of observations, since the count is set by <code>under_ratio</code> rather than by the data. What changes is which observations are kept.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>nearmiss_version <span class="ot">&lt;-</span> <span class="cf">function</span>(version) {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">recipe</span>(MS_Zoning <span class="sc">~</span> ., <span class="at">data =</span> ames_imbalance) <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">step_nearmiss</span>(MS_Zoning, <span class="at">version =</span> version) <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(MS_Zoning <span class="sc">==</span> <span class="st">"Residential_Low_Density"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">version =</span> version, <span class="at">mean_lot_area =</span> <span class="fu">mean</span>(Lot_Area), <span class="at">mean_year =</span> <span class="fu">mean</span>(Year_Built))</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="fu">nearmiss_version</span>(<span class="dv">1</span>), <span class="fu">nearmiss_version</span>(<span class="dv">2</span>), <span class="fu">nearmiss_version</span>(<span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  version mean_lot_area mean_year
+    &lt;dbl&gt;         &lt;dbl&gt;     &lt;dbl&gt;
+1       1         8247.     1969.
+2       2        10074.     1975.
+3       3         8591.     1969.</code></pre>
+</div>
+</div>
+<p>The three variants keep noticeably different parts of the majority class, which is what the description above would lead us to expect.</p>
 </section>
 <section id="python-examples" class="level2" data-number="91.4">
 <h2 data-number="91.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">91.4</span> Python Examples</h2>
+<p>We are using the same subset of the <code>ames</code> data set as above.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> feazdata <span class="im">import</span> ames</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>ames_imbalance <span class="op">=</span> ames[ames[<span class="st">"MS_Zoning"</span>].isin(</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"Residential_Low_Density"</span>, <span class="st">"Residential_Medium_Density"</span>])]</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> ames_imbalance[[<span class="st">"Lot_Area"</span>, <span class="st">"Year_Built"</span>, <span class="st">"Gr_Liv_Area"</span>, <span class="st">"Full_Bath"</span>]]</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> ames_imbalance[<span class="st">"MS_Zoning"</span>]</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>y.value_counts()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>MS_Zoning
+Residential_Low_Density       2273
+Residential_Medium_Density     462
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<p>{imblearn} provides <code>NearMiss()</code>, with the same <code>version</code> argument.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> imblearn.under_sampling <span class="im">import</span> NearMiss</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>X_res, y_res <span class="op">=</span> NearMiss(version<span class="op">=</span><span class="dv">1</span>).fit_resample(X, y)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>y_res.value_counts()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>MS_Zoning
+Residential_Low_Density       462
+Residential_Medium_Density    462
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<p>And the same comparison across the three variants.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> []</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> version <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]:</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    X_res, y_res <span class="op">=</span> NearMiss(version<span class="op">=</span>version).fit_resample(X, y)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    kept <span class="op">=</span> X_res[y_res <span class="op">==</span> <span class="st">"Residential_Low_Density"</span>]</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    rows.append({</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"version"</span>: version,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"mean_lot_area"</span>: kept[<span class="st">"Lot_Area"</span>].mean(),</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"mean_year"</span>: kept[<span class="st">"Year_Built"</span>].mean(),</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(rows)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   version  mean_lot_area  mean_year
+0        1       8235.214   1967.957
+1        2      12074.108   1982.156
+2        3       8600.721   1969.563</code></pre>
+</div>
+</div>
+<p>Comparing the two tables, versions 1 and 3 agree closely across the implementations while version 2 does not. This is not a disagreement about the algorithm, it is a difference in defaults. {themis} uses <code>neighbors = 5</code> and {imblearn} uses <code>n_neighbors = 3</code>. Version 2 measures distance to the <em>furthest</em> neighbors, so it is far more sensitive to that number than the other two variants, which look at the closest ones. Setting <code>neighbors = 3</code> in {themis} reproduces the {imblearn} result exactly.</p>
+<p>It is worth taking this as a general warning rather than a fact about this one method. Two implementations of the same published algorithm will frequently disagree on defaults, and the disagreement is easiest to miss precisely where it matters most.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
