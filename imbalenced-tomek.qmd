@@ -36,5 +36,99 @@ A point deep inside another class may or may not be removed purely based on how 
 
 ## R Examples
 
+```{r}
+#| label: ames
+#| echo: false
+#| message: false
+set.seed(1234)
+```
+
+We will be using the same subset of the `ames` data set as in the [up-sampling](imbalenced-upsample.qmd) chapter.
+
+```{r}
+#| label: show-data
+#| message: false
+library(recipes)
+library(themis)
+library(modeldata)
+library(dplyr)
+data("ames")
+
+ames_imbalance <- ames |>
+  filter(MS_Zoning %in% c("Residential_Low_Density", "Residential_Medium_Density")) |>
+  mutate(MS_Zoning = droplevels(MS_Zoning)) |>
+  select(MS_Zoning, Lot_Area, Year_Built, Gr_Liv_Area, Full_Bath)
+
+ames_imbalance |>
+  count(MS_Zoning)
+```
+
+{themis} provides `step_tomek()`, which removes Tomek links.
+
+```{r}
+#| label: step_tomek
+recipe(MS_Zoning ~ ., data = ames_imbalance) |>
+  step_tomek(MS_Zoning) |>
+  prep() |>
+  bake(new_data = NULL) |>
+  count(MS_Zoning)
+```
+
+This is a good illustration of the point made above about not having many levers to pull.
+Only the majority class lost observations, and it lost fewer than a hundred of them out of more than two thousand.
+Where the sampling methods let you dial in a target ratio, this method removes the pairs it finds and nothing more.
+If those pairs are few, the data set barely changes.
+
+Notice also that `step_tomek()` takes no arguments beyond the outcome and a `seed`.
+There is no ratio to set, because the number of observations removed is a property of the data rather than something you choose.
+
 ## Python Examples
+
+```{python}
+#| label: python-setup
+#| echo: false
+import pandas as pd
+from sklearn import set_config
+
+set_config(transform_output="pandas")
+pd.set_option('display.precision', 3)
+```
+
+We are using the same subset of the `ames` data set as above.
+
+```{python}
+#| label: show-data-py
+from feazdata import ames
+
+ames_imbalance = ames[ames["MS_Zoning"].isin(
+    ["Residential_Low_Density", "Residential_Medium_Density"])]
+
+X = ames_imbalance[["Lot_Area", "Year_Built", "Gr_Liv_Area", "Full_Bath"]]
+y = ames_imbalance["MS_Zoning"]
+
+y.value_counts()
+```
+
+{imblearn} provides `TomekLinks()`.
+
+```{python}
+#| label: tomeklinks
+from imblearn.under_sampling import TomekLinks
+
+X_res, y_res = TomekLinks().fit_resample(X, y)
+
+y_res.value_counts()
+```
+
+The two implementations land within a couple of observations of each other, which is what we should expect given that identifying Tomek links is deterministic once the distance metric is fixed.
+
+By default only the majority class is cleaned.
+Setting `sampling_strategy="all"` removes both members of each pair instead, which is the variant mentioned above.
+
+```{python}
+#| label: tomeklinks-all
+X_res, y_res = TomekLinks(sampling_strategy="all").fit_resample(X, y)
+
+y_res.value_counts()
+```
 
