@@ -50,50 +50,64 @@ You could think of this as a stochastic version of case weights without the comp
 #| label: ames
 #| echo: false
 #| message: false
-library(tidymodels)
 set.seed(1234)
-data("ames")
 ```
 
 We will be using the `ames` data set for these examples.
+The `MS_Zoning` variable is imbalanced, so we take the two largest classes to get a clean two-class problem to work with.
+The same data set is used throughout this section so the methods can be compared against each other.
 
 ```{r}
 #| label: show-data
+#| message: false
 library(recipes)
 library(themis)
 library(modeldata)
+library(dplyr)
+data("ames")
 
-ames
+ames_imbalance <- ames |>
+  filter(MS_Zoning %in% c("Residential_Low_Density", "Residential_Medium_Density")) |>
+  mutate(MS_Zoning = droplevels(MS_Zoning)) |>
+  select(MS_Zoning, Lot_Area, Year_Built, Gr_Liv_Area, Full_Bath)
+
+ames_imbalance |>
+  count(MS_Zoning)
 ```
+
+We are using numeric predictors only because most of the other methods in this section require it.
+Up-sampling itself has no such restriction, since it copies whole rows.
 
 {themis} provides `step_upsample()`, which has the implementation for up-sampling.
 
 ```{r}
 #| label: step_upsample
-
-ames |>
-  count(MS_Zoning)
-
-upsample_rec <- recipe(MS_Zoning ~ ., data = ames) |>
+upsample_rec <- recipe(MS_Zoning ~ ., data = ames_imbalance) |>
   step_upsample(MS_Zoning)
 
 upsample_res <- upsample_rec |>
   prep() |>
-  bake(new_data = NULL) 
-
-upsample_res
+  bake(new_data = NULL)
 
 upsample_res |>
   count(MS_Zoning)
 ```
 
-It includes the `over_ratio` to only partially update the data set.
+The minority class has been sampled with replacement until it matches the majority class.
+Note that no new values were invented, the added rows are duplicates of rows that were already there.
 
 ```{r}
-upsample_rec <- recipe(MS_Zoning ~ ., data = ames) |>
-  step_upsample(MS_Zoning, over_ratio = 0.5)
+#| label: step_upsample-duplicates
+upsample_res |>
+  count(Lot_Area, Year_Built, Gr_Liv_Area, Full_Bath, sort = TRUE)
+```
 
-upsample_rec |>
+It includes the `over_ratio` argument to only partially update the data set.
+
+```{r}
+#| label: step_upsample-over_ratio
+recipe(MS_Zoning ~ ., data = ames_imbalance) |>
+  step_upsample(MS_Zoning, over_ratio = 0.5) |>
   prep() |>
   bake(new_data = NULL) |>
   count(MS_Zoning)
@@ -101,3 +115,75 @@ upsample_rec |>
 
 ## Python Examples
 
+```{python}
+#| label: python-setup
+#| echo: false
+import pandas as pd
+from sklearn import set_config
+
+set_config(transform_output="pandas")
+pd.set_option('display.precision', 3)
+```
+
+We are using the same subset of the `ames` data set as above.
+
+```{python}
+#| label: show-data-py
+from feazdata import ames
+
+ames_imbalance = ames[ames["MS_Zoning"].isin(
+    ["Residential_Low_Density", "Residential_Medium_Density"])]
+
+X = ames_imbalance[["Lot_Area", "Year_Built", "Gr_Liv_Area", "Full_Bath"]]
+y = ames_imbalance["MS_Zoning"]
+
+y.value_counts()
+```
+
+{imblearn} provides `RandomOverSampler()` for up-sampling.
+
+Note that the samplers in {imblearn} do not follow the `fit()` and `transform()` pattern used elsewhere in this book.
+Because they change the number of rows, they expose `fit_resample()` instead, which returns both the predictors and the outcome.
+
+```{python}
+#| label: randomoversampler
+from imblearn.over_sampling import RandomOverSampler
+
+X_res, y_res = RandomOverSampler(random_state=1234).fit_resample(X, y)
+
+y_res.value_counts()
+```
+
+The `sampling_strategy` argument plays the same role as `over_ratio` does in {themis}.
+
+```{python}
+#| label: randomoversampler-sampling_strategy
+X_res, y_res = RandomOverSampler(
+    sampling_strategy=0.5, random_state=1234).fit_resample(X, y)
+
+y_res.value_counts()
+```
+
+Because `fit_resample()` is not a transformer, a sampler cannot go into a regular {sklearn} `Pipeline`.
+{imblearn} provides its own `Pipeline` that knows how to handle them.
+
+```{python}
+#| label: imblearn-pipeline
+from imblearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+
+pipe = Pipeline([
+    ('upsample', RandomOverSampler(random_state=1234)),
+    ('scale', StandardScaler()),
+    ('model', LogisticRegression()),
+])
+
+pipe.fit(X, y)
+pipe.predict(X)[:5]
+```
+
+This pipeline is worth a closer look, because it encodes something the rest of this section depends on.
+The sampler runs when you call `fit()`, and is skipped entirely when you call `predict()`.
+That is what we want, since re-balancing is something we do to the training data to help the model learn, not something we do to data we want predictions for.
+{themis} encodes the same idea with the `skip = TRUE` default that all of its steps carry.
