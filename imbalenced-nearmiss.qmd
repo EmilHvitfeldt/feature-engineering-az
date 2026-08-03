@@ -19,9 +19,9 @@ In other words, we are only keeping the "near misses".
 While the idea is fairly straightforward,
 it has 3 different recognized variants based on how we define a near miss.
 
-NearMiss-1: Selects majority class observations with the smallest average distance to the three **closest** minority class observations.
-NearMiss-2: Selects majority class observations with the smallest average distance to the three **furthest** minority class observations.
-NearMiss-3: It is a two-stage method, first for each minority class, their nearest neighbors are kept, and then we select the majority class observations with the smallest distance to each minority class observation.
+-   **NearMiss-1**: Selects majority class observations with the smallest average distance to the three **closest** minority class observations.
+-   **NearMiss-2**: Selects majority class observations with the smallest average distance to the three **furthest** minority class observations.
+-   **NearMiss-3**: It is a two-stage method, first for each minority class, their nearest neighbors are kept, and then we select the majority class observations with the smallest distance to each minority class observation.
 
 While the distinction between the 1 and 2 variants might seem small,
 what you are getting is that with NearMiss-1, you are preserving samples that are most similar to the minority class,
@@ -42,5 +42,131 @@ And we just have to find the cut point that determines how many points to retain
 
 ## R Examples
 
+```{r}
+#| label: ames
+#| echo: false
+#| message: false
+set.seed(1234)
+```
+
+We will be using the same subset of the `ames` data set as in the [up-sampling](imbalenced-upsample.qmd) chapter.
+
+```{r}
+#| label: show-data
+#| message: false
+library(recipes)
+library(themis)
+library(modeldata)
+library(dplyr)
+data("ames")
+
+ames_imbalance <- ames |>
+  filter(MS_Zoning %in% c("Residential_Low_Density", "Residential_Medium_Density")) |>
+  mutate(MS_Zoning = droplevels(MS_Zoning)) |>
+  select(MS_Zoning, Lot_Area, Year_Built, Gr_Liv_Area, Full_Bath)
+
+ames_imbalance |>
+  count(MS_Zoning)
+```
+
+{themis} provides `step_nearmiss()`, and the `version` argument selects which of the three variants to use.
+
+```{r}
+#| label: step_nearmiss
+nearmiss_res <- recipe(MS_Zoning ~ ., data = ames_imbalance) |>
+  step_nearmiss(MS_Zoning, version = 1) |>
+  prep() |>
+  bake(new_data = NULL)
+
+nearmiss_res |>
+  count(MS_Zoning)
+```
+
+Unlike [Tomek link removal](imbalenced-tomek.qmd), this method does give you a target to aim at.
+The majority class was brought all the way down to the size of the minority class, and `under_ratio` adjusts how far it goes.
+
+The three variants all return the same number of observations, since the count is set by `under_ratio` rather than by the data.
+What changes is which observations are kept.
+
+```{r}
+#| label: step_nearmiss-versions
+nearmiss_version <- function(version) {
+  recipe(MS_Zoning ~ ., data = ames_imbalance) |>
+    step_nearmiss(MS_Zoning, version = version) |>
+    prep() |>
+    bake(new_data = NULL) |>
+    filter(MS_Zoning == "Residential_Low_Density") |>
+    summarise(version = version, mean_lot_area = mean(Lot_Area), mean_year = mean(Year_Built))
+}
+
+bind_rows(nearmiss_version(1), nearmiss_version(2), nearmiss_version(3))
+```
+
+The three variants keep noticeably different parts of the majority class, which is what the description above would lead us to expect.
+
 ## Python Examples
+
+```{python}
+#| label: python-setup
+#| echo: false
+import pandas as pd
+from sklearn import set_config
+
+set_config(transform_output="pandas")
+pd.set_option('display.precision', 3)
+```
+
+We are using the same subset of the `ames` data set as above.
+
+```{python}
+#| label: show-data-py
+from feazdata import ames
+
+ames_imbalance = ames[ames["MS_Zoning"].isin(
+    ["Residential_Low_Density", "Residential_Medium_Density"])]
+
+X = ames_imbalance[["Lot_Area", "Year_Built", "Gr_Liv_Area", "Full_Bath"]]
+y = ames_imbalance["MS_Zoning"]
+
+y.value_counts()
+```
+
+{imblearn} provides `NearMiss()`, with the same `version` argument.
+
+```{python}
+#| label: nearmiss
+from imblearn.under_sampling import NearMiss
+
+X_res, y_res = NearMiss(version=1).fit_resample(X, y)
+
+y_res.value_counts()
+```
+
+And the same comparison across the three variants.
+
+```{python}
+#| label: nearmiss-versions
+import pandas as pd
+
+rows = []
+for version in [1, 2, 3]:
+    X_res, y_res = NearMiss(version=version).fit_resample(X, y)
+    kept = X_res[y_res == "Residential_Low_Density"]
+    rows.append({
+        "version": version,
+        "mean_lot_area": kept["Lot_Area"].mean(),
+        "mean_year": kept["Year_Built"].mean(),
+    })
+
+pd.DataFrame(rows)
+```
+
+Comparing the two tables, versions 1 and 3 agree closely across the implementations while version 2 does not.
+This is not a disagreement about the algorithm, it is a difference in defaults.
+{themis} uses `neighbors = 5` and {imblearn} uses `n_neighbors = 3`.
+Version 2 measures distance to the *furthest* neighbors, so it is far more sensitive to that number than the other two variants, which look at the closest ones.
+Setting `neighbors = 3` in {themis} reproduces the {imblearn} result exactly.
+
+It is worth taking this as a general warning rather than a fact about this one method.
+Two implementations of the same published algorithm will frequently disagree on defaults, and the disagreement is easiest to miss precisely where it matters most.
 
