@@ -23,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -1243,7 +1278,11 @@ div.csl-indent {
 </section>
 <p>The NearMiss method is a method that is used to remove observations from the majority classes <span class="citation" data-cites="mani2003nearmiss">(<a href="references.html#ref-mani2003nearmiss" role="doc-biblioref">Mani and Zhang 2003</a>)</span>. Like with many of the other methods in this section, we are going to focus on points based on their distance to instances of other classes.</p>
 <p>What we are doing is that we are removing points from the majority class that are far away from the minority class. We are keeping points from the majority class that are close to the minority class. In other words, we are only keeping the “near misses”. While the idea is fairly straightforward, it has 3 different recognized variants based on how we define a near miss.</p>
-<p>NearMiss-1: Selects majority class observations with the smallest average distance to the three <strong>closest</strong> minority class observations. NearMiss-2: Selects majority class observations with the smallest average distance to the three <strong>furthest</strong> minority class observations. NearMiss-3: It is a two-stage method, first for each minority class, their nearest neighbors are kept, and then we select the majority class observations with the smallest distance to each minority class observation.</p>
+<ul>
+<li>NearMiss-1: Selects majority class observations with the smallest average distance to the three <strong>closest</strong> minority class observations.</li>
+<li>NearMiss-2: Selects majority class observations with the smallest average distance to the three <strong>furthest</strong> minority class observations.</li>
+<li>NearMiss-3: It is a two-stage method, first for each minority class, their nearest neighbors are kept, and then we select the majority class observations with the smallest distance to each minority class observation.</li>
+</ul>
 <p>While the distinction between the 1 and 2 variants might seem small, what you are getting is that with NearMiss-1, you are preserving samples that are most similar to the minority class, and with NearMiss-2, you are preserving samples that are least similar to the minority class. NearMiss-3 is trying to have a more blended selection.</p>
 <p>This method, like many of the other methods, is technically not restricted to be used on the majority class, and could, in theory, be used on any number of classes in the data set.</p>
 <p>One of the convenient things about this method is that it technically works by giving the observations an ordering, And we just have to find the cut point that determines how many points to retain.</p>
@@ -1258,6 +1297,44 @@ div.csl-indent {
 </section>
 <section id="r-examples" class="level2" data-number="91.3">
 <h2 data-number="91.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">91.3</span> R Examples</h2>
+<p>We will be using the same subset of the <code>ames</code> data set as in the <a href="./imbalenced-upsample.html">up-sampling</a> chapter.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(themis)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modeldata)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"ames"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>ames_imbalance <span class="ot">&lt;-</span> ames <span class="sc">|&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(MS_Zoning <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Residential_Low_Density"</span>, <span class="st">"Residential_Medium_Density"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">MS_Zoning =</span> <span class="fu">droplevels</span>(MS_Zoning)) <span class="sc">|&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(MS_Zoning, Lot_Area, Year_Built, Gr_Liv_Area, Full_Bath)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>ames_imbalance <span class="sc">|&gt;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(MS_Zoning)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  MS_Zoning                      n
+  &lt;fct&gt;                      &lt;int&gt;
+1 Residential_Low_Density     2273
+2 Residential_Medium_Density   462</code></pre>
+</div>
+</div>
+<p>{themis} provides <code>step_nearmiss()</code>, and the <code>version</code> argument selects which of the three variants to use.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">recipe</span>(MS_Zoning <span class="sc">~</span> ., <span class="at">data =</span> ames_imbalance) <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_nearmiss</span>(MS_Zoning, <span class="at">version =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(MS_Zoning)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  MS_Zoning                      n
+  &lt;fct&gt;                      &lt;int&gt;
+1 Residential_Low_Density      462
+2 Residential_Medium_Density   462</code></pre>
+</div>
+</div>
 </section>
 <section id="python-examples" class="level2" data-number="91.4">
 <h2 data-number="91.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">91.4</span> Python Examples</h2>

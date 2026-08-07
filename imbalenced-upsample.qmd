@@ -50,54 +50,43 @@ You could think of this as a stochastic version of case weights without the comp
 #| label: ames
 #| echo: false
 #| message: false
-library(tidymodels)
 set.seed(1234)
-data("ames")
 ```
 
 We will be using the `ames` data set for these examples.
+The `MS_Zoning` variable is imbalanced, so we take the two largest classes to get a clean two-class problem to work with.
+The same data set is used throughout this section so the methods can be compared against each other.
 
 ```{r}
 #| label: show-data
+#| message: false
 library(recipes)
 library(themis)
 library(modeldata)
+library(dplyr)
+data("ames")
 
-ames
+ames_imbalance <- ames |>
+  filter(MS_Zoning %in% c("Residential_Low_Density", "Residential_Medium_Density")) |>
+  mutate(MS_Zoning = droplevels(MS_Zoning)) |>
+  select(MS_Zoning, Lot_Area, Year_Built, Gr_Liv_Area, Full_Bath)
+
+ames_imbalance |>
+  count(MS_Zoning)
 ```
+
+We are using numeric predictors only because most of the other methods in this section require it.
+Up-sampling itself has no such restriction, since it copies whole rows.
 
 {themis} provides `step_upsample()`, which has the implementation for up-sampling.
 
 ```{r}
 #| label: step_upsample
-
-ames |>
-  count(MS_Zoning)
-
-upsample_rec <- recipe(MS_Zoning ~ ., data = ames) |>
-  step_upsample(MS_Zoning)
-
-upsample_res <- upsample_rec |>
-  prep() |>
-  bake(new_data = NULL) 
-
-upsample_res
-
-upsample_res |>
-  count(MS_Zoning)
-```
-
-It includes the `over_ratio` to only partially update the data set.
-
-```{r}
-upsample_rec <- recipe(MS_Zoning ~ ., data = ames) |>
-  step_upsample(MS_Zoning, over_ratio = 0.5)
-
-upsample_rec |>
+recipe(MS_Zoning ~ ., data = ames_imbalance) |>
+  step_upsample(MS_Zoning) |>
   prep() |>
   bake(new_data = NULL) |>
   count(MS_Zoning)
 ```
 
 ## Python Examples
-

@@ -1280,117 +1280,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="r-examples" class="level2" data-number="87.3">
 <h2 data-number="87.3" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">87.3</span> R Examples</h2>
-<p>We will be using the <code>ames</code> data set for these examples.</p>
+<p>We will be using the <code>ames</code> data set for these examples. The <code>MS_Zoning</code> variable is imbalanced, so we take the two largest classes to get a clean two-class problem to work with. The same data set is used throughout this section so the methods can be compared against each other.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(themis)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modeldata)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>ames</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"ames"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>ames_imbalance <span class="ot">&lt;-</span> ames <span class="sc">|&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(MS_Zoning <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Residential_Low_Density"</span>, <span class="st">"Residential_Medium_Density"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">MS_Zoning =</span> <span class="fu">droplevels</span>(MS_Zoning)) <span class="sc">|&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(MS_Zoning, Lot_Area, Year_Built, Gr_Liv_Area, Full_Bath)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>ames_imbalance <span class="sc">|&gt;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(MS_Zoning)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2,930 × 74
-   MS_SubClass            MS_Zoning Lot_Frontage Lot_Area Street Alley Lot_Shape
- * &lt;fct&gt;                  &lt;fct&gt;            &lt;dbl&gt;    &lt;int&gt; &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt;    
- 1 One_Story_1946_and_Ne… Resident…          141    31770 Pave   No_A… Slightly…
- 2 One_Story_1946_and_Ne… Resident…           80    11622 Pave   No_A… Regular  
- 3 One_Story_1946_and_Ne… Resident…           81    14267 Pave   No_A… Slightly…
- 4 One_Story_1946_and_Ne… Resident…           93    11160 Pave   No_A… Regular  
- 5 Two_Story_1946_and_Ne… Resident…           74    13830 Pave   No_A… Slightly…
- 6 Two_Story_1946_and_Ne… Resident…           78     9978 Pave   No_A… Slightly…
- 7 One_Story_PUD_1946_an… Resident…           41     4920 Pave   No_A… Regular  
- 8 One_Story_PUD_1946_an… Resident…           43     5005 Pave   No_A… Slightly…
- 9 One_Story_PUD_1946_an… Resident…           39     5389 Pave   No_A… Slightly…
-10 Two_Story_1946_and_Ne… Resident…           60     7500 Pave   No_A… Regular  
-# ℹ 2,920 more rows
-# ℹ 67 more variables: Land_Contour &lt;fct&gt;, Utilities &lt;fct&gt;, Lot_Config &lt;fct&gt;,
-#   Land_Slope &lt;fct&gt;, Neighborhood &lt;fct&gt;, Condition_1 &lt;fct&gt;, Condition_2 &lt;fct&gt;,
-#   Bldg_Type &lt;fct&gt;, House_Style &lt;fct&gt;, Overall_Cond &lt;fct&gt;, Year_Built &lt;int&gt;,
-#   Year_Remod_Add &lt;int&gt;, Roof_Style &lt;fct&gt;, Roof_Matl &lt;fct&gt;,
-#   Exterior_1st &lt;fct&gt;, Exterior_2nd &lt;fct&gt;, Mas_Vnr_Type &lt;fct&gt;,
-#   Mas_Vnr_Area &lt;dbl&gt;, Exter_Cond &lt;fct&gt;, Foundation &lt;fct&gt;, Bsmt_Cond &lt;fct&gt;, …</code></pre>
+<pre><code># A tibble: 2 × 2
+  MS_Zoning                      n
+  &lt;fct&gt;                      &lt;int&gt;
+1 Residential_Low_Density     2273
+2 Residential_Medium_Density   462</code></pre>
 </div>
 </div>
+<p>We are using numeric predictors only because most of the other methods in this section require it. Up-sampling itself has no such restriction, since it copies whole rows.</p>
 <p>{themis} provides <code>step_upsample()</code>, which has the implementation for up-sampling.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ames <span class="sc">|&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(MS_Zoning)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">recipe</span>(MS_Zoning <span class="sc">~</span> ., <span class="at">data =</span> ames_imbalance) <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_upsample</span>(MS_Zoning) <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(MS_Zoning)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 7 × 2
-  MS_Zoning                        n
-  &lt;fct&gt;                        &lt;int&gt;
-1 Floating_Village_Residential   139
-2 Residential_High_Density        27
-3 Residential_Low_Density       2273
-4 Residential_Medium_Density     462
-5 A_agr                            2
-6 C_all                           25
-7 I_all                            2</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>upsample_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(MS_Zoning <span class="sc">~</span> ., <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_upsample</span>(MS_Zoning)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>upsample_res <span class="ot">&lt;-</span> upsample_rec <span class="sc">|&gt;</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) </span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>upsample_res</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 15,911 × 74
-   MS_SubClass         Lot_Frontage Lot_Area Street Alley Lot_Shape Land_Contour
-   &lt;fct&gt;                      &lt;dbl&gt;    &lt;int&gt; &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;       
- 1 Two_Story_1946_and…            0     7500 Pave   No_A… Regular   Lvl         
- 2 One_Story_1946_and…           92     9215 Pave   No_A… Regular   Lvl         
- 3 Two_Story_1946_and…           72     8640 Pave   No_A… Regular   Lvl         
- 4 One_Story_1946_and…           75     9000 Pave   No_A… Regular   Lvl         
- 5 Two_Story_1946_and…          100    12552 Pave   No_A… Regular   Lvl         
- 6 One_Story_1946_and…           84    10440 Pave   No_A… Regular   Lvl         
- 7 One_Story_PUD_1946…           25     4835 Pave   No_A… Slightly… Lvl         
- 8 Two_Story_PUD_1946…           39     3515 Pave   Paved Regular   Lvl         
- 9 Two_Story_PUD_1946…           30     3215 Pave   Paved Regular   Lvl         
-10 Two_Story_PUD_1946…           30     3182 Pave   Paved Regular   Lvl         
-# ℹ 15,901 more rows
-# ℹ 67 more variables: Utilities &lt;fct&gt;, Lot_Config &lt;fct&gt;, Land_Slope &lt;fct&gt;,
-#   Neighborhood &lt;fct&gt;, Condition_1 &lt;fct&gt;, Condition_2 &lt;fct&gt;, Bldg_Type &lt;fct&gt;,
-#   House_Style &lt;fct&gt;, Overall_Cond &lt;fct&gt;, Year_Built &lt;int&gt;,
-#   Year_Remod_Add &lt;int&gt;, Roof_Style &lt;fct&gt;, Roof_Matl &lt;fct&gt;,
-#   Exterior_1st &lt;fct&gt;, Exterior_2nd &lt;fct&gt;, Mas_Vnr_Type &lt;fct&gt;,
-#   Mas_Vnr_Area &lt;dbl&gt;, Exter_Cond &lt;fct&gt;, Foundation &lt;fct&gt;, Bsmt_Cond &lt;fct&gt;, …</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>upsample_res <span class="sc">|&gt;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(MS_Zoning)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 7 × 2
-  MS_Zoning                        n
-  &lt;fct&gt;                        &lt;int&gt;
-1 Floating_Village_Residential  2273
-2 Residential_High_Density      2273
-3 Residential_Low_Density       2273
-4 Residential_Medium_Density    2273
-5 A_agr                         2273
-6 C_all                         2273
-7 I_all                         2273</code></pre>
-</div>
-</div>
-<p>It includes the <code>over_ratio</code> to only partially update the data set.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>upsample_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(MS_Zoning <span class="sc">~</span> ., <span class="at">data =</span> ames) <span class="sc">|&gt;</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_upsample</span>(MS_Zoning, <span class="at">over_ratio =</span> <span class="fl">0.5</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>upsample_rec <span class="sc">|&gt;</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(MS_Zoning)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 7 × 2
-  MS_Zoning                        n
-  &lt;fct&gt;                        &lt;int&gt;
-1 Floating_Village_Residential  1136
-2 Residential_High_Density      1136
-3 Residential_Low_Density       2273
-4 Residential_Medium_Density    1136
-5 A_agr                         1136
-6 C_all                         1136
-7 I_all                         1136</code></pre>
+<pre><code># A tibble: 2 × 2
+  MS_Zoning                      n
+  &lt;fct&gt;                      &lt;int&gt;
+1 Residential_Low_Density     2273
+2 Residential_Medium_Density  2273</code></pre>
 </div>
 </div>
 </section>

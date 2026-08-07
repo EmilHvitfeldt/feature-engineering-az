@@ -14,7 +14,7 @@ Like all other methods in this section, it is a supervised method,
 since it requires knowledge of the outcome.
 This also means that it can only be applied to the training data set,
 since we need the outcome.
-See also [up-dampling](imbalenced-upsample.qmd), which is the opposite action.
+See also [up-sampling](imbalenced-upsample.qmd), which is the opposite action.
 
 The algorithm is quite simple.
 Tally the number of observations within each class, as well as keep track of which observations are associated with each class.
@@ -24,7 +24,7 @@ The observations of each majority class are then sampled without replacement to 
 Typically, to align with the number of observations with that of the minority class.
 
 One could also modify this for a different threshold,
-say 300%, which would make all majority classes with more than 30% of the number of observations of the minority class,
+say 300%, which would make all majority classes with more than 300% of the number of observations of the minority class,
 downsample until they have at most 300% of that of the minority class.
 
 When using downsampling we are deleting data completely.
@@ -49,50 +49,50 @@ Having a 99-1 split in the data would have you remove 98% of the data set, which
 #| label: ames
 #| echo: false
 #| message: false
-library(tidymodels)
 set.seed(1234)
-data("ames")
 ```
 
-We will be using the `ames` data set for these examples.
+We will be using the same subset of the `ames` data set as in the [up-sampling](imbalenced-upsample.qmd) chapter.
 
 ```{r}
 #| label: show-data
+#| message: false
 library(recipes)
 library(themis)
 library(modeldata)
+library(dplyr)
+data("ames")
 
-ames
+ames_imbalance <- ames |>
+  filter(MS_Zoning %in% c("Residential_Low_Density", "Residential_Medium_Density")) |>
+  mutate(MS_Zoning = droplevels(MS_Zoning)) |>
+  select(MS_Zoning, Lot_Area, Year_Built, Gr_Liv_Area, Full_Bath)
+
+ames_imbalance |>
+  count(MS_Zoning)
 ```
 
-{themis} provides `step_downsample()`, which has the implementation for up-sampling.
+{themis} provides `step_downsample()`, which has the implementation for down-sampling.
 
 ```{r}
 #| label: step_downsample
-
-ames |>
-  count(MS_Zoning)
-
-upsample_rec <- recipe(MS_Zoning ~ ., data = ames) |>
+downsample_rec <- recipe(MS_Zoning ~ ., data = ames_imbalance) |>
   step_downsample(MS_Zoning)
 
-upsample_res <- upsample_rec |>
+downsample_res <- downsample_rec |>
   prep() |>
-  bake(new_data = NULL) 
+  bake(new_data = NULL)
 
-upsample_res
-
-upsample_res |>
+downsample_res |>
   count(MS_Zoning)
 ```
 
 It includes the `over_ratio` to only partially update the data set.
 
 ```{r}
-upsample_rec <- recipe(MS_Zoning ~ ., data = ames) |>
-  step_downsample(MS_Zoning, under_ratio = 10)
-
-upsample_rec |>
+#| label: step_downsample-under_ratio
+recipe(MS_Zoning ~ ., data = ames_imbalance) |>
+  step_downsample(MS_Zoning, under_ratio = 2) |>
   prep() |>
   bake(new_data = NULL) |>
   count(MS_Zoning)

@@ -19,9 +19,9 @@ In other words, we are only keeping the "near misses".
 While the idea is fairly straightforward,
 it has 3 different recognized variants based on how we define a near miss.
 
-NearMiss-1: Selects majority class observations with the smallest average distance to the three **closest** minority class observations.
-NearMiss-2: Selects majority class observations with the smallest average distance to the three **furthest** minority class observations.
-NearMiss-3: It is a two-stage method, first for each minority class, their nearest neighbors are kept, and then we select the majority class observations with the smallest distance to each minority class observation.
+- NearMiss-1: Selects majority class observations with the smallest average distance to the three **closest** minority class observations.
+- NearMiss-2: Selects majority class observations with the smallest average distance to the three **furthest** minority class observations.
+- NearMiss-3: It is a two-stage method, first for each minority class, their nearest neighbors are kept, and then we select the majority class observations with the smallest distance to each minority class observation.
 
 While the distinction between the 1 and 2 variants might seem small,
 what you are getting is that with NearMiss-1, you are preserving samples that are most similar to the minority class,
@@ -42,5 +42,42 @@ And we just have to find the cut point that determines how many points to retain
 
 ## R Examples
 
-## Python Examples
+```{r}
+#| label: ames
+#| echo: false
+#| message: false
+set.seed(1234)
+```
 
+We will be using the same subset of the `ames` data set as in the [up-sampling](imbalenced-upsample.qmd) chapter.
+
+```{r}
+#| label: show-data
+#| message: false
+library(recipes)
+library(themis)
+library(modeldata)
+library(dplyr)
+data("ames")
+
+ames_imbalance <- ames |>
+  filter(MS_Zoning %in% c("Residential_Low_Density", "Residential_Medium_Density")) |>
+  mutate(MS_Zoning = droplevels(MS_Zoning)) |>
+  select(MS_Zoning, Lot_Area, Year_Built, Gr_Liv_Area, Full_Bath)
+
+ames_imbalance |>
+  count(MS_Zoning)
+```
+
+{themis} provides `step_nearmiss()`, and the `version` argument selects which of the three variants to use.
+
+```{r}
+#| label: step_nearmiss
+recipe(MS_Zoning ~ ., data = ames_imbalance) |>
+  step_nearmiss(MS_Zoning, version = 1) |>
+  prep() |>
+  bake(new_data = NULL) |>
+  count(MS_Zoning)
+```
+
+## Python Examples

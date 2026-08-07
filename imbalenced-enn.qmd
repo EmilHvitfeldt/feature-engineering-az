@@ -66,4 +66,67 @@ Any majority class observations that misclassify a minority observation will be 
 
 ## R Examples
 
+```{r}
+#| label: ames
+#| echo: false
+#| message: false
+set.seed(1234)
+```
+
+We will be using the same subset of the `ames` data set as in the [up-sampling](imbalenced-upsample.qmd) chapter.
+
+```{r}
+#| label: show-data
+#| message: false
+library(recipes)
+library(themis)
+library(modeldata)
+library(dplyr)
+data("ames")
+
+ames_imbalance <- ames |>
+  filter(MS_Zoning %in% c("Residential_Low_Density", "Residential_Medium_Density")) |>
+  mutate(MS_Zoning = droplevels(MS_Zoning)) |>
+  select(MS_Zoning, Lot_Area, Year_Built, Gr_Liv_Area, Full_Bath)
+
+ames_imbalance |>
+  count(MS_Zoning)
+```
+
+{themis} provides `step_enn()`.
+All three of the variants described above are reachable from this one step.
+
+The `times` argument gives **Repeated Edited Nearest Neighbors**.
+
+```{r}
+#| label: step_enn-times
+recipe(MS_Zoning ~ ., data = ames_imbalance) |>
+  step_enn(MS_Zoning, times = 3) |>
+  prep() |>
+  bake(new_data = NULL) |>
+  count(MS_Zoning)
+```
+
+And `all_k` gives **AllKNN**.
+
+```{r}
+#| label: step_enn-all_k
+recipe(MS_Zoning ~ ., data = ames_imbalance) |>
+  step_enn(MS_Zoning, all_k = TRUE) |>
+  prep() |>
+  bake(new_data = NULL) |>
+  count(MS_Zoning)
+```
+
+The **Neighborhood Cleaning Rule** is a separate step, `step_ncl()`.
+
+```{r}
+#| label: step_ncl
+recipe(MS_Zoning ~ ., data = ames_imbalance) |>
+  step_ncl(MS_Zoning) |>
+  prep() |>
+  bake(new_data = NULL) |>
+  count(MS_Zoning)
+```
+
 ## Python Examples

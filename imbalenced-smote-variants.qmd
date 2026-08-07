@@ -121,4 +121,121 @@ There are also a number of named SMOTE variants that are just SMOTE followed by 
 
 ## R Examples
 
+```{r}
+#| label: ames
+#| echo: false
+#| message: false
+set.seed(1234)
+```
+
+We will be using the same subset of the `ames` data set as in the [up-sampling](imbalenced-upsample.qmd) chapter.
+The categorical variants need their own data, so we set up two more versions of it at the same time.
+
+```{r}
+#| label: show-data
+#| message: false
+library(recipes)
+library(themis)
+library(modeldata)
+library(dplyr)
+data("ames")
+
+ames_base <- ames |>
+  filter(MS_Zoning %in% c("Residential_Low_Density", "Residential_Medium_Density")) |>
+  mutate(MS_Zoning = droplevels(MS_Zoning))
+
+ames_imbalance <- ames_base |>
+  select(MS_Zoning, Lot_Area, Year_Built, Gr_Liv_Area, Full_Bath)
+
+ames_nominal <- ames_base |>
+  select(MS_Zoning, Lot_Config, Bldg_Type, Heating_QC)
+
+ames_mixed <- ames_base |>
+  select(MS_Zoning, Lot_Area, Year_Built, Lot_Config, Bldg_Type)
+
+ames_imbalance |>
+  count(MS_Zoning)
+```
+
+`step_smoten()` handles the all-categorical case.
+
+```{r}
+#| label: step_smoten
+recipe(MS_Zoning ~ ., data = ames_nominal) |>
+  step_smoten(MS_Zoning) |>
+  prep() |>
+  bake(new_data = NULL) |>
+  count(MS_Zoning)
+```
+
+`step_smotenc()` handles the mixed case, 
+and works out which predictors are categorical on its own.
+
+```{r}
+#| label: step_smotenc
+recipe(MS_Zoning ~ ., data = ames_mixed) |>
+  step_smotenc(MS_Zoning) |>
+  prep() |>
+  bake(new_data = NULL) |>
+  count(MS_Zoning)
+```
+
+`step_bsmote()` is Borderline-SMOTE, 
+and the `all_neighbors` argument selects between the two variants described above.
+`FALSE` gives variant 1, which only interpolates towards neighbors of the same class, and `TRUE` gives the more aggressive variant 2.
+
+```{r}
+#| label: step_bsmote
+recipe(MS_Zoning ~ ., data = ames_imbalance) |>
+  step_bsmote(MS_Zoning, all_neighbors = FALSE) |>
+  prep() |>
+  bake(new_data = NULL) |>
+  count(MS_Zoning)
+```
+
+```{r}
+#| label: step_bsmote-all_neighbors
+recipe(MS_Zoning ~ ., data = ames_imbalance) |>
+  step_bsmote(MS_Zoning, all_neighbors = TRUE) |>
+  prep() |>
+  bake(new_data = NULL) |>
+  count(MS_Zoning)
+```
+
+`step_adasyn()` is Adaptive Synthetic Sampling.
+
+```{r}
+#| label: step_adasyn
+recipe(MS_Zoning ~ ., data = ames_imbalance) |>
+  step_adasyn(MS_Zoning) |>
+  prep() |>
+  bake(new_data = NULL) |>
+  count(MS_Zoning)
+```
+
+`step_svmsmote()` is the SVM-based variant.
+
+```{r}
+#| label: step_svmsmote
+recipe(MS_Zoning ~ ., data = ames_imbalance) |>
+  step_svmsmote(MS_Zoning) |>
+  prep() |>
+  bake(new_data = NULL) |>
+  count(MS_Zoning)
+```
+
+{themis} also provides `step_kmeans_smote()`.
+
+```{r}
+#| label: step_kmeans_smote
+recipe(MS_Zoning ~ ., data = ames_imbalance) |>
+  step_kmeans_smote(MS_Zoning) |>
+  prep() |>
+  bake(new_data = NULL) |>
+  count(MS_Zoning)
+```
+
+The distance-based variants listed above do not need separate steps.
+They are `step_smote()` with a different `distance` argument.
+
 ## Python Examples
