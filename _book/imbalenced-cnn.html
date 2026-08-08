@@ -1291,6 +1291,7 @@ div.csl-indent {
 <p>What is important from this algorithm is that it produces a consistent subset of the data set. This doesn’t mean that it is the smallest possible one, just that it can generate it consistently. However, the set is order dependent as the algorithm will produce different results depending on which observations are first put in the store.</p>
 <p>What we notice is that points that are deeply inside a given class will be correctly classified by their neighbors, and will thus be discarded. On the other hand, points near the decision boundaries are more likely to be misclassified, and thus more likely to be kept.</p>
 <p>If the classes overlap a lot, then we won’t be able to discard that many points, And if the classes cleanly separate, then we should be able to discard most of the observations.</p>
+<p>Like all the methods in this section, this changes the distribution of the training data set, which is covered in <a href="imbalenced.html#sec-imbalenced-distribution" class="quarto-xref"><span>Section 86.2</span></a>.</p>
 <section id="pros-and-cons" class="level2" data-number="93.2">
 <h2 data-number="93.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">93.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="93.2.1">

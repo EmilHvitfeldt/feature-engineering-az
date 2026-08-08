@@ -1206,6 +1206,7 @@ div.csl-indent {
    
   <ul>
   <li><a href="#imbalanced-overview" id="toc-imbalanced-overview" class="nav-link active" data-scroll-target="#imbalanced-overview"><span class="header-section-number">86.1</span> Imbalanced Overview</a></li>
+  <li><a href="#sec-imbalenced-distribution" id="toc-sec-imbalenced-distribution" class="nav-link" data-scroll-target="#sec-imbalenced-distribution"><span class="header-section-number">86.2</span> Changes to the Data Distribution</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/imbalenced.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/imbalenced.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
@@ -1235,7 +1236,7 @@ div.csl-indent {
 <h2 data-number="86.1" class="anchored" data-anchor-id="imbalanced-overview"><span class="header-section-number">86.1</span> Imbalanced Overview</h2>
 </section>
 <p>Whether to keep this chapter in this book or not was considered, as the methods in this section are borderline feature engineering methods.</p>
-<p>The potential problem with imbalanced data can most easily be seen in a classification setting. Propose we want to predict if an incoming email is spam or not. Furthermore, we assume that the spam rate is low and around 1% of the incoming emails. If you are not careful, you can easily end up with a model that predicts “not spam” all the time, since it will be correct 99% of the times. This is a common scenario, and it happens all the time. One culprit could be that there isn’t enough information in the minority class to be able to distinguish it from the majority class. And that is okay, not all modeling problems are easy. But your model will do its best anyway.</p>
+<p>The potential problem with imbalanced data can most easily be seen in a classification setting. Suppose we want to predict if an incoming email is spam or not. Furthermore, we assume that the spam rate is low and around 1% of the incoming emails. If you are not careful, you can easily end up with a model that predicts “not spam” all the time, since it will be correct 99% of the time. This is a common scenario, and it happens all the time. One culprit could be that there isn’t enough information in the minority class to be able to distinguish it from the majority class. And that is okay, not all modeling problems are easy. But your model will do its best anyway.</p>
 <p>There are several different ways to handle imbalanced data, we will list all the ways in broad strokes, and then cover the methods that we could count as feature engineering.</p>
 <ul>
 <li>using the right performance metrics</li>
@@ -1244,11 +1245,11 @@ div.csl-indent {
 <li>Calibrating the predictions</li>
 <li>Sampling the data, can be done naively and with more advanced methods</li>
 </ul>
-<p>The example above showcases why accuracy as a metric isn’t a good choice when the classes are not uniformly represented. So you can look at other metrics, such as precision, recall, ROC-AUC, or Brier score. You will need to know what metric works best for your project.</p>
+<p>The example above showcases why accuracy as a metric isn’t a good choice when the classes are not uniformly represented. So you can look at other metrics, such as precision, recall, ROC-AUC, or Brier score. You will need to know what metric works best for your project <span class="citation" data-cites="harrell2017classification">Harrell (<a href="references.html#ref-harrell2017classification" role="doc-biblioref">2017</a>)</span>.</p>
 <p>Another way we can handle this is by adding weights, either to the observations directly, or in the modeling framework as class weights. Giving your minority class high enough weight forces your model to consider them.</p>
-<p>Related to the last point, some methods allow you the user to pass in custom objective functions, this can also be beneficial.</p>
+<p>Related to the last point, some methods allow you, the user, to pass in custom objective functions, this can also be beneficial.</p>
 <p>Even if your model performs badly by default, your classification model might still have good separation, just not around the 50% cut-off point. Changing the threshold is another way you can overcome an imbalanced data set.</p>
-<p>Lastly, and the ways that will be covered in this book is a sampling of the data. There are several different methods that we will cover in this book. These methods cluster somehow, so for some groups we only explain the general idea.</p>
+<p>Lastly, and the way that will be covered in this book, is sampling of the data. There are several different methods that we will cover in this book. These methods cluster somehow, so for some groups we only explain the general idea.</p>
 <p>We can split these methods into two groups, <strong>under-sampling methods</strong> and <strong>over-sampling methods</strong>. In the under-sampling method, we are removing observations and in the over-sampling we are adding observations. Adding observations is usually done by basing the new observations on the existing observations, exactly or by interpolation.</p>
 <p>Over-sampling methods we will cover are:</p>
 <ul>
@@ -1265,15 +1266,25 @@ div.csl-indent {
 <li><a href="./imbalenced-enn.html">Edited Nearest Neighbor</a></li>
 <li><a href="./imbalenced-hardness-threshold.html">Instance Hardness Threshold</a></li>
 </ul>
-<p>Some methods do these methods together. We won’t consider those methods by themselves and instead let you know that you can do over-sampling followed by under-sampling if you choose. One sided selection <span class="citation" data-cites="kubat1997oss">Kubat and Matwin (<a href="references.html#ref-kubat1997oss" role="doc-biblioref">1997</a>)</span> is one of those methods, that combines tomek link removal with condensed nearest neighbors.</p>
+<p>Some methods do these methods together. We won’t consider those methods by themselves and instead let you know that you can do over-sampling followed by under-sampling if you choose. One-sided selection <span class="citation" data-cites="kubat1997oss">Kubat and Matwin (<a href="references.html#ref-kubat1997oss" role="doc-biblioref">1997</a>)</span> is one of those methods, that combines Tomek link removal with condensed nearest neighbors.</p>
 <p>TODO: I think we would be able to add some kind of list, regarding what the under sampling methods tries to do. Some tries to remove hard to classify observations, other try to remove easy to classify observations.</p>
+<section id="sec-imbalenced-distribution" class="level2" data-number="86.2">
+<h2 data-number="86.2" class="anchored" data-anchor-id="sec-imbalenced-distribution"><span class="header-section-number">86.2</span> Changes to the Data Distribution</h2>
+<p>The main reason why you need to be careful of these methods, is that they change the distribution of the data set you are working with. By adding or removing observations to the data set in a systematic way, you are changing the modeling problem you have. The rationale behind some of these methods, that if you remove hard-to-classify and/or noisy observations, then you can get a more efficient decision boundary, is technically correct. But that decision boundary will still struggle on the hard-to-classify and noisy observations <span class="citation" data-cites="vandengoorbergh2022harm">Goorbergh et al. (<a href="references.html#ref-vandengoorbergh2022harm" role="doc-biblioref">2022</a>)</span>.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-vandengoorbergh2022harm" class="csl-entry" role="listitem">
+Goorbergh, Ruben van den, Maarten van Smeden, Dirk Timmerman, and Ben Van Calster. 2022. <span>“The Harm of Class Imbalance Corrections for Risk Prediction Models: Illustration and Simulation Using Logistic Regression.”</span> <em>Journal of the American Medical Informatics Association</em> 29 (9): 1525–34. <a href="https://doi.org/10.1093/jamia/ocac093">https://doi.org/10.1093/jamia/ocac093</a>.
+</div>
+<div id="ref-harrell2017classification" class="csl-entry" role="listitem">
+Harrell, Frank E. 2017. <em>Classification Vs. Prediction</em>. <a href="https://www.fharrell.com/post/classification/">https://www.fharrell.com/post/classification/</a>.
+</div>
 <div id="ref-kubat1997oss" class="csl-entry" role="listitem">
 Kubat, Miroslav, and Stan Matwin. 1997. <span>“Addressing the Curse of Imbalanced Training Sets: One-Sided Selection.”</span> <em>Proceedings of the Fourteenth International Conference on Machine Learning (ICML)</em> 97: 179–86.
 </div>
 </div>
+</section>
 
 </main> <!-- /main -->
 <!-- PostHog -->

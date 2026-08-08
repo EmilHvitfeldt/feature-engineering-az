@@ -58,7 +58,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -1262,6 +1281,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>One could also modify this for a different threshold, say 80%, which would make all minority classes with less than 80% of the number of observations of the majority class, upsample until they have at least 80% of that of the majority class.</p>
 <p>This action can drastically increase the number of observations depending on the number of minority classes and the ratio between them. A 90-10 split would result in a 80% increase in data, and a 90-5-5 split would result in a 170% increase. No data is being deleted in this modification as we are just adding more rows, which are duplicates of existing rows.</p>
 <p>You could think of this as a stochastic version of case weights without the compactness.</p>
+<p>Like all the methods in this section, this changes the distribution of the training data set, which is covered in <a href="imbalenced.html#sec-imbalenced-distribution" class="quarto-xref"><span>Section 86.2</span></a>. Just because these methods are simple doesn’t mean that they they will work well. Random down sampling have been shown to lead to poorly calibrated models <span class="citation" data-cites="vandengoorbergh2022harm">(<a href="references.html#ref-vandengoorbergh2022harm" role="doc-biblioref">Goorbergh et al. 2022</a>)</span>.</p>
 <section id="pros-and-cons" class="level2" data-number="87.2">
 <h2 data-number="87.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">87.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="87.2.1">
@@ -1275,6 +1295,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Could give issues with space for large data sets.</li>
 <li>Solves tasks that could be better handled with other methods.</li>
+<li>Distorts the predicted probabilities, which may require recalibration afterwards.</li>
 </ul>
 </section>
 </section>
@@ -1324,6 +1345,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="87.4" class="anchored" data-anchor-id="python-examples"><span class="header-section-number">87.4</span> Python Examples</h2>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-vandengoorbergh2022harm" class="csl-entry" role="listitem">
+Goorbergh, Ruben van den, Maarten van Smeden, Dirk Timmerman, and Ben Van Calster. 2022. <span>“The Harm of Class Imbalance Corrections for Risk Prediction Models: Illustration and Simulation Using Logistic Regression.”</span> <em>Journal of the American Medical Informatics Association</em> 29 (9): 1525–34. <a href="https://doi.org/10.1093/jamia/ocac093">https://doi.org/10.1093/jamia/ocac093</a>.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->

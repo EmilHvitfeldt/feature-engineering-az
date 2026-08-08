@@ -1286,6 +1286,7 @@ div.csl-indent {
 <p>While the distinction between the 1 and 2 variants might seem small, what you are getting is that with NearMiss-1, you are preserving samples that are most similar to the minority class, and with NearMiss-2, you are preserving samples that are least similar to the minority class. NearMiss-3 is trying to have a more blended selection.</p>
 <p>This method, like many of the other methods, is technically not restricted to be used on the majority class, and could, in theory, be used on any number of classes in the data set.</p>
 <p>One of the convenient things about this method is that it technically works by giving the observations an ordering, And we just have to find the cut point that determines how many points to retain.</p>
+<p>Like all the methods in this section, this changes the distribution of the training data set, which is covered in <a href="imbalenced.html#sec-imbalenced-distribution" class="quarto-xref"><span>Section 86.2</span></a>.</p>
 <section id="pros-and-cons" class="level2" data-number="91.2">
 <h2 data-number="91.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">91.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="91.2.1">

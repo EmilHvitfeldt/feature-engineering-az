@@ -1281,6 +1281,7 @@ div.csl-indent {
 <p>The traditional implementation assumes Euclidean distances, which in turn assumes you have all numeric predictors and no missing values.</p>
 <p>This method is computationally quite fast, as we are only doing one pass of nearest neighbor search. And that is used to identify observations that could be removed. We aren’t doing any sampling. However, on the other side, we don’t have many levers to pull for this method. It is un uncommon to have few or no points removed when applying Tomek Link removal.</p>
 <p>The method also makes the assumption that the noise happens at the border between two classes, However, that is not true for all data sets. There is also no notion of importance, A point deep inside another class may or may not be removed purely based on how close it is to its nearest point.</p>
+<p>Like all the methods in this section, this changes the distribution of the training data set, which is covered in <a href="imbalenced.html#sec-imbalenced-distribution" class="quarto-xref"><span>Section 86.2</span></a>.</p>
 <section id="pros-and-cons" class="level2" data-number="92.2">
 <h2 data-number="92.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">92.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="92.2.1">
