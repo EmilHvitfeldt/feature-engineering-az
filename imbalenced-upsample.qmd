@@ -34,6 +34,8 @@ No data is being deleted in this modification as we are just adding more rows, w
 You could think of this as a stochastic version of case weights without the compactness.
 
 Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalenced-distribution.
+Just because these methods are simple doesn't mean that they they will work well.
+Random down sampling have been shown to lead to poorly calibrated models [@vandengoorbergh2022harm].
 
 ## Pros and Cons
 
@@ -45,6 +47,7 @@ Like all the methods in this section, this changes the distribution of the train
 
 - Could give issues with space for large data sets.
 - Solves tasks that could be better handled with other methods.
+- Distorts the predicted probabilities, which may require recalibration afterwards.
 
 ## R Examples
 

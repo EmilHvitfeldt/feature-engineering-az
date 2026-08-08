@@ -33,6 +33,8 @@ This is even more drastic when we have a sharp imbalance between the majority an
 Having a 99-1 split in the data would have you remove 98% of the data set, which is not a wise choice.
 
 Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalenced-distribution.
+Just because these methods are simple doesn't mean that they they will work well.
+Random down sampling have been shown to lead to poorly calibrated models [@vandengoorbergh2022harm].
 
 ## Pros and Cons
 
@@ -44,6 +46,7 @@ Like all the methods in this section, this changes the distribution of the train
 
 - This could give issues if there is a big imbalance, causing us to remove almost all the data.
 - Solves tasks that could be better handled with other methods.
+- Distorts the predicted probabilities, which may require recalibration afterwards.
 
 ## R Examples
 

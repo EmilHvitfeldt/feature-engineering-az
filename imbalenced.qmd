@@ -30,7 +30,7 @@ There are several different ways to handle imbalanced data, we will list all the
 
 The example above showcases why accuracy as a metric isn't a good choice when the classes are not uniformly represented.
 So you can look at other metrics, such as precision, recall, ROC-AUC, or Brier score.
-You will need to know what metric works best for your project.
+You will need to know what metric works best for your project  @harrell2017classification.
 
 Another way we can handle this is by adding weights, either to the observations directly, or in the modeling framework as class weights.
 Giving your minority class high enough weight forces your model to consider them.
@@ -78,4 +78,4 @@ By adding or removing observations to the data set in a systematic way,
 you are changing the modeling problem you have.
 The rationale behind some of these methods, that if you remove hard-to-classify and/or noisy observations,
 then you can get a more efficient decision boundary, is technically correct.
-But that decision boundary will still struggle on the hard-to-classify and noisy observations.
+But that decision boundary will still struggle on the hard-to-classify and noisy observations @vandengoorbergh2022harm.
