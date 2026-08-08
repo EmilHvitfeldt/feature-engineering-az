@@ -49,6 +49,8 @@ and thus more likely to be kept.
 If the classes overlap a lot, then we won't be able to discard that many points,
 And if the classes cleanly separate, then we should be able to discard most of the observations.
 
+Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalenced-distribution.
+
 ## Pros and Cons
 
 ### Pros

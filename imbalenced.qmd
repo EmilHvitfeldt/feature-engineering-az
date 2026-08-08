@@ -12,9 +12,9 @@ image: social-cards/imbalenced.png
 Whether to keep this chapter in this book or not was considered, as the methods in this section are borderline feature engineering methods.
 
 The potential problem with imbalanced data can most easily be seen in a classification setting.
-Propose we want to predict if an incoming email is spam or not.
+Suppose we want to predict if an incoming email is spam or not.
 Furthermore, we assume that the spam rate is low and around 1% of the incoming emails.
-If you are not careful, you can easily end up with a model that predicts "not spam" all the time, since it will be correct 99% of the times.
+If you are not careful, you can easily end up with a model that predicts "not spam" all the time, since it will be correct 99% of the time.
 This is a common scenario, and it happens all the time.
 One culprit could be that there isn't enough information in the minority class to be able to distinguish it from the majority class.
 And that is okay, not all modeling problems are easy.
@@ -35,12 +35,12 @@ You will need to know what metric works best for your project.
 Another way we can handle this is by adding weights, either to the observations directly, or in the modeling framework as class weights.
 Giving your minority class high enough weight forces your model to consider them.
 
-Related to the last point, some methods allow you the user to pass in custom objective functions, this can also be beneficial.
+Related to the last point, some methods allow you, the user, to pass in custom objective functions, this can also be beneficial.
 
 Even if your model performs badly by default, your classification model might still have good separation, just not around the 50% cut-off point.
 Changing the threshold is another way you can overcome an imbalanced data set.
 
-Lastly, and the ways that will be covered in this book is a sampling of the data.
+Lastly, and the way that will be covered in this book, is sampling of the data.
 There are several different methods that we will cover in this book.
 These methods cluster somehow, so for some groups we only explain the general idea.
 
@@ -65,7 +65,17 @@ Under-sampling methods we will cover are:
 
 Some methods do these methods together.
 We won't consider those methods by themselves and instead let you know that you can do over-sampling followed by under-sampling if you choose.
-One sided selection @kubat1997oss is one of those methods,
-that combines tomek link removal with condensed nearest neighbors. 
+One-sided selection @kubat1997oss is one of those methods,
+that combines Tomek link removal with condensed nearest neighbors.
 
 TODO: I think we would be able to add some kind of list, regarding what the under sampling methods tries to do. Some tries to remove hard to classify observations, other try to remove easy to classify observations.
+
+## Changes to the Data Distribution {#sec-imbalenced-distribution}
+
+The main reason why you need to be careful of these methods,
+is that they change the distribution of the data set you are working with.
+By adding or removing observations to the data set in a systematic way,
+you are changing the modeling problem you have.
+The rationale behind some of these methods, that if you remove hard-to-classify and/or noisy observations,
+then you can get a more efficient decision boundary, is technically correct.
+But that decision boundary will still struggle on the hard-to-classify and noisy observations.

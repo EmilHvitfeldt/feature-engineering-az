@@ -119,6 +119,8 @@ There are also a number of named SMOTE variants that are just SMOTE followed by 
 - SMOTETomek: SMOTE -> Tomek Link removal 
 - SMOTE-RSB: SMOTE -> Rough set boundary cleaning
 
+Like all the methods in this section, these change the distribution of the training data set, which is covered in @sec-imbalenced-distribution.
+
 ## R Examples
 
 ```{r}

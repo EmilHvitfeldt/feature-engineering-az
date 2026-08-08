@@ -30,6 +30,8 @@ Using the threshold value is somewhat tricky as it assumes that the model that w
 Some implementations allow for any classification model to be used,
 while other implementations pick a predefined method.
 
+Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalenced-distribution.
+
 ## Pros and Cons
 
 ### Pros

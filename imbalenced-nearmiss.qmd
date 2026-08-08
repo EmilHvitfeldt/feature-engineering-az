@@ -34,6 +34,8 @@ and could, in theory, be used on any number of classes in the data set.
 One of the convenient things about this method is that it technically works by giving the observations an ordering,
 And we just have to find the cut point that determines how many points to retain.
 
+Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalenced-distribution.
+
 ## Pros and Cons
 
 ### Pros

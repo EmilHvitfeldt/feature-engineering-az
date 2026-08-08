@@ -32,6 +32,8 @@ And there is a definite risk that we are throwing away the signal when we do thi
 This is even more drastic when we have a sharp imbalance between the majority and minority classes.
 Having a 99-1 split in the data would have you remove 98% of the data set, which is not a wise choice.
 
+Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalenced-distribution.
+
 ## Pros and Cons
 
 ### Pros

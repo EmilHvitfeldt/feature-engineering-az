@@ -58,6 +58,8 @@ This method starts by running Edited Nearest Neighbor.
 Then we run a K Nearest Neighbors on the minority observations.
 Any majority class observations that misclassify a minority observation will be removed as well.
 
+Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalenced-distribution.
+
 ## Pros and Cons
 
 ### Pros

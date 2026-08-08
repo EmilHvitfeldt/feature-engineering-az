@@ -28,6 +28,8 @@ However, that is not true for all data sets.
 There is also no notion of importance,
 A point deep inside another class may or may not be removed purely based on how close it is to its nearest point.
 
+Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalenced-distribution.
+
 ## Pros and Cons
 
 ### Pros
