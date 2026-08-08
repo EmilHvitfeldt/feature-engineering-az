@@ -168,11 +168,11 @@ knitr::kable(write_pkg_list())
 The following Python libraries are used to render the book, with [scikit-learn](https://scikit-learn.org/) and [feature-engine](https://feature-engine.trainindata.com/en/latest/) being the main ones.
 
 ```{r}
-#| label: write-poetry-versions
+#| label: write-uv-versions
 #| echo: false
 #| results: asis
 
-pypackages <- readLines("poetry.lock") |>
+pypackages <- readLines("uv.lock") |>
   paste(collapse = "\n") |>
   strsplit(split = "\\[\\[package\\]\\]")
 
