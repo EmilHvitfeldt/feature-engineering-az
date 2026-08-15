@@ -1206,7 +1206,8 @@ div.csl-indent {
    
   <ul>
   <li><a href="#imbalanced-overview" id="toc-imbalanced-overview" class="nav-link active" data-scroll-target="#imbalanced-overview"><span class="header-section-number">86.1</span> Imbalanced Overview</a></li>
-  <li><a href="#sec-imbalenced-distribution" id="toc-sec-imbalenced-distribution" class="nav-link" data-scroll-target="#sec-imbalenced-distribution"><span class="header-section-number">86.2</span> Changes to the Data Distribution</a></li>
+  <li><a href="#sec-imbalenced-multiclass" id="toc-sec-imbalenced-multiclass" class="nav-link" data-scroll-target="#sec-imbalenced-multiclass"><span class="header-section-number">86.2</span> Extending to Multiple Classes</a></li>
+  <li><a href="#sec-imbalenced-distribution" id="toc-sec-imbalenced-distribution" class="nav-link" data-scroll-target="#sec-imbalenced-distribution"><span class="header-section-number">86.3</span> Changes to the Data Distribution</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/edit/main/imbalenced.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/EmilHvitfeldt/feature-engineering-az/blob/main/imbalenced.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
@@ -1268,8 +1269,17 @@ div.csl-indent {
 </ul>
 <p>Some methods do these methods together. We won’t consider those methods by themselves and instead let you know that you can do over-sampling followed by under-sampling if you choose. One-sided selection <span class="citation" data-cites="kubat1997oss">Kubat and Matwin (<a href="references.html#ref-kubat1997oss" role="doc-biblioref">1997</a>)</span> is one of those methods, that combines Tomek link removal with condensed nearest neighbors.</p>
 <p>TODO: I think we would be able to add some kind of list, regarding what the under sampling methods tries to do. Some tries to remove hard to classify observations, other try to remove easy to classify observations.</p>
-<section id="sec-imbalenced-distribution" class="level2" data-number="86.2">
-<h2 data-number="86.2" class="anchored" data-anchor-id="sec-imbalenced-distribution"><span class="header-section-number">86.2</span> Changes to the Data Distribution</h2>
+<section id="sec-imbalenced-multiclass" class="level2" data-number="86.2">
+<h2 data-number="86.2" class="anchored" data-anchor-id="sec-imbalenced-multiclass"><span class="header-section-number">86.2</span> Extending to Multiple Classes</h2>
+<p>Most of the methods in this section were first introduced to solve the problem with imbalanced data in binary classification settings. While binary classification comes up a lot, it would be a shame if we had to limit ourselves to binary classification settings to use these methods.</p>
+<p>This section will go over each of the ways methods in this section are being extended or modified to handle multiple outcome classes. There are some methods that are naturally created to work with multiple classes, and will thus not need to be expanded. One of the ways they do this is by framing the questions based on “same class” and “not same class”, without resorting to minority and majority classes. The question “how many points are in a different class than me” doesn’t restrict to 2 classes. The other way to handle multiple classes is to treat each class as its own unit. Observations are added or removed based on the observations only within that class. This naturally extends itself to multiple classes.</p>
+<p>We can expand 2 class methods in two ways:</p>
+<p>The first way is the <strong>one-vs-rest</strong> strategy. For each class we treat it as the minority/majority class and then lump all other classes together to form the other class. Turning a multi class setting into a series of two class method applications, being applied once per class.</p>
+<p>We can also apply the one-vs-rest idea, but only applying it once, using the smallest class as the minority and letting all the other ones act as a pooled majority. This gives us a single application of the method, which is why it isn’t a true one-vs-rest.</p>
+<p>Each chapter in this section will list which of these scenarios apply.</p>
+</section>
+<section id="sec-imbalenced-distribution" class="level2" data-number="86.3">
+<h2 data-number="86.3" class="anchored" data-anchor-id="sec-imbalenced-distribution"><span class="header-section-number">86.3</span> Changes to the Data Distribution</h2>
 <p>The main reason why you need to be careful of these methods, is that they change the distribution of the data set you are working with. By adding or removing observations to the data set in a systematic way, you are changing the modeling problem you have. The rationale behind some of these methods, that if you remove hard-to-classify and/or noisy observations, then you can get a more efficient decision boundary, is technically correct. But that decision boundary will still struggle on the hard-to-classify and noisy observations <span class="citation" data-cites="vandengoorbergh2022harm">Goorbergh et al. (<a href="references.html#ref-vandengoorbergh2022harm" role="doc-biblioref">2022</a>)</span>.</p>
 
 

@@ -1248,6 +1248,7 @@ div.csl-indent {
   <li><a href="#distanceneighborhood-based-variants" id="toc-distanceneighborhood-based-variants" class="nav-link" data-scroll-target="#distanceneighborhood-based-variants"><span class="header-section-number">89.1.5</span> Distance/Neighborhood-based variants</a></li>
   <li><a href="#dimensionality-reduction-methods" id="toc-dimensionality-reduction-methods" class="nav-link" data-scroll-target="#dimensionality-reduction-methods"><span class="header-section-number">89.1.6</span> Dimensionality reduction methods</a></li>
   <li><a href="#chained-methods" id="toc-chained-methods" class="nav-link" data-scroll-target="#chained-methods"><span class="header-section-number">89.1.7</span> Chained methods</a></li>
+  <li><a href="#behavior-with-more-than-two-classes" id="toc-behavior-with-more-than-two-classes" class="nav-link" data-scroll-target="#behavior-with-more-than-two-classes"><span class="header-section-number">89.1.8</span> Behavior with more than two classes</a></li>
   <li><a href="#r-examples" id="toc-r-examples" class="nav-link" data-scroll-target="#r-examples"><span class="header-section-number">89.2</span> R Examples</a></li>
   <li><a href="#python-examples" id="toc-python-examples" class="nav-link" data-scroll-target="#python-examples"><span class="header-section-number">89.3</span> Python Examples</a></li>
   </ul>
@@ -1333,7 +1334,13 @@ div.csl-indent {
 <li>SMOTETomek: SMOTE -&gt; Tomek Link removal</li>
 <li>SMOTE-RSB: SMOTE -&gt; Rough set boundary cleaning</li>
 </ul>
-<p>Like all the methods in this section, these change the distribution of the training data set, which is covered in <a href="imbalenced.html#sec-imbalenced-distribution" class="quarto-xref"><span>Section 86.2</span></a>.</p>
+</section>
+<section id="behavior-with-more-than-two-classes" class="level3" data-number="89.1.8">
+<h3 data-number="89.1.8" class="anchored" data-anchor-id="behavior-with-more-than-two-classes"><span class="header-section-number">89.1.8</span> Behavior with more than two classes</h3>
+<p>The variants described above do not all handle multiple classes the same way, and the split follows the strategies in <a href="imbalenced.html#sec-imbalenced-multiclass" class="quarto-xref"><span>Section 86.2</span></a>.</p>
+<p>SMOTEN and SMOTENC inherit base SMOTE’s behavior.</p>
+<p>Borderline-SMOTE and ADASYN both need to know how many of an observation’s neighbors belong to a <em>different</em> class, which means they need a notion of “the other class.” Both resolve this with one-vs-rest.</p>
+<p>Like all the methods in this section, these change the distribution of the training data set, which is covered in <a href="imbalenced.html#sec-imbalenced-distribution" class="quarto-xref"><span>Section 86.3</span></a>.</p>
 </section>
 <section id="r-examples" class="level2" data-number="89.2">
 <h2 data-number="89.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">89.2</span> R Examples</h2>

@@ -31,6 +31,10 @@ NearMiss-3 is trying to have a more blended selection.
 This method, like many of the other methods, is technically not restricted to be used on the majority class,
 and could, in theory, be used on any number of classes in the data set.
 
+Doing so requires settling a question the original description leaves open.
+All three variants are defined by distances from majority observations to *the minority class*, which is unambiguous only when there are two classes.
+NearMiss resolves this with the **one-vs-rest** strategy from @sec-imbalenced-multiclass.
+
 One of the convenient things about this method is that it technically works by giving the observations an ordering,
 And we just have to find the cut point that determines how many points to retain.
 

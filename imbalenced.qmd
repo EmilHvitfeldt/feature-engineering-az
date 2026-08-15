@@ -70,6 +70,37 @@ that combines Tomek link removal with condensed nearest neighbors.
 
 TODO: I think we would be able to add some kind of list, regarding what the under sampling methods tries to do. Some tries to remove hard to classify observations, other try to remove easy to classify observations.
 
+## Extending to Multiple Classes {#sec-imbalenced-multiclass}
+
+Most of the methods in this section were first introduced to solve the problem with imbalanced data in binary classification settings.
+While binary classification comes up a lot,
+it would be a shame if we had to limit ourselves to binary classification settings to use these methods.
+
+This section will go over each of the ways methods in this section are being extended or modified to handle multiple outcome classes.
+There are some methods that are naturally created to work with multiple classes,
+and will thus not need to be expanded.
+One of the ways they do this is by framing the questions based on "same class" and "not same class",
+without resorting to minority and majority classes.
+The question "how many points are in a different class than me" doesn't restrict to 2 classes.
+The other way to handle multiple classes is to treat each class as its own unit.
+Observations are added or removed based on the observations only within that class.
+This naturally extends itself to multiple classes.
+
+We can expand 2 class methods in two ways:
+
+The first way is the **one-vs-rest** strategy.
+For each class we treat it as the minority/majority class and then lump all other classes together to form the other class.
+Turning a multi class setting into a series of two class method applications,
+being applied once per class.
+
+We can also apply the one-vs-rest idea,
+but only applying it once,
+using the smallest class as the minority and letting all the other ones act as a pooled majority.
+This gives us a single application of the method,
+which is why it isn't a true one-vs-rest.
+
+Each chapter in this section will list which of these scenarios apply.
+
 ## Changes to the Data Distribution {#sec-imbalenced-distribution}
 
 The main reason why you need to be careful of these methods,

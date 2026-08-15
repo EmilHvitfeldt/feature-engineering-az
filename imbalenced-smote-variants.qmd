@@ -119,6 +119,16 @@ There are also a number of named SMOTE variants that are just SMOTE followed by 
 - SMOTETomek: SMOTE -> Tomek Link removal 
 - SMOTE-RSB: SMOTE -> Rough set boundary cleaning
 
+### Behavior with more than two classes
+
+The variants described above do not all handle multiple classes the same way, and the split follows the strategies in @sec-imbalenced-multiclass.
+
+SMOTEN and SMOTENC inherit base SMOTE's behavior.
+
+Borderline-SMOTE and ADASYN both need to know how many of an observation's neighbors belong to a *different* class, 
+which means they need a notion of "the other class."
+Both resolve this with one-vs-rest.
+
 Like all the methods in this section, these change the distribution of the training data set, which is covered in @sec-imbalenced-distribution.
 
 ## R Examples

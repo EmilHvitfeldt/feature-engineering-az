@@ -30,6 +30,9 @@ Using the threshold value is somewhat tricky as it assumes that the model that w
 Some implementations allow for any classification model to be used,
 while other implementations pick a predefined method.
 
+This is the one method in this section that never had a two-class assumption to escape,
+and it needs no expanding in the sense of @sec-imbalenced-multiclass.
+
 Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalenced-distribution.
 
 ## Pros and Cons

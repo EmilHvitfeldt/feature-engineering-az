@@ -28,16 +28,20 @@ By only allowing us to keep all the observations that have neighbors all of the 
 we can end up removing a lot of the decision boundary,
 especially any area where there is overlap.
 
-The general framework is based on 2 classes,
-but we can expand it to a multi-class setting by doing a 1-vs-rest.
-This is fairly standard for all of these types of methods.
-However, it does change a little bit how things will happen.
-In the two-class example,
+The general framework is described in terms of 2 classes,
+but it extends to more without any reduction, and so is one of the methods in @sec-imbalenced-multiclass that needs no expanding.
+Both removal criteria are phrased as comparisons against the observation's own label:
+the "any" criterion asks whether any neighbor carries a different label,
+and the majority-vote criterion compares the observation's label against the most common label among its neighbors.
+Neither question needs the other classes pooled together, and both look at the true labels throughout.
+
+It does still change how things play out.
+In the two-class case,
 any majority point deeply embedded in the minority class will most likely be removed.
-However, if we are using a multiple-class implementation,
-where a single observation from one majority class is deeply embedded into another majority class,
-then we will not only delete the single point,
-but we will also delete all the points around it that are its neighbors if we use the "any" criterion.
+With three or more classes,
+a single observation from one majority class deeply embedded in another majority class
+will not only be deleted itself,
+but will take its neighbors with it if we use the "any" criterion.
 This feels less ideal and is something we have to think about when applying this method.
 
 By itself, this method is simple,
@@ -57,6 +61,11 @@ The last extension we will talk about is the **Neighborhood Cleaning Rule** [@la
 This method starts by running Edited Nearest Neighbor.
 Then we run a K Nearest Neighbors on the minority observations.
 Any majority class observations that misclassify a minority observation will be removed as well.
+Note that this second stage does not inherit the multi-class behavior of the first:
+it needs to designate one class as "the minority", and the usual choice is the single smallest class,
+with the remaining classes acting as a pooled majority.
+That makes this half of the method the single-application strategy from @sec-imbalenced-multiclass rather than a true one-vs-rest.
+Implementations typically also skip cleaning around classes that are themselves small relative to the smallest one.
 
 Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalenced-distribution.
 

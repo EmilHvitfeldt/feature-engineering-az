@@ -32,6 +32,12 @@ And there is a definite risk that we are throwing away the signal when we do thi
 This is even more drastic when we have a sharp imbalance between the majority and minority classes.
 Having a 99-1 split in the data would have you remove 98% of the data set, which is not a wise choice.
 
+This method needs no expanding to handle more than two classes,
+as described in @sec-imbalenced-multiclass.
+It treats each class as its own unit.
+Each class is sampled down using only its own observations,
+so the other classes never enter the calculation beyond setting the target count.
+
 Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalenced-distribution.
 Just because these methods are simple doesn't mean that they they will work well.
 Random down sampling have been shown to lead to poorly calibrated models [@vandengoorbergh2022harm].

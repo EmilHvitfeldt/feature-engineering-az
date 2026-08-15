@@ -25,6 +25,8 @@ It is un uncommon to have few or no points removed when applying Tomek Link remo
 
 The method also makes the assumption that the noise happens at the border between two classes,
 However, that is not true for all data sets.
+
+Tomek link removal is one of the methods that needs no expanding at all, as described in @sec-imbalenced-multiclass.
 There is also no notion of importance,
 A point deep inside another class may or may not be removed purely based on how close it is to its nearest point.
 

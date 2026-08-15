@@ -33,6 +33,12 @@ No data is being deleted in this modification as we are just adding more rows, w
 
 You could think of this as a stochastic version of case weights without the compactness.
 
+This method needs no expanding to handle more than two classes, 
+as described in @sec-imbalenced-multiclass.
+It treats each class as its own unit.
+Each class is sampled using only its own observations, 
+so the other classes never enter the calculation beyond setting the target count.
+
 Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalenced-distribution.
 Just because these methods are simple doesn't mean that they they will work well.
 Random down sampling have been shown to lead to poorly calibrated models [@vandengoorbergh2022harm].
