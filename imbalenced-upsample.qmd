@@ -23,6 +23,53 @@ The remaining classes are denoted as the minority classes.
 The observations of each minority class are then sampled with replacement to increase the number of observations in the class.
 Typically, to align with the number of observations with that of the majority class.
 
+Because the new observations are copies, they land exactly on top of the observations they came from.
+@fig-imbalenced-upsample uses point size to show how many copies of each minority observation the result contains.
+Nowhere does the minority class reach into any part of the space it didn't already occupy.
+
+```{r}
+#| label: fig-imbalenced-upsample
+#| echo: false
+#| message: false
+#| fig-width: 7
+#| fig-height: 3.2
+#| fig-cap: |
+#|   Up-sampling duplicates minority observations. The class counts change,
+#|   but the region the class covers does not.
+#| fig-alt: |
+#|   Two scatter plots side by side. The left panel shows a gray majority class
+#|   in the lower left and a smaller pink minority class in the upper right,
+#|   all points the same size. The right panel shows the same points in the
+#|   same positions, but the pink points now vary in size according to how many
+#|   copies of each were drawn, with no pink point anywhere new.
+source("imbalenced-diagrams.R")
+
+imb_data <- imb_toy()
+minority <- which(imb_data$class == "minority")
+majority <- which(imb_data$class == "majority")
+
+set.seed(1)
+drawn <- sample(minority, length(majority), replace = TRUE)
+
+upsampled <- imb_data
+upsampled$copies <- 1
+upsampled$copies[minority] <- as.integer(table(factor(drawn, levels = minority)))
+
+u1 <- imb_base(imb_data, "Before")
+
+u2 <- imb_base(imb_data[majority, ], "After up-sampling") +
+  geom_point(
+    data = upsampled[minority, ], aes(x, y, size = copies),
+    inherit.aes = FALSE, color = imb_colors[["minority"]], shape = 17
+  ) +
+  scale_size_area(max_size = 5, name = "copies") +
+  guides(color = "none", shape = "none")
+
+u1 + u2 +
+  plot_layout(guides = "collect") &
+  theme(legend.position = "bottom")
+```
+
 One could also modify this for a different threshold,
 say 80%, which would make all minority classes with less than 80% of the number of observations of the majority class,
 upsample until they have at least 80% of that of the majority class.

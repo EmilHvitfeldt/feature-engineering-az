@@ -1282,16 +1282,56 @@ div.csl-indent {
 <p>We start by identifying the minority classes and the majority class. counting how many observations are in each, as this will be used as a target for how many observations to generate.</p>
 <p>Between each minority class, you calculate all the nearest neighbors. Then, for each observation, you are randomly picking one of its close neighbors (typically <code>k= 5</code>) as its designated neighbor for the task. Then a synthetic observation is generated at random on the line between these two points. This is typically done for every observation. With multiple runs, depending on how many observations will need to be created. A different random neighbor is picked each time, as well as a random point on the spanning line.</p>
 <p>You generally have a ratio threshold, determining how many observations you need. If you want a precise match for the counts of observations, you can randomly select observations to generate during the last run for a precise number of generated observations.</p>
-<p>TODO: this would really benefit from diagrams</p>
+<p><a href="#fig-imbalenced-smote" class="quarto-xref">Figure&nbsp;<span>88.1</span></a> walks through the whole procedure on a small two-dimensional data set.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-imbalenced-smote" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Four scatter plots in a 2x2 grid, each showing the same two-dimensional data set with a large gray majority class in the lower left and a smaller pink minority class in the upper right. Panel 1: one minority point is enlarged to mark it as the point being processed. Panel 2: a dashed circle around that point encloses its five nearest minority neighbors, which are drawn as hollow triangles. Panel 3: one neighbor is picked and a new hollow point appears partway along the straight line between the pair. Panel 4: the process has been repeated, and the minority region is now filled with synthetic points so that both classes have the same size.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-imbalenced-smote-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="imbalenced-smote_files/figure-html/fig-imbalenced-smote-1.png" class="img-fluid figure-img" alt="Four scatter plots in a 2x2 grid, each showing the same two-dimensional data set with a large gray majority class in the lower left and a smaller pink minority class in the upper right. Panel 1: one minority point is enlarged to mark it as the point being processed. Panel 2: a dashed circle around that point encloses its five nearest minority neighbors, which are drawn as hollow triangles. Panel 3: one neighbor is picked and a new hollow point appears partway along the straight line between the pair. Panel 4: the process has been repeated, and the minority region is now filled with synthetic points so that both classes have the same size." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-imbalenced-smote-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;88.1: SMOTE generates each new observation by interpolating between a minority observation and one of its nearest minority neighbors.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
 <p>One of the major shortcomings is that the base algorithm is limited to numeric predictors with no missing values, making it hard to use in many cases.</p>
-<p>This algorithm has no notion of data quality, meaning that bad data quality can make for some really unfortunate samples. especially for lone outliers, TODO add diagram</p>
-<p>It also treats the observations of each class by itself. While this is computationally and conceptually faster, it is a much simpler data representation, one that doesn’t use any information about their interactions. Furthermore, it includes no information about the majority class, which may otherwise be helpful to guide the method.</p>
-<p>TODO diagram</p>
+<p>This algorithm has no notion of data quality, meaning that bad data quality can make for some really unfortunate samples, especially for lone outliers. <a href="#fig-imbalenced-smote-outlier" class="quarto-xref">Figure&nbsp;<span>88.2</span></a> follows a single stray minority observation through the same procedure. Its nearest minority neighbors are all the way across the majority class, so the interpolation runs straight through territory where no minority observation was ever seen, and the synthetic points land in the middle of the majority class.</p>
+<p>It also treats the observations of each class by itself. While this is computationally and conceptually faster, it is a much simpler data representation, one that doesn’t use any information about their interactions. Furthermore, it includes no information about the majority class, which may otherwise be helpful to guide the method. This is the second thing <a href="#fig-imbalenced-smote-outlier" class="quarto-xref">Figure&nbsp;<span>88.2</span></a> shows: the majority observations in the way of the interpolation are visible to us, but not to the algorithm. Nothing in SMOTE consults them, so nothing stops the bridge from being built.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-imbalenced-smote-outlier" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Four scatter plots in a 2x2 grid showing the same data set as the previous figure, where one minority point sits alone in the lower left, far below the gray majority cloud and far from the rest of the pink minority class in the upper right. Panel 1: that lone point is enlarged. Panel 2: five long lines connect it to its nearest minority neighbors, all of which are on the other side of the majority class. Panel 3: hollow synthetic points are placed along those lines, landing on top of the majority cloud. Panel 4: the majority points that the new synthetic points now sit among are ringed, showing that the algorithm never looked at them.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-imbalenced-smote-outlier-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="imbalenced-smote_files/figure-html/fig-imbalenced-smote-outlier-1.png" class="img-fluid figure-img" alt="Four scatter plots in a 2x2 grid showing the same data set as the previous figure, where one minority point sits alone in the lower left, far below the gray majority cloud and far from the rest of the pink minority class in the upper right. Panel 1: that lone point is enlarged. Panel 2: five long lines connect it to its nearest minority neighbors, all of which are on the other side of the majority class. Panel 3: hollow synthetic points are placed along those lines, landing on top of the majority cloud. Panel 4: the majority points that the new synthetic points now sit among are ringed, showing that the algorithm never looked at them." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-imbalenced-smote-outlier-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;88.2: A single outlying minority observation is enough to make SMOTE generate synthetic observations inside the majority class.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
 <p>Since we are using a nearest neighbor search, We have a hyperparameter <code>k</code> that is used to denote how many observations should be considered for pairs.</p>
 <p>The nearest neighbor search is central to the SMOTE method and thus responsible for many of the downsides associated with the method. One of the problems is that the idea of nearest neighbors becomes more fuzzy as we enter higher dimensions. This will naturally extend to how SMOTE becomes applicable. Similarly, the nearest neighbor search is also responsible for the high computational cost that can occur when the data becomes larger. computational cost</p>
 <p>Many of the different issues are addressed by some of the <a href="./imbalenced-smote-variants.html">SMOTE variants</a>.</p>
 <p>Base SMOTE needs no expanding to handle more than two classes, as described in <a href="imbalenced.html#sec-imbalenced-multiclass" class="quarto-xref"><span>Section 86.2</span></a>.</p>
 <p>Like all the methods in this section, this changes the distribution of the training data set, which is covered in <a href="imbalenced.html#sec-imbalenced-distribution" class="quarto-xref"><span>Section 86.3</span></a>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Animated version
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The same walkthrough, one step at a time, is available as an <a href="https://emilhvitfeldt.github.io/tidy-animations/examples/smote.html">animated slide</a>.</p>
+</div>
+</div>
 <section id="pros-and-cons" class="level2" data-number="88.2">
 <h2 data-number="88.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">88.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="88.2.1">

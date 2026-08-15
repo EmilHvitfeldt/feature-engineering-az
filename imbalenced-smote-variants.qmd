@@ -59,7 +59,120 @@ Variant 1 is more aggressive,
 as it produces points closer to the decision boundary,
 And the choice to label fully enclosed points as noise is a way to avoid having issues here.
 
-TODO: this would do really well with a graphic
+@fig-imbalenced-borderline shows both the labeling step and the difference between the two variants.
+
+```{r}
+#| label: fig-imbalenced-borderline
+#| echo: false
+#| message: false
+#| fig-width: 7
+#| fig-height: 5.6
+#| fig-cap: |
+#|   Borderline-SMOTE first sorts the minority observations into safe,
+#|   borderline, and noise, then generates only around the borderline ones.
+#|   Variant 2 is allowed to interpolate towards the majority class.
+#| fig-alt: |
+#|   Four scatter plots in a 2x2 grid showing a gray majority class and a pink
+#|   minority class meeting along a diagonal. Panel 1: one minority point near
+#|   the boundary has a dashed circle around it enclosing its five nearest
+#|   neighbors, a mix of gray and pink. Panel 2: minority points are labeled,
+#|   with dark rings on the borderline points along the diagonal, a cross on
+#|   the lone noise point stranded in the majority cloud, and nothing on the
+#|   safe points deep in the minority region. Panel 3: hollow synthetic points
+#|   appear only around the ringed borderline points, all on the minority side.
+#|   Panel 4: the same, except some synthetic points now sit on the majority
+#|   side of the boundary.
+source("imbalenced-diagrams.R")
+
+imb_data <- imb_toy()
+k <- 5
+
+neighbors <- imb_all_neighbors(imb_data, k = k)
+minority <- which(imb_data$class == "minority")
+
+# How many of each minority observation's neighbors belong to the other class.
+opposing <- vapply(
+  minority,
+  function(i) sum(imb_data$class[neighbors[[i]]] == "majority"),
+  integer(1)
+)
+
+noise <- minority[opposing == k]
+borderline <- minority[opposing >= k / 2 & opposing < k]
+safe <- minority[opposing < k / 2]
+
+focus <- borderline[1]
+focus_point <- imb_data[focus, ]
+focus_neighbors <- neighbors[[focus]]
+
+# Variant 1 stays inside the minority class, variant 2 is allowed to
+# interpolate towards whichever neighbor it drew, majority class included.
+generate <- function(pool_within_class) {
+  set.seed(7)
+  do.call(rbind, lapply(borderline, function(i) {
+    if (pool_within_class) {
+      picks <- sample(imb_neighbors(imb_data, i, minority, k = k), 2)
+    } else {
+      # Show the behavior the variant is named for: one of the two draws is
+      # taken from the majority neighbors whenever there are any.
+      opposite <- neighbors[[i]][imb_data$class[neighbors[[i]]] == "majority"]
+      picks <- c(
+        sample(if (length(opposite)) opposite else neighbors[[i]], 1),
+        sample(neighbors[[i]], 1)
+      )
+    }
+    rbind(
+      imb_interpolate(imb_data, i, picks[1], gap = runif(1, 0.2, 0.8)),
+      imb_interpolate(imb_data, i, picks[2], gap = runif(1, 0.2, 0.8))
+    )
+  }))
+}
+
+label_for <- function(i, text) {
+  data.frame(x = imb_data$x[i] + 0.12, y = imb_data$y[i] + 0.32, label = text)
+}
+
+b1 <- imb_base(imb_data, "1. Look at each minority point's neighborhood") +
+  geom_path(
+    data = imb_ring(focus_point, imb_radius(imb_data, focus, focus_neighbors)),
+    aes(x, y), inherit.aes = FALSE, color = imb_removed,
+    linetype = "dashed", linewidth = 0.3
+  ) +
+  geom_point(data = imb_data[focus_neighbors, ], size = 3.5, shape = 1,
+             stroke = 0.7, color = imb_removed, show.legend = FALSE) +
+  geom_point(data = focus_point, size = 4.5, shape = 17, show.legend = FALSE)
+
+b2 <- imb_base(imb_data, "2. Label them safe, borderline, or noise") +
+  geom_point(data = imb_data[borderline, ], aes(x, y), inherit.aes = FALSE,
+             shape = 1, size = 4, stroke = 0.8, color = imb_removed) +
+  geom_point(data = imb_data[noise, ], aes(x, y), inherit.aes = FALSE,
+             shape = 4, size = 3, stroke = 0.8, color = imb_removed) +
+  geom_text(
+    data = rbind(
+      label_for(borderline[1], "borderline"),
+      label_for(noise[1], "noise"),
+      label_for(safe[which.min(abs(imb_data$x[safe] - median(imb_data$x[safe])))], "safe")
+    ),
+    aes(x, y, label = label), inherit.aes = FALSE,
+    hjust = 0, size = 2.8, color = imb_removed
+  )
+
+b3 <- imb_base(rbind(imb_data[, c("x", "y", "class")], generate(TRUE)),
+               "3. Variant 1 stays within the minority class") +
+  geom_point(data = imb_data[borderline, ], aes(x, y), inherit.aes = FALSE,
+             shape = 1, size = 4, stroke = 0.8, color = imb_removed)
+
+b4 <- imb_base(rbind(imb_data[, c("x", "y", "class")], generate(FALSE)),
+               "4. Variant 2 may cross towards the majority class") +
+  geom_point(data = imb_data[borderline, ], aes(x, y), inherit.aes = FALSE,
+             shape = 1, size = 4, stroke = 0.8, color = imb_removed)
+
+no_legend <- guides(color = "none", shape = "none")
+
+((b1 + no_legend) + (b2 + no_legend)) / ((b3 + no_legend) + b4) +
+  plot_layout(guides = "collect") &
+  theme(legend.position = "bottom")
+```
 
 ### Distribution
 
@@ -76,6 +189,8 @@ This is in contrast to borderline SMOTE, where all borderline points were treate
 
 One of the downsides of this method is that there is no explicit exclusion to noisy observations.
 So a point from one class that is located entirely inside another class will still generate observations.
+It will in fact be one of the most attractive points to generate around, since every one of its neighbors belongs to the other class.
+You can see this in @fig-imbalenced-variants further down, where ADASYN lays a trail of synthetic observations between the lone outlier and the rest of its class.
 
 ### Model-based
 
@@ -85,6 +200,67 @@ we fit an SVM model.
 Then we identify the support vectors from the minority classes,
 and finally generate synthetic observations around those support vectors.
 This method is typically called **SVM SMOTE** [@nguyen2011svmsmote].
+
+The three boundary-aware variants and base SMOTE all generate the same number of observations.
+What separates them is where those observations end up, which is what @fig-imbalenced-variants compares.
+
+```{r}
+#| label: fig-imbalenced-variants
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-width: 7
+#| fig-height: 5.6
+#| fig-cap: |
+#|   The same number of synthetic observations, placed by four different
+#|   variants. Base SMOTE spreads them over the whole minority class, the
+#|   others concentrate them near the boundary, and ADASYN also pours them
+#|   along the path to the lone outlier.
+#| fig-alt: |
+#|   Four scatter plots in a 2x2 grid, each showing the same gray majority
+#|   class and pink minority class with thirty hollow synthetic points added.
+#|   In the SMOTE panel the synthetic points are spread evenly through the
+#|   minority region. In the Borderline-SMOTE panel they sit in a tight band
+#|   along the edge of the minority class facing the majority class. In the
+#|   ADASYN panel they favor that same edge but a visible trail of them also
+#|   runs down into the majority cloud towards the isolated minority point in
+#|   the lower left. In the SVM-SMOTE panel they follow the boundary in a
+#|   looser band that reaches further along it.
+library(kernlab)
+
+n_new <- 30
+
+# Every variant differs only in which minority observations it draws from.
+generate_from <- function(pool, weights = NULL, seed = 11) {
+  set.seed(seed)
+  picks <- sample(pool, n_new, replace = TRUE, prob = weights)
+  do.call(rbind, lapply(picks, function(i) {
+    neighbor <- sample(imb_neighbors(imb_data, i, minority, k = k), 1)
+    imb_interpolate(imb_data, i, neighbor, gap = runif(1))
+  }))
+}
+
+# ADASYN weights each minority observation by how much of its neighborhood
+# belongs to the other class.
+adasyn_weights <- opposing + 0.001
+
+# SVM-SMOTE generates around the minority support vectors instead.
+svm_data <- imb_data
+svm_data$class <- droplevels(svm_data$class)
+svm_fit <- ksvm(class ~ x + y, data = svm_data, kernel = "rbfdot", C = 1)
+support <- intersect(unlist(alphaindex(svm_fit)), minority)
+
+with_new <- function(new) rbind(imb_data[, c("x", "y", "class")], new)
+
+v1 <- imb_base(with_new(generate_from(minority)), "SMOTE")
+v2 <- imb_base(with_new(generate_from(borderline)), "Borderline-SMOTE 1")
+v3 <- imb_base(with_new(generate_from(minority, adasyn_weights)), "ADASYN")
+v4 <- imb_base(with_new(generate_from(support)), "SVM-SMOTE")
+
+(v1 + v2) / (v3 + v4) +
+  plot_layout(guides = "collect") &
+  theme(legend.position = "bottom")
+```
 
 ### Distance/Neighborhood-based variants
 
@@ -130,6 +306,12 @@ which means they need a notion of "the other class."
 Both resolve this with one-vs-rest.
 
 Like all the methods in this section, these change the distribution of the training data set, which is covered in @sec-imbalenced-distribution.
+
+::: {.callout-tip}
+## Animated versions
+
+Several of these variants have animated walkthroughs: [Borderline-SMOTE 1](https://emilhvitfeldt.github.io/tidy-animations/examples/borderline-smote1.html), [Borderline-SMOTE 2](https://emilhvitfeldt.github.io/tidy-animations/examples/borderline-smote2.html), [ADASYN](https://emilhvitfeldt.github.io/tidy-animations/examples/adasyn.html), [SVM-SMOTE](https://emilhvitfeldt.github.io/tidy-animations/examples/svmsmote.html), and [k-means SMOTE](https://emilhvitfeldt.github.io/tidy-animations/examples/kmeans-smote.html).
+:::
 
 ## R Examples
 

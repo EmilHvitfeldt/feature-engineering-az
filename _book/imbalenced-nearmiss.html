@@ -1286,8 +1286,36 @@ div.csl-indent {
 <p>While the distinction between the 1 and 2 variants might seem small, what you are getting is that with NearMiss-1, you are preserving samples that are most similar to the minority class, and with NearMiss-2, you are preserving samples that are least similar to the minority class. NearMiss-3 is trying to have a more blended selection.</p>
 <p>This method, like many of the other methods, is technically not restricted to be used on the majority class, and could, in theory, be used on any number of classes in the data set.</p>
 <p>Doing so requires settling a question the original description leaves open. All three variants are defined by distances from majority observations to <em>the minority class</em>, which is unambiguous only when there are two classes. NearMiss resolves this with the <strong>one-vs-rest</strong> strategy from <a href="imbalenced.html#sec-imbalenced-multiclass" class="quarto-xref"><span>Section 86.2</span></a>.</p>
+<p><a href="#fig-imbalenced-nearmiss" class="quarto-xref">Figure&nbsp;<span>91.1</span></a> walks through NearMiss-1, which is the most direct of the three.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-imbalenced-nearmiss" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Four scatter plots in a 2x2 grid showing a gray majority class in the lower left and a pink minority class in the upper right. Panel 1: three lines run from one majority point to the three minority points closest to it. Panel 2: every majority point is drawn with a size proportional to its average distance to the minority class, so points far from the minority class in the lower left are large. Panel 3: the highest-scoring majority points are marked with dark crosses, covering most of the lower left. Panel 4: only the majority points nearest the minority class remain, and they hug the boundary.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-imbalenced-nearmiss-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="imbalenced-nearmiss_files/figure-html/fig-imbalenced-nearmiss-1.png" class="img-fluid figure-img" alt="Four scatter plots in a 2x2 grid showing a gray majority class in the lower left and a pink minority class in the upper right. Panel 1: three lines run from one majority point to the three minority points closest to it. Panel 2: every majority point is drawn with a size proportional to its average distance to the minority class, so points far from the minority class in the lower left are large. Panel 3: the highest-scoring majority points are marked with dark crosses, covering most of the lower left. Panel 4: only the majority points nearest the minority class remain, and they hug the boundary." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-imbalenced-nearmiss-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;91.1: NearMiss-1 scores every majority observation by its average distance to the three closest minority observations, and keeps the lowest scores.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
 <p>One of the convenient things about this method is that it technically works by giving the observations an ordering, And we just have to find the cut point that determines how many points to retain.</p>
 <p>Like all the methods in this section, this changes the distribution of the training data set, which is covered in <a href="imbalenced.html#sec-imbalenced-distribution" class="quarto-xref"><span>Section 86.3</span></a>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Animated version
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The same walkthrough, one step at a time, is available as an <a href="https://emilhvitfeldt.github.io/tidy-animations/examples/nearmiss.html">animated slide</a>.</p>
+</div>
+</div>
 <section id="pros-and-cons" class="level2" data-number="91.2">
 <h2 data-number="91.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">91.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="91.2.1">

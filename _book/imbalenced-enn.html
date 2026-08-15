@@ -1283,13 +1283,55 @@ div.csl-indent {
 <li>Remove observations from the majority class if the removal criteria are satisfied.</li>
 </ol>
 <p>The removal criteria is something we can choose different options for. A typical implementation will either remove an observation if the majority of the neighbors are of a different class, but you could also tighten this and remove an observation if any of the neighbors are of a different class.</p>
+<p><a href="#fig-imbalenced-enn" class="quarto-xref">Figure&nbsp;<span>94.1</span></a> works through the majority-vote criterion one point at a time.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-imbalenced-enn" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Four scatter plots in a 2x2 grid showing a gray majority class and a smaller pink minority class overlapping along a diagonal boundary. Panel 1: one majority point sitting inside the minority region has a dashed circle around it enclosing its five nearest neighbors, most of which are pink. Panel 2: because the neighborhood votes against it, that point is marked with a dark cross. Panel 3: the same test has been applied to every majority observation, and a handful of crosses appears on the majority side of the boundary. Panel 4: the flagged points are gone and the gap between the two classes has widened.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-imbalenced-enn-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="imbalenced-enn_files/figure-html/fig-imbalenced-enn-1.png" class="img-fluid figure-img" alt="Four scatter plots in a 2x2 grid showing a gray majority class and a smaller pink minority class overlapping along a diagonal boundary. Panel 1: one majority point sitting inside the minority region has a dashed circle around it enclosing its five nearest neighbors, most of which are pink. Panel 2: because the neighborhood votes against it, that point is marked with a dark cross. Panel 3: the same test has been applied to every majority observation, and a handful of crosses appears on the majority side of the boundary. Panel 4: the flagged points are gone and the gap between the two classes has widened." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-imbalenced-enn-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;94.1: Edited Nearest Neighbor removes the observations whose neighborhood disagrees with them, which thins out the overlap between the classes.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
 <p>The idea is that we are able to remove noisy observations this way. And depending on which criteria you choose, you could see how that would be. By only allowing us to keep all the observations that have neighbors all of the same class, we can end up removing a lot of the decision boundary, especially any area where there is overlap.</p>
 <p>The general framework is described in terms of 2 classes, but it extends to more without any reduction, and so is one of the methods in <a href="imbalenced.html#sec-imbalenced-multiclass" class="quarto-xref"><span>Section 86.2</span></a> that needs no expanding. Both removal criteria are phrased as comparisons against the observation’s own label: the “any” criterion asks whether any neighbor carries a different label, and the majority-vote criterion compares the observation’s label against the most common label among its neighbors. Neither question needs the other classes pooled together, and both look at the true labels throughout.</p>
 <p>It does still change how things play out. In the two-class case, any majority point deeply embedded in the minority class will most likely be removed. With three or more classes, a single observation from one majority class deeply embedded in another majority class will not only be deleted itself, but will take its neighbors with it if we use the “any” criterion. This feels less ideal and is something we have to think about when applying this method.</p>
 <p>By itself, this method is simple, and there have been a couple of method that expands on the foundation of this method. The first one is <strong>Repeated Edited Nearest Neighbor</strong> <span class="citation" data-cites="tomek1976enn">(<a href="references.html#ref-tomek1976enn" role="doc-biblioref">Tomek 1976</a>)</span>. And it does what it says, it repeats Edited Nearest Neighbor a number of times. You can either set it up such that it runs a fixed number of times or until no observations are removed during an iteration.</p>
 <p>Another named variant <strong>AllKNN</strong>. This is a variant of Edited Nearest Neighbors, where you select a value of <code>k</code>, then apply ENN with neighbors <code>1</code> through <code>k</code>. Both of these variants result in more observations being removed.</p>
-<p>The last extension we will talk about is the <strong>Neighborhood Cleaning Rule</strong> <span class="citation" data-cites="laurikkala2001ncl">(<a href="references.html#ref-laurikkala2001ncl" role="doc-biblioref">Laurikkala 2001</a>)</span>. This method starts by running Edited Nearest Neighbor. Then we run a K Nearest Neighbors on the minority observations. Any majority class observations that misclassify a minority observation will be removed as well. Note that this second stage does not inherit the multi-class behavior of the first: it needs to designate one class as “the minority”, and the usual choice is the single smallest class, with the remaining classes acting as a pooled majority. That makes this half of the method the single-application strategy from <a href="imbalenced.html#sec-imbalenced-multiclass" class="quarto-xref"><span>Section 86.2</span></a> rather than a true one-vs-rest. Implementations typically also skip cleaning around classes that are themselves small relative to the smallest one.</p>
+<p>The last extension we will talk about is the <strong>Neighborhood Cleaning Rule</strong> <span class="citation" data-cites="laurikkala2001ncl">(<a href="references.html#ref-laurikkala2001ncl" role="doc-biblioref">Laurikkala 2001</a>)</span>. This method starts by running Edited Nearest Neighbor. Then we run a K Nearest Neighbors on the minority observations. Any majority class observations that misclassify a minority observation will be removed as well. Note that this second stage does not inherit the multi-class behavior of the first: it needs to designate one class as “the minority”, and the usual choice is the single smallest class, with the remaining classes acting as a pooled majority. That makes this half of the method the single-application strategy from <a href="imbalenced.html#sec-imbalenced-multiclass" class="quarto-xref"><span>Section 86.2</span></a> rather than a true one-vs-rest. Implementations typically also skip cleaning around classes that are themselves small relative to the smallest one. <a href="#fig-imbalenced-ncl" class="quarto-xref">Figure&nbsp;<span>94.2</span></a> shows the second pass, which is where the two methods part ways.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-imbalenced-ncl" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Four scatter plots in a 2x2 grid. Panel 1: the data after Edited Nearest Neighbor has already run, with a gray majority class and a pink minority class. Panel 2: one minority point whose neighborhood is mostly gray is circled, with lines drawn to its five nearest neighbors. Panel 3: the majority neighbors responsible for misclassifying it are marked with dark crosses. Panel 4: those points have been removed as well, leaving a wider margin around the minority class than the first pass produced on its own.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-imbalenced-ncl-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="imbalenced-enn_files/figure-html/fig-imbalenced-ncl-1.png" class="img-fluid figure-img" alt="Four scatter plots in a 2x2 grid. Panel 1: the data after Edited Nearest Neighbor has already run, with a gray majority class and a pink minority class. Panel 2: one minority point whose neighborhood is mostly gray is circled, with lines drawn to its five nearest neighbors. Panel 3: the majority neighbors responsible for misclassifying it are marked with dark crosses. Panel 4: those points have been removed as well, leaving a wider margin around the minority class than the first pass produced on its own." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-imbalenced-ncl-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;94.2: The Neighborhood Cleaning Rule adds a second pass to Edited Nearest Neighbor, removing the majority observations that get a minority observation misclassified.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
 <p>Like all the methods in this section, this changes the distribution of the training data set, which is covered in <a href="imbalenced.html#sec-imbalenced-distribution" class="quarto-xref"><span>Section 86.3</span></a>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Animated version
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The same walkthroughs, one step at a time, are available as animated slides for <a href="https://emilhvitfeldt.github.io/tidy-animations/examples/enn.html">Edited Nearest Neighbor</a> and the <a href="https://emilhvitfeldt.github.io/tidy-animations/examples/ncl.html">Neighborhood Cleaning Rule</a>.</p>
+</div>
+</div>
 <section id="pros-and-cons" class="level2" data-number="94.2">
 <h2 data-number="94.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">94.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="94.2.1">

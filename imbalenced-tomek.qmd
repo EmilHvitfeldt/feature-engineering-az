@@ -13,7 +13,80 @@ Tomek link removal is the practice of identifying Tomek links and removing them 
 A **Tomek Link** is a pair of observations from different classes that have eachother as their nearest neighbor [@tomek1976cnn].
 The Tomek link is typically handled by removing the majority observation of the pair instead of removing both observations.
 
-TODO: Diagram
+@fig-imbalenced-tomek shows how the links are found and what removing them does to the boundary between the classes.
+
+```{r}
+#| label: fig-imbalenced-tomek
+#| echo: false
+#| message: false
+#| fig-width: 7
+#| fig-height: 5.6
+#| fig-cap: |
+#|   A Tomek link is a pair of observations from different classes that are
+#|   each other's nearest neighbor. Removing the majority half of each pair
+#|   widens the gap between the two classes.
+#| fig-alt: |
+#|   Four scatter plots in a 2x2 grid showing a gray majority class and a
+#|   smaller pink minority class that overlap along a diagonal boundary.
+#|   Panel 1: a short line joins every observation to its nearest neighbor.
+#|   Panel 2: only the pairs that point at each other are kept, leaving far
+#|   fewer lines. Panel 3: the handful of those mutual pairs whose two members
+#|   belong to different classes are drawn in dark, and these are the Tomek
+#|   links. Panel 4: the majority member of each link has been removed, marked
+#|   by a dark cross, leaving a cleaner gap along the boundary.
+source("imbalenced-diagrams.R")
+
+imb_data <- imb_toy()
+n <- nrow(imb_data)
+
+nearest <- vapply(seq_len(n), function(i) imb_neighbors(imb_data, i, k = 1), integer(1))
+
+segments_for <- function(pairs) {
+  data.frame(
+    x = imb_data$x[pairs[, 1]], y = imb_data$y[pairs[, 1]],
+    xend = imb_data$x[pairs[, 2]], yend = imb_data$y[pairs[, 2]]
+  )
+}
+
+all_pairs <- cbind(seq_len(n), nearest)
+mutual <- all_pairs[nearest[nearest] == seq_len(n) & seq_len(n) < nearest, , drop = FALSE]
+links <- mutual[imb_data$class[mutual[, 1]] != imb_data$class[mutual[, 2]], , drop = FALSE]
+
+# The majority half of each link is the one that goes.
+dropped <- apply(links, 1, function(pair) pair[imb_data$class[pair] == "majority"])
+
+t1 <- imb_base(imb_data, "1. Join every point to its nearest neighbor") +
+  geom_segment(
+    data = segments_for(all_pairs), aes(x = x, y = y, xend = xend, yend = yend),
+    inherit.aes = FALSE, color = "grey70", linewidth = 0.25
+  )
+
+t2 <- imb_base(imb_data, "2. Keep the pairs that point at each other") +
+  geom_segment(
+    data = segments_for(mutual), aes(x = x, y = y, xend = xend, yend = yend),
+    inherit.aes = FALSE, color = "grey70", linewidth = 0.25
+  )
+
+t3 <- imb_base(imb_data, "3. Cross-class pairs are the Tomek links") +
+  geom_segment(
+    data = segments_for(mutual), aes(x = x, y = y, xend = xend, yend = yend),
+    inherit.aes = FALSE, color = "grey85", linewidth = 0.25
+  ) +
+  geom_segment(
+    data = segments_for(links), aes(x = x, y = y, xend = xend, yend = yend),
+    inherit.aes = FALSE, color = imb_removed, linewidth = 0.6
+  )
+
+t4 <- imb_base(imb_data[-dropped, ], "4. Remove the majority half of each link") +
+  geom_point(
+    data = imb_data[dropped, ], aes(x, y), inherit.aes = FALSE,
+    shape = 4, size = 2.5, stroke = 0.8, color = imb_removed
+  )
+
+(t1 + t2) / (t3 + t4) +
+  plot_layout(guides = "collect") &
+  theme(legend.position = "bottom")
+```
 
 The traditional implementation assumes Euclidean distances,
 which in turn assumes you have all numeric predictors and no missing values.
@@ -31,6 +104,12 @@ There is also no notion of importance,
 A point deep inside another class may or may not be removed purely based on how close it is to its nearest point.
 
 Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalenced-distribution.
+
+::: {.callout-tip}
+## Animated version
+
+The same walkthrough, one step at a time, is available as an [animated slide](https://emilhvitfeldt.github.io/tidy-animations/examples/tomek.html).
+:::
 
 ## Pros and Cons
 

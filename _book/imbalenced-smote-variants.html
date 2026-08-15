@@ -1293,18 +1293,47 @@ div.csl-indent {
 <p>To determine whether an observation is considered borderline or not, we calculate the nearest neighbors of each observation in the data set. And we look to see whether the neighbors are of the same class or not. If all the neighbors of an observation are of different classes, then the observation is labeled as “noise”. Likewise, if too many of the neighbors of an observation are of the same class as itself, the observation is labeled “safe” otherwise, it is labeled “borderline”. The threshold of too many is typically 50%.</p>
 <p>We will generate new synthetic observations around the neighbors of all the borderline observations. And we have two major ways to do it. Either we do it like we did in standard SMOTE where we generate points between an observation and neighbors of the same class, or we could generate points between any of the neighbors, regardless of whether they are of the same class or not. This is referred to as variants 1 and 2, respectively.</p>
 <p>Variant 1 is more aggressive, as it produces points closer to the decision boundary, And the choice to label fully enclosed points as noise is a way to avoid having issues here.</p>
-<p>TODO: this would do really well with a graphic</p>
+<p><a href="#fig-imbalenced-borderline" class="quarto-xref">Figure&nbsp;<span>89.1</span></a> shows both the labeling step and the difference between the two variants.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-imbalenced-borderline" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Four scatter plots in a 2x2 grid showing a gray majority class and a pink minority class meeting along a diagonal. Panel 1: one minority point near the boundary has a dashed circle around it enclosing its five nearest neighbors, a mix of gray and pink. Panel 2: minority points are labeled, with dark rings on the borderline points along the diagonal, a cross on the lone noise point stranded in the majority cloud, and nothing on the safe points deep in the minority region. Panel 3: hollow synthetic points appear only around the ringed borderline points, all on the minority side. Panel 4: the same, except some synthetic points now sit on the majority side of the boundary.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-imbalenced-borderline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="imbalenced-smote-variants_files/figure-html/fig-imbalenced-borderline-1.png" class="img-fluid figure-img" alt="Four scatter plots in a 2x2 grid showing a gray majority class and a pink minority class meeting along a diagonal. Panel 1: one minority point near the boundary has a dashed circle around it enclosing its five nearest neighbors, a mix of gray and pink. Panel 2: minority points are labeled, with dark rings on the borderline points along the diagonal, a cross on the lone noise point stranded in the majority cloud, and nothing on the safe points deep in the minority region. Panel 3: hollow synthetic points appear only around the ringed borderline points, all on the minority side. Panel 4: the same, except some synthetic points now sit on the majority side of the boundary." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-imbalenced-borderline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;89.1: Borderline-SMOTE first sorts the minority observations into safe, borderline, and noise, then generates only around the borderline ones. Variant 2 is allowed to interpolate towards the majority class.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="distribution" class="level3" data-number="89.1.3">
 <h3 data-number="89.1.3" class="anchored" data-anchor-id="distribution"><span class="header-section-number">89.1.3</span> Distribution</h3>
 <p>Borderline SMOTE, as seen before, focused on sampling observations near the border. Having a hard rule to decide which observation should be included. <strong>Adaptive Synthetic Sampling</strong> (ADASYN) asks a different question <span class="citation" data-cites="he2008adasyn">(<a href="references.html#ref-he2008adasyn" role="doc-biblioref">He et al. 2008</a>)</span>.</p>
 <p>Each observation is given a score based on how many neighbours it shares with the majority class. Instead of generating a threshold based on this score, we instead use the score to sample which observations should be generated around.</p>
 <p>This means that we try to generate observations around observations that are “harder” to classify. This is in contrast to borderline SMOTE, where all borderline points were treated the same.</p>
-<p>One of the downsides of this method is that there is no explicit exclusion to noisy observations. So a point from one class that is located entirely inside another class will still generate observations.</p>
+<p>One of the downsides of this method is that there is no explicit exclusion to noisy observations. So a point from one class that is located entirely inside another class will still generate observations. It will in fact be one of the most attractive points to generate around, since every one of its neighbors belongs to the other class. You can see this in <a href="#fig-imbalenced-variants" class="quarto-xref">Figure&nbsp;<span>89.2</span></a> further down, where ADASYN lays a trail of synthetic observations between the lone outlier and the rest of its class.</p>
 </section>
 <section id="model-based" class="level3" data-number="89.1.4">
 <h3 data-number="89.1.4" class="anchored" data-anchor-id="model-based"><span class="header-section-number">89.1.4</span> Model-based</h3>
 <p>A different way to calculate the border is based on the idea of SVM. Instead of calculating the nearest neighbors to find borders, we fit an SVM model. Then we identify the support vectors from the minority classes, and finally generate synthetic observations around those support vectors. This method is typically called <strong>SVM SMOTE</strong> <span class="citation" data-cites="nguyen2011svmsmote">(<a href="references.html#ref-nguyen2011svmsmote" role="doc-biblioref">Nguyen et al. 2011</a>)</span>.</p>
+<p>The three boundary-aware variants and base SMOTE all generate the same number of observations. What separates them is where those observations end up, which is what <a href="#fig-imbalenced-variants" class="quarto-xref">Figure&nbsp;<span>89.2</span></a> compares.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-imbalenced-variants" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Four scatter plots in a 2x2 grid, each showing the same gray majority class and pink minority class with thirty hollow synthetic points added. In the SMOTE panel the synthetic points are spread evenly through the minority region. In the Borderline-SMOTE panel they sit in a tight band along the edge of the minority class facing the majority class. In the ADASYN panel they favor that same edge but a visible trail of them also runs down into the majority cloud towards the isolated minority point in the lower left. In the SVM-SMOTE panel they follow the boundary in a looser band that reaches further along it.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-imbalenced-variants-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="imbalenced-smote-variants_files/figure-html/fig-imbalenced-variants-1.png" class="img-fluid figure-img" alt="Four scatter plots in a 2x2 grid, each showing the same gray majority class and pink minority class with thirty hollow synthetic points added. In the SMOTE panel the synthetic points are spread evenly through the minority region. In the Borderline-SMOTE panel they sit in a tight band along the edge of the minority class facing the majority class. In the ADASYN panel they favor that same edge but a visible trail of them also runs down into the majority cloud towards the isolated minority point in the lower left. In the SVM-SMOTE panel they follow the boundary in a looser band that reaches further along it." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-imbalenced-variants-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;89.2: The same number of synthetic observations, placed by four different variants. Base SMOTE spreads them over the whole minority class, the others concentrate them near the boundary, and ADASYN also pours them along the path to the lone outlier.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="distanceneighborhood-based-variants" class="level3" data-number="89.1.5">
 <h3 data-number="89.1.5" class="anchored" data-anchor-id="distanceneighborhood-based-variants"><span class="header-section-number">89.1.5</span> Distance/Neighborhood-based variants</h3>
@@ -1341,6 +1370,19 @@ div.csl-indent {
 <p>SMOTEN and SMOTENC inherit base SMOTE’s behavior.</p>
 <p>Borderline-SMOTE and ADASYN both need to know how many of an observation’s neighbors belong to a <em>different</em> class, which means they need a notion of “the other class.” Both resolve this with one-vs-rest.</p>
 <p>Like all the methods in this section, these change the distribution of the training data set, which is covered in <a href="imbalenced.html#sec-imbalenced-distribution" class="quarto-xref"><span>Section 86.3</span></a>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Animated versions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Several of these variants have animated walkthroughs: <a href="https://emilhvitfeldt.github.io/tidy-animations/examples/borderline-smote1.html">Borderline-SMOTE 1</a>, <a href="https://emilhvitfeldt.github.io/tidy-animations/examples/borderline-smote2.html">Borderline-SMOTE 2</a>, <a href="https://emilhvitfeldt.github.io/tidy-animations/examples/adasyn.html">ADASYN</a>, <a href="https://emilhvitfeldt.github.io/tidy-animations/examples/svmsmote.html">SVM-SMOTE</a>, and <a href="https://emilhvitfeldt.github.io/tidy-animations/examples/kmeans-smote.html">k-means SMOTE</a>.</p>
+</div>
+</div>
 </section>
 <section id="r-examples" class="level2" data-number="89.2">
 <h2 data-number="89.2" class="anchored" data-anchor-id="r-examples"><span class="header-section-number">89.2</span> R Examples</h2>

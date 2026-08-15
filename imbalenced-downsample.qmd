@@ -23,6 +23,45 @@ The remaining classes are denoted as the majority classes.
 The observations of each majority class are then sampled without replacement to decrease the number of observations in the class.
 Typically, to align with the number of observations with that of the minority class.
 
+@fig-imbalenced-downsample shows what that costs.
+The majority observations that are removed are picked at random, with no regard for where they sit,
+so the shape of the majority class is preserved while the detail in it is not.
+
+```{r}
+#| label: fig-imbalenced-downsample
+#| echo: false
+#| message: false
+#| fig-width: 7
+#| fig-height: 3.2
+#| fig-cap: |
+#|   Down-sampling removes majority observations at random until the classes
+#|   match. Crosses mark the observations that were dropped.
+#| fig-alt: |
+#|   Two scatter plots side by side. The left panel shows a dense gray majority
+#|   class in the lower left and a smaller pink minority class in the upper
+#|   right. The right panel shows the same data after most of the gray points
+#|   have been replaced by dark crosses, leaving a sparse scattering of gray
+#|   points spread over the same region as before.
+source("imbalenced-diagrams.R")
+
+imb_data <- imb_toy()
+minority <- which(imb_data$class == "minority")
+majority <- which(imb_data$class == "majority")
+
+set.seed(1)
+dropped <- setdiff(majority, sample(majority, length(minority)))
+
+d1 <- imb_base(imb_data, "Before")
+
+d2 <- imb_base(imb_data[-dropped, ], "After down-sampling") +
+  geom_point(data = imb_data[dropped, ], aes(x, y), inherit.aes = FALSE,
+             shape = 4, size = 2, stroke = 0.6, color = imb_removed)
+
+d1 + d2 +
+  plot_layout(guides = "collect") &
+  theme(legend.position = "bottom")
+```
+
 One could also modify this for a different threshold,
 say 300%, which would make all majority classes with more than 300% of the number of observations of the minority class,
 downsample until they have at most 300% of that of the minority class.

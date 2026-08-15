@@ -35,10 +35,95 @@ Doing so requires settling a question the original description leaves open.
 All three variants are defined by distances from majority observations to *the minority class*, which is unambiguous only when there are two classes.
 NearMiss resolves this with the **one-vs-rest** strategy from @sec-imbalenced-multiclass.
 
+@fig-imbalenced-nearmiss walks through NearMiss-1, which is the most direct of the three.
+
+```{r}
+#| label: fig-imbalenced-nearmiss
+#| echo: false
+#| message: false
+#| fig-width: 7
+#| fig-height: 6.2
+#| fig-cap: |
+#|   NearMiss-1 scores every majority observation by its average distance to
+#|   the three closest minority observations, and keeps the lowest scores.
+#| fig-alt: |
+#|   Four scatter plots in a 2x2 grid showing a gray majority class in the
+#|   lower left and a pink minority class in the upper right. Panel 1: three
+#|   lines run from one majority point to the three minority points closest to
+#|   it. Panel 2: every majority point is drawn with a size proportional to its
+#|   average distance to the minority class, so points far from the minority
+#|   class in the lower left are large. Panel 3: the highest-scoring majority
+#|   points are marked with dark crosses, covering most of the lower left.
+#|   Panel 4: only the majority points nearest the minority class remain, and
+#|   they hug the boundary.
+source("imbalenced-diagrams.R")
+
+imb_data <- imb_toy()
+majority <- which(imb_data$class == "majority")
+minority <- which(imb_data$class == "minority")
+
+# NearMiss-1: the average distance to the three closest minority observations.
+score <- vapply(majority, function(i) {
+  d <- sqrt((imb_data$x[minority] - imb_data$x[i])^2 +
+              (imb_data$y[minority] - imb_data$y[i])^2)
+  mean(sort(d)[1:3])
+}, numeric(1))
+
+scored <- imb_data[majority, ]
+scored$score <- score
+
+# Keep as many majority observations as there are minority observations.
+kept <- majority[order(score)][seq_along(minority)]
+dropped <- setdiff(majority, kept)
+
+# A middling point, so the three distances are visible without dominating.
+focus <- majority[which.min(abs(score - median(score)))]
+focus_point <- imb_data[focus, ]
+closest <- minority[order(
+  (imb_data$x[minority] - focus_point$x)^2 + (imb_data$y[minority] - focus_point$y)^2
+)][1:3]
+
+m1 <- imb_base(imb_data, "1. Measure the distance to the minority class") +
+  geom_segment(
+    data = data.frame(
+      x = focus_point$x, y = focus_point$y,
+      xend = imb_data$x[closest], yend = imb_data$y[closest]
+    ),
+    aes(x = x, y = y, xend = xend, yend = yend),
+    inherit.aes = FALSE, color = imb_removed, linewidth = 0.3
+  ) +
+  geom_point(data = focus_point, size = 4, shape = 16, show.legend = FALSE)
+
+m2 <- imb_base(imb_data[minority, ], "2. Score every majority observation") +
+  geom_point(
+    data = scored, aes(x, y, size = score),
+    inherit.aes = FALSE, color = imb_colors[["majority"]], shape = 16
+  ) +
+  scale_size_area(max_size = 4, name = "distance") +
+  # The class legend comes from the other panels, which show both classes.
+  guides(color = "none", shape = "none")
+
+m3 <- imb_base(imb_data, "3. Drop the ones furthest away") +
+  geom_point(data = imb_data[dropped, ], aes(x, y), inherit.aes = FALSE,
+             shape = 4, size = 2.5, stroke = 0.8, color = imb_removed)
+
+m4 <- imb_base(imb_data[-dropped, ], "4. What is left hugs the minority class")
+
+(m1 + m2) / (m3 + m4) +
+  plot_layout(guides = "collect") &
+  theme(legend.position = "bottom")
+```
+
 One of the convenient things about this method is that it technically works by giving the observations an ordering,
 And we just have to find the cut point that determines how many points to retain.
 
 Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalenced-distribution.
+
+::: {.callout-tip}
+## Animated version
+
+The same walkthrough, one step at a time, is available as an [animated slide](https://emilhvitfeldt.github.io/tidy-animations/examples/nearmiss.html).
+:::
 
 ## Pros and Cons
 

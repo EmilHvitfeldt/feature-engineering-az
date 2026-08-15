@@ -33,13 +33,94 @@ You generally have a ratio threshold,
 determining how many observations you need.
 If you want a precise match for the counts of observations, you can randomly select observations to generate during the last run for a precise number of generated observations.
 
-TODO: this would really benefit from diagrams
+@fig-imbalenced-smote walks through the whole procedure on a small two-dimensional data set.
+
+```{r}
+#| label: fig-imbalenced-smote
+#| echo: false
+#| message: false
+#| fig-width: 7
+#| fig-height: 5.6
+#| fig-cap: |
+#|   SMOTE generates each new observation by interpolating between a minority
+#|   observation and one of its nearest minority neighbors.
+#| fig-alt: |
+#|   Four scatter plots in a 2x2 grid, each showing the same two-dimensional
+#|   data set with a large gray majority class in the lower left and a smaller
+#|   pink minority class in the upper right. Panel 1: one minority point is
+#|   enlarged to mark it as the point being processed. Panel 2: a dashed circle
+#|   around that point encloses its five nearest minority neighbors, which are
+#|   drawn as hollow triangles. Panel 3: one neighbor is picked and a new
+#|   hollow point appears partway along the straight line between the pair.
+#|   Panel 4: the process has been repeated, and the minority region is now
+#|   filled with synthetic points so that both classes have the same size.
+source("imbalenced-diagrams.R")
+
+imb_data <- imb_toy()
+minority <- which(imb_data$class == "minority")
+
+focus <- minority[which.min((imb_data$x[minority] - 2.6)^2 + (imb_data$y[minority] - 1.9)^2)]
+neighbors <- imb_neighbors(imb_data, focus, minority, k = 5)
+
+focus_point <- imb_data[focus, ]
+neighbor_points <- imb_data[neighbors, ]
+
+# The most distant of the five, so the interpolation is visible at print size.
+picked <- neighbors[which.max(
+  (neighbor_points$x - focus_point$x)^2 + (neighbor_points$y - focus_point$y)^2
+)]
+picked_point <- imb_data[picked, ]
+
+synth_point <- imb_interpolate(imb_data, focus, picked, gap = 0.45)
+radius <- imb_radius(imb_data, focus, neighbors)
+
+p1 <- imb_base(imb_data, "1. Pick a point from the minority class") +
+  geom_point(data = focus_point, size = 4.5, shape = 17, show.legend = FALSE)
+
+p2 <- imb_base(imb_data, "2. Find its k nearest minority neighbors") +
+  geom_path(
+    data = imb_ring(focus_point, radius), aes(x, y),
+    inherit.aes = FALSE, color = imb_colors[["minority"]],
+    linetype = "dashed", linewidth = 0.3
+  ) +
+  geom_point(data = neighbor_points, size = 3.5, shape = 2, show.legend = FALSE) +
+  geom_point(data = focus_point, size = 4.5, shape = 17, show.legend = FALSE)
+
+p3 <- imb_base(imb_data, "3. Interpolate towards one of them") +
+  geom_segment(
+    data = data.frame(
+      x = focus_point$x, y = focus_point$y,
+      xend = picked_point$x, yend = picked_point$y
+    ),
+    aes(x = x, y = y, xend = xend, yend = yend),
+    inherit.aes = FALSE, color = imb_colors[["minority"]], linewidth = 0.4
+  ) +
+  geom_point(data = picked_point, size = 4.5, shape = 17, show.legend = FALSE) +
+  geom_point(data = focus_point, size = 4.5, shape = 17, show.legend = FALSE) +
+  geom_point(data = synth_point, size = 4.5, shape = 2, stroke = 0.9,
+             show.legend = FALSE)
+
+p4 <- imb_base(imb_smote(imb_data), "4. Repeat until the classes are balanced")
+
+# Only the last panel contributes the legend; the earlier panels have no
+# synthetic points, so their keys would come out blank.
+no_legend <- guides(color = "none", shape = "none")
+
+((p1 + no_legend) + (p2 + no_legend)) / ((p3 + no_legend) + p4) +
+  plot_layout(guides = "collect") &
+  theme(legend.position = "bottom")
+```
 
 One of the major shortcomings is that the base algorithm is limited to numeric predictors with no missing values,
 making it hard to use in many cases.
 
 This algorithm has no notion of data quality,
-meaning that bad data quality can make for some really unfortunate samples. especially for lone outliers, TODO add diagram
+meaning that bad data quality can make for some really unfortunate samples,
+especially for lone outliers.
+@fig-imbalenced-smote-outlier follows a single stray minority observation through the same procedure.
+Its nearest minority neighbors are all the way across the majority class,
+so the interpolation runs straight through territory where no minority observation was ever seen,
+and the synthetic points land in the middle of the majority class.
 
 It also treats the observations of each class by itself.
 While this is computationally and conceptually faster,
@@ -47,8 +128,85 @@ it is a much simpler data representation,
 one that doesn't use any information about their interactions.
 Furthermore, it includes no information about the majority class,
 which may otherwise be helpful to guide the method.
+This is the second thing @fig-imbalenced-smote-outlier shows:
+the majority observations in the way of the interpolation are visible to us, but not to the algorithm.
+Nothing in SMOTE consults them, so nothing stops the bridge from being built.
 
-TODO diagram
+```{r}
+#| label: fig-imbalenced-smote-outlier
+#| echo: false
+#| message: false
+#| fig-width: 7
+#| fig-height: 5.6
+#| fig-cap: |
+#|   A single outlying minority observation is enough to make SMOTE generate
+#|   synthetic observations inside the majority class.
+#| fig-alt: |
+#|   Four scatter plots in a 2x2 grid showing the same data set as the previous
+#|   figure, where one minority point sits alone in the lower left, far below
+#|   the gray majority cloud and far from the rest of the pink minority class
+#|   in the upper right. Panel 1: that lone point is enlarged. Panel 2: five
+#|   long lines connect it to its nearest minority neighbors, all of which are
+#|   on the other side of the majority class. Panel 3: hollow synthetic points
+#|   are placed along those lines, landing on top of the majority cloud.
+#|   Panel 4: the majority points that the new synthetic points now sit among
+#|   are ringed, showing that the algorithm never looked at them.
+outlier <- which.min(imb_data$y)
+outlier_point <- imb_data[outlier, ]
+outlier_neighbors <- imb_neighbors(imb_data, outlier, minority, k = 5)
+
+spokes <- data.frame(
+  x = outlier_point$x,
+  y = outlier_point$y,
+  xend = imb_data$x[outlier_neighbors],
+  yend = imb_data$y[outlier_neighbors]
+)
+
+set.seed(2)
+bridge <- do.call(rbind, lapply(
+  outlier_neighbors,
+  function(j) imb_interpolate(imb_data, outlier, j, gap = runif(3, 0.2, 0.7))
+))
+
+# The majority points the new observations have been dropped on top of.
+to_bridge <- vapply(seq_len(nrow(imb_data)), function(i) {
+  min(sqrt((bridge$x - imb_data$x[i])^2 + (bridge$y - imb_data$y[i])^2))
+}, numeric(1))
+
+swallowed <- which(imb_data$class == "majority" & to_bridge < 0.4)
+
+o1 <- imb_base(imb_data, "1. A minority point far from its own class") +
+  geom_point(data = outlier_point, size = 4.5, shape = 17, show.legend = FALSE)
+
+o2 <- imb_base(imb_data, "2. Its nearest minority neighbors are far away") +
+  geom_segment(
+    data = spokes, aes(x = x, y = y, xend = xend, yend = yend),
+    inherit.aes = FALSE, color = imb_colors[["minority"]], linewidth = 0.3
+  ) +
+  geom_point(data = imb_data[outlier_neighbors, ], size = 3.5, shape = 2,
+             show.legend = FALSE) +
+  geom_point(data = outlier_point, size = 4.5, shape = 17, show.legend = FALSE)
+
+o3 <- imb_base(imb_data, "3. The synthetic points land in between") +
+  geom_segment(
+    data = spokes, aes(x = x, y = y, xend = xend, yend = yend),
+    inherit.aes = FALSE, color = imb_colors[["minority"]], linewidth = 0.3
+  ) +
+  geom_point(data = bridge, size = 3, shape = 2, stroke = 0.9,
+             show.legend = FALSE) +
+  geom_point(data = outlier_point, size = 4.5, shape = 17, show.legend = FALSE)
+
+bridge$id <- NA_integer_
+
+o4 <- imb_base(rbind(imb_data, bridge),
+               "4. The majority points were never consulted") +
+  geom_point(data = imb_data[swallowed, ], aes(x, y), inherit.aes = FALSE,
+             shape = 1, size = 4, stroke = 0.7, color = imb_removed)
+
+((o1 + no_legend) + (o2 + no_legend)) / ((o3 + no_legend) + o4) +
+  plot_layout(guides = "collect") &
+  theme(legend.position = "bottom")
+```
 
 Since we are using a nearest neighbor search,
 We have a hyperparameter `k` that is used to denote how many observations should be considered for pairs.
@@ -64,6 +222,12 @@ Many of the different issues are addressed by some of the [SMOTE variants](imbal
 Base SMOTE needs no expanding to handle more than two classes, as described in @sec-imbalenced-multiclass.
 
 Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalenced-distribution.
+
+::: {.callout-tip}
+## Animated version
+
+The same walkthrough, one step at a time, is available as an [animated slide](https://emilhvitfeldt.github.io/tidy-animations/examples/smote.html).
+:::
 
 ## Pros and Cons
 

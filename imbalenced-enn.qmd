@@ -22,6 +22,74 @@ The removal criteria is something we can choose different options for.
 A typical implementation will either remove an observation if the majority of the neighbors are of a different class,
 but you could also tighten this and remove an observation if any of the neighbors are of a different class.
 
+@fig-imbalenced-enn works through the majority-vote criterion one point at a time.
+
+```{r}
+#| label: fig-imbalenced-enn
+#| echo: false
+#| message: false
+#| fig-width: 7
+#| fig-height: 5.6
+#| fig-cap: |
+#|   Edited Nearest Neighbor removes the observations whose neighborhood
+#|   disagrees with them, which thins out the overlap between the classes.
+#| fig-alt: |
+#|   Four scatter plots in a 2x2 grid showing a gray majority class and a
+#|   smaller pink minority class overlapping along a diagonal boundary.
+#|   Panel 1: one majority point sitting inside the minority region has a
+#|   dashed circle around it enclosing its five nearest neighbors, most of
+#|   which are pink. Panel 2: because the neighborhood votes against it, that
+#|   point is marked with a dark cross. Panel 3: the same test has been applied
+#|   to every majority observation, and a handful of crosses appears on the
+#|   majority side of the boundary. Panel 4: the flagged points are gone and
+#|   the gap between the two classes has widened.
+source("imbalenced-diagrams.R")
+
+imb_data <- imb_toy()
+k <- 5
+
+neighbors <- imb_all_neighbors(imb_data, k = k)
+disagreement <- imb_disagreement(imb_data, k = k)
+
+# The majority-vote criterion, applied to the majority class only: a point
+# goes if most of its neighbors disagree with it.
+flagged <- which(disagreement > 0.5 & imb_data$class == "majority")
+
+# A majority point that has landed inside the minority region.
+focus <- flagged[1]
+focus_point <- imb_data[focus, ]
+focus_neighbors <- neighbors[[focus]]
+
+e1 <- imb_base(imb_data, "1. Look at a point's k nearest neighbors") +
+  geom_path(
+    data = imb_ring(focus_point, imb_radius(imb_data, focus, focus_neighbors)),
+    aes(x, y), inherit.aes = FALSE, color = imb_removed,
+    linetype = "dashed", linewidth = 0.3
+  ) +
+  geom_point(data = imb_data[focus_neighbors, ], size = 3.5, shape = 1,
+             stroke = 0.7, color = imb_removed, show.legend = FALSE) +
+  geom_point(data = focus_point, size = 4, shape = 16, show.legend = FALSE)
+
+e2 <- imb_base(imb_data, "2. Most of them disagree, so the point goes") +
+  geom_path(
+    data = imb_ring(focus_point, imb_radius(imb_data, focus, focus_neighbors)),
+    aes(x, y), inherit.aes = FALSE, color = imb_removed,
+    linetype = "dashed", linewidth = 0.3
+  ) +
+  geom_point(data = focus_point, aes(x, y), inherit.aes = FALSE,
+             shape = 4, size = 3.5, stroke = 1, color = imb_removed)
+
+e3 <- imb_base(imb_data, "3. Ask the same of every observation") +
+  geom_point(data = imb_data[flagged, ], aes(x, y), inherit.aes = FALSE,
+             shape = 4, size = 2.5, stroke = 0.8, color = imb_removed)
+
+e4 <- imb_base(imb_data[-flagged, ], "4. The overlap has been cleaned out")
+
+(e1 + e2) / (e3 + e4) +
+  plot_layout(guides = "collect") &
+  theme(legend.position = "bottom")
+```
+
 The idea is that we are able to remove noisy observations this way.
 And depending on which criteria you choose, you could see how that would be.
 By only allowing us to keep all the observations that have neighbors all of the same class,
@@ -66,8 +134,84 @@ it needs to designate one class as "the minority", and the usual choice is the s
 with the remaining classes acting as a pooled majority.
 That makes this half of the method the single-application strategy from @sec-imbalenced-multiclass rather than a true one-vs-rest.
 Implementations typically also skip cleaning around classes that are themselves small relative to the smallest one.
+@fig-imbalenced-ncl shows the second pass, which is where the two methods part ways.
+
+```{r}
+#| label: fig-imbalenced-ncl
+#| echo: false
+#| message: false
+#| fig-width: 7
+#| fig-height: 5.6
+#| fig-cap: |
+#|   The Neighborhood Cleaning Rule adds a second pass to Edited Nearest
+#|   Neighbor, removing the majority observations that get a minority
+#|   observation misclassified.
+#| fig-alt: |
+#|   Four scatter plots in a 2x2 grid. Panel 1: the data after Edited Nearest
+#|   Neighbor has already run, with a gray majority class and a pink minority
+#|   class. Panel 2: one minority point whose neighborhood is mostly gray is
+#|   circled, with lines drawn to its five nearest neighbors. Panel 3: the
+#|   majority neighbors responsible for misclassifying it are marked with dark
+#|   crosses. Panel 4: those points have been removed as well, leaving a wider
+#|   margin around the minority class than the first pass produced on its own.
+after_enn <- imb_data[-flagged, ]
+rownames(after_enn) <- NULL
+
+enn_minority <- which(after_enn$class == "minority")
+enn_neighbors <- imb_all_neighbors(after_enn, k = k)
+
+# Minority observations that their own neighborhood would get wrong.
+misclassified <- enn_minority[vapply(
+  enn_minority,
+  function(i) mean(after_enn$class[enn_neighbors[[i]]] == "minority") < 0.5,
+  logical(1)
+)]
+
+# The majority neighbors responsible are the ones that go.
+culprits <- unique(unlist(lapply(
+  misclassified,
+  function(i) {
+    nb <- enn_neighbors[[i]]
+    nb[after_enn$class[nb] == "majority"]
+  }
+)))
+
+ncl_focus <- misclassified[1]
+ncl_focus_point <- after_enn[ncl_focus, ]
+ncl_focus_neighbors <- enn_neighbors[[ncl_focus]]
+
+n1 <- imb_base(after_enn, "1. Start from the Edited Nearest Neighbor result")
+
+n2 <- imb_base(after_enn, "2. Find minority points their neighbors get wrong") +
+  geom_segment(
+    data = data.frame(
+      x = ncl_focus_point$x, y = ncl_focus_point$y,
+      xend = after_enn$x[ncl_focus_neighbors],
+      yend = after_enn$y[ncl_focus_neighbors]
+    ),
+    aes(x = x, y = y, xend = xend, yend = yend),
+    inherit.aes = FALSE, color = imb_removed, linewidth = 0.3
+  ) +
+  geom_point(data = ncl_focus_point, size = 4.5, shape = 17, show.legend = FALSE)
+
+n3 <- imb_base(after_enn, "3. Remove the majority neighbors responsible") +
+  geom_point(data = after_enn[culprits, ], aes(x, y), inherit.aes = FALSE,
+             shape = 4, size = 2.5, stroke = 0.8, color = imb_removed)
+
+n4 <- imb_base(after_enn[-culprits, ], "4. Both passes together")
+
+(n1 + n2) / (n3 + n4) +
+  plot_layout(guides = "collect") &
+  theme(legend.position = "bottom")
+```
 
 Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalenced-distribution.
+
+::: {.callout-tip}
+## Animated version
+
+The same walkthroughs, one step at a time, are available as animated slides for [Edited Nearest Neighbor](https://emilhvitfeldt.github.io/tidy-animations/examples/enn.html) and the [Neighborhood Cleaning Rule](https://emilhvitfeldt.github.io/tidy-animations/examples/ncl.html).
+:::
 
 ## Pros and Cons
 

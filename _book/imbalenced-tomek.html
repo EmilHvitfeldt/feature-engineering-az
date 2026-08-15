@@ -1277,12 +1277,39 @@ div.csl-indent {
 <h2 data-number="92.1" class="anchored" data-anchor-id="tomek-link-removal"><span class="header-section-number">92.1</span> Tomek Link Removal</h2>
 </section>
 <p>Tomek link removal is the practice of identifying Tomek links and removing them from the data set. A <strong>Tomek Link</strong> is a pair of observations from different classes that have eachother as their nearest neighbor <span class="citation" data-cites="tomek1976cnn">(<a href="references.html#ref-tomek1976cnn" role="doc-biblioref">Tomek 1976</a>)</span>. The Tomek link is typically handled by removing the majority observation of the pair instead of removing both observations.</p>
-<p>TODO: Diagram</p>
+<p><a href="#fig-imbalenced-tomek" class="quarto-xref">Figure&nbsp;<span>92.1</span></a> shows how the links are found and what removing them does to the boundary between the classes.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-imbalenced-tomek" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Four scatter plots in a 2x2 grid showing a gray majority class and a smaller pink minority class that overlap along a diagonal boundary. Panel 1: a short line joins every observation to its nearest neighbor. Panel 2: only the pairs that point at each other are kept, leaving far fewer lines. Panel 3: the handful of those mutual pairs whose two members belong to different classes are drawn in dark, and these are the Tomek links. Panel 4: the majority member of each link has been removed, marked by a dark cross, leaving a cleaner gap along the boundary.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-imbalenced-tomek-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="imbalenced-tomek_files/figure-html/fig-imbalenced-tomek-1.png" class="img-fluid figure-img" alt="Four scatter plots in a 2x2 grid showing a gray majority class and a smaller pink minority class that overlap along a diagonal boundary. Panel 1: a short line joins every observation to its nearest neighbor. Panel 2: only the pairs that point at each other are kept, leaving far fewer lines. Panel 3: the handful of those mutual pairs whose two members belong to different classes are drawn in dark, and these are the Tomek links. Panel 4: the majority member of each link has been removed, marked by a dark cross, leaving a cleaner gap along the boundary." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-imbalenced-tomek-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;92.1: A Tomek link is a pair of observations from different classes that are each other’s nearest neighbor. Removing the majority half of each pair widens the gap between the two classes.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
 <p>The traditional implementation assumes Euclidean distances, which in turn assumes you have all numeric predictors and no missing values.</p>
 <p>This method is computationally quite fast, as we are only doing one pass of nearest neighbor search. And that is used to identify observations that could be removed. We aren’t doing any sampling. However, on the other side, we don’t have many levers to pull for this method. It is un uncommon to have few or no points removed when applying Tomek Link removal.</p>
 <p>The method also makes the assumption that the noise happens at the border between two classes, However, that is not true for all data sets.</p>
 <p>Tomek link removal is one of the methods that needs no expanding at all, as described in <a href="imbalenced.html#sec-imbalenced-multiclass" class="quarto-xref"><span>Section 86.2</span></a>. There is also no notion of importance, A point deep inside another class may or may not be removed purely based on how close it is to its nearest point.</p>
 <p>Like all the methods in this section, this changes the distribution of the training data set, which is covered in <a href="imbalenced.html#sec-imbalenced-distribution" class="quarto-xref"><span>Section 86.3</span></a>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Animated version
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The same walkthrough, one step at a time, is available as an <a href="https://emilhvitfeldt.github.io/tidy-animations/examples/tomek.html">animated slide</a>.</p>
+</div>
+</div>
 <section id="pros-and-cons" class="level2" data-number="92.2">
 <h2 data-number="92.2" class="anchored" data-anchor-id="pros-and-cons"><span class="header-section-number">92.2</span> Pros and Cons</h2>
 <section id="pros" class="level3" data-number="92.2.1">

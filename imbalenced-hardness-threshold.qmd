@@ -29,11 +29,84 @@ Using the threshold value is somewhat tricky as it assumes that the model that w
 
 Some implementations allow for any classification model to be used,
 while other implementations pick a predefined method.
+@fig-imbalenced-hardness uses the simplest of the predefined options, the k-Disagreeing Neighbors measure, where an observation's hardness is the share of its neighbors that carry a different label.
+
+```{r}
+#| label: fig-imbalenced-hardness
+#| echo: false
+#| message: false
+#| fig-width: 7
+#| fig-height: 6.2
+#| fig-cap: |
+#|   Instance hardness scores each observation by how much its neighborhood
+#|   disagrees with it, and the threshold decides how much of that
+#|   disagreement to keep.
+#| fig-alt: |
+#|   Four scatter plots in a 2x2 grid showing a gray majority class and a pink
+#|   minority class that overlap along a diagonal boundary. Panel 1: one
+#|   majority point has a dashed circle around it and its five nearest
+#|   neighbors are ringed, three of them pink. Panel 2: every observation is
+#|   drawn with a size proportional to its hardness, so the large points form
+#|   a band along the boundary while points deep inside either class are tiny.
+#|   Panel 3: the observations above the threshold are marked with dark
+#|   crosses, all of them in that boundary band. Panel 4: those observations
+#|   are gone, leaving two clearly separated groups.
+source("imbalenced-diagrams.R")
+
+imb_data <- imb_toy()
+k <- 5
+
+neighbors <- imb_all_neighbors(imb_data, k = k)
+hardness <- imb_disagreement(imb_data, k = k)
+
+threshold <- 0.4
+too_hard <- which(hardness > threshold)
+
+# A majority point in the overlap, rather than the lone outlier, whose
+# neighborhood is so far away that the circle would leave the panel.
+focus <- which(imb_data$class == "majority" & hardness > 0.5)[1]
+focus_point <- imb_data[focus, ]
+focus_neighbors <- neighbors[[focus]]
+
+scored <- imb_data
+scored$hardness <- hardness
+
+h1 <- imb_base(imb_data, "1. Count the neighbors that disagree") +
+  geom_path(
+    data = imb_ring(focus_point, imb_radius(imb_data, focus, focus_neighbors)),
+    aes(x, y), inherit.aes = FALSE, color = imb_removed,
+    linetype = "dashed", linewidth = 0.3
+  ) +
+  geom_point(data = imb_data[focus_neighbors, ], size = 3.5, shape = 1,
+             stroke = 0.7, color = imb_removed, show.legend = FALSE) +
+  geom_point(data = focus_point, size = 4, shape = 16, show.legend = FALSE)
+
+h2 <- imb_base(imb_data, "2. That share is the instance hardness") +
+  geom_point(data = scored, aes(x, y, color = class, shape = class, size = hardness),
+             show.legend = c(size = TRUE, color = FALSE, shape = FALSE)) +
+  scale_size_area(max_size = 4.5, name = "hardness")
+
+h3 <- imb_base(imb_data, "3. Everything above the threshold goes") +
+  geom_point(data = imb_data[too_hard, ], aes(x, y), inherit.aes = FALSE,
+             shape = 4, size = 2.5, stroke = 0.8, color = imb_removed)
+
+h4 <- imb_base(imb_data[-too_hard, ], "4. What is left is easier to classify")
+
+(h1 + h2) / (h3 + h4) +
+  plot_layout(guides = "collect") &
+  theme(legend.position = "bottom")
+```
 
 This is the one method in this section that never had a two-class assumption to escape,
 and it needs no expanding in the sense of @sec-imbalenced-multiclass.
 
 Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalenced-distribution.
+
+::: {.callout-tip}
+## Animated version
+
+The same walkthrough, one step at a time, is available as an [animated slide](https://emilhvitfeldt.github.io/tidy-animations/examples/instance-hardness.html).
+:::
 
 ## Pros and Cons
 
