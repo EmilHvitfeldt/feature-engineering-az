@@ -143,10 +143,16 @@ book:
     - part: "Spatial"
       chapters:
         - spatial.qmd # draft
+        - spatial-quality.qmd
+        - spatial-coordinates.qmd
+        - spatial-grid.qmd
         - spatial-distance.qmd
         - spatial-nearest.qmd
         - spatial-count.qmd
         - spatial-query.qmd
+        - spatial-network.qmd
+        - spatial-neighbors.qmd
+        - spatial-basis.qmd
         - spatial-embedding.qmd
         - spatial-characteristics.qmd
     - part: "Time-Series Data"

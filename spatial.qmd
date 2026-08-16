@@ -9,28 +9,79 @@ image: social-cards/spatial.png
 ## Spatial Overview
 :::
 
-When we talk about spatial and geospatial feature engineering, we want to focus on the transformation and enrichment of the data set, based on spatial information.
-Typically this will be longitude and latitude-based, with the additional information being based on areas and regions such as cities or countries.
+When we talk about spatial and geospatial feature engineering, 
+we want to focus on the transformation and enrichment of the data set, 
+based on spatial information.
+Typically this will be longitude and latitude-based,
+with the additional information being based on areas and regions such as cities or countries.
 
-What sets these methods apart from some of the other methods we see in this book, is that they almost always require a reference data set to be able to perform the calculations.
-If you want to find the closest city to an observation, you need a data set of all the cities and their location.
-For all the methods in this section, the reader is expected to know how to gather this reference material for their problem.
+What sets these methods apart from most of the other methods in this book is where the information comes from.
+If you want to find the closest city to an observation, 
+you need a data set of all the cities and their location.
+The types of questions you are trying to answer will determine whether you need a reference data set,
+which could be multiple references depending on the question itself.
+We can divide up the methods in this section based on whether they need reference data and how they use it.
 
-We will split this data up into two types of methods, depending on your spatial information.
-**point based methods** and **shape based methods**.
-
-In point-based methods, you know the location of your observation, and you calculate where it is in relationship to something else.
-You could look at distances by finding the distance to a fixed point, or multiple points as covered in @sec-spatial-distance.
-You could find the nearest of something as covered in @sec-spatial-nearest.
-These two methods are different sides of the same coin.
-Another thing we could do is count the number of occurrences within a given distance or region.
-This is covered in @sec-spatial-count.
+If you require a reference data set, 
+then we call it **map matching** as it uses geography as a join key between the data set we are working on and an external data set.
+Under this category we have any distance to a reference point as covered in @sec-spatial-distance,
+and finding the nearest element as covered in @sec-spatial-nearest.
+These are quite similar as they require the same type of information, distance,
+but they do different things with them.
+Another thing we could do is count and summarize what falls within a given distance or region, 
+which is covered in @sec-spatial-count.
 By knowing the location of something we are also able to query certain types of information such as "height from sea", "rainfall in inches in 2000" and so on.
 We cover these types of methods in @sec-spatial-query.
-We can also expand some of these concepts and look at spatial embeddings, we will be covered in @sec-spatial-embedding.
+When the reference data is a road or transit network,
+the relevant distance is travel time rather than a straight line,
+as covered in @sec-spatial-network.
+We can think of this as a network expansion of the distance calculations.
 
-In shape-based methods, you don't just have the positioning of your observation, but also its shape.
-This can be any shape; line, polygon, or circle.
-The methods seen in point-based methods can be applied to shape-based methods, we just need to be a little more careful when performing the calculations.
-Since we are given the shape of our observation, there are characteristics we can extract from those that might be useful.
+
+If we don't have a need for a reference data,
+then we either deal with **map synthesis** or **intrinsic** methods.
+One example of map synthesis is using neighboring observations as information.
+We cover these methods in @sec-spatial-neighbors.
+Intrinsic methods use the observation's own geometry.
+This could be area, perimeter, or compactness among other methods.
 We look at how we can incorporate that information in @sec-spatial-characteristics.
+
+Another way to slice this is by the question you are asking,
+since the same question can be answered against several different kinds of reference data.
+You can read the following as a lookup list once you know what you are holding.
+
+- **How far is it?**
+  - to points, or to polygons via their centroid or nearest edge: @sec-spatial-distance
+  - along a road or transit network: @sec-spatial-network
+  - to your own observations, as distance fields: @sec-spatial-coordinates
+- **Which one is closest?**
+  - to points, lines, or polygons: @sec-spatial-nearest
+- **How many are near me?**
+  - counts and summaries of points, lines, or polygons within a distance: @sec-spatial-count
+  - summaries of your own neighboring observations: @sec-spatial-neighbors
+- **What is the value here?**
+  - read off a polygon or sampled from a raster: @sec-spatial-query
+  - interpolated from your own observations: @sec-spatial-neighbors
+- **Which region am I in?**
+  - a polygon from a reference data set: @sec-spatial-query
+  - a cell from a grid you impose yourself: @sec-spatial-grid
+
+We are aware that some chapters repeat in the above list.
+A count of restaurants within 500 metres and a count of road kilometres within 500 metres are the same feature with a different reference geometry, 
+and both live in @sec-spatial-count.
+
+Before we move on to any of these methods,
+we need to talk about fundamental things related to spatial information.
+You typically get the values as coordinates,
+which by themselves likely aren't useful,
+and we look at what to do with them in @sec-spatial-coordinates.
+We will furthermore talk about how to properly use these coordinates.
+Longitude and latitude are not grid points but notation used to locate points on a sphere.
+If we are not using the right distance or area calculations we will get the wrong answers.
+With that we can also discretize them in @sec-spatial-grid,
+and take the basis expansions and learned representations of @sec-spatial-basis and @sec-spatial-embedding.
+
+If we are working with a reference data set we also need to think about what it comes with and from where.
+Dealing with data quality,
+especially from the reference data set is hugely important,
+and we will cover that in @sec-spatial-quality.
