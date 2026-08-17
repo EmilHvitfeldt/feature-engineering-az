@@ -1,9 +1,11 @@
 ---
 pagetitle: "Feature Engineering A-Z | Edited Nearest Neighbor"
-image: social-cards/imbalenced-enn.png
+image: social-cards/imbalanced-enn.png
+aliases:
+  - imbalenced-enn.html
 ---
 
-# Edited Nearest Neighbor {#sec-imbalenced-enn}
+# Edited Nearest Neighbor {#sec-imbalanced-enn}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## Edited Nearest Neighbor
@@ -22,10 +24,10 @@ The removal criteria is something we can choose different options for.
 A typical implementation will either remove an observation if the majority of the neighbors are of a different class,
 but you could also tighten this and remove an observation if any of the neighbors are of a different class.
 
-@fig-imbalenced-enn works through the majority-vote criterion one point at a time.
+@fig-imbalanced-enn works through the majority-vote criterion one point at a time.
 
 ```{r}
-#| label: fig-imbalenced-enn
+#| label: fig-imbalanced-enn
 #| echo: false
 #| message: false
 #| fig-width: 7
@@ -43,7 +45,7 @@ but you could also tighten this and remove an observation if any of the neighbor
 #|   to every majority observation, and a handful of crosses appears on the
 #|   majority side of the boundary. Panel 4: the flagged points are gone and
 #|   the gap between the two classes has widened.
-source("imbalenced-diagrams.R")
+source("imbalanced-diagrams.R")
 
 imb_data <- imb_toy()
 k <- 5
@@ -97,7 +99,7 @@ we can end up removing a lot of the decision boundary,
 especially any area where there is overlap.
 
 The general framework is described in terms of 2 classes,
-but it extends to more without any reduction, and so is one of the methods in @sec-imbalenced-multiclass that needs no expanding.
+but it extends to more without any reduction, and so is one of the methods in @sec-imbalanced-multiclass that needs no expanding.
 Both removal criteria are phrased as comparisons against the observation's own label:
 the "any" criterion asks whether any neighbor carries a different label,
 and the majority-vote criterion compares the observation's label against the most common label among its neighbors.
@@ -132,12 +134,12 @@ Any majority class observations that misclassify a minority observation will be 
 Note that this second stage does not inherit the multi-class behavior of the first:
 it needs to designate one class as "the minority", and the usual choice is the single smallest class,
 with the remaining classes acting as a pooled majority.
-That makes this half of the method the single-application strategy from @sec-imbalenced-multiclass rather than a true one-vs-rest.
+That makes this half of the method the single-application strategy from @sec-imbalanced-multiclass rather than a true one-vs-rest.
 Implementations typically also skip cleaning around classes that are themselves small relative to the smallest one.
-@fig-imbalenced-ncl shows the second pass, which is where the two methods part ways.
+@fig-imbalanced-ncl shows the second pass, which is where the two methods part ways.
 
 ```{r}
-#| label: fig-imbalenced-ncl
+#| label: fig-imbalanced-ncl
 #| echo: false
 #| message: false
 #| fig-width: 7
@@ -205,7 +207,7 @@ n4 <- imb_base(after_enn[-culprits, ], "4. Both passes together")
   theme(legend.position = "bottom")
 ```
 
-Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalenced-distribution.
+Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalanced-distribution.
 
 ::: {.callout-tip}
 ## Animated version
@@ -228,7 +230,7 @@ The same walkthroughs, one step at a time, are available as animated slides for 
 set.seed(1234)
 ```
 
-We will be using the same subset of the `ames` data set as in the [up-sampling](imbalenced-upsample.qmd) chapter.
+We will be using the same subset of the `ames` data set as in the [up-sampling](imbalanced-upsample.qmd) chapter.
 
 ```{r}
 #| label: show-data

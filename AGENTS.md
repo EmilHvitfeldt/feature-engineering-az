@@ -39,7 +39,7 @@ Chapters follow the pattern `{section}-{method}.qmd`:
 | Missing data | `missing-*` | `missing-simple.qmd` |
 | Text features | `text-*` | `text-tokenization.qmd` |
 | Dimensionality reduction | `too-many-*` | `too-many-pca.qmd` |
-| Class imbalance | `imbalenced-*` | `imbalenced-smote.qmd` |
+| Class imbalance | `imbalanced-*` | `imbalanced-smote.qmd` |
 | Outliers | `outliers-*` | `outliers-identify.qmd` |
 | Datetime | `datetime-*` | `datetime-extraction.qmd` |
 | Time series | `time-series-*` | `time-series-lag.qmd` |

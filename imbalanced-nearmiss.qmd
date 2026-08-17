@@ -1,9 +1,11 @@
 ---
 pagetitle: "Feature Engineering A-Z | Near-Miss"
-image: social-cards/imbalenced-nearmiss.png
+image: social-cards/imbalanced-nearmiss.png
+aliases:
+  - imbalenced-nearmiss.html
 ---
 
-# Near-Miss {#sec-imbalenced-nearmiss}
+# Near-Miss {#sec-imbalanced-nearmiss}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## Near-Miss
@@ -33,12 +35,12 @@ and could, in theory, be used on any number of classes in the data set.
 
 Doing so requires settling a question the original description leaves open.
 All three variants are defined by distances from majority observations to *the minority class*, which is unambiguous only when there are two classes.
-NearMiss resolves this with the **one-vs-rest** strategy from @sec-imbalenced-multiclass.
+NearMiss resolves this with the **one-vs-rest** strategy from @sec-imbalanced-multiclass.
 
-@fig-imbalenced-nearmiss walks through NearMiss-1, which is the most direct of the three.
+@fig-imbalanced-nearmiss walks through NearMiss-1, which is the most direct of the three.
 
 ```{r}
-#| label: fig-imbalenced-nearmiss
+#| label: fig-imbalanced-nearmiss
 #| echo: false
 #| message: false
 #| fig-width: 7
@@ -56,7 +58,7 @@ NearMiss resolves this with the **one-vs-rest** strategy from @sec-imbalenced-mu
 #|   points are marked with dark crosses, covering most of the lower left.
 #|   Panel 4: only the majority points nearest the minority class remain, and
 #|   they hug the boundary.
-source("imbalenced-diagrams.R")
+source("imbalanced-diagrams.R")
 
 imb_data <- imb_toy()
 majority <- which(imb_data$class == "majority")
@@ -117,7 +119,7 @@ m4 <- imb_base(imb_data[-dropped, ], "4. What is left hugs the minority class")
 One of the convenient things about this method is that it technically works by giving the observations an ordering,
 And we just have to find the cut point that determines how many points to retain.
 
-Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalenced-distribution.
+Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalanced-distribution.
 
 ::: {.callout-tip}
 ## Animated version
@@ -140,7 +142,7 @@ The same walkthrough, one step at a time, is available as an [animated slide](ht
 set.seed(1234)
 ```
 
-We will be using the same subset of the `ames` data set as in the [up-sampling](imbalenced-upsample.qmd) chapter.
+We will be using the same subset of the `ames` data set as in the [up-sampling](imbalanced-upsample.qmd) chapter.
 
 ```{r}
 #| label: show-data

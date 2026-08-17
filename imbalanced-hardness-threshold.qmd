@@ -1,9 +1,11 @@
 ---
 pagetitle: "Feature Engineering A-Z | Instance Hardness Threshold"
-image: social-cards/imbalenced-hardness-threshold.png
+image: social-cards/imbalanced-hardness-threshold.png
+aliases:
+  - imbalenced-hardness-threshold.html
 ---
 
-# Instance Hardness Threshold {#sec-imbalenced-hardness-threshold}
+# Instance Hardness Threshold {#sec-imbalanced-hardness-threshold}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## Instance Hardness Threshold
@@ -29,10 +31,10 @@ Using the threshold value is somewhat tricky as it assumes that the model that w
 
 Some implementations allow for any classification model to be used,
 while other implementations pick a predefined method.
-@fig-imbalenced-hardness uses the simplest of the predefined options, the k-Disagreeing Neighbors measure, where an observation's hardness is the share of its neighbors that carry a different label.
+@fig-imbalanced-hardness uses the simplest of the predefined options, the k-Disagreeing Neighbors measure, where an observation's hardness is the share of its neighbors that carry a different label.
 
 ```{r}
-#| label: fig-imbalenced-hardness
+#| label: fig-imbalanced-hardness
 #| echo: false
 #| message: false
 #| fig-width: 7
@@ -51,7 +53,7 @@ while other implementations pick a predefined method.
 #|   Panel 3: the observations above the threshold are marked with dark
 #|   crosses, all of them in that boundary band. Panel 4: those observations
 #|   are gone, leaving two clearly separated groups.
-source("imbalenced-diagrams.R")
+source("imbalanced-diagrams.R")
 
 imb_data <- imb_toy()
 k <- 5
@@ -98,9 +100,9 @@ h4 <- imb_base(imb_data[-too_hard, ], "4. What is left is easier to classify")
 ```
 
 This is the one method in this section that never had a two-class assumption to escape,
-and it needs no expanding in the sense of @sec-imbalenced-multiclass.
+and it needs no expanding in the sense of @sec-imbalanced-multiclass.
 
-Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalenced-distribution.
+Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalanced-distribution.
 
 ::: {.callout-tip}
 ## Animated version
@@ -126,7 +128,7 @@ The same walkthrough, one step at a time, is available as an [animated slide](ht
 set.seed(1234)
 ```
 
-We will be using the same subset of the `ames` data set as in the [up-sampling](imbalenced-upsample.qmd) chapter.
+We will be using the same subset of the `ames` data set as in the [up-sampling](imbalanced-upsample.qmd) chapter.
 
 ```{r}
 #| label: show-data

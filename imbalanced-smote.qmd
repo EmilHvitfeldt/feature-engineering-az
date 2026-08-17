@@ -1,9 +1,11 @@
 ---
 pagetitle: "Feature Engineering A-Z | SMOTE"
-image: social-cards/imbalenced-smote.png
+image: social-cards/imbalanced-smote.png
+aliases:
+  - imbalenced-smote.html
 ---
 
-# SMOTE {#sec-imbalenced-smote}
+# SMOTE {#sec-imbalanced-smote}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## SMOTE
@@ -11,7 +13,7 @@ image: social-cards/imbalenced-smote.png
 
 The goal of the Synthetic minority oversampling technique (SMOTE) is to deal with imbalanced data using synthetically generated samples [@chawla2002smote].
 
-this method is in a way similar to [up-sampling](imbalenced-upsample.qmd),
+this method is in a way similar to [up-sampling](imbalanced-upsample.qmd),
 But there is a twist.
 Instead of sampling observations from the minority classes,
 We instead generate new observations based on the characteristics of the data set.
@@ -33,10 +35,10 @@ You generally have a ratio threshold,
 determining how many observations you need.
 If you want a precise match for the counts of observations, you can randomly select observations to generate during the last run for a precise number of generated observations.
 
-@fig-imbalenced-smote walks through the whole procedure on a small two-dimensional data set.
+@fig-imbalanced-smote walks through the whole procedure on a small two-dimensional data set.
 
 ```{r}
-#| label: fig-imbalenced-smote
+#| label: fig-imbalanced-smote
 #| echo: false
 #| message: false
 #| fig-width: 7
@@ -54,7 +56,7 @@ If you want a precise match for the counts of observations, you can randomly sel
 #|   hollow point appears partway along the straight line between the pair.
 #|   Panel 4: the process has been repeated, and the minority region is now
 #|   filled with synthetic points so that both classes have the same size.
-source("imbalenced-diagrams.R")
+source("imbalanced-diagrams.R")
 
 imb_data <- imb_toy()
 minority <- which(imb_data$class == "minority")
@@ -117,7 +119,7 @@ making it hard to use in many cases.
 This algorithm has no notion of data quality,
 meaning that bad data quality can make for some really unfortunate samples,
 especially for lone outliers.
-@fig-imbalenced-smote-outlier follows a single stray minority observation through the same procedure.
+@fig-imbalanced-smote-outlier follows a single stray minority observation through the same procedure.
 Its nearest minority neighbors are all the way across the majority class,
 so the interpolation runs straight through territory where no minority observation was ever seen,
 and the synthetic points land in the middle of the majority class.
@@ -128,12 +130,12 @@ it is a much simpler data representation,
 one that doesn't use any information about their interactions.
 Furthermore, it includes no information about the majority class,
 which may otherwise be helpful to guide the method.
-This is the second thing @fig-imbalenced-smote-outlier shows:
+This is the second thing @fig-imbalanced-smote-outlier shows:
 the majority observations in the way of the interpolation are visible to us, but not to the algorithm.
 Nothing in SMOTE consults them, so nothing stops the bridge from being built.
 
 ```{r}
-#| label: fig-imbalenced-smote-outlier
+#| label: fig-imbalanced-smote-outlier
 #| echo: false
 #| message: false
 #| fig-width: 7
@@ -217,11 +219,11 @@ This will naturally extend to how SMOTE becomes applicable.
 Similarly, the nearest neighbor search is also responsible for the high computational cost that can occur when the data becomes larger.
 computational cost
 
-Many of the different issues are addressed by some of the [SMOTE variants](imbalenced-smote-variants.qmd).
+Many of the different issues are addressed by some of the [SMOTE variants](imbalanced-smote-variants.qmd).
 
-Base SMOTE needs no expanding to handle more than two classes, as described in @sec-imbalenced-multiclass.
+Base SMOTE needs no expanding to handle more than two classes, as described in @sec-imbalanced-multiclass.
 
-Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalenced-distribution.
+Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalanced-distribution.
 
 ::: {.callout-tip}
 ## Animated version
@@ -244,7 +246,7 @@ The same walkthrough, one step at a time, is available as an [animated slide](ht
 set.seed(1234)
 ```
 
-We will be using the same subset of the `ames` data set as in the [up-sampling](imbalenced-upsample.qmd) chapter.
+We will be using the same subset of the `ames` data set as in the [up-sampling](imbalanced-upsample.qmd) chapter.
 Note that all the predictors are numeric, which SMOTE requires.
 
 ```{r}

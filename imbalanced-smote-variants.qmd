@@ -1,15 +1,17 @@
 ---
 pagetitle: "Feature Engineering A-Z | SMOTE Variants"
-image: social-cards/imbalenced-smote-variants.png
+image: social-cards/imbalanced-smote-variants.png
+aliases:
+  - imbalenced-smote-variants.html
 ---
 
-# SMOTE Variants {#sec-imbalenced-smote-variants}
+# SMOTE Variants {#sec-imbalanced-smote-variants}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## SMOTE Variants
 :::
 
-While [SMOTE](imbalenced-smote.qmd) provides the basis of the method,
+While [SMOTE](imbalanced-smote.qmd) provides the basis of the method,
 it is often not good enough by itself, as it has a long list of issues and constraints.
 Each of these variants builds on the base SMOTE algorithm by changing or adding parts of it to handle a specific use case.
 
@@ -59,10 +61,10 @@ Variant 1 is more aggressive,
 as it produces points closer to the decision boundary,
 And the choice to label fully enclosed points as noise is a way to avoid having issues here.
 
-@fig-imbalenced-borderline shows both the labeling step and the difference between the two variants.
+@fig-imbalanced-borderline shows both the labeling step and the difference between the two variants.
 
 ```{r}
-#| label: fig-imbalenced-borderline
+#| label: fig-imbalanced-borderline
 #| echo: false
 #| message: false
 #| fig-width: 7
@@ -82,7 +84,7 @@ And the choice to label fully enclosed points as noise is a way to avoid having 
 #|   appear only around the ringed borderline points, all on the minority side.
 #|   Panel 4: the same, except some synthetic points now sit on the majority
 #|   side of the boundary.
-source("imbalenced-diagrams.R")
+source("imbalanced-diagrams.R")
 
 imb_data <- imb_toy()
 k <- 5
@@ -190,7 +192,7 @@ This is in contrast to borderline SMOTE, where all borderline points were treate
 One of the downsides of this method is that there is no explicit exclusion to noisy observations.
 So a point from one class that is located entirely inside another class will still generate observations.
 It will in fact be one of the most attractive points to generate around, since every one of its neighbors belongs to the other class.
-You can see this in @fig-imbalenced-variants further down, where ADASYN lays a trail of synthetic observations between the lone outlier and the rest of its class.
+You can see this in @fig-imbalanced-variants further down, where ADASYN lays a trail of synthetic observations between the lone outlier and the rest of its class.
 
 ### Model-based
 
@@ -202,10 +204,10 @@ and finally generate synthetic observations around those support vectors.
 This method is typically called **SVM SMOTE** [@nguyen2011svmsmote].
 
 The three boundary-aware variants and base SMOTE all generate the same number of observations.
-What separates them is where those observations end up, which is what @fig-imbalenced-variants compares.
+What separates them is where those observations end up, which is what @fig-imbalanced-variants compares.
 
 ```{r}
-#| label: fig-imbalenced-variants
+#| label: fig-imbalanced-variants
 #| echo: false
 #| message: false
 #| warning: false
@@ -297,7 +299,7 @@ There are also a number of named SMOTE variants that are just SMOTE followed by 
 
 ### Behavior with more than two classes
 
-The variants described above do not all handle multiple classes the same way, and the split follows the strategies in @sec-imbalenced-multiclass.
+The variants described above do not all handle multiple classes the same way, and the split follows the strategies in @sec-imbalanced-multiclass.
 
 SMOTEN and SMOTENC inherit base SMOTE's behavior.
 
@@ -305,7 +307,7 @@ Borderline-SMOTE and ADASYN both need to know how many of an observation's neigh
 which means they need a notion of "the other class."
 Both resolve this with one-vs-rest.
 
-Like all the methods in this section, these change the distribution of the training data set, which is covered in @sec-imbalenced-distribution.
+Like all the methods in this section, these change the distribution of the training data set, which is covered in @sec-imbalanced-distribution.
 
 ::: {.callout-tip}
 ## Animated versions
@@ -322,7 +324,7 @@ Several of these variants have animated walkthroughs: [Borderline-SMOTE 1](https
 set.seed(1234)
 ```
 
-We will be using the same subset of the `ames` data set as in the [up-sampling](imbalenced-upsample.qmd) chapter.
+We will be using the same subset of the `ames` data set as in the [up-sampling](imbalanced-upsample.qmd) chapter.
 The categorical variants need their own data, so we set up two more versions of it at the same time.
 
 ```{r}

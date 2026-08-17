@@ -133,7 +133,7 @@ https://feaz-book.com/{filename}.html
 | Too many features | `too-many-*` | `too-many.qmd` |
 | Correlated features | `correlated-*` | `correlated.qmd` |
 | Outliers | `outliers-*` | `outliers.qmd` |
-| Class imbalance | `imbalenced-*` | `imbalenced.qmd` |
+| Class imbalance | `imbalanced-*` | `imbalanced.qmd` |
 | Spatial data | `spatial-*` | `spatial.qmd` |
 | Time series | `time-series-*` | `time-series.qmd` |
 | Images | `image-*` | `image.qmd` |
@@ -238,7 +238,7 @@ User: "Binary classification with XGBoost, ~100k rows, numeric and high-cardinal
 > - If precision/recall improves at your operating threshold → keep it
 > - If AUC drops significantly → resampling is hurting more than helping, rely on `scale_pos_weight` instead
 >
-> [Imbalanced overview](https://feaz-book.com/imbalenced.html) | [SMOTE](https://feaz-book.com/imbalenced-smote.html)
+> [Imbalanced overview](https://feaz-book.com/imbalanced.html) | [SMOTE](https://feaz-book.com/imbalanced-smote.html)
 >
 > ---
 >

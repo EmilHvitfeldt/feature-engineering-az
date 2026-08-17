@@ -1,9 +1,11 @@
 ---
 pagetitle: "Feature Engineering A-Z | Condensed Nearest Neighbor"
-image: social-cards/imbalenced-cnn.png
+image: social-cards/imbalanced-cnn.png
+aliases:
+  - imbalenced-cnn.html
 ---
 
-# Condensed Nearest Neighbor {#sec-imbalenced-cnn}
+# Condensed Nearest Neighbor {#sec-imbalanced-cnn}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## Condensed Nearest Neighbor
@@ -12,7 +14,7 @@ image: social-cards/imbalenced-cnn.png
 Condensed Nearest Neighbor (CNN) uses an iterative approach to decide which observations to remove [@hart1968cnn].
 This makes the method an undersampling/downsampling method.
 
-[Downsampling](imbalenced-downsample.qmd) by itself can remove informative observations as that method doesn't the method indiscriminately removes observations.
+[Downsampling](imbalanced-downsample.qmd) by itself can remove informative observations as that method doesn't the method indiscriminately removes observations.
 CNN is based on trying to avoid this mistake.
 By trying to create a subset of the majority class that keeps enough information in it to correctly classify all the observations in the original data set.
 Or said differently,
@@ -50,9 +52,9 @@ If the classes overlap a lot, then we won't be able to discard that many points,
 And if the classes cleanly separate, then we should be able to discard most of the observations.
 
 Of all the methods in this section, CNN handles multiple classes the most bluntly.
-It uses the single-application strategy from @sec-imbalenced-multiclass.
+It uses the single-application strategy from @sec-imbalanced-multiclass.
 
-Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalenced-distribution.
+Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalanced-distribution.
 
 ## Pros and Cons
 
@@ -69,7 +71,7 @@ Like all the methods in this section, this changes the distribution of the train
 set.seed(1234)
 ```
 
-We will be using the same subset of the `ames` data set as in the [up-sampling](imbalenced-upsample.qmd) chapter.
+We will be using the same subset of the `ames` data set as in the [up-sampling](imbalanced-upsample.qmd) chapter.
 
 ```{r}
 #| label: show-data

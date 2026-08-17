@@ -37,7 +37,7 @@ Common sections:
 - `missing-*` - Missing data handling
 - `text-*` - Text feature engineering
 - `too-many-*` - Dimensionality reduction and feature selection
-- `imbalenced-*` - Class imbalance methods (note the spelling)
+- `imbalanced-*` - Class imbalance methods
 - `outliers-*` - Outlier handling
 - `datetime-*` - Date/time features
 - `time-series-*` - Time series features

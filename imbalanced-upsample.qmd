@@ -1,9 +1,11 @@
 ---
 pagetitle: "Feature Engineering A-Z | Up-Sampling"
-image: social-cards/imbalenced-upsample.png
+image: social-cards/imbalanced-upsample.png
+aliases:
+  - imbalenced-upsample.html
 ---
 
-# Up-Sampling {#sec-imbalenced-upsample}
+# Up-Sampling {#sec-imbalanced-upsample}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## Up-Sampling
@@ -14,7 +16,7 @@ Like all other methods in this section, it is a supervised method,
 since it requires knowledge of the outcome.
 This also means that it can only be applied to the training data set,
 since we need the outcome.
-See also [down-dampling](imbalenced-downsample.qmd), which is the opposite action.
+See also [down-dampling](imbalanced-downsample.qmd), which is the opposite action.
 
 The algorithm is quite simple.
 Tally the number of observations within each class, as well as keep track of which observations are associated with each class.
@@ -24,11 +26,11 @@ The observations of each minority class are then sampled with replacement to inc
 Typically, to align with the number of observations with that of the majority class.
 
 Because the new observations are copies, they land exactly on top of the observations they came from.
-@fig-imbalenced-upsample uses point size to show how many copies of each minority observation the result contains.
+@fig-imbalanced-upsample uses point size to show how many copies of each minority observation the result contains.
 Nowhere does the minority class reach into any part of the space it didn't already occupy.
 
 ```{r}
-#| label: fig-imbalenced-upsample
+#| label: fig-imbalanced-upsample
 #| echo: false
 #| message: false
 #| fig-width: 7
@@ -42,7 +44,7 @@ Nowhere does the minority class reach into any part of the space it didn't alrea
 #|   all points the same size. The right panel shows the same points in the
 #|   same positions, but the pink points now vary in size according to how many
 #|   copies of each were drawn, with no pink point anywhere new.
-source("imbalenced-diagrams.R")
+source("imbalanced-diagrams.R")
 
 imb_data <- imb_toy()
 minority <- which(imb_data$class == "minority")
@@ -81,12 +83,12 @@ No data is being deleted in this modification as we are just adding more rows, w
 You could think of this as a stochastic version of case weights without the compactness.
 
 This method needs no expanding to handle more than two classes, 
-as described in @sec-imbalenced-multiclass.
+as described in @sec-imbalanced-multiclass.
 It treats each class as its own unit.
 Each class is sampled using only its own observations, 
 so the other classes never enter the calculation beyond setting the target count.
 
-Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalenced-distribution.
+Like all the methods in this section, this changes the distribution of the training data set, which is covered in @sec-imbalanced-distribution.
 Just because these methods are simple doesn't mean that they they will work well.
 Random down sampling have been shown to lead to poorly calibrated models [@vandengoorbergh2022harm].
 

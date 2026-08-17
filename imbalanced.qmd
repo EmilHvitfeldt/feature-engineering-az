@@ -1,9 +1,11 @@
 ---
 pagetitle: "Feature Engineering A-Z | Imbalanced Overview"
-image: social-cards/imbalenced.png
+image: social-cards/imbalanced.png
+aliases:
+  - imbalenced.html
 ---
 
-# Imbalanced Overview {#sec-imbalenced}
+# Imbalanced Overview {#sec-imbalanced}
 
 ::: {style="visibility: hidden; height: 0px;"}
 ## Imbalanced Overview
@@ -50,18 +52,18 @@ Adding observations is usually done by basing the new observations on the existi
 
 Over-sampling methods we will cover are:
 
--   [Up-sampling](imbalenced-upsample.qmd)
--   [SMOTE](imbalenced-smote.qmd)
--   [SMOTE variants](imbalenced-smote-variants.qmd)
+-   [Up-sampling](imbalanced-upsample.qmd)
+-   [SMOTE](imbalanced-smote.qmd)
+-   [SMOTE variants](imbalanced-smote-variants.qmd)
 
 Under-sampling methods we will cover are:
 
--   [Down-sampling](imbalenced-downsample.qmd)
--   [NearMiss](imbalenced-nearmiss.qmd)
--   [Tomek Links](imbalenced-tomek.qmd)
--   [Condensed Nearest Neighbor](imbalenced-cnn.qmd)
--   [Edited Nearest Neighbor](imbalenced-enn.qmd)
--   [Instance Hardness Threshold](imbalenced-hardness-threshold.qmd)
+-   [Down-sampling](imbalanced-downsample.qmd)
+-   [NearMiss](imbalanced-nearmiss.qmd)
+-   [Tomek Links](imbalanced-tomek.qmd)
+-   [Condensed Nearest Neighbor](imbalanced-cnn.qmd)
+-   [Edited Nearest Neighbor](imbalanced-enn.qmd)
+-   [Instance Hardness Threshold](imbalanced-hardness-threshold.qmd)
 
 Some methods do these methods together.
 We won't consider those methods by themselves and instead let you know that you can do over-sampling followed by under-sampling if you choose.
@@ -70,7 +72,7 @@ that combines Tomek link removal with condensed nearest neighbors.
 
 TODO: I think we would be able to add some kind of list, regarding what the under sampling methods tries to do. Some tries to remove hard to classify observations, other try to remove easy to classify observations.
 
-## Extending to Multiple Classes {#sec-imbalenced-multiclass}
+## Extending to Multiple Classes {#sec-imbalanced-multiclass}
 
 Most of the methods in this section were first introduced to solve the problem with imbalanced data in binary classification settings.
 While binary classification comes up a lot,
@@ -101,7 +103,7 @@ which is why it isn't a true one-vs-rest.
 
 Each chapter in this section will list which of these scenarios apply.
 
-## Changes to the Data Distribution {#sec-imbalenced-distribution}
+## Changes to the Data Distribution {#sec-imbalanced-distribution}
 
 The main reason why you need to be careful of these methods,
 is that they change the distribution of the data set you are working with.
